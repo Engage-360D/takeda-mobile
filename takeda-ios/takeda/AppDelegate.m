@@ -7,13 +7,20 @@
 //
 
 #import "AppDelegate.h"
+#import "WelcomePage.h"
 
 @implementation AppDelegate
+WelcomePage *welcomePage;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    welcomePage = [[WelcomePage alloc] initWithNibName:@"WelcomePage" bundle:nil];
+    
+    
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:welcomePage];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

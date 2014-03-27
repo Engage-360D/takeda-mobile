@@ -14,6 +14,35 @@
 		B2B8BE0218E20CA400F52B52 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B8BE0118E20CA400F52B52 /* main.m */; };
 		B2B8BE0618E20CA400F52B52 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B8BE0518E20CA400F52B52 /* AppDelegate.m */; };
 		B2B8BE0818E20CA400F52B52 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2B8BE0718E20CA400F52B52 /* Images.xcassets */; };
+		B2D74CCA18E4C78500B31E16 /* NVSlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CC918E4C78500B31E16 /* NVSlideMenuController.m */; };
+		B2D74CD118E4D2CF00B31E16 /* WelcomePage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CCF18E4D2CF00B31E16 /* WelcomePage.m */; };
+		B2D74CD218E4D2CF00B31E16 /* WelcomePage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74CD018E4D2CF00B31E16 /* WelcomePage.xib */; };
+		B2D74CD618E4D2EC00B31E16 /* AuthPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CD418E4D2EC00B31E16 /* AuthPage.m */; };
+		B2D74CD718E4D2EC00B31E16 /* AuthPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74CD518E4D2EC00B31E16 /* AuthPage.xib */; };
+		B2D74CDB18E4D30600B31E16 /* RegistrationPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CD918E4D30600B31E16 /* RegistrationPage.m */; };
+		B2D74CDC18E4D30600B31E16 /* RegistrationPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74CDA18E4D30600B31E16 /* RegistrationPage.xib */; };
+		B2D74CE118E4D33000B31E16 /* LeftMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CDF18E4D33000B31E16 /* LeftMenu.m */; };
+		B2D74CE218E4D33000B31E16 /* LeftMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74CE018E4D33000B31E16 /* LeftMenu.xib */; };
+		B2D74CE718E4D40E00B31E16 /* menu_cell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CE518E4D40E00B31E16 /* menu_cell.m */; };
+		B2D74CE818E4D40E00B31E16 /* menu_cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74CE618E4D40E00B31E16 /* menu_cell.xib */; };
+		B2D74CF418E4D64600B31E16 /* RiskAnalysisPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CF218E4D64600B31E16 /* RiskAnalysisPage.m */; };
+		B2D74CF518E4D64600B31E16 /* RiskAnalysisPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74CF318E4D64600B31E16 /* RiskAnalysisPage.xib */; };
+		B2D74CF918E4D65B00B31E16 /* SearchInstitutionPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CF718E4D65B00B31E16 /* SearchInstitutionPage.m */; };
+		B2D74CFA18E4D65B00B31E16 /* SearchInstitutionPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74CF818E4D65B00B31E16 /* SearchInstitutionPage.xib */; };
+		B2D74CFE18E4D66D00B31E16 /* RecomendationPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CFC18E4D66D00B31E16 /* RecomendationPage.m */; };
+		B2D74CFF18E4D66D00B31E16 /* RecomendationPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74CFD18E4D66D00B31E16 /* RecomendationPage.xib */; };
+		B2D74D0318E4D68200B31E16 /* AnalisisResultPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74D0118E4D68200B31E16 /* AnalisisResultPage.m */; };
+		B2D74D0418E4D68200B31E16 /* AnalisisResultPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74D0218E4D68200B31E16 /* AnalisisResultPage.xib */; };
+		B2D74D0818E4D69900B31E16 /* CalendarPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74D0618E4D69900B31E16 /* CalendarPage.m */; };
+		B2D74D0918E4D69900B31E16 /* CalendarPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74D0718E4D69900B31E16 /* CalendarPage.xib */; };
+		B2D74D0D18E4D6AE00B31E16 /* UsefulKnowPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74D0B18E4D6AE00B31E16 /* UsefulKnowPage.m */; };
+		B2D74D0E18E4D6AE00B31E16 /* UsefulKnowPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74D0C18E4D6AE00B31E16 /* UsefulKnowPage.xib */; };
+		B2D74D1218E4D6C100B31E16 /* PublicationPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74D1018E4D6C100B31E16 /* PublicationPage.m */; };
+		B2D74D1318E4D6C100B31E16 /* PublicationPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74D1118E4D6C100B31E16 /* PublicationPage.xib */; };
+		B2D74D1718E4D6D800B31E16 /* ReportsPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74D1518E4D6D800B31E16 /* ReportsPage.m */; };
+		B2D74D1818E4D6D800B31E16 /* ReportsPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74D1618E4D6D800B31E16 /* ReportsPage.xib */; };
+		B2D74D1C18E4D79C00B31E16 /* GlobalSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74D1B18E4D79C00B31E16 /* GlobalSettings.m */; };
+		B2D95DED18E4DCAB002D090B /* rootMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D95DEC18E4DCAB002D090B /* rootMenuController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +58,52 @@
 		B2B8BE0518E20CA400F52B52 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B2B8BE0718E20CA400F52B52 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B2B8BE0E18E20CA400F52B52 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		B2D74CC818E4C78500B31E16 /* NVSlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVSlideMenuController.h; sourceTree = "<group>"; };
+		B2D74CC918E4C78500B31E16 /* NVSlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVSlideMenuController.m; sourceTree = "<group>"; };
+		B2D74CCE18E4D2CF00B31E16 /* WelcomePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomePage.h; sourceTree = "<group>"; };
+		B2D74CCF18E4D2CF00B31E16 /* WelcomePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomePage.m; sourceTree = "<group>"; };
+		B2D74CD018E4D2CF00B31E16 /* WelcomePage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomePage.xib; sourceTree = "<group>"; };
+		B2D74CD318E4D2EC00B31E16 /* AuthPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthPage.h; sourceTree = "<group>"; };
+		B2D74CD418E4D2EC00B31E16 /* AuthPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthPage.m; sourceTree = "<group>"; };
+		B2D74CD518E4D2EC00B31E16 /* AuthPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthPage.xib; sourceTree = "<group>"; };
+		B2D74CD818E4D30600B31E16 /* RegistrationPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationPage.h; sourceTree = "<group>"; };
+		B2D74CD918E4D30600B31E16 /* RegistrationPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationPage.m; sourceTree = "<group>"; };
+		B2D74CDA18E4D30600B31E16 /* RegistrationPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrationPage.xib; sourceTree = "<group>"; };
+		B2D74CDE18E4D33000B31E16 /* LeftMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenu.h; sourceTree = "<group>"; };
+		B2D74CDF18E4D33000B31E16 /* LeftMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenu.m; sourceTree = "<group>"; };
+		B2D74CE018E4D33000B31E16 /* LeftMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenu.xib; sourceTree = "<group>"; };
+		B2D74CE418E4D40E00B31E16 /* menu_cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menu_cell.h; sourceTree = "<group>"; };
+		B2D74CE518E4D40E00B31E16 /* menu_cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menu_cell.m; sourceTree = "<group>"; };
+		B2D74CE618E4D40E00B31E16 /* menu_cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = menu_cell.xib; sourceTree = "<group>"; };
+		B2D74CF118E4D64600B31E16 /* RiskAnalysisPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiskAnalysisPage.h; sourceTree = "<group>"; };
+		B2D74CF218E4D64600B31E16 /* RiskAnalysisPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiskAnalysisPage.m; sourceTree = "<group>"; };
+		B2D74CF318E4D64600B31E16 /* RiskAnalysisPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RiskAnalysisPage.xib; sourceTree = "<group>"; };
+		B2D74CF618E4D65B00B31E16 /* SearchInstitutionPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchInstitutionPage.h; sourceTree = "<group>"; };
+		B2D74CF718E4D65B00B31E16 /* SearchInstitutionPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchInstitutionPage.m; sourceTree = "<group>"; };
+		B2D74CF818E4D65B00B31E16 /* SearchInstitutionPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchInstitutionPage.xib; sourceTree = "<group>"; };
+		B2D74CFB18E4D66D00B31E16 /* RecomendationPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecomendationPage.h; sourceTree = "<group>"; };
+		B2D74CFC18E4D66D00B31E16 /* RecomendationPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecomendationPage.m; sourceTree = "<group>"; };
+		B2D74CFD18E4D66D00B31E16 /* RecomendationPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecomendationPage.xib; sourceTree = "<group>"; };
+		B2D74D0018E4D68200B31E16 /* AnalisisResultPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalisisResultPage.h; sourceTree = "<group>"; };
+		B2D74D0118E4D68200B31E16 /* AnalisisResultPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalisisResultPage.m; sourceTree = "<group>"; };
+		B2D74D0218E4D68200B31E16 /* AnalisisResultPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnalisisResultPage.xib; sourceTree = "<group>"; };
+		B2D74D0518E4D69900B31E16 /* CalendarPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarPage.h; sourceTree = "<group>"; };
+		B2D74D0618E4D69900B31E16 /* CalendarPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarPage.m; sourceTree = "<group>"; };
+		B2D74D0718E4D69900B31E16 /* CalendarPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarPage.xib; sourceTree = "<group>"; };
+		B2D74D0A18E4D6AE00B31E16 /* UsefulKnowPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsefulKnowPage.h; sourceTree = "<group>"; };
+		B2D74D0B18E4D6AE00B31E16 /* UsefulKnowPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsefulKnowPage.m; sourceTree = "<group>"; };
+		B2D74D0C18E4D6AE00B31E16 /* UsefulKnowPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UsefulKnowPage.xib; sourceTree = "<group>"; };
+		B2D74D0F18E4D6C100B31E16 /* PublicationPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicationPage.h; sourceTree = "<group>"; };
+		B2D74D1018E4D6C100B31E16 /* PublicationPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicationPage.m; sourceTree = "<group>"; };
+		B2D74D1118E4D6C100B31E16 /* PublicationPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationPage.xib; sourceTree = "<group>"; };
+		B2D74D1418E4D6D800B31E16 /* ReportsPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportsPage.h; sourceTree = "<group>"; };
+		B2D74D1518E4D6D800B31E16 /* ReportsPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportsPage.m; sourceTree = "<group>"; };
+		B2D74D1618E4D6D800B31E16 /* ReportsPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportsPage.xib; sourceTree = "<group>"; };
+		B2D74D1A18E4D79C00B31E16 /* GlobalSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalSettings.h; sourceTree = "<group>"; };
+		B2D74D1B18E4D79C00B31E16 /* GlobalSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalSettings.m; sourceTree = "<group>"; };
+		B2D74D1D18E4D87700B31E16 /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
+		B2D95DEB18E4DCAB002D090B /* rootMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rootMenuController.h; sourceTree = "<group>"; };
+		B2D95DEC18E4DCAB002D090B /* rootMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rootMenuController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +154,9 @@
 				B2B8BE0418E20CA400F52B52 /* AppDelegate.h */,
 				B2B8BE0518E20CA400F52B52 /* AppDelegate.m */,
 				B2B8BE0718E20CA400F52B52 /* Images.xcassets */,
+				B2D74CC518E4C6EB00B31E16 /* Feature */,
+				B2D74CC618E4C6F300B31E16 /* Expand */,
+				B2D74CC418E4C6C500B31E16 /* Clases */,
 				B2B8BDFC18E20CA400F52B52 /* Supporting Files */,
 			);
 			path = takeda;
@@ -91,8 +169,195 @@
 				B2B8BDFE18E20CA400F52B52 /* InfoPlist.strings */,
 				B2B8BE0118E20CA400F52B52 /* main.m */,
 				B2B8BE0318E20CA400F52B52 /* takeda-Prefix.pch */,
+				B2D74D1D18E4D87700B31E16 /* macros.h */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B2D74CC418E4C6C500B31E16 /* Clases */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CCB18E4D10000B31E16 /* WelcomePage */,
+				B2D74CCC18E4D11900B31E16 /* AuthPage */,
+				B2D74CCD18E4D12A00B31E16 /* RegistrationPage */,
+				B2D74CDD18E4D31200B31E16 /* LeftMenu */,
+				B2D74CE918E4D47700B31E16 /* RiskAnalysisPage */,
+				B2D74CEA18E4D4B200B31E16 /* SearchInstitutionPage */,
+				B2D74CEB18E4D4CF00B31E16 /* RecomendationPage */,
+				B2D74CEC18E4D4E400B31E16 /* AnalisisResultPage */,
+				B2D74CED18E4D51000B31E16 /* CalendarPage */,
+				B2D74CEE18E4D52B00B31E16 /* UsefulKnowPage */,
+				B2D74CEF18E4D55800B31E16 /* PublicationPage */,
+				B2D74CF018E4D57300B31E16 /* ReportsPage */,
+			);
+			name = Clases;
+			sourceTree = "<group>";
+		};
+		B2D74CC518E4C6EB00B31E16 /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CC718E4C76F00B31E16 /* NVSlideMenuController */,
+			);
+			name = Feature;
+			sourceTree = "<group>";
+		};
+		B2D74CC618E4C6F300B31E16 /* Expand */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74D1918E4D78400B31E16 /* Global Data */,
+			);
+			name = Expand;
+			sourceTree = "<group>";
+		};
+		B2D74CC718E4C76F00B31E16 /* NVSlideMenuController */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CC818E4C78500B31E16 /* NVSlideMenuController.h */,
+				B2D74CC918E4C78500B31E16 /* NVSlideMenuController.m */,
+			);
+			name = NVSlideMenuController;
+			sourceTree = "<group>";
+		};
+		B2D74CCB18E4D10000B31E16 /* WelcomePage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CCE18E4D2CF00B31E16 /* WelcomePage.h */,
+				B2D74CCF18E4D2CF00B31E16 /* WelcomePage.m */,
+				B2D74CD018E4D2CF00B31E16 /* WelcomePage.xib */,
+			);
+			name = WelcomePage;
+			sourceTree = "<group>";
+		};
+		B2D74CCC18E4D11900B31E16 /* AuthPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CD318E4D2EC00B31E16 /* AuthPage.h */,
+				B2D74CD418E4D2EC00B31E16 /* AuthPage.m */,
+				B2D74CD518E4D2EC00B31E16 /* AuthPage.xib */,
+			);
+			name = AuthPage;
+			sourceTree = "<group>";
+		};
+		B2D74CCD18E4D12A00B31E16 /* RegistrationPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CD818E4D30600B31E16 /* RegistrationPage.h */,
+				B2D74CD918E4D30600B31E16 /* RegistrationPage.m */,
+				B2D74CDA18E4D30600B31E16 /* RegistrationPage.xib */,
+			);
+			name = RegistrationPage;
+			sourceTree = "<group>";
+		};
+		B2D74CDD18E4D31200B31E16 /* LeftMenu */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CE318E4D3FB00B31E16 /* cell */,
+				B2D74CDE18E4D33000B31E16 /* LeftMenu.h */,
+				B2D74CDF18E4D33000B31E16 /* LeftMenu.m */,
+				B2D74CE018E4D33000B31E16 /* LeftMenu.xib */,
+			);
+			name = LeftMenu;
+			sourceTree = "<group>";
+		};
+		B2D74CE318E4D3FB00B31E16 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CE418E4D40E00B31E16 /* menu_cell.h */,
+				B2D74CE518E4D40E00B31E16 /* menu_cell.m */,
+				B2D74CE618E4D40E00B31E16 /* menu_cell.xib */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
+		B2D74CE918E4D47700B31E16 /* RiskAnalysisPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CF118E4D64600B31E16 /* RiskAnalysisPage.h */,
+				B2D74CF218E4D64600B31E16 /* RiskAnalysisPage.m */,
+				B2D74CF318E4D64600B31E16 /* RiskAnalysisPage.xib */,
+			);
+			name = RiskAnalysisPage;
+			sourceTree = "<group>";
+		};
+		B2D74CEA18E4D4B200B31E16 /* SearchInstitutionPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CF618E4D65B00B31E16 /* SearchInstitutionPage.h */,
+				B2D74CF718E4D65B00B31E16 /* SearchInstitutionPage.m */,
+				B2D74CF818E4D65B00B31E16 /* SearchInstitutionPage.xib */,
+			);
+			name = SearchInstitutionPage;
+			sourceTree = "<group>";
+		};
+		B2D74CEB18E4D4CF00B31E16 /* RecomendationPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74CFB18E4D66D00B31E16 /* RecomendationPage.h */,
+				B2D74CFC18E4D66D00B31E16 /* RecomendationPage.m */,
+				B2D74CFD18E4D66D00B31E16 /* RecomendationPage.xib */,
+			);
+			name = RecomendationPage;
+			sourceTree = "<group>";
+		};
+		B2D74CEC18E4D4E400B31E16 /* AnalisisResultPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74D0018E4D68200B31E16 /* AnalisisResultPage.h */,
+				B2D74D0118E4D68200B31E16 /* AnalisisResultPage.m */,
+				B2D74D0218E4D68200B31E16 /* AnalisisResultPage.xib */,
+			);
+			name = AnalisisResultPage;
+			sourceTree = "<group>";
+		};
+		B2D74CED18E4D51000B31E16 /* CalendarPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74D0518E4D69900B31E16 /* CalendarPage.h */,
+				B2D74D0618E4D69900B31E16 /* CalendarPage.m */,
+				B2D74D0718E4D69900B31E16 /* CalendarPage.xib */,
+			);
+			name = CalendarPage;
+			sourceTree = "<group>";
+		};
+		B2D74CEE18E4D52B00B31E16 /* UsefulKnowPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74D0A18E4D6AE00B31E16 /* UsefulKnowPage.h */,
+				B2D74D0B18E4D6AE00B31E16 /* UsefulKnowPage.m */,
+				B2D74D0C18E4D6AE00B31E16 /* UsefulKnowPage.xib */,
+			);
+			name = UsefulKnowPage;
+			sourceTree = "<group>";
+		};
+		B2D74CEF18E4D55800B31E16 /* PublicationPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74D0F18E4D6C100B31E16 /* PublicationPage.h */,
+				B2D74D1018E4D6C100B31E16 /* PublicationPage.m */,
+				B2D74D1118E4D6C100B31E16 /* PublicationPage.xib */,
+			);
+			name = PublicationPage;
+			sourceTree = "<group>";
+		};
+		B2D74CF018E4D57300B31E16 /* ReportsPage */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74D1418E4D6D800B31E16 /* ReportsPage.h */,
+				B2D74D1518E4D6D800B31E16 /* ReportsPage.m */,
+				B2D74D1618E4D6D800B31E16 /* ReportsPage.xib */,
+			);
+			name = ReportsPage;
+			sourceTree = "<group>";
+		};
+		B2D74D1918E4D78400B31E16 /* Global Data */ = {
+			isa = PBXGroup;
+			children = (
+				B2D74D1A18E4D79C00B31E16 /* GlobalSettings.h */,
+				B2D74D1B18E4D79C00B31E16 /* GlobalSettings.m */,
+				B2D95DEB18E4DCAB002D090B /* rootMenuController.h */,
+				B2D95DEC18E4DCAB002D090B /* rootMenuController.m */,
+			);
+			name = "Global Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,8 +411,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D74CD718E4D2EC00B31E16 /* AuthPage.xib in Resources */,
+				B2D74D1818E4D6D800B31E16 /* ReportsPage.xib in Resources */,
+				B2D74CFA18E4D65B00B31E16 /* SearchInstitutionPage.xib in Resources */,
+				B2D74D0E18E4D6AE00B31E16 /* UsefulKnowPage.xib in Resources */,
+				B2D74D1318E4D6C100B31E16 /* PublicationPage.xib in Resources */,
+				B2D74CE218E4D33000B31E16 /* LeftMenu.xib in Resources */,
+				B2D74CD218E4D2CF00B31E16 /* WelcomePage.xib in Resources */,
+				B2D74D0918E4D69900B31E16 /* CalendarPage.xib in Resources */,
+				B2D74D0418E4D68200B31E16 /* AnalisisResultPage.xib in Resources */,
+				B2D74CE818E4D40E00B31E16 /* menu_cell.xib in Resources */,
 				B2B8BE0018E20CA400F52B52 /* InfoPlist.strings in Resources */,
 				B2B8BE0818E20CA400F52B52 /* Images.xcassets in Resources */,
+				B2D74CFF18E4D66D00B31E16 /* RecomendationPage.xib in Resources */,
+				B2D74CDC18E4D30600B31E16 /* RegistrationPage.xib in Resources */,
+				B2D74CF518E4D64600B31E16 /* RiskAnalysisPage.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,8 +436,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D74CD618E4D2EC00B31E16 /* AuthPage.m in Sources */,
+				B2D74D0D18E4D6AE00B31E16 /* UsefulKnowPage.m in Sources */,
+				B2D95DED18E4DCAB002D090B /* rootMenuController.m in Sources */,
+				B2D74CF918E4D65B00B31E16 /* SearchInstitutionPage.m in Sources */,
+				B2D74D1218E4D6C100B31E16 /* PublicationPage.m in Sources */,
+				B2D74D1718E4D6D800B31E16 /* ReportsPage.m in Sources */,
+				B2D74CDB18E4D30600B31E16 /* RegistrationPage.m in Sources */,
+				B2D74CE718E4D40E00B31E16 /* menu_cell.m in Sources */,
+				B2D74CF418E4D64600B31E16 /* RiskAnalysisPage.m in Sources */,
 				B2B8BE0618E20CA400F52B52 /* AppDelegate.m in Sources */,
+				B2D74D0818E4D69900B31E16 /* CalendarPage.m in Sources */,
+				B2D74CFE18E4D66D00B31E16 /* RecomendationPage.m in Sources */,
+				B2D74D0318E4D68200B31E16 /* AnalisisResultPage.m in Sources */,
+				B2D74D1C18E4D79C00B31E16 /* GlobalSettings.m in Sources */,
+				B2D74CE118E4D33000B31E16 /* LeftMenu.m in Sources */,
+				B2D74CD118E4D2CF00B31E16 /* WelcomePage.m in Sources */,
 				B2B8BE0218E20CA400F52B52 /* main.m in Sources */,
+				B2D74CCA18E4C78500B31E16 /* NVSlideMenuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +590,7 @@
 				B2B8BE2018E20CA400F52B52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
