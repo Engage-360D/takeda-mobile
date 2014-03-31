@@ -29,20 +29,37 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gIc-Rz-hNd">
-                    <rect key="frame" x="60" y="336" width="201" height="55"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="ОК">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; смахните" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LHu-gN-B47">
+                    <rect key="frame" x="65" y="349" width="191" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <gestureRecognizers/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
                     <connections>
-                        <action selector="goAuthPage:" destination="-1" eventType="touchUpInside" id="uR9-ma-hJT"/>
+                        <outletCollection property="gestureRecognizers" destination="rHO-Eq-HIY" appends="YES" id="dKe-y7-UPs"/>
                     </connections>
-                </button>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 минуты до начала работы приложения" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kW2-iQ-Py3">
+                    <rect key="frame" x="27" y="459" width="267" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <gestureRecognizers/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.25" id="Aim-lf-W07">
+                    <rect key="frame" x="18" y="449" width="284" height="2"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </progressView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <swipeGestureRecognizer direction="left" id="rHO-Eq-HIY">
+            <connections>
+                <action selector="goAuthPage:" destination="-1" id="IHH-SR-GvY"/>
+                <outlet property="delegate" destination="-1" id="gyP-dx-y0Y"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
 </document>

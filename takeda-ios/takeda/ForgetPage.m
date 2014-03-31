@@ -1,22 +1,18 @@
 //
-//  WelcomePage.m
+//  ForgetPage.m
 //  takeda
 //
-//  Created by Serg on 3/27/14.
+//  Created by Serg on 3/31/14.
 //  Copyright (c) 2014 organization. All rights reserved.
 //
 
-#import "WelcomePage.h"
-#import "AuthPage.h"
+#import "ForgetPage.h"
 
-@interface WelcomePage ()
+@interface ForgetPage ()
 
 @end
 
-@implementation WelcomePage
-AuthPage *authPage;
-
-
+@implementation ForgetPage
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,18 +26,13 @@ AuthPage *authPage;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Cardiomagnil";
     // Do any additional setup after loading the view from its nib.
 }
 
-
--(IBAction)goAuthPage:(id)sender{
-    if (!authPage) {
-        authPage = [[AuthPage alloc] initWithNibName:@"AuthPage" bundle:nil];
-    }
-    [self.navigationController pushViewController:authPage animated:YES];
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-
-
 
 @end

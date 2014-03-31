@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B21466F718EA04A0001D77CF /* ForgetPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B21466F518EA04A0001D77CF /* ForgetPage.m */; };
+		B21466F818EA04A0001D77CF /* ForgetPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21466F618EA04A0001D77CF /* ForgetPage.xib */; };
 		B2B8BDF618E20CA400F52B52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B8BDF518E20CA400F52B52 /* Foundation.framework */; };
 		B2B8BDF818E20CA400F52B52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B8BDF718E20CA400F52B52 /* CoreGraphics.framework */; };
 		B2B8BDFA18E20CA400F52B52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B8BDF918E20CA400F52B52 /* UIKit.framework */; };
@@ -46,6 +48,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B21466F418EA04A0001D77CF /* ForgetPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPage.h; sourceTree = "<group>"; };
+		B21466F518EA04A0001D77CF /* ForgetPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPage.m; sourceTree = "<group>"; };
+		B21466F618EA04A0001D77CF /* ForgetPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetPage.xib; sourceTree = "<group>"; };
 		B2B8BDF218E20CA400F52B52 /* takeda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = takeda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2B8BDF518E20CA400F52B52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B2B8BDF718E20CA400F52B52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -244,6 +249,9 @@
 				B2D74CD818E4D30600B31E16 /* RegistrationPage.h */,
 				B2D74CD918E4D30600B31E16 /* RegistrationPage.m */,
 				B2D74CDA18E4D30600B31E16 /* RegistrationPage.xib */,
+				B21466F418EA04A0001D77CF /* ForgetPage.h */,
+				B21466F518EA04A0001D77CF /* ForgetPage.m */,
+				B21466F618EA04A0001D77CF /* ForgetPage.xib */,
 			);
 			name = RegistrationPage;
 			sourceTree = "<group>";
@@ -414,6 +422,7 @@
 				B2D74CD718E4D2EC00B31E16 /* AuthPage.xib in Resources */,
 				B2D74D1818E4D6D800B31E16 /* ReportsPage.xib in Resources */,
 				B2D74CFA18E4D65B00B31E16 /* SearchInstitutionPage.xib in Resources */,
+				B21466F818EA04A0001D77CF /* ForgetPage.xib in Resources */,
 				B2D74D0E18E4D6AE00B31E16 /* UsefulKnowPage.xib in Resources */,
 				B2D74D1318E4D6C100B31E16 /* PublicationPage.xib in Resources */,
 				B2D74CE218E4D33000B31E16 /* LeftMenu.xib in Resources */,
@@ -447,6 +456,7 @@
 				B2D74CF418E4D64600B31E16 /* RiskAnalysisPage.m in Sources */,
 				B2B8BE0618E20CA400F52B52 /* AppDelegate.m in Sources */,
 				B2D74D0818E4D69900B31E16 /* CalendarPage.m in Sources */,
+				B21466F718EA04A0001D77CF /* ForgetPage.m in Sources */,
 				B2D74CFE18E4D66D00B31E16 /* RecomendationPage.m in Sources */,
 				B2D74D0318E4D68200B31E16 /* AnalisisResultPage.m in Sources */,
 				B2D74D1C18E4D79C00B31E16 /* GlobalSettings.m in Sources */,

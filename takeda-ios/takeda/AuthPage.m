@@ -9,11 +9,16 @@
 #import "AuthPage.h"
 #import "LeftMenu.h"
 #import "RiskAnalysisPage.h"
+#import "RegistrationPage.h"
+#import "ForgetPage.h"
+
 @interface AuthPage ()
 
 @end
 
 @implementation AuthPage
+RegistrationPage *registrationPage;
+ForgetPage *forgetPage;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -28,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.title = @"Cardiomagnil";
 }
 
 
@@ -45,4 +50,22 @@
     [self.navigationController setNavigationBarHidden:YES];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+
+-(IBAction)openRegistrationPage:(id)sender{
+    if (!registrationPage) {
+        registrationPage = [[RegistrationPage alloc] initWithNibName:@"RegistrationPage" bundle:nil];
+    }
+    [self.navigationController pushViewController:registrationPage animated:YES];
+}
+
+-(IBAction)openForgetPage:(id)sender{
+    if (!forgetPage) {
+        forgetPage = [[ForgetPage alloc] initWithNibName:@"ForgetPage" bundle:nil];
+    }
+    [self.navigationController pushViewController:forgetPage animated:YES];
+}
+
+
+
 @end

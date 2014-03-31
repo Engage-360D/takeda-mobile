@@ -50,7 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
+    last_stateMenu = State_Risk_Analysis;
     menuData =
     @[@{@"name" :@"Анализ риска"},
       @{@"name" :@"Поиск учреждений"},
@@ -95,7 +95,7 @@
         }
     }
 
-    cell.name_group.textColor = RGB(60.0, 184.0, 120.0);
+    cell.name_group.textColor = [UIColor whiteColor]; ///RGB(60.0, 184.0, 120.0);
     [cell.name_group setFont:[UIFont fontWithName:@"HelveticaNeueCyr-Thin" size:23]];
     cell.name_group.text = [[menuData objectAtIndex:indexPath.row] objectForKey:@"name"];
     
