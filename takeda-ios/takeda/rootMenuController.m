@@ -47,7 +47,7 @@ static rootMenuController *sharedInst = NULL;
 
 -(NVSlideMenuController*)getMenuController{
     if (!slideMenuVC) {
-        slideMenuVC = [[NVSlideMenuController alloc] initWithMenuViewController:[self getLeftMenu] andContentViewController:[self getRiskAnalysisPage]];
+        slideMenuVC = [[NVSlideMenuController alloc] initWithMenuViewController:[self getLeftMenu] andContentViewController:[[UINavigationController alloc] initWithRootViewController:[self getRiskAnalysisPage]]];
     }
     
     return slideMenuVC;

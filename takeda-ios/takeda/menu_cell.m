@@ -6,7 +6,8 @@
 
 @implementation menu_cell
 @synthesize name_group;
-
+@synthesize top_separator;
+@synthesize bottom_separator;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

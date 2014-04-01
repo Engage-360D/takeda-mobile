@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RiskAnalysisPage : UIViewController
+@property (nonatomic,retain) IBOutlet UIScrollView *scroll;
+
 
 @end
