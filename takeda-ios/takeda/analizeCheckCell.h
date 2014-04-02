@@ -1,5 +1,5 @@
 //
-//  analizEasyCell.h
+//  analizeCheckCell.h
 //  takeda
 //
 //  Created by Serg on 4/2/14.
@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface analizEasyCell : UITableViewCell
+@interface analizeCheckCell : UITableViewCell
 @property (nonatomic,retain) IBOutlet UILabel *name;
-@property (nonatomic,retain) IBOutlet UILabel *value;
-@property (nonatomic,retain) IBOutlet UILabel *description;
 
 @property(nonatomic,retain) IBOutlet UIImageView *top_separator;
 @property(nonatomic,retain) IBOutlet UIImageView *bottom_separator;

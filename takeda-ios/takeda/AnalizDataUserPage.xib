@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AnalizDataUserPage">
             <connections>
                 <outlet property="nextStepBtn" destination="QBU-Jz-oWm" id="Cyu-J5-umu"/>
+                <outlet property="tableView" destination="Qsq-Fu-pAj" id="r8A-JB-y9T"/>
                 <outlet property="titleRisk" destination="9rI-MD-rO8" id="o2B-70-sTn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -39,7 +40,7 @@
                     <color key="backgroundColor" red="0.83529411760000005" green="0.1176470588" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QBU-Jz-oWm">
-                    <rect key="frame" x="25" y="428" width="270" height="44"/>
+                    <rect key="frame" x="25" y="430" width="270" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="История пациента">
@@ -47,10 +48,14 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qsq-Fu-pAj">
-                    <rect key="frame" x="0.0" y="47" width="320" height="373"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qsq-Fu-pAj">
+                    <rect key="frame" x="0.0" y="47" width="320" height="375"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Se5-RS-hXq"/>
+                        <outlet property="delegate" destination="-1" id="Mdi-Wv-C5X"/>
+                    </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

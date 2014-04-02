@@ -10,6 +10,6 @@
 
 @interface RiskAnalysisPage : UIViewController
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
-
+@property (nonatomic,retain) IBOutletCollection(UIImageView) NSArray *page_indicator;
 
 @end

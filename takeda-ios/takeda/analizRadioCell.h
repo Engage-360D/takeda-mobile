@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface analizRadioCell : UITableViewCell
+@property (nonatomic,retain) IBOutlet UILabel *name;
+@property (nonatomic,retain) IBOutlet UILabel *first_param;
+@property (nonatomic,retain) IBOutlet UILabel *second_param;
 
+@property(nonatomic,retain) IBOutlet UIImageView *top_separator;
+@property(nonatomic,retain) IBOutlet UIImageView *bottom_separator;
 @end

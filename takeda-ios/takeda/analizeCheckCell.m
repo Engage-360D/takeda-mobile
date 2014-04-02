@@ -1,19 +1,15 @@
 //
-//  analizEasyCell.m
+//  analizeCheckCell.m
 //  takeda
 //
 //  Created by Serg on 4/2/14.
 //  Copyright (c) 2014 organization. All rights reserved.
 //
 
-#import "analizEasyCell.h"
+#import "analizeCheckCell.h"
 
-@implementation analizEasyCell
+@implementation analizeCheckCell
 @synthesize name;
-@synthesize value;
-@synthesize description;
-
-
 
 - (void)awakeFromNib
 {

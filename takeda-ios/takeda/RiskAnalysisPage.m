@@ -17,6 +17,8 @@
 @implementation RiskAnalysisPage
 
 @synthesize scroll;
+@synthesize page_indicator;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,9 +44,54 @@
 }
 
 
+
+-(NSArray*)getQuestionsDataUser{
+    return @[
+      @{@"type": @"1",@"name":@"Пол",@"f_param":@"Мужчина",@"s_param":@"Женщина"},
+      @{@"type": @"2",@"name":@"Возраст",@"description":@"лет"},
+      @{@"type": @"2",@"name":@"Рост",@"description":@"см"},
+      @{@"type": @"2",@"name":@"Вес",@"description":@"кг"},
+      @{@"type": @"3",@"name":@"Курение"},
+      @{@"type": @"2",@"name":@"Уровень общего холестирина",@"description":@"мг/дл"},
+      @{@"type": @"3",@"name":@"Лекарства для снижения уровня холестерина"}
+      ];
+}
+
+-(NSArray*)getQuestionsHistoryUser{
+    return @[
+             @{@"type": @"3",@"name":@"Диабет"},
+             @{@"type": @"3",@"name":@"Повышения уровня сахара в крови"},
+             @{@"type": @"2",@"name":@"Артериальное давнление",@"description":@"мм"},
+             @{@"type": @"3",@"name":@"Препараты для понижения давления"},
+             @{@"type": @"2",@"name":@"Ходьба",@"description":@"мин/нед"},
+             @{@"type": @"2",@"name":@"Спорт",@"description":@"мин/нед"},
+             @{@"type": @"3",@"name":@"Инфаркт/инсульт"},
+             ];
+}
+
+-(NSArray*)getQuestionsDailyRation{
+    return @[
+             @{@"type": @"2",@"name":@"Соль",@"description":@"грамм/день"},
+             @{@"type": @"3",@"name":@"Принимает ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?"},
+             ];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 #pragma mark - init pages
 
 -(void)setFirstPageAnalize{
+    [self setPageindicator:1];
     AnalizDataUserPage*firstPage = [[AnalizDataUserPage alloc] initWithNibName:@"AnalizDataUserPage" bundle:nil];
     firstPage.view.frame = self.scroll.bounds;
     [self addChildViewController:firstPage];
@@ -53,9 +100,12 @@
     [firstPage.nextStepBtn addTarget:self action:@selector(goHistoryPacient:) forControlEvents:UIControlEventTouchDown];
     [firstPage.nextStepBtn setTitle:@"История пациента" forState:UIControlStateNormal];
     firstPage.titleRisk.text = @"Данные пациента";
+    firstPage.sourceData = [self getQuestionsDataUser];
+    [firstPage reloadData];
 }
 
 -(void)setSecondPageAnalize{
+    [self setPageindicator:2];
     AnalizDataUserPage*historyPacientPage = [[AnalizDataUserPage alloc] initWithNibName:@"AnalizDataUserPage" bundle:nil];
     CGRect frame = self.scroll.bounds;
     frame.origin.x = self.view.frame.size.width;
@@ -67,10 +117,14 @@
     [historyPacientPage.nextStepBtn setTitle:@"Дневной рацион" forState:UIControlStateNormal];
     historyPacientPage.titleRisk.text = @"История пациента";
     [self.scroll setContentSize:CGSizeMake(320 * 2, 20)];
+    
+    historyPacientPage.sourceData = [self getQuestionsHistoryUser];
+    [historyPacientPage reloadData];
 }
 
 
 -(void)setThirdPageAnalize{
+    [self setPageindicator:3];
     AnalizDataUserPage*dailyRationPage = [[AnalizDataUserPage alloc] initWithNibName:@"AnalizDataUserPage" bundle:nil];
     CGRect frame = self.scroll.bounds;
     frame.origin.x = self.view.frame.size.width*2;
@@ -82,6 +136,10 @@
     [dailyRationPage.nextStepBtn setTitle:@"Результаты" forState:UIControlStateNormal];
     dailyRationPage.titleRisk.text = @"Дневной рацион";
     [self.scroll setContentSize:CGSizeMake(320 * 3, 20)];
+    
+    dailyRationPage.sourceData = [self getQuestionsDailyRation];
+    [dailyRationPage reloadData];
+    
 }
 
 #pragma mark -
@@ -117,6 +175,19 @@
 
 
 
+
+
+
+-(void)setPageindicator:(int)index{
+    
+    for (UIImageView *imageView in self.page_indicator) {
+        if ([imageView tag]==index) {
+            imageView.image = [UIImage imageNamed:@"pageIndicator_enable"];
+        }else{
+            imageView.image = [UIImage imageNamed:@"pageIndicator_disable"];
+        }
+    }
+}
 
 
 

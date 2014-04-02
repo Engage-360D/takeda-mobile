@@ -45,6 +45,10 @@
 		B2B9C46618EB78F70066F146 /* analizRadioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B9C46418EB78F70066F146 /* analizRadioCell.xib */; };
 		B2B9C46A18EB7AD40066F146 /* analizEasyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B9C46818EB7AD40066F146 /* analizEasyCell.m */; };
 		B2B9C46B18EB7AD40066F146 /* analizEasyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B9C46918EB7AD40066F146 /* analizEasyCell.xib */; };
+		B2BAA9E718ECAD8C0079D305 /* analizeCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BAA9E518ECAD8C0079D305 /* analizeCheckCell.m */; };
+		B2BAA9E818ECAD8C0079D305 /* analizeCheckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2BAA9E618ECAD8C0079D305 /* analizeCheckCell.xib */; };
+		B2BAA9EF18ECBC670079D305 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BAA9EE18ECBC670079D305 /* Helper.m */; };
+		B2BAA9F218ECC26E0079D305 /* ufonts.com_segoe_ui_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2BAA9F118ECC26E0079D305 /* ufonts.com_segoe_ui_light.ttf */; };
 		B2D74CCA18E4C78500B31E16 /* NVSlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CC918E4C78500B31E16 /* NVSlideMenuController.m */; };
 		B2D74CD118E4D2CF00B31E16 /* WelcomePage.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D74CCF18E4D2CF00B31E16 /* WelcomePage.m */; };
 		B2D74CD218E4D2CF00B31E16 /* WelcomePage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D74CD018E4D2CF00B31E16 /* WelcomePage.xib */; };
@@ -124,6 +128,12 @@
 		B2B9C46718EB7AD40066F146 /* analizEasyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analizEasyCell.h; sourceTree = "<group>"; };
 		B2B9C46818EB7AD40066F146 /* analizEasyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = analizEasyCell.m; sourceTree = "<group>"; };
 		B2B9C46918EB7AD40066F146 /* analizEasyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = analizEasyCell.xib; sourceTree = "<group>"; };
+		B2BAA9E418ECAD8C0079D305 /* analizeCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analizeCheckCell.h; sourceTree = "<group>"; };
+		B2BAA9E518ECAD8C0079D305 /* analizeCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = analizeCheckCell.m; sourceTree = "<group>"; };
+		B2BAA9E618ECAD8C0079D305 /* analizeCheckCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = analizeCheckCell.xib; sourceTree = "<group>"; };
+		B2BAA9ED18ECBC670079D305 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		B2BAA9EE18ECBC670079D305 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
+		B2BAA9F118ECC26E0079D305 /* ufonts.com_segoe_ui_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ufonts.com_segoe_ui_light.ttf; sourceTree = "<group>"; };
 		B2D74CC818E4C78500B31E16 /* NVSlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVSlideMenuController.h; sourceTree = "<group>"; };
 		B2D74CC918E4C78500B31E16 /* NVSlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVSlideMenuController.m; sourceTree = "<group>"; };
 		B2D74CCE18E4D2CF00B31E16 /* WelcomePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomePage.h; sourceTree = "<group>"; };
@@ -232,6 +242,7 @@
 		B2B8BDFC18E20CA400F52B52 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B2BAA9F018ECC2610079D305 /* Fonts */,
 				B2B8BDFD18E20CA400F52B52 /* takeda-Info.plist */,
 				B2B8BDFE18E20CA400F52B52 /* InfoPlist.strings */,
 				B2B8BE0118E20CA400F52B52 /* main.m */,
@@ -252,10 +263,10 @@
 				B2B9C45818EB73300066F146 /* pageIndicator_disable@2x.png */,
 				B2B9C45318EB731E0066F146 /* checked_item@2x.png */,
 				B2B9C45118EB730D0066F146 /* checked_item.png */,
-				B2B9C44918EB73080066F146 /* arrow.png */,
-				B2B9C44A18EB73080066F146 /* arrow@2x.png */,
 				B2B9C44B18EB73080066F146 /* unchecked_item.png */,
 				B2B9C44C18EB73080066F146 /* unchecked_item@2x.png */,
+				B2B9C44918EB73080066F146 /* arrow.png */,
+				B2B9C44A18EB73080066F146 /* arrow@2x.png */,
 				B2B9C44218EB68320066F146 /* nav_bar_bg.png */,
 				B2B9C43E18EB64D20066F146 /* menu_icon.png */,
 				B2B9C43F18EB64D20066F146 /* menu_icon@2x.png */,
@@ -280,8 +291,28 @@
 				B2B9C46718EB7AD40066F146 /* analizEasyCell.h */,
 				B2B9C46818EB7AD40066F146 /* analizEasyCell.m */,
 				B2B9C46918EB7AD40066F146 /* analizEasyCell.xib */,
+				B2BAA9E418ECAD8C0079D305 /* analizeCheckCell.h */,
+				B2BAA9E518ECAD8C0079D305 /* analizeCheckCell.m */,
+				B2BAA9E618ECAD8C0079D305 /* analizeCheckCell.xib */,
 			);
 			name = cell;
+			sourceTree = "<group>";
+		};
+		B2BAA9EC18ECBC510079D305 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B2BAA9ED18ECBC670079D305 /* Helper.h */,
+				B2BAA9EE18ECBC670079D305 /* Helper.m */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		B2BAA9F018ECC2610079D305 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B2BAA9F118ECC26E0079D305 /* ufonts.com_segoe_ui_light.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		B2D74CC418E4C6C500B31E16 /* Clases */ = {
@@ -314,6 +345,7 @@
 		B2D74CC618E4C6F300B31E16 /* Expand */ = {
 			isa = PBXGroup;
 			children = (
+				B2BAA9EC18ECBC510079D305 /* Helper */,
 				B2D74D1918E4D78400B31E16 /* Global Data */,
 			);
 			name = Expand;
@@ -549,6 +581,7 @@
 				B2B9C44818EB6DDC0066F146 /* AnalizDataUserPage.xib in Resources */,
 				B2B9C46018EB733C0066F146 /* button_arrow_bg@2x.png in Resources */,
 				B2B9C45A18EB73300066F146 /* pageIndicator_enable@2x.png in Resources */,
+				B2BAA9E818ECAD8C0079D305 /* analizeCheckCell.xib in Resources */,
 				B2D74CD218E4D2CF00B31E16 /* WelcomePage.xib in Resources */,
 				B2B9C43D18EB64CC0066F146 /* people_icon@2x.png in Resources */,
 				B2B9C44F18EB73080066F146 /* unchecked_item.png in Resources */,
@@ -570,6 +603,7 @@
 				B2D74CF518E4D64600B31E16 /* RiskAnalysisPage.xib in Resources */,
 				B2B9C45C18EB73300066F146 /* pageIndicator_disable@2x.png in Resources */,
 				B2B9C45218EB730D0066F146 /* checked_item.png in Resources */,
+				B2BAA9F218ECC26E0079D305 /* ufonts.com_segoe_ui_light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +625,7 @@
 				B2B9C44718EB6DDC0066F146 /* AnalizDataUserPage.m in Sources */,
 				B2D74CF418E4D64600B31E16 /* RiskAnalysisPage.m in Sources */,
 				B2B9C46A18EB7AD40066F146 /* analizEasyCell.m in Sources */,
+				B2BAA9E718ECAD8C0079D305 /* analizeCheckCell.m in Sources */,
 				B2B8BE0618E20CA400F52B52 /* AppDelegate.m in Sources */,
 				B2D74D0818E4D69900B31E16 /* CalendarPage.m in Sources */,
 				B21466F718EA04A0001D77CF /* ForgetPage.m in Sources */,
@@ -598,6 +633,7 @@
 				B2D74D0318E4D68200B31E16 /* AnalisisResultPage.m in Sources */,
 				B2B9C46518EB78F70066F146 /* analizRadioCell.m in Sources */,
 				B2D74D1C18E4D79C00B31E16 /* GlobalSettings.m in Sources */,
+				B2BAA9EF18ECBC670079D305 /* Helper.m in Sources */,
 				B2D74CE118E4D33000B31E16 /* LeftMenu.m in Sources */,
 				B2D74CD118E4D2CF00B31E16 /* WelcomePage.m in Sources */,
 				B2B8BE0218E20CA400F52B52 /* main.m in Sources */,

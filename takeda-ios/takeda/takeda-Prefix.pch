@@ -17,4 +17,5 @@
     #import "rootMenuController.h"
     #import "NVSlideMenuController.h"
     #import  "macros.h"
+    #import "Helper.h"
 #endif

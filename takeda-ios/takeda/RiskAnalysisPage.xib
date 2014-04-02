@@ -9,6 +9,9 @@
             <connections>
                 <outlet property="scroll" destination="dWb-Ad-Jmv" id="b9E-ob-VLw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="page_indicator" destination="tDD-KV-lxW" id="EAK-Ze-7SC"/>
+                <outletCollection property="page_indicator" destination="j2c-BS-MxQ" id="9PZ-ox-q5a"/>
+                <outletCollection property="page_indicator" destination="WvH-CO-cWZ" id="q2i-YH-9KB"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,14 +23,24 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </scrollView>
-                <view contentMode="scaleToFill" id="Lld-Fz-W7e">
-                    <rect key="frame" x="0.0" y="442" width="320" height="38"/>
+                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pageIndicator_enable.png" id="tDD-KV-lxW">
+                    <rect key="frame" x="133" y="458" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
+                </imageView>
+                <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pageIndicator_enable.png" id="j2c-BS-MxQ">
+                    <rect key="frame" x="153" y="458" width="14" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pageIndicator_enable.png" id="WvH-CO-cWZ">
+                    <rect key="frame" x="173" y="458" width="14" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="pageIndicator_enable.png" width="14" height="14"/>
+    </resources>
 </document>

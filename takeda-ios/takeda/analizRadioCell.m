@@ -9,6 +9,12 @@
 #import "analizRadioCell.h"
 
 @implementation analizRadioCell
+@synthesize name;
+@synthesize first_param;
+@synthesize second_param;
+
+
+
 
 - (void)awakeFromNib
 {
