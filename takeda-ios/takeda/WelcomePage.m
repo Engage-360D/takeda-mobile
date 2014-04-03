@@ -14,6 +14,11 @@
 @end
 
 @implementation WelcomePage
+@synthesize welcome_text_1;
+@synthesize welcome_text_2;
+@synthesize welcome_text_3;
+
+
 AuthPage *authPage;
 
 
@@ -30,7 +35,12 @@ AuthPage *authPage;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Cardiomagnil";
+    //self.title = @"Cardiomagnil";
+    self.navigationController.navigationBarHidden = YES;
+    self.welcome_text_1.font = [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
+    self.welcome_text_2.font = [UIFont fontWithName:@"SegoeUI-Light" size:12.0];
+    self.welcome_text_3.font = [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -41,6 +51,8 @@ AuthPage *authPage;
     }
     [self.navigationController pushViewController:authPage animated:YES];
 }
+
+
 
 
 
