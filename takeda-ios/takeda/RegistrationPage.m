@@ -11,17 +11,42 @@
 
 
 
-@interface RegistrationPage ()
+@interface RegistrationPage (){
+    UIActionSheet *picker_cover;
+    NSMutableArray *regions_data;
+    UIPickerView *region_picker;
+    UIDatePicker *date_picker;
+}
 
 @end
 
-@implementation RegistrationPage
+@implementation RegistrationPage{
+    
+}
 @synthesize scrollView;
 @synthesize btn_register;
 @synthesize bg_block;
 @synthesize name_field;
 @synthesize email_field;
 @synthesize pass_field;
+
+@synthesize user_is_doctor;
+@synthesize user_is_agree_personal_data;
+@synthesize user_is_agree_email_subscribe_data;
+@synthesize user_is_agree_information_is_recomemd_style;
+
+@synthesize user_is_doctor_img;
+@synthesize user_is_agree_personal_data_img;
+@synthesize user_is_agree_email_subscribe_data_img;
+@synthesize user_is_agree_information_is_recomemd_style_img;
+
+
+@synthesize btn_birthday;
+@synthesize btn_region;
+
+int sel_index_region = 0;
+
+
 
 
 
@@ -30,9 +55,26 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self setDefoultData];
     }
     return self;
 }
+
+
+-(void)setDefoultData{
+    self.user_is_doctor = NO;
+    self.user_is_agree_personal_data = NO;
+    self.user_is_agree_email_subscribe_data = NO;
+    self.user_is_agree_information_is_recomemd_style = NO;
+    
+    regions_data = [[NSMutableArray alloc] init];
+    [regions_data addObject:@"Российская Федерация"];
+    [regions_data addObject:@"Украина"];
+    [regions_data addObject:@"Польша"];
+    [regions_data addObject:@"Словакия"];
+    [regions_data addObject:@"Франция"];
+}
+
 
 
 
@@ -77,6 +119,13 @@
 }
 
 
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self updateFields];
+}
+
+
 -(void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -114,8 +163,65 @@
     self.navigationItem.titleView = img_logo;
 }
 
-
 #pragma mark -
+
+
+
+
+
+
+-(void)updateFields{
+    if (self.user_is_doctor) {
+        self.user_is_doctor_img.image = [UIImage imageNamed:@"checked_item"];
+    }else{
+        self.user_is_doctor_img.image = [UIImage imageNamed:@"unchecked_item"];
+    }
+    
+    if (self.user_is_agree_personal_data) {
+        self.user_is_agree_personal_data_img.image = [UIImage imageNamed:@"checked_item"];
+    }else{
+        self.user_is_agree_personal_data_img.image = [UIImage imageNamed:@"unchecked_item"];
+    }
+    
+    if (self.user_is_agree_email_subscribe_data) {
+        self.user_is_agree_email_subscribe_data_img.image = [UIImage imageNamed:@"checked_item"];
+    }else{
+        self.user_is_agree_email_subscribe_data_img.image = [UIImage imageNamed:@"unchecked_item"];
+    }
+    
+    if (self.user_is_agree_information_is_recomemd_style) {
+        self.user_is_agree_information_is_recomemd_style_img.image = [UIImage imageNamed:@"checked_item"];
+    }else{
+        self.user_is_agree_information_is_recomemd_style_img.image = [UIImage imageNamed:@"unchecked_item"];
+    }
+}
+
+
+
+
+
+-(IBAction)selectField:(id)sender{
+    switch ((int)[sender tag]) {
+        case 1:{
+            self.user_is_doctor = !self.user_is_doctor;
+            break;}
+        case 2:{
+            self.user_is_agree_personal_data = !self.user_is_agree_personal_data;
+            break;}
+        case 3:{
+            self.user_is_agree_email_subscribe_data = !self.user_is_agree_email_subscribe_data;
+            break;}
+        case 4:{
+            self.user_is_agree_information_is_recomemd_style = !self.user_is_agree_information_is_recomemd_style;
+            break;}
+        default:
+            break;
+    }
+    [self updateFields];
+    
+}
+
+
 
 
 #pragma mark - UITextFieldDelegate
@@ -125,6 +231,146 @@
     return YES;
 }
 #pragma mark -
+
+
+
+
+#pragma mark - UIPickerView
+
+-(IBAction)showPickerRegion:(id)sender{
+    picker_cover = nil;
+    picker_cover = [[UIActionSheet alloc] initWithTitle:nil
+                                       delegate:nil
+                              cancelButtonTitle:nil
+                         destructiveButtonTitle:nil
+                              otherButtonTitles:nil];
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    UIBarButtonItem *button1 = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть" style:UIBarButtonItemStyleDone target:self action:@selector(closePicker)];
+    
+    UIBarButtonItem *button2 = [[UIBarButtonItem alloc] initWithTitle:@"Применить" style:UIBarButtonItemStyleDone target:self action:@selector(applyPicker:)];
+    
+    UIBarButtonItem *flexibleSpaceLeft = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    [items addObject:button1];
+    [items addObject:flexibleSpaceLeft];
+    [items addObject:button2];
+    [toolbar setItems:items animated:NO];
+    
+    float picker_width = ScreenWidth;
+    region_picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0,40,picker_width,210)];
+    region_picker.delegate = self;
+    region_picker.dataSource = self;
+    region_picker.showsSelectionIndicator = YES;
+    [picker_cover addSubview:toolbar];
+    [picker_cover addSubview:region_picker];
+    
+    [picker_cover showInView:self.view.superview];
+    [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
+    picker_cover.tag = 1;
+    
+}
+
+-(void)closePicker{
+    [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+
+-(void)applyPicker:(id)sender{
+    if ((int)[picker_cover tag]==1) {
+        [self.btn_region.titleLabel setText:[NSString stringWithFormat:@"Страна: %@",[regions_data objectAtIndex:sel_index_region]]];
+    }else{
+        if ((int)[picker_cover tag]==2) {
+            NSDate *myDate = date_picker.date;
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"dd MMMM yyyy"];
+            NSString *prettyVersion = [dateFormat stringFromDate:myDate];
+            [self.btn_birthday setTitle:[NSString stringWithFormat:@"Дата рождения: %@",prettyVersion] forState:UIControlStateNormal];
+        }
+    }
+    [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+
+#pragma mark PickerView DataSource
+
+- (NSInteger)numberOfComponentsInPickerView:
+(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView
+numberOfRowsInComponent:(NSInteger)component
+{
+    return [regions_data count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView
+             titleForRow:(NSInteger)row
+            forComponent:(NSInteger)component
+{
+    return [regions_data objectAtIndex:row];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
+      inComponent:(NSInteger)component{
+    sel_index_region = row;
+    NSLog(@"index = %i text = %@",row,[regions_data objectAtIndex:row]);
+}
+
+
+
+#pragma mark -
+
+
+#pragma mark - UIDatePicker
+
+-(IBAction)showTimePicker:(id)sender{
+    picker_cover = nil;
+    picker_cover = [[UIActionSheet alloc] initWithTitle:nil
+                                               delegate:nil
+                                      cancelButtonTitle:nil
+                                 destructiveButtonTitle:nil
+                                      otherButtonTitles:nil];
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    UIBarButtonItem *button1 = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть" style:UIBarButtonItemStyleDone target:self action:@selector(closePicker)];
+    
+    UIBarButtonItem *button2 = [[UIBarButtonItem alloc] initWithTitle:@"Применить" style:UIBarButtonItemStyleDone target:self action:@selector(applyPicker:)];
+    
+    UIBarButtonItem *flexibleSpaceLeft = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    [items addObject:button1];
+    [items addObject:flexibleSpaceLeft];
+    [items addObject:button2];
+    [toolbar setItems:items animated:NO];
+    
+    float picker_width = ScreenWidth;
+    
+    date_picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,40,picker_width,210)];
+    date_picker.datePickerMode = UIDatePickerModeDate;
+    //[date_picker addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventValueChanged];
+    
+    
+    [picker_cover addSubview:toolbar];
+    [picker_cover addSubview:date_picker];
+    
+    [picker_cover showInView:self.view.superview];
+    [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
+    picker_cover.tag = 2;
+}
+
+
+#pragma mark -
+
+
 
 
 
