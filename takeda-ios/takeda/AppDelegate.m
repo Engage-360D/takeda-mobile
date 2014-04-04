@@ -42,6 +42,30 @@ WelcomePage *welcomePage;
 
 
 
+-(void)setRootViewController:(UIViewController*)vc{
+    self.window.rootViewController = vc;
+    if (vc) {
+        [UIView
+         transitionWithView:self.window
+         duration:0.5
+         options:UIViewAnimationOptionTransitionCrossDissolve
+         animations:^(void) {
+             BOOL oldState = [UIView areAnimationsEnabled];
+             [UIView setAnimationsEnabled:NO];
+             self.window.rootViewController = vc;
+             [UIView setAnimationsEnabled:oldState];
+         } 
+         completion:nil];
+    }
+}
+
+
+
+
+
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

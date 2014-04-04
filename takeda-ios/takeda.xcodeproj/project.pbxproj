@@ -15,6 +15,8 @@
 		8DA6521718EE9B0C002A04D1 /* fb_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DA6521118EE9B0C002A04D1 /* fb_logo.png */; };
 		B21466F718EA04A0001D77CF /* ForgetPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B21466F518EA04A0001D77CF /* ForgetPage.m */; };
 		B21466F818EA04A0001D77CF /* ForgetPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21466F618EA04A0001D77CF /* ForgetPage.xib */; };
+		B2B0341B18EF264500E3370E /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B0341A18EF264500E3370E /* UserData.m */; };
+		B2B0342118EF29CD00E3370E /* inetRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B0342018EF29CD00E3370E /* inetRequests.m */; };
 		B2B5A83818EE029B00299CAF /* welcome_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B5A83618EE029B00299CAF /* welcome_logo.png */; };
 		B2B5A83918EE029B00299CAF /* welcome_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B5A83718EE029B00299CAF /* welcome_logo@2x.png */; };
 		B2B5A83C18EE039000299CAF /* left_white_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B5A83A18EE039000299CAF /* left_white_arrow.png */; };
@@ -103,6 +105,10 @@
 		B21466F418EA04A0001D77CF /* ForgetPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPage.h; sourceTree = "<group>"; };
 		B21466F518EA04A0001D77CF /* ForgetPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPage.m; sourceTree = "<group>"; };
 		B21466F618EA04A0001D77CF /* ForgetPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetPage.xib; sourceTree = "<group>"; };
+		B2B0341918EF264500E3370E /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		B2B0341A18EF264500E3370E /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
+		B2B0341F18EF29CD00E3370E /* inetRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inetRequests.h; sourceTree = "<group>"; };
+		B2B0342018EF29CD00E3370E /* inetRequests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = inetRequests.m; sourceTree = "<group>"; };
 		B2B5A83618EE029B00299CAF /* welcome_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome_logo.png; sourceTree = "<group>"; };
 		B2B5A83718EE029B00299CAF /* welcome_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome_logo@2x.png"; sourceTree = "<group>"; };
 		B2B5A83A18EE039000299CAF /* left_white_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_white_arrow.png; sourceTree = "<group>"; };
@@ -555,6 +561,10 @@
 				B2D74D1B18E4D79C00B31E16 /* GlobalSettings.m */,
 				B2D95DEB18E4DCAB002D090B /* rootMenuController.h */,
 				B2D95DEC18E4DCAB002D090B /* rootMenuController.m */,
+				B2B0341918EF264500E3370E /* UserData.h */,
+				B2B0341A18EF264500E3370E /* UserData.m */,
+				B2B0341F18EF29CD00E3370E /* inetRequests.h */,
+				B2B0342018EF29CD00E3370E /* inetRequests.m */,
 			);
 			name = "Global Data";
 			sourceTree = "<group>";
@@ -683,6 +693,7 @@
 				B2D74D1218E4D6C100B31E16 /* PublicationPage.m in Sources */,
 				B2D74D1718E4D6D800B31E16 /* ReportsPage.m in Sources */,
 				B2D74CDB18E4D30600B31E16 /* RegistrationPage.m in Sources */,
+				B2B0341B18EF264500E3370E /* UserData.m in Sources */,
 				B2D74CE718E4D40E00B31E16 /* menu_cell.m in Sources */,
 				B2B9C44718EB6DDC0066F146 /* AnalizDataUserPage.m in Sources */,
 				B2D74CF418E4D64600B31E16 /* RiskAnalysisPage.m in Sources */,
@@ -700,6 +711,7 @@
 				B2D74CD118E4D2CF00B31E16 /* WelcomePage.m in Sources */,
 				B2B8BE0218E20CA400F52B52 /* main.m in Sources */,
 				B2D74CCA18E4C78500B31E16 /* NVSlideMenuController.m in Sources */,
+				B2B0342118EF29CD00E3370E /* inetRequests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

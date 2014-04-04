@@ -10,4 +10,9 @@
 
 @interface Helper : NSObject
 +(float)heightText:(NSString*)text withFont:(UIFont*)font withWidth:(float)width;
++(void)fastAlert:(NSString*)text;
+@end
+
+@interface NSDictionary (Helper)
+- (BOOL)hasKey:(NSString*)key;
 @end

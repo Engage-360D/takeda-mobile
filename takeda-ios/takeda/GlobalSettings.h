@@ -4,6 +4,10 @@
 
 #import <Foundation/Foundation.h>
 
+#define client_id @"3_5nsdsmqy3dc80gkk48s0g0ow8o44soc0o44cwkgsc8wgckss8"
+#define client_secret @"20i8s224eqjo4804g8c0448co8g88o8occkkksgww4ksw4ksgs"
+#define api_url @"http://46.182.24.175"
+
 
 enum {
     State_Risk_Analysis = 1,

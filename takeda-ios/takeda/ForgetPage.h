@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PLTextField.h"
+
 
 @interface ForgetPage : UIViewController
-
+@property (nonatomic,retain) IBOutlet UIButton *btn_send;
+@property (nonatomic,retain) IBOutlet UIView *bg_block;
+@property (nonatomic,retain) IBOutlet PLTextField *email_field;
 @end

@@ -27,7 +27,7 @@
 @synthesize forget_btn;
 @synthesize registration_btn;
 @synthesize description_text;
-
+@synthesize nav_bar;
 
 
 RegistrationPage *registrationPage;
@@ -46,11 +46,11 @@ ForgetPage *forgetPage;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"";
+    
     
     [self setNavImage];
     [self setNavigationPanel];
-    self.navigationItem.leftBarButtonItem = nil;
+    //self.navigationItem.leftBarButtonItem = nil;
     
     for (UIView *view in self.bg_block) {
         CALayer *TopBorder = [CALayer layer];
@@ -70,25 +70,31 @@ ForgetPage *forgetPage;
     self.forget_btn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14.0];
     self.email_field.placeholderColor = RGB(53, 65, 71);
     self.email_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    self.email_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    
     self.pass_field.placeholderColor = RGB(53, 65, 71);
     self.pass_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    self.pass_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
     
 }
 
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationItem setHidesBackButton:YES];
-    [self.navigationController setNavigationBarHidden:NO];
+    //[self.navigationItem setHidesBackButton:YES];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 
 
 -(IBAction)openGeneralApp:(id)sender{
     UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
-    [vc.navigationController setNavigationBarHidden:YES];
+    [vc.navigationController setNavigationBarHidden:NO];
+    [ApplicationDelegate setRootViewController:vc];
+    
+    /*[vc.navigationController setNavigationBarHidden:YES];
     [self.navigationController setNavigationBarHidden:YES];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];*/
 }
 
 
@@ -97,6 +103,7 @@ ForgetPage *forgetPage;
     if (!registrationPage) {
         registrationPage = [[RegistrationPage alloc] initWithNibName:@"RegistrationPage" bundle:nil];
         registrationPage.navigationItem.leftBarButtonItem = nil;
+
     }
     [self.navigationController pushViewController:registrationPage animated:YES];
 }
@@ -122,6 +129,10 @@ ForgetPage *forgetPage;
     UIImageView *img_logo = [[UIImageView alloc] initWithFrame:CGRectMake(40, 8, logoImage.size.width, logoImage.size.height)];
     img_logo.image = logoImage;
     self.navigationItem.titleView = img_logo;
+    
+    UIButton *back_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIBarButtonItem *back_item = [[UIBarButtonItem alloc] initWithCustomView:back_btn];
+    self.navigationItem.leftBarButtonItem = back_item;
 }
 
 
@@ -134,6 +145,26 @@ ForgetPage *forgetPage;
     return YES;
 }
 #pragma mark -
+
+
+
+
+-(IBAction)authUser:(id)sender{
+    [inetRequests authUserWithLogin:@"admin" password:@"password" completion:^(BOOL result, NSError *error) {
+        if (result) {
+            [inetRequests getUserDataWithCompletion:^(BOOL result, NSError *error) {
+                if (result) {
+                    NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
+                    [self openGeneralApp:self];
+                }else{
+                    [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
+                }
+            }];
+        }else{
+            [Helper fastAlert:@"Ошибка авторизации"];
+        }
+    }];
+}
 
 
 @end

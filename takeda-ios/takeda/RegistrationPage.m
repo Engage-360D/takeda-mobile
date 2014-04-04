@@ -94,10 +94,15 @@ int sel_index_region = 0;
     
     self.email_field.placeholderColor = RGB(53, 65, 71);
     self.email_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    self.email_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    
     self.pass_field.placeholderColor = RGB(53, 65, 71);
     self.pass_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    self.pass_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    
     self.name_field.placeholderColor = RGB(53, 65, 71);
     self.name_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    self.name_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
     
 }
 
@@ -105,7 +110,6 @@ int sel_index_region = 0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"";
     [self setNavImage];
     [self setNavigationPanel];
     [self setFieldsSettings];
@@ -126,9 +130,7 @@ int sel_index_region = 0;
 }
 
 
--(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
 
 
 
@@ -163,6 +165,10 @@ int sel_index_region = 0;
     self.navigationItem.titleView = img_logo;
 }
 
+
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark -
 
 
@@ -318,8 +324,8 @@ numberOfRowsInComponent:(NSInteger)component
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
       inComponent:(NSInteger)component{
-    sel_index_region = row;
-    NSLog(@"index = %i text = %@",row,[regions_data objectAtIndex:row]);
+    sel_index_region = (int)row;
+    NSLog(@"index = %i text = %@",sel_index_region,[regions_data objectAtIndex:row]);
 }
 
 

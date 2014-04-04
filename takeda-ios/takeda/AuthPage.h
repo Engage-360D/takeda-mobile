@@ -20,4 +20,7 @@
 @property (nonatomic,retain) IBOutlet UIButton *registration_btn;
 
 @property (nonatomic,retain) IBOutlet UILabel *description_text;
+
+@property (nonatomic,retain) IBOutlet UINavigationBar *nav_bar;
+
 @end
