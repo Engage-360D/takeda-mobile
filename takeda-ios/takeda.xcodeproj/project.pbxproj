@@ -15,6 +15,30 @@
 		8DA6521718EE9B0C002A04D1 /* fb_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DA6521118EE9B0C002A04D1 /* fb_logo.png */; };
 		B21466F718EA04A0001D77CF /* ForgetPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B21466F518EA04A0001D77CF /* ForgetPage.m */; };
 		B21466F818EA04A0001D77CF /* ForgetPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21466F618EA04A0001D77CF /* ForgetPage.xib */; };
+		B2AE3A4C18F0082600B7A75E /* NSTypeExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3A4B18F0082600B7A75E /* NSTypeExtended.m */; };
+		B2AE3A4E18F011FC00B7A75E /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2AE3A4D18F011FC00B7A75E /* FacebookSDK.framework */; };
+		B2AE3AED18F0240200B7A75E /* NSString+Gender.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AE818F0240200B7A75E /* NSString+Gender.m */; };
+		B2AE3AEE18F0240200B7A75E /* Vkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AEA18F0240200B7A75E /* Vkontakte.m */; };
+		B2AE3AEF18F0240200B7A75E /* VkontakteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AEC18F0240200B7A75E /* VkontakteViewController.m */; };
+		B2AE3B0018F0300F00B7A75E /* OKFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AF318F0300F00B7A75E /* OKFriends.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B2AE3B0118F0300F00B7A75E /* Odnoklassniki.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AF518F0300F00B7A75E /* Odnoklassniki.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B2AE3B0218F0300F00B7A75E /* OKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AF718F0300F00B7A75E /* OKRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B2AE3B0318F0300F00B7A75E /* OKRequestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AF918F0300F00B7A75E /* OKRequestConnection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B2AE3B0418F0300F00B7A75E /* OKSession.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AFB18F0300F00B7A75E /* OKSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B2AE3B0518F0300F00B7A75E /* OKTokenCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AFD18F0300F00B7A75E /* OKTokenCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B2AE3B0618F0300F00B7A75E /* OKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3AFF18F0300F00B7A75E /* OKUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B2AE3B2118F031B200B7A75E /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B0918F031B200B7A75E /* NSObject+SBJson.m */; };
+		B2AE3B2218F031B200B7A75E /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B0C18F031B200B7A75E /* SBJsonParser.m */; };
+		B2AE3B2318F031B200B7A75E /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B0E18F031B200B7A75E /* SBJsonStreamParser.m */; };
+		B2AE3B2418F031B200B7A75E /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B1018F031B200B7A75E /* SBJsonStreamParserAccumulator.m */; };
+		B2AE3B2518F031B200B7A75E /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B1218F031B200B7A75E /* SBJsonStreamParserAdapter.m */; };
+		B2AE3B2618F031B200B7A75E /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B1418F031B200B7A75E /* SBJsonStreamParserState.m */; };
+		B2AE3B2718F031B200B7A75E /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B1618F031B200B7A75E /* SBJsonStreamWriter.m */; };
+		B2AE3B2818F031B200B7A75E /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B1818F031B200B7A75E /* SBJsonStreamWriterAccumulator.m */; };
+		B2AE3B2918F031B200B7A75E /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B1A18F031B200B7A75E /* SBJsonStreamWriterState.m */; };
+		B2AE3B2A18F031B200B7A75E /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B1C18F031B200B7A75E /* SBJsonTokeniser.m */; };
+		B2AE3B2B18F031B200B7A75E /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B1E18F031B200B7A75E /* SBJsonUTF8Stream.m */; };
+		B2AE3B2C18F031B200B7A75E /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AE3B2018F031B200B7A75E /* SBJsonWriter.m */; };
 		B2B0341B18EF264500E3370E /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B0341A18EF264500E3370E /* UserData.m */; };
 		B2B0342118EF29CD00E3370E /* inetRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B0342018EF29CD00E3370E /* inetRequests.m */; };
 		B2B5A83818EE029B00299CAF /* welcome_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B5A83618EE029B00299CAF /* welcome_logo.png */; };
@@ -24,6 +48,8 @@
 		B2B5A83F18EE0A9800299CAF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B5A83E18EE0A9800299CAF /* QuartzCore.framework */; };
 		B2B5A84318EE12D200299CAF /* PLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B5A84218EE12D200299CAF /* PLTextField.m */; };
 		B2B5A84518EE172200299CAF /* SegoeWP.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2B5A84418EE172200299CAF /* SegoeWP.ttf */; };
+		B2B76EA318F15EC20086B004 /* analizData.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B76EA218F15EC20086B004 /* analizData.m */; };
+		B2B76EA718F197660086B004 /* buttonWithID.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B76EA618F197660086B004 /* buttonWithID.m */; };
 		B2B8BDF618E20CA400F52B52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B8BDF518E20CA400F52B52 /* Foundation.framework */; };
 		B2B8BDF818E20CA400F52B52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B8BDF718E20CA400F52B52 /* CoreGraphics.framework */; };
 		B2B8BDFA18E20CA400F52B52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2B8BDF918E20CA400F52B52 /* UIKit.framework */; };
@@ -105,6 +131,54 @@
 		B21466F418EA04A0001D77CF /* ForgetPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPage.h; sourceTree = "<group>"; };
 		B21466F518EA04A0001D77CF /* ForgetPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPage.m; sourceTree = "<group>"; };
 		B21466F618EA04A0001D77CF /* ForgetPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetPage.xib; sourceTree = "<group>"; };
+		B2AE3A4A18F0082600B7A75E /* NSTypeExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTypeExtended.h; sourceTree = "<group>"; };
+		B2AE3A4B18F0082600B7A75E /* NSTypeExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTypeExtended.m; sourceTree = "<group>"; };
+		B2AE3A4D18F011FC00B7A75E /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
+		B2AE3AE718F0240200B7A75E /* NSString+Gender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Gender.h"; sourceTree = "<group>"; };
+		B2AE3AE818F0240200B7A75E /* NSString+Gender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Gender.m"; sourceTree = "<group>"; };
+		B2AE3AE918F0240200B7A75E /* Vkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vkontakte.h; sourceTree = "<group>"; };
+		B2AE3AEA18F0240200B7A75E /* Vkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vkontakte.m; sourceTree = "<group>"; };
+		B2AE3AEB18F0240200B7A75E /* VkontakteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VkontakteViewController.h; sourceTree = "<group>"; };
+		B2AE3AEC18F0240200B7A75E /* VkontakteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VkontakteViewController.m; sourceTree = "<group>"; };
+		B2AE3AF218F0300F00B7A75E /* OKFriends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKFriends.h; sourceTree = "<group>"; };
+		B2AE3AF318F0300F00B7A75E /* OKFriends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKFriends.m; sourceTree = "<group>"; };
+		B2AE3AF418F0300F00B7A75E /* Odnoklassniki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Odnoklassniki.h; sourceTree = "<group>"; };
+		B2AE3AF518F0300F00B7A75E /* Odnoklassniki.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Odnoklassniki.m; sourceTree = "<group>"; };
+		B2AE3AF618F0300F00B7A75E /* OKRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKRequest.h; sourceTree = "<group>"; };
+		B2AE3AF718F0300F00B7A75E /* OKRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKRequest.m; sourceTree = "<group>"; };
+		B2AE3AF818F0300F00B7A75E /* OKRequestConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKRequestConnection.h; sourceTree = "<group>"; };
+		B2AE3AF918F0300F00B7A75E /* OKRequestConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKRequestConnection.m; sourceTree = "<group>"; };
+		B2AE3AFA18F0300F00B7A75E /* OKSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKSession.h; sourceTree = "<group>"; };
+		B2AE3AFB18F0300F00B7A75E /* OKSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKSession.m; sourceTree = "<group>"; };
+		B2AE3AFC18F0300F00B7A75E /* OKTokenCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKTokenCache.h; sourceTree = "<group>"; };
+		B2AE3AFD18F0300F00B7A75E /* OKTokenCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKTokenCache.m; sourceTree = "<group>"; };
+		B2AE3AFE18F0300F00B7A75E /* OKUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKUtils.h; sourceTree = "<group>"; };
+		B2AE3AFF18F0300F00B7A75E /* OKUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKUtils.m; sourceTree = "<group>"; };
+		B2AE3B0818F031B200B7A75E /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
+		B2AE3B0918F031B200B7A75E /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
+		B2AE3B0A18F031B200B7A75E /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
+		B2AE3B0B18F031B200B7A75E /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		B2AE3B0C18F031B200B7A75E /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		B2AE3B0D18F031B200B7A75E /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		B2AE3B0E18F031B200B7A75E /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		B2AE3B0F18F031B200B7A75E /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		B2AE3B1018F031B200B7A75E /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
+		B2AE3B1118F031B200B7A75E /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		B2AE3B1218F031B200B7A75E /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		B2AE3B1318F031B200B7A75E /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		B2AE3B1418F031B200B7A75E /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		B2AE3B1518F031B200B7A75E /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		B2AE3B1618F031B200B7A75E /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		B2AE3B1718F031B200B7A75E /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		B2AE3B1818F031B200B7A75E /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
+		B2AE3B1918F031B200B7A75E /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		B2AE3B1A18F031B200B7A75E /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		B2AE3B1B18F031B200B7A75E /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
+		B2AE3B1C18F031B200B7A75E /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
+		B2AE3B1D18F031B200B7A75E /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonUTF8Stream.h; sourceTree = "<group>"; };
+		B2AE3B1E18F031B200B7A75E /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
+		B2AE3B1F18F031B200B7A75E /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		B2AE3B2018F031B200B7A75E /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		B2B0341918EF264500E3370E /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
 		B2B0341A18EF264500E3370E /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		B2B0341F18EF29CD00E3370E /* inetRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inetRequests.h; sourceTree = "<group>"; };
@@ -117,6 +191,10 @@
 		B2B5A84118EE12D200299CAF /* PLTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTextField.h; sourceTree = "<group>"; };
 		B2B5A84218EE12D200299CAF /* PLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTextField.m; sourceTree = "<group>"; };
 		B2B5A84418EE172200299CAF /* SegoeWP.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SegoeWP.ttf; sourceTree = "<group>"; };
+		B2B76EA118F15EC20086B004 /* analizData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analizData.h; sourceTree = "<group>"; };
+		B2B76EA218F15EC20086B004 /* analizData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = analizData.m; sourceTree = "<group>"; };
+		B2B76EA518F197660086B004 /* buttonWithID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buttonWithID.h; sourceTree = "<group>"; };
+		B2B76EA618F197660086B004 /* buttonWithID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = buttonWithID.m; sourceTree = "<group>"; };
 		B2B8BDF218E20CA400F52B52 /* takeda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = takeda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2B8BDF518E20CA400F52B52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B2B8BDF718E20CA400F52B52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -220,6 +298,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2AE3A4E18F011FC00B7A75E /* FacebookSDK.framework in Frameworks */,
 				B2B5A83F18EE0A9800299CAF /* QuartzCore.framework in Frameworks */,
 				B2B8BDF818E20CA400F52B52 /* CoreGraphics.framework in Frameworks */,
 				B2B8BDFA18E20CA400F52B52 /* UIKit.framework in Frameworks */,
@@ -230,6 +309,83 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B2AE3AE618F0240200B7A75E /* VK */ = {
+			isa = PBXGroup;
+			children = (
+				B2AE3AE718F0240200B7A75E /* NSString+Gender.h */,
+				B2AE3AE818F0240200B7A75E /* NSString+Gender.m */,
+				B2AE3AE918F0240200B7A75E /* Vkontakte.h */,
+				B2AE3AEA18F0240200B7A75E /* Vkontakte.m */,
+				B2AE3AEB18F0240200B7A75E /* VkontakteViewController.h */,
+				B2AE3AEC18F0240200B7A75E /* VkontakteViewController.m */,
+			);
+			name = VK;
+			path = frameworks/VK;
+			sourceTree = "<group>";
+		};
+		B2AE3AF018F0300F00B7A75E /* Odnoklassniki SDK */ = {
+			isa = PBXGroup;
+			children = (
+				B2AE3AF118F0300F00B7A75E /* Friends */,
+				B2AE3AF418F0300F00B7A75E /* Odnoklassniki.h */,
+				B2AE3AF518F0300F00B7A75E /* Odnoklassniki.m */,
+				B2AE3AF618F0300F00B7A75E /* OKRequest.h */,
+				B2AE3AF718F0300F00B7A75E /* OKRequest.m */,
+				B2AE3AF818F0300F00B7A75E /* OKRequestConnection.h */,
+				B2AE3AF918F0300F00B7A75E /* OKRequestConnection.m */,
+				B2AE3AFA18F0300F00B7A75E /* OKSession.h */,
+				B2AE3AFB18F0300F00B7A75E /* OKSession.m */,
+				B2AE3AFC18F0300F00B7A75E /* OKTokenCache.h */,
+				B2AE3AFD18F0300F00B7A75E /* OKTokenCache.m */,
+				B2AE3AFE18F0300F00B7A75E /* OKUtils.h */,
+				B2AE3AFF18F0300F00B7A75E /* OKUtils.m */,
+			);
+			name = "Odnoklassniki SDK";
+			path = "frameworks/Odnoklassniki SDK";
+			sourceTree = "<group>";
+		};
+		B2AE3AF118F0300F00B7A75E /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				B2AE3AF218F0300F00B7A75E /* OKFriends.h */,
+				B2AE3AF318F0300F00B7A75E /* OKFriends.m */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
+		B2AE3B0718F031B200B7A75E /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				B2AE3B0818F031B200B7A75E /* NSObject+SBJson.h */,
+				B2AE3B0918F031B200B7A75E /* NSObject+SBJson.m */,
+				B2AE3B0A18F031B200B7A75E /* SBJson.h */,
+				B2AE3B0B18F031B200B7A75E /* SBJsonParser.h */,
+				B2AE3B0C18F031B200B7A75E /* SBJsonParser.m */,
+				B2AE3B0D18F031B200B7A75E /* SBJsonStreamParser.h */,
+				B2AE3B0E18F031B200B7A75E /* SBJsonStreamParser.m */,
+				B2AE3B0F18F031B200B7A75E /* SBJsonStreamParserAccumulator.h */,
+				B2AE3B1018F031B200B7A75E /* SBJsonStreamParserAccumulator.m */,
+				B2AE3B1118F031B200B7A75E /* SBJsonStreamParserAdapter.h */,
+				B2AE3B1218F031B200B7A75E /* SBJsonStreamParserAdapter.m */,
+				B2AE3B1318F031B200B7A75E /* SBJsonStreamParserState.h */,
+				B2AE3B1418F031B200B7A75E /* SBJsonStreamParserState.m */,
+				B2AE3B1518F031B200B7A75E /* SBJsonStreamWriter.h */,
+				B2AE3B1618F031B200B7A75E /* SBJsonStreamWriter.m */,
+				B2AE3B1718F031B200B7A75E /* SBJsonStreamWriterAccumulator.h */,
+				B2AE3B1818F031B200B7A75E /* SBJsonStreamWriterAccumulator.m */,
+				B2AE3B1918F031B200B7A75E /* SBJsonStreamWriterState.h */,
+				B2AE3B1A18F031B200B7A75E /* SBJsonStreamWriterState.m */,
+				B2AE3B1B18F031B200B7A75E /* SBJsonTokeniser.h */,
+				B2AE3B1C18F031B200B7A75E /* SBJsonTokeniser.m */,
+				B2AE3B1D18F031B200B7A75E /* SBJsonUTF8Stream.h */,
+				B2AE3B1E18F031B200B7A75E /* SBJsonUTF8Stream.m */,
+				B2AE3B1F18F031B200B7A75E /* SBJsonWriter.h */,
+				B2AE3B2018F031B200B7A75E /* SBJsonWriter.m */,
+			);
+			name = JSON;
+			path = frameworks/JSON;
+			sourceTree = "<group>";
+		};
 		B2B5A84018EE12C100299CAF /* CustomPlaceHolder */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +393,15 @@
 				B2B5A84218EE12D200299CAF /* PLTextField.m */,
 			);
 			name = CustomPlaceHolder;
+			sourceTree = "<group>";
+		};
+		B2B76EA418F197370086B004 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				B2B76EA518F197660086B004 /* buttonWithID.h */,
+				B2B76EA618F197660086B004 /* buttonWithID.m */,
+			);
+			name = Button;
 			sourceTree = "<group>";
 		};
 		B2B8BDE918E20CA400F52B52 = {
@@ -259,6 +424,10 @@
 		B2B8BDF418E20CA400F52B52 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B2AE3B0718F031B200B7A75E /* JSON */,
+				B2AE3AF018F0300F00B7A75E /* Odnoklassniki SDK */,
+				B2AE3AE618F0240200B7A75E /* VK */,
+				B2AE3A4D18F011FC00B7A75E /* FacebookSDK.framework */,
 				B2B5A83E18EE0A9800299CAF /* QuartzCore.framework */,
 				B2B8BDF518E20CA400F52B52 /* Foundation.framework */,
 				B2B8BDF718E20CA400F52B52 /* CoreGraphics.framework */,
@@ -355,6 +524,8 @@
 		B2BAA9EC18ECBC510079D305 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				B2AE3A4A18F0082600B7A75E /* NSTypeExtended.h */,
+				B2AE3A4B18F0082600B7A75E /* NSTypeExtended.m */,
 				B2BAA9ED18ECBC670079D305 /* Helper.h */,
 				B2BAA9EE18ECBC670079D305 /* Helper.m */,
 			);
@@ -400,6 +571,7 @@
 		B2D74CC618E4C6F300B31E16 /* Expand */ = {
 			isa = PBXGroup;
 			children = (
+				B2B76EA418F197370086B004 /* Button */,
 				B2B5A84018EE12C100299CAF /* CustomPlaceHolder */,
 				B2BAA9EC18ECBC510079D305 /* Helper */,
 				B2D74D1918E4D78400B31E16 /* Global Data */,
@@ -565,6 +737,8 @@
 				B2B0341A18EF264500E3370E /* UserData.m */,
 				B2B0341F18EF29CD00E3370E /* inetRequests.h */,
 				B2B0342018EF29CD00E3370E /* inetRequests.m */,
+				B2B76EA118F15EC20086B004 /* analizData.h */,
+				B2B76EA218F15EC20086B004 /* analizData.m */,
 			);
 			name = "Global Data";
 			sourceTree = "<group>";
@@ -688,30 +862,55 @@
 				B2D74CD618E4D2EC00B31E16 /* AuthPage.m in Sources */,
 				B2D74D0D18E4D6AE00B31E16 /* UsefulKnowPage.m in Sources */,
 				B2D95DED18E4DCAB002D090B /* rootMenuController.m in Sources */,
+				B2AE3B0618F0300F00B7A75E /* OKUtils.m in Sources */,
+				B2B76EA318F15EC20086B004 /* analizData.m in Sources */,
+				B2AE3AEF18F0240200B7A75E /* VkontakteViewController.m in Sources */,
 				B2B5A84318EE12D200299CAF /* PLTextField.m in Sources */,
 				B2D74CF918E4D65B00B31E16 /* SearchInstitutionPage.m in Sources */,
+				B2AE3AEE18F0240200B7A75E /* Vkontakte.m in Sources */,
 				B2D74D1218E4D6C100B31E16 /* PublicationPage.m in Sources */,
 				B2D74D1718E4D6D800B31E16 /* ReportsPage.m in Sources */,
+				B2AE3AED18F0240200B7A75E /* NSString+Gender.m in Sources */,
 				B2D74CDB18E4D30600B31E16 /* RegistrationPage.m in Sources */,
+				B2AE3B0018F0300F00B7A75E /* OKFriends.m in Sources */,
+				B2AE3B2218F031B200B7A75E /* SBJsonParser.m in Sources */,
+				B2AE3B0418F0300F00B7A75E /* OKSession.m in Sources */,
 				B2B0341B18EF264500E3370E /* UserData.m in Sources */,
+				B2AE3B2918F031B200B7A75E /* SBJsonStreamWriterState.m in Sources */,
 				B2D74CE718E4D40E00B31E16 /* menu_cell.m in Sources */,
+				B2AE3B2B18F031B200B7A75E /* SBJsonUTF8Stream.m in Sources */,
 				B2B9C44718EB6DDC0066F146 /* AnalizDataUserPage.m in Sources */,
+				B2AE3B0318F0300F00B7A75E /* OKRequestConnection.m in Sources */,
+				B2AE3B2C18F031B200B7A75E /* SBJsonWriter.m in Sources */,
 				B2D74CF418E4D64600B31E16 /* RiskAnalysisPage.m in Sources */,
 				B2B9C46A18EB7AD40066F146 /* analizEasyCell.m in Sources */,
 				B2BAA9E718ECAD8C0079D305 /* analizeCheckCell.m in Sources */,
 				B2B8BE0618E20CA400F52B52 /* AppDelegate.m in Sources */,
+				B2AE3A4C18F0082600B7A75E /* NSTypeExtended.m in Sources */,
 				B2D74D0818E4D69900B31E16 /* CalendarPage.m in Sources */,
 				B21466F718EA04A0001D77CF /* ForgetPage.m in Sources */,
+				B2B76EA718F197660086B004 /* buttonWithID.m in Sources */,
+				B2AE3B2418F031B200B7A75E /* SBJsonStreamParserAccumulator.m in Sources */,
 				B2D74CFE18E4D66D00B31E16 /* RecomendationPage.m in Sources */,
+				B2AE3B2718F031B200B7A75E /* SBJsonStreamWriter.m in Sources */,
+				B2AE3B0218F0300F00B7A75E /* OKRequest.m in Sources */,
 				B2D74D0318E4D68200B31E16 /* AnalisisResultPage.m in Sources */,
+				B2AE3B0518F0300F00B7A75E /* OKTokenCache.m in Sources */,
 				B2B9C46518EB78F70066F146 /* analizRadioCell.m in Sources */,
+				B2AE3B0118F0300F00B7A75E /* Odnoklassniki.m in Sources */,
+				B2AE3B2618F031B200B7A75E /* SBJsonStreamParserState.m in Sources */,
+				B2AE3B2118F031B200B7A75E /* NSObject+SBJson.m in Sources */,
+				B2AE3B2318F031B200B7A75E /* SBJsonStreamParser.m in Sources */,
 				B2D74D1C18E4D79C00B31E16 /* GlobalSettings.m in Sources */,
+				B2AE3B2818F031B200B7A75E /* SBJsonStreamWriterAccumulator.m in Sources */,
+				B2AE3B2518F031B200B7A75E /* SBJsonStreamParserAdapter.m in Sources */,
 				B2BAA9EF18ECBC670079D305 /* Helper.m in Sources */,
 				B2D74CE118E4D33000B31E16 /* LeftMenu.m in Sources */,
 				B2D74CD118E4D2CF00B31E16 /* WelcomePage.m in Sources */,
 				B2B8BE0218E20CA400F52B52 /* main.m in Sources */,
 				B2D74CCA18E4C78500B31E16 /* NVSlideMenuController.m in Sources */,
 				B2B0342118EF29CD00E3370E /* inetRequests.m in Sources */,
+				B2AE3B2A18F031B200B7A75E /* SBJsonTokeniser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,10 +1003,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "takeda/takeda-Prefix.pch";
 				INFOPLIST_FILE = "takeda/takeda-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -819,10 +1023,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "takeda/takeda-Prefix.pch";
 				INFOPLIST_FILE = "takeda/takeda-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

@@ -150,20 +150,30 @@ ForgetPage *forgetPage;
 
 
 -(IBAction)authUser:(id)sender{
-    [inetRequests authUserWithLogin:@"admin" password:@"password" completion:^(BOOL result, NSError *error) {
-        if (result) {
-            [inetRequests getUserDataWithCompletion:^(BOOL result, NSError *error) {
-                if (result) {
-                    NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
-                    [self openGeneralApp:self];
-                }else{
-                    [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
-                }
-            }];
-        }else{
-            [Helper fastAlert:@"Ошибка авторизации"];
-        }
-    }];
+    
+    [self openGeneralApp:self];
+    return;
+    
+    if ([self.email_field.text length]>0 && [self.pass_field.text length]>0) {
+        [inetRequests authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
+            if (result) {
+                [inetRequests getUserDataWithCompletion:^(BOOL result, NSError *error) {
+                    if (result) {
+                        NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
+                        [self openGeneralApp:self];
+                    }else{
+                        [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
+                    }
+                }];
+            }else{
+                [Helper fastAlert:@"Ошибка авторизации"];
+            }
+        }];
+    }
+    
+    
+    
+
 }
 
 

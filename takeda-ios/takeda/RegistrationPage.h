@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PLTextField.h"
+#import "Vkontakte.h"
+#import "Odnoklassniki.h"
 
+@interface RegistrationPage : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource,VkontakteDelegate,OKSessionDelegate, OKRequestDelegate>{
+    Vkontakte *_vkontakte;
+}
 
-@interface RegistrationPage : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,retain) IBOutlet UIButton *btn_register;
 @property (nonatomic,retain) IBOutletCollection(UIView) NSArray *bg_block;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
@@ -36,9 +36,10 @@
                         <color key="textColor" red="0.20784313725490194" green="0.25490196078431371" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1mJ-q8-RiN">
-                        <rect key="frame" x="90" y="6" width="30" height="31"/>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1mJ-q8-RiN" customClass="buttonWithID">
+                        <rect key="frame" x="90" y="6" width="102" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" image="pageIndicator_enable.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -50,9 +51,10 @@
                         <color key="textColor" red="0.20784313725490194" green="0.25490196078431371" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ztl-lM-5w6">
-                        <rect key="frame" x="200" y="5" width="30" height="32"/>
+                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ztl-lM-5w6" customClass="buttonWithID">
+                        <rect key="frame" x="200" y="5" width="100" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" image="pageIndicator_disable.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -61,8 +63,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="bottom_separator" destination="sZU-Sd-9cZ" id="22q-Oh-afN"/>
+                <outlet property="first_item" destination="1mJ-q8-RiN" id="ZnD-Yb-v9k"/>
                 <outlet property="first_param" destination="bVS-Ok-FFx" id="kNO-Eg-Jc8"/>
                 <outlet property="name" destination="INF-Fe-xIR" id="WFN-75-Unu"/>
+                <outlet property="second_item" destination="Ztl-lM-5w6" id="MLx-5T-45G"/>
                 <outlet property="second_param" destination="Pfb-Jh-dPz" id="5mp-Se-LMH"/>
                 <outlet property="top_separator" destination="8GH-Sd-AN4" id="trJ-Kb-hbG"/>
             </connections>

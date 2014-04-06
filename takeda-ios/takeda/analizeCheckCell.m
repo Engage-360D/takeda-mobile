@@ -10,6 +10,7 @@
 
 @implementation analizeCheckCell
 @synthesize name;
+@synthesize selected_item;
 
 - (void)awakeFromNib
 {

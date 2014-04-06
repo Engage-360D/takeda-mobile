@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "WelcomePage.h"
+#import "Odnoklassniki.h"
+
 
 @implementation AppDelegate
 WelcomePage *welcomePage;
@@ -30,6 +32,7 @@ WelcomePage *welcomePage;
 
 
 -(void)showAllFonts{
+    return;
     NSArray *fontFamilies = [UIFont familyNames];
     
     for (int i = 0; i < [fontFamilies count]; i++)
@@ -86,12 +89,35 @@ WelcomePage *welcomePage;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [FBAppEvents activateApp];
+    [FBAppCall handleDidBecomeActive];
+    
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    [FBSession.activeSession close];
+    
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+// FBSample logic
+// In the login workflow, the Facebook native application, or Safari will transition back to
+// this applicaiton via a url following the scheme fb[app id]://; the call to handleOpenURL
+// below captures the token, in the case of success, on behalf of the FBSession object
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication];
+    
+    [OKSession.activeSession handleOpenURL:url];
+    
+    return YES;
+}
+
 
 @end

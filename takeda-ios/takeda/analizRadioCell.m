@@ -12,7 +12,8 @@
 @synthesize name;
 @synthesize first_param;
 @synthesize second_param;
-
+@synthesize first_item;
+@synthesize second_item;
 
 
 

@@ -76,7 +76,7 @@
         
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:60.0];
+                                                           timeoutInterval:20.0];
         
         NSHTTPURLResponse *response=nil;
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
@@ -100,8 +100,68 @@
 }
 
 
++(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error))completion
+{
+    ShowNetworkActivityIndicator();
+    BOOL success = NO;
+    
+    
+    
+    
+    NSError*err = nil;
+    NSError*_e = nil;
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:
+                                       @"%@/api/users.json",
+                                       api_url]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:20.0];
+    
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField: @"Content-Type"];
+    NSMutableData *body = [NSMutableData data];
+    [body appendData:[[params toJSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:body];
+    
+    
+    
+    
+    NSHTTPURLResponse *response=nil;
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+    if (!err) {
+        id resp = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&_e];
+        
+        NSLog(@"%@",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+        
+        
+        if ([resp isKindOfClass:[NSDictionary class] ]) {
+            if ([resp hasKey:@"id"]) {
+                [[UserData sharedObject] setUserData:resp];
+                success = YES;
+            }
+        }else{
+            err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"error": resp}];
+        }
+    }else{
+        NSLog(@"error connection %@",err);
+    }
+    
+    
+    
+    
+    
+    HideNetworkActivityIndicator();
+    if (completion) {
+        completion(success, err);
+    }
+    
+    
 
-
+    
+    
+}
 
 
 

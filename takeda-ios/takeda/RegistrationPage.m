@@ -17,7 +17,8 @@
     UIPickerView *region_picker;
     UIDatePicker *date_picker;
 }
-
+@property (strong, nonatomic) FBRequestConnection *requestConnection;
+@property(nonatomic, retain) Odnoklassniki *odnoklasniki_api;
 @end
 
 @implementation RegistrationPage{
@@ -46,8 +47,10 @@
 
 int sel_index_region = 0;
 
-
-
+#warning SET OK keys !!!
+static NSString * Odnkl_appID = @"181911552";
+static NSString * Odnkl_appSecret = @"D8B73BB1C3297CC1C6358650";
+static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -110,6 +113,9 @@ int sel_index_region = 0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    
+    
     [self setNavImage];
     [self setNavigationPanel];
     [self setFieldsSettings];
@@ -129,6 +135,62 @@ int sel_index_region = 0;
     [self updateFields];
 }
 
+
+
+-(BOOL)checkFields{
+    return YES;
+}
+
+
+
+
+-(IBAction)registerUser:(id)sender{
+
+    if ([self checkFields]) {
+        
+        NSString *name = self.name_field.text;
+        NSString *email = self.email_field.text;
+        NSString *password = self.email_field.text;
+        
+        
+        
+        NSDictionary *params = @{@"username": @"test100",
+                                 @"email": email,
+                                 @"firstname": name,
+                                 @"lastname": @"test",
+                                 @"plainPassword": @{@"first": password,
+                                                     @"second":password}
+                                 };
+        
+        
+        [inetRequests registrationUserWithData:params completion:^(BOOL result, NSError *error) {
+            if (result) {
+                UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
+                [vc.navigationController setNavigationBarHidden:NO];
+                [ApplicationDelegate setRootViewController:vc];
+            }else{
+                NSString *text = @"Ошибка при регистрации";
+                if ([[[error userInfo] allKeys] count]>0) {
+                    id key = [[[error userInfo] allKeys] objectAtIndex:0];
+                    id res = [[error userInfo] objectForKey:key];
+                    
+                    
+                    
+                    if (res) {
+                        if ([res isKindOfClass:[NSArray class]] && [res count]>0) {
+                            text = [res objectAtIndex:0];
+                        }else{
+                            text = res;
+                        }
+                    }
+                    
+                }
+                [Helper fastAlert:text];
+            }
+            
+        }];
+    }
+}
 
 
 
@@ -291,13 +353,18 @@ int sel_index_region = 0;
     }else{
         if ((int)[picker_cover tag]==2) {
             NSDate *myDate = date_picker.date;
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:@"dd MMMM yyyy"];
-            NSString *prettyVersion = [dateFormat stringFromDate:myDate];
-            [self.btn_birthday setTitle:[NSString stringWithFormat:@"Дата рождения: %@",prettyVersion] forState:UIControlStateNormal];
+            [self setDateBirthDay:myDate];
         }
     }
     [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+
+-(void)setDateBirthDay:(NSDate*)myDate{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd MMMM yyyy"];
+    NSString *prettyVersion = [dateFormat stringFromDate:myDate];
+    [self.btn_birthday setTitle:[NSString stringWithFormat:@"Дата рождения: %@",prettyVersion] forState:UIControlStateNormal];
 }
 
 
@@ -376,6 +443,355 @@ numberOfRowsInComponent:(NSInteger)component
 
 #pragma mark -
 
+
+
+#pragma mark - Socil Networks
+
+
+#pragma mark - FACEBOOK
+
+-(IBAction)loginWithFb:(id)sender{
+    ShowNetworkActivityIndicator();
+    if (FBSession.activeSession.isOpen) {
+        // login is integrated with the send button -- so if open, we send
+        [self sendRequests];
+    } else {
+        NSArray *permissions = [[NSArray alloc] initWithObjects:
+                                @"email", @"read_stream", @"user_about_me", @"user_birthday",
+                                nil];
+        [FBSession openActiveSessionWithReadPermissions:permissions
+                                           allowLoginUI:YES
+                                      completionHandler:^(FBSession *session,
+                                                          FBSessionState status,
+                                                          NSError *error) {
+                                          // if login fails for any reason, we alert
+                                          if (error) {
+                                              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                              message:error.localizedDescription
+                                                                                             delegate:nil
+                                                                                    cancelButtonTitle:@"OK"
+                                                                                    otherButtonTitles:nil];
+                                              [alert show];
+                                          } else if (FB_ISSESSIONOPENWITHSTATE(status)) {
+                                              [self sendRequests];
+                                          }
+                                      }];
+    }
+}
+
+
+
+- (void)sendRequests {
+    NSArray *fbids = @[@"me"];
+    FBRequestConnection *newConnection = [[FBRequestConnection alloc] init];
+    for (NSString *fbid in fbids) {
+        FBRequestHandler handler =
+        ^(FBRequestConnection *connection, id result, NSError *error) {
+            // output the results of the request
+            [self requestCompleted:connection forFbID:fbid result:result error:error];
+        };
+        FBRequest *request = [[FBRequest alloc] initWithSession:FBSession.activeSession
+                                                      graphPath:fbid];
+        [newConnection addRequest:request completionHandler:handler];
+    }
+    [self.requestConnection cancel];
+    
+    self.requestConnection = newConnection;
+    [newConnection start];
+}
+
+// Report any results.  Invoked once for each request we make.
+- (void)requestCompleted:(FBRequestConnection *)connection
+                 forFbID:fbID
+                  result:(id)result
+                   error:(NSError *)error {
+    HideNetworkActivityIndicator();
+    // not the completion we were looking for...
+    if (self.requestConnection &&
+        connection != self.requestConnection) {
+        return;
+    }
+    
+    // clean this up, for posterity
+    self.requestConnection = nil;
+    
+    NSString *text;
+    if (error) {
+        text = error.localizedDescription;
+    } else {
+        NSDictionary *dictionary = (NSDictionary *)result;
+        [self setUserDataFromFB:dictionary];
+        text = (NSString *)[dictionary objectForKey:@"name"];
+    }
+    /*
+    NSLog(@"%@",[NSString stringWithFormat:@"%@: %@\r\n",[fbID stringByTrimmingCharactersInSet:
+                [NSCharacterSet whitespaceAndNewlineCharacterSet]],
+               text]);*/
+}
+
+- (void)viewDidUnload {
+    [self.requestConnection cancel];
+    self.requestConnection = nil;
+}
+
+-(void)setUserDataFromFB:(NSDictionary*)userData{
+    if ([userData hasKey:@"name"] ) {
+        if ([[userData objectForKey:@"name"] length]>0) {
+            self.name_field.text = [userData objectForKey:@"name"];
+        }
+    }
+    if ([userData hasKey:@"email"] ) {
+        if ([[userData objectForKey:@"email"] length]>0) {
+            self.email_field.text = [userData objectForKey:@"email"];
+        }
+        
+    }
+    
+    if ([userData hasKey:@"birthday"] ) {
+        if ([[userData objectForKey:@"birthday"] length]>0) {
+            [self setUserDateBirthDay:[userData objectForKey:@"birthday"]];
+        }
+        
+    }
+
+}
+
+
+
+
+
+
+
+
+#pragma mark -
+#pragma mark - VK
+
+- (IBAction)loginWithVK:(id)sender
+{
+    ShowNetworkActivityIndicator();
+    _vkontakte = [Vkontakte sharedInstance];
+    _vkontakte.delegate = self;
+    if (![_vkontakte isAuthorized])
+    {
+        [_vkontakte authenticate];
+    }
+    else
+    {
+        [_vkontakte getUserInfo];
+    }
+}
+
+#pragma mark - VkontakteDelegate
+
+- (void)vkontakteDidFailedWithError:(NSError *)error{
+    HideNetworkActivityIndicator();
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showVkontakteAuthController:(UIViewController *)controller{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        controller.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
+    controller.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)vkontakteAuthControllerDidCancelled{
+    HideNetworkActivityIndicator();
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [_vkontakte getUserInfo];
+}
+
+- (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte{
+    HideNetworkActivityIndicator();
+}
+
+- (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info{
+    HideNetworkActivityIndicator();
+    NSString *name = @"";
+    if ([info hasKey:@"first_name"] ) {
+        if ([[info objectForKey:@"first_name"] length]>0) {
+            name = [NSString stringWithFormat:@"%@",[info objectForKey:@"first_name"]];
+        }
+    }
+    
+    if ([info hasKey:@"last_name"] ) {
+        if ([[info objectForKey:@"last_name"] length]>0) {
+            name = [NSString stringWithFormat:@"%@ %@",name,[info objectForKey:@"last_name"]];
+        }
+    }
+    self.name_field.text = name;
+    
+    
+    if ([info hasKey:@"bdate"] ) {
+        if ([[info objectForKey:@"bdate"] length]>0) {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"dd.MM.yyyy"];
+            NSDate *dateFromString = [[NSDate alloc] init];
+            dateFromString = [dateFormatter dateFromString:[info objectForKey:@"bdate"]];
+            if (dateFromString) {
+                [self setDateBirthDay:dateFromString];
+            }else{
+                [self setUserDateBirthDay:[info objectForKey:@"bdate"]];
+            }
+            
+        }
+    }
+    
+    if ([info hasKey:@"country"] ) {
+        [_vkontakte getCountryByID:[info objectForKey:@"country"]];
+        
+    }
+    NSLog(@"%@", info);
+}
+
+
+
+- (void)vkontakteDidFinishGettinCountry:(NSDictionary *)responce{
+    if ([responce hasKey:@"name"] ) {
+        if ([[responce objectForKey:@"name"] length]>0) {
+            [self.btn_region.titleLabel setText:[NSString stringWithFormat:@"Страна: %@",[responce objectForKey:@"name"]]];
+        }
+    }
+}
+#pragma mark -
+
+
+
+#pragma mark - OdnokloasnikiMethods
+-(IBAction)loginWithOK:(id)sender{
+    ShowNetworkActivityIndicator();
+    if (!self.odnoklasniki_api) {
+        self.odnoklasniki_api = [[Odnoklassniki alloc] initWithAppId:Odnkl_appID andAppSecret:Odnkl_appSecret andAppKey:Odnkl_appKey andDelegate:self];
+    }
+    
+    self.odnoklasniki_api.delegate = self;
+	if(self.odnoklasniki_api.isSessionValid){
+		[self okDidLogin];
+    }else{
+        [self.odnoklasniki_api authorize:[NSArray arrayWithObjects:@"VALUABLE ACCESS", @"SET STATUS", nil]];
+    }
+    
+	
+    
+}
+
+/*** Odnoklassniki Delegate methods ***/
+-(void)okDidLogin {
+	OKRequest *userInfoRequest = [Odnoklassniki requestWithMethodName:@"users.getCurrentUser"
+                                                        andParams:nil
+                                                    andHttpMethod:@"GET"
+                                                      andDelegate:self];
+	[userInfoRequest load];
+}
+
+-(void)okDidNotLogin:(BOOL)canceled {
+    HideNetworkActivityIndicator();
+	//NSLog(@"%@",[NSString stringWithFormat:@"Did not login! Odnoklasniki  Canceled = %@", canceled ? @"YES" : @"NO"]);
+}
+
+-(void)okDidNotLoginWithError:(NSError *)error {
+    HideNetworkActivityIndicator();
+	//NSLog(@"Odnoklasniki login error = %@", error.userInfo);
+}
+
+-(void)okDidExtendToken:(NSString *)accessToken {
+	[self okDidLogin];
+}
+
+-(void)okDidNotExtendToken:(NSError *)error {
+    HideNetworkActivityIndicator();
+	//NSLog(@"Error: Odnoklasniki did not extend token!!");
+}
+
+-(void)okDidLogout {
+}
+
+/*** Request delegate ***/
+-(void)request:(OKRequest *)request didLoad:(id)result {
+    HideNetworkActivityIndicator();
+	
+    
+    
+
+    if ([result hasKey:@"name"] ) {
+        if ([[result objectForKey:@"name"] length]>0) {
+            self.name_field.text = [result objectForKey:@"name"];
+        }
+    }
+
+    
+    
+    
+    if ([result hasKey:@"birthday"] ) {
+        if ([[result objectForKey:@"birthday"] length]>0) {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            NSDate *dateFromString = [[NSDate alloc] init];
+            dateFromString = [dateFormatter dateFromString:[result objectForKey:@"birthday"]];
+            if (dateFromString) {
+                [self setDateBirthDay:dateFromString];
+            }else{
+                [self setUserDateBirthDay:[result objectForKey:@"birthday"]];
+            }
+            
+        }
+    }
+    
+
+    /*dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+     NSURL *url = [NSURL URLWithString:[result valueForKey:@"pic_1"]];
+     NSData *data = [NSData dataWithContentsOfURL:url];
+     UIImage *img = [[UIImage alloc] initWithData:data];
+     dispatch_sync(dispatch_get_main_queue(), ^{
+     self.avatar.image = img;
+     });//end block
+     });*/
+    
+}
+
+-(void)request:(OKRequest *)request didFailWithError:(NSError *)error {
+    HideNetworkActivityIndicator();
+    //	NSLog(@"Request failed with error = %@", error);
+}
+
+#pragma mark -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-(void)setUserDateBirthDay:(NSString*)dateString{
+    __block NSDate *detectedDate;
+    //Detect.
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingAllTypes error:nil];
+    [detector enumerateMatchesInString:dateString
+                               options:kNilOptions
+                                 range:NSMakeRange(0, [dateString length])
+                            usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop)
+     {
+         detectedDate = result.date;
+         if (detectedDate) {
+            [self setDateBirthDay:detectedDate];
+         }
+         
+     }];
+}
 
 
 

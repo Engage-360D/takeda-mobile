@@ -21,4 +21,6 @@
     #import "UserData.h"
     #import "inetRequests.h"
     #import "AppDelegate.h"
+    #import "NSTypeExtended.h"
+    #import <FacebookSDK/FacebookSDK.h>
 #endif

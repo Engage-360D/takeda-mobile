@@ -8,9 +8,13 @@
 
 #import "RiskAnalysisPage.h"
 #import "AnalizDataUserPage.h"
+#import "analizData.h"
 
-
-@interface RiskAnalysisPage ()
+@interface RiskAnalysisPage (){
+    UIActionSheet *picker_cover;
+    UIPickerView *region_view;
+    NSArray *pickerDataSource;
+}
 
 @end
 
@@ -18,7 +22,9 @@
 
 @synthesize scroll;
 @synthesize page_indicator;
-
+AnalizDataUserPage *selectedPage;
+NSString *currentKey;
+int selectedIndex = 0;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,41 +52,6 @@
 
 
 
--(NSArray*)getQuestionsDataUser{
-    return @[
-      @{@"type": @"1",@"name":@"Пол",@"f_param":@"Мужчина",@"s_param":@"Женщина"},
-      @{@"type": @"2",@"name":@"Возраст",@"description":@"лет"},
-      @{@"type": @"2",@"name":@"Рост",@"description":@"см"},
-      @{@"type": @"2",@"name":@"Вес",@"description":@"кг"},
-      @{@"type": @"3",@"name":@"Курение"},
-      @{@"type": @"2",@"name":@"Уровень общего холестирина",@"description":@"мг/дл"},
-      @{@"type": @"3",@"name":@"Лекарства для снижения уровня холестерина"}
-      ];
-}
-
--(NSArray*)getQuestionsHistoryUser{
-    return @[
-             @{@"type": @"3",@"name":@"Диабет"},
-             @{@"type": @"3",@"name":@"Повышения уровня сахара в крови"},
-             @{@"type": @"2",@"name":@"Артериальное давнление",@"description":@"мм"},
-             @{@"type": @"3",@"name":@"Препараты для понижения давления"},
-             @{@"type": @"2",@"name":@"Ходьба",@"description":@"мин/нед"},
-             @{@"type": @"2",@"name":@"Спорт",@"description":@"мин/нед"},
-             @{@"type": @"3",@"name":@"Инфаркт/инсульт"},
-             ];
-}
-
--(NSArray*)getQuestionsDailyRation{
-    return @[
-             @{@"type": @"2",@"name":@"Соль",@"description":@"грамм/день"},
-             @{@"type": @"3",@"name":@"Принимает ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?"},
-             ];
-}
-
-
-
-
-
 
 
 
@@ -101,8 +72,12 @@
     [firstPage.nextStepBtn addTarget:self action:@selector(goHistoryPacient:) forControlEvents:UIControlEventTouchDown];
     [firstPage.nextStepBtn setTitle:@"История пациента" forState:UIControlStateNormal];
     firstPage.titleRisk.text = @"Данные пациента";
-    firstPage.sourceData = [self getQuestionsDataUser];
+    firstPage.page = 1;
+    firstPage.delegate = self;
+    firstPage.sourceData = [[analizData sharedObject] getQuestionsDataUser];
     [firstPage reloadData];
+    
+    
 }
 
 -(void)setSecondPageAnalize{
@@ -118,8 +93,9 @@
     [historyPacientPage.nextStepBtn setTitle:@"Дневной рацион" forState:UIControlStateNormal];
     historyPacientPage.titleRisk.text = @"История пациента";
     [self.scroll setContentSize:CGSizeMake(320 * 2, 20)];
-    
-    historyPacientPage.sourceData = [self getQuestionsHistoryUser];
+    historyPacientPage.page = 2;
+    historyPacientPage.delegate = self;
+    historyPacientPage.sourceData = [[analizData sharedObject] getQuestionsHistoryUser];
     [historyPacientPage reloadData];
 }
 
@@ -137,10 +113,10 @@
     [dailyRationPage.nextStepBtn setTitle:@"Результаты" forState:UIControlStateNormal];
     dailyRationPage.titleRisk.text = @"Дневной рацион";
     [self.scroll setContentSize:CGSizeMake(320 * 3, 20)];
-    
-    dailyRationPage.sourceData = [self getQuestionsDailyRation];
+    dailyRationPage.page = 3;
+    dailyRationPage.delegate = self;
+    dailyRationPage.sourceData = [[analizData sharedObject] getQuestionsDailyRation];
     [dailyRationPage reloadData];
-    
 }
 
 #pragma mark -
@@ -231,7 +207,7 @@
     [bButton setImage:peopleImage forState:UIControlStateNormal];
     bButton.frame = CGRectMake(0.0,0.0,peopleImage.size.width+10,peopleImage.size.height);
     bButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
-    [bButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
+    //[bButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *peopleButton = [[UIBarButtonItem alloc] initWithCustomView:bButton];
     
     
@@ -240,7 +216,7 @@
     [cButton setImage:alarmImage forState:UIControlStateNormal];
     cButton.frame = CGRectMake(0.0,0.0,alarmImage.size.width+10,alarmImage.size.height);
     cButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
-    [cButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
+    //[cButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *alarmButton = [[UIBarButtonItem alloc] initWithCustomView:cButton];
     
     self.navigationItem.rightBarButtonItems = @[peopleButton,alarmButton];
@@ -254,6 +230,114 @@
         [self.slideMenuController openMenuAnimated:YES completion:nil];
     }
 }
+#pragma mark -
+
+
+
+#pragma mark - AnalizDataUserPageDelegate
+
+-(void)analizDataUserPage:(AnalizDataUserPage*)analizPage openList:(NSString*)type{
+    currentKey = type;
+    selectedPage = analizPage;
+    
+    /*SWITCH(type){
+    CASE(@"old"){
+    }
+    DEFAULT{
+    }
+    }
+    */
+    
+    if ([type isEqualToString:@"old"]) {
+        pickerDataSource = [[analizData sharedObject] getListYears];
+        [self showPicker];
+    }
+}
+
+
+#pragma mark - UIPickerView
+
+-(IBAction)showPicker{
+    picker_cover = nil;
+    picker_cover = [[UIActionSheet alloc] initWithTitle:nil
+                                               delegate:nil
+                                      cancelButtonTitle:nil
+                                 destructiveButtonTitle:nil
+                                      otherButtonTitles:nil];
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    UIBarButtonItem *button1 = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть" style:UIBarButtonItemStyleDone target:self action:@selector(closePicker)];
+    
+    UIBarButtonItem *button2 = [[UIBarButtonItem alloc] initWithTitle:@"Применить" style:UIBarButtonItemStyleDone target:self action:@selector(applyPicker:)];
+    
+    UIBarButtonItem *flexibleSpaceLeft = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    [items addObject:button1];
+    [items addObject:flexibleSpaceLeft];
+    [items addObject:button2];
+    [toolbar setItems:items animated:NO];
+    
+    float picker_width = ScreenWidth;
+    region_view = [[UIPickerView alloc] initWithFrame:CGRectMake(0,40,picker_width,210)];
+    region_view.delegate = self;
+    region_view.dataSource = self;
+    region_view.showsSelectionIndicator = YES;
+    [picker_cover addSubview:toolbar];
+    [picker_cover addSubview:region_view];
+    
+    [picker_cover showInView:self.view.superview];
+    [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
+    picker_cover.tag = 1;
+    
+}
+
+-(void)closePicker{
+    [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
+    [selectedPage reloadData];
+}
+
+
+-(void)applyPicker:(id)sender{
+    [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
+    
+    [[[analizData sharedObject] dicRiskData] setObject:[pickerDataSource objectAtIndex:selectedIndex] forKey:currentKey];
+    [selectedPage reloadData];
+}
+
+
+
+#pragma mark PickerView DataSource
+
+- (NSInteger)numberOfComponentsInPickerView:
+(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView
+numberOfRowsInComponent:(NSInteger)component
+{
+    return [pickerDataSource count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView
+             titleForRow:(NSInteger)row
+            forComponent:(NSInteger)component
+{
+    return [pickerDataSource objectAtIndex:row];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
+      inComponent:(NSInteger)component{
+    selectedIndex = (int)row;
+    NSLog(@"index = %@ ",[pickerDataSource objectAtIndex:row]);
+}
+
+
+
 #pragma mark -
 
 @end

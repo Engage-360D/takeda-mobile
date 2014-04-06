@@ -10,6 +10,8 @@
 #import "analizRadioCell.h"
 #import "analizEasyCell.h"
 #import "analizeCheckCell.h"
+#import "buttonWithID.h"
+#import "analizData.h"
 
 
 @interface AnalizDataUserPage ()
@@ -21,6 +23,8 @@
 @synthesize titleRisk;
 @synthesize sourceData;
 @synthesize tableView;
+@synthesize page;
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,6 +46,7 @@
 
 
 -(void)reloadData{
+    [self reloadDataSource];
     [self.tableView reloadData];
 }
 
@@ -89,12 +94,36 @@
              cell.first_param.font = [self getFontRadioItem];
              cell.second_param.font = [self getFontRadioItem];
              
+             [cell.first_item addTarget:self action:@selector(selectItem:) forControlEvents:UIControlEventTouchDown];
+             [cell.second_item addTarget:self action:@selector(selectItem:) forControlEvents:UIControlEventTouchDown];
+             
+             
+             cell.first_item.type_object = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"];
+             cell.second_item.type_object = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"];
+             
+             
+             
+             
              
              if (indexPath.row == 0) {
                  cell.top_separator.hidden = NO;
              }else{
                  cell.top_separator.hidden = YES;
              }
+             
+             
+             int value = [[[sourceData objectAtIndex:indexPath.row] objectForKey:@"value"] intValue];
+             
+             if (value == 0) {
+                 [cell.first_item setImage:[UIImage imageNamed:@"pageIndicator_enable"] forState:UIControlStateNormal];
+                 [cell.second_item setImage:[UIImage imageNamed:@"pageIndicator_disable"] forState:UIControlStateNormal];
+             }else{
+                 [cell.first_item setImage:[UIImage imageNamed:@"pageIndicator_disable"] forState:UIControlStateNormal];
+                 [cell.second_item setImage:[UIImage imageNamed:@"pageIndicator_enable"] forState:UIControlStateNormal];
+             }
+             
+             
+             
              UIView *sel_view = [[UIView alloc] init];
              sel_view.backgroundColor = [UIColor clearColor];
              cell.selectedBackgroundView = sel_view;
@@ -123,7 +152,7 @@
              
              cell.description.font = [self getFontDescription];
              cell.value.font = [self getFontValue];
-             
+             cell.value.text = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"value"];
              
              if (indexPath.row == 0) {
                  cell.top_separator.hidden = NO;
@@ -159,7 +188,23 @@
              cell.name.font = [self getFontName];
              
              
+
              
+             
+             int value = [[[sourceData objectAtIndex:indexPath.row] objectForKey:@"value"] intValue];
+             
+             if (value==0) {
+                 [cell.selected_item setImage:[UIImage imageNamed:@"unchecked_item.png"] forState:UIControlStateNormal];
+             }else{
+                 [cell.selected_item setImage:[UIImage imageNamed:@"checked_item.png"] forState:UIControlStateNormal];
+             }
+             
+             
+             [cell.selected_item addTarget:self action:@selector(selectCheckItem:) forControlEvents:UIControlEventTouchDown];
+             
+             
+             cell.selected_item.type_object = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"];
+             cell.selected_item.id_button = value;
              
              
              if (indexPath.row == 0) {
@@ -183,6 +228,12 @@
  }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    int type = [[[sourceData objectAtIndex:indexPath.row] objectForKey:@"type"] intValue];
+    if (type==2) {
+        if ([self.delegate respondsToSelector:@selector(analizDataUserPage:openList:)]) {
+            [self.delegate analizDataUserPage:self openList:[[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"]];
+        }
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -211,4 +262,44 @@
 }
 
 
+
+-(void)selectItem:(buttonWithID*)sender{
+    if ([sender tag]==1) {
+        [[[analizData sharedObject] dicRiskData] setObject:@"0" forKey:sender.type_object];
+    }else{
+        [[[analizData sharedObject] dicRiskData] setObject:@"1" forKey:sender.type_object];
+    }
+    [self reloadDataSource];
+}
+
+
+-(void)selectCheckItem:(buttonWithID*)sender{
+    if (sender.id_button==0) {
+        [[[analizData sharedObject] dicRiskData] setObject:@"1" forKey:sender.type_object];
+    }else{
+        [[[analizData sharedObject] dicRiskData] setObject:@"0" forKey:sender.type_object];
+    }
+    [self reloadDataSource];
+    
+}
+
+
+
+
+-(void)reloadDataSource{
+    if (page==1) {
+        self.sourceData = [[analizData sharedObject] getQuestionsDataUser];
+    }else{
+        if (page==2) {
+            self.sourceData = [[analizData sharedObject] getQuestionsHistoryUser];
+        }else{
+            self.sourceData = [[analizData sharedObject] getQuestionsDailyRation];
+        }
+    }
+    [self.tableView reloadData];
+}
+
+
+
 @end
+

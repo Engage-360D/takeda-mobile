@@ -100,6 +100,9 @@
                             <state key="normal" image="vk_logo.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="loginWithVK:" destination="-1" eventType="touchUpInside" id="GG6-9x-laS"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LBh-B6-SxA">
                             <rect key="frame" x="229" y="10" width="33" height="33"/>
@@ -107,6 +110,9 @@
                             <state key="normal" image="fb_logo.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="loginWithFb:" destination="-1" eventType="touchUpInside" id="b9S-MN-4ds"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bgM-dm-BAZ">
                             <rect key="frame" x="270" y="10" width="33" height="33"/>
@@ -114,6 +120,9 @@
                             <state key="normal" image="ok_logo.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="loginWithOK:" destination="-1" eventType="touchUpInside" id="YsL-LQ-BdT"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -308,6 +317,9 @@
                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="registerUser:" destination="-1" eventType="touchUpInside" id="UqX-gA-7fA"/>
+                    </connections>
                 </button>
             </subviews>
         </scrollView>

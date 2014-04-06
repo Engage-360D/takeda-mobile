@@ -1,0 +1,20 @@
+//
+//  analizData.h
+//  takeda
+//
+//  Created by Serg on 4/6/14.
+//  Copyright (c) 2014 organization. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface analizData : NSObject
+
++(analizData*)sharedObject;
+-(NSArray*)getQuestionsDataUser;
+-(NSArray*)getQuestionsHistoryUser;
+-(NSArray*)getQuestionsDailyRation;
+
+-(NSMutableDictionary*)dicRiskData;
+-(NSArray*)getListYears;
+@end

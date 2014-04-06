@@ -35,11 +35,6 @@
         if (IOS7_AND_LATER) {
             CGSize drawSize = [self.placeholder sizeWithAttributes:[NSDictionary dictionaryWithObject:self.font forKey:NSFontAttributeName]];
             CGRect drawRect = rect;
-            
-            // verticially align text
-            
-            
-            
             drawRect.origin.y = (rect.size.height - drawSize.height) * 0.5 - 0.5;
             NSDictionary *drawAttributes = @{NSFontAttributeName: placeholderFont,
                                              NSForegroundColorAttributeName : placeholderColor};
