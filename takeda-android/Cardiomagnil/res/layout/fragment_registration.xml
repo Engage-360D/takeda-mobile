@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ProgressBar
+        android:id="@+id/ProgressBarGUIAsync"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
+    <ScrollView
+        android:id="@+id/LayoutGUIAsync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <include layout="@layout/layout_top_start" />
+
+            <include layout="@layout/layout_is_a_doctor" />
+
+            <View style="@style/Divider" />
+
+            <include layout="@layout/layout_use_social" />
+
+            <View style="@style/Divider" />
+
+            <include layout="@layout/layout_your_detailsl" />
+
+            <View style="@style/Divider" />
+
+            <include layout="@layout/layout_country" />
+
+            <View style="@style/Divider" />
+
+            <include layout="@layout/layout_birth_date" />
+
+            <View style="@style/Divider" />
+
+            <include layout="@layout/layout_create_password" />
+
+            <View style="@style/Divider" />
+
+            <include layout="@layout/layout_confirmation" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

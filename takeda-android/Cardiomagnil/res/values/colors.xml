@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#000</color>
+    <color name="splash">#37404d</color>
+    <color name="very_dark_grayish_blue">#3C424D</color>
+    <color name="moderate_blue">#4269C4</color>
+    <color name="very_soft_blue">#85ADED</color>
+    <color name="pure_red">#FF0000</color>
+    <color name="strong_red">#D2292F</color>
+
+    <color name="very_light_gray">#E8E8E8</color>
+
+    <color name="bg_tab_1">#E1363D</color>
+	<color name="bg_tab_2">#D2292F</color>
+    <color name="bg_tab_3">#BC0D14</color>
+
+</resources>
