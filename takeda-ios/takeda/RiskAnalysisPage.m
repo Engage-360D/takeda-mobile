@@ -145,10 +145,71 @@ int selectedIndex = 0;
 }
 
 -(IBAction)goResultPage:(id)sender{
-    if (!resultRiskAnalysis) {
-        resultRiskAnalysis = [[ResultRiskAnalysis alloc] initWithNibName:@"ResultRiskAnalysis" bundle:nil];
+    /*
+    [dic_data setObject:@"1" forKey:@"sex"]; // 0 - male, 1 - female
+    [dic_data setObject:@"-" forKey:@"old"];
+    [dic_data setObject:@"-" forKey:@"growth"];
+    [dic_data setObject:@"-" forKey:@"weight"];
+    [dic_data setObject:@"0" forKey:@"smoke"];
+    [dic_data setObject:@"-" forKey:@"cholesterol"];
+    [dic_data setObject:@"0" forKey:@"drags_cholesterol"];
+    
+    
+    [dic_data setObject:@"0" forKey:@"diabet"];
+    [dic_data setObject:@"0" forKey:@"higher_suger_blood"];
+    [dic_data setObject:@"-" forKey:@"arterial_pressure"];
+    [dic_data setObject:@"1" forKey:@"decrease_pressure_drags"];
+    //[dic_data setObject:@"-" forKey:@"walking"];
+    [dic_data setObject:@"-" forKey:@"sport"];
+    [dic_data setObject:@"0" forKey:@"infarct"];
+    
+    
+    [dic_data setObject:@"0" forKey:@"salt"];
+    [dic_data setObject:@"1" forKey:@"accept_drags_risk_trombus"];
+    
+    */
+    
+    NSString *sex = @"male";
+    if ([[[[UserData sharedObject] getUserData] objectForKey:@"sex"] boolValue]) {
+        sex = @"female";
     }
-    [self.navigationController pushViewController:resultRiskAnalysis animated:YES];
+    
+    
+    
+    NSDictionary *params = @{@"acetylsalicylicDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_risk_trombus"],
+                             @"arterialPressure": [[[analizData sharedObject] dicRiskData] objectForKey:@"arterial_pressure"],
+                             @"birthday": [[[UserData sharedObject] getUserData] objectForKey:@"birthday"],
+                             @"cholesterolDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"drags_cholesterol"],
+                             @"cholesterolLevel":[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"],
+                             @"diabetes":[[[analizData sharedObject] dicRiskData] objectForKey:@"diabet"],
+                             @"extraSalt":[[[analizData sharedObject] dicRiskData] objectForKey:@"salt"],
+                             @"growth":[[[analizData sharedObject] dicRiskData] objectForKey:@"growth"],
+                             @"heartAttackOrStroke":[[[analizData sharedObject] dicRiskData] objectForKey:@"infarct"],
+                             @"physicalActivity":[[[analizData sharedObject] dicRiskData] objectForKey:@"sport"],
+                             @"sex":sex,
+                             @"smoking":[[[analizData sharedObject] dicRiskData] objectForKey:@"smoke"],
+                             @"weight":[[[analizData sharedObject] dicRiskData] objectForKey:@"weight"]
+                             };
+    
+    
+    
+    
+    
+    
+    [inetRequests sendAnalysisToServer:@{@"testResult": params} completion:^(BOOL result, NSError *error) {
+        if (result) {
+            if (!resultRiskAnalysis) {
+                resultRiskAnalysis = [[ResultRiskAnalysis alloc] initWithNibName:@"ResultRiskAnalysis" bundle:nil];
+            }
+            [self.navigationController pushViewController:resultRiskAnalysis animated:YES];
+        }else{
+            [Helper fastAlert:@"Ошибка загрузки данных"];
+        }
+    }];
+    
+    
+    
+
 }
 
 #pragma mark -

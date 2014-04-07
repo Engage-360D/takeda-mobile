@@ -173,6 +173,8 @@
                 if ([resp hasKey:@"id"]) {
                     [[UserData sharedObject] setUserData:resp];
                     success = YES;
+                }else{
+                    err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"Ошибка при регистрации": resp}];
                 }
             }else{
                 if (!resp) {
@@ -201,7 +203,67 @@
 
 
 +(void)sendAnalysisToServer:(NSDictionary*)analysisData completion:(void (^)(BOOL result, NSError* error))completion{
+    ShowNetworkActivityIndicator();
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL success = NO;
+        
+        
+        NSError*err = nil;
+        NSError*_e = nil;
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:
+                                           @"%@/api/test-results/",
+                                           api_url]];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                           timeoutInterval:20.0];
+        
+        
+        [request setHTTPMethod:@"POST"];
+        
+        [request setValue:[[UserData sharedObject] getAccessToken] forHTTPHeaderField: @"Authorization"];
+        
+        [request setValue:@"application/json" forHTTPHeaderField: @"Content-Type"];
+  
+        NSMutableData *body = [NSMutableData data];
+        [body appendData:[[analysisData toJSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setHTTPBody:body];
+        
+        
+        
+        
+        NSHTTPURLResponse *response=nil;
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+        if (!err) {
+            id resp = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&_e];
+            
+            NSLog(@"%@",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+            
+            
+            if ([resp isKindOfClass:[NSDictionary class] ]) {
+                if ([resp hasKey:@"id"]) {
+
+                    success = YES;
+                }
+            }else{
+                if (!resp) {
+                    resp = @"Ошибка регистрации";
+                }
+                err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"error": resp}];
+            }
+        }else{
+            NSLog(@"error connection %@",err);
+        }
+        
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            HideNetworkActivityIndicator();
+            if (completion) {
+                completion(success, nil);
+            }
+        });
+    });
 }
 
 

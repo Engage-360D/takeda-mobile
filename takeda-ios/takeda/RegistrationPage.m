@@ -68,7 +68,8 @@ NSString *institution = @"";
 NSString *birthday = @"";
 NSString *graduation = @"";
 
-
+NSString *sentPassword;
+NSString *sentEmail;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -200,12 +201,30 @@ NSString *graduation = @"";
                                                      @"second":password}
                                  };
         
+        NSString *sentPassword = password;
+        NSString *sentEmail = email;
         
         [inetRequests registrationUserWithData:params completion:^(BOOL result, NSError *error) {
             if (result) {
-                UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
-                [vc.navigationController setNavigationBarHidden:NO];
-                [ApplicationDelegate setRootViewController:vc];
+                [inetRequests authUserWithLogin:sentEmail password:sentPassword completion:^(BOOL result, NSError *error) {
+                    if (result) {
+                        [inetRequests getUserDataWithCompletion:^(BOOL result, NSError *error) {
+                            if (result) {
+                                NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
+                                UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
+                                [vc.navigationController setNavigationBarHidden:NO];
+                                [ApplicationDelegate setRootViewController:vc];
+                            }else{
+                                [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
+                            }
+                        }];
+                    }else{
+                        [Helper fastAlert:@"Ошибка авторизации"];
+                    }
+                }];
+                
+                
+
             }else{
                 NSString *text = @"Ошибка при регистрации";
                 if ([[[error userInfo] allKeys] count]>0) {
