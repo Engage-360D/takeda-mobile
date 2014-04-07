@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/middle_block_hight"
+    android:background="@color/very_dark_grayish_blue"
+    android:orientation="vertical" >
+
+    <View style="@style/Divider" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBottomOutsideContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/large_padding"
+        android:paddingRight="@dimen/large_padding" >
+
+        <ProgressBar
+            android:id="@+id/progressBarBottomOutsideStartWork"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:progress="@integer/scale_animation_time" />
+
+        <TextView
+            android:id="@+id/textViewBottomOutsideAction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="@string/middle_dummy_tex"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</LinearLayout>
