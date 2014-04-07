@@ -12,7 +12,7 @@
 
 @interface RiskAnalysisPage (){
     UIActionSheet *picker_cover;
-    UIPickerView *region_view;
+    UIPickerView *picker_view;
     NSArray *pickerDataSource;
 }
 
@@ -22,6 +22,7 @@
 
 @synthesize scroll;
 @synthesize page_indicator;
+@synthesize resultRiskAnalysis;
 AnalizDataUserPage *selectedPage;
 NSString *currentKey;
 int selectedIndex = 0;
@@ -144,7 +145,10 @@ int selectedIndex = 0;
 }
 
 -(IBAction)goResultPage:(id)sender{
-
+    if (!resultRiskAnalysis) {
+        resultRiskAnalysis = [[ResultRiskAnalysis alloc] initWithNibName:@"ResultRiskAnalysis" bundle:nil];
+    }
+    [self.navigationController pushViewController:resultRiskAnalysis animated:YES];
 }
 
 #pragma mark -
@@ -240,18 +244,56 @@ int selectedIndex = 0;
     currentKey = type;
     selectedPage = analizPage;
     
-    /*SWITCH(type){
-    CASE(@"old"){
+    SWITCH(type){
+        CASE(@"old"){
+            pickerDataSource = [[analizData sharedObject] getListYears];
+            [self showPicker];
+            break;
+        }
+        CASE(@"growth"){
+            pickerDataSource = [[analizData sharedObject] getListGrowth];
+            [self showPicker];
+            break;
+        }
+        CASE(@"weight"){
+            pickerDataSource = [[analizData sharedObject] getListWeight];
+            [self showPicker];
+            break;
+        }
+        CASE(@"cholesterol"){
+            pickerDataSource = [[analizData sharedObject] getListCholesterol];
+            [self showPicker];
+            break;
+        }
+        CASE(@"arterial_pressure"){
+            pickerDataSource = [[analizData sharedObject] getListArterial_pressure];
+            [self showPicker];
+            break;
+        }
+        CASE(@"walking"){
+            pickerDataSource = [[analizData sharedObject] getListWalking];
+            [self showPicker];
+            break;
+        }
+        CASE(@"sport"){
+            pickerDataSource = [[analizData sharedObject] getListSport];
+            [self showPicker];
+            break;
+        }
+        CASE(@"salt"){
+            pickerDataSource = [[analizData sharedObject] getListSalt];
+            [self showPicker];
+            break;
+        }
+        DEFAULT{
+            break;
+        }
     }
-    DEFAULT{
-    }
-    }
-    */
     
-    if ([type isEqualToString:@"old"]) {
+    /*if ([type isEqualToString:@"old"]) {
         pickerDataSource = [[analizData sharedObject] getListYears];
         [self showPicker];
-    }
+    }*/
 }
 
 
@@ -261,10 +303,9 @@ int selectedIndex = 0;
     picker_cover = nil;
     picker_cover = [[UIActionSheet alloc] initWithTitle:nil
                                                delegate:nil
-                                      cancelButtonTitle:nil
+                                      cancelButtonTitle:@""
                                  destructiveButtonTitle:nil
                                       otherButtonTitles:nil];
-    
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
     NSMutableArray *items = [[NSMutableArray alloc] init];
@@ -281,13 +322,13 @@ int selectedIndex = 0;
     [toolbar setItems:items animated:NO];
     
     float picker_width = ScreenWidth;
-    region_view = [[UIPickerView alloc] initWithFrame:CGRectMake(0,40,picker_width,210)];
-    region_view.delegate = self;
-    region_view.dataSource = self;
-    region_view.showsSelectionIndicator = YES;
+    picker_view = [[UIPickerView alloc] initWithFrame:CGRectMake(0,40,picker_width,210)];
+    picker_view.delegate = self;
+    picker_view.dataSource = self;
+    picker_view.showsSelectionIndicator = YES;
     [picker_cover addSubview:toolbar];
-    [picker_cover addSubview:region_view];
-    
+    [picker_cover addSubview:picker_view];
+    picker_cover.backgroundColor = [UIColor whiteColor];
     [picker_cover showInView:self.view.superview];
     [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 1;
@@ -333,8 +374,11 @@ numberOfRowsInComponent:(NSInteger)component
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
       inComponent:(NSInteger)component{
     selectedIndex = (int)row;
-    NSLog(@"index = %@ ",[pickerDataSource objectAtIndex:row]);
+    //NSLog(@"index = %@ ",[pickerDataSource objectAtIndex:row]);
 }
+
+
+
 
 
 

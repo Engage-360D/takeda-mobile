@@ -16,6 +16,10 @@
     NSMutableArray *regions_data;
     UIPickerView *region_picker;
     UIDatePicker *date_picker;
+    
+    
+    
+    
 }
 @property (strong, nonatomic) FBRequestConnection *requestConnection;
 @property(nonatomic, retain) Odnoklassniki *odnoklasniki_api;
@@ -51,6 +55,20 @@ int sel_index_region = 0;
 static NSString * Odnkl_appID = @"181911552";
 static NSString * Odnkl_appSecret = @"D8B73BB1C3297CC1C6358650";
 static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
+
+
+
+
+
+NSString *specialization = @"";
+NSString *experience = @"";
+NSString *address = @"";
+NSString *phone = @"";
+NSString *institution = @"";
+NSString *birthday = @"";
+NSString *graduation = @"";
+
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -125,6 +143,7 @@ static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
     self.scrollView.frame = CGRectMake(0, self.btn_register.frame.size.height+2, 320, self.view.frame.size.height - self.btn_register.frame.size.height);
     [self.view addSubview:self.scrollView];
     [self.scrollView setContentSize:CGSizeMake(320, 670)];
+    self.btn_register.titleLabel.font = [UIFont fontWithName:@"SegoeWP Light" size:17.0];
 
 }
 
@@ -142,6 +161,12 @@ static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
 }
 
 
+-(void)setBirthDayDataForSend:(NSDate*)date{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
+    NSString *prettyVersion = [dateFormat stringFromDate:date];
+    birthday = prettyVersion;
+}
 
 
 -(IBAction)registerUser:(id)sender{
@@ -150,14 +175,27 @@ static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
         
         NSString *name = self.name_field.text;
         NSString *email = self.email_field.text;
-        NSString *password = self.email_field.text;
+        NSString *password = self.pass_field.text;
+        NSString *region = self.btn_region.titleLabel.text;
+        NSString *confirmPersonalization = [NSString stringWithFormat:@"%i",user_is_agree_personal_data];
+        NSString *confirmInformation = [NSString stringWithFormat:@"%i",user_is_agree_information_is_recomemd_style];
+        NSString *doctor = [NSString stringWithFormat:@"%i",user_is_doctor];
         
         
         
-        NSDictionary *params = @{@"username": @"test100",
+        NSDictionary *params = @{@"firstname": name,
                                  @"email": email,
-                                 @"firstname": name,
-                                 @"lastname": @"test",
+                                 @"confirmPersonalization": confirmPersonalization,
+                                 @"confirmInformation": confirmInformation,
+                                 @"doctor":doctor,
+                                 @"region":region,
+                                 @"specialization":specialization,
+                                 @"experience":experience,
+                                 @"address":address,
+                                 @"phone":phone,
+                                 @"institution":institution,
+                                 @"birthday":birthday,
+                                 @"graduation":graduation,
                                  @"plainPassword": @{@"first": password,
                                                      @"second":password}
                                  };
@@ -309,7 +347,7 @@ static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
     picker_cover = nil;
     picker_cover = [[UIActionSheet alloc] initWithTitle:nil
                                        delegate:nil
-                              cancelButtonTitle:nil
+                              cancelButtonTitle:@""
                          destructiveButtonTitle:nil
                               otherButtonTitles:nil];
     
@@ -335,7 +373,7 @@ static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
     region_picker.showsSelectionIndicator = YES;
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:region_picker];
-    
+    picker_cover.backgroundColor = [UIColor whiteColor];
     [picker_cover showInView:self.view.superview];
     [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 1;
@@ -349,7 +387,9 @@ static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
 
 -(void)applyPicker:(id)sender{
     if ((int)[picker_cover tag]==1) {
-        [self.btn_region.titleLabel setText:[NSString stringWithFormat:@"Страна: %@",[regions_data objectAtIndex:sel_index_region]]];
+        [self.btn_region setTitle:[NSString stringWithFormat:@"Страна: %@",[regions_data objectAtIndex:sel_index_region]] forState:UIControlStateNormal];
+        
+        
     }else{
         if ((int)[picker_cover tag]==2) {
             NSDate *myDate = date_picker.date;
@@ -365,6 +405,7 @@ static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
     [dateFormat setDateFormat:@"dd MMMM yyyy"];
     NSString *prettyVersion = [dateFormat stringFromDate:myDate];
     [self.btn_birthday setTitle:[NSString stringWithFormat:@"Дата рождения: %@",prettyVersion] forState:UIControlStateNormal];
+    [self setBirthDayDataForSend:myDate];
 }
 
 
@@ -406,7 +447,7 @@ numberOfRowsInComponent:(NSInteger)component
     picker_cover = nil;
     picker_cover = [[UIActionSheet alloc] initWithTitle:nil
                                                delegate:nil
-                                      cancelButtonTitle:nil
+                                      cancelButtonTitle:@""
                                  destructiveButtonTitle:nil
                                       otherButtonTitles:nil];
     
@@ -434,7 +475,7 @@ numberOfRowsInComponent:(NSInteger)component
     
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:date_picker];
-    
+    picker_cover.backgroundColor = [UIColor whiteColor];
     [picker_cover showInView:self.view.superview];
     [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 2;
@@ -635,6 +676,7 @@ numberOfRowsInComponent:(NSInteger)component
             NSDate *dateFromString = [[NSDate alloc] init];
             dateFromString = [dateFormatter dateFromString:[info objectForKey:@"bdate"]];
             if (dateFromString) {
+                
                 [self setDateBirthDay:dateFromString];
             }else{
                 [self setUserDateBirthDay:[info objectForKey:@"bdate"]];

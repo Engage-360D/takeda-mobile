@@ -10,7 +10,7 @@
                 <outlet property="description_text" destination="gfm-PK-RqF" id="YJI-8G-8ti"/>
                 <outlet property="email_field" destination="YpP-8B-bZO" id="J24-cu-4Ti"/>
                 <outlet property="forget_btn" destination="69U-ry-mcM" id="Hov-zN-7vx"/>
-                <outlet property="login_btn" destination="klu-df-IMk" id="ga7-Qh-17A"/>
+                <outlet property="login_btn" destination="DCN-AR-1gL" id="oFv-9B-thi"/>
                 <outlet property="pass_field" destination="WuX-QR-cK3" id="Gmt-om-H0I"/>
                 <outlet property="registration_btn" destination="DmX-8O-Exc" id="moe-rv-uY3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -36,9 +36,6 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <connections>
-                                <action selector="authUser:" destination="-1" eventType="touchUpInside" id="bbh-o8-DwX"/>
-                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.83529411760000005" green="0.1176470588" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
@@ -150,6 +147,18 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DCN-AR-1gL">
+                    <rect key="frame" x="25" y="422" width="270" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Войти">
+                        <color key="titleColor" red="0.20784313725490194" green="0.25490196078431371" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="authUser:" destination="-1" eventType="touchUpInside" id="UUu-8j-fRt"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -65,7 +65,10 @@ ForgetPage *forgetPage;
 
     self.description_text.font = [UIFont fontWithName:@"SegoeUI-Light" size:12.0];
     
-    self.login_btn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:25.0];
+    self.login_btn.titleLabel.font = [UIFont fontWithName:@"SegoeWP Light" size:17.0];
+    [self.login_btn setBackgroundImage:[[UIImage imageNamed:@"button_arrow_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 30)] forState:UIControlStateNormal];
+    
+    
     self.registration_btn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14.0];
     self.forget_btn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14.0];
     self.email_field.placeholderColor = RGB(53, 65, 71);
@@ -151,8 +154,8 @@ ForgetPage *forgetPage;
 
 -(IBAction)authUser:(id)sender{
     
-    [self openGeneralApp:self];
-    return;
+    //[self openGeneralApp:self];
+    //return;
     
     if ([self.email_field.text length]>0 && [self.pass_field.text length]>0) {
         [inetRequests authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {

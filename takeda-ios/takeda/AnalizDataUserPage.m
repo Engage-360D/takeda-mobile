@@ -39,6 +39,7 @@
 {
     [super viewDidLoad];
     [self.nextStepBtn setBackgroundImage:[[UIImage imageNamed:@"button_arrow_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 30)] forState:UIControlStateNormal];
+    self.nextStepBtn.titleLabel.font = [UIFont fontWithName:@"SegoeWP Light" size:17.0];
 }
 
 

@@ -17,4 +17,11 @@
 
 -(NSMutableDictionary*)dicRiskData;
 -(NSArray*)getListYears;
+-(NSArray*)getListGrowth;
+-(NSArray*)getListWeight;
+-(NSArray*)getListCholesterol;
+-(NSArray*)getListArterial_pressure;
+-(NSArray*)getListWalking;
+-(NSArray*)getListSport;
+-(NSArray*)getListSalt;
 @end

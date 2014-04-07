@@ -20,7 +20,6 @@ WelcomePage *welcomePage;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     welcomePage = [[WelcomePage alloc] initWithNibName:@"WelcomePage" bundle:nil];
     
-    
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:welcomePage];
     
     self.window.backgroundColor = [UIColor whiteColor];
@@ -32,7 +31,7 @@ WelcomePage *welcomePage;
 
 
 -(void)showAllFonts{
-    return;
+
     NSArray *fontFamilies = [UIFont familyNames];
     
     for (int i = 0; i < [fontFamilies count]; i++)
