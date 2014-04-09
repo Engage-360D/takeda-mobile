@@ -135,9 +135,14 @@
              analizEasyCell *cell = nil;
              cell = (analizEasyCell *) [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
              
+             BOOL fractions = NO;
+             if ([[sourceData objectAtIndex:indexPath.row] objectForKey:@"fractions"]) {
+                 fractions = YES;
+             }
              if(!cell)
              {
-                 NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"analizEasyCell" owner:nil options:nil];
+                 
+                 NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:(fractions)?@"analizEasyDrobCell":@"analizEasyCell" owner:nil options:nil];
                  for(id currentObject in topLevelObjects)
                  {
                      if([currentObject isKindOfClass:[analizEasyCell class]])
@@ -150,6 +155,23 @@
              cell.name.text = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"name"];
              cell.name.font = [self getFontName];
              cell.description.text = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"description"];
+             
+             
+             if (fractions) {
+                 NSArray *objects = [[[sourceData objectAtIndex:indexPath.row] objectForKey:@"description"] componentsSeparatedByString:@"/"];
+                 if ([objects count]==2) {
+                     cell.description_1.text = objects[0];
+                     cell.description_2.text = objects[1];
+                     
+                     cell.description_1.font = [self getFontDescription];
+                     cell.description_2.font = [self getFontDescription];
+                 }else{
+                     cell.description_1 = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"description"];
+                 }
+             }
+             
+             
+             
              
              cell.description.font = [self getFontDescription];
              cell.value.font = [self getFontValue];
@@ -234,6 +256,14 @@
         if ([self.delegate respondsToSelector:@selector(analizDataUserPage:openList:)]) {
             [self.delegate analizDataUserPage:self openList:[[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"]];
         }
+    }else{
+        if (type==3) {
+            buttonWithID *tmp = [[buttonWithID alloc] init];
+            tmp.type_object = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"];
+            tmp.id_button = [[[sourceData objectAtIndex:indexPath.row] objectForKey:@"value"] intValue];
+            [self selectCheckItem:tmp];
+            
+        }
     }
 }
 
@@ -241,11 +271,14 @@
 {
     int type = [[[sourceData objectAtIndex:indexPath.row] objectForKey:@"type"] intValue];
     float width = (type==1)?62.0:(type==2)?164.0:225.0;
-    
-    
     return (ceilf([Helper heightText:[[sourceData objectAtIndex:indexPath.row] objectForKey:@"name"] withFont:[self getFontName] withWidth:width] + 20.0));
     //return 44.0;
 }
+
+
+
+
+
 
 
 

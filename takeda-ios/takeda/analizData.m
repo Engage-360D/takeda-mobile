@@ -27,8 +27,9 @@ NSMutableDictionary * dic_data;
     if (!dic_data) {
         dic_data = [[NSMutableDictionary alloc] init];
     }
-    [dic_data setObject:@"1" forKey:@"sex"]; // 0 - male, 1 - female
+    [dic_data setObject:@"0" forKey:@"sex"]; // 0 - male, 1 - female
     [dic_data setObject:@"-" forKey:@"old"];
+    [dic_data setObject:@"" forKey:@"birthday"];
     [dic_data setObject:@"-" forKey:@"growth"];
     [dic_data setObject:@"-" forKey:@"weight"];
     [dic_data setObject:@"0" forKey:@"smoke"];
@@ -39,14 +40,14 @@ NSMutableDictionary * dic_data;
     [dic_data setObject:@"0" forKey:@"diabet"];
     [dic_data setObject:@"0" forKey:@"higher_suger_blood"];
     [dic_data setObject:@"-" forKey:@"arterial_pressure"];
-    [dic_data setObject:@"1" forKey:@"decrease_pressure_drags"];
+    [dic_data setObject:@"0" forKey:@"decrease_pressure_drags"];
     //[dic_data setObject:@"-" forKey:@"walking"];
     [dic_data setObject:@"-" forKey:@"sport"];
     [dic_data setObject:@"0" forKey:@"infarct"];
     
     
     [dic_data setObject:@"0" forKey:@"salt"];
-    [dic_data setObject:@"1" forKey:@"accept_drags_risk_trombus"];
+    [dic_data setObject:@"0" forKey:@"accept_drags_risk_trombus"];
     
     
 }
@@ -79,7 +80,7 @@ NSMutableDictionary * dic_data;
              @{@"object":@"arterial_pressure", @"id":@"10",@"type": @"2",@"name":@"Артериальное давнление",@"description":@"мм",@"value":[dic_data objectForKey:@"arterial_pressure"]},
              @{@"object":@"decrease_pressure_drags", @"id":@"11",@"type": @"3",@"name":@"Принимаете ли препараты для понижения давления?",@"value":[dic_data objectForKey:@"decrease_pressure_drags"]},
              //@{@"object":@"walking", @"id":@"12",@"type": @"2",@"name":@"Ходьба",@"description":@"мин/нед",@"value":[dic_data objectForKey:@"walking"]},
-             @{@"object":@"sport", @"id":@"13",@"type": @"2",@"name":@"Физическая активность",@"description":@"мин/нед",@"value":[dic_data objectForKey:@"sport"]},
+             @{@"object":@"sport", @"id":@"13",@"type": @"2",@"fractions":@"1",@"name":@"Физическая активность",@"description":@"минут/неделя",@"value":[dic_data objectForKey:@"sport"]},
              @{@"object":@"infarct", @"id":@"14",@"type": @"3",@"name":@"Инфаркт/инсульт",@"value":[dic_data objectForKey:@"infarct"]},
              ];
 }
@@ -107,7 +108,7 @@ NSMutableDictionary * dic_data;
 
 -(NSArray*)getListGrowth{
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 50; i < 220; i ++) {
+    for (int i = 30; i < 300; i ++) {
         [array addObject:[NSString stringWithFormat:@"%i",i]];
     }
     return array;
@@ -116,7 +117,7 @@ NSMutableDictionary * dic_data;
 
 -(NSArray*)getListWeight{
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 30; i < 210; i ++) {
+    for (int i = 30; i < 700; i ++) {
         [array addObject:[NSString stringWithFormat:@"%i",i]];
     }
     return array;

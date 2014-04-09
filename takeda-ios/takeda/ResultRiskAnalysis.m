@@ -110,20 +110,25 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
     for (int i = 0; i < [keys count]; i++) {
         if ([dic objectForKey:[keys objectAtIndex:i]] && ![[dic objectForKey:[keys objectAtIndex:i]] isEqual:[NSNull null]]) {
             
-            NSDictionary *data = [dic objectForKey:[keys objectAtIndex:i]];
+            NSDictionary *data_d = [dic objectForKey:[keys objectAtIndex:i]];
             
-            if ([data objectForKey:@"text"] && ![[data objectForKey:@"text"] isEqual:[NSNull null]]) {
+            if ([data_d objectForKey:@"text"] && ![[data_d objectForKey:@"text"] isEqual:[NSNull null]]) {
                 
                 UILabel* textLabel = [[UILabel alloc] init];
-                textLabel.text = [data objectForKey:@"text"];
+                textLabel.text = [data_d objectForKey:@"text"];
                 textLabel.tag = 100 + i;
                 textLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:14.0];
                 textLabel.numberOfLines = 0;
                 textLabel.textColor = [UIColor whiteColor];
                 
-                if ([data objectForKey:@"state"] && ![[data objectForKey:@"state"] isEqual:[NSNull null]]) {
+                if ([data_d objectForKey:@"state"] && ![[data_d objectForKey:@"state"] isEqual:[NSNull null]]) {
                     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(12, current_Y + 10, 32, 28)];
-                    imgView.image = [UIImage imageNamed:@"danger_big.png"];
+                    
+                    imgView.image = [UIImage imageNamed:[self getNameImage:[data_d objectForKey:@"state"]]];//[UIImage imageNamed:@"danger_big.png"];
+                    
+                    
+                    
+                    
                     imgView.contentMode = UIViewContentModeCenter;
                     imgView.tag = 150 + i;
                     [headerView addSubview:imgView];
@@ -173,17 +178,17 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
 
 
 
--(void)makeDataResultArray:(NSDictionary*)data{
-    if ([data isEqual:[NSNull null]] || !data) {
+-(void)makeDataResultArray:(NSDictionary*)data_d{
+    if ([data_d isEqual:[NSNull null]] || !data_d) {
         return;
     }
     
     if (!resultData) {
         resultData = [[NSMutableArray alloc] init];
     }
-    NSArray *keys = [data allKeys];
+    NSArray *keys = [data_d allKeys];
     for (int i = 0; i < [keys count]; i++) {
-        NSDictionary *dic = [data objectForKey:[keys objectAtIndex:i]];
+        NSDictionary *dic = [data_d objectForKey:[keys objectAtIndex:i]];
         
         if (dic && ![dic isEqual:[NSNull null]]) {
             [resultData addObject:@{@"title":[self getTitle:[keys objectAtIndex:i]],
@@ -528,9 +533,13 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
     
     NSDictionary *data_page = [self getDicPage:key];
     
-    if (!data_page) {
+    if (!data_page || [data_page isEqual:[NSNull null]]) {
+        [Helper fastAlert:@"Нет данных"];
         return;
     }
+    
+    
+    
     
     NSDictionary *data_banner = nil;
     if (key && ![key isEqual:[NSNull null]]) {

@@ -14,6 +14,7 @@
     UIActionSheet *picker_cover;
     UIPickerView *picker_view;
     NSArray *pickerDataSource;
+    UIDatePicker *date_picker;
 }
 
 @end
@@ -124,9 +125,44 @@ int selectedIndex = 0;
 
 
 
+
+-(BOOL)checkHistoryPicientData{
+    if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"old"] isEqualToString:@"-"]) {
+        return NO;
+    }
+    if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"growth"] isEqualToString:@"-"]) {
+        return NO;
+    }
+    if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"weight"] isEqualToString:@"-"]) {
+        return NO;
+    }
+    if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"] isEqualToString:@"-"]) {
+        return NO;
+    }
+    return YES;
+}
+
+-(BOOL)checkDailyRationData{
+    if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"arterial_pressure"] isEqualToString:@"-"]) {
+        return NO;
+    }
+    if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"sport"] isEqualToString:@"-"]) {
+        return NO;
+    }
+    return YES;
+}
+
+
+
+
 #pragma mark - scroll pages
 
 -(IBAction)goHistoryPacient:(id)sender{
+    if (![self checkHistoryPicientData]) {
+        [Helper fastAlert:@"Необходимо заполнить все поля"];
+        return;
+    }
+    
     [self setSecondPageAnalize];
     CGRect frame = self.scroll.frame;
     frame.origin.x = 320;
@@ -136,6 +172,11 @@ int selectedIndex = 0;
 }
 
 -(IBAction)goDailyRation:(id)sender{
+    if (![self checkDailyRationData]) {
+        [Helper fastAlert:@"Необходимо заполнить все поля"];
+        return;
+    }
+    
     [self setThirdPageAnalize];
     CGRect frame = self.scroll.frame;
     frame.origin.x = 320*2;
@@ -178,7 +219,8 @@ int selectedIndex = 0;
     
     NSDictionary *params = @{@"acetylsalicylicDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_risk_trombus"],
                              @"arterialPressure": [[[analizData sharedObject] dicRiskData] objectForKey:@"arterial_pressure"],
-                             @"birthday": [[[UserData sharedObject] getUserData] objectForKey:@"birthday"],
+                             //@"birthday": [[[UserData sharedObject] getUserData] objectForKey:@"birthday"],
+                             @"birthday": [[[analizData sharedObject] dicRiskData] objectForKey:@"birthday"],
                              @"cholesterolDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"drags_cholesterol"],
                              @"cholesterolLevel":[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"],
                              @"diabetes":[[[analizData sharedObject] dicRiskData] objectForKey:@"diabet"],
@@ -190,8 +232,6 @@ int selectedIndex = 0;
                              @"smoking":[[[analizData sharedObject] dicRiskData] objectForKey:@"smoke"],
                              @"weight":[[[analizData sharedObject] dicRiskData] objectForKey:@"weight"]
                              };
-    
-    
     
     
     
@@ -309,7 +349,7 @@ int selectedIndex = 0;
     SWITCH(type){
         CASE(@"old"){
             pickerDataSource = [[analizData sharedObject] getListYears];
-            [self showPicker];
+            [self showTimePicker];
             break;
         }
         CASE(@"growth"){
@@ -405,8 +445,33 @@ int selectedIndex = 0;
 
 -(void)applyPicker:(id)sender{
     [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
-    
-    [[[analizData sharedObject] dicRiskData] setObject:[pickerDataSource objectAtIndex:selectedIndex] forKey:currentKey];
+    if ((int)[picker_cover tag]==1) {
+        [[[analizData sharedObject] dicRiskData] setObject:[pickerDataSource objectAtIndex:selectedIndex] forKey:currentKey];
+    }else{
+        
+        if ((int)[picker_cover tag]==2) {
+            NSDate *myDate = date_picker.date;
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
+            
+            NSString *prettyVersion = [dateFormat stringFromDate:myDate];
+            [[[analizData sharedObject] dicRiskData] setObject:prettyVersion forKey:@"birthday"];
+            
+            NSDateComponents* agecalcul = [[NSCalendar currentCalendar]
+                                           components:NSYearCalendarUnit
+                                           fromDate:myDate
+                                           toDate:[NSDate date]
+                                           options:0];
+            //show the age as integer
+            NSInteger age = [agecalcul year];
+            [[[analizData sharedObject] dicRiskData] setObject:[NSString stringWithFormat:@"%i",age] forKey:currentKey];
+            
+        }
+        
+        
+        //[[[analizData sharedObject] dicRiskData] setObject:[pickerDataSource objectAtIndex:selectedIndex] forKey:currentKey];
+    }
+
     [selectedPage reloadData];
 }
 
@@ -439,11 +504,65 @@ numberOfRowsInComponent:(NSInteger)component
     //NSLog(@"index = %@ ",[pickerDataSource objectAtIndex:row]);
 }
 
+#pragma mark -
 
 
 
+#pragma mark - UIDatePicker
+
+-(IBAction)showTimePicker{
+    picker_cover = nil;
+    picker_cover = [[UIActionSheet alloc] initWithTitle:nil
+                                               delegate:nil
+                                      cancelButtonTitle:@""
+                                 destructiveButtonTitle:nil
+                                      otherButtonTitles:nil];
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    UIBarButtonItem *button1 = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть" style:UIBarButtonItemStyleDone target:self action:@selector(closePicker)];
+    
+    UIBarButtonItem *button2 = [[UIBarButtonItem alloc] initWithTitle:@"Применить" style:UIBarButtonItemStyleDone target:self action:@selector(applyPicker:)];
+    
+    UIBarButtonItem *flexibleSpaceLeft = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    [items addObject:button1];
+    [items addObject:flexibleSpaceLeft];
+    [items addObject:button2];
+    [toolbar setItems:items animated:NO];
+    
+    float picker_width = ScreenWidth;
+    
+    date_picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,40,picker_width,210)];
+    date_picker.datePickerMode = UIDatePickerModeDate;
+    //[date_picker addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventValueChanged];
+    
+    if ([[[UserData sharedObject] getUserData] objectForKey:@"birthday"]) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+        NSDate *curDate = [formatter dateFromString:[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]];
+        if (curDate) {
+            [date_picker setDate:curDate];
+        }else{
+            [date_picker setDate:[Helper getAgoYear:25 fromDate:[NSDate date]]];
+        }
+
+    }
+    
+    
+    [picker_cover addSubview:toolbar];
+    [picker_cover addSubview:date_picker];
+    picker_cover.backgroundColor = [UIColor whiteColor];
+    [picker_cover showInView:self.view.superview];
+    [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
+    picker_cover.tag = 2;
+}
 
 
 #pragma mark -
+
 
 @end

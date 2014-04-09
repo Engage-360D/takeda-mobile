@@ -13,4 +13,5 @@
 @property (nonatomic,retain) NSDictionary *data_banner;
 @property (nonatomic,retain) NSDictionary *data_page;
 @property (nonatomic,retain) IBOutlet UILabel  *titleResult;
+@property (nonatomic,retain) IBOutlet UIScrollView *scrol;
 @end

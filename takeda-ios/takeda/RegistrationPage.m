@@ -493,7 +493,7 @@ numberOfRowsInComponent:(NSInteger)component
     date_picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,40,picker_width,210)];
     date_picker.datePickerMode = UIDatePickerModeDate;
     //[date_picker addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventValueChanged];
-    
+    [date_picker setDate:[Helper getAgoYear:25 fromDate:[NSDate date]]];
     
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:date_picker];

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface RecomendationPage : UIViewController
-
+@property (nonatomic,retain) IBOutlet UITableView *tableView;
+@property (nonatomic,retain) IBOutlet UIButton *calendar_btn;
 @end

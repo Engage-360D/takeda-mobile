@@ -17,6 +17,8 @@
 @synthesize titleResult;
 @synthesize data_banner;
 @synthesize data_page;
+@synthesize scrol;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -28,8 +30,12 @@
     return self;
 }
 
+
+
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self clearScrollView];
     if (self.data_banner) {
         if ([self.data_banner objectForKey:@"title"]) {
             self.titleResult.text = [self.data_banner objectForKey:@"title"];
@@ -38,6 +44,8 @@
         }
 
     }
+    
+    [self makeResultation];
 }
 
 
@@ -47,6 +55,116 @@
     [self setNavImage];
     [self setNavigationPanel];
 }
+
+
+
+-(void)clearScrollView{
+    for (UIView *view in [self.scrol subviews]) {
+        [view removeFromSuperview];
+    }
+}
+
+
+
+-(void)makeResultation{
+    float Y_pos = 10;
+    
+    if ([data_banner objectForKey:@"state"] && ![[data_banner objectForKey:@"state"] isEqual:[NSNull null]]) {
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(320/2-50/2, Y_pos, 50, 50)];
+        img.image = [UIImage imageNamed:[self getNameImage:[data_banner objectForKey:@"state"]]];
+        img.contentMode = UIViewContentModeCenter;
+        [self.scrol addSubview:img];
+        Y_pos = Y_pos + img.image.size.height + 20;
+    }
+    
+    
+    if ([data_page objectForKey:@"title"] && ![[data_page objectForKey:@"title"] isEqual:[NSNull null]]) {
+        UILabel *title = [[UILabel alloc] init];
+        title.text = [data_page objectForKey:@"title"];
+        title.font = [self getFontTitle];
+        title.frame = CGRectMake(20, Y_pos, 280, [Helper heightText:title.text withFont:title.font withWidth:280]);
+        title.numberOfLines = 0;
+        title.textColor = RGB(53, 65, 71);
+        [self.scrol addSubview:title];
+        Y_pos = Y_pos + title.frame.size.height + 30;
+    }
+    
+    if ([data_page objectForKey:@"subtitle"] && ![[data_page objectForKey:@"subtitle"] isEqual:[NSNull null]]) {
+        UILabel *subtitle = [[UILabel alloc] init];
+        subtitle.text = [data_page objectForKey:@"subtitle"];
+        subtitle.font = [self getFontSubTitle];
+        subtitle.frame = CGRectMake(20, Y_pos, 280, [Helper heightText:subtitle.text withFont:subtitle.font withWidth:280]);
+        subtitle.textColor = RGB(53, 65, 71);
+        subtitle.numberOfLines = 0;
+        [self.scrol addSubview:subtitle];
+        Y_pos = Y_pos + subtitle.frame.size.height + 30;
+    }
+    
+    if ([data_page objectForKey:@"text"] && ![[data_page objectForKey:@"text"] isEqual:[NSNull null]]) {
+        UILabel *title_text = [[UILabel alloc] init];
+        title_text.text = [data_page objectForKey:@"text"];
+        title_text.font = [self getFontText];
+        title_text.numberOfLines = 0;
+        title_text.frame = CGRectMake(20, Y_pos, 280, [Helper heightText:title_text.text withFont:title_text.font withWidth:280]);
+        title_text.textColor = RGB(53, 65, 71);
+        [self.scrol addSubview:title_text];
+        Y_pos = Y_pos + title_text.frame.size.height + 30;
+    }
+
+    [self.scrol setContentSize:CGSizeMake(320, Y_pos + 20)];
+    
+}
+
+
+
+
+
+
+-(UIFont*)getFontTitle{
+    return [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
+}
+
+-(UIFont*)getFontSubTitle{
+    return [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
+}
+
+-(UIFont*)getFontText{
+    return [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
+}
+
+
+-(NSString*)getNameImage:(NSString*)state{
+    if ([state isEqual:[NSNull null]]) {
+        return @"";
+    }
+    SWITCH(state){
+        CASE(@"attention"){
+            return @"danger_icon_red";
+            break;
+        }
+        CASE(@"ok"){
+            return @"good_result_icon_red";
+            break;
+        }
+        CASE(@"bell"){
+            return @"bell_icon_red";
+            break;
+        }
+        CASE(@"doctor"){
+            return @"doc_tools_icon_red";
+            break;
+        }
+        CASE(@"ask"){
+            return @"undefined_result_icon_red";
+            break;
+        }
+        DEFAULT{
+            return @"";
+            break;
+        }
+    }
+}
+
 
 
 #pragma mark - navigation panel

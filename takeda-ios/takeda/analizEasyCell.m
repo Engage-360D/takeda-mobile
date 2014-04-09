@@ -12,7 +12,8 @@
 @synthesize name;
 @synthesize value;
 @synthesize description;
-
+@synthesize description_1;
+@synthesize description_2;
 
 
 - (void)awakeFromNib

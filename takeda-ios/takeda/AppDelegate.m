@@ -30,7 +30,6 @@ WelcomePage *welcomePage;
 }
 
 
-
 -(void)showAllFonts{
 
     NSArray *fontFamilies = [UIFont familyNames];
