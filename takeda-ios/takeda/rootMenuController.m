@@ -33,6 +33,9 @@
     LeftMenu *leftMenu;
     
     NVSlideMenuController *slideMenuVC;
+    
+    UIViewController *riskAnalysis_vc;
+    
 }
 static rootMenuController *sharedInst = NULL;
 
@@ -47,14 +50,19 @@ static rootMenuController *sharedInst = NULL;
 
 -(NVSlideMenuController*)getMenuController{
     if (!slideMenuVC) {
-        slideMenuVC = [[NVSlideMenuController alloc] initWithMenuViewController:[self getLeftMenu] andContentViewController:[[UINavigationController alloc] initWithRootViewController:[self getRiskAnalysisPage]]];
+        slideMenuVC = [[NVSlideMenuController alloc] initWithMenuViewController:[self getLeftMenu] andContentViewController:[self riskAnalysis_vc]];
     }
     
     return slideMenuVC;
 }
 
 
-
+-(UIViewController*)riskAnalysis_vc{
+    if (!riskAnalysis_vc) {
+        riskAnalysis_vc = [[UINavigationController alloc] initWithRootViewController:[self getRiskAnalysisPage]];
+    }
+    return riskAnalysis_vc;
+}
 
 
 -(LeftMenu*)getLeftMenu{

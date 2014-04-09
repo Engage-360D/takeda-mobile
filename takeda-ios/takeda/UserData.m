@@ -7,6 +7,8 @@
 //
 
 #import "UserData.h"
+#import "jsonInFile.h"
+
 
 @implementation UserData
 static UserData *objectInstance = nil;
@@ -45,10 +47,28 @@ static UserData *objectInstance = nil;
     userData = user_data;
 }
 
+-(void)savePassword:(NSString*)pass{
+    [UserDefaults setObject:pass forKey:@"pass"];
+}
+-(void)saveUserName:(NSString*)username{
+    [UserDefaults setObject:username forKey:@"username"];
+}
+
+-(NSString*)getUserPassword{
+    return [UserDefaults objectForKey:@"pass"];
+}
+
+-(NSString*)getUserName{
+    return [UserDefaults objectForKey:@"username"];
+}
 
 
-
-
+-(void)saveAnalisRiskData:(NSData*)data{
+    [jsonInFile writeJsonToFile:data fileName:@"riskAnalis"];
+}
+-(id)getLastSavedAnalisRiskData{
+    return [jsonInFile getDataFromFile:@"riskAnalis"];
+}
 
 
 @end

@@ -21,4 +21,13 @@
 
 -(NSDictionary*)getUserData;
 -(void)setUserData:(NSDictionary*)userData;
+
+-(void)savePassword:(NSString*)pass;
+-(void)saveUserName:(NSString*)username;
+
+-(NSString*)getUserPassword;
+-(NSString*)getUserName;
+
+-(void)saveAnalisRiskData:(NSData*)data;
+-(id)getLastSavedAnalisRiskData;
 @end

@@ -20,7 +20,7 @@
 +(NSString*)guid;
 -(NSDate*)toDateWithFormat:(NSString*)format;
 -(CGFloat)getTextHeightForFont:(UIFont*)font forWidth:(CGFloat)rect_width;
-
+- (NSString *)base64String:(NSString *)strl;
 @end
 
 @interface UIColor (Extended)

@@ -158,6 +158,9 @@ ForgetPage *forgetPage;
     //return;
     
     if ([self.email_field.text length]>0 && [self.pass_field.text length]>0) {
+        [[UserData sharedObject] savePassword:self.pass_field.text];
+        [[UserData sharedObject] saveUserName:self.email_field.text];
+        
         [inetRequests authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
             if (result) {
                 [inetRequests getUserDataWithCompletion:^(BOOL result, NSError *error) {

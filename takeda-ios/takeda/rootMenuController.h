@@ -32,4 +32,6 @@
 -(PublicationPage*)getPublicationPage;
 -(ReportsPage*)getReportsPage;
 -(NVSlideMenuController*)getMenuController;
+
+-(UIViewController*)riskAnalysis_vc;
 @end

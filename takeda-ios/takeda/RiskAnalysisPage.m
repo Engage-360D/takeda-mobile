@@ -201,6 +201,7 @@ int selectedIndex = 0;
             if (!resultRiskAnalysis) {
                 resultRiskAnalysis = [[ResultRiskAnalysis alloc] initWithNibName:@"ResultRiskAnalysis" bundle:nil];
             }
+            resultRiskAnalysis.needUpdate = YES;
             [self.navigationController pushViewController:resultRiskAnalysis animated:YES];
         }else{
             [Helper fastAlert:@"Ошибка загрузки данных"];

@@ -204,6 +204,9 @@ NSString *sentEmail;
         NSString *sentPassword = password;
         NSString *sentEmail = email;
         
+        [[UserData sharedObject] savePassword:self.pass_field.text];
+        [[UserData sharedObject] saveUserName:self.email_field.text];
+        
         [inetRequests registrationUserWithData:params completion:^(BOOL result, NSError *error) {
             if (result) {
                 [inetRequests authUserWithLogin:sentEmail password:sentPassword completion:^(BOOL result, NSError *error) {
