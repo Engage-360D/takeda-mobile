@@ -12,18 +12,28 @@
 
 +(float)heightText:(NSString*)text withFont:(UIFont*)font withWidth:(float)width{
     CGSize constrainedSize = CGSizeMake(width  , 9999);
-    /*CGSize labelSize = [text sizeWithFont:font
-                                constrainedToSize:constrainedSize
-                                    lineBreakMode:NSLineBreakByWordWrapping];
     
-    return labelSize.height;*/
     
-    CGRect textRect = [text boundingRectWithSize:constrainedSize
-                                         options:NSStringDrawingUsesLineFragmentOrigin
-                                      attributes:@{NSFontAttributeName:font}
-                                         context:nil];
-    CGSize size = textRect.size;
-    return size.height;
+    if (IOS7_AND_LATER) {
+        CGRect textRect = [text boundingRectWithSize:constrainedSize
+                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                          attributes:@{NSFontAttributeName:font}
+                                             context:nil];
+        CGSize size = textRect.size;
+        return size.height;
+    }else{
+        ////////// - для ios < 7
+        CGSize labelSize = [text sizeWithFont:font
+         constrainedToSize:constrainedSize
+         lineBreakMode:NSLineBreakByWordWrapping];
+         
+         return labelSize.height;
+    }
+    
+    
+
+    
+
     
 }
 

@@ -215,17 +215,27 @@
                                            @"%@/api/test-results/",
                                            api_url]];
         
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+        /*NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:20.0];
+                                                           timeoutInterval:20.0];*/
         
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
         
         [request setHTTPMethod:@"POST"];
         
-        [request setValue:[[UserData sharedObject] getAccessToken] forHTTPHeaderField: @"Authorization"];
+        [request setValue:[NSString stringWithFormat:@"Basic dmFzamFrMDA0QHlhbmRleC5ydToxMjM0NTY="] forHTTPHeaderField: @"Authorization"];
+        //[[UserData sharedObject] getAccessToken]
         
         [request setValue:@"application/json" forHTTPHeaderField: @"Content-Type"];
-  
+        [request setValue:@"HTTPie/0.8.0" forHTTPHeaderField: @"User-Agent"];
+        [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField: @"Accept"];
+        [request setValue:@"gzip, deflate, compress" forHTTPHeaderField: @"Accept-Encoding"];
+        [request setValue:[NSString stringWithFormat:@"%i",[[analysisData toJSONString] length]] forHTTPHeaderField: @"Content-Length"];
+        
+        
+        
+        
         NSMutableData *body = [NSMutableData data];
         [body appendData:[[analysisData toJSONString] dataUsingEncoding:NSUTF8StringEncoding]];
         [request setHTTPBody:body];
