@@ -199,7 +199,7 @@
 }
 
 
-+(void)reсoverPassword:(NSString*)email  completion:(void (^)(BOOL result, NSError* error))completion
++(void)reсoverPassword:(NSString*)email  completion:(void (^)(BOOL result, NSString* error))completion
 {
     ShowNetworkActivityIndicator();
     
@@ -229,12 +229,24 @@
         
         NSHTTPURLResponse *response=nil;
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+        
+        
+        NSString *textError = @"Ошибка загрузки данных";
         if (!err) {
-            id resp = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&_e];
-            if ([resp isKindOfClass:[NSDictionary class] ]) {
+            if ([response statusCode]==200){
+                success = YES;
+            }else{
+                id resp = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&_e];
                 
+                if ([resp isKindOfClass:[NSDictionary class]]) {
+                    if (resp && ![resp isEqual:[NSNull null]]){
+                        if ([resp objectForKey:@"error"]){
+                            textError = [resp objectForKey:@"error"];
+                        }
+                    }
+                }
             }
-            success = YES;
+           
             
             //NSLog(@"%@",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
             
@@ -261,7 +273,7 @@
             HideNetworkActivityIndicator();
             if (completion) {
                 //
-                completion(success, nil);
+                completion(success, textError);
             }
         });
     });

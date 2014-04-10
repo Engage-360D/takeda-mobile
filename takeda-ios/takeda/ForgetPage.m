@@ -90,11 +90,11 @@
     if ([email_field.text length]<3) {
         [Helper fastAlert:@"Введите email-адресс"];
     }else{
-        [inetRequests reсoverPassword:email_field.text completion:^(BOOL result, NSError *error) {
+        [inetRequests reсoverPassword:email_field.text completion:^(BOOL result, NSString *error) {
             if (result) {
                 [Helper fastAlert:@"На указанный email-адрес отправлено письмо"];
             }else{
-                [Helper fastAlert:@"Ошибка Восстановления"];
+                [Helper fastAlert:error];
             }
         }];
     }
