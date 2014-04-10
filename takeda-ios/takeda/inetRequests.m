@@ -202,6 +202,8 @@
 
 
 
+
+
 +(void)sendAnalysisToServer:(NSDictionary*)analysisData completion:(void (^)(BOOL result, NSError* error))completion{
     ShowNetworkActivityIndicator();
     
@@ -224,22 +226,22 @@
         
         [request setHTTPMethod:@"POST"];
         
-        [request setValue:[NSString stringWithFormat:@"Basic dmFzamFrMDA0QHlhbmRleC5ydToxMjM0NTY="] forHTTPHeaderField: @"Authorization"];
-        //[[UserData sharedObject] getAccessToken]
+        //NSString *data = @"{\"testResult\":{\"growth\":\"109\",\"heartAttackOrStroke\":\"0\",\"acetylsalicylicDrugs\":\"0\",\"sex\":\"male\",\"extraSalt\":\"1\",\"cholesterolDrugs\":\"0\",\"diabetes\":\"0\",\"smoking\":\"0\",\"weight\":\"89\",\"birthday\":\"2000-04-29T00:00:00+0400\",\"arterialPressure\":\"114\",\"cholesterolLevel\":\"6.0\",\"physicalActivity\":\"94\"}}";
         
-        [request setValue:@"application/json" forHTTPHeaderField: @"Content-Type"];
-        [request setValue:@"HTTPie/0.8.0" forHTTPHeaderField: @"User-Agent"];
-        [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField: @"Accept"];
-        [request setValue:@"gzip, deflate, compress" forHTTPHeaderField: @"Accept-Encoding"];
-        [request setValue:[NSString stringWithFormat:@"%i",[[analysisData toJSONString] length]] forHTTPHeaderField: @"Content-Length"];
+
+        NSString *token = [NSString stringWithFormat:@"%@:%@",[[UserData sharedObject] getUserName],[[UserData sharedObject] getUserPassword]];
+        token = [token base64String:token];
+        token = @"dmFzamFrMDA0QHlhbmRleC5ydToxMjM0NTY=";
         
         
+        [request setValue:[NSString stringWithFormat:@"Basic %@",token] forHTTPHeaderField: @"Authorization"];
         
-        
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         NSMutableData *body = [NSMutableData data];
         [body appendData:[[analysisData toJSONString] dataUsingEncoding:NSUTF8StringEncoding]];
-        [request setHTTPBody:body];
+        //[body appendData:[data dataUsingEncoding:NSUTF8StringEncoding]];
         
+        [request setHTTPBody:body];
         
         
         
@@ -252,10 +254,8 @@
             
             
             if ([resp isKindOfClass:[NSDictionary class] ]) {
-                if ([resp hasKey:@"id"]) {
-
-                    success = YES;
-                }
+                success = YES;
+                [[UserData sharedObject] saveAnalisRiskData:responseData];
             }else{
                 if (!resp) {
                     resp = @"Ошибка регистрации";

@@ -13,6 +13,9 @@
 @property (nonatomic,retain) IBOutlet UIView *headerView;
 
 
-@property (nonatomic,retain) IBOutlet UILabel *text1;
-@property (nonatomic,retain) IBOutlet UILabel *text2;
+
+@property (nonatomic,retain) IBOutlet UILabel  *scoreValue;
+@property (nonatomic,retain) IBOutlet UIImageView *scoreCircle;
+
+@property BOOL needUpdate;
 @end

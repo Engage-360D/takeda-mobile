@@ -11,6 +11,7 @@
 @interface Helper : NSObject
 +(float)heightText:(NSString*)text withFont:(UIFont*)font withWidth:(float)width;
 +(void)fastAlert:(NSString*)text;
++ (NSDate *)getAgoYear:(int)count_yesar fromDate:(NSDate *)from;
 @end
 
 @interface NSDictionary (Helper)

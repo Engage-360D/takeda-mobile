@@ -56,8 +56,8 @@
     
     menuData =
     @[@{@"name" :@"Анализ риска", @"enabled":@"YES"},
-      @{@"name" :@"Поиск учреждений", @"enabled":@"YES"},
-      @{@"name" :@"Рекомендации", @"enabled":@"NO"},
+      @{@"name" :@"Поиск учреждений", @"enabled":@"NO"},
+      @{@"name" :@"Рекомендации", @"enabled":@"YES"},
       @{@"name" :@"Результаты анализа", @"enabled":@"NO"},
       @{@"name" :@"Календарь", @"enabled":@"NO"},
       @{@"name" :@"Полезно знать", @"enabled":@"YES"},
@@ -157,11 +157,11 @@
                 last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
                 
                 
-                if (!riskAnalysis_vc) {
+                /*if (!riskAnalysis_vc) {
                     riskAnalysis_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getRiskAnalysisPage]];
-                }
+                }*/
                 
-                [self.slideMenuController closeMenuBehindContentViewController:riskAnalysis_vc animated:YES completion:nil];
+                [self.slideMenuController closeMenuBehindContentViewController:[[rootMenuController sharedInstance] riskAnalysis_vc] animated:YES completion:nil];
             }
             break;}
         case State_Search_Institution:{

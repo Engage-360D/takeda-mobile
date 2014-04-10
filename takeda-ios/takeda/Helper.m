@@ -41,6 +41,17 @@
     [[[UIAlertView alloc] initWithTitle:@"Уведомление" message:text delegate:nil cancelButtonTitle:@"Закрыть" otherButtonTitles: nil] show];
 }
 
++ (NSDate *)getAgoYear:(int)count_yesar fromDate:(NSDate *)from{
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setYear:-count_yesar];
+    
+    return [gregorian dateByAddingComponents:offsetComponents toDate:from options:0];
+    
+}
+
 @end
 
 

@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "WelcomePage.h"
 #import "Odnoklassniki.h"
-
+#import "Path.h"
 
 @implementation AppDelegate
 WelcomePage *welcomePage;
@@ -17,6 +17,7 @@ WelcomePage *welcomePage;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Path checkDirectories];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     welcomePage = [[WelcomePage alloc] initWithNibName:@"WelcomePage" bundle:nil];
     
@@ -27,7 +28,6 @@ WelcomePage *welcomePage;
     [self.window makeKeyAndVisible];
     return YES;
 }
-
 
 
 -(void)showAllFonts{

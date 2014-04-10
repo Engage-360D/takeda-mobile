@@ -7,9 +7,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResultRiskAnalysis">
             <connections>
                 <outlet property="headerView" destination="56x-Wm-l0r" id="aC7-Al-Qes"/>
+                <outlet property="scoreCircle" destination="f5u-o6-3ce" id="mV8-6E-X8r"/>
+                <outlet property="scoreValue" destination="a4g-EU-YmX" id="ufT-GX-asg"/>
                 <outlet property="tableView" destination="x3V-FE-h15" id="mTD-nU-W1y"/>
-                <outlet property="text1" destination="yTI-0N-FyV" id="SOy-d2-99H"/>
-                <outlet property="text2" destination="g2a-UG-kd3" id="Sjy-Ci-JKN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -55,16 +55,9 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
         <view contentMode="scaleToFill" id="56x-Wm-l0r">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вероятность тяжелых сердечно-сосудистых заболеваний в ближайшие 10 лет" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yTI-0N-FyV">
-                    <rect key="frame" x="28" y="26" width="272" height="55"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Wsc-fH-CI0">
                     <rect key="frame" x="269" y="8" width="39" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -72,33 +65,20 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g2a-UG-kd3">
-                    <rect key="frame" x="62" y="140" width="238" height="55"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <string key="text">Не соответствует норме.
-Воспользуйтесь нашими рекомендациями</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="result_line.png" id="435-y6-ets">
-                    <rect key="frame" x="12" y="111" width="296" height="7"/>
+                    <rect key="frame" x="12" y="66" width="296" height="7"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="result_circle_bg.png" id="f5u-o6-3ce">
-                    <rect key="frame" x="28" y="89" width="51" height="51"/>
+                    <rect key="frame" x="44" y="44" width="51" height="51"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a4g-EU-YmX">
-                    <rect key="frame" x="32" y="104" width="42" height="21"/>
+                    <rect key="frame" x="48" y="59" width="42" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="danger_big.png" id="ERy-98-TYM">
-                    <rect key="frame" x="12" y="154" width="32" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Crd-4H-Hi2">
                     <rect key="frame" x="222" y="8" width="39" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -112,7 +92,6 @@
         </view>
     </objects>
     <resources>
-        <image name="danger_big.png" width="32" height="28"/>
         <image name="info_icon.png" width="28" height="28"/>
         <image name="result_circle_bg.png" width="51" height="51"/>
         <image name="result_line.png" width="296" height="7"/>
