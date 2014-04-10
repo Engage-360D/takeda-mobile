@@ -464,7 +464,7 @@ int selectedIndex = 0;
                                            options:0];
             //show the age as integer
             NSInteger age = [agecalcul year];
-            [[[analizData sharedObject] dicRiskData] setObject:[NSString stringWithFormat:@"%i",age] forKey:currentKey];
+            [[[analizData sharedObject] dicRiskData] setObject:[NSString stringWithFormat:@"%i",(int)age] forKey:currentKey];
             
         }
         

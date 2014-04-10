@@ -43,12 +43,12 @@
             [self.placeholder drawInRect:drawRect withAttributes:drawAttributes];
         }else{
 #warning unkoment if will be <ios7
-            /*
+            
             [[UIColor redColor] setFill];
             [placeholderColor setFill];
             rect.origin.y = rect.origin.y + 1;
             [[self placeholder] drawInRect:rect withFont:placeholderFont];
-             */
+            
         }
     }
     

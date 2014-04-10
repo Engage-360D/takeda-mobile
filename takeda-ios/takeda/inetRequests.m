@@ -60,7 +60,6 @@
                 }
             });
             
-            
         }else{
             dispatch_sync(dispatch_get_main_queue(), ^{
                 HideNetworkActivityIndicator();
@@ -200,6 +199,90 @@
 }
 
 
++(void)reсoverPassword:(NSString*)email  completion:(void (^)(BOOL result, NSString* error))completion
+{
+    ShowNetworkActivityIndicator();
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL success = NO;
+        
+        
+        NSError*err = nil;
+        NSError*_e = nil;
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:
+                                           @"%@/api/users/reset",
+                                           api_url]];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                           timeoutInterval:20.0];
+        
+        
+        NSDictionary *params = @{@"username": email};
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/json" forHTTPHeaderField: @"Content-Type"];
+        NSMutableData *body = [NSMutableData data];
+        [body appendData:[[params toJSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setHTTPBody:body];
+        
+        
+        
+        NSHTTPURLResponse *response=nil;
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+        
+        
+        NSString *textError = @"Ошибка загрузки данных";
+        if (!err) {
+            if ([response statusCode]==200){
+                success = YES;
+            }else{
+                id resp = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&_e];
+                
+                if ([resp isKindOfClass:[NSDictionary class]]) {
+                    if (resp && ![resp isEqual:[NSNull null]]){
+                        if ([resp objectForKey:@"error"]){
+                            textError = [resp objectForKey:@"error"];
+                        }
+                    }
+                }
+            }
+           
+            
+            //NSLog(@"%@",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+            
+            /*
+            if ([resp isKindOfClass:[NSDictionary class] ]) {
+                if ([resp hasKey:@"id"]) {
+                    [[UserData sharedObject] setUserData:resp];
+                    success = YES;
+                }else{
+                    err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"Ошибка Восстановления": resp}];
+                }
+            }else{
+                if (!resp) {
+                    resp = @"Ошибка Восстановления";
+                }
+                err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"error": resp}];
+            }*/
+        }else{
+            NSLog(@"error connection %@",err);
+        }
+        
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            HideNetworkActivityIndicator();
+            if (completion) {
+                //
+                completion(success, textError);
+            }
+        });
+    });
+    
+    
+    
+}
+
+
 
 
 
@@ -217,10 +300,12 @@
                                            @"%@/api/test-results/",
                                            api_url]];
         
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+        /*NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:20.0];
+                                                           timeoutInterval:20.0];*/
         
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
         
         [request setHTTPMethod:@"POST"];
         
@@ -235,7 +320,6 @@
         [request setValue:[NSString stringWithFormat:@"Basic %@",token] forHTTPHeaderField: @"Authorization"];
         
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-  
         NSMutableData *body = [NSMutableData data];
         [body appendData:[[analysisData toJSONString] dataUsingEncoding:NSUTF8StringEncoding]];
         //[body appendData:[data dataUsingEncoding:NSUTF8StringEncoding]];
@@ -249,7 +333,7 @@
         if (!err) {
             id resp = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&_e];
             
-            NSLog(@"%@",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+            //NSLog(@"%@",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
             
             
             if ([resp isKindOfClass:[NSDictionary class] ]) {
