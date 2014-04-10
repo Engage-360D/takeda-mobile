@@ -23,11 +23,12 @@
         return size.height;
     }else{
         ////////// - для ios < 7
-        CGSize labelSize = [text sizeWithFont:font
+        /*CGSize labelSize = [text sizeWithFont:font
          constrainedToSize:constrainedSize
          lineBreakMode:NSLineBreakByWordWrapping];
          
-         return labelSize.height;
+         return labelSize.height;*/
+        return 0;
     }
     
     

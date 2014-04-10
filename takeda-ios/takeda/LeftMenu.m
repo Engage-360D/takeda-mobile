@@ -60,9 +60,9 @@
       @{@"name" :@"Рекомендации", @"enabled":@"YES"},
       @{@"name" :@"Результаты анализа", @"enabled":@"NO"},
       @{@"name" :@"Календарь", @"enabled":@"NO"},
-      @{@"name" :@"Полезно знать", @"enabled":@"YES"},
-      @{@"name" :@"Публикации", @"enabled":@"YES"},
-      @{@"name" :@"Отчеты", @"enabled":@"YES"}
+      @{@"name" :@"Полезно знать", @"enabled":@"NO"},
+      @{@"name" :@"Публикации", @"enabled":@"NO"},
+      @{@"name" :@"Отчеты", @"enabled":@"NO"}
       ];
     //self.na
 }

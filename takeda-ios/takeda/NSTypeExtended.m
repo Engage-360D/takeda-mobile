@@ -8,12 +8,22 @@
 
 -(CGFloat)getTextHeightForFont:(UIFont*)font forWidth:(CGFloat)rect_width
 {
+    
+    CGRect textRect = [self boundingRectWithSize:CGSizeMake(rect_width, CGFLOAT_MAX)
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:@{NSFontAttributeName:font}
+                                         context:nil];
+    CGSize size = textRect.size;
+    return size.height;
+    
+    /*
+     ios < 7
     CGFloat minHeight = font.pointSize+4 ;
     CGSize size = [self sizeWithFont:font constrainedToSize:CGSizeMake(rect_width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
     NSLog(@"reqest width = %f width = %f, height = %f",rect_width, size.width, size.height);
     CGFloat tmp =size.height+50;
     CGFloat rowHeight = MAX(tmp, minHeight);
-    return rowHeight;
+    return rowHeight;*/
 }
 
 -(NSString *)urlEncode{

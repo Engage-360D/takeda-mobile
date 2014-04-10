@@ -86,6 +86,29 @@
 #pragma mark -
 
 
+-(IBAction)recoverPass:(id)sender{
+    if ([email_field.text length]<3) {
+        [Helper fastAlert:@"Введите email-адресс"];
+    }else{
+        [inetRequests reсoverPassword:email_field.text completion:^(BOOL result, NSError *error) {
+            if (result) {
+                [Helper fastAlert:@"На указанный email-адрес отправлено письмо"];
+            }else{
+                [Helper fastAlert:@"Ошибка Восстановления"];
+            }
+        }];
+    }
+    
+    
+    
+}
+
+
+
+
+
+
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
