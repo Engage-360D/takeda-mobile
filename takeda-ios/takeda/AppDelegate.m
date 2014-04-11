@@ -19,15 +19,34 @@ WelcomePage *welcomePage;
 {
     [Path checkDirectories];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    welcomePage = [[WelcomePage alloc] initWithNibName:@"WelcomePage" bundle:nil];
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:welcomePage];
+    [self openWelcomePage];
+    
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self showAllFonts];
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+
+-(void)openWelcomePage{
+    welcomePage = [[WelcomePage alloc] initWithNibName:@"WelcomePage" bundle:nil];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:welcomePage];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 -(void)showAllFonts{

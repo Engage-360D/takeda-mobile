@@ -207,7 +207,7 @@ NSString *sentEmail;
         [[UserData sharedObject] savePassword:self.pass_field.text];
         [[UserData sharedObject] saveUserName:self.email_field.text];
         
-        [inetRequests registrationUserWithData:params completion:^(BOOL result, NSError *error) {
+        [inetRequests registrationUserWithData:params completion:^(BOOL result, NSError *error, NSString* textError) {
             if (result) {
                 [inetRequests authUserWithLogin:sentEmail password:sentPassword completion:^(BOOL result, NSError *error) {
                     if (result) {
@@ -230,6 +230,10 @@ NSString *sentEmail;
 
             }else{
                 NSString *text = @"Ошибка при регистрации";
+                if (textError) {
+                    text = textError;
+                }
+                
                 if ([[[error userInfo] allKeys] count]>0) {
                     id key = [[[error userInfo] allKeys] objectAtIndex:0];
                     id res = [[error userInfo] objectForKey:key];

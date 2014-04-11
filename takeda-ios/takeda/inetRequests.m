@@ -132,7 +132,7 @@
 }
 
 
-+(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error))completion
++(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error, NSString* textError))completion
 {
     ShowNetworkActivityIndicator();
     
@@ -162,6 +162,7 @@
         
         NSHTTPURLResponse *response=nil;
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+        NSString *textError = nil;
         if (!err) {
             id resp = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&_e];
             
@@ -173,7 +174,12 @@
                     [[UserData sharedObject] setUserData:resp];
                     success = YES;
                 }else{
-                    err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"Ошибка при регистрации": resp}];
+                    if (response.statusCode == 500) {
+                        textError = @"Пользователь с текущим email-адрессом был ранее зарегистрирован";
+                    }else{
+                        err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"Ошибка при регистрации": resp}];
+                    }
+                    
                 }
             }else{
                 if (!resp) {
@@ -189,7 +195,7 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             HideNetworkActivityIndicator();
             if (completion) {
-                completion(success, nil);
+                completion(success, err, textError);
             }
         });
     });

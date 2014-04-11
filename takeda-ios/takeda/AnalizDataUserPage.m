@@ -323,15 +323,77 @@
 -(void)reloadDataSource{
     if (page==1) {
         self.sourceData = [[analizData sharedObject] getQuestionsDataUser];
+        [self checkUserDataFields];
     }else{
         if (page==2) {
             self.sourceData = [[analizData sharedObject] getQuestionsHistoryUser];
+            [self checkUserHistoryFields];
         }else{
             self.sourceData = [[analizData sharedObject] getQuestionsDailyRation];
         }
     }
     [self.tableView reloadData];
 }
+
+
+
+
+-(void)checkUserDataFields{
+    float cholesterol = 0;
+    if (![[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"] isEqualToString:@"-"]) {
+        cholesterol = [[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"] floatValue];
+    }
+    if (cholesterol <= 4.9) {
+        NSMutableArray *tmp = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [self.sourceData count]; i++) {
+            if (![[[self.sourceData objectAtIndex:i] objectForKey:@"object"] isEqualToString:@"drags_cholesterol"]) {
+                [tmp addObject:[self.sourceData objectAtIndex:i]];
+            }
+        }
+        self.sourceData = tmp;
+    }
+}
+
+
+
+
+-(void)checkUserHistoryFields{
+    float arterial_pressure = 0;
+    if (![[[[analizData sharedObject] dicRiskData] objectForKey:@"arterial_pressure"] isEqualToString:@"-"]) {
+        arterial_pressure = [[[[analizData sharedObject] dicRiskData] objectForKey:@"arterial_pressure"] floatValue];
+    }
+    
+    bool suffer_diabet = [[[[analizData sharedObject] dicRiskData] objectForKey:@"diabet"] boolValue];
+    
+    
+    
+    NSMutableArray *tmp = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [self.sourceData count]; i++) {
+        bool can_add = YES;
+        
+        if ([[[self.sourceData objectAtIndex:i] objectForKey:@"object"] isEqualToString:@"decrease_pressure_drags"] && arterial_pressure<=139) {
+            can_add = NO;
+        }
+        
+        if ([[[self.sourceData objectAtIndex:i] objectForKey:@"object"] isEqualToString:@"higher_suger_blood"] && suffer_diabet) {
+            can_add = NO;
+        }
+        
+        if ([[[self.sourceData objectAtIndex:i] objectForKey:@"object"] isEqualToString:@"accept_drags_suger"] && !suffer_diabet) {
+            can_add = NO;
+        }
+        
+        if (can_add) {
+            [tmp addObject:[self.sourceData objectAtIndex:i]];
+        }
+        
+    }
+    self.sourceData = tmp;
+
+}
+
+
+
 
 
 

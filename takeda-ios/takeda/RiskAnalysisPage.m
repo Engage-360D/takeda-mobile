@@ -42,7 +42,11 @@ int selectedIndex = 0;
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = NO;
     [self setNavigationPanel];
+    [self setDefaultDateBirthday];
     [self setFirstPageAnalize];
+    
+    
+    
 }
 
 
@@ -53,7 +57,42 @@ int selectedIndex = 0;
 }
 
 
+-(void)setDefaultDateBirthday{
+    if ([[[UserData sharedObject] getUserData] objectForKey:@"birthday"]) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+        NSDate *curDate = [formatter dateFromString:[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]];
+        if (curDate) {
+            
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
+            
+            NSString *prettyVersion = [dateFormat stringFromDate:curDate];
+            
+            if (!prettyVersion) {
+                [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ssZZZ"];
+                prettyVersion = [dateFormat stringFromDate:curDate];
+            }
+            
+            
+            [[[analizData sharedObject] dicRiskData] setObject:prettyVersion forKey:@"birthday"];
+            
+            NSDateComponents* agecalcul = [[NSCalendar currentCalendar]
+                                           components:NSYearCalendarUnit
+                                           fromDate:curDate
+                                           toDate:[NSDate date]
+                                           options:0];
+            //show the age as integer
+            NSInteger age = [agecalcul year];
+            [[[analizData sharedObject] dicRiskData] setObject:[NSString stringWithFormat:@"%i",(int)age] forKey:@"old"];
 
+
+        }
+        
+    }
+
+}
 
 
 
@@ -219,11 +258,14 @@ int selectedIndex = 0;
     
     NSDictionary *params = @{@"acetylsalicylicDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_risk_trombus"],
                              @"arterialPressure": [[[analizData sharedObject] dicRiskData] objectForKey:@"arterial_pressure"],
+                             @"arterialPressureDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"decrease_pressure_drags"],
                              //@"birthday": [[[UserData sharedObject] getUserData] objectForKey:@"birthday"],
                              @"birthday": [[[analizData sharedObject] dicRiskData] objectForKey:@"birthday"],
                              @"cholesterolDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"drags_cholesterol"],
                              @"cholesterolLevel":[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"],
                              @"diabetes":[[[analizData sharedObject] dicRiskData] objectForKey:@"diabet"],
+                             @"sugarProblems":[[[analizData sharedObject] dicRiskData] objectForKey:@"higher_suger_blood"],
+                             @"sugarDrugs":[[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_suger"],
                              @"extraSalt":[[[analizData sharedObject] dicRiskData] objectForKey:@"salt"],
                              @"growth":[[[analizData sharedObject] dicRiskData] objectForKey:@"growth"],
                              @"heartAttackOrStroke":[[[analizData sharedObject] dicRiskData] objectForKey:@"infarct"],
@@ -544,6 +586,13 @@ numberOfRowsInComponent:(NSInteger)component
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
         NSDate *curDate = [formatter dateFromString:[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]];
+        
+        
+        if (!curDate) {
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ssZZZ"];
+            curDate = [formatter dateFromString:[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]];
+        }
+        
         if (curDate) {
             [date_picker setDate:curDate];
         }else{

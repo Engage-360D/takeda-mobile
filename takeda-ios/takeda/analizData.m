@@ -39,6 +39,8 @@ NSMutableDictionary * dic_data;
     
     [dic_data setObject:@"0" forKey:@"diabet"];
     [dic_data setObject:@"0" forKey:@"higher_suger_blood"];
+    [dic_data setObject:@"0" forKey:@"accept_drags_suger"];
+    
     [dic_data setObject:@"-" forKey:@"arterial_pressure"];
     [dic_data setObject:@"0" forKey:@"decrease_pressure_drags"];
     //[dic_data setObject:@"-" forKey:@"walking"];
@@ -68,7 +70,7 @@ NSMutableDictionary * dic_data;
              @{@"object":@"growth", @"id":@"3",@"type": @"2",@"name":@"Рост",@"description":@"см",@"value":[dic_data objectForKey:@"growth"]},
              @{@"object":@"weight", @"id":@"4",@"type": @"2",@"name":@"Вес",@"description":@"кг",@"value":[dic_data objectForKey:@"weight"]},
              @{@"object":@"smoke", @"id":@"5",@"type": @"3",@"name":@"Вы курите?",@"value":[dic_data objectForKey:@"smoke"]},
-             @{@"object":@"cholesterol", @"id":@"6",@"type": @"2",@"name":@"Уровень общего холестирина",@"description":@"мг/дл",@"value":[dic_data objectForKey:@"cholesterol"]},
+             @{@"object":@"cholesterol", @"id":@"6",@"type": @"2",@"fractions":@"1",@"name":@"Уровень общего холестирина",@"description":@"ммоль/литр",@"value":[dic_data objectForKey:@"cholesterol"]},
              @{@"object":@"drags_cholesterol", @"id":@"7",@"type": @"3",@"name":@"Лекарства для снижения уровня холестерина",@"value":[dic_data objectForKey:@"drags_cholesterol"]}
              ];
 }
@@ -76,9 +78,14 @@ NSMutableDictionary * dic_data;
 -(NSArray*)getQuestionsHistoryUser{
     return @[
              @{@"object":@"diabet", @"id":@"8",@"type": @"3",@"name":@"Страдаете ли вы диабетом?",@"value":[dic_data objectForKey:@"diabet"]},
+             
              @{@"object":@"higher_suger_blood", @"id":@"9",@"type": @"3",@"name":@"Отмечалось ли повышение уровня сахара в крови?",@"value":[dic_data objectForKey:@"higher_suger_blood"]},
-             @{@"object":@"arterial_pressure", @"id":@"10",@"type": @"2",@"name":@"Артериальное давнление",@"description":@"мм",@"value":[dic_data objectForKey:@"arterial_pressure"]},
-             @{@"object":@"decrease_pressure_drags", @"id":@"11",@"type": @"3",@"name":@"Принимаете ли препараты для понижения давления?",@"value":[dic_data objectForKey:@"decrease_pressure_drags"]},
+             
+            @{@"object":@"accept_drags_suger", @"id":@"10",@"type": @"3",@"name":@"Принимает ли препараты для снижения уровня сахара в крови?",@"value":[dic_data objectForKey:@"accept_drags_suger"]},
+             
+             @{@"object":@"arterial_pressure", @"id":@"11",@"type": @"2",@"name":@"Артериальное давнление",@"description":@"мм",@"value":[dic_data objectForKey:@"arterial_pressure"]},
+             
+             @{@"object":@"decrease_pressure_drags", @"id":@"12",@"type": @"3",@"name":@"Принимаете ли препараты для понижения давления?",@"value":[dic_data objectForKey:@"decrease_pressure_drags"]},
              //@{@"object":@"walking", @"id":@"12",@"type": @"2",@"name":@"Ходьба",@"description":@"мин/нед",@"value":[dic_data objectForKey:@"walking"]},
              @{@"object":@"sport", @"id":@"13",@"type": @"2",@"fractions":@"1",@"name":@"Физическая активность",@"description":@"минут/неделя",@"value":[dic_data objectForKey:@"sport"]},
              @{@"object":@"infarct", @"id":@"14",@"type": @"3",@"name":@"Инфаркт/инсульт",@"value":[dic_data objectForKey:@"infarct"]},

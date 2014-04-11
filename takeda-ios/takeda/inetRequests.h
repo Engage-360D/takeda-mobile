@@ -14,7 +14,7 @@
               completion:(void (^)(BOOL result, NSError* error))completion;
 
 +(void)getUserDataWithCompletion:(void (^)(BOOL result, NSError* error))completion;
-+(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error))completion;
++(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error ,NSString* textError))completion;
 
 +(void)reсoverPassword:(NSString*)email  completion:(void (^)(BOOL result, NSString* error))completion;
 
