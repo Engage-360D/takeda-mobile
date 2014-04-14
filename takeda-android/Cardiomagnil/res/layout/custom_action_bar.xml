@@ -7,7 +7,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
         android:background="@color/very_dark_grayish_blue" >
+
+		<ImageView
+            android:id="@+id/imageViewMenuDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/middle_margin"
+            android:layout_marginRight="@dimen/middle_margin"
+            android:src="@drawable/menu_dark" />
 
         <ImageView
             android:id="@+id/row_icon"

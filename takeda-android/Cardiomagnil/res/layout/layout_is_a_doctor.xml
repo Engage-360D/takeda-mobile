@@ -11,16 +11,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:text="@string/is_a_doctor"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/very_dark_grayish_blue" />
 
-    <Switch
-        android:id="@+id/switchIsADoctor"
+    <RadioGroup
+        android:id="@+id/radioGroupDoctor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:textOff="@string/no"
-        android:textOn="@string/yes" />
+        android:layout_centerVertical="true"
+        android:orientation="horizontal" >
+
+        <ToggleButton
+            android:id="@+id/toggleButtonNotDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="10dp"
+            android:minWidth="10dp"
+            android:onClick="onToggle"
+            android:textOff="@string/no"
+            android:textOn="@string/no" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="10dp"
+            android:minWidth="10dp"
+            android:onClick="onToggle"
+            android:textOff="@string/yes"
+            android:textOn="@string/yes" />
+    </RadioGroup>
 
 </RelativeLayout>

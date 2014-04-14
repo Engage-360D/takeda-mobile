@@ -9,7 +9,7 @@
         android:fromYScale="1"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:repeatCount="3"
+        android:repeatCount="-1"
         android:repeatMode="reverse"
         android:toXScale="1.5"
         android:toYScale="1.5" />
@@ -17,7 +17,7 @@
     <alpha
         android:duration="@integer/alpha_animation_time"
         android:fromAlpha="0.0"
-        android:repeatCount="1"
+        android:repeatCount="-1"
         android:repeatMode="reverse"
         android:startOffset="0"
         android:toAlpha="1.0" >
