@@ -5,7 +5,7 @@
     android:background="@color/very_dark_grayish_blue"
     android:orientation="vertical" >
 
-    <View style="@style/Divider" />
+    <View style="@style/divider_normal" />
 
     <LinearLayout
         android:id="@+id/linearLayoutBottomOutsideContent"

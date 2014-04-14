@@ -27,6 +27,7 @@
     <dimen name="middle_block_hight">64dp</dimen>
     <dimen name="middle_block_width">64dp</dimen>
     <dimen name="large_block_width">128dp</dimen>
+    <dimen name="xlarge_block_width">192dp</dimen>
 
     <!-- ==== -->
     <!-- misc -->
@@ -41,6 +42,12 @@
     <dimen name="slidingmenu_offset">60dp</dimen>
     <dimen name="shadow_width">15dp</dimen>
     <dimen name="list_padding">10dp</dimen>
-    <dimen name="divider_hight">2dp</dimen>
+
+    <!-- ======== -->
+    <!-- dividers -->
+    <!-- ======== -->
+    <dimen name="divider_menu_hight">1dp</dimen>
+    <dimen name="divider_content_hight">1dp</dimen>
+    <dimen name="divider_normal_hight">1dp</dimen>
 
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Cardiomagnil</string>
+    <string name="app_name">Кардиомагнил — здоровое сердце</string>
     <string name="action_settings">Settings</string>
 
     <!-- ========== -->
@@ -23,11 +23,15 @@
     <!-- fragment login -->
     <!-- ============== -->
     <string name="entry">Вход</string>
+    <string name="restoring_password">Восстановление пароля</string>
     <string name="login_email">e-mail</string>
     <string name="password">пароль</string>
     <string name="forgot_password">Забыли пароль?</string>
     <string name="enter">Войти</string>
+    <string name="restore">Восстановить</string>
     <string name="if_no_account">Если у вас до сих пор нет логина, советуем вам зарегистироваться:</string>
+    <string name="restoring_info">Информация для восстановления пароля будет выслана на указанный email.</string>
+    <string name="restoring_info_sent">Информация для восстановления пароля была выслана на указанный email.</string>
     <string name="bottom_login">Регистрация</string>
     <string name="two_minutes">2 минуты до начала работы приложения</string>
 
@@ -51,9 +55,9 @@
     <string name="agree_that_advises">Согласен с тем, что вся информация носит рекомендательный характер</string>
     <string name="bottom_registration">Регистрация</string>
 
-    <!-- ============= -->
-    <!-- risk analysis -->
-    <!-- ============= -->
+    <!-- ==== -->
+    <!-- test -->
+    <!-- ==== -->
     <string name="risk_analysis">Анализ риска</string>
     <string name="tab_step_one">Шаг 1</string>
     <string name="tab_patient_data">Данные пациента</string>
@@ -64,6 +68,21 @@
     <string name="step_two_patient_history">Шаг 2. История пациента</string>
     <string name="step_three_daily_ration">Шаг 3. Дневной рацион</string>
     <string name="get_results">Получить результаты</string>
+    <string name="enter_birth_date">Введите дату рождения</string>
+    <string name="error_birth_date">Вы ввели недопустимое значение даты</string>
+    <string name="results">Результаты</string>
+    <string name="results_smoking">Курение</string>
+    <string name="results_physical_activity">Физическая активность</string>
+    <string name="results_main_risks">Основные риски</string>
+    <string name="results_diet">Диета</string>
+    <string name="results_recomendations">Рекомендации</string>
+    <string name="results_error">Не удалось получить результат.\nПожалуйста, попробуйте пройти тест позже.</string>
+    <string name="error_test_pressure">Давление может иметь значение от 80 до 200.</string>
+    <string name="error_test_activity">Физическая активность может иметь значение от 80 до 200.</string>
+    <string name="error_test_age">Возраст может иметь значение от 22.</string>
+    <string name="error_test_growth">Рост может иметь значение от 30 до 300.</string>
+    <string name="error_test_weight">Вес может иметь значение от 30 до 700.</string>
+    <string name="error_test_cholesterol_level">Уровень общего холестирина может иметь значение от 3 до 9.</string>
 
     <!-- ============ -->
     <!-- patient data -->
@@ -77,30 +96,28 @@
     <string name="data_height_hint">см</string>
     <string name="data_weight">Вес</string>
     <string name="data_weight_hint">кг</string>
-    <string name="data_cholesterol">Уровень общего холестерина</string>
-    <string name="data_cholesterol_hint">мг/дл</string>
+    <string name="data_cholesterol">Уровень общего холестерина, ммоль/литр</string>
+    <string name="data_cholesterol_hint">ммоль/литр</string>
+    <string name="data_cholesterol_drugs">Принимает ли препараты для снижения уровня холестерина в крови?</string>
     <string name="data_smoking">Курение</string>
 
     <!-- =============== -->
     <!-- patient history -->
     <!-- =============== -->
     <string name="suffering_diabetes">Страдаете ли вы диабетом?</string>
+    <string name="sugar_problems">Отмечалось ли повышение уровня сахара в крови?</string>
     <string name="diabetic_medicines">Принимаете лекарства для лечения сахарного диабета?</string>
-    <string name="arterial_pressure">Артериальное давление</string>
+    <string name="arterial_pressure">Артериальное давление, мм</string>
     <string name="arterial_pressure_hint">мм</string>
     <string name="hypertonic_medicines">Принимаете ли препараты для понижения давления?</string>
-    <string name="aerobic_activity">Аэробные нагрузки (ходьба)</string>
-    <string name="aerobic_activity_hint">мин/неделя</string>
-    <string name="anaerobic_activity">Анаэробные нагрузки (спорт)</string>
-    <string name="anaerobic_activity_hint">мин/неделя</string>
+    <string name="physical_activity">Физические нагрузки</string>
+    <string name="physical_activity_hint">мин/неделя</string>
     <string name="infarction_stroke">Был ли у вас инфаркт/инсульт?</string>
 
     <!-- ============ -->
     <!-- daily ration -->
     <!-- ============ -->
-    <string name="salt">Сколько соли употребляете?</string>
-    <string name="teaspoon">*1 чайная ложка ~ 12 грамм</string>
-    <string name="salt_hint">грамм</string>
+    <string name="salt">Досаливаете ли вы пищу?</string>
     <string name="aspirin">Принимаете ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?</string>
 
     <!-- ======= -->
@@ -113,14 +130,12 @@
     <string name="infarction">Инфаркт</string>
     <string name="prophylaxis">Профилактика</string>
     <string name="category">Категория: "норма"</string>
-    <string name="physical_activity">Физическая активность</string>
     <string name="results_weight">Вес</string>
     <string name="results_cholesterol">Уровень холестерина</string>
     <string name="systolic_pressure">Систолическое давление</string>
     <string name="increased_sugar">Отмечалось повышение уровня сахара в крови</string>
     <string name="pressure_is_above_normal">Ваше давление выше нормы</string>
     <string name="cholesterol_is_above_normal">Ваш холестерин выше нормы</string>
-    <string name="diet">Диета</string>
     <string name="salt_intake">Потребление соли</string>
     <string name="bakery_intake">Потребление мучных изделий</string>
     <string name="diet_adjustment ">Дополнительная корректировка диеты</string>
@@ -145,11 +160,25 @@
     <string name="no">Нет</string>
     <string name="progress_dialog_text">Подождите...</string>
     <string name="complete_all_fields">Пожалуйста, заполните все поля</string>
+    <string name="press_back_twice">Для выхода из приложения нажмите \'Back\' дважды</string>
 
     <!-- ====== -->
     <!-- errors -->
     <!-- ====== -->
     <string name="error_authorization">Произошла ошибка во время авторизации.</string>
     <string name="error_registration">Произошла ошибка во время регистрации.</string>
+    <string name="error_get_test_results">Произошла ошибка во время получения результатов теста.</string>
+    <string name="authorization_error">Ошибка авторизации</string>
+    <string name="error_tets_already_passed">Вы уже проходили тест.\nТест проходится раз в 3 месяца.</string>
+    <string name="error_tets_username_not_unique">Вы уже регистрировались, пожалуйста вернитесь к входу.\nТам же вы можете восстановить пароль.</string>
+    <string name="error_restoring">Произошла ошибка во время восстановления пароля.</string>
+    <string name="error_user_not_found">Такой пользователь не найден.\nУбедитесь, что вы правильно ввели электронный адрес.</string>
+    <string name="error_password_already_requested">Пароль уже был запрошен.</string>
+
+    <!-- ===== -->
+    <!-- fonts -->
+    <!-- ===== -->
+    <string name="segoe_wp_font">fonts/SegoeWP.ttf</string>
+    <string name="segoe_wp_font_light">fonts/SegoeWP-Light.ttf</string>
 
 </resources>

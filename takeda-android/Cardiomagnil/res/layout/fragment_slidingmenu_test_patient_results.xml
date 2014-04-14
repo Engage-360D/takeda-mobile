@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/very_soft_blue" >
+
+    <include
+        android:id="@+id/layoutTopMenu"
+        android:layout_alignParentTop="true"
+        layout="@layout/layout_top_menu" />
+
+    <ScrollView
+        android:id="@+id/scrollViewResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTopMenu"
+        android:paddingLeft="@dimen/large_padding"
+        android:paddingRight="@dimen/large_padding" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <include
+                android:id="@+id/relativeLayoutScore"
+                layout="@layout/layout_score" />
+
+            <include
+                android:id="@+id/linearLayoutScoreDescription"
+                layout="@layout/layout_piece" />
+
+            <include
+                android:id="@+id/linearLayoutDangerAlert"
+                layout="@layout/layout_piece" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutBigWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/linearLayoutMainRecommendation"
+                    layout="@layout/layout_piece" />
+
+                <View style="@style/divider_normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/middle_margin"
+                    android:text="@string/results_smoking"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+
+                <View style="@style/divider_normal" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerSmoking"
+                    layout="@layout/layout_banner" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/middle_margin"
+                    android:text="@string/results_physical_activity"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+
+                <View style="@style/divider_normal" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerPhysicalActivity"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerBMI"
+                    layout="@layout/layout_banner" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/middle_margin"
+                    android:text="@string/results_main_risks"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+
+                <View style="@style/divider_normal" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerCholesterolLevel"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBanneArterialPressure"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBanneSugarProblems"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBannePressureDrugs"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBanneholesterolDrugs"
+                    layout="@layout/layout_banner" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/middle_margin"
+                    android:text="@string/results_diet"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+
+                <View style="@style/divider_normal" />
+
+                <include
+                    android:id="@+id/linearLayoutBanneExtraSalt"
+                    layout="@layout/layout_banner" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textViewError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/results_error"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white"
+        android:visibility="invisible" />
+
+</RelativeLayout>

@@ -1,0 +1,8 @@
+<resources>
+
+    <declare-styleable name="SeekBarWithValues">
+        <attr name="min" format="integer" />
+        <attr name="max" format="integer" />
+    </declare-styleable>
+
+</resources>
