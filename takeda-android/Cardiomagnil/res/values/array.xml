@@ -11,7 +11,7 @@
         <item>+*+*ru.com.cardiomagnil.ui.slidingmenu.TestPatientDataFargment*Анализ риска</item>
         <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.SearchAgenciesFargment*Поиск учреждений</item>
         <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.RecommendationsFargment*Рекомендаци</item>
-        <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.AnalysisResultsFargment*Результаты анализа</item>
+        <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment*Результаты анализа</item>
         <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.CalendarFargment*Календарь</item>
         <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.GoodToKnowFargment*Полезно знать</item>
         <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.PublicationsFargment*Публикации</item>
@@ -19,7 +19,6 @@
         <item>-*-*ru.com.cardiomagnil.ui.slidingmenu.TestPatientDataFargment*Данные пациента</item>
         <item>-*-*ru.com.cardiomagnil.ui.slidingmenu.TestPatientHistoryFargment*История пациента</item>
         <item>-*-*ru.com.cardiomagnil.ui.slidingmenu.TestDailyRationFargment*Дневной рацион</item>
-        <item>-*-*ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment*Результаты</item>
     </string-array>
 
     <!--  -->

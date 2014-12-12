@@ -7,7 +7,7 @@ import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.application.Tools;
 import ru.com.cardiomagnil.commands.GetTestResults;
-
+import ru.com.cardiomagnil.model.TestResult;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,13 +21,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import ru.com.cardiomagnil.R;
+
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class SlidingMenuActivity extends SlidingFragmentActivity {
-    protected ListFragment mFrag;
+    protected ListFragment mMenuListFragment;
     private Fragment mContent;
     private Fragment mPreviousFragment;
     private AtomicBoolean mPending = new AtomicBoolean(false);
@@ -114,11 +114,11 @@ public class SlidingMenuActivity extends SlidingFragmentActivity {
         setBehindContentView(R.layout.slidingmenu_menu_container);
         if (savedInstanceState == null) {
             FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
-            mFrag = new MenuListFragment();
-            t.replace(R.id.menu_frame, mFrag);
+            mMenuListFragment = new MenuListFragment();
+            t.replace(R.id.menu_frame, mMenuListFragment);
             t.commit();
         } else {
-            mFrag = (ListFragment) this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
+            mMenuListFragment = (ListFragment) this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
         }
 
         // customize the SlidingMenu
@@ -138,6 +138,10 @@ public class SlidingMenuActivity extends SlidingFragmentActivity {
         // TestResultsFargment()).commit();
 
         setSlidingActionBarEnabled(true);
+    }
+
+    public void refreshMenuItems() {
+        ((MenuListFragment)mMenuListFragment).refreshMenuItems();
     }
 
     public void switchContent(final Fragment fragment) {
@@ -188,6 +192,7 @@ public class SlidingMenuActivity extends SlidingFragmentActivity {
                 hideProgressDialog();
                 storePreferences();
                 switchContent(new TestResultsFargment());
+                refreshMenuItems();
             } else if (resultCode == GetTestResults.RESPONSE_PROGRESS) {
                 // do nothing
             } else {

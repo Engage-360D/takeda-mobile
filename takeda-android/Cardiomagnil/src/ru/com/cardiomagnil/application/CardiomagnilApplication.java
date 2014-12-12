@@ -8,7 +8,6 @@ import ru.evilduck.framework.SFApplicationState;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 public class CardiomagnilApplication extends Application {
     private static Context mAppContext = null;
@@ -63,6 +62,9 @@ public class CardiomagnilApplication extends Application {
         // TODO: add id field into user
         // authorization.setClientId(user.getId);
         appState.setAuthorization(authorization);
+
+        TestResult testResult = new TestResult(appSharedPreferences.getPreference(AppSharedPreferences.PREFERENCES.results));
+        appState.setTestResult(testResult);
     }
 
     @SuppressWarnings("unused")

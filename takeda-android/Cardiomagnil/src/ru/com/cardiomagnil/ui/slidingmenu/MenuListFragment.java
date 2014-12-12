@@ -4,10 +4,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import ru.com.cardiomagnil.R;
+import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.application.Tools;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 public class MenuListFragment extends ListFragment {
     private String[] mFragmentNames = null;
+    private SampleAdapter mMenuItemsAdapte;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,9 +41,9 @@ public class MenuListFragment extends ListFragment {
         // ArrayAdapter<String> menuItemsAdapter = new
         // ArrayAdapter<String>(getActivity(),
         // android.R.layout.simple_list_item_1, android.R.id.text1, menuItems);
-        SampleAdapter menuItemsAdapter = new SampleAdapter(getActivity());
-        menuItemsAdapter.addAll(menuItems);
-        setListAdapter(menuItemsAdapter);
+        mMenuItemsAdapte = new SampleAdapter(getActivity());
+        mMenuItemsAdapte.addAll(menuItems);
+        setListAdapter(mMenuItemsAdapte);
     }
 
     @Override
@@ -63,6 +64,10 @@ public class MenuListFragment extends ListFragment {
         if (newContent != null) {
             switchFragment(newContent);
         }
+    }
+
+    public void refreshMenuItems() {
+        mMenuItemsAdapte.notifyDataSetChanged();
     }
 
     // the meat of switching the above fragment
@@ -99,6 +104,15 @@ public class MenuListFragment extends ListFragment {
 
             TextView titleTextView = (TextView) convertView.findViewById(R.id.TextViewTitle);
             titleTextView.setText(itemTitle);
+
+            // ru.com.cardiomagnil.ui.slidingmenu.AnalysisResultsFargment
+            boolean isResultFragment = "ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment".equals(complexItemTitleStrings[2]);
+            boolean resultNotEmpty = AppState.getInstatce().getTestResult() != null && AppState.getInstatce().getTestResult().isInitialized();
+
+            if (isResultFragment && resultNotEmpty) {
+                isClickable = true;
+                isVisible = true;
+            }
 
             // TODO: Why !isEnable?
             convertView.setClickable(!isClickable);
