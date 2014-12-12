@@ -54,7 +54,13 @@
     [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
     last_stateMenu = State_Risk_Analysis;
     
+    
     menuData =
+    @[@{@"name" :@"Анализ риска", @"enabled":@"YES"},
+      @{@"name" :@"Рекомендации", @"enabled":@"YES"}];
+    
+    
+    /*menuData =
     @[@{@"name" :@"Анализ риска", @"enabled":@"YES"},
       @{@"name" :@"Поиск учреждений", @"enabled":@"NO"},
       @{@"name" :@"Рекомендации", @"enabled":@"YES"},
@@ -64,7 +70,7 @@
       @{@"name" :@"Публикации", @"enabled":@"NO"},
       @{@"name" :@"Отчеты", @"enabled":@"NO"}
       ];
-    //self.na
+    */
 }
 
 #pragma mark - Table view data source

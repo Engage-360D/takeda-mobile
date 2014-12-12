@@ -11,8 +11,8 @@
 
 enum {
     State_Risk_Analysis = 1,
-    State_Search_Institution = 2,
-    State_Recomendation = 3,
+    State_Search_Institution = 3,
+    State_Recomendation = 2,
     State_Analysis_Result = 4,
     State_Calendar = 5,
     State_Useful_Know = 6,
