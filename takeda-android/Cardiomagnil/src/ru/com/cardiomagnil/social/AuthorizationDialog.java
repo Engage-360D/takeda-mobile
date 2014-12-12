@@ -34,6 +34,8 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import ru.com.cardiomagnil.R;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 
 public class AuthorizationDialog {
 
@@ -99,6 +101,7 @@ public class AuthorizationDialog {
             return hash;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return "";
@@ -160,6 +163,7 @@ public class AuthorizationDialog {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
 
                 Toast.makeText(mContext, "Unexpected error", Toast.LENGTH_LONG).show();
                 mDialog.dismiss();
@@ -205,6 +209,7 @@ public class AuthorizationDialog {
                     return mService.getAccessToken(EMPTY_TOKEN, verifier);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
                     return null;
                 }
             }
@@ -234,6 +239,7 @@ public class AuthorizationDialog {
                     return response.getBody();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
                     return null;
                 }
             }

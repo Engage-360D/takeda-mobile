@@ -64,16 +64,10 @@ public class SeekBarWithValues extends RelativeLayout {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         ViewTreeObserver viewTreeObserver = mSeekBar.getViewTreeObserver();

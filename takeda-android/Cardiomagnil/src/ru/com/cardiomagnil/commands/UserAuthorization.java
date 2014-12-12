@@ -11,6 +11,8 @@ import android.os.Parcelable;
 import android.os.ResultReceiver;
 import ru.com.cardiomagnil.api.Api;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.model.Token;
 import ru.evilduck.framework.handlers.SFBaseCommand;
 
@@ -38,10 +40,11 @@ public class UserAuthorization extends SFBaseCommand {
             Token token = new Token(jsonObjectToken);
             if (token.isInitialized()) {
                 AppState.getInstatce().setToken(token);
-                result =  "";
+                result = "";
             }
         } catch (Exception e) {
             e.printStackTrace();
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return result;

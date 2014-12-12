@@ -2,6 +2,8 @@ package ru.com.cardiomagnil.commands;
 
 import ru.com.cardiomagnil.api.Api;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.model.TestResult;
 import ru.evilduck.framework.handlers.SFBaseCommand;
 import android.content.Context;
@@ -42,10 +44,11 @@ public class GetTestResults extends SFBaseCommand {
                 result = "";
                 // TODO: убрать костыль: попросить коллег на том конце переделать API - нужны коды ошибок
             } else if (jsonObjectTestResult.toString().equals("{\"_form\":[\"Test already passed by user.\"]}")) {
-                result = context.getString(R.string.error_tets_already_passed);                
+                result = context.getString(R.string.error_tets_already_passed);
             }
         } catch (Exception e) {
             e.printStackTrace();
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return result;

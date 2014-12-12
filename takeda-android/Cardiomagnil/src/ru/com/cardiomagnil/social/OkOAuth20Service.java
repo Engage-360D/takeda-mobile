@@ -20,10 +20,13 @@ import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuth20ServiceImpl;
 
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
+
 public class OkOAuth20Service extends OAuth20ServiceImpl {
 	private OkApi mApi;
 	private OAuthConfig mConfig;
-	
+
 	public OkOAuth20Service(OkApi api, OAuthConfig config) {
 		super(api, config);
 		mApi = api;
@@ -41,12 +44,12 @@ public class OkOAuth20Service extends OAuth20ServiceImpl {
 		Response response = request.send();
 		return mApi.getAccessTokenExtractor().extract(response.getBody());
 	}
-	
+
 	@Override
 	public void signRequest(Token accessToken, OAuthRequest request) {
 		try {
 			List<String> args = Arrays.asList(request.getCompleteUrl().replace(mApi.getApiBaseUrl(), "").split("&"));
-			
+
 			CollectionUtils.transform(args, new Transformer() {
 				@Override
 				public Object transform(Object arg) {
@@ -56,7 +59,7 @@ public class OkOAuth20Service extends OAuth20ServiceImpl {
 					return key + "=" + value;
 				}
 			});
-			
+
 			Collections.sort(args, new Comparator<String>() {
 				@Override
 				public int compare(String lhs, String rhs) {
@@ -65,7 +68,7 @@ public class OkOAuth20Service extends OAuth20ServiceImpl {
 					return name1.compareTo(name2);
 				}
 			});
-			
+
 			String sessionSecret = accessToken.getToken() + mApi.getSecretKey();
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
 			String sessionSecretMd5 = new BigInteger(1, md5.digest(sessionSecret.getBytes())).toString(16);
@@ -77,12 +80,13 @@ public class OkOAuth20Service extends OAuth20ServiceImpl {
 			String sig = new BigInteger(1, md5.digest(sessionSecret.getBytes())).toString(16);
 			if (sig.length() % 2 != 0)
 				sig = "0" + sig;
-			
+
 			request.addQuerystringParameter("sig", sig);
 			request.addQuerystringParameter(OAuthConstants.ACCESS_TOKEN, accessToken.getToken());
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
 		}
 	}
-	
+
 }

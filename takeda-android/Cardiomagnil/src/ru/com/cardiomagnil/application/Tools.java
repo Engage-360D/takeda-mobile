@@ -68,9 +68,8 @@ public class Tools {
             AlertDialog alert = builder.create();
             alert.show();
         } catch (Exception e) {
-            // TODO: ExeptionsHandler
             e.printStackTrace();
-            // ExeptionsHandler.getInstatce().handleException(TheHillApplication.getAppContext(), e);
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
     }
 
@@ -135,6 +134,7 @@ public class Tools {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return keyHashB64;

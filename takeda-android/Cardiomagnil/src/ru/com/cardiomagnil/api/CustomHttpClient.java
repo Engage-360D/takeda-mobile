@@ -28,6 +28,9 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
+
 /**
  * Used for solving exception: "javax.net.ssl.SSLPeerUnverifiedException: No peer certificate"
  *
@@ -43,9 +46,8 @@ public class CustomHttpClient extends DefaultHttpClient {
             sslSocketFactory = new CustomSSLSocketFactory(trustStore);
             sslSocketFactory.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
         } catch (Exception e) {
-            // TODO: exception_handler
             e.printStackTrace();
-            // ExeptionsHandler.getInstatce().handleException(WinstuffApplication.getAppContext(), e);
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         HttpParams params = new BasicHttpParams();

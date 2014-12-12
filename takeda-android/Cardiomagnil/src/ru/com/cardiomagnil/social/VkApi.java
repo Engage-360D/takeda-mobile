@@ -15,6 +15,9 @@ import org.scribe.oauth.OAuthService;
 import org.scribe.utils.OAuthEncoder;
 import org.scribe.utils.Preconditions;
 
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
+
 public class VkApi extends BaseSocialApi implements AccessTokenExtractor {
     private static final String CLIENT_ID = "4289667";
     private static final String API_SECRET = "st2P1mHyD7y95lrKJkFR";
@@ -102,6 +105,7 @@ public class VkApi extends BaseSocialApi implements AccessTokenExtractor {
             json.put("user_id", mUserId);
         } catch (JSONException e) {
             e.printStackTrace();
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
         return json.toString();
     }
@@ -113,6 +117,7 @@ public class VkApi extends BaseSocialApi implements AccessTokenExtractor {
             mUserId = json.getInt("user_id");
         } catch (JSONException e) {
             e.printStackTrace();
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
     }
 }

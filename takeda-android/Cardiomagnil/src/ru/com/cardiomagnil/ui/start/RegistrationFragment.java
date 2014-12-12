@@ -3,6 +3,7 @@ package ru.com.cardiomagnil.ui.start;
 import java.util.Calendar;
 
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.application.Tools;
 import ru.com.cardiomagnil.model.User;
 import ru.com.cardiomagnil.social.AuthorizationDialog;
@@ -222,7 +223,7 @@ public class RegistrationFragment extends CustomFragment {
             }
         }
     };
-    
+
     private void initSocials() {
         parentView.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(new FbApi(), new RegisterUserOnFinish(FbUser.class)));
         parentView.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(new VkApi(), new RegisterUserOnFinish(VkUser.class)));
@@ -264,6 +265,7 @@ public class RegistrationFragment extends CustomFragment {
                 startActivity.hideProgressDialog();
             } catch (Exception e) {
                 e.printStackTrace();
+                ExeptionsHandler.getInstatce().handleException(getActivity(), e);
                 Toast.makeText(parentView.getContext(), R.string.authorization_error, Toast.LENGTH_LONG).show();
             }
         }

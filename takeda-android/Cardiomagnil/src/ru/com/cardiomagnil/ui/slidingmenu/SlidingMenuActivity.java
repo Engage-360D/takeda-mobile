@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.application.Tools;
 import ru.com.cardiomagnil.commands.GetTestResults;
 
@@ -90,6 +91,7 @@ public class SlidingMenuActivity extends SlidingFragmentActivity {
                     mPending.set(false);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    ExeptionsHandler.getInstatce().handleException(SlidingMenuActivity.this.getParent(), e);
                 }
             }
         }).start();

@@ -1,10 +1,12 @@
 package ru.com.cardiomagnil.widget;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
+import ru.com.cardiomagnil.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.evilduck.framework.SFBaseFragmentActivity;
 import android.app.Activity;
 import android.os.Bundle;
-
 
 public class TrackedFragmentActivity extends SFBaseFragmentActivity {
     private CardiomagnilApplication mCardiomagnilApplication = null;
@@ -26,10 +28,9 @@ public class TrackedFragmentActivity extends SFBaseFragmentActivity {
     protected void onStart() {
         super.onStart();
 
-        //TODO: EasyTracker
-//        if (getResources().getBoolean(R.bool.ga_analytics_enabled)) {
-//            EasyTracker.getInstance(this).activityStart(this);
-//        }
+        if (getResources().getBoolean(R.bool.ga_analytics_enabled)) {
+            EasyTracker.getInstance(this).activityStart(this);
+        }
     }
 
     @Override
@@ -42,10 +43,9 @@ public class TrackedFragmentActivity extends SFBaseFragmentActivity {
     protected void onStop() {
         super.onStop();
 
-//        TODO: EasyTracker
-//        if (getResources().getBoolean(R.bool.ga_analytics_enabled)) {
-//            EasyTracker.getInstance(this).activityStop(this);
-//        }
+        if (getResources().getBoolean(R.bool.ga_analytics_enabled)) {
+            EasyTracker.getInstance(this).activityStop(this);
+        }
     }
 
     protected void onDestroy() {

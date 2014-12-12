@@ -1,5 +1,7 @@
 package ru.com.cardiomagnil.model;
 
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.application.Tools;
 
 import com.google.gson.JsonElement;
@@ -86,9 +88,8 @@ public class TestResultPage {
             JsonObject jsonObject = jsonElement.isJsonObject() ? jsonElement.getAsJsonObject() : null;
             initTestResultPage(jsonObject);
         } catch (Exception e) {
-            // TODO: exception_handler
             e.printStackTrace();
-            // ExeptionsHandler.getInstatce().handleException(WinstuffApplication.getAppContext(), e);
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
     }
 
@@ -117,9 +118,8 @@ public class TestResultPage {
 
             mIsInitialized = true;
         } catch (Exception e) {
-            // TODO: exception_handler
             e.printStackTrace();
-            // ExeptionsHandler.getInstatce().handleException(WinstuffApplication.getAppContext(), e);
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
     }
 }

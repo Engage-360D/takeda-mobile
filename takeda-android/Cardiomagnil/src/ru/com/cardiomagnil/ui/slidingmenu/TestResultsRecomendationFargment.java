@@ -1,6 +1,7 @@
 package ru.com.cardiomagnil.ui.slidingmenu;
 
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.model.TestResultPage;
 
 import ru.com.cardiomagnil.R;
@@ -12,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class TestResultsRecomendationFargment extends Fragment  {
+public class TestResultsRecomendationFargment extends Fragment {
     private View parentView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,16 +25,16 @@ public class TestResultsRecomendationFargment extends Fragment  {
     }
 
     private void initTestResultsRecomendationFargment(View view) {
-//        textViewUrlText
-//        textViewTitle
-//        textViewText
+        // textViewUrlText
+        // textViewTitle
+        // textViewText
 
-        TestResultPage pageData =  AppState.getInstatce().getTestResultPage();
-        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity)getActivity();
+        TestResultPage pageData = AppState.getInstatce().getTestResultPage();
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
 
-        TextView textViewUrlText = (TextView)view.findViewById(R.id.textViewUrlText);
-        TextView textViewTitle = (TextView)view.findViewById(R.id.textViewTitle);
-        TextView textViewText = (TextView)view.findViewById(R.id.textViewText);
+        TextView textViewUrlText = (TextView) view.findViewById(R.id.textViewUrlText);
+        TextView textViewTitle = (TextView) view.findViewById(R.id.textViewTitle);
+        TextView textViewText = (TextView) view.findViewById(R.id.textViewText);
 
         if (pageData == null) {
             slidingMenuActivity.switchContentBack();
@@ -44,7 +45,7 @@ public class TestResultsRecomendationFargment extends Fragment  {
             textViewTitle.setText(pageData.getTitle());
             textViewText.setText(pageData.getText());
         } catch (Exception e) {
-            // do nothing
+            ExeptionsHandler.getInstatce().handleException(getActivity(), e);
         }
     }
 

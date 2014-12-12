@@ -1,5 +1,7 @@
 package ru.com.cardiomagnil.social;
 
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.application.Tools;
 
 import com.google.gson.JsonElement;
@@ -52,9 +54,8 @@ public class FbUser extends User {
 
             mIsInitialized = true;
         } catch (Exception e) {
-            // TODO: exception_handler
             e.printStackTrace();
-            // ExeptionsHandler.getInstatce().handleException(WinstuffApplication.getAppContext(), e);
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
     }
 }

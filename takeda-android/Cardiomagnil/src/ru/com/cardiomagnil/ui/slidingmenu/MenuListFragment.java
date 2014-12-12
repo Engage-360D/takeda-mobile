@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import ru.com.cardiomagnil.R;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.application.Tools;
 
 import android.content.Context;
@@ -52,24 +54,9 @@ public class MenuListFragment extends ListFragment {
             Class<?> clazz = Class.forName(className);
             Constructor<?> ctor = clazz.getConstructor();
             newContent = (Fragment) ctor.newInstance(new Object[] {});
-        } catch (java.lang.InstantiationException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            ExeptionsHandler.getInstatce().handleException(getActivity(), e);
         }
 
         // Fragment newContent = new BirdGridFragment(position);

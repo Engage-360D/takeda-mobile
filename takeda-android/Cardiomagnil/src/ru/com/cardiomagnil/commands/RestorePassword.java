@@ -2,6 +2,8 @@ package ru.com.cardiomagnil.commands;
 
 import ru.com.cardiomagnil.R;
 import ru.com.cardiomagnil.api.Api;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.evilduck.framework.handlers.SFBaseCommand;
 import android.content.Context;
 import android.content.Intent;
@@ -37,7 +39,7 @@ public class RestorePassword extends SFBaseCommand {
 
             // TODO: убрать костыль: попросить коллег на том конце переделать API - нужны коды ошибок
             if (jsonObjectToken != null && jsonObjectToken.toString().equals("{}")) {
-                result =  "";
+                result = "";
             } else if (jsonObjectToken != null && jsonObjectToken.toString().equals("{\"error\":\"User not found\"}")) {
                 result = context.getString(R.string.error_user_not_found);
             } else if (jsonObjectToken != null && jsonObjectToken.toString().equals("{\"error\":\"Password already requested\"}")) {
@@ -45,6 +47,7 @@ public class RestorePassword extends SFBaseCommand {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return result;

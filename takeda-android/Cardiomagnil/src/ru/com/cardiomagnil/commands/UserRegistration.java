@@ -2,6 +2,8 @@ package ru.com.cardiomagnil.commands;
 
 import ru.com.cardiomagnil.api.Api;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.evilduck.framework.handlers.SFBaseCommand;
 import android.content.Context;
 import android.content.Intent;
@@ -50,6 +52,7 @@ public class UserRegistration extends SFBaseCommand {
             // }
         } catch (Exception e) {
             e.printStackTrace();
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return result;

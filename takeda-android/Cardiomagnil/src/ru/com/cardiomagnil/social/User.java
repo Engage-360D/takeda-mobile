@@ -1,5 +1,8 @@
 package ru.com.cardiomagnil.social;
 
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -107,9 +110,8 @@ public abstract class User {
             mJsonUser = jsonObject;
             initUser(jsonObject);
         } catch (Exception e) {
-            // TODO: exception_handler
             e.printStackTrace();
-            // ExeptionsHandler.getInstatce().handleException(WinstuffApplication.getAppContext(), e);
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
     }
 

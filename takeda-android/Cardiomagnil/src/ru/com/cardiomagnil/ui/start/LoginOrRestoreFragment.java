@@ -2,6 +2,7 @@ package ru.com.cardiomagnil.ui.start;
 
 import ru.com.cardiomagnil.R;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.model.User;
 import ru.com.cardiomagnil.social.AuthorizationDialog;
 import ru.com.cardiomagnil.social.AuthorizationListener;
@@ -249,6 +250,7 @@ public class LoginOrRestoreFragment extends CustomFragment {
                 startActivity.hideProgressDialog();
             } catch (Exception e) {
                 e.printStackTrace();
+                ExeptionsHandler.getInstatce().handleException(getActivity(), e);
                 Toast.makeText(parentView.getContext(), R.string.authorization_error, Toast.LENGTH_LONG).show();
             }
         }

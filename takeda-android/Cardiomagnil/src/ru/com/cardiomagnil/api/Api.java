@@ -14,6 +14,8 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
 import ru.com.cardiomagnil.application.AppConfig;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.model.TestIncoming;
 import ru.com.cardiomagnil.model.Token;
@@ -56,7 +58,7 @@ public class Api {
     }
 
     public JsonObject restorePassword(String email) {
-        JsonObject jsonObject = new JsonObject ();
+        JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("username", email);
         return performPost(REQUEST_RESET_PASSWORD, jsonObject, null);
     }
@@ -78,9 +80,8 @@ public class Api {
             jsonObjectResponse = responseToJsonObject(response);
 
         } catch (Exception e) {
-            // TODO: exception_handler
             e.printStackTrace();
-            // ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getContext(), e);
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return jsonObjectResponse;
@@ -99,9 +100,8 @@ public class Api {
             HttpResponse response = http.execute(httpPost);
             jsonObjectResponse = responseToJsonObject(response);
         } catch (Exception e) {
-            // TODO: exception_handler
             e.printStackTrace();
-            // ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getContext(), e);
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return jsonObjectResponse;
@@ -122,10 +122,8 @@ public class Api {
             JsonElement jsonElement = (JsonElement) jsonParser.parse(stringResponse);
             jsonObject = jsonElement.isJsonObject() ? jsonElement.getAsJsonObject() : null;
         } catch (Exception e) {
-            // TODO: exception_handler
             e.printStackTrace();
-            // ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getContext(), e);
-
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return jsonObject;
@@ -138,7 +136,7 @@ public class Api {
             byte[] data = string.getBytes("UTF-8");
             base64 = Base64.encodeToString(data, Base64.DEFAULT);
         } catch (UnsupportedEncodingException e) {
-            // do nothing;
+            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
         }
 
         return base64;
