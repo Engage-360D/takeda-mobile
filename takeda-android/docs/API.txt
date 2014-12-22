@@ -1,0 +1,130 @@
+http://cardiomagnyl.iengage.ru/api/users
+
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+
+{"confirmInformation":true,"confirmPersonalization":true,"confirmSubscription":true,"firstname":"xxx","birthday":"xxxx-xx-xx","email":"x.xxxxxxxo@xxxxx.xxx","region":"xxxxxxx","plainPassword":{"first":"x","second":"x"},"doctor":false}
+
+{"id":8,"username":"x.xxxxxxxx@xxxxx.xxx","email":"x.xxxxxxxx@xxxxx.xxx","enabled":false,"lastLogin":"xxxx-xx-xxxxx:xx:xx+xxxx","firstname":"xxxxx","lastname":null,"facebookId":null,"facebookAccessToken":null,"doctor":false,"birthday":"xxxx-xx-xxxxx:xx:xx+xxxx","region":"???????","registration":"xxxx-xx-xxxxx:xx:xx+xxxx","specialization":null,"experience":null,"address":null,"phone":null,"institution":null,"graduation":null,"testResults":[],"confirmInformation":true,"confirmPersonalization":true,"confirmSubscription":true,"vkontakteId":null,"vkontakteAccessToken":null}
+
+======================================================================================
+
+http://cardiomagnyl.iengage.ru/oauth/v2/token
+
+client_id=3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4&client_secret=6bhq30w1jrc4wwoc00ks400scgkwws8g8skwkc84g0kkwgkc0k&grant_type=password&username=y.andreyko%40gmail.com&password=a
+
+{"error":"invalid_client","error_description":"The client credentials are invalid"}
+
+======================================================================================
+
+{
+	"bmi" : 27.8,
+	"scoreValue" : 1,
+	"recommendations" : {
+		"scoreDescription" : {
+			"state" : "ok",
+			"text" : "Категория низкого риска развития смертельных сердечно-сосудистых заболеваний в ближайшие 10 лет"
+		},
+		"dangerAlert" : null,
+		"mainRecommendation" : {
+			"text" : "Обратитесь к врачу для консультации о необходимости приема препаратов ацетилсалициловой кислоты для снижения риска тромбозов.\n"
+		},
+		"institutionsUrl" : false,
+		"banners" : {
+			"smoking" : {
+				"pageUrl" : null,
+				"state" : "ok",
+				"title" : "Курение",
+				"aberration" : null,
+				"note" : "Все хорошо"
+			},
+			"arterialPressure" : {
+				"pageUrl" : "/test-results/4/arterialPressure",
+				"state" : "bell",
+				"title" : "Систолическое давление",
+				"aberration" : "среднее отклонение",
+				"note" : "Необходимо улучшение"
+			},
+			"extraSalt" : {
+				"pageUrl" : null,
+				"state" : "ok",
+				"title" : "Потребление соли",
+				"aberration" : null,
+				"note" : "Все хорошо"
+			},
+			"cholesterolLevel" : {
+				"pageUrl" : "/test-results/4/cholesterolLevel",
+				"state" : "bell",
+				"title" : "Уровень холестирина",
+				"aberration" : "среднее отклонение",
+				"note" : "Необходимо улучшение"
+			},
+			"physicalActivity" : {
+				"pageUrl" : null,
+				"state" : "ok",
+				"title" : "Физическая активность",
+				"aberration" : "близко к норме",
+				"note" : "Все хорошо"
+			},
+			"bmi" : {
+				"pageUrl" : "/test-results/4/bmi",
+				"state" : "bell",
+				"title" : "Вес",
+				"aberration" : "среднее отклонение",
+				"note" : "Необходимо улучшение"
+			},
+			"sugarProblems" : null,
+			"arterialPressureDrugs" : null,
+			"cholesterolDrugs" : null
+		},
+		"pages" : {
+			"smoking" : null,
+			"arterialPressure" : {
+				"urlText" : "Давление",
+				"title" : "Ваше давление  - 140",
+				"subtitle" : "Нормой является значение до 139",
+				"institutionsUrl" : false,
+				"text" : "У вас повышено артериальное давление – это опасный фактор риска развития сердечно-сосудистых осложнений, таких как инфаркт миокарда и инсульт.\n\nОбратитесь к врачу для решения вопроса о назначении вам лекарственных препаратов, снижающих артериальное давление."
+			},
+			"extraSalt" : null,
+			"cholesterolLevel" : {
+				"urlText" : "Холестерин",
+				"title" : "Ваш уровень холестерина - 6 ммоль/л",
+				"subtitle" : "Нормой является значение до 4,9 ммоль/л",
+				"institutionsUrl" : false,
+				"text" : "У вас повышен уровень холестерина (более 4,9 ммоль/л) - это фактор риска сердечно-сосудистых заболеваний. Соблюдайте диету с ограничением животных жиров (кроме рыбы) и трансжиров.\n\nЗамените большую часть животных жиров растительными маслами, увеличьте количество овощей и фруктов.\n\nЖивотные жиры способствуют атеросклерозу сосудов, приводящему к инфаркту и инсульту, а растительные жиры (кроме кокосового и пальмового масла) и рыбий жир противодействуют атеросклерозу."
+			},
+			"physicalActivity" : null,
+			"bmi" : {
+				"urlText" : "Вес",
+				"title" : "У вас высокий индекс массы тела - 27.8 кг/м2",
+				"subtitle" : "Нормой является значение менее 25 кг/м2",
+				"institutionsUrl" : false,
+				"text" : "Ваш индекс массы тела превышает 25 кг/м2 – это избыточный вес. Избыточный вес тела является фактором повышенного риска болезней сердца и сосудов.\n\nСнижение веса возможно за счет уменьшения калорийности питания и увеличения физической активности. Существуют медикаментозные препараты разного механизма действия, но они имеют нежелательные побочные явления и должны применяться только под строгим контролем врача."
+			}
+		}
+	},
+	"id" : 4,
+	"sex" : "male",
+	"birthday" : "1982-12-12T00:00:00+0300",
+	"growth" : 180,
+	"weight" : 90,
+	"smoking" : false,
+	"cholesterolLevel" : 6,
+	"cholesterolDrugs" : false,
+	"diabetes" : false,
+	"sugarProblems" : false,
+	"sugarDrugs" : false,
+	"arterialPressure" : 140,
+	"arterialPressureDrugs" : false,
+	"physicalActivity" : 200,
+	"heartAttackOrStroke" : false,
+	"extraSalt" : false,
+	"acetylsalicylicDrugs" : false,
+	"createdAt" : "2014-12-12T14:08:25+0300"
+}
+
+======================================================================================
+
+======================================================================================
+
+======================================================================================
