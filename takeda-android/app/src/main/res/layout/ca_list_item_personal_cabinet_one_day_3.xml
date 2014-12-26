@@ -35,7 +35,7 @@
 
         <EditText
             android:id="@+id/editTextExerciseStress"
-            android:layout_width="@dimen/ca_space_xxxxxlarge"
+            android:layout_width="@dimen/ca_control_medium"
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="center_vertical|right"
@@ -157,7 +157,7 @@
 
         <EditText
             android:id="@+id/editTextEnterWeight"
-            android:layout_width="@dimen/ca_space_xxxxxlarge"
+            android:layout_width="@dimen/ca_control_medium"
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="center_vertical|right"
@@ -220,7 +220,7 @@
 
         <EditText
             android:id="@+id/editTextCholesterol"
-            android:layout_width="@dimen/ca_space_xxxxxlarge"
+            android:layout_width="@dimen/ca_control_medium"
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="center_vertical|right"

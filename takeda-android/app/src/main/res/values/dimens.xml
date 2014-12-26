@@ -107,7 +107,7 @@
     <!-- 66px - ca_plate_large -->
     <!-- 70px - ca_plate_large -->
     <!-- 74px - ca_plate_large -->
-    <!-- 88px - ca_plate_xlarge -->a
+    <!-- 88px - ca_plate_xlarge -->
     <!-- ===== -->
     <!-- plate -->
     <!-- ===== -->
@@ -118,12 +118,20 @@
     <dimen name="ca_plate_xlarge">80dp</dimen>
     <dimen name="ca_plate_xxlarge">100dp</dimen>
 
+    <!-- 41px - ca_control_xxsmall -->
+    <!-- 134px - ca_control_medium -->
+    <!-- 133px - ca_control_medium -->
+    <!-- ======= -->
+    <!-- control -->
+    <!-- ======= -->
+    <dimen name="ca_control_xxsmall">40dp</dimen>
+    <dimen name="ca_control_medium">130dp</dimen>
+
     <!-- 16pt - ca_text_size_small -->
     <!-- 20pt - ca_text_size_medium -->
     <!-- 22pt - ca_text_size_large -->
     <!-- 24pt - ca_text_size_xlarge -->
     <!-- 65pt - ca_text_size_percent -->
-
     <!-- ==== -->
     <!-- text -->
     <!-- ==== -->

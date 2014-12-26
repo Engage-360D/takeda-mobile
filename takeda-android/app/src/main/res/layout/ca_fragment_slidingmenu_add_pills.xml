@@ -102,7 +102,7 @@
 
                 <EditText
                     android:id="@+id/editTextPhysicalLoad"
-                    android:layout_width="@dimen/ca_space_xxxxxlarge"
+                    android:layout_width="@dimen/ca_control_medium"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="center_vertical|right"
@@ -254,15 +254,16 @@
                     android:textSize="@dimen/ca_text_size_medium" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroupCondition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/radioGroupStillSmoke"
+                    android:layout_width="@dimen/ca_control_medium"
+                    android:layout_height="@dimen/ca_control_xxsmall"
                     android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/toggleButtonConditionOn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:background="@drawable/ca_selector_checkbox_bg"
                         android:button="@null"
                         android:checked="true"
@@ -273,8 +274,9 @@
 
                     <RadioButton
                         android:id="@+id/toggleButtonConditionOff"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:background="@drawable/ca_selector_checkbox_bg"
                         android:button="@null"
                         android:gravity="center"
