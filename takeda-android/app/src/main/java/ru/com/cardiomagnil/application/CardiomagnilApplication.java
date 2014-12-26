@@ -5,36 +5,51 @@ import ru.com.cardiomagnil.model.TestResult;
 import ru.com.cardiomagnil.model.Token;
 import ru.com.cardiomagnil.model.User;
 import ru.evilduck.framework.SFApplicationState;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
 public class CardiomagnilApplication extends Application {
-    private static Context mAppContext = null;
+    private static CardiomagnilApplication mCardiomagnilApplication = null;
     private Activity mCurrentActivity = null;
+    private static final Object mStaticLockObj = new Object();
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mAppContext = this;
+        mCardiomagnilApplication = this;
         SFApplicationState.getInstatce().initialize(this);
         initAppState();
+    }
 
-        // Log.d("Hash", Tools.getAppKeyHashB64());
-        // testTest();
+    public static CardiomagnilApplication getInstance() {
+        return mCardiomagnilApplication;
     }
 
     public static Context getAppContext() {
-        return (Context) mAppContext;
+        return (Context) mCardiomagnilApplication;
     }
 
     public Activity getCurrentActivity() {
-        return mCurrentActivity;
+        synchronized (mStaticLockObj) {
+            return mCurrentActivity;
+        }
     }
 
     public void setCurrentActivity(Activity currentActivity) {
-        mCurrentActivity = currentActivity;
+        synchronized (mStaticLockObj) {
+            mCurrentActivity = currentActivity;
+        }
+    }
+
+    public void clearActivityIfCurrent(Activity currActivity) {
+        synchronized (mStaticLockObj) {
+            if (mCurrentActivity != null && mCurrentActivity.equals(currActivity)) {
+                mCurrentActivity = null;
+            }
+        }
     }
 
     private void initAppState() {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <gradient
+        android:endColor="@color/shadow_slidingmenu_end"
+        android:centerColor="@color/shadow_slidingmenu_center"
+        android:startColor="@color/shadow_slidingmenu_start" />
+
+</shape>

@@ -8,14 +8,17 @@
         <!-- | | -->
         <!-- | L isClickable -->
         <!-- L  isVisible -->
+        <item>+*+*ru.com.cardiomagnil.ui.ca_content.Ca_MainFargment*Главная</item>
         <item>+*+*ru.com.cardiomagnil.ui.slidingmenu.TestPatientDataFargment*Анализ риска</item>
-        <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.SearchAgenciesFargment*Поиск учреждений</item>
-        <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.RecommendationsFargment*Рекомендаци</item>
-        <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment*Результаты анализа</item>
-        <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.CalendarFargment*Календарь</item>
-        <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.GoodToKnowFargment*Полезно знать</item>
-        <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.PublicationsFargment*Публикации</item>
-        <item>-*+*ru.com.cardiomagnil.ui.slidingmenu.ReportsFargment*Отчеты</item>
+        <item>+*+*ru.com.cardiomagnil.ui.ca_content.Ca_PersonalCabinetFargment*Дневник</item>
+        <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.SearchAgenciesFargment*Поиск учреждений</item>
+        <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.RecommendationsFargment*Рекомендаци</item>
+        <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment*Результаты анализа</item>
+        <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.CalendarFargment*Календарь</item>
+        <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.GoodToKnowFargment*Полезно знать</item>
+        <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.PublicationsFargment*Публикации</item>
+        <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.ReportsFargment*Отчеты</item>
+
         <item>-*-*ru.com.cardiomagnil.ui.slidingmenu.TestPatientDataFargment*Данные пациента</item>
         <item>-*-*ru.com.cardiomagnil.ui.slidingmenu.TestPatientHistoryFargment*История пациента</item>
         <item>-*-*ru.com.cardiomagnil.ui.slidingmenu.TestDailyRationFargment*Дневной рацион</item>

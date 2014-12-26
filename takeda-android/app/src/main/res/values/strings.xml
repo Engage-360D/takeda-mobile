@@ -138,8 +138,8 @@
     <string name="cholesterol_is_above_normal">Ваш холестерин выше нормы</string>
     <string name="salt_intake">Потребление соли</string>
     <string name="bakery_intake">Потребление мучных изделий</string>
-    <string name="diet_adjustment ">Дополнительная корректировка диеты</string>
-    <string name="pass_survey ">Пройти опрос</string>
+    <string name="diet_adjustment">Дополнительная корректировка диеты</string>
+    <string name="pass_survey">Пройти опрос</string>
     <string name="create_calendar">Составить календарь профилактики</string>
     <string name="everything_is_good">Все хорошо</string>
     <string name="needs_to_improve">Необходимо улучшение</string>
@@ -180,5 +180,75 @@
     <!-- ===== -->
     <string name="segoe_wp_font">fonts/SegoeWP.ttf</string>
     <string name="segoe_wp_font_light">fonts/SegoeWP-Light.ttf</string>
+
+    <!-- ================================================================================== -->
+    <!-- ========================= -->
+    <!-- fragment_slidingmenu_main -->
+    <!-- ========================= -->
+    <string name="zero_percent">0%</string>
+    <string name="index_recommendations">Ваш индекс рекомендаций на этой неделе</string>
+
+    <string name="physical_load">Физическая нагрузка</string>
+    <string name="take_tablets">Принять таблетки</string>
+    <string name="eaten_today">Что вы сегодня ели?</string>
+    <string name="my_recommendations">Мои рекомендации</string>
+    <string name="my_success">Мои успехи</string>
+    <string name="consolidated_report">Сводный отчет</string>
+    <string name="go_to_website">Переход на сайт</string>
+
+    <!-- ================================= -->
+    <!-- fragment_slidingmenu_taking_pills -->
+    <!-- ================================= -->
+    <string name="pills">Таблетки</string>
+    <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
+
+    <!-- ================================= -->
+    <!-- ca_fragment_slidingmenu_add_pills -->
+    <!-- ================================= -->
+    <string name="add">Добавить</string>
+    <string name="pills_name">Название</string>
+    <string name="number_of_pills">Количество</string>
+    <string name="reception_frequency">Частота приема</string>
+    <string name="reception_hours">Время приема</string>
+    <string name="start_date_pills">Дата начала</string>
+    <string name="end_date_pills">Дата завершения</string>
+    <string name="condition">Состояние</string>
+
+    <!-- ======================================== -->
+    <!-- ca_fragment_slidingmenu_personal_cabinet -->
+    <!-- ======================================== -->
+    <string name="personal_cabinet">Личный кабинет</string>
+    <string name="personal_cabinet_new">Новые</string>
+    <string name="personal_cabinet_filled">Заполненные</string>
+    <string name="exercise_stress">Физическая нагрузка</string>
+    <string name="take_pills">Принять таблетки</string>
+    <string name="what_eaten">Что вы сегодня ели?</string>
+    <string name="still_smoke">Еще курите?</string>
+    <string name="enter_weight">Внесите вес</string>
+    <string name="enter_pressure">Внесите давление</string>
+    <string name="enter_cholesterol">Внесите холестерин</string>
+
+    <!-- ====== -->
+    <!-- common -->
+    <!-- ====== -->
+    <string name="contraindications">Имеются противопоказания\nнеобходимо ознакомится с инструкцией по применению</string>
+    <string name="min">мин</string>
+    <string name="kg">кг</string>
+    <string name="mg_dl">мг/дл</string>
+    <string name="today">Сегодня</string>
+    <string name="on">Вкл</string>
+    <string name="off">Выкл</string>
+
+    <!-- === -->
+    <!-- tmp -->
+    <!-- === -->
+    <string name="kruglenkaya_sinyaya">Кругленькая синяя</string>
+    <string name="kvadratnaya">Квадратная</string>
+    <string name="time_1">15:00 (2 штуки)</string>
+    <string name="time_2">16:00 (Раздробить 2 пачки)</string>
+    <string name="time_3">18:45 (2 штуки)</string>
+    <string name="date_1">Сегодня (вторник)</string>
+    <string name="date_2">26.11.2017 (понедельник)</string>
+    <string name="date_3">25.11.2017 (воскресенье)</string>
 
 </resources>

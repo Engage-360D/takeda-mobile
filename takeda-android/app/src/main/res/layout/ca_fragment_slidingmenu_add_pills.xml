@@ -1,0 +1,290 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cm_white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ca_plate_medium"
+            android:background="@color/ca_bg_top"
+            android:gravity="center"
+            android:text="@string/add"
+            android:textColor="@color/cm_white"
+            android:textSize="@dimen/ca_text_size_large" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/ca_space_medium"
+            android:text="@string/contraindications"
+            android:textColor="@color/ca_text_main_37"
+            android:textSize="@dimen/ca_text_size_xsmall" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linearLayoutBottom"
+        android:layout_below="@id/linearLayoutTop"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutPillsName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_selector_bottom_and_top_border"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/pills_name"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/small_dark_right"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutNumberOfPills"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_bg_bottom_border_unpressed"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/number_of_pills"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+                <EditText
+                    android:id="@+id/editTextPhysicalLoad"
+                    android:layout_width="@dimen/ca_space_xxxxxlarge"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="center_vertical|right"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textColorHint="@color/ca_main_text_37_hint" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReceptionFrequency"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_selector_bottom_border"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/reception_frequency"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/small_dark_right"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReceptionHours"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_selector_bottom_border"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/reception_hours"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/small_dark_right"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutStartDatePills"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_selector_bottom_border"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/start_date_pills"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/small_dark_right"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutEndDatePills"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_selector_bottom_border"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/end_date_pills"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/small_dark_right"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_xsmall"
+                android:background="@null" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutCondition"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_selector_bottom_and_top_border"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/condition"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/toggleButtonConditionOn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ca_selector_checkbox_bg"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="@string/on"
+                        android:textColor="@drawable/ca_selector_checkbox_text"
+                        android:textSize="@dimen/ca_text_size_small" />
+
+                    <RadioButton
+                        android:id="@+id/toggleButtonConditionOff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ca_selector_checkbox_bg"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/off"
+                        android:textColor="@drawable/ca_selector_checkbox_text"
+                        android:textSize="@dimen/ca_text_size_small" />
+                </RadioGroup>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

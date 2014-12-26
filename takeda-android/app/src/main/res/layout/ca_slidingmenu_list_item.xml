@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ca_plate_small"
+        android:background="@drawable/ca_selector_menu_item"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/ca_space_large"
+        android:paddingRight="@dimen/ca_space_large"
+        android:textColor="@drawable/ca_selector_menu_item_text"
+        android:textSize="@dimen/ca_text_size_xlarge" />
+
+</LinearLayout>
+
+
+
+

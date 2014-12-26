@@ -5,6 +5,7 @@
 
   <style name="CustomTheme" parent="@style/_CustomTheme"/>
 
+  <!--style name="_CustomTheme" parent="android:Theme.Holo.Light.NoActionBar"-->
   <style name="_CustomTheme" parent="android:Theme.Holo.Light">
 
       <item name="android:homeAsUpIndicator">@null</item>

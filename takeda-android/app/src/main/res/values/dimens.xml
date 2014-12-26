@@ -50,4 +50,91 @@
     <dimen name="divider_content_hight">1dp</dimen>
     <dimen name="divider_normal_hight">1dp</dimen>
 
+    <!-- ==== -->
+    <!-- text -->
+    <!-- ==== -->
+    <dimen name="text_size_large">16sp</dimen>
+
+    <!-- ====== -->
+    <!-- spaces -->
+    <!-- ====== -->
+    <dimen name="xxxsmall_space">1dp</dimen>
+    <dimen name="xxsmall_space">1dp</dimen>
+    <dimen name="xsmall_space">2dp</dimen>
+    <dimen name="small_space">3dp</dimen>
+    <dimen name="medium_space">6dp</dimen>
+    <dimen name="large_space">9dp</dimen>
+    <dimen name="xlarge_space">12dp</dimen>
+    <dimen name="xxlarge_space">18dp</dimen>
+    <dimen name="xxxlarge_space">24dp</dimen>
+    <dimen name="xxxxlarge_space">48dp</dimen>
+
+    <dimen name="c_slidingmenu_shadow_width">2dp</dimen>
+
+    <!-- 1px - ca_divider_1 -->
+    <!-- 2px - ca_divider_2 -->
+    <!-- 25px - ca_space_medium -->
+    <!-- 133px - ca_space_xxxxxlarge -->
+
+    <!-- ======= -->
+    <!-- divider -->
+    <!-- ======= -->
+    <dimen name="ca_divider_1">1dp</dimen>
+    <dimen name="ca_divider_2">2dp</dimen>
+
+    <!-- ====== -->
+    <!-- spaces -->
+    <!-- ====== -->
+    <dimen name="ca_space_xxxxsmall">1dp</dimen>
+    <dimen name="ca_space_xxxsmall">2dp</dimen>
+    <dimen name="ca_space_xxsmall">3dp</dimen>
+    <dimen name="ca_space_xsmall">6dp</dimen>
+    <dimen name="ca_space_small">10dp</dimen>
+    <dimen name="ca_space_medium">16dp</dimen>
+    <dimen name="ca_space_large">24dp</dimen>
+    <dimen name="ca_space_xlarge">36dp</dimen>
+    <dimen name="ca_space_xxlarge">42dp</dimen>
+    <dimen name="ca_space_xxxlarge">52dp</dimen>
+    <dimen name="ca_space_xxxxlarge">64dp</dimen>
+
+    <dimen name="ca_space_xxxxxlarge">90dp</dimen>
+
+    <!-- 28px - ca_plate_xsmall -->
+    <!-- 50px - ca_plate_small -->
+    <!-- 60px - ca_plate_medium -->
+    <!-- 62px - ca_plate_medium -->
+    <!-- 63px - ca_plate_medium -->
+    <!-- 66px - ca_plate_large -->
+    <!-- 70px - ca_plate_large -->
+    <!-- 74px - ca_plate_large -->
+    <!-- 88px - ca_plate_xlarge -->a
+    <!-- ===== -->
+    <!-- plate -->
+    <!-- ===== -->
+    <dimen name="ca_plate_xsmall">30dp</dimen>
+    <dimen name="ca_plate_small">50dp</dimen>
+    <dimen name="ca_plate_medium">60dp</dimen>
+    <dimen name="ca_plate_large">70dp</dimen>
+    <dimen name="ca_plate_xlarge">80dp</dimen>
+    <dimen name="ca_plate_xxlarge">100dp</dimen>
+
+    <!-- 16pt - ca_text_size_small -->
+    <!-- 20pt - ca_text_size_medium -->
+    <!-- 22pt - ca_text_size_large -->
+    <!-- 24pt - ca_text_size_xlarge -->
+    <!-- 65pt - ca_text_size_percent -->
+
+    <!-- ==== -->
+    <!-- text -->
+    <!-- ==== -->
+    <dimen name="ca_text_size_xxsmall">12sp</dimen>
+    <dimen name="ca_text_size_xsmall">14sp</dimen>
+    <dimen name="ca_text_size_small">16sp</dimen>
+    <dimen name="ca_text_size_medium">20sp</dimen>
+    <dimen name="ca_text_size_large">22sp</dimen>
+    <dimen name="ca_text_size_xlarge">24sp</dimen>
+    <dimen name="ca_text_size_xxlarge">28sp</dimen>
+
+    <dimen name="ca_text_size_percent">65sp</dimen>
+
 </resources>

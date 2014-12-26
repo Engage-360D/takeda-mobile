@@ -6,6 +6,7 @@ import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.commands.UserAuthorization;
 import ru.com.cardiomagnil.model.Authorization;
+import ru.com.cardiomagnil.ui.c_slidingmenu.c_menu.C_SlidingMenuActivity;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.widget.TrackedFragmentActivity;
 import android.content.Intent;
@@ -29,6 +30,11 @@ public class SplashActivity extends TrackedFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+//        // TODO: fix it ater tests
+//        Intent intent = new Intent(SplashActivity.this, C_SlidingMenuActivity.class);
+//        startActivity(intent);
+//        finish();
 
         animate();
         userAuthorization();

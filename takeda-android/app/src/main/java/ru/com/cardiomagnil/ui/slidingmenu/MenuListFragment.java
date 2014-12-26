@@ -1,15 +1,6 @@
 package ru.com.cardiomagnil.ui.slidingmenu;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.CardiomagnilApplication;
-import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.application.Tools;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -20,13 +11,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Constructor;
+
+import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
+import ru.com.cardiomagnil.application.Tools;
+
 public class MenuListFragment extends ListFragment {
     private String[] mFragmentNames = null;
-    private SampleAdapter mMenuItemsAdapte;
+    private SampleAdapter mMenuItemsAdapter;
+    private View mPreviousSelectedItem;
+
+    private enum ItemState {normal, selected, disabled, invisible}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.slidingmenu_list_fragment, null);
+        View view = inflater.inflate(R.layout.ca_slidingmenu_list_fragment, null);
         Tools.setFontSegoeWP((ViewGroup) view);
         return view;
     }
@@ -41,20 +42,39 @@ public class MenuListFragment extends ListFragment {
         // ArrayAdapter<String> menuItemsAdapter = new
         // ArrayAdapter<String>(getActivity(),
         // android.R.layout.simple_list_item_1, android.R.id.text1, menuItems);
-        mMenuItemsAdapte = new SampleAdapter(getActivity());
-        mMenuItemsAdapte.addAll(menuItems);
-        setListAdapter(mMenuItemsAdapte);
+        mMenuItemsAdapter = new SampleAdapter(getActivity());
+        mMenuItemsAdapter.addAll(menuItems);
+        setListAdapter(mMenuItemsAdapter);
+    }
+
+    private void setSelectedItem(View view) {
+        TextView currentTextViewTitle = (TextView) view.findViewById(R.id.textViewTitle);
+        currentTextViewTitle.setSelected(true);
+        if (mPreviousSelectedItem != null) {
+            mPreviousSelectedItem.setSelected(false);
+        }
+        mPreviousSelectedItem = currentTextViewTitle;
     }
 
     @Override
-    public void onListItemClick(ListView lv, View v, int position, long id) {
+    public void onListItemClick(ListView listView, View view, int position, long id) {
+        if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
+            SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
+            Fragment currentFragment = mainActivity.getCurrentFragment();
+            if (currentFragment != null && currentFragment.getClass().getName().equals(mFragmentNames[position])) {
+                mainActivity.getSlidingMenu().showContent();
+                return;
+            }
+        }
+
         Fragment newContent = null;
+        setSelectedItem(view);
 
         try {
             String className = mFragmentNames[position];
             Class<?> clazz = Class.forName(className);
             Constructor<?> ctor = clazz.getConstructor();
-            newContent = (Fragment) ctor.newInstance(new Object[] {});
+            newContent = (Fragment) ctor.newInstance(new Object[]{});
         } catch (Exception e) {
             e.printStackTrace();
             ExeptionsHandler.getInstatce().handleException(getActivity(), e);
@@ -64,18 +84,16 @@ public class MenuListFragment extends ListFragment {
         if (newContent != null) {
             switchFragment(newContent);
         }
+        super.onListItemClick(listView, view, position, id);
     }
 
     public void refreshMenuItems() {
-        mMenuItemsAdapte.notifyDataSetChanged();
+        mMenuItemsAdapter.notifyDataSetChanged();
     }
 
     // the meat of switching the above fragment
     private void switchFragment(Fragment fragment) {
-        if (getActivity() == null)
-            return;
-
-        if (getActivity() instanceof SlidingMenuActivity) {
+        if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
             SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
             mainActivity.switchContent(fragment);
         }
@@ -89,7 +107,7 @@ public class MenuListFragment extends ListFragment {
 
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.slidingmenu_list_item, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.ca_slidingmenu_list_item, null);
             }
 
             // View menu_list_item_dummy =
@@ -97,12 +115,12 @@ public class MenuListFragment extends ListFragment {
 
             String complexItemTitle = getItem(position);
             String[] complexItemTitleStrings = complexItemTitle.split("\\*");
-            boolean isClickable = complexItemTitleStrings[0].endsWith("+");
-            boolean isVisible = complexItemTitleStrings[1].endsWith("+");
+            boolean isVisible = complexItemTitleStrings[0].endsWith("+");
+            boolean isClickable = complexItemTitleStrings[1].endsWith("+");
             mFragmentNames[position] = complexItemTitleStrings[2];
             String itemTitle = complexItemTitleStrings[3];
 
-            TextView titleTextView = (TextView) convertView.findViewById(R.id.TextViewTitle);
+            TextView titleTextView = (TextView) convertView.findViewById(R.id.textViewTitle);
             titleTextView.setText(itemTitle);
 
             // ru.com.cardiomagnil.ui.slidingmenu.AnalysisResultsFargment
@@ -114,10 +132,25 @@ public class MenuListFragment extends ListFragment {
                 isVisible = true;
             }
 
-            // TODO: Why !isEnable?
-            convertView.setClickable(!isClickable);
             convertView.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-            titleTextView.setTextColor(isClickable ? Color.WHITE : Color.BLACK);
+            if (isClickable) {
+                // TODO: Why !isClickable?
+                convertView.setClickable(false);
+                convertView.setEnabled(true);
+            } else {
+                // TODO: Why !isClickable?
+                convertView.setClickable(true);
+                convertView.setEnabled(false);
+                titleTextView.setTextColor(getResources().getColor(R.color.ca_text_menu_disabled));
+            }
+
+            if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
+                SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
+                Fragment currentFragment = mainActivity.getCurrentFragment();
+                if (currentFragment != null && currentFragment.getClass().getName().equals(mFragmentNames[position]) && mPreviousSelectedItem == null) {
+                    setSelectedItem(convertView);
+                }
+            }
 
             return convertView;
             // return isVisible ? convertView : menu_list_item_dummy;

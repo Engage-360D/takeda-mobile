@@ -25,10 +25,11 @@ import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.application.Tools;
 import ru.com.cardiomagnil.commands.GetTestResults;
+import ru.com.cardiomagnil.ui.ca_content.Ca_MainFargment;
 
 public class SlidingMenuActivity extends SlidingFragmentActivity {
     protected ListFragment mMenuListFragment;
-    private Fragment mContent;
+    private Fragment mCurrentFragment;
     private Fragment mPreviousFragment;
     private AtomicBoolean mPending = new AtomicBoolean(false);
     private final long PENDING_TIME = 500;
@@ -133,20 +134,25 @@ public class SlidingMenuActivity extends SlidingFragmentActivity {
 
         // set the Above View
         setContentView(R.layout.slidingmenu_content_container);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new StartContentFragment()).commit();
+        mCurrentFragment = new Ca_MainFargment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
         // getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new
         // TestResultsFargment()).commit();
 
         setSlidingActionBarEnabled(true);
     }
 
+    public Fragment getCurrentFragment() {
+        return mCurrentFragment;
+    }
+
     public void refreshMenuItems() {
-        ((MenuListFragment)mMenuListFragment).refreshMenuItems();
+        ((MenuListFragment) mMenuListFragment).refreshMenuItems();
     }
 
     public void switchContent(final Fragment fragment) {
         mPreviousFragment = null;
-        mContent = fragment;
+        mCurrentFragment = fragment;
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
@@ -158,7 +164,7 @@ public class SlidingMenuActivity extends SlidingFragmentActivity {
 
     public void switchContent(final Fragment fragment, Fragment previousFragment) {
         mPreviousFragment = previousFragment;
-        mContent = fragment;
+        mCurrentFragment = fragment;
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
