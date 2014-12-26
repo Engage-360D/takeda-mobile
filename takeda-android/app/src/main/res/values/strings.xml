@@ -228,6 +228,13 @@
     <string name="enter_pressure">Внесите давление</string>
     <string name="enter_cholesterol">Внесите холестерин</string>
 
+    <!-- =========================================== -->
+    <!-- ca_fragment_slidingmenu_search_institutions -->
+    <!-- =========================================== -->
+    <string name="institutions">Учреждения</string>
+    <string name="institutions_map">Карта</string>
+    <string name="institutions_list">Список</string>
+
     <!-- ====== -->
     <!-- common -->
     <!-- ====== -->

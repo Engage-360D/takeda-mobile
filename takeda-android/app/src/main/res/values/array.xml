@@ -2,7 +2,6 @@
 <resources>
 
     <string-array name="menu_items">
-
         <!-- +*+*className*Title -->
         <!-- ^ ^ -->
         <!-- | | -->
@@ -11,7 +10,7 @@
         <item>+*+*ru.com.cardiomagnil.ui.ca_content.Ca_MainFargment*Главная</item>
         <item>+*+*ru.com.cardiomagnil.ui.slidingmenu.TestPatientDataFargment*Анализ риска</item>
         <item>+*+*ru.com.cardiomagnil.ui.ca_content.Ca_PersonalCabinetFargment*Дневник</item>
-        <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.SearchAgenciesFargment*Поиск учреждений</item>
+        <item>+*+*ru.com.cardiomagnil.ui.ca_content.Ca_SearchInstitutionsFargment*Поиск учреждений</item>
         <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.RecommendationsFargment*Рекомендаци</item>
         <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment*Результаты анализа</item>
         <item>+*-*ru.com.cardiomagnil.ui.slidingmenu.CalendarFargment*Календарь</item>
