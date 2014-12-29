@@ -52,6 +52,7 @@
     <color name="ca_bg_top">#FFFF3341</color>
     <color name="ca_bg_main_unpressed">#FFE7E7E7</color>
     <color name="ca_bg_main_pressed">#FFC8CACC</color>
+
     <!--background_menu -->
     <color name="ca_bg_menu">#FF38404C</color>
     <color name="ca_bg_menu_unpressed">#FF38404C</color>

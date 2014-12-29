@@ -127,7 +127,6 @@
     <string name="not_behaving_normally">Не соответствует норме\nВоспользуйтесь нашими рекомендациями</string>
     <string name="recommendations">Рекомендации по SCORE</string>
     <string name="diabetes">Диабет</string>
-    <string name="infarction">Инфаркт</string>
     <string name="prophylaxis">Профилактика</string>
     <string name="category">Категория: "норма"</string>
     <string name="results_weight">Вес</string>
@@ -182,14 +181,15 @@
     <string name="segoe_wp_font_light">fonts/SegoeWP-Light.ttf</string>
 
     <!-- ================================================================================== -->
-    <!--Дневной рацион-->
-    <!-- =====-->
+    <!-- Дневной рацион -->
+    <!-- ===== -->
     <!-- menu -->
     <!-- ==== -->
     <string name="menu_item_main">Главная</string>
     <string name="menu_item_risk_analysis">Анализ риска</string>
     <string name="menu_item_diary">Дневник</string>
     <string name="menu_item_search_institutions">Поиск учреждений</string>
+    <string name="menu_item_settings">Настройки</string>
     <string name="menu_item_recommendations">Рекомендаци</string>
     <string name="menu_item_analysis_results">Результаты анализа</string>
     <string name="menu_item_calendar">Календарь</string>
@@ -205,7 +205,6 @@
     <!-- ========================= -->
     <string name="zero_percent">0%</string>
     <string name="index_recommendations">Ваш индекс рекомендаций на этой неделе</string>
-
     <string name="physical_load">Физическая нагрузка</string>
     <string name="take_tablets">Принять таблетки</string>
     <string name="eaten_today">Что вы сегодня ели?</string>
@@ -264,7 +263,14 @@
     <string name="must_be_password">Для операции необходимо пароль</string>
     <string name="incident_occurred">У меня произошел инцидент</string>
     <string name="warning">Внимание!</string>
-    <string name="infarction_occurred">вы перенесли Инфаркт и вам\nследует соблюдать ТОЛЬКО\nрекомендации вашего\nлечащего врача</string>
+    <string name="infarction_occurred">вы перенесли Инфаркт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
+
+    <!-- ========= -->
+    <!-- incidents -->
+    <!-- ========= -->
+    <string name="infarction">Инфаркт</string>
+    <string name="apoplexy">Инсульт</string>
+    <string name="shunting">Шунтирование</string>
 
     <!-- ====== -->
     <!-- common -->
@@ -276,6 +282,7 @@
     <string name="today">Сегодня</string>
     <string name="on">Вкл</string>
     <string name="off">Выкл</string>
+    <string name="cancel">Отменить</string>
 
     <!-- === -->
     <!-- tmp -->
@@ -288,5 +295,7 @@
     <string name="date_1">Сегодня (вторник)</string>
     <string name="date_2">26.11.2017 (понедельник)</string>
     <string name="date_3">25.11.2017 (воскресенье)</string>
+    <string name="title_activity_test">testActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

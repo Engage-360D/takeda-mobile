@@ -155,6 +155,7 @@
                     android:textSize="@dimen/ca_text_size_medium" />
 
                 <ImageView
+                    android:id="@+id/imageViewAddIncident"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -165,45 +166,12 @@
                 android:id="@+id/linearLayoutIncident"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:padding="@dimen/ca_space_medium"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_attention" />
+                <include layout="@layout/ca_item_incident" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="@string/warning"
-                        android:textColor="@color/ca_text_main_37"
-                        android:textSize="@dimen/ca_text_size_medium"
-                        android:textStyle="bold" />
-
-                    <include layout="@layout/ca_layout_vertical_gap_small" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="@string/infarction_occurred"
-                        android:textColor="@color/ca_text_main_37"
-                        android:textSize="@dimen/ca_text_size_medium" />
-
-                </LinearLayout>
             </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>

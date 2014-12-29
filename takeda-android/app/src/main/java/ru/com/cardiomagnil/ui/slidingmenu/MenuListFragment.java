@@ -31,6 +31,7 @@ public class MenuListFragment extends ListFragment {
             Ca_MenuItem.item_risk_analysis,
             Ca_MenuItem.item_diary,
             Ca_MenuItem.item_search_institutions,
+            Ca_MenuItem.item_settings,
             Ca_MenuItem.item_recommendations,
             Ca_MenuItem.item_analysis_results,
             Ca_MenuItem.item_calendar,

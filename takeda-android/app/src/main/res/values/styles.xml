@@ -18,4 +18,20 @@
         <item name="android:background">@drawable/divider_normal</item>
     </style>
 
+    <style name="ButtonBase37" parent="@android:style/Widget.Button">
+        <item name="android:textSize">@dimen/ca_text_size_medium</item>
+        <item name="android:textColor">@color/ca_text_main_37</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="TextViewMedium37" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/ca_text_size_medium</item>
+        <item name="android:textColor">@color/ca_text_main_37</item>
+    </style>
+
+    <style name="TextViewMedium38" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/ca_text_size_medium</item>
+        <item name="android:textColor">@color/ca_text_main_38</item>
+    </style>
+
 </resources>
