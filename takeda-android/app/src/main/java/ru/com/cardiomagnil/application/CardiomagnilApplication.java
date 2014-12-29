@@ -1,14 +1,14 @@
 package ru.com.cardiomagnil.application;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+
 import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.model.TestResult;
 import ru.com.cardiomagnil.model.Token;
 import ru.com.cardiomagnil.model.User;
 import ru.evilduck.framework.SFApplicationState;
-
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 
 public class CardiomagnilApplication extends Application {
     private static CardiomagnilApplication mCardiomagnilApplication = null;

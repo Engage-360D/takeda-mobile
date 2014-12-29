@@ -1,12 +1,5 @@
-package ru.com.cardiomagnil.ui.slidingmenu;
+package ru.com.cardiomagnil.ui.ca_content.RiskAnalysis;
 
-import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.Tools;
-import ru.com.cardiomagnil.model.TestIncoming;
-import ru.com.cardiomagnil.model.User;
-import ru.com.cardiomagnil.widget.SeekBarWithValues;
-import ru.com.cardiomagnil.widget.SeekBarWithValues.OnProgressChangedListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -24,7 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class TestPatientHistoryFargment extends Fragment {
+import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.model.TestIncoming;
+import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
+import ru.com.cardiomagnil.widget.SeekBarWithValues;
+import ru.com.cardiomagnil.widget.SeekBarWithValues.OnProgressChangedListener;
+
+public class RiskAnalysisPatientHistoryFargment extends Fragment {
     private View parentView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,7 +110,7 @@ public class TestPatientHistoryFargment extends Fragment {
         }
 
         if (testIncoming.validate(TestIncoming.RESULT_GROUPS.second)) {
-            Fragment dailyRationFargment = new TestDailyRationFargment();
+            Fragment dailyRationFargment = new RiskAnalysisDailyRationFargment();
             switchFragment(dailyRationFargment);
         } else {
             Toast toast = Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_SHORT);

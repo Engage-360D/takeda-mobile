@@ -1,13 +1,5 @@
-package ru.com.cardiomagnil.ui.slidingmenu;
+package ru.com.cardiomagnil.ui.ca_content.RiskAnalysis;
 
-import java.util.Calendar;
-
-import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.Tools;
-import ru.com.cardiomagnil.model.TestIncoming;
-import ru.com.cardiomagnil.widget.SeekBarWithValues;
-import ru.com.cardiomagnil.widget.SeekBarWithValues.OnProgressChangedListener;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -31,7 +23,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class TestPatientDataFargment extends Fragment {
+import java.util.Calendar;
+
+import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.model.TestIncoming;
+import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
+import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
+import ru.com.cardiomagnil.widget.SeekBarWithValues;
+import ru.com.cardiomagnil.widget.SeekBarWithValues.OnProgressChangedListener;
+
+public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
     private View parentView;
     private String mBirthDate = null;
 
@@ -41,6 +44,16 @@ public class TestPatientDataFargment extends Fragment {
         initPatientDataFargment(parentView);
 
         return parentView;
+    }
+
+    @Override
+    public String getMenuInetmName() {
+        return null;
+    }
+
+    @Override
+    public View getTopView() {
+        return null;
     }
 
     private void initPatientDataFargment(View view) {
@@ -97,7 +110,7 @@ public class TestPatientDataFargment extends Fragment {
 
         if (testIncoming.validate(TestIncoming.RESULT_GROUPS.first)) {
             AppState.getInstatce().setTestIncoming(testIncoming);
-            Fragment patientHistoryFargment = new TestPatientHistoryFargment();
+            Fragment patientHistoryFargment = new RiskAnalysisPatientHistoryFargment();
             switchFragment(patientHistoryFargment);
         } else {
             Toast toast = Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_SHORT);

@@ -1,8 +1,5 @@
-package ru.com.cardiomagnil.ui.slidingmenu;
+package ru.com.cardiomagnil.ui.ca_content.RiskAnalysis;
 
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.Tools;
-import ru.com.cardiomagnil.model.TestIncoming;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -17,8 +14,13 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.model.TestIncoming;
+import ru.com.cardiomagnil.ui.slidingmenu.ResultsWaitingFargment;
+import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 
-public class TestDailyRationFargment extends Fragment {
+public class RiskAnalysisDailyRationFargment extends Fragment {
     private View parentView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

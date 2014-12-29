@@ -1,17 +1,5 @@
 package ru.com.cardiomagnil.ui.slidingmenu;
 
-import java.util.Map;
-
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.model.TestResult;
-import ru.com.cardiomagnil.model.TestResultBanner;
-import ru.com.cardiomagnil.model.TestResultPage;
-import ru.com.cardiomagnil.model.TestResultPiece;
-import ru.com.cardiomagnil.model.TestResult.BANNERS;
-import ru.com.cardiomagnil.model.TestResult.PAGES;
-import ru.com.cardiomagnil.model.TestResult.PIECES;
-import ru.com.cardiomagnil.model.TestResult.STATES;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,14 +10,25 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.Map;
+
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.model.TestResult;
+import ru.com.cardiomagnil.model.TestResult.BANNERS;
+import ru.com.cardiomagnil.model.TestResult.PAGES;
+import ru.com.cardiomagnil.model.TestResult.PIECES;
+import ru.com.cardiomagnil.model.TestResult.STATES;
+import ru.com.cardiomagnil.model.TestResultBanner;
+import ru.com.cardiomagnil.model.TestResultPage;
+import ru.com.cardiomagnil.model.TestResultPiece;
 
 public class TestResultsFargment extends Fragment {
     private View parentView;
     private SlidingMenuActivity mSlidingMenuActivity;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_slidingmenu_test_patient_results, null);
+        parentView = inflater.inflate(R.layout.fragment_slidingmenu_analysis_results, null);
         mSlidingMenuActivity = (SlidingMenuActivity) getActivity();
 
         initTestResultsFargment(parentView);

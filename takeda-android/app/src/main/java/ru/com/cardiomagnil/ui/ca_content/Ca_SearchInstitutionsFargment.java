@@ -1,61 +1,56 @@
 package ru.com.cardiomagnil.ui.ca_content;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 
-public class Ca_SearchInstitutionsFargment extends Fragment {
-    MapView mapView;
+public class Ca_SearchInstitutionsFargment extends Ca_BaseItemFragment {
     GoogleMap map;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_search_institutions, null);
 
-        MapsInitializer.initialize(getActivity());
+        FragmentManager fm = getChildFragmentManager();
+        SupportMapFragment supportMapFragment  = (SupportMapFragment)fm.findFragmentById(R.id.order_info_fragment_map);
 
-        switch (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()) )
-        {
-            case ConnectionResult.SUCCESS:
-                Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
-                mapView = (MapView) view.findViewById(R.id.map);
-                mapView.onCreate(savedInstanceState);
-                // Gets to GoogleMap from the MapView and does initialization stuff
-                if(mapView!=null)
-                {
-                    map = mapView.getMap();
-                    map.getUiSettings().setMyLocationButtonEnabled(false);
-                    map.setMyLocationEnabled(true);
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(43.1, -87.9), 10);
-                    map.animateCamera(cameraUpdate);
-                }
-                break;
-            case ConnectionResult.SERVICE_MISSING:
-                Toast.makeText(getActivity(), "SERVICE MISSING", Toast.LENGTH_SHORT).show();
-                break;
-            case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
-                Toast.makeText(getActivity(), "UPDATE REQUIRED", Toast.LENGTH_SHORT).show();
-                break;
-            default: Toast.makeText(getActivity(), GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()), Toast.LENGTH_SHORT).show();
+        // Gets to GoogleMap from the MapView and does initialization stuff
+        map = supportMapFragment.getMap();
+        map.getUiSettings().setMyLocationButtonEnabled(true);
+        map.setMyLocationEnabled(true);
+
+        // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
+        try {
+            MapsInitializer.initialize(this.getActivity());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        // Updates the location and zoom of the MapView
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(55.751667, 37.617778), 10);
+        map.animateCamera(cameraUpdate);
 
         return view;
+    }
+
+    @Override
+    public String getMenuInetmName() {
+        return null;
+    }
+
+    @Override
+    public View getTopView() {
+        return null;
     }
 }

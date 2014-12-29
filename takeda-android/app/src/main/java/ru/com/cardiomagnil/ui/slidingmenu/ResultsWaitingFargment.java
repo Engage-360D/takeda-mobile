@@ -1,6 +1,5 @@
 package ru.com.cardiomagnil.ui.slidingmenu;
 
-import ru.com.cardiomagnil.ui.start.CustomAnimation;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,12 +8,13 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.ui.start.CustomAnimation;
 
 public class ResultsWaitingFargment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_slidingmenu_start_content, null);
+        View view = inflater.inflate(R.layout.ca_slidingmenu_fragment_dummy, null);
         return view;
     }
 

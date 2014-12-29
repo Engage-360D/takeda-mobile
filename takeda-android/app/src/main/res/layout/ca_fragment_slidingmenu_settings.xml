@@ -1,0 +1,211 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cm_white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ca_plate_medium"
+            android:background="@color/ca_bg_top"
+            android:gravity="center"
+            android:text="@string/pills"
+            android:textColor="@color/cm_white"
+            android:textSize="@dimen/ca_text_size_large" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ca_plate_large"
+            android:background="@color/cm_white"
+            android:gravity="center"
+            android:text="@string/personal_data"
+            android:textColor="@color/ca_text_main_48"
+            android:textSize="@dimen/ca_text_size_xlarge" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linearLayoutTop"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_bg_bottom_and_top_border_unpressed"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:id="@+id/textViewSettingsEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/settings_email"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_selector_bottom_border"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:id="@+id/textViewSettingsPassword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/settings_password"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ca_plate_large"
+                    android:background="@color/cm_white"
+                    android:gravity="center"
+                    android:text="@string/application_settings"
+                    android:textColor="@color/ca_text_main_48"
+                    android:textSize="@dimen/ca_text_size_xlarge" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_bg_bottom_and_top_border_unpressed"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/delete_all_reports"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/must_be_password"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_small" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_large"
+                android:background="@null" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ca_plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ca_bg_bottom_and_top_border_unpressed"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/ca_space_medium"
+                android:paddingRight="@dimen/ca_space_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/incident_occurred"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textSize="@dimen/ca_text_size_medium" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ca_selector_button_plus" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutIncident"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="4"
+                android:padding="@dimen/ca_space_medium"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_attention" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/warning"
+                        android:textColor="@color/ca_text_main_37"
+                        android:textSize="@dimen/ca_text_size_medium"
+                        android:textStyle="bold" />
+
+                    <include layout="@layout/ca_layout_vertical_gap_small" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="@string/infarction_occurred"
+                        android:textColor="@color/ca_text_main_37"
+                        android:textSize="@dimen/ca_text_size_medium" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

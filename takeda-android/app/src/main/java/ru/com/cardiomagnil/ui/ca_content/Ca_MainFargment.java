@@ -5,18 +5,27 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 
-public class Ca_MainFargment extends Fragment  {
+public class Ca_MainFargment extends Ca_BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_main, null);
         initFargment(view);
         return view;
+    }
+
+    @Override
+    public String getMenuInetmName() {
+        return null;
+    }
+
+    @Override
+    public View getTopView() {
+        return null;
     }
 
     private void initFargment(View view) {

@@ -1,14 +1,5 @@
 package ru.com.cardiomagnil.ui.start;
 
-import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppConfig;
-import ru.com.cardiomagnil.application.AppSharedPreferences;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.commands.UserAuthorization;
-import ru.com.cardiomagnil.model.Authorization;
-import ru.com.cardiomagnil.ui.c_slidingmenu.c_menu.C_SlidingMenuActivity;
-import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
-import ru.com.cardiomagnil.widget.TrackedFragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
@@ -16,6 +7,15 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppConfig;
+import ru.com.cardiomagnil.application.AppSharedPreferences;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.commands.UserAuthorization;
+import ru.com.cardiomagnil.model.Authorization;
+import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
+import ru.com.cardiomagnil.widget.TrackedFragmentActivity;
 
 public class SplashActivity extends TrackedFragmentActivity {
     private Animation mAnimation;

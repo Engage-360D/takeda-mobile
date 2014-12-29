@@ -182,6 +182,24 @@
     <string name="segoe_wp_font_light">fonts/SegoeWP-Light.ttf</string>
 
     <!-- ================================================================================== -->
+    <!--Дневной рацион-->
+    <!-- =====-->
+    <!-- menu -->
+    <!-- ==== -->
+    <string name="menu_item_main">Главная</string>
+    <string name="menu_item_risk_analysis">Анализ риска</string>
+    <string name="menu_item_diary">Дневник</string>
+    <string name="menu_item_search_institutions">Поиск учреждений</string>
+    <string name="menu_item_recommendations">Рекомендаци</string>
+    <string name="menu_item_analysis_results">Результаты анализа</string>
+    <string name="menu_item_calendar">Календарь</string>
+    <string name="menu_item_useful_to_know">Полезно знать</string>
+    <string name="menu_item_publications">Публикации</string>
+    <string name="menu_item_reports">Отчеты</string>
+    <string name="menu_item_patient_data">Данные пациента</string>
+    <string name="menu_item_patient_history">История пациента</string>
+    <string name="menu_item_daily_ration">Дневной рацион</string>
+
     <!-- ========================= -->
     <!-- fragment_slidingmenu_main -->
     <!-- ========================= -->
@@ -234,6 +252,19 @@
     <string name="institutions">Учреждения</string>
     <string name="institutions_map">Карта</string>
     <string name="institutions_list">Список</string>
+
+    <!-- ================================ -->
+    <!-- ca_fragment_slidingmenu_settings -->
+    <!-- ================================ -->
+    <string name="personal_data">Личные данные</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_password">Пароль</string>
+    <string name="application_settings">Настройки приложения</string>
+    <string name="delete_all_reports">Удалить все отчеты</string>
+    <string name="must_be_password">Для операции необходимо пароль</string>
+    <string name="incident_occurred">У меня произошел инцидент</string>
+    <string name="warning">Внимание!</string>
+    <string name="infarction_occurred">вы перенесли Инфаркт и вам\nследует соблюдать ТОЛЬКО\nрекомендации вашего\nлечащего врача</string>
 
     <!-- ====== -->
     <!-- common -->
