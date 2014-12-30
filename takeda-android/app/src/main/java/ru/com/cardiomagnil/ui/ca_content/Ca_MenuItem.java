@@ -8,6 +8,7 @@ public enum Ca_MenuItem {
     item_risk_analysis(RiskAnalysisPatientDataFargment.class, R.string.menu_item_risk_analysis, true, true),
     item_diary(Ca_PersonalCabinetFargment.class, R.string.menu_item_diary, true, true),
     item_search_institutions(Ca_SearchInstitutionsFargment.class, R.string.menu_item_search_institutions, true, true),
+    item_information(Ca_InformationFragment.class, R.string.menu_item_information, true, true),
     item_settings(Ca_SettingsFargment.class, R.string.menu_item_settings, true, true),
     item_recommendations(Ca_RecommendationsFargment.class, R.string.menu_item_recommendations, true, false),
     item_analysis_results(Ca_AnalysisResultsFargment.class, R.string.menu_item_analysis_results, true, false),
