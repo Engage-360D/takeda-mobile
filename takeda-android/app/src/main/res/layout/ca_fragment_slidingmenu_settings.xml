@@ -163,15 +163,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayoutIncident"
+                android:id="@+id/linearLayoutIncidentHolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include layout="@layout/ca_item_incident" />
-
-            </LinearLayout>
-
+                android:orientation="vertical" />
 
         </LinearLayout>
     </ScrollView>

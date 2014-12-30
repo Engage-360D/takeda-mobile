@@ -37,7 +37,7 @@ public class CustomDialogLayout extends FrameLayout {
     }
 
     private CustomDialogLayout(Context context,
-                               CharSequence bodyText,
+                               View bodyView,
                                ArrayList<Pair<CharSequence, Object>> buttonsProperties) {
         super(context);
 
@@ -46,7 +46,7 @@ public class CustomDialogLayout extends FrameLayout {
         this.removeAllViews();
         this.addView(view);
 
-        customDialogLayoutHelper(context, view, bodyText, buttonsProperties);
+        customDialogLayoutHelper(context, view, bodyView, buttonsProperties);
     }
 
     public void setParentDialog(Dialog dialog) {
@@ -57,15 +57,15 @@ public class CustomDialogLayout extends FrameLayout {
         return mDialog;
     }
 
-    private void customDialogLayoutHelper(Context context, View view, CharSequence bodyText, ArrayList<Pair<CharSequence, Object>> buttonsProperties) {
-        TextView textViewBody = (TextView) view.findViewById(R.id.textViewBody);
+    private void customDialogLayoutHelper(Context context, View view,
+                                          View bodyView,
+                                          ArrayList<Pair<CharSequence, Object>> buttonsProperties) {
+        FrameLayout frameLayoutBodyHolder = (FrameLayout) view.findViewById(R.id.frameLayoutBodyHolder);
         LinearLayout linearLayoutButtonsHolder = (LinearLayout) view.findViewById(R.id.linearLayoutButtonsHolder);
 
-        if (textViewBody != null) {
-            textViewBody.setText(bodyText);
+        if (bodyView != null) {
+            frameLayoutBodyHolder.addView(bodyView);
         }
-
-//        frameLayoutBodyHolder
 
         for (Pair<CharSequence, Object> pair : buttonsProperties) {
             Button button = new Button(context);
@@ -130,28 +130,28 @@ public class CustomDialogLayout extends FrameLayout {
 
     public static class Builder {
         private final Context mContext;
-        private CharSequence mBodytext;
-        private View  mBodyView;
+        private View mBodyView;
         private ArrayList<Pair<CharSequence, Object>> mButtonsProperties = new ArrayList<Pair<CharSequence, Object>>();
 
         public Builder(Context context) {
             mContext = context;
         }
 
-        public Builder setBodyText(int textId) {
-            mBodytext = mContext.getText(textId);
-            return this;
-        }
-
         public Builder setBody(CharSequence text) {
-            mBodytext = text;
-            mBodyView = null;
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mBodyView = inflater.inflate(R.layout.layout_custom_dialog_textview, null);
+            ((TextView) mBodyView).setText(text);
             return this;
         }
 
         public Builder setBody(View view) {
-            mBodytext = null;
             mBodyView = view;
+            return this;
+        }
+
+        public Builder setBody(int layoutId) {
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mBodyView = inflater.inflate(layoutId, null);
             return this;
         }
 
@@ -179,7 +179,7 @@ public class CustomDialogLayout extends FrameLayout {
         public CustomDialogLayout create() {
             CustomDialogLayout customDialogLayout = new CustomDialogLayout(
                     mContext,
-                    mBodytext,
+                    mBodyView,
                     mButtonsProperties);
 
             return customDialogLayout;

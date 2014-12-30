@@ -36,13 +36,13 @@ public class SplashActivity extends TrackedFragmentActivity {
 //        startActivity(intent);
 //        finish();
 
-        // TODO: fix it ater tests
-        Intent intent = new Intent(SplashActivity.this, TestActivity.class);
-        startActivity(intent);
-        finish();
+//        // TODO: fix it ater tests
+//        Intent intent = new Intent(SplashActivity.this, TestActivity.class);
+//        startActivity(intent);
+//        finish();
 
-//        animate();
-//        userAuthorization();
+        animate();
+        userAuthorization();
     }
 
     private void animate() {

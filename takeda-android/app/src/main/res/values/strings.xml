@@ -264,6 +264,8 @@
     <string name="incident_occurred">У меня произошел инцидент</string>
     <string name="warning">Внимание!</string>
     <string name="infarction_occurred">вы перенесли Инфаркт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
+    <string name="apoplexy_occurred">вы перенесли Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
+    <string name="shunting_occurred">вы перенесли Шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
 
     <!-- ========= -->
     <!-- incidents -->
