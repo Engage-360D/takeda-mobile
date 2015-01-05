@@ -9,6 +9,7 @@ public final class Url {
 
     public static final String USERS = API_ADDR + "users";
     public static final String TOKENS = API_ADDR + "tokens";
+    public static final String REGIONS = API_ADDR + "regions";
 
     // TODO: remove after tests
     // private final String REQUEST_TEST_RESULTS = mAppServerApiURL + "/test-results/";

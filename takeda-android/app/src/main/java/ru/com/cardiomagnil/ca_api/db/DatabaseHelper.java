@@ -9,11 +9,13 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
-import ru.com.cardiomagnil.ca_model.Ca_Region;
+import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.base.BaseModel;
+import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     //имя файла базы данных который будет храниться в /data/data/APPNAME/DATABASE_NAME
@@ -80,17 +82,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // =================================================================================================
     // DAO-singletons
     // =================================================================================================
-//    private MUserDao mMUserDao;
-//
-//    public MUserDao getUserDao() {
-//        try {
-//            if (mMUserDao == null) {
-//                mMUserDao = new MUserDao(getConnectionSource(), MUser.class);
-//            }
-//            return mMUserDao;
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Could not create DAO", e);
-//        }
-//    }
+    private Ca_RegionDao mRegionDao;
+
+    public Ca_RegionDao getRegionDao() {
+        try {
+            if (mRegionDao == null) {
+                mRegionDao = new Ca_RegionDao(getConnectionSource(), Ca_Region.class);
+            }
+            return mRegionDao;
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not create DAO", e);
+        }
+    }
 
 }

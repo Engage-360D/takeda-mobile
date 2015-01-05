@@ -1,8 +1,11 @@
-package ru.com.cardiomagnil.ca_model;
+package ru.com.cardiomagnil.ca_model.region;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import ru.com.cardiomagnil.ca_model.base.BaseModel;
 
@@ -11,10 +14,14 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
         "id",
         "name"
 })
+@DatabaseTable(tableName = "region")
 public class Ca_Region extends BaseModel {
 
+    @DatabaseField(id = true, canBeNull = false, dataType = DataType.INTEGER, columnName = "id")
     @JsonProperty("id")
-    private String id;
+    private int id;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "name")
     @JsonProperty("name")
     private String name;
 
@@ -22,7 +29,7 @@ public class Ca_Region extends BaseModel {
      * @return The id
      */
     @JsonProperty("id")
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -30,7 +37,7 @@ public class Ca_Region extends BaseModel {
      * @param id The id
      */
     @JsonProperty("id")
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

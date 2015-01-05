@@ -2,6 +2,7 @@ package ru.com.cardiomagnil.ui.start;
 
 import java.util.List;
 
+import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppConfig;
 import ru.com.cardiomagnil.application.AppSharedPreferences;
@@ -13,6 +14,7 @@ import ru.com.cardiomagnil.commands.UserRegistration;
 import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.ui.start.CustomAnimation.OnAnimationEndListener;
+import ru.com.cardiomagnil.util.TestMethods;
 import ru.com.cardiomagnil.widget.TrackedFragmentActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -27,6 +29,8 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 public class StartActivity extends TrackedFragmentActivity {
@@ -57,6 +61,8 @@ public class StartActivity extends TrackedFragmentActivity {
         mRestorePasswordRequestId = savedInstanceState.getInt("restorePasswordRequestId");
     }
 
+//    layoutBottomOutside
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +70,27 @@ public class StartActivity extends TrackedFragmentActivity {
 
         Tools.initActionBar(getLayoutInflater(), getActionBar(), false);
         initStartActivity();
+
+        customizeIfDebug();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         clearFragments();
+    }
+
+    private void customizeIfDebug() {
+        if (BuildConfig.DEBUG) {
+            View layoutBottomOutside =  findViewById(R.id.layoutBottomOutside);
+
+            layoutBottomOutside.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TestMethods.testCurrentMethod();
+                }
+            });
+        }
     }
 
     private void clearFragments() {

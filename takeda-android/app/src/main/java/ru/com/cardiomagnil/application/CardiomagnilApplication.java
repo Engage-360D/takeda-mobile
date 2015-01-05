@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import ru.com.cardiomagnil.ca_api.db.HelperFactory;
 import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.model.TestResult;
 import ru.com.cardiomagnil.model.Token;
@@ -20,8 +21,16 @@ public class CardiomagnilApplication extends Application {
         super.onCreate();
 
         mCardiomagnilApplication = this;
+        HelperFactory.setHelper(getApplicationContext());
         SFApplicationState.getInstatce().initialize(this);
         initAppState();
+    }
+
+    // FIXME: This method is for use in emulated process environments...
+    @Override
+    public void onTerminate() {
+        HelperFactory.releaseHelper();
+        super.onTerminate();
     }
 
     public static CardiomagnilApplication getInstance() {
