@@ -295,6 +295,7 @@
     <string name="on">Вкл</string>
     <string name="off">Выкл</string>
     <string name="cancel">Отменить</string>
+    <string name="close">Закрыть</string>
 
     <!-- === -->
     <!-- tmp -->
@@ -309,5 +310,20 @@
     <string name="date_3">25.11.2017 (воскресенье)</string>
     <string name="title_activity_test">testActivity</string>
     <string name="hello_world">Hello world!</string>
+
+
+    <!-- ============== -->
+    <!-- response_codes -->
+    <!-- ============== -->
+    <string name="resp_000_default_error">Error</string>
+    <string name="resp_001_lan_error">Ошибка сети</string>
+    <string name="resp_002_cache_error">Ошибка кеша</string>
+    <string name="resp_003_db_error">Ошибка базы данных</string>
+    <string name="resp_004_input_data_error">Ошибка входных данных</string>
+    <string name="resp_005_no_data_error">Ошибка: данные не обнаружены</string>
+    <string name="resp_200_ok">OK</string>
+    <string name="resp_201_created">Создано успешно</string>
+    <string name="resp_">...</string>
+    <string name="resp_422">...</string>
 
 </resources>

@@ -32,6 +32,10 @@ public class CardiomagnilApplication extends Application {
         return (Context) mCardiomagnilApplication;
     }
 
+    public String getTag() {
+        return CardiomagnilApplication.this.getClass().getSimpleName();
+    }
+
     public Activity getCurrentActivity() {
         synchronized (mStaticLockObj) {
             return mCurrentActivity;

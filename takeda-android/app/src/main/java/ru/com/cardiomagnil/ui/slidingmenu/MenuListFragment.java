@@ -20,11 +20,8 @@ import ru.com.cardiomagnil.ui.ca_content.Ca_MenuItem;
 import ru.com.cardiomagnil.ui.ca_menu.Ca_MenuAdapter;
 
 public class MenuListFragment extends ListFragment {
-    //    private String[] mFragmentNames = null;
     private Ca_MenuAdapter mMenuItemsAdapter;
     private View mPreviousSelectedItem;
-
-    private enum ItemState {normal, selected, disabled, invisible}
 
     private final List<Ca_MenuItem> mMenuItems = Arrays.asList(
             Ca_MenuItem.item_main,
@@ -52,12 +49,6 @@ public class MenuListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        String[] menuItems = getResources().getStringArray(R.array.menu_items);
-//        mFragmentNames = new String[menuItems.length];
-
-        // ArrayAdapter<String> menuItemsAdapter = new
-        // ArrayAdapter<String>(getActivity(),
-        // android.R.layout.simple_list_item_1, android.R.id.text1, menuItems);
         mMenuItemsAdapter = new Ca_MenuAdapter(getActivity());
         mMenuItemsAdapter.addAll(mMenuItems);
         setListAdapter(mMenuItemsAdapter);
@@ -95,7 +86,6 @@ public class MenuListFragment extends ListFragment {
             ExeptionsHandler.getInstatce().handleException(getActivity(), e);
         }
 
-        // Fragment newContent = new BirdGridFragment(position);
         if (newContent != null) {
             switchFragment(newContent);
         }

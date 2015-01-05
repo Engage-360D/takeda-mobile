@@ -75,9 +75,9 @@ public class Api {
             String paramString = URLEncodedUtils.format(nameValuePairs, "utf-8");
             String fullUrl = url + "?" + paramString;
             HttpGet request = new HttpGet(fullUrl);
-            CustomHttpClient http = new CustomHttpClient();
-            HttpResponse response = http.execute(request);
-            jsonObjectResponse = responseToJsonObject(response);
+//            CustomHttpClient http = new CustomHttpClient();
+//            HttpResponse response = http.execute(request);
+//            jsonObjectResponse = responseToJsonObject(response);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,9 +96,9 @@ public class Api {
             httpPost.setHeader("Content-Type", "application/json; charset=UTF-8");
             httpPost.setHeader("Accept", "*/*");
             httpPost.setEntity(new StringEntity(jsonObjectParams.toString()));
-            CustomHttpClient http = new CustomHttpClient();
-            HttpResponse response = http.execute(httpPost);
-            jsonObjectResponse = responseToJsonObject(response);
+//            CustomHttpClient http = new CustomHttpClient();
+//            HttpResponse response = http.execute(httpPost);
+//            jsonObjectResponse = responseToJsonObject(response);
         } catch (Exception e) {
             e.printStackTrace();
             ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);

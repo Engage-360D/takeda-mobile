@@ -1,0 +1,187 @@
+======================================================================================
+method:
+post
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/users
+--------
+
+headers:
+Content-Type: application/vnd.api+json
+--------
+
+data:
+{
+    "users" : {
+        "email" : "a.b@c.d",
+        "firstname" : "XXXX",
+        "lastname" : "XXXX",
+        "birthday" : "XXX-XX-XXT00:00:00+0000",
+        "specializationExperienceYears" : null,
+        "specializationGraduationDate" : null,
+        "specializationInstitutionAddress" : null,
+        "specializationInstitutionName" : null,
+        "specializationInstitutionPhone" : null,
+        "specializationName" : null,
+        "plainPassword" : "xxxx",
+        "isDoctor" : false,
+        "isSubscribed" : true,
+        "links" : {
+            "region" : null
+        }
+    }
+}
+-----
+
+response:
+{
+    "links" : {
+        "users.region" : {
+            "href" : "\/api\/v1\/regions\/{users.region}",
+            "type" : "regions"
+        }
+    },
+    "users" : {
+        "id" : "2",
+        "email" : "a.b@c.d",
+        "firstname" : "XXXX",
+        "lastname" : "XXXX",
+        "birthday" : "XXXX-XX-XXT00:00:00+00:00",
+        "vkontakteId" : null,
+        "facebookId" : null,
+        "specializationExperienceYears" : null,
+        "specializationGraduationDate" : null,
+        "specializationInstitutionAddress" : null,
+        "specializationInstitutionName" : null,
+        "specializationInstitutionPhone" : null,
+        "specializationName" : null,
+        "roles" : ["ROLE_USER"],
+        "isEnabled" : false,
+        "links" : {
+            "region" : null
+        }
+    }
+}
+---------
+======================================================================================
+method:
+
+-------
+
+request:
+
+--------
+
+headers:
+
+--------
+
+data:
+
+-----
+
+response:
+
+---------
+======================================================================================
+method:
+
+-------
+
+request:
+
+--------
+
+headers:
+
+--------
+
+data:
+
+-----
+
+response:
+
+---------
+======================================================================================
+method:
+
+-------
+
+request:
+
+--------
+
+headers:
+
+--------
+
+data:
+
+-----
+
+response:
+
+---------
+======================================================================================
+method:
+
+-------
+
+request:
+
+--------
+
+headers:
+
+--------
+
+data:
+
+-----
+
+response:
+
+---------
+======================================================================================
+method:
+
+-------
+
+request:
+
+--------
+
+headers:
+
+--------
+
+data:
+
+-----
+
+response:
+
+---------
+======================================================================================
+GET
+200 OK
+
+POST
+200 OK
+201 Created
+400 Bad Request
+
+GET, POST, PUT, DELETE
+401 Unauthorized
+403 Forbidden
+404 Not Found
+405 Method Not Allowed
+5xx Server Error
+
+другие вряд ли будут
+======================================================================================
+Вопросы:
+Зачем http://cardiomagnyl.dev.iengage.ru/api/v1/tokens возвращает "links", "linked", почему поле токена - "id"?
+======================================================================================

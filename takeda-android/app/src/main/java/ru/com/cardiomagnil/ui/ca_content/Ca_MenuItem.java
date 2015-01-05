@@ -22,6 +22,8 @@ public enum Ca_MenuItem {
     private boolean mIsItemVisible;
     private boolean mIsItemEnabled;
 
+    private enum ItemState {normal, selected, disabled, invisible}
+
     Ca_MenuItem(Class itemClass, int itemName, boolean isItemVisible, boolean isItemEnabled) {
         this.mItemClass = itemClass;
         this.mItemName = itemName;
