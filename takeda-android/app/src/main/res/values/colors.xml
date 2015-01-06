@@ -33,12 +33,15 @@
     <!-- text_main -->
     <color name="ca_text_main_37">#FF37404C</color>
     <color name="ca_text_main_38">#FF38404C</color>
+    <color name="ca_text_main_41">#FF414141</color>
     <color name="ca_text_main_48">#FF485662</color>
     <!-- text_hint -->
     <color name="ca_main_text_37_hint">#7737404C</color>
+    <color name="ca_text_main_48_hint">#77485662</color>
     <!-- text_checkbox -->
     <color name="ca_text_checkbox_unchecked">#FF414141</color>
     <color name="ca_text_checkbox_checked">#FFFFFFFF</color>
+
     <!-- text_menu -->
     <color name="ca_text_menu_unpressed">#FFFFFFFF</color>
     <color name="ca_text_menu_pressed">#FF38404C</color>
@@ -47,11 +50,15 @@
     <!-- divider -->
     <color name="ca_divider_1">#FFC3C5C9</color>
     <color name="ca_divider_2">#FFDCDDE0</color>
+    <color name="ca_divider_3">#FFDCDADA</color>
 
     <!--background -->
     <color name="ca_bg_top">#FFFF3341</color>
     <color name="ca_bg_main_unpressed">#FFE7E7E7</color>
     <color name="ca_bg_main_pressed">#FFC8CACC</color>
+
+    <color name="ca_bg_additional_unpressed">#FFFFFFFF</color>
+    <color name="ca_bg_additional_pressed">#FFC8CACC</color>
 
     <!--background_menu -->
     <color name="ca_bg_menu">#FF38404C</color>

@@ -13,7 +13,6 @@ import java.util.List;
 import ru.com.cardiomagnil.api.Url;
 import ru.com.cardiomagnil.ca_api.DataLoadDispatcher;
 import ru.com.cardiomagnil.ca_api.DataLoadSequence;
-import ru.com.cardiomagnil.ca_api.cache.CacheRequestHolder;
 import ru.com.cardiomagnil.ca_api.db.DbRequestHolder;
 import ru.com.cardiomagnil.ca_api.db.HelperFactory;
 import ru.com.cardiomagnil.ca_api.http.HttpRequestHolder;
@@ -24,11 +23,6 @@ public class Ca_RegionDao extends BaseDaoImpl<Ca_Region, Integer> {
     public Ca_RegionDao(ConnectionSource connectionSource, Class<Ca_Region> dataClass) throws SQLException {
         super(connectionSource, dataClass);
     }
-
-    public List<Ca_Region> getAll() throws SQLException {
-        return this.queryForAll();
-    }
-
 
     public static void getAll(final CallbackOne<List<Ca_Region>> onSuccess,
                               final CallbackOne<Ca_Response> onFailure) {
@@ -50,12 +44,6 @@ public class Ca_RegionDao extends BaseDaoImpl<Ca_Region, Integer> {
                         .Builder(queryBuilder)
                         .create();
 
-        CacheRequestHolder cacheRequestHolder =
-                new CacheRequestHolder
-                        .Builder(Request.Method.GET, Url.REGIONS, typeReference)
-                        .setOnStoreIntoDatabase(onStoreIntoDatabase)
-                        .create();
-
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
                         .Builder(Request.Method.GET, Url.REGIONS, typeReference)
@@ -65,10 +53,8 @@ public class Ca_RegionDao extends BaseDaoImpl<Ca_Region, Integer> {
 
         DataLoadSequence dataLoadSequence =
                 new DataLoadSequence
-                        .Builder(httpRequestHolder)
-//                        .Builder(dbRequestHolder)
-//                        .addRequestHolder(cacheRequestHolder)
-//                        .addRequestHolder(httpRequestHolder)
+                        .Builder(dbRequestHolder)
+                        .addRequestHolder(httpRequestHolder)
                         .create();
 
         DataLoadDispatcher

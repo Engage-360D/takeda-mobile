@@ -19,10 +19,10 @@ import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     //имя файла базы данных который будет храниться в /data/data/APPNAME/DATABASE_NAME
-    private static final String DATABASE_NAME = "imedicum.sqlite";
+    private static final String DATABASE_NAME = "cardiomagnil.sqlite";
 
     //с каждым увеличением версии, при нахождении в устройстве БД с предыдущей версией будет выполнен метод onUpgrade();
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     //ссылки на DAO соответсвующие сущностям, хранимым в БД
     //используется для сущностей, которые не имеют своего DAO-класса

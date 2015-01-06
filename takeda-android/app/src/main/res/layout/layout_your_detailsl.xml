@@ -1,42 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/middle_padding"
-    android:paddingLeft="@dimen/large_padding"
-    android:paddingRight="@dimen/large_padding"
-    android:paddingTop="@dimen/middle_padding" >
+    android:paddingLeft="@dimen/ca_space_medium"
+    android:paddingRight="@dimen/ca_space_medium">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ca_plate_medium"
+        android:gravity="center_vertical"
         android:text="@string/your_details"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/very_dark_grayish_blue" />
+        android:textColor="@color/ca_text_main_41"
+        android:textSize="@dimen/ca_text_size_medium" />
 
-    <EditText
-        android:id="@+id/editTextName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="center_vertical|center_horizontal"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
-        android:textColor="@color/very_dark_grayish_blue" >
+        android:layout_height="@dimen/ca_plate_medium"
+        android:orientation="vertical">
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:textColor="@color/ca_text_main_48"
+            android:textColorHint="@color/ca_text_main_48_hint"
+            android:textSize="@dimen/ca_text_size_xlarge">
 
-    <EditText
-        android:id="@+id/editTextRegEmail"
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="center_vertical|center_horizontal"
-        android:hint="@string/registration_email"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/very_dark_grayish_blue" >
-    </EditText>
+        android:layout_height="@dimen/ca_plate_medium"
+        android:orientation="vertical">
 
+        <EditText
+            android:id="@+id/editTextRegEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:hint="@string/registration_email"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="@color/ca_text_main_48"
+            android:textColorHint="@color/ca_text_main_48_hint"
+            android:textSize="@dimen/ca_text_size_xlarge" />
+
+    </LinearLayout>
 </LinearLayout>

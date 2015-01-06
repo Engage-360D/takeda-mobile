@@ -11,13 +11,8 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ca_plate_medium"
-            android:background="@color/ca_bg_top"
-            android:gravity="center"
-            android:text="@string/information"
-            android:textColor="@color/cm_white"
-            android:textSize="@dimen/ca_text_size_large" />
+            style="@style/TextViewTop"
+            android:text="@string/information" />
 
         <TextView
             android:layout_width="match_parent"
@@ -30,16 +25,12 @@
 
     </LinearLayout>
 
-    <TextView
+    <include
         android:id="@+id/textViewBottom"
+        layout="@layout/layout_bottom_contraindications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:padding="@dimen/ca_space_medium"
-        android:text="@string/contraindications"
-        android:textColor="@color/ca_text_main_37"
-        android:textSize="@dimen/ca_text_size_xsmall" />
+        android:layout_alignParentBottom="true" />
 
     <ScrollView
         android:id="@+id/scrollView"

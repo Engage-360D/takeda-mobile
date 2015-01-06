@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/middle_padding"
-    android:paddingLeft="@dimen/large_padding"
-    android:paddingRight="@dimen/large_padding"
-    android:paddingTop="@dimen/middle_padding" >
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/ca_plate_medium"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/ca_space_medium"
+    android:paddingRight="@dimen/ca_space_medium">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/use_social"
+        android:textColor="@color/ca_text_main_41"
+        android:textSize="@dimen/ca_text_size_medium" />
 
     <LinearLayout
         android:id="@+id/linearLayoutSocials"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageViewVK"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
+            android:layout_margin="@dimen/small_space"
             android:contentDescription="@null"
             android:src="@drawable/vk" />
 
@@ -26,7 +35,7 @@
             android:id="@+id/imageViewFB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
+            android:layout_margin="@dimen/small_space"
             android:contentDescription="@null"
             android:src="@drawable/fb" />
 
@@ -34,19 +43,9 @@
             android:id="@+id/imageViewOK"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
+            android:layout_margin="@dimen/small_space"
             android:contentDescription="@null"
             android:src="@drawable/ok" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/linearLayoutSocials"
-        android:text="@string/use_social"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/very_dark_grayish_blue" />
-
-</RelativeLayout>
+</LinearLayout>

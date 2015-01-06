@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="@dimen/ca_space_medium"
+    android:text="@string/contraindications"
+    android:textColor="@color/ca_text_main_37"
+    android:textSize="@dimen/ca_text_size_xxsmall" />
+
+    <!-- TODO: textSize must be 14 instead 12 - check on newline problem -->

@@ -1,46 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/cm_white">
 
-    <include layout="@layout/layout_top_start" />
+    <include
+        android:id="@+id/linearLayoutTop"
+        layout="@layout/layout_top_start" />
+
+    <include
+        android:id="@+id/textViewBottom"
+        layout="@layout/layout_bottom_contraindications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textViewBottom"
+        android:layout_below="@id/linearLayoutTop"
+        android:layout_gravity="center_horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include layout="@layout/layout_is_a_doctor" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_use_social" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_your_detailsl" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
-            <include layout="@layout/layout_country" />
+            <include layout="@layout/layout_region" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_birth_date" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_create_password" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_confirmation" />
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

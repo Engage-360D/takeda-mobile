@@ -17,27 +17,27 @@
 
             <include layout="@layout/layout_is_a_doctor" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_use_social" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_your_detailsl" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
-            <include layout="@layout/layout_country" />
+            <include layout="@layout/layout_region" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_birth_date" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_create_password" />
 
-            <View style="@style/divider_normal" />
+            <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_confirmation" />
         </LinearLayout>

@@ -13,7 +13,7 @@ Content-Type: application/vnd.api+json
 
 data:
 {
-    "users" : {
+    "data" : {
         "email" : "a.b@c.d",
         "firstname" : "XXXX",
         "lastname" : "XXXX",
@@ -66,23 +66,32 @@ response:
 ---------
 ======================================================================================
 method:
-
+get
 -------
 
 request:
-
+http://cardiomagnyl.dev.iengage.ru/api/v1/regions
 --------
 
 headers:
-
 --------
 
 data:
-
 -----
 
 response:
-
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "Москва"
+    },
+    {
+      "id": "2",
+      "name": "Санкт-Петербург"
+    }
+  ]
+}
 ---------
 ======================================================================================
 method:

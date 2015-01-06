@@ -59,7 +59,6 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     public void initParent() {
-        View layoutTop = getActivity().findViewById(R.id.linearLayoutTopContent);
         TextView textViewHeader = (TextView) getActivity().findViewById(R.id.textViewHeader);
 
         ImageView imageViewBottomInsideLeft = (ImageView) getActivity().findViewById(R.id.imageViewBottomInsideLeft);
@@ -69,7 +68,6 @@ public class RegistrationFragment extends CustomFragment {
         ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) getActivity().findViewById(R.id.progressBarBottomOutsideStartWork);
         TextView textViewBottomOutsideAction = (TextView) getActivity().findViewById(R.id.textViewBottomOutsideAction);
 
-        layoutTop.setVisibility(View.VISIBLE);
         textViewHeader.setText(getActivity().getString(R.string.header_registration));
 
         imageViewBottomInsideLeft.setVisibility(View.INVISIBLE);
@@ -184,7 +182,7 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     private void initSpinnerCountry() {
-        Spinner spinnerCountry = (Spinner) parentView.findViewById(R.id.spinnerCountry);
+        Spinner spinnerCountry = (Spinner) parentView.findViewById(R.id.spinnerRegion);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, regionItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCountry.setAdapter(adapter);
@@ -288,7 +286,7 @@ public class RegistrationFragment extends CustomFragment {
     private void initFields(ru.com.cardiomagnil.social.User user) {
         EditText editTextName = (EditText) getActivity().findViewById(R.id.editTextName);
         EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
-        Spinner spinnerCountry = (Spinner) getActivity().findViewById(R.id.spinnerCountry);
+        Spinner spinnerCountry = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
         TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDate);
 
         if (!user.getFirstName().isEmpty()) {

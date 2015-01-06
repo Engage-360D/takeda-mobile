@@ -35,26 +35,6 @@
     <string name="bottom_login">Регистрация</string>
     <string name="two_minutes">2 минуты до начала работы приложения</string>
 
-    <!-- ===================== -->
-    <!-- fragment registration -->
-    <!-- ===================== -->
-    <string name="header_registration">Регистрация</string>
-    <string name="is_a_doctor">Вы являетесь врачом?</string>
-    <string name="use_social">Использовать аккаунт социальных сетей:</string>
-    <string name="your_details">Ваши данные</string>
-    <string name="name">Имя</string>
-    <string name="registration_email">email</string>
-    <string name="country">Страна</string>
-    <string name="birth_date">Дата рождения</string>
-    <string name="create_password">Создание пароля</string>
-    <string name="enter_the_password">Укажите пароль</string>
-    <string name="enter_the_password_again">Укажите пароль еще раз</string>
-    <string name="confirmation">Подтверждение</string>
-    <string name="agree_to_processing">Согласен на обработку персональных данных</string>
-    <string name="agree_to_receive">Согласен получать информацию по email</string>
-    <string name="agree_that_advises">Согласен с тем, что вся информация носит рекомендательный характер</string>
-    <string name="bottom_registration">Регистрация</string>
-
     <!-- ==== -->
     <!-- test -->
     <!-- ==== -->
@@ -182,6 +162,7 @@
 
     <!-- ================================================================================== -->
     <!-- Дневной рацион -->
+
     <!-- ===== -->
     <!-- menu -->
     <!-- ==== -->
@@ -200,6 +181,28 @@
     <string name="menu_item_patient_data">Данные пациента</string>
     <string name="menu_item_patient_history">История пациента</string>
     <string name="menu_item_daily_ration">Дневной рацион</string>
+
+    <!-- =============================== -->
+    <!--   fragment_start_registration   -->
+    <!-- fragment_start_login_or_restore -->
+    <!-- =============================== -->
+    <string name="header_registration">Регистрация</string>
+    <string name="is_a_doctor">Вы являетесь врачом?</string>
+    <string name="use_social">Использовать аккаунт социальных сетей:</string>
+    <string name="your_details">Ваши данные</string>
+    <string name="name">Имя</string>
+    <string name="registration_email">email</string>
+    <string name="region">Регион</string>
+    <string name="birth_date">Дата рождения</string>
+    <string name="select_birth_date">Выбрать дату рождения</string>
+    <string name="create_password">Создание пароля</string>
+    <string name="enter_the_password">Укажите пароль</string>
+    <string name="enter_the_password_again">Укажите пароль еще раз</string>
+    <string name="confirmation">Подтверждение</string>
+    <string name="agree_to_processing">Согласен на обработку персональных данных</string>
+    <string name="agree_to_receive">Согласен получать информацию по email</string>
+    <string name="agree_that_advises">Согласен с тем, что вся информация носит рекомендательный характер</string>
+    <string name="bottom_registration">Регистрация</string>
 
     <!-- ========================= -->
     <!-- fragment_slidingmenu_main -->

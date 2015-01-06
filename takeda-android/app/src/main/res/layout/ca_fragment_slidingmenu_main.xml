@@ -60,16 +60,12 @@
             android:textSize="@dimen/ca_text_size_medium" />
     </LinearLayout>
 
-    <TextView
+    <include
         android:id="@+id/textViewBottom"
+        layout="@layout/layout_bottom_contraindications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:padding="@dimen/ca_space_medium"
-        android:text="@string/contraindications"
-        android:textColor="@color/ca_text_main_37"
-        android:textSize="@dimen/ca_text_size_xsmall" />
+        android:layout_alignParentBottom="true" />
 
     <ScrollView
         android:id="@+id/scrollView"

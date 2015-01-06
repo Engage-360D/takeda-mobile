@@ -11,13 +11,8 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ca_plate_medium"
-            android:background="@color/ca_bg_top"
-            android:gravity="center"
-            android:text="@string/institutions"
-            android:textColor="@color/cm_white"
-            android:textSize="@dimen/ca_text_size_large" />
+            style="@style/TextViewTop"
+            android:text="@string/institutions" />
 
         <RadioGroup
             android:id="@+id/radioGroupCondition"

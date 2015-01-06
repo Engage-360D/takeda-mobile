@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/middle_padding"
-    android:paddingLeft="@dimen/large_padding"
-    android:paddingRight="@dimen/large_padding"
-    android:paddingTop="@dimen/middle_padding" >
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/ca_plate_medium"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/ca_space_medium"
+    android:paddingRight="@dimen/ca_space_medium">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
         android:text="@string/is_a_doctor"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/very_dark_grayish_blue" />
+        android:textColor="@color/ca_text_main_41"
+        android:textSize="@dimen/ca_text_size_medium" />
 
     <RadioGroup
         android:id="@+id/radioGroupDoctor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:orientation="horizontal" >
+        android:layout_width="@dimen/ca_control_medium"
+        android:layout_height="@dimen/ca_control_xxsmall"
+        android:orientation="horizontal">
 
         <ToggleButton
             android:id="@+id/toggleButtonNotDoctor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="10dp"
-            android:minWidth="10dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ca_selector_checkbox_bg"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
             android:onClick="onToggle"
+            android:textColor="@drawable/ca_selector_checkbox_text"
             android:textOff="@string/no"
-            android:textOn="@string/no" />
+            android:textOn="@string/no"
+            android:textSize="@dimen/ca_text_size_small" />
 
         <ToggleButton
             android:id="@+id/toggleButtonDoctor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="10dp"
-            android:minWidth="10dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ca_selector_checkbox_bg"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
             android:onClick="onToggle"
+            android:textColor="@drawable/ca_selector_checkbox_text"
             android:textOff="@string/yes"
-            android:textOn="@string/yes" />
+            android:textOn="@string/yes"
+            android:textSize="@dimen/ca_text_size_small" />
     </RadioGroup>
-
-</RelativeLayout>
+</LinearLayout>
