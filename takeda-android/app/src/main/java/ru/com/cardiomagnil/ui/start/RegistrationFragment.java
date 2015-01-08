@@ -1,22 +1,5 @@
 package ru.com.cardiomagnil.ui.start;
 
-import java.util.Calendar;
-
-import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.application.Tools;
-import ru.com.cardiomagnil.model.User;
-import ru.com.cardiomagnil.social.AuthorizationDialog;
-import ru.com.cardiomagnil.social.AuthorizationListener;
-import ru.com.cardiomagnil.social.BaseSocialApi;
-import ru.com.cardiomagnil.social.FbApi;
-import ru.com.cardiomagnil.social.FbUser;
-import ru.com.cardiomagnil.social.OkApi;
-import ru.com.cardiomagnil.social.OkUser;
-import ru.com.cardiomagnil.social.VkApi;
-import ru.com.cardiomagnil.social.VkUser;
-
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -41,6 +24,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.Calendar;
+
+import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
+import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.model.User;
+import ru.com.cardiomagnil.social.AuthorizationDialog;
+import ru.com.cardiomagnil.social.AuthorizationListener;
+import ru.com.cardiomagnil.social.BaseSocialApi;
+import ru.com.cardiomagnil.social.FbApi;
+import ru.com.cardiomagnil.social.FbUser;
+import ru.com.cardiomagnil.social.OkApi;
+import ru.com.cardiomagnil.social.OkUser;
+import ru.com.cardiomagnil.social.VkApi;
+import ru.com.cardiomagnil.social.VkUser;
+
 
 public class RegistrationFragment extends CustomFragment {
     private View parentView;
@@ -51,7 +51,7 @@ public class RegistrationFragment extends CustomFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_start_registration, container, false);
+        parentView = inflater.inflate(R.layout.ca_fragment_start_registration, container, false);
 
         initRegistrationFragment(parentView);
 
@@ -176,18 +176,18 @@ public class RegistrationFragment extends CustomFragment {
                     });
                 }
 
-                return true;
+                return false;
             }
         });
     }
 
     private void initSpinnerCountry() {
-        Spinner spinnerCountry = (Spinner) parentView.findViewById(R.id.spinnerRegion);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, regionItems);
+        Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.custom_spinner_item, regionItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCountry.setAdapter(adapter);
-        spinnerCountry.setSelection(RUSSIA);
-        spinnerCountry.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spinnerRegion.setAdapter(adapter);
+        spinnerRegion.setSelection(RUSSIA);
+        spinnerRegion.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mCountry = regionItems[position];
@@ -286,7 +286,7 @@ public class RegistrationFragment extends CustomFragment {
     private void initFields(ru.com.cardiomagnil.social.User user) {
         EditText editTextName = (EditText) getActivity().findViewById(R.id.editTextName);
         EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
-        Spinner spinnerCountry = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
+        Spinner spinnerRegion = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
         TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDate);
 
         if (!user.getFirstName().isEmpty()) {
@@ -298,9 +298,9 @@ public class RegistrationFragment extends CustomFragment {
         }
 
         if (!user.getCountry().isEmpty()) {
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinnerCountry.getAdapter();
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinnerRegion.getAdapter();
             adapter.add(user.getCountry());
-            spinnerCountry.setSelection(adapter.getCount() - 1);
+            spinnerRegion.setSelection(adapter.getCount() - 1);
             mCountry = user.getCountry();
         }
 

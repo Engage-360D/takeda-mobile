@@ -108,7 +108,7 @@
                     android:layout_toLeftOf="@id/radioGroupDiabetes"
                     android:text="@string/suffering_diabetes"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/very_dark_grayish_blue" />
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View
@@ -163,7 +163,7 @@
                     android:layout_toLeftOf="@id/radioGroupSugarProblems"
                     android:text="@string/sugar_problems"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/very_dark_grayish_blue" />
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View
@@ -218,7 +218,7 @@
                     android:layout_toLeftOf="@id/radioGroupDiabeticMedicines"
                     android:text="@string/diabetic_medicines"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/very_dark_grayish_blue" />
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View
@@ -252,7 +252,7 @@
                     android:layout_toLeftOf="@id/seekBarWithValuesPressure"
                     android:text="@string/arterial_pressure"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/very_dark_grayish_blue" />
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View
@@ -306,7 +306,7 @@
                     android:layout_toLeftOf="@id/radioGroupHypertonicMedicines"
                     android:text="@string/hypertonic_medicines"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/very_dark_grayish_blue" />
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View
@@ -342,7 +342,7 @@
                     android:layout_toLeftOf="@id/editTextPhysicalActivity"
                     android:text="@string/physical_activity"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/very_dark_grayish_blue" />
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View
@@ -395,7 +395,7 @@
                     android:layout_toLeftOf="@id/radioGroupInfarctionStroke"
                     android:text="@string/infarction_stroke"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/very_dark_grayish_blue" />
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View

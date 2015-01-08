@@ -130,10 +130,13 @@
     <dimen name="ca_control_medium">130dp</dimen>
 
     <!-- 16pt - ca_text_size_small -->
+    <!-- 18pt - ca_text_size_medium -->
     <!-- 20pt - ca_text_size_medium -->
     <!-- 22pt - ca_text_size_large -->
     <!-- 24pt - ca_text_size_xlarge -->
-    <!-- 65pt - ca_text_size_percent -->
+    <!-- 28pt - ca_text_size_xxlarge -->
+    <!-- 30pt - ca_text_size_xxlarge -->
+    <!-- 65pt - ca_text_size_percents -->
     <!-- ==== -->
     <!-- text -->
     <!-- ==== -->
@@ -144,7 +147,6 @@
     <dimen name="ca_text_size_large">22sp</dimen>
     <dimen name="ca_text_size_xlarge">24sp</dimen>
     <dimen name="ca_text_size_xxlarge">28sp</dimen>
-
-    <dimen name="ca_text_size_percent">65sp</dimen>
+    <dimen name="ca_text_size_percents">65sp</dimen>
 
 </resources>

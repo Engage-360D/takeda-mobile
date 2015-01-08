@@ -11,30 +11,6 @@
     <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_sliding_menu">SlidingMenuActivity</string>
 
-    <!-- ================ -->
-    <!-- fragment welcome -->
-    <!-- ================ -->
-    <string name="welcome">Добро пожаловать в приложение\nпрепарата Кардиомагнил.\n\nВы сможете следить за своим здоровьем\nи пользоваться советами\nпосле регистрации и прохождения теста.</string>
-    <string name="swipe">Смахните</string>
-    <string name="three_minutes">3 минуты до начала работы приложения</string>
-    <string name="bottom_welcome">Смахните</string>
-
-    <!-- ============== -->
-    <!-- fragment login -->
-    <!-- ============== -->
-    <string name="entry">Вход</string>
-    <string name="restoring_password">Восстановление пароля</string>
-    <string name="login_email">e-mail</string>
-    <string name="password">пароль</string>
-    <string name="forgot_password">Забыли пароль?</string>
-    <string name="enter">Войти</string>
-    <string name="restore">Восстановить</string>
-    <string name="if_no_account">Если у вас до сих пор нет логина, советуем вам зарегистироваться:</string>
-    <string name="restoring_info">Информация для восстановления пароля будет выслана на указанный email.</string>
-    <string name="restoring_info_sent">Информация для восстановления пароля была выслана на указанный email.</string>
-    <string name="bottom_login">Регистрация</string>
-    <string name="two_minutes">2 минуты до начала работы приложения</string>
-
     <!-- ==== -->
     <!-- test -->
     <!-- ==== -->
@@ -163,6 +139,31 @@
     <!-- ================================================================================== -->
     <!-- Дневной рацион -->
 
+    <!-- ================ -->
+    <!-- fragment welcome -->
+    <!-- ================ -->
+    <string name="welcome_1">Добро пожаловать\nв приложение\nпрепарата Кардиомагнил.</string>
+    <string name="welcome_2">Вы сможете следить за своим здоровьем\nи пользоваться советами\nпосле регистрации и прохождения теста.</string>
+    <string name="swipe">Смахните</string>
+    <string name="three_minutes">3 минуты до начала работы приложения</string>
+    <string name="bottom_welcome">Смахните</string>
+
+    <!-- ============== -->
+    <!-- fragment login -->
+    <!-- ============== -->
+    <string name="entry">Вход</string>
+    <string name="restoring_password">Восстановление пароля</string>
+    <string name="login_email">e-mail</string>
+    <string name="password">пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="enter">Войти</string>
+    <string name="restore">Восстановить</string>
+    <string name="if_no_account">Если у вас до сих пор нет логина,\nсоветуем вам зарегистироваться:</string>
+    <string name="restoring_info">Информация для восстановления пароля будет выслана\nна указанный email.</string>
+    <string name="restoring_info_sent">Информация для восстановления пароля была выслана на указанный email.</string>
+    <string name="bottom_login">Регистрация</string>
+    <string name="two_minutes">2 минуты до начала работы приложения</string>
+
     <!-- ===== -->
     <!-- menu -->
     <!-- ==== -->
@@ -183,8 +184,8 @@
     <string name="menu_item_daily_ration">Дневной рацион</string>
 
     <!-- =============================== -->
-    <!--   fragment_start_registration   -->
-    <!-- fragment_start_login_or_restore -->
+    <!--   ca_fragment_start_registration   -->
+    <!-- ca_fragment_start_login_or_restore -->
     <!-- =============================== -->
     <string name="header_registration">Регистрация</string>
     <string name="is_a_doctor">Вы являетесь врачом?</string>

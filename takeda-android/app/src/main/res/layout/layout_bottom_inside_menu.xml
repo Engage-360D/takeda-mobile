@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/middle_block_hight"
-    android:background="@color/very_dark_grayish_blue"
-    android:orientation="vertical" >
+    android:layout_height="@dimen/ca_plate_medium"
+    android:background="@color/ca_bg_main_38"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayoutBottomInsideContent"
@@ -11,8 +11,8 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/large_padding"
-        android:paddingRight="@dimen/large_padding" >
+        android:paddingLeft="@dimen/ca_space_medium"
+        android:paddingRight="@dimen/ca_space_medium">
 
         <ImageView
             android:id="@+id/imageViewBottomInsideLeft"
@@ -29,8 +29,8 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
             android:text="@string/middle_dummy_tex"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/ca_white"
+            android:textSize="@dimen/ca_text_size_small" />
 
         <ImageView
             android:id="@+id/imageViewBottomInsideRight"
@@ -42,3 +42,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
+<!-- TODO: ca_text_size_small must be ca_text_size_xsmall -->

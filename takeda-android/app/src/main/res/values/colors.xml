@@ -3,8 +3,6 @@
 
     <color name="black">#000</color>
     <color name="splash">#37404D</color>
-    <color name="very_dark_grayish_blue">#3C424D</color>
-    <color name="moderate_blue">#4269C4</color>
     <color name="very_soft_blue">#85ADED</color>
     <color name="pure_red">#FF0000</color>
     <color name="strong_red">#D2292F</color>
@@ -18,29 +16,33 @@
     <color name="divider_normal">#E8E8E8</color>
     <color name="divider_normal_2">#DBD9D9</color>
 
-
-    <color name="main_text">#FF38404C</color>
-    <!--77% (top, bottom)-->
-    <color name="additional_text">#FF37404C</color>
-
     <color name="shadow_slidingmenu_start">#FFE8E7E6</color>
     <color name="shadow_slidingmenu_center">#FFE8E7E6</color>
     <color name="shadow_slidingmenu_end">#FFE8E7E6</color>
 
     <!-- ================================================= -->
-    <color name="cm_white">#FFFFFFFF</color>
+    <!-- bg_main -->
+    <color name="ca_bg_main_38">#FF38404C</color>
+
+    <!-- bg_and_txt -->
+    <color name="ca_white">#FFFFFFFF</color>
 
     <!-- text_main -->
     <color name="ca_text_main_37">#FF37404C</color>
     <color name="ca_text_main_38">#FF38404C</color>
     <color name="ca_text_main_41">#FF414141</color>
     <color name="ca_text_main_48">#FF485662</color>
+    <color name="ca_text_main_88">#FF88909C</color>
     <!-- text_hint -->
     <color name="ca_main_text_37_hint">#7737404C</color>
+    <color name="ca_text_main_38_hint">#7738404C</color>
     <color name="ca_text_main_48_hint">#77485662</color>
     <!-- text_checkbox -->
     <color name="ca_text_checkbox_unchecked">#FF414141</color>
     <color name="ca_text_checkbox_checked">#FFFFFFFF</color>
+    <!-- text_clickable -->
+    <color name="ca_text_main_48_unpressed">#FF485662</color>
+    <color name="ca_text_main_48_pressed">#FF121212</color>
 
     <!-- text_menu -->
     <color name="ca_text_menu_unpressed">#FFFFFFFF</color>
@@ -56,9 +58,6 @@
     <color name="ca_bg_top">#FFFF3341</color>
     <color name="ca_bg_main_unpressed">#FFE7E7E7</color>
     <color name="ca_bg_main_pressed">#FFC8CACC</color>
-
-    <color name="ca_bg_additional_unpressed">#FFFFFFFF</color>
-    <color name="ca_bg_additional_pressed">#FFC8CACC</color>
 
     <!--background_menu -->
     <color name="ca_bg_menu">#FF38404C</color>

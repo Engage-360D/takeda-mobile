@@ -13,6 +13,7 @@ import ru.com.cardiomagnil.social.OkApi;
 import ru.com.cardiomagnil.social.OkUser;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,7 +26,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +34,7 @@ public class LoginOrRestoreFragment extends CustomFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_start_login_or_restore, container, false);
+        parentView = inflater.inflate(R.layout.ca_fragment_start_login_or_restore, container, false);
 
         initLoginOrRestoreFragment(parentView);
 
@@ -140,27 +140,27 @@ public class LoginOrRestoreFragment extends CustomFragment {
     }
 
     private void initLoginOrRestore() {
-        LinearLayout linearLayoutLogin = (LinearLayout) parentView.findViewById(R.id.linearLayoutLogin);
-        LinearLayout linearLayoutRestore = (LinearLayout) parentView.findViewById(R.id.linearLayoutRestore);
+        LinearLayout linearLayoutPerformLogin = (LinearLayout) parentView.findViewById(R.id.linearLayoutPerformLogin);
+        LinearLayout linearLayoutPerformRestore = (LinearLayout) parentView.findViewById(R.id.linearLayoutPerformRestore);
 
-        final RelativeLayout relativeLayoutLogin = (RelativeLayout) parentView.findViewById(R.id.relativeLayoutLogin);
-        final RelativeLayout relativeLayoutRestore = (RelativeLayout) parentView.findViewById(R.id.relativeLayoutRestore);
+        final LinearLayout linearLayoutLogin = (LinearLayout) parentView.findViewById(R.id.linearLayoutLogin);
+        final LinearLayout linearLayoutRestore = (LinearLayout) parentView.findViewById(R.id.linearLayoutRestore);
 
-        linearLayoutLogin.setOnClickListener(new OnClickListener() {
+        linearLayoutPerformLogin.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                relativeLayoutLogin.setVisibility(View.VISIBLE);
-                relativeLayoutRestore.setVisibility(View.GONE);
+                linearLayoutLogin.setVisibility(View.VISIBLE);
+                linearLayoutRestore.setVisibility(View.GONE);
             }
         });
 
-        linearLayoutRestore.setOnClickListener(new OnClickListener() {
+        linearLayoutPerformRestore.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                relativeLayoutRestore.setVisibility(View.VISIBLE);
-                relativeLayoutLogin.setVisibility(View.GONE);
+                linearLayoutRestore.setVisibility(View.VISIBLE);
+                linearLayoutLogin.setVisibility(View.GONE);
             }
         });
     }
@@ -204,7 +204,7 @@ public class LoginOrRestoreFragment extends CustomFragment {
         return user;
     }
 
-    private String pickRestoreFields(){
+    private String pickRestoreFields() {
         EditText editTextEmailRestore = (EditText) getActivity().findViewById(R.id.editTextEmailRestore);
         return editTextEmailRestore.getText().toString();
     }

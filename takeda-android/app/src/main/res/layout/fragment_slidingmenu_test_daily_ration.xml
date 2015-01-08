@@ -107,7 +107,7 @@
                     android:layout_toLeftOf="@id/radioGroupExtraSalt"
                     android:text="@string/salt"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/very_dark_grayish_blue" />
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View
@@ -160,7 +160,7 @@
                     android:layout_toLeftOf="@id/radioGroupAspirin"
                     android:text="@string/aspirin"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/very_dark_grayish_blue" />
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View

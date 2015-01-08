@@ -1,13 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cm_white"
+    android:background="@color/ca_white"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/ca_plate_large"
-        android:background="@color/cm_white"
+        android:background="@color/ca_white"
         android:gravity="center"
         android:text="@string/date_2"
         android:textColor="@color/ca_text_main_48"

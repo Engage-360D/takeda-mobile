@@ -2,19 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/very_dark_grayish_blue"
-    android:gravity="center_vertical"
-    android:orientation="vertical" >
+    android:background="@color/ca_bg_main_38"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/ca_space_medium"
+    android:paddingRight="@dimen/ca_space_medium">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:src="@drawable/ic_wide_logo" />
+
+    <include layout="@layout/ca_layout_vertical_gap_plate_small" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="@dimen/large_margin"
-        android:layout_marginRight="@dimen/large_margin"
-        android:gravity="center_horizontal"
-        android:text="@string/welcome"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/white" />
+        android:gravity="center"
+        android:text="@string/welcome_1"
+        android:textColor="@color/ca_white"
+        android:textSize="@dimen/ca_text_size_large" />
+
+    <include layout="@layout/ca_layout_vertical_gap_plate_small" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/welcome_2"
+        android:textColor="@color/ca_text_main_88"
+        android:textSize="@dimen/ca_text_size_small" />
 
 </LinearLayout>
+
+<!-- TODO: ca_text_size_large must be ca_text_size_xlarge, ca_text_size_small must be ca_text_size_medium -->

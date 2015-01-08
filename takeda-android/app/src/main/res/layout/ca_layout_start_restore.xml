@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewTitle"
+            android:text="@string/restoring_password" />
+
+        <include layout="@layout/ca_layout_vertical_gap_space_small" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ca_plate_medium"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextEmailRestore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:hint="@string/login_email"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColor="@color/ca_text_main_38"
+                android:textColorHint="@color/ca_text_main_38_hint"
+                android:textSize="@dimen/ca_text_size_xlarge">
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutPerformLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ca_plate_medium"
+            android:layout_gravity="left"
+            android:gravity="right|center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/small_dark_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/entry"
+                android:textColor="@color/ca_text_main_38"
+                android:textSize="@dimen/ca_text_size_small" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonRestore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/restore" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewRestoringInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/restoring_info"
+        android:textColor="@color/ca_text_main_38"
+        android:textSize="@dimen/ca_text_size_small" />
+
+</LinearLayout>

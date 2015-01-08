@@ -1,5 +1,20 @@
 package ru.com.cardiomagnil.ui.start;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.RadioGroup;
+
 import java.util.List;
 
 import ru.com.cardiomagnil.app.BuildConfig;
@@ -15,23 +30,8 @@ import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.ui.start.CustomAnimation.OnAnimationEndListener;
 import ru.com.cardiomagnil.util.TestMethods;
+import ru.com.cardiomagnil.util.Utils;
 import ru.com.cardiomagnil.widget.TrackedFragmentActivity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 
 public class StartActivity extends TrackedFragmentActivity {
     private final int AMOUNT_OF_START_FRAGMENTS = 3;
@@ -61,13 +61,12 @@ public class StartActivity extends TrackedFragmentActivity {
         mRestorePasswordRequestId = savedInstanceState.getInt("restorePasswordRequestId");
     }
 
-//    layoutBottomOutside
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        getActionBar().hide();
         Tools.initActionBar(getLayoutInflater(), getActionBar(), false);
         initStartActivity();
 
@@ -82,7 +81,7 @@ public class StartActivity extends TrackedFragmentActivity {
 
     private void customizeIfDebug() {
         if (BuildConfig.DEBUG) {
-            View layoutBottomOutside =  findViewById(R.id.layoutBottomOutside);
+            View layoutBottomOutside = findViewById(R.id.layoutBottomOutside);
 
             layoutBottomOutside.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,8 +107,6 @@ public class StartActivity extends TrackedFragmentActivity {
     }
 
     private void initStartActivity() {
-        Tools.hideKeyboard(this);
-
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         if (fragments != null) {
             initFragments(fragments);
@@ -174,6 +171,12 @@ public class StartActivity extends TrackedFragmentActivity {
 
         final CustomFragment currentFragment = mFragments[position];
 
+        if (position == 0) {
+            getActionBar().hide();
+        } else {
+            getActionBar().show();
+        }
+
         fadeOut(currentFragment, layoutBottomInside);
         fadeOut(currentFragment, layoutBottomOutside);
     }
@@ -219,22 +222,22 @@ public class StartActivity extends TrackedFragmentActivity {
         public Fragment getItem(int pos) {
             switch (pos) {
 
-            case 0:
-                if (mFragments[0] == null) {
-                    mFragments[0] = new WelcomeFragment();
-                    mFragments[0].setInitParentAtFirstTime(true);
-                }
-                return mFragments[0];
-            case 1:
-                if (mFragments[1] == null) {
-                    mFragments[1] = new LoginOrRestoreFragment();
-                }
-                return mFragments[1];
-            case 2:
-                if (mFragments[2] == null) {
-                    mFragments[2] = new RegistrationFragment();
-                }
-                return mFragments[2];
+                case 0:
+                    if (mFragments[0] == null) {
+                        mFragments[0] = new WelcomeFragment();
+                        mFragments[0].setInitParentAtFirstTime(true);
+                    }
+                    return mFragments[0];
+                case 1:
+                    if (mFragments[1] == null) {
+                        mFragments[1] = new LoginOrRestoreFragment();
+                    }
+                    return mFragments[1];
+                case 2:
+                    if (mFragments[2] == null) {
+                        mFragments[2] = new RegistrationFragment();
+                    }
+                    return mFragments[2];
             }
             return null;
         }

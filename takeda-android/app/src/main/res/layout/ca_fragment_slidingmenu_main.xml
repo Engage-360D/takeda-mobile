@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cm_white">
+    android:background="@color/ca_white">
 
     <LinearLayout
         android:id="@+id/LinearLayoutTop"
@@ -10,7 +10,7 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
-        <include layout="@layout/ca_layout_vertical_gap_small" />
+        <include layout="@layout/ca_layout_vertical_gap_space_small" />
 
         <TextView
             android:id="@+id/textViewPercents"
@@ -19,7 +19,7 @@
             android:gravity="center"
             android:text="@string/zero_percent"
             android:textColor="@color/ca_text_main_37"
-            android:textSize="@dimen/ca_text_size_percent" />
+            android:textSize="@dimen/ca_text_size_percents" />
 
         <TextView
             android:id="@+id/textViewIndex"
@@ -30,7 +30,7 @@
             android:textColor="@color/ca_text_main_37"
             android:textSize="@dimen/ca_text_size_small" />
 
-        <include layout="@layout/ca_layout_vertical_gap_xsmall" />
+        <include layout="@layout/ca_layout_vertical_gap_space_xsmall" />
 
         <TextView
             android:id="@+id/textViewDates"
@@ -41,7 +41,7 @@
             android:textColor="@color/ca_text_main_37"
             android:textSize="@dimen/ca_text_size_medium" />
 
-        <include layout="@layout/ca_layout_vertical_gap_small" />
+        <include layout="@layout/ca_layout_vertical_gap_space_small" />
 
         <View
             android:layout_width="match_parent"

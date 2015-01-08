@@ -29,15 +29,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class Tools {
-    public static void hideKeyboard(Activity currentActivity) {
-        try {
-            InputMethodManager inputManager = (InputMethodManager) currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(currentActivity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        } catch (Exception e) {
-            // do nothing
-        }
-    }
-
     public static JsonElement jsonElementByMemberName(JsonObject jsonObject, String memberName) {
         if (jsonObject == null || !jsonObject.isJsonObject() || memberName == null || memberName.isEmpty()) {
             return null;
