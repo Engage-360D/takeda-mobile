@@ -10,6 +10,10 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import ru.com.cardiomagnil.ca_model.base.BaseModel;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -28,7 +32,7 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
         "specializationInstitutionName",
         "specializationInstitutionPhone",
         "specializationName",
-        "region",
+        "roles",
         // received field
         "isEnabled",
         "links",
@@ -92,20 +96,18 @@ public class Ca_User extends BaseModel {
     @JsonProperty("specializationName")
     private String specializationName;
 
-    @DatabaseField(dataType = DataType.INTEGER, columnName = "region")
-    @JsonProperty("region")
-    private int region;
+    // implemented manually many_to_many
+    @JsonProperty("roles")
+    private Collection<String> roles = new ArrayList<>();
 
     @DatabaseField(dataType = DataType.BOOLEAN, columnName = "is_enabled")
     @JsonProperty("isEnabled")
     private boolean isEnabled;
 
     // links
-    @DatabaseField(dataType = DataType.STRING, columnName = "roles")
-    @JsonProperty("roles")
-    private String roles;
-    // FIXME
-    // private List<String> roles = new ArrayList<>();
+    @DatabaseField(dataType = DataType.INTEGER, columnName = "region")
+    @JsonProperty("region")
+    private int region;
 
     @JsonProperty("links")
     private JsonNode links;
@@ -328,19 +330,19 @@ public class Ca_User extends BaseModel {
     }
 
     /**
-     * @return The region
+     * @return The roles
      */
-    @JsonProperty("region")
-    public int getRegion() {
-        return region;
+    @JsonProperty("roles")
+    public List<String> getRoles() {
+        return roles == null ? null : new ArrayList<String>(roles);
     }
 
     /**
-     * @param region The region
+     * @param roles The roles
      */
-    @JsonProperty("region")
-    public void setRegion(int region) {
-        this.region = region;
+    @JsonProperty("roles")
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     /**
@@ -360,36 +362,20 @@ public class Ca_User extends BaseModel {
     }
 
     /**
-     * @return The roles
+     * @return The region
      */
-    @JsonProperty("roles")
-    public String getRoles() {
-        return roles;
+    @JsonProperty("region")
+    public int getRegion() {
+        return region;
     }
 
     /**
-     * @param roles The roles
+     * @param region The region
      */
-    @JsonProperty("roles")
-    public void setRoles(String roles) {
-        this.roles = roles;
+    @JsonProperty("region")
+    public void setRegion(int region) {
+        this.region = region;
     }
-
-//    /**
-//     * @return The roles
-//     */
-//    @JsonProperty("roles")
-//    public List<String> getRoles() {
-//        return roles;
-//    }
-
-//    /**
-//     * @param roles The roles
-//     */
-//    @JsonProperty("roles")
-//    public void setRoles(List<String> roles) {
-//        this.roles = roles;
-//    }
 
     /**
      * @return The links

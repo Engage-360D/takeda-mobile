@@ -19,10 +19,11 @@ import ru.com.cardiomagnil.ca_api.db.HelperFactory;
 import ru.com.cardiomagnil.ca_api.http.HttpRequestHolder;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
+import ru.com.cardiomagnil.ca_model.role.Ca_UserRoleDao;
 import ru.com.cardiomagnil.util.CallbackOne;
 
-public class Ca_UserDao extends BaseDaoImpl<Ca_Region, Integer> {
-    public Ca_UserDao(ConnectionSource connectionSource, Class<Ca_Region> dataClass) throws SQLException {
+public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
+    public Ca_UserDao(ConnectionSource connectionSource, Class<Ca_User> dataClass) throws SQLException {
         super(connectionSource, dataClass);
     }
 
@@ -35,16 +36,7 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_Region, Integer> {
         CallbackOne<JsonNode> onOnBeforeExtract = new CallbackOne<JsonNode>() {
             @Override
             public void execute(JsonNode jsonNode) {
-                int t = 1;
-                t++;
-
                 Ca_User.unPackLinks((ObjectNode) jsonNode);
-
-                t++;
-
-                Ca_User.packLinks((ObjectNode) jsonNode);
-
-                t++;
             }
         };
 
@@ -114,8 +106,11 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_Region, Integer> {
     }
 
     public static void storeIntoDatabase(final Ca_User user) {
-        RuntimeExceptionDao helperFactoryUser = HelperFactory.getHelper().getRuntimeDataDao(Ca_User.class);
+        final RuntimeExceptionDao helperFactoryUser = HelperFactory.getHelper().getRuntimeDataDao(Ca_User.class);
+        final Ca_UserRoleDao userRoleDao = HelperFactory.getHelper().getUserRoleDao();
+
         helperFactoryUser.createOrUpdate(user);
+        userRoleDao.createOrUpdate(user, user.getRoles());
     }
 
 }

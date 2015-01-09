@@ -16,6 +16,12 @@ import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.base.BaseModel;
 import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
+import ru.com.cardiomagnil.ca_model.role.Ca_Role;
+import ru.com.cardiomagnil.ca_model.role.Ca_RoleDao;
+import ru.com.cardiomagnil.ca_model.role.Ca_UserRoleDao;
+import ru.com.cardiomagnil.ca_model.role.Ca_UserRole;
+import ru.com.cardiomagnil.ca_model.user.Ca_User;
+import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     //имя файла базы данных который будет храниться в /data/data/APPNAME/DATABASE_NAME
@@ -36,6 +42,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Ca_Region.class);
+            TableUtils.createTable(connectionSource, Ca_User.class);
+            TableUtils.createTable(connectionSource, Ca_Role.class);
+            TableUtils.createTable(connectionSource, Ca_UserRole.class);
         } catch (/*SQLException*/Exception e) {
             Log.e(CardiomagnilApplication.getInstance().getTag(), "error creating DB " + DATABASE_NAME);
             throw new RuntimeException(e);
@@ -47,7 +56,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             //Так делают ленивые, гораздо предпочтительнее не удаляя БД аккуратно вносить изменения
             TableUtils.dropTable(connectionSource, Ca_Region.class, true);
-
+            TableUtils.dropTable(connectionSource, Ca_User.class, true);
+            TableUtils.dropTable(connectionSource, Ca_Role.class, true);
+            TableUtils.dropTable(connectionSource, Ca_UserRole.class, true);
 
             onCreate(db, connectionSource);
         } catch (/*SQLException*/Exception e) {
@@ -83,6 +94,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // DAO-singletons
     // =================================================================================================
     private Ca_RegionDao mRegionDao;
+    private Ca_UserDao mUserDao;
+    private Ca_RoleDao mRoleDao;
+    private Ca_UserRoleDao mUserRoleDao;
 
     public Ca_RegionDao getRegionDao() {
         try {
@@ -90,6 +104,39 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 mRegionDao = new Ca_RegionDao(getConnectionSource(), Ca_Region.class);
             }
             return mRegionDao;
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not create DAO", e);
+        }
+    }
+
+    public Ca_UserDao getUserDao() {
+        try {
+            if (mUserDao == null) {
+                mUserDao = new Ca_UserDao(getConnectionSource(), Ca_User.class);
+            }
+            return mUserDao;
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not create DAO", e);
+        }
+    }
+
+    public Ca_RoleDao getRoleDao() {
+        try {
+            if (mRoleDao == null) {
+                mRoleDao = new Ca_RoleDao(getConnectionSource(), Ca_Role.class);
+            }
+            return mRoleDao;
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not create DAO", e);
+        }
+    }
+
+    public Ca_UserRoleDao getUserRoleDao() {
+        try {
+            if (mUserRoleDao == null) {
+                mUserRoleDao = new Ca_UserRoleDao(getConnectionSource(), Ca_UserRole.class);
+            }
+            return mUserRoleDao;
         } catch (SQLException e) {
             throw new RuntimeException("Could not create DAO", e);
         }
