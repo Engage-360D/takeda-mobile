@@ -11,14 +11,14 @@ import ru.com.cardiomagnil.util.CallbackOneReturnable;
 
 public class DbRequestHolder extends BaseRequestHolder {
     private final List<QueryBuilder> mQueryBuilder;
-    protected CallbackOneReturnable mOnExtract;
+    protected CallbackOneReturnable mOnAfterExtracted;
     private final DbDataLoader mDbDataLoader;
 
     private DbRequestHolder(
             List<QueryBuilder> queryBuilder,
-            CallbackOneReturnable onExtract) {
+            CallbackOneReturnable onAfterExtracted) {
         mQueryBuilder = queryBuilder;
-        mOnExtract = onExtract;
+        mOnAfterExtracted = onAfterExtracted;
         mDbDataLoader = new DbDataLoader();
     }
 
@@ -26,8 +26,8 @@ public class DbRequestHolder extends BaseRequestHolder {
         return mQueryBuilder;
     }
 
-    public CallbackOneReturnable getOnExtract() {
-        return mOnExtract;
+    public CallbackOneReturnable getOnAfterExtracted() {
+        return mOnAfterExtracted;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class DbRequestHolder extends BaseRequestHolder {
 
     public static class Builder {
         private final List<QueryBuilder> mBuilderQueryBuilder = new ArrayList<QueryBuilder>();
-        private CallbackOneReturnable mBuilderOnExtract;
+        private CallbackOneReturnable mBuilderOnAfterExtracted;
 
         public Builder(QueryBuilder queryBuilder) {
             mBuilderQueryBuilder.add(queryBuilder);
@@ -48,15 +48,15 @@ public class DbRequestHolder extends BaseRequestHolder {
             return this;
         }
 
-        public Builder setOnExtract(CallbackOneReturnable onOnExtract) {
-            mBuilderOnExtract = onOnExtract;
+        public Builder setOnAfterExtracted(CallbackOneReturnable onOnAfterExtracted) {
+            mBuilderOnAfterExtracted = onOnAfterExtracted;
             return this;
         }
 
         public DbRequestHolder create() {
             return new DbRequestHolder(
                     mBuilderQueryBuilder,
-                    mBuilderOnExtract);
+                    mBuilderOnAfterExtracted);
         }
     }
 }

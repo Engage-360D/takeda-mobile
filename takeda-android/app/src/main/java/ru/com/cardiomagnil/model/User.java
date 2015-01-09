@@ -16,8 +16,7 @@ public class User {
     private String mBirthday = null; // "birthday" : "2014-04-16"
     private String mEmail = null; // "email" : "email@example.com"
     private String mRegion = null; // "region" : "Республика Саха"
-    private String mPlainPasswordFirst = null; // "plainPassword" : {"first" : "password", "second" : "password"},
-    private String mPlainPasswordSecond = null; // "plainPassword" : {"first" : "password", "second" : "password"},
+    private String mPlainPassword = null; // "plainPassword" : {"first" : "password", "second" : "password"},
     private Boolean mDoctor = null; // "doctor" : 1
 
     // doctor's fields
@@ -62,20 +61,12 @@ public class User {
         mRegion = region;
     }
 
-    public String getPlainPasswordFirst() {
-        return mPlainPasswordFirst;
+    public String getPlainPassword() {
+        return mPlainPassword;
     }
 
-    public void setPlainPasswordFirst(String plainPasswordFirst) {
-        mPlainPasswordFirst = plainPasswordFirst;
-    }
-
-    public String getPlainPasswordSecond() {
-        return mPlainPasswordSecond;
-    }
-
-    public void setPlainPasswordSecond(String plainPasswordSecond) {
-        mPlainPasswordSecond = plainPasswordSecond;
+    public void setPlainPassword(String plainPassword) {
+        mPlainPassword = plainPassword;
     }
 
     public void setDoctor(Boolean doctor) {
@@ -121,10 +112,7 @@ public class User {
         jsonObjectUser.addProperty("birthday", mBirthday);
         jsonObjectUser.addProperty("email", mEmail);
         jsonObjectUser.addProperty("region", mRegion);
-        JsonObject JsonObjectPassword = new JsonObject();
-        JsonObjectPassword.addProperty("first", mPlainPasswordFirst);
-        JsonObjectPassword.addProperty("second", mPlainPasswordSecond);
-        jsonObjectUser.add("plainPassword", JsonObjectPassword);
+        jsonObjectUser.addProperty("plainPassword", mPlainPassword);
         jsonObjectUser.addProperty("doctor", mDoctor);
 
         if (mDoctor != null && mDoctor) {
@@ -148,8 +136,7 @@ public class User {
 
         if (validateForLogin) {
             result = (mEmail != null) &&
-            /*     */(mPlainPasswordFirst != null) &&
-            /*     */(mPlainPasswordSecond != null);
+            /*     */(mPlainPassword != null);
         } else {
             if (mDoctor != null) {
                 result = (mConfirmInformation != null) &&
@@ -159,8 +146,7 @@ public class User {
                 /*     */(mBirthday != null) &&
                 /*     */(mEmail != null) &&
                 /*     */(mRegion != null) &&
-                /*     */(mPlainPasswordFirst != null) &&
-                /*     */(mPlainPasswordSecond != null);
+                /*     */(mPlainPassword != null);
 
                 if (mDoctor) {
                     result = (result) &&
@@ -193,8 +179,7 @@ public class User {
         user.setAddress("Адрес");
         user.setPhone("89030330303");
         user.setInstitution("Учебное заведение");
-        user.setPlainPasswordFirst("password");
-        user.setPlainPasswordSecond("password");
+        user.setPlainPassword("password");
         user.setDoctor(false);
         user.setGraduation("1950-01-01");
 

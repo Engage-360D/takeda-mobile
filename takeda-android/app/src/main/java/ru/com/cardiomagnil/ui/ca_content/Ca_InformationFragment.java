@@ -16,7 +16,7 @@ public class Ca_InformationFragment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuInetmName() {
+    public String getMenuItemName() {
         return null;
     }
 

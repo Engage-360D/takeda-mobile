@@ -14,7 +14,7 @@ public abstract class Ca_BaseItemFragment extends Fragment {
         return inflater.inflate(R.layout.ca_slidingmenu_fragment_dummy, null);
     }
 
-    public abstract String getMenuInetmName();
+    public abstract String getMenuItemName();
 
     public abstract View getTopView();
 }

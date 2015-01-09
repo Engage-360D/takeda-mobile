@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 
-public class Ca_CalendarFargment extends Ca_BaseItemFragment {
+public class Ca_CalendarFragment extends Ca_BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ca_slidingmenu_fragment_dummy, null);
@@ -16,7 +16,7 @@ public class Ca_CalendarFargment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuInetmName() {
+    public String getMenuItemName() {
         return null;
     }
 

@@ -12,20 +12,23 @@ public abstract class BaseVolleyRequestHolder extends BaseRequestHolder {
     protected final String mUrl;
     protected final Map<String, String> mParams;
     protected final TypeReference mTypeReference;
-    protected final CallbackOneReturnable mOnExtract;
+    protected final CallbackOne mOnBeforeExtract;
+    protected final CallbackOneReturnable mOnAfterExtracted;
     protected final CallbackOne mOnStoreIntoDatabase;
 
     public BaseVolleyRequestHolder(final int method,
                                    final String url,
                                    final Map<String, String> params,
                                    final TypeReference typeReference,
-                                   final CallbackOneReturnable onOnExtract,
+                                   final CallbackOne onBeforeExtract,
+                                   final CallbackOneReturnable onAfterExtracted,
                                    final CallbackOne onStoreIntoDatabase) {
         mMethod = method;
         mUrl = url;
         mParams = params;
         mTypeReference = typeReference;
-        mOnExtract = onOnExtract;
+        mOnBeforeExtract = onBeforeExtract;
+        mOnAfterExtracted = onAfterExtracted;
         mOnStoreIntoDatabase = onStoreIntoDatabase;
     }
 
@@ -45,8 +48,12 @@ public abstract class BaseVolleyRequestHolder extends BaseRequestHolder {
         return mTypeReference;
     }
 
-    public CallbackOneReturnable getOnExtract() {
-        return mOnExtract;
+    public CallbackOne getOnBeforeExtracted() {
+        return mOnBeforeExtract;
+    }
+
+    public CallbackOneReturnable getOnAfterExtracted() {
+        return mOnAfterExtracted;
     }
 
     public CallbackOne getOnStoreIntoDatabase() {

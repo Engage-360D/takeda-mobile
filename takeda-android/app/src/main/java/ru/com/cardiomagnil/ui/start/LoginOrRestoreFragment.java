@@ -195,8 +195,7 @@ public class LoginOrRestoreFragment extends CustomFragment {
             EditText editTextPassword = (EditText) getActivity().findViewById(R.id.editTextPassword);
 
             user.setEmail(editTextEmailLogin.getText().toString());
-            user.setPlainPasswordFirst(editTextPassword.getText().toString());
-            user.setPlainPasswordSecond(editTextPassword.getText().toString());
+            user.setPlainPassword(editTextPassword.getText().toString());
         } catch (Exception e) {
             // do nothing
         }

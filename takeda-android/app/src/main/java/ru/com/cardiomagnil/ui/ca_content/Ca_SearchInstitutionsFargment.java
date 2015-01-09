@@ -45,7 +45,7 @@ public class Ca_SearchInstitutionsFargment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuInetmName() {
+    public String getMenuItemName() {
         return null;
     }
 

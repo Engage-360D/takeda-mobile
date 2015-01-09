@@ -80,14 +80,14 @@ public class SplashActivity extends TrackedFragmentActivity {
 
         if (appState.getUser() != null &&
         /**/appState.getUser().getEmail() != null &&
-        /**/appState.getUser().getPlainPasswordFirst() != null) {
+        /**/appState.getUser().getPlainPassword() != null) {
 
             Authorization authorization = new Authorization();
             authorization.setClientId(AppConfig.CLIENT_ID);
             authorization.setClientSecret(AppConfig.CLIENT_SECRET);
             authorization.setGrantType(AppConfig.GRANT_TYPE);
             authorization.setUsername(appState.getUser().getEmail());
-            authorization.setPassword(appState.getUser().getPlainPasswordFirst());
+            authorization.setPassword(appState.getUser().getPlainPassword());
             appState.setAuthorization(authorization);
 
             mUserAuthorizationRequestId = getServiceHelper().executeCommand(new UserAuthorization());

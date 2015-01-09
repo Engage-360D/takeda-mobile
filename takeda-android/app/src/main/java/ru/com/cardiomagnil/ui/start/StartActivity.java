@@ -30,7 +30,6 @@ import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.ui.start.CustomAnimation.OnAnimationEndListener;
 import ru.com.cardiomagnil.util.TestMethods;
-import ru.com.cardiomagnil.util.Utils;
 import ru.com.cardiomagnil.widget.TrackedFragmentActivity;
 
 public class StartActivity extends TrackedFragmentActivity {
@@ -257,7 +256,7 @@ public class StartActivity extends TrackedFragmentActivity {
         authorization.setClientSecret(AppConfig.CLIENT_SECRET);
         authorization.setGrantType(AppConfig.GRANT_TYPE);
         authorization.setUsername(AppState.getInstatce().getUser().getEmail());
-        authorization.setPassword(AppState.getInstatce().getUser().getPlainPasswordFirst());
+        authorization.setPassword(AppState.getInstatce().getUser().getPlainPassword());
         AppState.getInstatce().setAuthorization(authorization);
 
         mUserAuthorizationRequestId = getServiceHelper().executeCommand(new UserAuthorization());
@@ -331,8 +330,7 @@ public class StartActivity extends TrackedFragmentActivity {
         appSharedPreferences.load();
         appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.token, appState.getToken().getAsJson().toString());
         appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.email, appState.getUser().getEmail());
-        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.plain_password_first, appState.getUser().getPlainPasswordFirst());
-        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.plain_password_second, appState.getUser().getPlainPasswordSecond());
+        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.plain_password, appState.getUser().getPlainPassword());
         appSharedPreferences.save();
     }
 

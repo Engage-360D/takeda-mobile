@@ -126,8 +126,7 @@ public class RegistrationFragment extends CustomFragment {
             EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
             // Spinner spinnerCountry = (Spinner) getActivity().findViewById(R.id.spinnerCountry);
             // TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDate);
-            EditText editTextPasswordFirst = (EditText) getActivity().findViewById(R.id.editTextPasswordFirst);
-            EditText editTextPasswordSecond = (EditText) getActivity().findViewById(R.id.editTextPasswordSecond);
+            EditText editTextPassword = (EditText) getActivity().findViewById(R.id.editTextPassword);
             CheckBox checkBoxAgreeToProcessing = (CheckBox) getActivity().findViewById(R.id.checkBoxAgreeToProcessing);
             CheckBox checkBoxAgreeToReceive = (CheckBox) getActivity().findViewById(R.id.checkBoxAgreeToReceive);
             CheckBox checkBoxAgreeThatAdvises = (CheckBox) getActivity().findViewById(R.id.checkBoxAgreeThatAdvises);
@@ -135,8 +134,7 @@ public class RegistrationFragment extends CustomFragment {
             newUser.setDoctor(toggleButtonDoctor.isChecked() || toggleButtonNotDoctor.isChecked() ? toggleButtonDoctor.isChecked() : null);
             newUser.setFirstName(editTextName.length() != 0 ? editTextName.getText().toString() : null);
             newUser.setEmail(editTextRegEmail.length() != 0 ? editTextRegEmail.getText().toString() : null);
-            newUser.setPlainPasswordFirst(editTextPasswordFirst.length() != 0 ? editTextPasswordFirst.getText().toString() : null);
-            newUser.setPlainPasswordSecond(editTextPasswordSecond.length() != 0 ? editTextPasswordSecond.getText().toString() : null);
+            newUser.setPlainPassword(editTextPassword.length() != 0 ? editTextPassword.getText().toString() : null);
             newUser.setConfirmPersonalization(checkBoxAgreeToProcessing.isChecked());
             newUser.setConfirmInformation(checkBoxAgreeThatAdvises.isChecked());
             newUser.setConfirmSubscription(checkBoxAgreeToReceive.isChecked());

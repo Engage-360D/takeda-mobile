@@ -12,7 +12,7 @@ public enum Ca_MenuItem {
     item_settings(Ca_SettingsFargment.class, R.string.menu_item_settings, true, true),
     item_recommendations(Ca_RecommendationsFargment.class, R.string.menu_item_recommendations, true, false),
     item_analysis_results(Ca_AnalysisResultsFargment.class, R.string.menu_item_analysis_results, true, false),
-    item_calendar(Ca_CalendarFargment.class, R.string.menu_item_calendar, true, false),
+    item_calendar(Ca_CalendarFragment.class, R.string.menu_item_calendar, true, false),
     item_useful_to_know(Ca_UsefulToKnowFargment.class, R.string.menu_item_useful_to_know, true, true),
     item_publications(Ca_PublicationsFargment.class, R.string.menu_item_publications, true, true),
     item_reports(Ca_ReportsFargment.class, R.string.menu_item_reports, true, true);

@@ -1,22 +1,25 @@
-package ru.com.cardiomagnil.ca_model;
+package ru.com.cardiomagnil.ca_model.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import ru.com.cardiomagnil.ca_model.base.BaseModel;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        // common fields
         "id",
         "email",
         "firstname",
         "lastname",
         "birthday",
-        "region",
         "vkontakteId",
         "facebookId",
         "specializationExperienceYears",
@@ -25,49 +28,102 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
         "specializationInstitutionName",
         "specializationInstitutionPhone",
         "specializationName",
-        "roles",
-        "isEnabled"
+        "region",
+        // received field
+        "isEnabled",
+        "links",
+        // sent fields
+        "plainPassword",
+        "isDoctor",
+        "isSubscribed"
 })
+@DatabaseTable(tableName = "user")
 public class Ca_User extends BaseModel {
 
+    @DatabaseField(id = true, canBeNull = false, dataType = DataType.INTEGER, columnName = "id")
     @JsonProperty("id")
-    private String id;
+    private int id;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "email")
     @JsonProperty("email")
     private String email;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "firstname")
     @JsonProperty("firstname")
     private String firstname;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "lastname")
     @JsonProperty("lastname")
     private String lastname;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "birthday")
     @JsonProperty("birthday")
     private String birthday;
-    @JsonProperty("region")
-    private String region;
+
+    @DatabaseField(dataType = DataType.INTEGER, columnName = "vkontakte_id")
     @JsonProperty("vkontakteId")
     private int vkontakteId;
+
+    @DatabaseField(dataType = DataType.INTEGER, columnName = "facebook_id")
     @JsonProperty("facebookId")
     private int facebookId;
+
+    @DatabaseField(dataType = DataType.INTEGER, columnName = "specialization_experience_years")
     @JsonProperty("specializationExperienceYears")
     private int specializationExperienceYears;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "specialization_graduation_date")
     @JsonProperty("specializationGraduationDate")
     private String specializationGraduationDate;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "specialization_institution_address")
     @JsonProperty("specializationInstitutionAddress")
     private String specializationInstitutionAddress;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "specialization_institution_name")
     @JsonProperty("specializationInstitutionName")
     private String specializationInstitutionName;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "specialization_institution_phone")
     @JsonProperty("specializationInstitutionPhone")
     private String specializationInstitutionPhone;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "specialization_name")
     @JsonProperty("specializationName")
     private String specializationName;
-    @JsonProperty("roles")
-    private List<String> roles = new ArrayList<String>();
+
+    @DatabaseField(dataType = DataType.INTEGER, columnName = "region")
+    @JsonProperty("region")
+    private int region;
+
+    @DatabaseField(dataType = DataType.BOOLEAN, columnName = "is_enabled")
     @JsonProperty("isEnabled")
     private boolean isEnabled;
+
+    // links
+    @DatabaseField(dataType = DataType.STRING, columnName = "roles")
+    @JsonProperty("roles")
+    private String roles;
+    // FIXME
+    // private List<String> roles = new ArrayList<>();
+
+    @JsonProperty("links")
+    private JsonNode links;
+
+    @JsonProperty("plainPassword")
+    private String plainPassword;
+
+    @JsonProperty("isDoctor")
+    private boolean isDoctor;
+
+    @JsonProperty("isSubscribed")
+    private boolean isSubscribed;
 
     /**
      * @return The id
      */
     @JsonProperty("id")
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -75,7 +131,7 @@ public class Ca_User extends BaseModel {
      * @param id The id
      */
     @JsonProperty("id")
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -141,22 +197,6 @@ public class Ca_User extends BaseModel {
     @JsonProperty("birthday")
     public void setBirthday(String birthday) {
         this.birthday = birthday;
-    }
-
-    /**
-     * @return The region
-     */
-    @JsonProperty("region")
-    public String getRegion() {
-        return region;
-    }
-
-    /**
-     * @param region The region
-     */
-    @JsonProperty("region")
-    public void setRegion(String region) {
-        this.region = region;
     }
 
     /**
@@ -288,19 +328,19 @@ public class Ca_User extends BaseModel {
     }
 
     /**
-     * @return The roles
+     * @return The region
      */
-    @JsonProperty("roles")
-    public List<String> getRoles() {
-        return roles;
+    @JsonProperty("region")
+    public int getRegion() {
+        return region;
     }
 
     /**
-     * @param roles The roles
+     * @param region The region
      */
-    @JsonProperty("roles")
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    @JsonProperty("region")
+    public void setRegion(int region) {
+        this.region = region;
     }
 
     /**
@@ -317,6 +357,82 @@ public class Ca_User extends BaseModel {
     @JsonProperty("isEnabled")
     public void setIsEnabled(boolean isEnabled) {
         this.isEnabled = isEnabled;
+    }
+
+    /**
+     * @return The roles
+     */
+    @JsonProperty("roles")
+    public String getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param roles The roles
+     */
+    @JsonProperty("roles")
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+//    /**
+//     * @return The roles
+//     */
+//    @JsonProperty("roles")
+//    public List<String> getRoles() {
+//        return roles;
+//    }
+
+//    /**
+//     * @param roles The roles
+//     */
+//    @JsonProperty("roles")
+//    public void setRoles(List<String> roles) {
+//        this.roles = roles;
+//    }
+
+    /**
+     * @return The links
+     */
+    @JsonProperty("links")
+    public JsonNode getLinks() {
+        return links;
+    }
+
+    /**
+     * @param links The links
+     */
+    @JsonProperty("links")
+    public void setLinks(JsonNode links) {
+        this.links = links;
+    }
+
+    @JsonProperty("plainPassword")
+    public void setPlainPassword(String plainPassword) {
+        this.plainPassword = plainPassword;
+    }
+
+    @JsonProperty("isDoctor")
+    public void setIsDoctor(boolean isDoctor) {
+        this.isDoctor = isDoctor;
+    }
+
+    @JsonProperty("isSubscribed")
+    public void setisSubscribed(boolean isSubscribed) {
+        this.isSubscribed = isSubscribed;
+    }
+
+    public static void unPackLinks(ObjectNode objectNodePacked) {
+        JsonNode jsonNode = objectNodePacked.get("links");
+        objectNodePacked.remove("links");
+        objectNodePacked.putAll((ObjectNode) jsonNode);
+    }
+
+    public static void packLinks(ObjectNode objectNodeUnpacked) {
+        ObjectNode nodeLinks = JsonNodeFactory.instance.objectNode();
+        nodeLinks.put("region", objectNodeUnpacked.get("region"));
+        objectNodeUnpacked.remove("region");
+        objectNodeUnpacked.put("links", nodeLinks);
     }
 
 }

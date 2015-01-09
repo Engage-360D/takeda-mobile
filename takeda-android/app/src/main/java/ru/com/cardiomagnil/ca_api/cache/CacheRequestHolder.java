@@ -18,9 +18,10 @@ public class CacheRequestHolder extends BaseVolleyRequestHolder {
             String url,
             TypeReference typeReference,
             Map<String, String> params,
-            CallbackOneReturnable onOnExtract,
+            CallbackOne onBeforeExtract,
+            CallbackOneReturnable onAfterExtracted,
             CallbackOne onStoreIntoDatabase) {
-        super(method, url, params, typeReference, onOnExtract, onStoreIntoDatabase);
+        super(method, url, params, typeReference, onBeforeExtract, onAfterExtracted, onStoreIntoDatabase);
         mCacheDataLoader = new CacheDataLoader();
     }
 
@@ -34,7 +35,8 @@ public class CacheRequestHolder extends BaseVolleyRequestHolder {
         private final String mBuilderUrl;
         private final TypeReference mBuildeTypeReference;
         private Map<String, String> mBuilderParams = new HashMap<String, String>();
-        private CallbackOneReturnable mBuilderOnExtract;
+        private CallbackOne mBuilderOnBeforeExtract;
+        private CallbackOneReturnable mBuilderOnAfterExtracted;
         private CallbackOne mBuilderOnStoreIntoDatabase;
 
         public Builder(int builderMethod, String builderUrl, TypeReference builderTypeReference) {
@@ -53,8 +55,13 @@ public class CacheRequestHolder extends BaseVolleyRequestHolder {
             return this;
         }
 
-        public Builder setOnExtract(CallbackOneReturnable onOnExtract) {
-            mBuilderOnExtract = onOnExtract;
+        public Builder setOnBeforeExtract(CallbackOne onOnBeforeExtract) {
+            mBuilderOnBeforeExtract = onOnBeforeExtract;
+            return this;
+        }
+
+        public Builder setOnAfterExtracted(CallbackOneReturnable onOnAfterExtracted) {
+            mBuilderOnAfterExtracted = onOnAfterExtracted;
             return this;
         }
 
@@ -69,7 +76,8 @@ public class CacheRequestHolder extends BaseVolleyRequestHolder {
                     mBuilderUrl,
                     mBuildeTypeReference,
                     mBuilderParams,
-                    mBuilderOnExtract,
+                    mBuilderOnBeforeExtract,
+                    mBuilderOnAfterExtracted,
                     mBuilderOnStoreIntoDatabase);
         }
     }

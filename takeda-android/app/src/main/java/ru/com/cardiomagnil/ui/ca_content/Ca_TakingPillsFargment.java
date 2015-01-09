@@ -19,7 +19,7 @@ public class Ca_TakingPillsFargment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuInetmName() {
+    public String getMenuItemName() {
         return null;
     }
 

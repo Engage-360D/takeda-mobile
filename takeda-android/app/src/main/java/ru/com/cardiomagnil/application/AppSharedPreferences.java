@@ -32,7 +32,7 @@ public class AppSharedPreferences {
         // token
         token,
         // user
-        email, plain_password_first, plain_password_second,
+        email, plain_password,
         // results
         results
     };

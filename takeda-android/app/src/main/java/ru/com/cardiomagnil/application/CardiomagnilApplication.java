@@ -77,8 +77,7 @@ public class CardiomagnilApplication extends Application {
         // TODO: init user from json
         User user = new User();
         user.setEmail(appSharedPreferences.getPreference(AppSharedPreferences.PREFERENCES.email));
-        user.setPlainPasswordFirst(appSharedPreferences.getPreference(AppSharedPreferences.PREFERENCES.plain_password_first));
-        user.setPlainPasswordFirst(appSharedPreferences.getPreference(AppSharedPreferences.PREFERENCES.plain_password_second));
+        user.setPlainPassword(appSharedPreferences.getPreference(AppSharedPreferences.PREFERENCES.plain_password));
         appState.setUser(user);
 
         Authorization authorization = new Authorization();
@@ -86,7 +85,7 @@ public class CardiomagnilApplication extends Application {
         authorization.setClientSecret(AppConfig.CLIENT_SECRET);
         authorization.setGrantType(AppConfig.GRANT_TYPE);
         authorization.setUsername(user.getEmail());
-        authorization.setPassword(user.getPlainPasswordFirst());
+        authorization.setPassword(user.getPlainPassword());
         // TODO: add id field into user
         // authorization.setClientId(user.getId);
         appState.setAuthorization(authorization);

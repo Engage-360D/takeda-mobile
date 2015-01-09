@@ -17,7 +17,7 @@ public class Ca_PersonalCabinetFargment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuInetmName() {
+    public String getMenuItemName() {
         return null;
     }
 

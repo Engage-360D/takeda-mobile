@@ -20,9 +20,10 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
             Map<String, String> params,
             TypeReference typeReference,
             Map<String, String> headers,
-            CallbackOneReturnable onOnExtract,
+            CallbackOne onBeforeExtract,
+            CallbackOneReturnable onOnAfterExtracted,
             CallbackOne onStoreIntoDatabase) {
-        super(method, url, params, typeReference, onOnExtract, onStoreIntoDatabase);
+        super(method, url, params, typeReference, onBeforeExtract, onOnAfterExtracted, onStoreIntoDatabase);
         mHeaders = headers;
         mHttpDataLoader = new HttpDataLoader();
     }
@@ -42,7 +43,8 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
         private final TypeReference mBuildeTypeReference;
         private Map<String, String> mBuilderParams = new HashMap<String, String>();
         private Map<String, String> mBuilderHeaders = new HashMap<String, String>();
-        private CallbackOneReturnable mBuilderOnExtract;
+        private CallbackOne mBuilderOnBeforeExtract;
+        private CallbackOneReturnable mBuilderOnAfterExtracted;
         private CallbackOne mBuilderOnStoreIntoDatabase;
 
         public Builder(int builderMethod, String builderUrl, TypeReference builderTypeReference) {
@@ -71,8 +73,13 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
             return this;
         }
 
-        public Builder setOnExtract(CallbackOneReturnable onOnExtract) {
-            mBuilderOnExtract = onOnExtract;
+        public Builder setOnBeforeExtract(CallbackOne onOnBeforeExtract) {
+            mBuilderOnBeforeExtract = onOnBeforeExtract;
+            return this;
+        }
+
+        public Builder setOnAfterExtracted(CallbackOneReturnable onAfterExtracted) {
+            mBuilderOnAfterExtracted = onAfterExtracted;
             return this;
         }
 
@@ -88,7 +95,8 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
                     mBuilderParams,
                     mBuildeTypeReference,
                     mBuilderHeaders,
-                    mBuilderOnExtract,
+                    mBuilderOnBeforeExtract,
+                    mBuilderOnAfterExtracted,
                     mBuilderOnStoreIntoDatabase);
         }
     }

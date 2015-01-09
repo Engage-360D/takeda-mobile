@@ -28,7 +28,7 @@ data:
         "isDoctor" : false,
         "isSubscribed" : true,
         "links" : {
-            "region" : null
+            "region" : ""
         }
     }
 }
@@ -42,7 +42,7 @@ response:
             "type" : "regions"
         }
     },
-    "users" : {
+    "data" : {
         "id" : "2",
         "email" : "a.b@c.d",
         "firstname" : "XXXX",

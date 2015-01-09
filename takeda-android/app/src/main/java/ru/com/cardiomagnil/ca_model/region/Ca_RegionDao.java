@@ -31,8 +31,8 @@ public class Ca_RegionDao extends BaseDaoImpl<Ca_Region, Integer> {
 
         CallbackOne<List<Ca_Region>> onStoreIntoDatabase = new CallbackOne<List<Ca_Region>>() {
             @Override
-            public void execute(List<Ca_Region> lpuAutocompleteList) {
-                storeIntoDatabase(lpuAutocompleteList);
+            public void execute(List<Ca_Region> regionList) {
+                storeIntoDatabase(regionList);
             }
         };
 
