@@ -38,6 +38,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/CustomThemeNoActionBar"
             android:name="ru.com.cardiomagnil.ui.start.StartActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

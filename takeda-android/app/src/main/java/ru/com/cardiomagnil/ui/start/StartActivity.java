@@ -8,11 +8,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 
 import java.util.List;
@@ -22,7 +21,7 @@ import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppConfig;
 import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.commands.RestorePassword;
 import ru.com.cardiomagnil.commands.UserAuthorization;
 import ru.com.cardiomagnil.commands.UserRegistration;
@@ -35,9 +34,6 @@ import ru.com.cardiomagnil.widget.TrackedFragmentActivity;
 public class StartActivity extends TrackedFragmentActivity {
     private final int AMOUNT_OF_START_FRAGMENTS = 3;
     private CustomFragment[] mFragments = new CustomFragment[AMOUNT_OF_START_FRAGMENTS];
-    private int mPreviousAction = -1;
-    private float mTouchX = 0;
-    private float mTouchY = 0;
 
     private ProgressDialog mProgressDialog = null;
     private int mUserAuthorizationRequestId = -1;
@@ -65,10 +61,7 @@ public class StartActivity extends TrackedFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        getActionBar().hide();
-        Tools.initActionBar(getLayoutInflater(), getActionBar(), false);
         initStartActivity();
-
         customizeIfDebug();
     }
 
@@ -80,9 +73,9 @@ public class StartActivity extends TrackedFragmentActivity {
 
     private void customizeIfDebug() {
         if (BuildConfig.DEBUG) {
-            View layoutBottomOutside = findViewById(R.id.layoutBottomOutside);
+            View linearLayoutBottom = findViewById(R.id.linearLayoutBottom);
 
-            layoutBottomOutside.setOnClickListener(new View.OnClickListener() {
+            linearLayoutBottom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     TestMethods.testCurrentMethod();
@@ -106,6 +99,13 @@ public class StartActivity extends TrackedFragmentActivity {
     }
 
     private void initStartActivity() {
+        ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) findViewById(R.id.progressBarBottomOutsideStartWork);
+        progressBarBottomOutsideStartWork.setMax(5);
+        progressBarBottomOutsideStartWork.setProgress(2);
+
+//        View linearLayoutTop = findViewById(R.id.linearLayoutTop);
+//        linearLayoutTop.setAlpha(0);
+
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         if (fragments != null) {
             initFragments(fragments);
@@ -113,37 +113,6 @@ public class StartActivity extends TrackedFragmentActivity {
 
         ViewPager pager = (ViewPager) findViewById(R.id.viewPagerContent);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-
-        final ViewPager viewPagerContent = (ViewPager) findViewById(R.id.viewPagerContent);
-        final View layoutBottomInside = findViewById(R.id.layoutBottomInside);
-
-        layoutBottomInside.setOnTouchListener(new OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    mTouchX = event.getRawX();
-                    mTouchY = event.getRawY();
-                }
-
-                float inRegionX = mTouchX - event.getRawX();
-                float inRegionY = mTouchY - event.getRawY();
-
-                if (event.getAction() == MotionEvent.ACTION_UP &&
-                /**/(mPreviousAction == MotionEvent.ACTION_DOWN)) {
-                    mPreviousAction = event.getAction();
-
-                    layoutBottomInside.performClick();
-                    return true;
-                } else {
-                    if (!(event.getAction() == MotionEvent.ACTION_MOVE && inRegionX == 0 && inRegionY == 0)) {
-                        mPreviousAction = event.getAction();
-                    }
-                    return viewPagerContent.onTouchEvent(event);
-                }
-                // return false;
-            }
-        });
 
         pager.setOnPageChangeListener(new OnPageChangeListener() {
 
@@ -165,19 +134,22 @@ public class StartActivity extends TrackedFragmentActivity {
     }
 
     private void initStartActivityAccordingCurrentFragment(int position) {
-        View layoutBottomInside = (View) findViewById(R.id.linearLayoutBottomInsideContent);
-        View layoutBottomOutside = (View) findViewById(R.id.linearLayoutBottomOutsideContent);
+        View linearLayoutTop = findViewById(R.id.linearLayoutTop);
+        View linearLayoutBottom = findViewById(R.id.linearLayoutBottom);
 
         final CustomFragment currentFragment = mFragments[position];
 
-        if (position == 0) {
-            getActionBar().hide();
-        } else {
-            getActionBar().show();
-        }
+        animateTop(linearLayoutTop, position != 0);
+        fadeOut(currentFragment, linearLayoutBottom);
+    }
 
-        fadeOut(currentFragment, layoutBottomInside);
-        fadeOut(currentFragment, layoutBottomOutside);
+    private void animateTop(View view, boolean visibilityToSet) {
+        boolean viewIsVisible = (view.getAlpha() != 0) && (view.getVisibility() == View.VISIBLE);
+        if (visibilityToSet && !viewIsVisible) {
+            fadeIn(null, view);
+        } else if (!visibilityToSet && viewIsVisible) {
+            fadeOut(null, view);
+        }
     }
 
     private void fadeOut(final CustomFragment customFragment, final View view) {
@@ -188,9 +160,8 @@ public class StartActivity extends TrackedFragmentActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 if (customFragment != null) {
-                    customFragment.initParent();
+                    fadeIn(customFragment, view);
                 }
-                fadeIn(customFragment, view);
             }
         })
         /**/.build()
@@ -204,7 +175,6 @@ public class StartActivity extends TrackedFragmentActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                // do something
             }
         })
         /**/.build()

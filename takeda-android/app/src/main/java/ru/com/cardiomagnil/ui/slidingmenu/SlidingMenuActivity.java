@@ -23,7 +23,7 @@ import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.commands.GetTestResults;
 import ru.com.cardiomagnil.ui.ca_content.Ca_MainFargment;
 

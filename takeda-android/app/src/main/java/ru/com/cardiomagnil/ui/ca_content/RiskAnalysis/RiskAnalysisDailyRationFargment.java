@@ -15,7 +15,7 @@ import android.widget.ToggleButton;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.model.TestIncoming;
 import ru.com.cardiomagnil.ui.slidingmenu.ResultsWaitingFargment;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;

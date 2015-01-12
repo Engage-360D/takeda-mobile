@@ -26,9 +26,9 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
-    <!-- ======== -->
-    <!-- textview -->
-    <!-- ======== -->
+    <!-- ========= -->
+    <!-- textviews -->
+    <!-- ========= -->
     <style name="TextViewMedium37" parent="@android:style/Widget.TextView">
         <item name="android:textSize">@dimen/ca_text_size_medium</item>
         <item name="android:textColor">@color/ca_text_main_37</item>
@@ -56,9 +56,9 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <!-- ======= -->
-    <!-- divider -->
-    <!-- ======= -->
+    <!-- ======== -->
+    <!-- dividers -->
+    <!-- ======== -->
     <style name="divider_normal_1_1">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ca_divider_1</item>
@@ -75,6 +75,25 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ca_divider_1</item>
         <item name="android:background">@color/ca_divider_3</item>
+    </style>
+
+    <!-- ======= -->
+    <!-- buttons -->
+    <!-- ======= -->
+    <style name="button_main_short">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/ca_plate_medium</item>
+        <item name="android:background">@drawable/ca_selector_button_main</item>
+        <item name="android:textSize">@dimen/ca_text_size_medium</item>
+        <item name="android:textColor">@color/ca_selector_button_main_text</item>
+        <item name="android:paddingLeft">@dimen/ca_plate_small</item>
+        <item name="android:paddingRight">@dimen/ca_plate_small</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="button_main_long" parent="@style/button_main_short">
+        <item name="android:paddingLeft">@dimen/ca_plate_xxlarge</item>
+        <item name="android:paddingRight">@dimen/ca_plate_xxlarge</item>
     </style>
 
 </resources>

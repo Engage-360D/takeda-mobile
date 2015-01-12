@@ -15,7 +15,7 @@ import java.util.List;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.ui.ca_content.Ca_MenuItem;
 import ru.com.cardiomagnil.ui.ca_menu.Ca_MenuAdapter;
 

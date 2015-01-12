@@ -10,8 +10,11 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import ru.com.cardiomagnil.ca_model.base.BaseModel;
@@ -19,7 +22,6 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         // common fields
-        "id",
         "email",
         "firstname",
         "lastname",
@@ -33,7 +35,8 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
         "specializationInstitutionPhone",
         "specializationName",
         "roles",
-        // received field
+        // received fields
+        "id",
         "isEnabled",
         "links",
         // sent fields
@@ -419,6 +422,12 @@ public class Ca_User extends BaseModel {
         nodeLinks.put("region", objectNodeUnpacked.get("region"));
         objectNodeUnpacked.remove("region");
         objectNodeUnpacked.put("links", nodeLinks);
+    }
+
+    public static ObjectNode caleanReceivedFields(ObjectNode objectNodeUncleaned) {
+        ObjectNode objectNodeCleaned = objectNodeUncleaned;
+        objectNodeCleaned.remove(Arrays.asList("id", "isEnabled", "links"));
+        return objectNodeCleaned;
     }
 
 }

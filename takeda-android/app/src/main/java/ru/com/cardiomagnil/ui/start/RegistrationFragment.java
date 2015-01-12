@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -29,7 +27,7 @@ import java.util.Calendar;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.model.User;
 import ru.com.cardiomagnil.social.AuthorizationDialog;
 import ru.com.cardiomagnil.social.AuthorizationListener;
@@ -58,21 +56,14 @@ public class RegistrationFragment extends CustomFragment {
         return parentView;
     }
 
+    @Override
     public void initParent() {
         TextView textViewHeader = (TextView) getActivity().findViewById(R.id.textViewHeader);
-
-        ImageView imageViewBottomInsideLeft = (ImageView) getActivity().findViewById(R.id.imageViewBottomInsideLeft);
-        TextView textViewBottomInsideAction = (TextView) getActivity().findViewById(R.id.textViewBottomInsideAction);
-        ImageView imageViewBottomInsideRight = (ImageView) getActivity().findViewById(R.id.imageViewBottomInsideRight);
 
         ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) getActivity().findViewById(R.id.progressBarBottomOutsideStartWork);
         TextView textViewBottomOutsideAction = (TextView) getActivity().findViewById(R.id.textViewBottomOutsideAction);
 
         textViewHeader.setText(getActivity().getString(R.string.header_registration));
-
-        imageViewBottomInsideLeft.setVisibility(View.INVISIBLE);
-        textViewBottomInsideAction.setText(getActivity().getString(R.string.bottom_registration));
-        imageViewBottomInsideRight.setVisibility(View.VISIBLE);
 
         progressBarBottomOutsideStartWork.setMax(3);
         progressBarBottomOutsideStartWork.setProgress(2);
@@ -94,14 +85,15 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     private void initRegistrationButton() {
-        View layoutBottomInside = getActivity().findViewById(R.id.layoutBottomInside);
-        layoutBottomInside.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View paramView) {
-                tryRegistration();
-            }
-        });
+        // FIXME!!!
+//        View layoutBottomInside = getActivity().findViewById(R.id.layoutBottomInside);
+//        layoutBottomInside.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View paramView) {
+//                tryRegistration();
+//            }
+//        });
     }
 
     private void tryRegistration() {

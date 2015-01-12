@@ -2,7 +2,7 @@ package ru.com.cardiomagnil.model;
 
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.model.TestResult.STATES;
 
 import com.google.gson.JsonElement;

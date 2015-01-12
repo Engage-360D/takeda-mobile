@@ -4,6 +4,10 @@
     android:background="@color/ca_bg_main_38"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/linearLayoutTop"
+        layout="@layout/ca_layout_top" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPagerContent"
         android:layout_width="match_parent"
@@ -11,18 +15,31 @@
         android:layout_weight="1" />
 
     <LinearLayout
-        android:id="@+id/layoutBottom"
+        android:id="@+id/linearLayoutBottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="@dimen/ca_plate_large"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/ca_space_medium"
+        android:paddingRight="@dimen/ca_space_medium">
 
-        <include
-            android:id="@+id/layoutBottomInside"
-            layout="@layout/layout_bottom_inside_start" />
+        <ProgressBar
+            android:id="@+id/progressBarBottomOutsideStartWork"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:progress="@integer/scale_animation_time" />
 
-        <include
-            android:id="@+id/layoutBottomOutside"
-            layout="@layout/layout_bottom_outside_start" />
+        <TextView
+            android:id="@+id/textViewBottomOutsideAction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="@string/middle_dummy_tex"
+            android:textColor="@color/ca_white"
+            android:textSize="@dimen/ca_text_size_small" />
     </LinearLayout>
 
 </LinearLayout>

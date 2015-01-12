@@ -24,6 +24,16 @@
     <!-- bg_main -->
     <color name="ca_bg_main_38">#FF38404C</color>
 
+    <!-- bg_button -->
+    <color name="ca_bg_button_main_unpressed">#FF38404C</color>
+    <color name="ca_bg_button_main_pressed">#FF262B33</color>
+    <color name="ca_bg_button_main_disabled">#7738404C</color>
+
+    <!-- txt_button -->
+    <color name="ca_txt_button_main_unpressed">#FFFFFFFF</color>
+    <color name="ca_txt_button_main_pressed">#FFAAAAAA</color>
+    <color name="ca_txt_button_main_disabled">#77FFFFFF</color>
+
     <!-- bg_and_txt -->
     <color name="ca_white">#FFFFFFFF</color>
 

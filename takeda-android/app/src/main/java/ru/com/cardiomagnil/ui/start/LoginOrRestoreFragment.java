@@ -43,16 +43,8 @@ public class LoginOrRestoreFragment extends CustomFragment {
 
     @Override
     public void initParent() {
-        ImageView imageViewBottomInsideLeft = (ImageView) getActivity().findViewById(R.id.imageViewBottomInsideLeft);
-        TextView textViewBottomInsideAction = (TextView) getActivity().findViewById(R.id.textViewBottomInsideAction);
-        ImageView imageViewBottomInsideRight = (ImageView) getActivity().findViewById(R.id.imageViewBottomInsideRight);
-
         ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) getActivity().findViewById(R.id.progressBarBottomOutsideStartWork);
         TextView textViewBottomOutsideAction = (TextView) getActivity().findViewById(R.id.textViewBottomOutsideAction);
-
-        imageViewBottomInsideLeft.setVisibility(View.INVISIBLE);
-        textViewBottomInsideAction.setText(getActivity().getString(R.string.bottom_registration));
-        imageViewBottomInsideRight.setVisibility(View.VISIBLE);
 
         progressBarBottomOutsideStartWork.setMax(5);
         progressBarBottomOutsideStartWork.setProgress(2);

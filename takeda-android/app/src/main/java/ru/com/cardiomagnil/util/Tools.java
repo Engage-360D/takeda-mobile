@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.application;
+package ru.com.cardiomagnil.util;
 
 import java.security.MessageDigest;
 import java.text.DateFormat;
@@ -25,6 +25,9 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 

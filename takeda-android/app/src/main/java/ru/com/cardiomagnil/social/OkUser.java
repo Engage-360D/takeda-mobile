@@ -2,7 +2,7 @@ package ru.com.cardiomagnil.social;
 
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.application.Tools;
+import ru.com.cardiomagnil.util.Tools;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

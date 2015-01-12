@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
+    android:layout_height="@dimen/ca_plate_large"
+    android:background="@color/ca_bg_main_38"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutLeftHolder"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|left"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" />
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_wide_logo" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRightHolder"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|right"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" />
+</LinearLayout>
