@@ -19,10 +19,6 @@
         </item>
         <item name="android:textSelectHandle">@drawable/customtheme_text_select_handle_middle</item>
 
-        <item name="android:listChoiceIndicatorMultiple">
-            @drawable/customtheme_btn_check_holo_light
-        </item>
-
         <item name="android:listChoiceIndicatorSingle">@drawable/customtheme_btn_radio_holo_light
         </item>
 
@@ -67,10 +63,6 @@
         <item name="android:textSelectHandleRight">@drawable/customtheme_text_select_handle_right
         </item>
         <item name="android:textSelectHandle">@drawable/customtheme_text_select_handle_middle</item>
-
-        <item name="android:listChoiceIndicatorMultiple">
-            @drawable/customtheme_btn_check_holo_light
-        </item>
 
         <item name="android:listChoiceIndicatorSingle">@drawable/customtheme_btn_radio_holo_light
         </item>

@@ -129,6 +129,7 @@
     <!-- ======= -->
     <dimen name="ca_control_xxsmall">40dp</dimen>
     <dimen name="ca_control_medium">130dp</dimen>
+    <dimen name="ca_control_xlarge">220dp</dimen>
 
     <!-- 16pt - ca_text_size_small -->
     <!-- 18pt - ca_text_size_medium -->

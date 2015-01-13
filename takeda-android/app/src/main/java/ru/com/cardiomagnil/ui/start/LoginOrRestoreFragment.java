@@ -57,6 +57,7 @@ public class LoginOrRestoreFragment extends CustomFragment {
         final EditText editTextEmailRestore = (EditText) view.findViewById(R.id.editTextEmailRestore);
         final Button buttonEnter = (Button) view.findViewById(R.id.buttonEnter);
         final Button buttonRestore = (Button) view.findViewById(R.id.buttonRestore);
+        final Button buttonRegister = (Button) view.findViewById(R.id.buttonRegister);
 
         editTextEmailLogin.addTextChangedListener(new TextWatcher() {
 
@@ -124,6 +125,15 @@ public class LoginOrRestoreFragment extends CustomFragment {
             @Override
             public void onClick(View v) {
                 tryRestore();
+            }
+        });
+
+        buttonRegister.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                StartActivity startActivity = (StartActivity) getActivity();
+                startActivity.slideViewPager(true);
             }
         });
 

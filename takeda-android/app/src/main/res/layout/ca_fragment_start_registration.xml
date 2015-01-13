@@ -7,15 +7,6 @@
         android:id="@+id/linearLayoutTop"
         layout="@layout/layout_top_start" />
 
-    <include
-        android:id="@+id/textViewBottom"
-        layout="@layout/layout_bottom_contraindications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/ca_space_medium"
-        android:layout_marginRight="@dimen/ca_space_medium" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +43,21 @@
 
             <View style="@style/divider_normal_1_3" />
 
+            <include
+                android:id="@+id/layoutSpecializationDetailsl"
+                layout="@layout/layout_specialization_detailsl"
+                android:visibility="gone" />
+
+            <View style="@style/divider_normal_1_3" />
+
             <include layout="@layout/layout_confirmation" />
+
+            <Button
+                android:id="@+id/buttonSignUp"
+                style="@style/button_main_long"
+                android:layout_margin="@dimen/ca_space_medium"
+                android:text="@string/sign_up" />
+
         </LinearLayout>
     </ScrollView>
 

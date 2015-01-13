@@ -18,34 +18,6 @@
         android:textColor="@color/ca_text_main_41"
         android:textSize="@dimen/ca_text_size_medium" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutSocials"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imageViewVK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_space"
-            android:contentDescription="@null"
-            android:src="@drawable/vk" />
-
-        <ImageView
-            android:id="@+id/imageViewFB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_space"
-            android:contentDescription="@null"
-            android:src="@drawable/fb" />
-
-        <ImageView
-            android:id="@+id/imageViewOK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_space"
-            android:contentDescription="@null"
-            android:src="@drawable/ok" />
-    </LinearLayout>
+    <include layout="@layout/layout_socials" />
 
 </LinearLayout>

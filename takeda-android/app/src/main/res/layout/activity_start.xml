@@ -14,8 +14,14 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <include
+        android:id="@+id/textViewBottom"
+        layout="@layout/layout_bottom_contraindications"
+        android:paddingLeft="@dimen/ca_space_medium"
+        android:paddingRight="@dimen/ca_space_medium" />
+
     <LinearLayout
-        android:id="@+id/linearLayoutBottom"
+        android:id="@+id/linearLayoutProgress"
         android:layout_width="match_parent"
         android:layout_height="@dimen/ca_plate_large"
         android:gravity="center_vertical"
@@ -37,9 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:text="@string/middle_dummy_tex"
             android:textColor="@color/ca_white"
-            android:textSize="@dimen/ca_text_size_small" />
+            android:textSize="@dimen/ca_text_size_xsmall" />
     </LinearLayout>
 
 </LinearLayout>

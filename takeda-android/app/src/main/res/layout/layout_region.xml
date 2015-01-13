@@ -21,8 +21,6 @@
         android:id="@+id/spinnerRegion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="@color/ca_selector_clickable_text_48"
-        android:textSize="@dimen/ca_text_size_small" />
+        android:layout_weight="1" />
 
 </LinearLayout>

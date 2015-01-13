@@ -1,44 +1,31 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_above="@id/textViewBottom"
+    android:layout_gravity="center_horizontal"
     android:background="@color/ca_white"
+    android:fillViewport="true"
     android:paddingLeft="@dimen/ca_space_medium"
     android:paddingRight="@dimen/ca_space_medium">
 
-    <include
-        android:id="@+id/textViewBottom"
-        layout="@layout/layout_bottom_contraindications"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/textViewBottom"
-        android:layout_gravity="center_horizontal"
-        android:fillViewport="true">
-
-        <LinearLayout
+        <include
+            android:id="@+id/linearLayoutLogin"
+            layout="@layout/ca_layout_start_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-            <include
-                android:id="@+id/linearLayoutLogin"
-                layout="@layout/ca_layout_start_login"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <include
-                android:id="@+id/linearLayoutRestore"
-                layout="@layout/ca_layout_start_restore"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:visibility="gone" />
-        </LinearLayout>
-    </ScrollView>
-
-</RelativeLayout>
+        <include
+            android:id="@+id/linearLayoutRestore"
+            layout="@layout/ca_layout_start_restore"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

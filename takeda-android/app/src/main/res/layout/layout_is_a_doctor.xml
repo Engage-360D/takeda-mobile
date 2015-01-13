@@ -10,9 +10,12 @@
     android:paddingRight="@dimen/ca_space_medium">
 
     <TextView
+        android:id="@+id/textViewIsDoctor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical"
         android:text="@string/is_a_doctor"
         android:textColor="@color/ca_text_main_41"
@@ -24,8 +27,8 @@
         android:layout_height="@dimen/ca_control_xxsmall"
         android:orientation="horizontal">
 
-        <ToggleButton
-            android:id="@+id/toggleButtonNotDoctor"
+        <RadioButton
+            android:id="@+id/radioButtonNotDoctor"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -35,12 +38,11 @@
             android:gravity="center"
             android:onClick="onToggle"
             android:textColor="@drawable/ca_selector_checkbox_text"
-            android:textOff="@string/no"
-            android:textOn="@string/no"
+            android:text="@string/no"
             android:textSize="@dimen/ca_text_size_small" />
 
-        <ToggleButton
-            android:id="@+id/toggleButtonDoctor"
+        <RadioButton
+            android:id="@+id/radioButtonDoctor"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -50,8 +52,7 @@
             android:gravity="center"
             android:onClick="onToggle"
             android:textColor="@drawable/ca_selector_checkbox_text"
-            android:textOff="@string/yes"
-            android:textOn="@string/yes"
+            android:text="@string/yes"
             android:textSize="@dimen/ca_text_size_small" />
     </RadioGroup>
 </LinearLayout>

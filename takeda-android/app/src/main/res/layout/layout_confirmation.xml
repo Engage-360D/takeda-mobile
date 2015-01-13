@@ -17,29 +17,17 @@
 
     <CheckBox
         android:id="@+id/checkBoxAgreeToProcessing"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/ca_space_xlarge"
-        android:text="@string/agree_to_processing"
-        android:textColor="@color/ca_text_main_41"
-        android:textSize="@dimen/ca_text_size_small" />
+        style="@style/checkbox"
+        android:text="@string/agree_to_processing" />
 
     <CheckBox
         android:id="@+id/checkBoxAgreeToReceive"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/ca_space_xlarge"
-        android:text="@string/agree_to_receive"
-        android:textColor="@color/ca_text_main_41"
-        android:textSize="@dimen/ca_text_size_small" />
+        style="@style/checkbox"
+        android:text="@string/agree_to_receive" />
 
     <CheckBox
         android:id="@+id/checkBoxAgreeThatAdvises"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/ca_space_xlarge"
-        android:text="@string/agree_that_advises"
-        android:textColor="@color/ca_text_main_41"
-        android:textSize="@dimen/ca_text_size_small" />
+        style="@style/checkbox"
+        android:text="@string/agree_that_advises" />
 
 </LinearLayout>

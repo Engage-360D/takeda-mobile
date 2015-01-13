@@ -15,44 +15,33 @@
         android:textColor="@color/ca_text_main_41"
         android:textSize="@dimen/ca_text_size_medium" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/ca_plate_medium"
-        android:orientation="vertical">
+    <EditText
+        android:id="@+id/editTextFirstName"
+        style="@style/EditText"
+        android:hint="@string/first_name"
+        android:inputType="textPersonName">
 
-        <EditText
-            android:id="@+id/editTextName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:hint="@string/name"
-            android:inputType="textPersonName"
-            android:singleLine="true"
-            android:textColor="@color/ca_text_main_48"
-            android:textColorHint="@color/ca_text_main_48_hint"
-            android:textSize="@dimen/ca_text_size_xlarge">
+        <requestFocus />
+    </EditText>
 
-            <requestFocus />
-        </EditText>
-    </LinearLayout>
+    <include layout="@layout/ca_layout_vertical_gap_space_small" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/ca_plate_medium"
-        android:orientation="vertical">
+    <EditText
+        android:id="@+id/editTextLastName"
+        style="@style/EditText"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/editTextRegEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_horizontal"
-            android:hint="@string/registration_email"
-            android:inputType="textEmailAddress"
-            android:singleLine="true"
-            android:textColor="@color/ca_text_main_48"
-            android:textColorHint="@color/ca_text_main_48_hint"
-            android:textSize="@dimen/ca_text_size_xlarge" />
+    <include layout="@layout/ca_layout_vertical_gap_space_small" />
 
-    </LinearLayout>
+    <EditText
+        android:id="@+id/editTextRegEmail"
+        style="@style/EditText"
+        android:hint="@string/registration_email"
+        android:inputType="textEmailAddress" />
+
+    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+
+    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+
 </LinearLayout>

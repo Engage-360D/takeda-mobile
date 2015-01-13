@@ -56,6 +56,16 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="EditText" parent="@android:style/Widget.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ca_plate_medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/ca_text_main_48</item>
+        <item name="android:textColorHint">@color/ca_text_main_48_hint</item>
+        <item name="android:textSize">@dimen/ca_text_size_xlarge</item>
+    </style>
+
     <!-- ======== -->
     <!-- dividers -->
     <!-- ======== -->
@@ -81,19 +91,29 @@
     <!-- buttons -->
     <!-- ======= -->
     <style name="button_main_short">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">@dimen/ca_control_medium</item>
         <item name="android:layout_height">@dimen/ca_plate_medium</item>
         <item name="android:background">@drawable/ca_selector_button_main</item>
         <item name="android:textSize">@dimen/ca_text_size_medium</item>
         <item name="android:textColor">@color/ca_selector_button_main_text</item>
-        <item name="android:paddingLeft">@dimen/ca_plate_small</item>
-        <item name="android:paddingRight">@dimen/ca_plate_small</item>
         <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="button_main_long" parent="@style/button_main_short">
-        <item name="android:paddingLeft">@dimen/ca_plate_xxlarge</item>
-        <item name="android:paddingRight">@dimen/ca_plate_xxlarge</item>
+        <item name="android:layout_width">@dimen/ca_control_xlarge</item>
+    </style>
+
+    <style name="checkbox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableLeft">@drawable/ca_selector_checkbox</item>
+        <item name="android:drawablePadding">@dimen/ca_space_xxsmall</item>
+        <item name="android:textColor">@color/ca_text_main_41</item>
+        <item name="android:textSize">@dimen/ca_text_size_small</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
     </style>
 
 </resources>

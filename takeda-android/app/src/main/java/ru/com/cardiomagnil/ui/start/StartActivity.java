@@ -21,6 +21,7 @@ import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppConfig;
 import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.ui.start.registration.RegistrationFragment;
 import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.commands.RestorePassword;
 import ru.com.cardiomagnil.commands.UserAuthorization;
@@ -71,9 +72,17 @@ public class StartActivity extends TrackedFragmentActivity {
         clearFragments();
     }
 
+    // direction = true - forward
+    // direction = false - backward
+    public void slideViewPager(boolean direction) {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerContent);
+        int item = viewPager.getCurrentItem() + (direction ? 1 : -1);
+        viewPager.setCurrentItem(item);
+    }
+
     private void customizeIfDebug() {
         if (BuildConfig.DEBUG) {
-            View linearLayoutBottom = findViewById(R.id.linearLayoutBottom);
+            View linearLayoutBottom = findViewById(R.id.linearLayoutProgress);
 
             linearLayoutBottom.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,8 +112,10 @@ public class StartActivity extends TrackedFragmentActivity {
         progressBarBottomOutsideStartWork.setMax(5);
         progressBarBottomOutsideStartWork.setProgress(2);
 
-//        View linearLayoutTop = findViewById(R.id.linearLayoutTop);
-//        linearLayoutTop.setAlpha(0);
+        View linearLayoutTop = findViewById(R.id.linearLayoutTop);
+        View textViewBottom = findViewById(R.id.textViewBottom);
+        linearLayoutTop.setAlpha(0);
+        textViewBottom.setAlpha(0);
 
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         if (fragments != null) {
@@ -135,15 +146,17 @@ public class StartActivity extends TrackedFragmentActivity {
 
     private void initStartActivityAccordingCurrentFragment(int position) {
         View linearLayoutTop = findViewById(R.id.linearLayoutTop);
-        View linearLayoutBottom = findViewById(R.id.linearLayoutBottom);
+        View textViewBottom = findViewById(R.id.textViewBottom);
+        View linearLayoutProgress = findViewById(R.id.linearLayoutProgress);
 
         final CustomFragment currentFragment = mFragments[position];
 
-        animateTop(linearLayoutTop, position != 0);
-        fadeOut(currentFragment, linearLayoutBottom);
+        animateTopAndBottom(linearLayoutTop, position != 0);
+        animateTopAndBottom(textViewBottom, position != 0);
+        fadeOut(currentFragment, linearLayoutProgress);
     }
 
-    private void animateTop(View view, boolean visibilityToSet) {
+    private void animateTopAndBottom(View view, boolean visibilityToSet) {
         boolean viewIsVisible = (view.getAlpha() != 0) && (view.getVisibility() == View.VISIBLE);
         if (visibilityToSet && !viewIsVisible) {
             fadeIn(null, view);
@@ -153,13 +166,16 @@ public class StartActivity extends TrackedFragmentActivity {
     }
 
     private void fadeOut(final CustomFragment customFragment, final View view) {
+        view.setAlpha(1.0F);
         new CustomAnimation
         /**/.Builder(AnimationUtils.loadAnimation(this, R.anim.bottom_fade_out), view)
         /**/.setOnAnimationEndListener(new OnAnimationEndListener() {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                view.setAlpha(0.0F);
                 if (customFragment != null) {
+                    customFragment.initParent();
                     fadeIn(customFragment, view);
                 }
             }
@@ -169,12 +185,14 @@ public class StartActivity extends TrackedFragmentActivity {
     }
 
     private void fadeIn(final CustomFragment CustomFragment, final View view) {
+        view.setAlpha(1.0F);
         new CustomAnimation
         /**/.Builder(AnimationUtils.loadAnimation(this, R.anim.bottom_fade_in), view)
         /**/.setOnAnimationEndListener(new OnAnimationEndListener() {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                // do something
             }
         })
         /**/.build()
