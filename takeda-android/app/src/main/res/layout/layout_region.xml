@@ -9,9 +9,12 @@
     android:paddingRight="@dimen/ca_space_medium">
 
     <TextView
+        android:id="@+id/textViewRegion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical"
         android:text="@string/region"
         android:textColor="@color/ca_text_main_41"

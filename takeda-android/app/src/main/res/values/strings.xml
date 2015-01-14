@@ -195,6 +195,7 @@
     <string name="last_name">Фамилия</string>
     <string name="registration_email">email</string>
     <string name="region">Регион</string>
+    <string name="no_region">Не указан</string>
     <string name="birth_date">Дата рождения</string>
     <string name="select_birth_date">Дата рождения</string>
     <string name="create_password">Создание пароля</string>

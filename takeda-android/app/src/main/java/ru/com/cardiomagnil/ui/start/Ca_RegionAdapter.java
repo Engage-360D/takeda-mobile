@@ -15,10 +15,12 @@ import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 
 public class Ca_RegionAdapter extends ArrayAdapter<Ca_Region> implements SpinnerAdapter {
     private final int mTextViewResourceId;
+    private final int mDropDownTextViewResourceId;
 
-    public Ca_RegionAdapter(Context context, int textViewResourceId, List<Ca_Region> regionsList) {
+    public Ca_RegionAdapter(Context context, int textViewResourceId, int dropDownTextViewResourceId, List<Ca_Region> regionsList) {
         super(context, textViewResourceId, regionsList);
         mTextViewResourceId = textViewResourceId;
+        mDropDownTextViewResourceId = dropDownTextViewResourceId;
     }
 
     @Override
@@ -30,6 +32,11 @@ public class Ca_RegionAdapter extends ArrayAdapter<Ca_Region> implements Spinner
         Ca_Region regionItem = getItem(position);
         ((TextView) convertView).setText(regionItem.getName());
 
+        if (position == getCount() - 1) {
+            parent.setTag(null);
+        } else {
+            parent.setTag(true);
+        }
 
         return convertView;
     }
@@ -37,7 +44,7 @@ public class Ca_RegionAdapter extends ArrayAdapter<Ca_Region> implements Spinner
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.ca_spinner_item_dropdown, null);
+            convertView = LayoutInflater.from(getContext()).inflate(mDropDownTextViewResourceId, null);
         }
 
         Ca_Region regionItem = getItem(position);

@@ -20,7 +20,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,8 +57,7 @@ public class RegistrationFragment extends CustomFragment {
             R.id.editTextLastName,
             R.id.editTextRegEmail,
             R.id.editTextPasswordFirst,
-            R.id.editTextPasswordSecond,
-            R.id.textViewBirthDate
+            R.id.editTextPasswordSecond
     };
 
     private final int[] mRequiredCheckBoxCommon = new int[]{
@@ -131,7 +129,7 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     private void initTextViewBirthDate(final View parentView) {
-        TextView textViewBirthDate = (TextView) parentView.findViewById(R.id.textViewBirthDate);
+        final TextView textViewBirthDate = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
 
         textViewBirthDate.setOnTouchListener(new OnTouchListener() {
             private boolean datePickerDialogIsStarted = false;
@@ -153,6 +151,7 @@ public class RegistrationFragment extends CustomFragment {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
                             datePickerDialogIsStarted = false;
+                            textViewBirthDate.setTag(true);
                         }
                     });
                 }
@@ -180,10 +179,14 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     private void initSpinnerRegionHelper(View parentView, List<Ca_Region> regionsList) {
+        regionsList.add(Ca_Region.createNoRegion(parentView.getContext()));
+
+        Ca_RegionAdapter regionAdapter = new Ca_RegionAdapter(this.getActivity(), R.layout.custom_spinner_item, R.layout.ca_spinner_item_dropdown, regionsList);
+        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
-        Ca_RegionAdapter adapter = new Ca_RegionAdapter(this.getActivity(), R.layout.custom_spinner_item, regionsList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerRegion.setAdapter(adapter);
+        spinnerRegion.setAdapter(regionAdapter);
+        spinnerRegion.setSelection(regionAdapter.getCount() - 1);
         // FIXME
 //        spinnerRegion.setSelection(RUSSIA);
         spinnerRegion.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -255,28 +258,34 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     private boolean validateAllFields() {
-        View errorRadioButton = validateRadioButton();
+        View errorRadioButtons = validateRadioButtons();
         View errorEditTextCommon = validateTextViewFields(mRequiredEditTextCommon);
-        View errorEditTextCommonDoctor = validateTextViewFields(mRequiredEditTextCommonDoctor);
+        View errorSpinner = validateSpinner();
+        View errorTextViewBirthDate = validateTextViewBirthDate();
         View errorCheckBoxCommon = validateCheckBoxFields(mRequiredCheckBoxCommon);
+        View errorEditTextCommonDoctor = validateTextViewFields(mRequiredEditTextCommonDoctor);
 
         RadioButton radioButtonDoctor = (RadioButton) getActivity().findViewById(R.id.radioButtonDoctor);
 
-        if (errorRadioButton != null)
-            errorRadioButton.requestFocus();
+        if (errorRadioButtons != null)
+            errorRadioButtons.requestFocus();
         else if (errorEditTextCommon != null)
             errorEditTextCommon.requestFocus();
-        else if (errorEditTextCommonDoctor != null && radioButtonDoctor.isChecked())
-            errorEditTextCommonDoctor.requestFocus();
+        else if (errorSpinner != null)
+            errorSpinner.requestFocus();
+        else if (errorTextViewBirthDate != null)
+            errorTextViewBirthDate.requestFocus();
         else if (errorCheckBoxCommon != null)
             errorCheckBoxCommon.requestFocus();
+        else if (errorEditTextCommonDoctor != null && radioButtonDoctor.isChecked())
+            errorEditTextCommonDoctor.requestFocus();
         else
             return true;
 
         return false;
     }
 
-    private View validateRadioButton() {
+    private View validateRadioButtons() {
         View errorView = null;
 
         TextView textViewIsDoctor = (TextView) getActivity().findViewById(R.id.textViewIsDoctor);
@@ -307,6 +316,38 @@ public class RegistrationFragment extends CustomFragment {
         return errorView;
     }
 
+    private View validateSpinner() {
+        View errorView = null;
+
+        TextView textViewRegion = (TextView) getActivity().findViewById(R.id.textViewRegion);
+        Spinner spinnerRegion = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
+
+        if (spinnerRegion.getTag() == null) {
+            textViewRegion.setError(getString(R.string.must_be_selected));
+            errorView = textViewRegion;
+        } else {
+            textViewRegion.setError(null);
+        }
+
+        return errorView;
+    }
+
+    private View validateTextViewBirthDate() {
+        View errorView = null;
+
+        TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDate);
+        TextView textViewBirthDateValue = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
+
+        if (textViewBirthDateValue.getTag() == null) {
+            textViewBirthDate.setError(getString(R.string.must_be_selected));
+            errorView = textViewBirthDate;
+        } else {
+            textViewBirthDate.setError(null);
+        }
+
+        return errorView;
+    }
+
     private View validateCheckBoxFields(int[] checkBoxFields) {
         View errorView = null;
         for (int fieldId : checkBoxFields) {
@@ -330,7 +371,7 @@ public class RegistrationFragment extends CustomFragment {
         EditText editTextLastName = (EditText) getActivity().findViewById(R.id.editTextLastName);
         EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
         Spinner spinnerRegion = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
-        TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDate);
+        TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
         EditText editTextPasswordFirst = (EditText) getActivity().findViewById(R.id.editTextPasswordFirst);
         EditText editTextPasswordSecond = (EditText) getActivity().findViewById(R.id.editTextPasswordSecond);
 
@@ -373,7 +414,7 @@ public class RegistrationFragment extends CustomFragment {
             int years = currentYear - year;
 
             if (years > 21) {
-                TextView textViewBirthDate = (TextView) RegistrationFragment.this.getView().findViewById(R.id.textViewBirthDate);
+                TextView textViewBirthDate = (TextView) RegistrationFragment.this.getView().findViewById(R.id.textViewBirthDateValue);
                 mBirthDate = Tools.formatDate(calendar.getTime());
                 textViewBirthDate.setText(mBirthDate);
             } else {
@@ -412,7 +453,7 @@ public class RegistrationFragment extends CustomFragment {
 
         EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
         Spinner spinnerRegion = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
-        TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDate);
+        TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
 
         if (!user.getFirstName().isEmpty()) {
             editTextName.setText(user.getFirstName());

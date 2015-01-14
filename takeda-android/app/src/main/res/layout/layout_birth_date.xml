@@ -9,16 +9,19 @@
     android:paddingRight="@dimen/ca_space_medium">
 
     <TextView
+        android:id="@+id/textViewBirthDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical"
         android:text="@string/birth_date"
         android:textColor="@color/ca_text_main_41"
         android:textSize="@dimen/ca_text_size_medium" />
 
     <TextView
-        android:id="@+id/textViewBirthDate"
+        android:id="@+id/textViewBirthDateValue"
         style="?android:attr/spinnerItemStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
