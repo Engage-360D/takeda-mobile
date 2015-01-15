@@ -1,7 +1,10 @@
 package ru.com.cardiomagnil.api;
 
-import java.io.UnsupportedEncodingException;
-import java.util.List;
+import android.util.Base64;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -13,19 +16,16 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
 import ru.com.cardiomagnil.application.AppConfig;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
+import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.model.TestIncoming;
 import ru.com.cardiomagnil.model.Token;
-import ru.com.cardiomagnil.model.User;
-
-import android.util.Base64;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class Api {
     private final String mAppServerOAuthURL = /*                                                            */
@@ -51,10 +51,6 @@ public class Api {
 
     public JsonObject userAuthorization(Authorization authorization) {
         return performGet(REQUEST_AUTHORIZATION, authorization.asValuePairs());
-    }
-
-    public JsonObject userRegistration(User user) {
-        return performPost(REQUEST_REGISTRATION, user.getAsJson(), null);
     }
 
     public JsonObject restorePassword(String email) {

@@ -1,10 +1,10 @@
 package ru.com.cardiomagnil.ui.start.registration;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,14 +28,12 @@ import java.util.Calendar;
 import java.util.List;
 
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
-import ru.com.cardiomagnil.model.User;
-import ru.com.cardiomagnil.social.AuthorizationDialog;
-import ru.com.cardiomagnil.social.AuthorizationListener;
-import ru.com.cardiomagnil.social.BaseSocialApi;
+import ru.com.cardiomagnil.ca_model.user.Ca_User;
+import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 import ru.com.cardiomagnil.social.FbApi;
 import ru.com.cardiomagnil.social.FbUser;
 import ru.com.cardiomagnil.social.OkApi;
@@ -44,7 +42,6 @@ import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.start.Ca_RegionAdapter;
 import ru.com.cardiomagnil.ui.start.CustomFragment;
-import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.ThtreadHelper;
 import ru.com.cardiomagnil.util.Tools;
@@ -62,7 +59,6 @@ public class RegistrationFragment extends CustomFragment {
 
     private final int[] mRequiredCheckBoxCommon = new int[]{
             R.id.checkBoxAgreeToProcessing,
-            R.id.checkBoxAgreeToReceive,
             R.id.checkBoxAgreeThatAdvises
     };
 
@@ -94,7 +90,6 @@ public class RegistrationFragment extends CustomFragment {
         progressBarBottomOutsideStartWork.setMax(3);
         progressBarBottomOutsideStartWork.setProgress(2);
         textViewBottomOutsideAction.setText(getActivity().getString(R.string.two_minutes));
-
     }
 
     private void initRegistrationFragment(final View view) {
@@ -172,7 +167,7 @@ public class RegistrationFragment extends CustomFragment {
                 new CallbackOne<Ca_Response>() {
                     @Override
                     public void execute(Ca_Response responseError) {
-                        ThtreadHelper.logThread("doWhatYouNeed->error");
+                        Log.d(CardiomagnilApplication.getInstance().getTag(), "initSpinnerRegion: " + responseError.getError().getMessage());
                     }
                 }
         );
@@ -206,7 +201,7 @@ public class RegistrationFragment extends CustomFragment {
         parentView
                 .findViewById(R.id.imageViewFB)
                 .setOnClickListener(
-                        new SignInWithSocialNetwork(
+                        new SignInWithSocialNetwork(this,
                                 this.getActivity(),
                                 new FbApi(),
                                 new RegisterUserOnFinish(this, FbUser.class)
@@ -215,7 +210,7 @@ public class RegistrationFragment extends CustomFragment {
         parentView
                 .findViewById(R.id.imageViewVK)
                 .setOnClickListener(
-                        new SignInWithSocialNetwork(
+                        new SignInWithSocialNetwork(this,
                                 this.getActivity(),
                                 new VkApi(),
                                 new RegisterUserOnFinish(this, VkUser.class))
@@ -223,7 +218,7 @@ public class RegistrationFragment extends CustomFragment {
         parentView
                 .findViewById(R.id.imageViewOK)
                 .setOnClickListener(
-                        new SignInWithSocialNetwork(
+                        new SignInWithSocialNetwork(this,
                                 this.getActivity(),
                                 new OkApi(),
                                 new RegisterUserOnFinish(this, OkUser.class)
@@ -242,30 +237,48 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     private void tryRegistration(final View parentView) {
-        if (!validateAllFields()) {
+        if (!validateAllFields(parentView)) {
+            Toast.makeText(getActivity(), getActivity().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
             return;
         }
 
-        User newUser = pickRegistrationFields();
-        if (newUser.validate(false)) {
-            AppState.getInstatce().setUser(newUser);
+        Ca_User newUser = pickRegistrationFields(parentView);
 
-            StartActivity startActivity = (StartActivity) getActivity();
-            startActivity.userRegistration();
-        } else {
-            Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
-        }
+        Ca_UserDao.register(
+                newUser,
+                new CallbackOne<Ca_User>() {
+                    @Override
+                    public void execute(Ca_User user) {
+                        ThtreadHelper.logThread("doWhatYouNeed->success");
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Ca_Response>() {
+                    @Override
+                    public void execute(Ca_Response responseError) {
+                        ThtreadHelper.logThread("doWhatYouNeed->error");
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
+
+
+//        AppState.getInstatce().setUser(newUser);
+//        StartActivity startActivity = (StartActivity) getActivity();
+//        startActivity.userRegistration();
     }
 
-    private boolean validateAllFields() {
-        View errorRadioButtons = validateRadioButtons();
-        View errorEditTextCommon = validateTextViewFields(mRequiredEditTextCommon);
-        View errorSpinner = validateSpinner();
-        View errorTextViewBirthDate = validateTextViewBirthDate();
-        View errorCheckBoxCommon = validateCheckBoxFields(mRequiredCheckBoxCommon);
-        View errorEditTextCommonDoctor = validateTextViewFields(mRequiredEditTextCommonDoctor);
+    private boolean validateAllFields(final View parentView) {
+        View errorRadioButtons = validateRadioButtons(parentView);
+        View errorEditTextCommon = validateTextViewFields(parentView, mRequiredEditTextCommon);
+        View errorSpinner = validateSpinner(parentView);
+        View errorTextViewBirthDate = validateTextViewBirthDate(parentView);
+        View errorCheckBoxCommon = validateCheckBoxFields(parentView, mRequiredCheckBoxCommon);
+        View errorEditTextCommonDoctor = validateTextViewFields(parentView, mRequiredEditTextCommonDoctor);
 
-        RadioButton radioButtonDoctor = (RadioButton) getActivity().findViewById(R.id.radioButtonDoctor);
+        RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
 
         if (errorRadioButtons != null)
             errorRadioButtons.requestFocus();
@@ -280,17 +293,17 @@ public class RegistrationFragment extends CustomFragment {
         else if (errorEditTextCommonDoctor != null && radioButtonDoctor.isChecked())
             errorEditTextCommonDoctor.requestFocus();
         else
-            return true;
+            return true;        
 
         return false;
     }
 
-    private View validateRadioButtons() {
+    private View validateRadioButtons(final View parentView) {
         View errorView = null;
 
-        TextView textViewIsDoctor = (TextView) getActivity().findViewById(R.id.textViewIsDoctor);
-        RadioButton radioButtonDoctor = (RadioButton) getActivity().findViewById(R.id.radioButtonDoctor);
-        RadioButton radioButtonNotDoctor = (RadioButton) getActivity().findViewById(R.id.radioButtonNotDoctor);
+        TextView textViewIsDoctor = (TextView) parentView.findViewById(R.id.textViewIsDoctor);
+        RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
+        RadioButton radioButtonNotDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonNotDoctor);
 
         if (!radioButtonDoctor.isChecked() && !radioButtonNotDoctor.isChecked()) {
             textViewIsDoctor.setError(getString(R.string.must_be_selected));
@@ -302,10 +315,10 @@ public class RegistrationFragment extends CustomFragment {
         return errorView;
     }
 
-    private View validateTextViewFields(int[] textViewFields) {
+    private View validateTextViewFields(final View parentView, int[] textViewFields) {
         View errorView = null;
         for (int fieldId : textViewFields) {
-            TextView textView = (TextView) this.getActivity().findViewById(fieldId);
+            TextView textView = (TextView) parentView.findViewById(fieldId);
             if (textView.getText().length() == 0) {
                 textView.setError(getString(R.string.can_not_be_empty));
                 errorView = ((errorView == null) ? textView : errorView);
@@ -316,11 +329,11 @@ public class RegistrationFragment extends CustomFragment {
         return errorView;
     }
 
-    private View validateSpinner() {
+    private View validateSpinner(final View parentView) {
         View errorView = null;
 
-        TextView textViewRegion = (TextView) getActivity().findViewById(R.id.textViewRegion);
-        Spinner spinnerRegion = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
+        TextView textViewRegion = (TextView) parentView.findViewById(R.id.textViewRegion);
+        Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
 
         if (spinnerRegion.getTag() == null) {
             textViewRegion.setError(getString(R.string.must_be_selected));
@@ -332,11 +345,11 @@ public class RegistrationFragment extends CustomFragment {
         return errorView;
     }
 
-    private View validateTextViewBirthDate() {
+    private View validateTextViewBirthDate(final View parentView) {
         View errorView = null;
 
-        TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDate);
-        TextView textViewBirthDateValue = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
+        TextView textViewBirthDate = (TextView) parentView.findViewById(R.id.textViewBirthDate);
+        TextView textViewBirthDateValue = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
 
         if (textViewBirthDateValue.getTag() == null) {
             textViewBirthDate.setError(getString(R.string.must_be_selected));
@@ -348,10 +361,10 @@ public class RegistrationFragment extends CustomFragment {
         return errorView;
     }
 
-    private View validateCheckBoxFields(int[] checkBoxFields) {
+    private View validateCheckBoxFields(final View parentView, int[] checkBoxFields) {
         View errorView = null;
         for (int fieldId : checkBoxFields) {
-            CheckBox checkBox = (CheckBox) this.getActivity().findViewById(fieldId);
+            CheckBox checkBox = (CheckBox) parentView.findViewById(fieldId);
             if (checkBox.isChecked()) {
                 checkBox.setError(null);
             } else {
@@ -362,37 +375,37 @@ public class RegistrationFragment extends CustomFragment {
         return errorView;
     }
 
-    private User pickRegistrationFields() {
-        User newUser = new User();
+    // FIXME!!!
+    private Ca_User pickRegistrationFields(final View parentView) {
+        Ca_User newUser = new Ca_User();
 
-        RadioButton radioButtonDoctor = (RadioButton) getActivity().findViewById(R.id.radioButtonDoctor);
-        RadioButton radioButtonNotDoctor = (RadioButton) getActivity().findViewById(R.id.radioButtonNotDoctor);
-        EditText editTextFirstName = (EditText) getActivity().findViewById(R.id.editTextFirstName);
-        EditText editTextLastName = (EditText) getActivity().findViewById(R.id.editTextLastName);
-        EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
-        Spinner spinnerRegion = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
-        TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
-        EditText editTextPasswordFirst = (EditText) getActivity().findViewById(R.id.editTextPasswordFirst);
-        EditText editTextPasswordSecond = (EditText) getActivity().findViewById(R.id.editTextPasswordSecond);
+        RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
+        RadioButton radioButtonNotDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonNotDoctor);
+        EditText editTextFirstName = (EditText) parentView.findViewById(R.id.editTextFirstName);
+        EditText editTextLastName = (EditText) parentView.findViewById(R.id.editTextLastName);
+        EditText editTextRegEmail = (EditText) parentView.findViewById(R.id.editTextRegEmail);
+        Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
+        TextView textViewBirthDate = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
+        EditText editTextPasswordFirst = (EditText) parentView.findViewById(R.id.editTextPasswordFirst);
+        EditText editTextPasswordSecond = (EditText) parentView.findViewById(R.id.editTextPasswordSecond);
 
-        EditText editTextSpecializationName = (EditText) getActivity().findViewById(R.id.editTextSpecializationName);
-        EditText editTextSpecializationInstitutionName = (EditText) getActivity().findViewById(R.id.editTextSpecializationInstitutionName);
-        EditText editTextSpecializationInstitutionAddress = (EditText) getActivity().findViewById(R.id.editTextSpecializationInstitutionAddress);
-        EditText editTextSpecializationInstitutionPhone = (EditText) getActivity().findViewById(R.id.editTextSpecializationInstitutionPhone);
-        EditText editTextSpecializationGraduationDate = (EditText) getActivity().findViewById(R.id.editTextSpecializationGraduationDate);
-        EditText editTextSpecializationExperienceYears = (EditText) getActivity().findViewById(R.id.editTextSpecializationExperienceYears);
+        EditText editTextSpecializationName = (EditText) parentView.findViewById(R.id.editTextSpecializationName);
+        EditText editTextSpecializationInstitutionName = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionName);
+        EditText editTextSpecializationInstitutionAddress = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
+        EditText editTextSpecializationInstitutionPhone = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
+        EditText editTextSpecializationGraduationDate = (EditText) parentView.findViewById(R.id.editTextSpecializationGraduationDate);
+        EditText editTextSpecializationExperienceYears = (EditText) parentView.findViewById(R.id.editTextSpecializationExperienceYears);
 
-        CheckBox checkBoxAgreeToProcessing = (CheckBox) getActivity().findViewById(R.id.checkBoxAgreeToProcessing);
-        CheckBox checkBoxAgreeToReceive = (CheckBox) getActivity().findViewById(R.id.checkBoxAgreeToReceive);
-        CheckBox checkBoxAgreeThatAdvises = (CheckBox) getActivity().findViewById(R.id.checkBoxAgreeThatAdvises);
+        CheckBox checkBoxAgreeToProcessing = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeToProcessing);
+        CheckBox checkBoxAgreeToReceive = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeToReceive);
+        CheckBox checkBoxAgreeThatAdvises = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeThatAdvises);
 
-        newUser.setDoctor(radioButtonDoctor.isChecked() || radioButtonNotDoctor.isChecked() ? radioButtonDoctor.isChecked() : null);
-        newUser.setFirstName(editTextFirstName.length() != 0 ? editTextFirstName.getText().toString() : null);
+        newUser.setIsDoctor(radioButtonDoctor.isChecked() || radioButtonNotDoctor.isChecked() ? radioButtonDoctor.isChecked() : null);
+        newUser.setFirstname(editTextFirstName.length() != 0 ? editTextFirstName.getText().toString() : null);
+        newUser.setLastname(editTextLastName.length() != 0 ? editTextLastName.getText().toString() : null);
         newUser.setEmail(editTextRegEmail.length() != 0 ? editTextRegEmail.getText().toString() : null);
         newUser.setPlainPassword(editTextPasswordFirst.length() != 0 ? editTextPasswordFirst.getText().toString() : null);
-        newUser.setConfirmPersonalization(checkBoxAgreeToProcessing.isChecked());
-        newUser.setConfirmInformation(checkBoxAgreeThatAdvises.isChecked());
-        newUser.setConfirmSubscription(checkBoxAgreeToReceive.isChecked());
+        newUser.setisSubscribed(checkBoxAgreeToReceive.isChecked());
         newUser.setBirthday(mBirthDate);
         // FIXME
 //            newUser.setRegionl(mCountry);
@@ -422,27 +435,6 @@ public class RegistrationFragment extends CustomFragment {
             }
         }
     };
-
-    private class SignInWithSocialNetwork implements View.OnClickListener {
-        private final Context mContext;
-        private final BaseSocialApi mApi;
-        private final AuthorizationListener mListener;
-
-        public SignInWithSocialNetwork(Context context, BaseSocialApi api, AuthorizationListener listener) {
-            mContext = context;
-            mApi = api;
-            mListener = listener;
-        }
-
-        @Override
-        public void onClick(View v) {
-            StartActivity startActivity = (StartActivity) getActivity();
-            startActivity.showProgressDialog();
-
-            AuthorizationDialog dialog = new AuthorizationDialog(mContext, mApi);
-            dialog.show(mListener);
-        }
-    }
 
     // FIXME!!!
     @SuppressWarnings("unchecked")

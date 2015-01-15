@@ -11,8 +11,8 @@ import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 public class TestMethods {
 
     public static void testCurrentMethod() {
-        Ca_UserRegister();
-//        Ca_RegionDaoGetAll();
+//        Ca_UserRegister();
+        Ca_RegionDaoGetAll();
     }
 
 

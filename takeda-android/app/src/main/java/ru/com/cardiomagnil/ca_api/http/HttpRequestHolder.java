@@ -2,6 +2,8 @@ package ru.com.cardiomagnil.ca_api.http;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import ru.com.cardiomagnil.util.CallbackOneReturnable;
 
 public class HttpRequestHolder extends BaseVolleyRequestHolder {
     private final Map<String, String> mHeaders;
+    private byte[] mBody;
     private final HttpDataLoader mHttpDataLoader;
 
     private HttpRequestHolder(
@@ -20,16 +23,22 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
             Map<String, String> params,
             TypeReference typeReference,
             Map<String, String> headers,
+            byte[] body,
             CallbackOne onBeforeExtract,
             CallbackOneReturnable onOnAfterExtracted,
             CallbackOne onStoreIntoDatabase) {
         super(method, url, params, typeReference, onBeforeExtract, onOnAfterExtracted, onStoreIntoDatabase);
         mHeaders = headers;
+        mBody = body;
         mHttpDataLoader = new HttpDataLoader();
     }
 
     public Map<String, String> getHeaders() {
         return mHeaders;
+    }
+
+    public byte[] getBody() {
+        return mBody;
     }
 
     @Override
@@ -43,6 +52,7 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
         private final TypeReference mBuildeTypeReference;
         private Map<String, String> mBuilderParams = new HashMap<String, String>();
         private Map<String, String> mBuilderHeaders = new HashMap<String, String>();
+        private byte[] mBuilderBody;
         private CallbackOne mBuilderOnBeforeExtract;
         private CallbackOneReturnable mBuilderOnAfterExtracted;
         private CallbackOne mBuilderOnStoreIntoDatabase;
@@ -73,6 +83,16 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
             return this;
         }
 
+        public Builder setBody(byte[] body) {
+            mBuilderBody = body;
+            return this;
+        }
+
+        public Builder setBody(String body) {
+            mBuilderBody = encodeString(body, DEFAULT_PARAMS_ENCODING);
+            return this;
+        }
+
         public Builder setOnBeforeExtract(CallbackOne onOnBeforeExtract) {
             mBuilderOnBeforeExtract = onOnBeforeExtract;
             return this;
@@ -95,9 +115,19 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
                     mBuilderParams,
                     mBuildeTypeReference,
                     mBuilderHeaders,
+                    mBuilderBody,
                     mBuilderOnBeforeExtract,
                     mBuilderOnAfterExtracted,
                     mBuilderOnStoreIntoDatabase);
+        }
+
+        private byte[] encodeString(String stringToEncode, String paramsEncoding) {
+            try {
+                String stringEncodeded = URLEncoder.encode(stringToEncode, paramsEncoding);
+                return stringEncodeded.getBytes(paramsEncoding);
+            } catch (UnsupportedEncodingException exception) {
+                throw new RuntimeException("Encoding not supported: " + paramsEncoding, exception);
+            }
         }
     }
 }

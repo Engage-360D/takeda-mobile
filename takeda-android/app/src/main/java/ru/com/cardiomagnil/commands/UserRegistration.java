@@ -35,14 +35,14 @@ public class UserRegistration extends SFBaseCommand {
 
         try {
             Api api = new Api();
-            JsonObject jsonObjectUser = api.userRegistration(AppState.getInstatce().getUser());
+//            JsonObject jsonObjectUser = api.userRegistration(AppState.getInstatce().getUser());
 
-            if (jsonObjectUser != null && jsonObjectUser.has("id")) {
-                result = "";
-                // TODO: убрать костыль: попросить коллег на том конце переделать API - нужны коды ошибок
-            } else if (jsonObjectUser.toString().equalsIgnoreCase("{\"0\":\"Username not unique.\",\"email\":[\"Email not unique.\"]}")) {
-                result = context.getString(R.string.error_tets_username_not_unique);
-            }
+//            if (jsonObjectUser != null && jsonObjectUser.has("id")) {
+//                result = "";
+//                // TODO: убрать костыль: попросить коллег на том конце переделать API - нужны коды ошибок
+//            } else if (jsonObjectUser.toString().equalsIgnoreCase("{\"0\":\"Username not unique.\",\"email\":[\"Email not unique.\"]}")) {
+//                result = context.getString(R.string.error_tets_username_not_unique);
+//            }
 
             // TODO: USER
             // User user = new User(jsonObjectUser);

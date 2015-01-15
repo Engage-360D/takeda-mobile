@@ -2,12 +2,10 @@ package ru.com.cardiomagnil.ca_api.cache;
 
 import com.android.volley.Cache;
 
-import java.util.Map;
-
+import ru.com.cardiomagnil.ca_api.CachedStringRequest;
 import ru.com.cardiomagnil.ca_api.DataLoadSequence;
 import ru.com.cardiomagnil.ca_api.Status;
 import ru.com.cardiomagnil.ca_api.base.BaseVolleyDataLoader;
-import ru.com.cardiomagnil.ca_api.http.CachedStringRequest;
 import ru.com.cardiomagnil.ca_api.http.HttpHelper;
 import ru.com.cardiomagnil.ca_model.common.Ca_Error;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
@@ -26,13 +24,12 @@ public class CacheDataLoader extends BaseVolleyDataLoader {
         CachedStringRequest cachedStringRequest = new CachedStringRequest(
                 cacheRequestHolder.getMethod(),
                 cacheRequestHolder.getUrl(),
-                null, null) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = cacheRequestHolder.getParams();
-                return params;
-            }
-        };
+                null,
+                cacheRequestHolder.getParams(),
+                null,
+                null,
+                null);
+
 
         String cacheKey = cachedStringRequest.getCacheKey();
 

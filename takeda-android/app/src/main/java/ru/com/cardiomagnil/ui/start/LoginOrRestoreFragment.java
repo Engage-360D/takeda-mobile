@@ -1,19 +1,5 @@
 package ru.com.cardiomagnil.ui.start;
 
-import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.model.User;
-import ru.com.cardiomagnil.social.AuthorizationDialog;
-import ru.com.cardiomagnil.social.AuthorizationListener;
-import ru.com.cardiomagnil.social.BaseSocialApi;
-import ru.com.cardiomagnil.social.FbApi;
-import ru.com.cardiomagnil.social.FbUser;
-import ru.com.cardiomagnil.social.OkApi;
-import ru.com.cardiomagnil.social.OkUser;
-import ru.com.cardiomagnil.social.VkApi;
-import ru.com.cardiomagnil.social.VkUser;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,11 +9,24 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
+import ru.com.cardiomagnil.ca_model.user.Ca_User;
+import ru.com.cardiomagnil.social.AuthorizationDialog;
+import ru.com.cardiomagnil.social.AuthorizationListener;
+import ru.com.cardiomagnil.social.BaseSocialApi;
+import ru.com.cardiomagnil.social.FbApi;
+import ru.com.cardiomagnil.social.FbUser;
+import ru.com.cardiomagnil.social.OkApi;
+import ru.com.cardiomagnil.social.OkUser;
+import ru.com.cardiomagnil.social.VkApi;
+import ru.com.cardiomagnil.social.VkUser;
 
 public class LoginOrRestoreFragment extends CustomFragment {
     private View parentView;
@@ -168,15 +167,18 @@ public class LoginOrRestoreFragment extends CustomFragment {
     }
 
     private void tryAuthorization() {
-        User user = pickAuthorizationFields();
-        if (user.validate(true)) {
-            AppState.getInstatce().setUser(user);
+        Ca_User user = pickAuthorizationFields();
 
-            StartActivity startActivity = (StartActivity) getActivity();
-            startActivity.userAuthorization();
-        } else {
-            Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
-        }
+        // FIXME: implement authorization
+
+//        if (user.validate(true)) {
+//            AppState.getInstatce().setUser(user);
+//
+//            StartActivity startActivity = (StartActivity) getActivity();
+//            startActivity.userAuthorization();
+//        } else {
+//            Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
+//        }
     }
 
     private void tryRestore() {
@@ -189,8 +191,8 @@ public class LoginOrRestoreFragment extends CustomFragment {
         }
     }
 
-    private User pickAuthorizationFields() {
-        User user = new User();
+    private Ca_User pickAuthorizationFields() {
+        Ca_User user = new Ca_User();
 
         try {
             EditText editTextEmailLogin = (EditText) getActivity().findViewById(R.id.editTextEmailLogin);

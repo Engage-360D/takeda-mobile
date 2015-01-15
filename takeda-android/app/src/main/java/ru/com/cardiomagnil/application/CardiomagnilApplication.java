@@ -5,10 +5,10 @@ import android.app.Application;
 import android.content.Context;
 
 import ru.com.cardiomagnil.ca_api.db.HelperFactory;
+import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.model.TestResult;
 import ru.com.cardiomagnil.model.Token;
-import ru.com.cardiomagnil.model.User;
 import ru.evilduck.framework.SFApplicationState;
 
 public class CardiomagnilApplication extends Application {
@@ -75,7 +75,7 @@ public class CardiomagnilApplication extends Application {
         appState.setToken(token);
 
         // TODO: init user from json
-        User user = new User();
+        Ca_User user = new Ca_User();
         user.setEmail(appSharedPreferences.getPreference(AppSharedPreferences.PREFERENCES.email));
         user.setPlainPassword(appSharedPreferences.getPreference(AppSharedPreferences.PREFERENCES.plain_password));
         appState.setUser(user);

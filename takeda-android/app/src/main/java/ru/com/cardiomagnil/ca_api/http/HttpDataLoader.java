@@ -1,13 +1,9 @@
 package ru.com.cardiomagnil.ca_api.http;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import java.net.URLEncoder;
-import java.util.Map;
-
+import ru.com.cardiomagnil.ca_api.CachedStringRequest;
 import ru.com.cardiomagnil.ca_api.DataLoadSequence;
 import ru.com.cardiomagnil.ca_api.Status;
 import ru.com.cardiomagnil.ca_api.base.BaseVolleyDataLoader;
@@ -23,7 +19,6 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
                                    final CallbackOne<T> callbackOneOnSuccess,
                                    final CallbackOne<Ca_Response> callbackOneOnError) {
         final HttpRequestHolder httpRequestHolder = (HttpRequestHolder) dataLoadSequence.poll();
-        final String urlWithParams = buildUrlWithParams(httpRequestHolder.getMethod(), httpRequestHolder.getUrl(), httpRequestHolder.getParams());
         final Response.Listener<String> successListener = new Response.Listener<String>() {
             @Override
             public void onResponse(final String responseString) {
@@ -87,38 +82,20 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
             }
         };
 
+//        final String urlWithParams = buildUrlWithParams(httpRequestHolder.getMethod(), httpRequestHolder.getUrl(), httpRequestHolder.getParams());
         CachedStringRequest cachedStringRequest = new CachedStringRequest(
                 httpRequestHolder.getMethod(),
-                urlWithParams,
-                fakeSuccessListener,
-                fakeErrorListener
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = httpRequestHolder.getHeaders();
-                // FIXME!
-//                headers.put("Authorization", Url.BASIC_AUTHORIZATION);
-                return headers;
-            }
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = httpRequestHolder.getParams();
-                return params;
-            }
-        };
+                httpRequestHolder.getUrl(),
+                httpRequestHolder.getHeaders(),
+                httpRequestHolder.getParams(),
+                httpRequestHolder.getBody(),
+//                fakeSuccessListener,
+//                fakeErrorListener
+                successListener,
+                errorListener
+        );
 
         // Adding request to request queue
         HttpHelper.getInstance().addToRequestQueue(cachedStringRequest);
-    }
-
-    private String buildUrlWithParams(int method, String url, Map<String, String> params) {
-        String paramsStrig = "";
-        if (method == Request.Method.GET && params != null && !params.isEmpty()) {
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                paramsStrig += URLEncoder.encode(entry.getKey()) + "=" + URLEncoder.encode(entry.getValue()) + "&";
-            }
-        }
-        return paramsStrig.isEmpty() ? url : url + "?" + paramsStrig;
     }
 }

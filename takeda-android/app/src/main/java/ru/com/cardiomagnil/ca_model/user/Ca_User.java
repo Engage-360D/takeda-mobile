@@ -396,6 +396,17 @@ public class Ca_User extends BaseModel {
         this.links = links;
     }
 
+    /**
+     * @return The plainPassword
+     */
+    @JsonProperty("plainPassword")
+    public String getPlainPassword() {
+        return plainPassword;
+    }
+
+    /**
+     * @param plainPassword The plainPassword
+     */
     @JsonProperty("plainPassword")
     public void setPlainPassword(String plainPassword) {
         this.plainPassword = plainPassword;

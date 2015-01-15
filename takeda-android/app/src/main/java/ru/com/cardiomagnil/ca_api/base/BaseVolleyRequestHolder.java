@@ -8,6 +8,11 @@ import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.CallbackOneReturnable;
 
 public abstract class BaseVolleyRequestHolder extends BaseRequestHolder {
+    /**
+     * according to com.android.volley.Request
+     */
+    protected static final String DEFAULT_PARAMS_ENCODING = "UTF-8";
+
     protected final int mMethod;
     protected final String mUrl;
     protected final Map<String, String> mParams;

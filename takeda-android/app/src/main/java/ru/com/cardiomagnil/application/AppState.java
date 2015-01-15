@@ -1,11 +1,11 @@
 package ru.com.cardiomagnil.application;
 
+import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.model.TestIncoming;
 import ru.com.cardiomagnil.model.TestResult;
 import ru.com.cardiomagnil.model.TestResultPage;
 import ru.com.cardiomagnil.model.Token;
-import ru.com.cardiomagnil.model.User;
 import ru.evilduck.framework.SFApplicationState;
 
 
@@ -34,7 +34,7 @@ public class AppState {
     private Authorization mAuthorization;
     private TestIncoming mTestIncoming;
     private Token mToken;
-    private User mUser;
+    private Ca_User mUser;
     private TestResult mTestResult;
     private TestResultPage mTestResultPage;
 
@@ -62,11 +62,11 @@ public class AppState {
         mToken = token;
     }
 
-    public User getUser() {
+    public Ca_User getUser() {
         return mUser;
     }
 
-    public void setUser(User user) {
+    public void setUser(Ca_User user) {
         mUser = user;
     }
 
