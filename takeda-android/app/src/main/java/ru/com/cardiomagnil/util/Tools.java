@@ -67,12 +67,18 @@ public class Tools {
         }
     }
 
-    public static String formatDate(Date date) {
+    public static String formatShortDate(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         String formatedDate = dateFormat.format(date);
         formatedDate = Character.toUpperCase(formatedDate.charAt(0)) + formatedDate.substring(1);
 
+        return formatedDate;
+    }
+
+    public static String formatFullDate(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        String formatedDate = dateFormat.format(date);
         return formatedDate;
     }
 

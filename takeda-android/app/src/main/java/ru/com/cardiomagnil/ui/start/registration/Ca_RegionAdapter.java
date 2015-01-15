@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.start;
+package ru.com.cardiomagnil.ui.start.registration;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -35,7 +35,7 @@ public class Ca_RegionAdapter extends ArrayAdapter<Ca_Region> implements Spinner
         if (position == getCount() - 1) {
             parent.setTag(null);
         } else {
-            parent.setTag(true);
+            parent.setTag(regionItem);
         }
 
         return convertView;

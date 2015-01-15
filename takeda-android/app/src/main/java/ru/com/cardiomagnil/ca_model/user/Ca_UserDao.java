@@ -3,6 +3,8 @@ package ru.com.cardiomagnil.ca_model.user;
 import com.android.volley.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -47,9 +49,19 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
             }
         };
 
+        ObjectMapper  mapper = new ObjectMapper ();
+        mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, true);
+
+        ObjectNode objectNode = new ObjectMapper().valueToTree(user);
+        Ca_User.packLinks(objectNode);
+        Ca_User.caleanReceivedFields(objectNode);
+        String packedUser = objectNode.toString();
+
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
                         .Builder(Request.Method.POST, Url.USERS, typeReference)
+                        .addHeaders(Url.POST_HEADERS)
+                        .setBody(packedUser)
                         .setOnBeforeExtract(onOnBeforeExtract)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();

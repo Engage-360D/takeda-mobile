@@ -115,6 +115,7 @@
     <string name="no">Нет</string>
     <string name="progress_dialog_text">Подождите...</string>
     <string name="complete_all_fields">Пожалуйста, заполните все поля</string>
+    <string name="complete_required_fields">Пожалуйста, заполните необходимые поля</string>
     <string name="press_back_twice">Для выхода из приложения нажмите \'Back\' дважды</string>
 
     <!-- ====== -->
@@ -216,6 +217,7 @@
     <string name="specialization_experience_years">Опыт работы (лет)</string>
     <string name="must_be_selected">Необходимо выбрать</string>
     <string name="can_not_be_empty">Не может быть пустым</string>
+    <string name="must_match">Должны совпадать</string>
     <string name="specialization_name_">Специализация в лечебном учреждении</string>
     <string name="specialization_institution_name_">Название лечебного учреждения</string>
     <string name="specialization_institution_address_">Адрес лечебного учреждения</string>

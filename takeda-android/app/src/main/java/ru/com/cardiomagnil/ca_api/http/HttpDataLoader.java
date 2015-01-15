@@ -82,7 +82,6 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
             }
         };
 
-//        final String urlWithParams = buildUrlWithParams(httpRequestHolder.getMethod(), httpRequestHolder.getUrl(), httpRequestHolder.getParams());
         CachedStringRequest cachedStringRequest = new CachedStringRequest(
                 httpRequestHolder.getMethod(),
                 httpRequestHolder.getUrl(),

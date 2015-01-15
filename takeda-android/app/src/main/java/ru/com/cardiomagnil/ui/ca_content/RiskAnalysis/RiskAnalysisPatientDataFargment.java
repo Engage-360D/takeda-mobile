@@ -232,7 +232,7 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
 
             if (years > 21) {
                 TextView editTextAge = (TextView) parentView.findViewById(R.id.editTextAge);
-                mBirthDate = Tools.formatDate(calendar.getTime());
+                mBirthDate = Tools.formatShortDate(calendar.getTime());
                 editTextAge.setText(String.valueOf(years));
             } else {
                 Toast toast = Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.error_birth_date), Toast.LENGTH_SHORT);

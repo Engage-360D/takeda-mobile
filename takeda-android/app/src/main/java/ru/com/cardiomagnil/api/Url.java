@@ -1,5 +1,7 @@
 package ru.com.cardiomagnil.api;
 
+import java.util.HashMap;
+
 public final class Url {
     public static final String API_SCHEME = "http://";
     // TODO: change host after test
@@ -11,7 +13,8 @@ public final class Url {
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
 
-    // TODO: remove after tests
-    // private final String REQUEST_TEST_RESULTS = mAppServerApiURL + "/test-results/";
-    // private final String REQUEST_RESET_PASSWORD = mAppServerApiURL + "/users/reset";
+
+    public static final HashMap<String, String> POST_HEADERS = new HashMap<String, String>() {{
+        put("Content-Type", "application/vnd.api+json");
+    }};
 }

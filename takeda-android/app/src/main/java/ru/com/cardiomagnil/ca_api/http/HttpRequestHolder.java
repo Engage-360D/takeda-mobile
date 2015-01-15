@@ -123,6 +123,14 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
 
         private byte[] encodeString(String stringToEncode, String paramsEncoding) {
             try {
+                return stringToEncode.getBytes(paramsEncoding);
+            } catch (UnsupportedEncodingException exception) {
+                throw new RuntimeException("Encoding not supported: " + paramsEncoding, exception);
+            }
+        }
+
+        private byte[] urlEncodeString(String stringToEncode, String paramsEncoding) {
+            try {
                 String stringEncodeded = URLEncoder.encode(stringToEncode, paramsEncoding);
                 return stringEncodeded.getBytes(paramsEncoding);
             } catch (UnsupportedEncodingException exception) {

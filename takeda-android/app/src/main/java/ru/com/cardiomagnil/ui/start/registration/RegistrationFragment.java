@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -40,15 +39,11 @@ import ru.com.cardiomagnil.social.OkApi;
 import ru.com.cardiomagnil.social.OkUser;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
-import ru.com.cardiomagnil.ui.start.Ca_RegionAdapter;
 import ru.com.cardiomagnil.ui.start.CustomFragment;
 import ru.com.cardiomagnil.util.CallbackOne;
-import ru.com.cardiomagnil.util.ThtreadHelper;
 import ru.com.cardiomagnil.util.Tools;
 
 public class RegistrationFragment extends CustomFragment {
-    private String mBirthDate = null;
-
     private final int[] mRequiredEditTextCommon = new int[]{
             R.id.editTextFirstName,
             R.id.editTextLastName,
@@ -124,7 +119,16 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     private void initTextViewBirthDate(final View parentView) {
+        final int ageLimt = 21;
         final TextView textViewBirthDate = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
+        final CustomOnDateSetListener customOnDateSetListener = new CustomOnDateSetListener();
+        final Calendar calendar = Calendar.getInstance();
+        final DatePickerDialog dateDialog = new DatePickerDialog(
+                getActivity(),
+                customOnDateSetListener,
+                calendar.get(Calendar.YEAR) - ageLimt,
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
 
         textViewBirthDate.setOnTouchListener(new OnTouchListener() {
             private boolean datePickerDialogIsStarted = false;
@@ -132,21 +136,22 @@ public class RegistrationFragment extends CustomFragment {
             @Override
             public boolean onTouch(View paramView, MotionEvent paramMotionEvent) {
                 if (!datePickerDialogIsStarted) {
-                    Calendar calendar = Calendar.getInstance();
-
-                    int year = calendar.get(Calendar.YEAR) - 22;
-                    int month = calendar.get(Calendar.MONTH);
-                    int day = calendar.get(Calendar.DAY_OF_MONTH);
-
                     datePickerDialogIsStarted = true;
-                    DatePickerDialog dateDialog = new DatePickerDialog(getActivity(), datePickerListener, year, month, day);
                     dateDialog.show();
 
                     dateDialog.setOnDismissListener(new OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
+                            if (customOnDateSetListener.isRightAge(ageLimt)) {
+                                textViewBirthDate.setTag(customOnDateSetListener.getCalendar());
+                                textViewBirthDate.setText(Tools.formatShortDate(customOnDateSetListener.getCalendar().getTime()));
+                            } else {
+                                textViewBirthDate.setTag(null);
+                                textViewBirthDate.setText(textViewBirthDate.getContext().getString(R.string.birth_date));
+                                Toast.makeText(textViewBirthDate.getContext(), textViewBirthDate.getContext().getString(R.string.error_birth_date), Toast.LENGTH_LONG).show();
+                            }
+
                             datePickerDialogIsStarted = false;
-                            textViewBirthDate.setTag(true);
                         }
                     });
                 }
@@ -237,8 +242,8 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     private void tryRegistration(final View parentView) {
-        if (!validateAllFields(parentView)) {
-            Toast.makeText(getActivity(), getActivity().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
+        if (!validateRegistrationFields(parentView)) {
+            Toast.makeText(getActivity(), getActivity().getString(R.string.complete_required_fields), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -249,7 +254,6 @@ public class RegistrationFragment extends CustomFragment {
                 new CallbackOne<Ca_User>() {
                     @Override
                     public void execute(Ca_User user) {
-                        ThtreadHelper.logThread("doWhatYouNeed->success");
                         int t = 1;
                         t++;
                     }
@@ -257,26 +261,25 @@ public class RegistrationFragment extends CustomFragment {
                 new CallbackOne<Ca_Response>() {
                     @Override
                     public void execute(Ca_Response responseError) {
-                        ThtreadHelper.logThread("doWhatYouNeed->error");
                         int t = 1;
                         t++;
                     }
                 }
         );
 
-
 //        AppState.getInstatce().setUser(newUser);
 //        StartActivity startActivity = (StartActivity) getActivity();
 //        startActivity.userRegistration();
     }
 
-    private boolean validateAllFields(final View parentView) {
+    private boolean validateRegistrationFields(final View parentView) {
         View errorRadioButtons = validateRadioButtons(parentView);
         View errorEditTextCommon = validateTextViewFields(parentView, mRequiredEditTextCommon);
         View errorSpinner = validateSpinner(parentView);
         View errorTextViewBirthDate = validateTextViewBirthDate(parentView);
         View errorCheckBoxCommon = validateCheckBoxFields(parentView, mRequiredCheckBoxCommon);
         View errorEditTextCommonDoctor = validateTextViewFields(parentView, mRequiredEditTextCommonDoctor);
+        View errorEditTextPassword = validateTextViewPassword(parentView);
 
         RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
 
@@ -292,8 +295,10 @@ public class RegistrationFragment extends CustomFragment {
             errorCheckBoxCommon.requestFocus();
         else if (errorEditTextCommonDoctor != null && radioButtonDoctor.isChecked())
             errorEditTextCommonDoctor.requestFocus();
+        else if (errorEditTextPassword != null)
+            errorEditTextPassword.requestFocus();
         else
-            return true;        
+            return true;
 
         return false;
     }
@@ -375,66 +380,68 @@ public class RegistrationFragment extends CustomFragment {
         return errorView;
     }
 
-    // FIXME!!!
+    private View validateTextViewPassword(final View parentView) {
+        View errorView = null;
+
+        TextView editTextPasswordFirst = (TextView) parentView.findViewById(R.id.editTextPasswordFirst);
+        TextView editTextPasswordSecond = (TextView) parentView.findViewById(R.id.editTextPasswordSecond);
+
+        if (!editTextPasswordFirst.getText().toString().equals(editTextPasswordSecond.getText().toString())) {
+            editTextPasswordFirst.setError(getString(R.string.must_match));
+            editTextPasswordSecond.setError(getString(R.string.must_match));
+            errorView = editTextPasswordFirst;
+        } else {
+            editTextPasswordFirst.setError(null);
+            editTextPasswordSecond.setError(null);
+        }
+
+        return errorView;
+    }
+
     private Ca_User pickRegistrationFields(final View parentView) {
         Ca_User newUser = new Ca_User();
 
-        RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
-        RadioButton radioButtonNotDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonNotDoctor);
-        EditText editTextFirstName = (EditText) parentView.findViewById(R.id.editTextFirstName);
-        EditText editTextLastName = (EditText) parentView.findViewById(R.id.editTextLastName);
-        EditText editTextRegEmail = (EditText) parentView.findViewById(R.id.editTextRegEmail);
-        Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
-        TextView textViewBirthDate = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
-        EditText editTextPasswordFirst = (EditText) parentView.findViewById(R.id.editTextPasswordFirst);
-        EditText editTextPasswordSecond = (EditText) parentView.findViewById(R.id.editTextPasswordSecond);
+        try {
+            RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
+            EditText editTextFirstName = (EditText) parentView.findViewById(R.id.editTextFirstName);
+            EditText editTextLastName = (EditText) parentView.findViewById(R.id.editTextLastName);
+            EditText editTextRegEmail = (EditText) parentView.findViewById(R.id.editTextRegEmail);
+            Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
+            TextView textViewBirthDateValue = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
+            EditText editTextPasswordFirst = (EditText) parentView.findViewById(R.id.editTextPasswordFirst);
 
-        EditText editTextSpecializationName = (EditText) parentView.findViewById(R.id.editTextSpecializationName);
-        EditText editTextSpecializationInstitutionName = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionName);
-        EditText editTextSpecializationInstitutionAddress = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
-        EditText editTextSpecializationInstitutionPhone = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
-        EditText editTextSpecializationGraduationDate = (EditText) parentView.findViewById(R.id.editTextSpecializationGraduationDate);
-        EditText editTextSpecializationExperienceYears = (EditText) parentView.findViewById(R.id.editTextSpecializationExperienceYears);
+            EditText editTextSpecializationName = (EditText) parentView.findViewById(R.id.editTextSpecializationName);
+            EditText editTextSpecializationInstitutionName = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionName);
+            EditText editTextSpecializationInstitutionAddress = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
+            EditText editTextSpecializationInstitutionPhone = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
+            EditText editTextSpecializationGraduationDate = (EditText) parentView.findViewById(R.id.editTextSpecializationGraduationDate);
+            EditText editTextSpecializationExperienceYears = (EditText) parentView.findViewById(R.id.editTextSpecializationExperienceYears);
 
-        CheckBox checkBoxAgreeToProcessing = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeToProcessing);
-        CheckBox checkBoxAgreeToReceive = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeToReceive);
-        CheckBox checkBoxAgreeThatAdvises = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeThatAdvises);
+            CheckBox checkBoxAgreeToReceive = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeToReceive);
 
-        newUser.setIsDoctor(radioButtonDoctor.isChecked() || radioButtonNotDoctor.isChecked() ? radioButtonDoctor.isChecked() : null);
-        newUser.setFirstname(editTextFirstName.length() != 0 ? editTextFirstName.getText().toString() : null);
-        newUser.setLastname(editTextLastName.length() != 0 ? editTextLastName.getText().toString() : null);
-        newUser.setEmail(editTextRegEmail.length() != 0 ? editTextRegEmail.getText().toString() : null);
-        newUser.setPlainPassword(editTextPasswordFirst.length() != 0 ? editTextPasswordFirst.getText().toString() : null);
-        newUser.setisSubscribed(checkBoxAgreeToReceive.isChecked());
-        newUser.setBirthday(mBirthDate);
-        // FIXME
-//            newUser.setRegionl(mCountry);
+            newUser.setIsDoctor(radioButtonDoctor.isChecked());
+            newUser.setFirstname(editTextFirstName.getText().toString());
+            newUser.setLastname(editTextLastName.getText().toString());
+            newUser.setEmail(editTextRegEmail.getText().toString());
+            newUser.setRegion(((Ca_Region) spinnerRegion.getTag()).getId());
+            newUser.setBirthday(Tools.formatFullDate(((Calendar) textViewBirthDateValue.getTag()).getTime()));
+            newUser.setPlainPassword(editTextPasswordFirst.getText().toString());
+
+            newUser.setSpecializationName(editTextSpecializationName.getText().toString());
+            newUser.setSpecializationInstitutionName(editTextSpecializationInstitutionName.getText().toString());
+            newUser.setSpecializationInstitutionAddress(editTextSpecializationInstitutionAddress.getText().toString());
+            newUser.setSpecializationInstitutionPhone(editTextSpecializationInstitutionPhone.getText().toString());
+            String specializationGraduationDate  = editTextSpecializationGraduationDate.getText().toString();
+            newUser.setSpecializationGraduationDate(specializationGraduationDate.isEmpty() ? null : specializationGraduationDate);
+            newUser.setSpecializationExperienceYears(Integer.parseInt(editTextSpecializationExperienceYears.getText().toString()));
+
+            newUser.setisSubscribed(checkBoxAgreeToReceive.isChecked());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return newUser;
     }
-
-    public DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            Calendar calendar = Calendar.getInstance();
-
-            int currentYear = calendar.get(Calendar.YEAR);
-
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, monthOfYear);
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-            int years = currentYear - year;
-
-            if (years > 21) {
-                TextView textViewBirthDate = (TextView) RegistrationFragment.this.getView().findViewById(R.id.textViewBirthDateValue);
-                mBirthDate = Tools.formatDate(calendar.getTime());
-                textViewBirthDate.setText(mBirthDate);
-            } else {
-                Toast.makeText(view.getContext(), view.getContext().getString(R.string.error_birth_date), Toast.LENGTH_LONG).show();
-            }
-        }
-    };
 
     // FIXME!!!
     @SuppressWarnings("unchecked")
@@ -465,7 +472,8 @@ public class RegistrationFragment extends CustomFragment {
 
         if (!user.getBirthday().isEmpty()) {
             textViewBirthDate.setText(user.getBirthday());
-            mBirthDate = user.getBirthday();
+            // FIXME
+//            mBirthDate = user.getBirthday();
         }
     }
 }

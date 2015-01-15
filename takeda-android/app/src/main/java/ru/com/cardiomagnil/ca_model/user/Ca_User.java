@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.field.DataType;
@@ -34,10 +35,10 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
         "specializationInstitutionName",
         "specializationInstitutionPhone",
         "specializationName",
-        "roles",
         // received fields
         "id",
         "isEnabled",
+        "roles",
         "links",
         // sent fields
         "plainPassword",
@@ -53,19 +54,19 @@ public class Ca_User extends BaseModel {
 
     @DatabaseField(dataType = DataType.STRING, columnName = "email")
     @JsonProperty("email")
-    private String email;
+    private String email = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "firstname")
     @JsonProperty("firstname")
-    private String firstname;
+    private String firstname = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "lastname")
     @JsonProperty("lastname")
-    private String lastname;
+    private String lastname = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "birthday")
     @JsonProperty("birthday")
-    private String birthday;
+    private String birthday = null;
 
     @DatabaseField(dataType = DataType.INTEGER, columnName = "vkontakte_id")
     @JsonProperty("vkontakteId")
@@ -80,32 +81,33 @@ public class Ca_User extends BaseModel {
     private int specializationExperienceYears;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_graduation_date")
+    @JsonSerialize(include= JsonSerialize.Inclusion.ALWAYS)
     @JsonProperty("specializationGraduationDate")
-    private String specializationGraduationDate;
+    private String specializationGraduationDate = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_institution_address")
     @JsonProperty("specializationInstitutionAddress")
-    private String specializationInstitutionAddress;
+    private String specializationInstitutionAddress = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_institution_name")
     @JsonProperty("specializationInstitutionName")
-    private String specializationInstitutionName;
+    private String specializationInstitutionName = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_institution_phone")
     @JsonProperty("specializationInstitutionPhone")
-    private String specializationInstitutionPhone;
+    private String specializationInstitutionPhone = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_name")
     @JsonProperty("specializationName")
-    private String specializationName;
-
-    // implemented manually many_to_many
-    @JsonProperty("roles")
-    private Collection<String> roles = new ArrayList<>();
+    private String specializationName = null;
 
     @DatabaseField(dataType = DataType.BOOLEAN, columnName = "is_enabled")
     @JsonProperty("isEnabled")
     private boolean isEnabled;
+
+    // implemented manually many_to_many
+    @JsonProperty("roles")
+    private Collection<String> roles = new ArrayList<>();
 
     // links
     @DatabaseField(dataType = DataType.INTEGER, columnName = "region")
@@ -333,22 +335,6 @@ public class Ca_User extends BaseModel {
     }
 
     /**
-     * @return The roles
-     */
-    @JsonProperty("roles")
-    public List<String> getRoles() {
-        return roles == null ? null : new ArrayList<String>(roles);
-    }
-
-    /**
-     * @param roles The roles
-     */
-    @JsonProperty("roles")
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    /**
      * @return The isEnabled
      */
     @JsonProperty("isEnabled")
@@ -365,19 +351,19 @@ public class Ca_User extends BaseModel {
     }
 
     /**
-     * @return The region
+     * @return The roles
      */
-    @JsonProperty("region")
-    public int getRegion() {
-        return region;
+    @JsonProperty("roles")
+    public List<String> getRoles() {
+        return roles == null ? null : new ArrayList<String>(roles);
     }
 
     /**
-     * @param region The region
+     * @param roles The roles
      */
-    @JsonProperty("region")
-    public void setRegion(int region) {
-        this.region = region;
+    @JsonProperty("roles")
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     /**
@@ -394,6 +380,22 @@ public class Ca_User extends BaseModel {
     @JsonProperty("links")
     public void setLinks(JsonNode links) {
         this.links = links;
+    }
+
+    /**
+     * @return The region
+     */
+    @JsonProperty("region")
+    public int getRegion() {
+        return region;
+    }
+
+    /**
+     * @param region The region
+     */
+    @JsonProperty("region")
+    public void setRegion(int region) {
+        this.region = region;
     }
 
     /**
@@ -435,10 +437,8 @@ public class Ca_User extends BaseModel {
         objectNodeUnpacked.put("links", nodeLinks);
     }
 
-    public static ObjectNode caleanReceivedFields(ObjectNode objectNodeUncleaned) {
-        ObjectNode objectNodeCleaned = objectNodeUncleaned;
-        objectNodeCleaned.remove(Arrays.asList("id", "isEnabled", "links"));
-        return objectNodeCleaned;
+    public static void caleanReceivedFields(ObjectNode objectNodeUncleaned) {
+        objectNodeUncleaned.remove(Arrays.asList("id", "isEnabled", "roles", "vkontakteId", "facebookId"));
     }
 
 }

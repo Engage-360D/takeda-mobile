@@ -5,7 +5,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ public class CachedStringRequest extends StringRequest {
     private final int mMethod;
     private final Map<String, String> mHeaders;
     private final Map<String, String> mParams;
+    private final String mContentType;
     private final byte[] mBody;
 
     public CachedStringRequest(int method,
@@ -25,11 +25,32 @@ public class CachedStringRequest extends StringRequest {
         super(method, buildUrlWithParams(method, url, params), listener, errorListener);
 
         mMethod = method;
+        mContentType = findAndRemoveContentType(headers);
         mHeaders = headers;
         mParams = params;
         mBody = body;
 
         setShouldCache(true);
+    }
+
+    private String findAndRemoveContentType(Map<String, String> headers) {
+        Map.Entry<String, String> contentTypeEntry = null;
+        if (headers != null && !headers.isEmpty()) {
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                String key = entry.getKey();
+                if (key != null && "content-type".equals(key.toLowerCase())) {
+                    contentTypeEntry = entry;
+                    break;
+                }
+            }
+        }
+
+        if (contentTypeEntry != null) {
+            headers.remove(contentTypeEntry.getKey());
+            return contentTypeEntry.getValue();
+        }
+
+        return null;
     }
 
     @Override
@@ -70,6 +91,11 @@ public class CachedStringRequest extends StringRequest {
         } else {
             return super.getBody();
         }
+    }
+
+    @Override
+    public String getBodyContentType() {
+        return mContentType != null ? mContentType : super.getBodyContentType();
     }
 
     private static String buildUrlWithParams(int method, String url, Map<String, String> params) {
