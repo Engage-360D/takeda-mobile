@@ -21,6 +21,7 @@ import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppConfig;
 import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.ui.start.login_or_restore.LoginOrRestoreFragment;
 import ru.com.cardiomagnil.ui.start.registration.RegistrationFragment;
 import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.commands.RestorePassword;

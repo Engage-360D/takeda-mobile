@@ -160,4 +160,12 @@ public class Tools {
             }
         }
     }
+
+    public static boolean isValidEmail(CharSequence target) {
+        if (target == null || target.length() == 0) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
 }

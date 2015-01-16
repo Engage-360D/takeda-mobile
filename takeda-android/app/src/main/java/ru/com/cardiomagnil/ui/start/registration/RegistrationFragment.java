@@ -10,8 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -40,6 +38,7 @@ import ru.com.cardiomagnil.social.OkUser;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.start.CustomFragment;
+import ru.com.cardiomagnil.ui.start.SignInWithSocialNetwork;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
 
@@ -189,33 +188,10 @@ public class RegistrationFragment extends CustomFragment {
         spinnerRegion.setSelection(regionAdapter.getCount() - 1);
     }
 
-    private void initSocials(final View parentView) {
-        parentView
-                .findViewById(R.id.imageViewFB)
-                .setOnClickListener(
-                        new SignInWithSocialNetwork(this,
-                                this.getActivity(),
-                                new FbApi(),
-                                new RegisterUserOnFinish(this, FbUser.class)
-                        )
-                );
-        parentView
-                .findViewById(R.id.imageViewVK)
-                .setOnClickListener(
-                        new SignInWithSocialNetwork(this,
-                                this.getActivity(),
-                                new VkApi(),
-                                new RegisterUserOnFinish(this, VkUser.class))
-                );
-        parentView
-                .findViewById(R.id.imageViewOK)
-                .setOnClickListener(
-                        new SignInWithSocialNetwork(this,
-                                this.getActivity(),
-                                new OkApi(),
-                                new RegisterUserOnFinish(this, OkUser.class)
-                        )
-                );
+    private void initSocials(final View view) {
+        view.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(this, new FbApi(), new RegisterUserOnFinish(this, FbUser.class)));
+        view.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(this, new VkApi(), new RegisterUserOnFinish(this, VkUser.class)));
+        view.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(this, new OkApi(), new RegisterUserOnFinish(this, OkUser.class)));
     }
 
     private void initSignUpButton(final View parentView) {
@@ -267,6 +243,8 @@ public class RegistrationFragment extends CustomFragment {
         View errorCheckBoxCommon = validateCheckBoxFields(parentView, mRequiredCheckBoxCommon);
         View errorEditTextCommonDoctor = validateTextViewFields(parentView, mRequiredEditTextCommonDoctor);
         View errorEditTextPassword = validateTextViewPassword(parentView);
+
+        // FIXME: validate email - Tools.isValidEmail(...)
 
         RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
 

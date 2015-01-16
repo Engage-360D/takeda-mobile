@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.start;
+package ru.com.cardiomagnil.ui.start.login_or_restore;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,29 +15,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
-import ru.com.cardiomagnil.social.AuthorizationDialog;
-import ru.com.cardiomagnil.social.AuthorizationListener;
-import ru.com.cardiomagnil.social.BaseSocialApi;
 import ru.com.cardiomagnil.social.FbApi;
 import ru.com.cardiomagnil.social.FbUser;
 import ru.com.cardiomagnil.social.OkApi;
 import ru.com.cardiomagnil.social.OkUser;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
+import ru.com.cardiomagnil.ui.start.CustomFragment;
+import ru.com.cardiomagnil.ui.start.SignInWithSocialNetwork;
+import ru.com.cardiomagnil.ui.start.StartActivity;
+import ru.com.cardiomagnil.util.Tools;
 
 public class LoginOrRestoreFragment extends CustomFragment {
-    private View parentView;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.ca_fragment_start_login_or_restore, container, false);
-
-        initLoginOrRestoreFragment(parentView);
-
-        return parentView;
+        View view = inflater.inflate(R.layout.ca_fragment_start_login_or_restore, container, false);
+        initLoginOrRestoreFragment(view);
+        return view;
     }
 
     @Override
@@ -50,16 +45,20 @@ public class LoginOrRestoreFragment extends CustomFragment {
         textViewBottomOutsideAction.setText(getActivity().getString(R.string.two_minutes));
     }
 
-    private void initLoginOrRestoreFragment(View view) {
+    private void initLoginOrRestoreFragment(final View view) {
+        initLogin(view);
+        initRestore(view);
+        initLoginRestoreSwitcher(view);
+        initSocials(view);
+    }
+
+    private void initLogin(final View view) {
         final EditText editTextEmailLogin = (EditText) view.findViewById(R.id.editTextEmailLogin);
         final EditText editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
-        final EditText editTextEmailRestore = (EditText) view.findViewById(R.id.editTextEmailRestore);
         final Button buttonEnter = (Button) view.findViewById(R.id.buttonEnter);
-        final Button buttonRestore = (Button) view.findViewById(R.id.buttonRestore);
         final Button buttonRegister = (Button) view.findViewById(R.id.buttonRegister);
 
         editTextEmailLogin.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable arg0) {
             }
@@ -70,13 +69,11 @@ public class LoginOrRestoreFragment extends CustomFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                buttonEnter.setEnabled(isValidEmail(s) && editTextPassword.getText().length() != 0);
+                buttonEnter.setEnabled(Tools.isValidEmail(s) && editTextPassword.getText().length() != 0);
             }
-
         });
 
         editTextPassword.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable arg0) {
             }
@@ -87,68 +84,64 @@ public class LoginOrRestoreFragment extends CustomFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                buttonEnter.setEnabled(s.length() != 0 && isValidEmail(editTextEmailLogin.getText()));
+                buttonEnter.setEnabled(s.length() != 0 && Tools.isValidEmail(editTextEmailLogin.getText()));
             }
-
-        });
-
-        editTextEmailRestore.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                buttonRestore.setEnabled(isValidEmail(s));
-            }
-
         });
 
         buttonEnter.setEnabled(false);
         buttonEnter.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 tryAuthorization();
             }
         });
 
-        buttonRestore.setEnabled(false);
-        buttonRestore.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                tryRestore();
-            }
-        });
-
         buttonRegister.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 StartActivity startActivity = (StartActivity) getActivity();
                 startActivity.slideViewPager(true);
             }
         });
-
-        initSocials();
-        initLoginOrRestore();
     }
 
-    private void initLoginOrRestore() {
-        LinearLayout linearLayoutPerformLogin = (LinearLayout) parentView.findViewById(R.id.linearLayoutPerformLogin);
-        LinearLayout linearLayoutPerformRestore = (LinearLayout) parentView.findViewById(R.id.linearLayoutPerformRestore);
+    private void initRestore(final View view) {
+        final EditText editTextEmailRestore = (EditText) view.findViewById(R.id.editTextEmailRestore);
+        final Button buttonRestore = (Button) view.findViewById(R.id.buttonRestore);
 
-        final LinearLayout linearLayoutLogin = (LinearLayout) parentView.findViewById(R.id.linearLayoutLogin);
-        final LinearLayout linearLayoutRestore = (LinearLayout) parentView.findViewById(R.id.linearLayoutRestore);
+
+        editTextEmailRestore.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buttonRestore.setEnabled(Tools.isValidEmail(s));
+            }
+        });
+
+        buttonRestore.setEnabled(false);
+        buttonRestore.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryRestore();
+            }
+        });
+    }
+
+    private void initLoginRestoreSwitcher(final View view) {
+        LinearLayout linearLayoutPerformLogin = (LinearLayout) view.findViewById(R.id.linearLayoutPerformLogin);
+        LinearLayout linearLayoutPerformRestore = (LinearLayout) view.findViewById(R.id.linearLayoutPerformRestore);
+
+        final LinearLayout linearLayoutLogin = (LinearLayout) view.findViewById(R.id.linearLayoutLogin);
+        final LinearLayout linearLayoutRestore = (LinearLayout) view.findViewById(R.id.linearLayoutRestore);
 
         linearLayoutPerformLogin.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 linearLayoutLogin.setVisibility(View.VISIBLE);
@@ -157,13 +150,18 @@ public class LoginOrRestoreFragment extends CustomFragment {
         });
 
         linearLayoutPerformRestore.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 linearLayoutRestore.setVisibility(View.VISIBLE);
                 linearLayoutLogin.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void initSocials(final View view) {
+        view.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(this, new FbApi(), new RegisterUserOnFinish(this, FbUser.class)));
+        view.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(this, new VkApi(), new RegisterUserOnFinish(this, VkUser.class)));
+        view.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(this, new OkApi(), new RegisterUserOnFinish(this, OkUser.class)));
     }
 
     private void tryAuthorization() {
@@ -183,11 +181,11 @@ public class LoginOrRestoreFragment extends CustomFragment {
 
     private void tryRestore() {
         String email = pickRestoreFields();
-        if (isValidEmail(email)) {
+        if (Tools.isValidEmail(email)) {
             StartActivity startActivity = (StartActivity) getActivity();
             startActivity.restorePassword(email);
         } else {
-            Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getActivity(), this.getActivity().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -212,79 +210,12 @@ public class LoginOrRestoreFragment extends CustomFragment {
         return editTextEmailRestore.getText().toString();
     }
 
-    private void initSocials() {
-        parentView.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(new FbApi(), new RegisterUserOnFinish(FbUser.class)));
-        parentView.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(new VkApi(), new RegisterUserOnFinish(VkUser.class)));
-        parentView.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(new OkApi(), new RegisterUserOnFinish(OkUser.class)));
-    }
-
-    private class SignInWithSocialNetwork implements View.OnClickListener {
-        private BaseSocialApi mApi;
-        private AuthorizationListener mListener;
-
-        public SignInWithSocialNetwork(BaseSocialApi api, AuthorizationListener listener) {
-            mApi = api;
-            mListener = listener;
-        }
-
-        @Override
-        public void onClick(View v) {
-            StartActivity startActivity = (StartActivity) getActivity();
-            startActivity.showProgressDialog();
-
-            AuthorizationDialog dialog = new AuthorizationDialog(parentView.getContext(), mApi);
-            dialog.show(mListener);
-        }
-    }
-
-    private class RegisterUserOnFinish implements AuthorizationListener {
-        private Class<? extends ru.com.cardiomagnil.social.User> mUserClass;
-
-        public RegisterUserOnFinish(Class<? extends ru.com.cardiomagnil.social.User> userClass) {
-            mUserClass = userClass;
-        }
-
-        @Override
-        public void onAuthorized(String userInfo) {
-            try {
-                ru.com.cardiomagnil.social.User user = mUserClass.getConstructor(String.class).newInstance(userInfo);
-                initFields(user);
-                StartActivity startActivity = (StartActivity) getActivity();
-                startActivity.hideProgressDialog();
-            } catch (Exception e) {
-                e.printStackTrace();
-                ExeptionsHandler.getInstatce().handleException(getActivity(), e);
-                Toast.makeText(parentView.getContext(), R.string.authorization_error, Toast.LENGTH_LONG).show();
-            }
-        }
-
-        @Override
-        public void onAuthorizationFailed() {
-            StartActivity startActivity = (StartActivity) getActivity();
-            startActivity.hideProgressDialog();
-            Toast.makeText(parentView.getContext(), R.string.authorization_error, Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onAuthorizationCanceled() {
-            StartActivity startActivity = (StartActivity) getActivity();
-            startActivity.hideProgressDialog();
-        }
-    }
-
     private void initFields(ru.com.cardiomagnil.social.User user) {
-        final EditText editTextEmail = (EditText) parentView.findViewById(R.id.editTextEmailLogin);
+        final EditText editTextEmail = (EditText) this.getActivity().findViewById(R.id.editTextEmailLogin);
 
         if (!user.getEmail().isEmpty()) {
             editTextEmail.setText(user.getEmail());
         }
     }
 
-    public final static boolean isValidEmail(CharSequence target) {
-        if (target == null) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
-    }
 }
