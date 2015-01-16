@@ -11,11 +11,9 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import ru.com.cardiomagnil.ca_model.base.BaseModel;
@@ -81,7 +79,7 @@ public class Ca_User extends BaseModel {
     private int specializationExperienceYears;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_graduation_date")
-    @JsonSerialize(include= JsonSerialize.Inclusion.ALWAYS)
+    @JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
     @JsonProperty("specializationGraduationDate")
     private String specializationGraduationDate = null;
 
@@ -110,9 +108,9 @@ public class Ca_User extends BaseModel {
     private Collection<String> roles = new ArrayList<>();
 
     // links
-    @DatabaseField(dataType = DataType.INTEGER, columnName = "region")
+    @DatabaseField(dataType = DataType.STRING, columnName = "region")
     @JsonProperty("region")
-    private int region;
+    private String region;
 
     @JsonProperty("links")
     private JsonNode links;
@@ -386,7 +384,7 @@ public class Ca_User extends BaseModel {
      * @return The region
      */
     @JsonProperty("region")
-    public int getRegion() {
+    public String getRegion() {
         return region;
     }
 
@@ -394,7 +392,7 @@ public class Ca_User extends BaseModel {
      * @param region The region
      */
     @JsonProperty("region")
-    public void setRegion(int region) {
+    public void setRegion(String region) {
         this.region = region;
     }
 

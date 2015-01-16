@@ -19,6 +19,7 @@ import ru.com.cardiomagnil.ca_api.DataLoadSequence;
 import ru.com.cardiomagnil.ca_api.db.DbRequestHolder;
 import ru.com.cardiomagnil.ca_api.db.HelperFactory;
 import ru.com.cardiomagnil.ca_api.http.HttpRequestHolder;
+import ru.com.cardiomagnil.ca_model.common.Ca_DataWraper;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.role.Ca_UserRoleDao;
@@ -49,13 +50,13 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
             }
         };
 
-        ObjectMapper  mapper = new ObjectMapper ();
+        ObjectMapper mapper = new ObjectMapper ();
         mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, true);
 
         ObjectNode objectNode = new ObjectMapper().valueToTree(user);
         Ca_User.packLinks(objectNode);
         Ca_User.caleanReceivedFields(objectNode);
-        String packedUser = objectNode.toString();
+        String packedUser = Ca_DataWraper.wrap(objectNode).toString();
 
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder

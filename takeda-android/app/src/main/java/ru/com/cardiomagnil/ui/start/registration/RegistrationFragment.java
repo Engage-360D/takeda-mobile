@@ -423,7 +423,7 @@ public class RegistrationFragment extends CustomFragment {
             newUser.setFirstname(editTextFirstName.getText().toString());
             newUser.setLastname(editTextLastName.getText().toString());
             newUser.setEmail(editTextRegEmail.getText().toString());
-            newUser.setRegion(((Ca_Region) spinnerRegion.getTag()).getId());
+            newUser.setRegion(String.valueOf(((Ca_Region) spinnerRegion.getTag()).getId()));
             newUser.setBirthday(Tools.formatFullDate(((Calendar) textViewBirthDateValue.getTag()).getTime()));
             newUser.setPlainPassword(editTextPasswordFirst.getText().toString());
 
@@ -431,7 +431,7 @@ public class RegistrationFragment extends CustomFragment {
             newUser.setSpecializationInstitutionName(editTextSpecializationInstitutionName.getText().toString());
             newUser.setSpecializationInstitutionAddress(editTextSpecializationInstitutionAddress.getText().toString());
             newUser.setSpecializationInstitutionPhone(editTextSpecializationInstitutionPhone.getText().toString());
-            String specializationGraduationDate  = editTextSpecializationGraduationDate.getText().toString();
+            String specializationGraduationDate = editTextSpecializationGraduationDate.getText().toString();
             newUser.setSpecializationGraduationDate(specializationGraduationDate.isEmpty() ? null : specializationGraduationDate);
             newUser.setSpecializationExperienceYears(Integer.parseInt(editTextSpecializationExperienceYears.getText().toString()));
 
