@@ -21,7 +21,7 @@ public abstract class BaseVolleyDataLoader extends BaseDataLoader {
         ThtreadHelper.logThread("BaseVolleyDataLoader->handleSuccessResponse");
 
         if (volleyRequestHolder.getOnBeforeExtracted() != null) {
-            volleyRequestHolder.getOnBeforeExtracted().execute(response.getData());
+            volleyRequestHolder.getOnBeforeExtracted().execute(response);
         }
 
         T_IN resultIn = (T_IN) BaseModel.stringToObject(((Object) response.getData()).toString(), volleyRequestHolder.getTypeReference());

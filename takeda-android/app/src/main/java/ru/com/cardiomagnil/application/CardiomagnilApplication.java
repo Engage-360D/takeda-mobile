@@ -87,7 +87,7 @@ public class CardiomagnilApplication extends Application {
         authorization.setUsername(user.getEmail());
         authorization.setPassword(user.getPlainPassword());
         // TODO: add id field into user
-        // authorization.setClientId(user.getId);
+        // authorization.setClientId(user.getI d);
         appState.setAuthorization(authorization);
 
         TestResult testResult = new TestResult(appSharedPreferences.getPreference(AppSharedPreferences.PREFERENCES.results));

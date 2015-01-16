@@ -10,20 +10,34 @@ import ru.com.cardiomagnil.ca_api.base.BaseRequestHolder;
 import ru.com.cardiomagnil.util.CallbackOneReturnable;
 
 public class DbRequestHolder extends BaseRequestHolder {
+    /**
+     * complement if necessary
+     */
+    public enum QueryMethod {
+        query, queryForFirst
+    }
+
     private final List<QueryBuilder> mQueryBuilder;
-    protected CallbackOneReturnable mOnAfterExtracted;
+    private final QueryMethod mQueryMethod;
+    private final CallbackOneReturnable mOnAfterExtracted;
     private final DbDataLoader mDbDataLoader;
 
     private DbRequestHolder(
             List<QueryBuilder> queryBuilder,
+            QueryMethod queryMethod,
             CallbackOneReturnable onAfterExtracted) {
         mQueryBuilder = queryBuilder;
+        mQueryMethod = queryMethod;
         mOnAfterExtracted = onAfterExtracted;
         mDbDataLoader = new DbDataLoader();
     }
 
     public List<QueryBuilder> getQueryBuilder() {
         return mQueryBuilder;
+    }
+
+    public QueryMethod getQueryMethod() {
+        return mQueryMethod;
     }
 
     public CallbackOneReturnable getOnAfterExtracted() {
@@ -37,6 +51,7 @@ public class DbRequestHolder extends BaseRequestHolder {
 
     public static class Builder {
         private final List<QueryBuilder> mBuilderQueryBuilder = new ArrayList<QueryBuilder>();
+        private QueryMethod mBuilderQueryMethod = QueryMethod.query;
         private CallbackOneReturnable mBuilderOnAfterExtracted;
 
         public Builder(QueryBuilder queryBuilder) {
@@ -48,6 +63,11 @@ public class DbRequestHolder extends BaseRequestHolder {
             return this;
         }
 
+        public Builder setQueryMethod(QueryMethod queryMethod) {
+            mBuilderQueryMethod = queryMethod;
+            return this;
+        }
+
         public Builder setOnAfterExtracted(CallbackOneReturnable onOnAfterExtracted) {
             mBuilderOnAfterExtracted = onOnAfterExtracted;
             return this;
@@ -56,6 +76,7 @@ public class DbRequestHolder extends BaseRequestHolder {
         public DbRequestHolder create() {
             return new DbRequestHolder(
                     mBuilderQueryBuilder,
+                    mBuilderQueryMethod,
                     mBuilderOnAfterExtracted);
         }
     }

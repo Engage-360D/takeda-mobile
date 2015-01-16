@@ -172,7 +172,7 @@ public class LoginOrRestoreFragment extends CustomFragment {
         // FIXME: implement authorization
 
 //        if (user.validate(true)) {
-//            AppState.getInstatce().setUser(user);
+//            AppState.getInstatce().set User(user);
 //
 //            StartActivity startActivity = (StartActivity) getActivity();
 //            startActivity.userAuthorization();

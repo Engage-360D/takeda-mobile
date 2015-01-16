@@ -2,9 +2,7 @@ package ru.com.cardiomagnil.ca_model.user;
 
 import com.android.volley.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -21,8 +19,8 @@ import ru.com.cardiomagnil.ca_api.db.HelperFactory;
 import ru.com.cardiomagnil.ca_api.http.HttpRequestHolder;
 import ru.com.cardiomagnil.ca_model.common.Ca_DataWraper;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
-import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.role.Ca_UserRoleDao;
+import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.util.CallbackOne;
 
 public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
@@ -30,16 +28,16 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
         super(connectionSource, dataClass);
     }
 
-    public static void register(Ca_User user,
+    public static void register(final Ca_User user,
                                 final CallbackOne<Ca_User> onSuccess,
                                 final CallbackOne<Ca_Response> onFailure) {
         TypeReference typeReference = new TypeReference<Ca_User>() {
         };
 
-        CallbackOne<JsonNode> onOnBeforeExtract = new CallbackOne<JsonNode>() {
+        CallbackOne<Ca_Response> onOnBeforeExtract = new CallbackOne<Ca_Response>() {
             @Override
-            public void execute(JsonNode jsonNode) {
-                Ca_User.unPackLinks((ObjectNode) jsonNode);
+            public void execute(Ca_Response response) {
+                Ca_User.unPackLinks((ObjectNode) response.getData());
             }
         };
 
@@ -50,12 +48,9 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
             }
         };
 
-        ObjectMapper mapper = new ObjectMapper ();
-        mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, true);
-
         ObjectNode objectNode = new ObjectMapper().valueToTree(user);
         Ca_User.packLinks(objectNode);
-        Ca_User.caleanReceivedFields(objectNode);
+        Ca_User.cleanReceivedFields(objectNode);
         String packedUser = Ca_DataWraper.wrap(objectNode).toString();
 
         HttpRequestHolder httpRequestHolder =
@@ -76,9 +71,18 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
                 );
     }
 
-    public static void getById(final CallbackOne<Ca_User> onSuccess,
-                               final CallbackOne<Ca_Response> onFailure) {
+    public static void getById(final Ca_Token token,
+                               final CallbackOne<Ca_User> onSuccess,
+                               final CallbackOne<Ca_Response> onFailure,
+                               final boolean forceHttp) {
         TypeReference typeReference = new TypeReference<Ca_User>() {
+        };
+
+        CallbackOne<Ca_Response> onOnBeforeExtract = new CallbackOne<Ca_Response>() {
+            @Override
+            public void execute(Ca_Response response) {
+                Ca_User.unPackLinks((ObjectNode) response.getData());
+            }
         };
 
         CallbackOne<Ca_User> onStoreIntoDatabase = new CallbackOne<Ca_User>() {
@@ -88,25 +92,32 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
             }
         };
 
-        RuntimeExceptionDao helperFactoryRegion = HelperFactory.getHelper().getRuntimeDataDao(Ca_Region.class);
-        QueryBuilder queryBuilder = helperFactoryRegion.queryBuilder();
+        RuntimeExceptionDao helperFactoryUserDao = HelperFactory.getHelper().getRuntimeDataDao(Ca_User.class);
+        QueryBuilder queryBuilder = helperFactoryUserDao.queryBuilder();
+        try {
+            queryBuilder.where().idEq(token.getUserId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         DbRequestHolder dbRequestHolder =
                 new DbRequestHolder
                         .Builder(queryBuilder)
+                        .setQueryMethod(DbRequestHolder.QueryMethod.queryForFirst)
                         .create();
 
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
-                        .Builder(Request.Method.GET, Url.REGIONS, typeReference)
+                        .Builder(Request.Method.GET, String.format(Url.USERS_ID, token.getUserId()), typeReference)
+                        .addParam("token", token.getTokenId())
+                        .setOnBeforeExtract(onOnBeforeExtract)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
-
         DataLoadSequence dataLoadSequence =
                 new DataLoadSequence
-                        .Builder(dbRequestHolder)
-                        .addRequestHolder(httpRequestHolder)
+                        .Builder(forceHttp ? httpRequestHolder : dbRequestHolder)
+                        .addRequestHolder(forceHttp ? dbRequestHolder : httpRequestHolder)
                         .create();
 
         DataLoadDispatcher

@@ -187,19 +187,6 @@ public class RegistrationFragment extends CustomFragment {
         Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
         spinnerRegion.setAdapter(regionAdapter);
         spinnerRegion.setSelection(regionAdapter.getCount() - 1);
-        // FIXME
-//        spinnerRegion.setSelection(RUSSIA);
-        spinnerRegion.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // FIXME
-//                mCountry = regionItems[position];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
     }
 
     private void initSocials(final View parentView) {
@@ -267,7 +254,7 @@ public class RegistrationFragment extends CustomFragment {
                 }
         );
 
-//        AppState.getInstatce().setUser(newUser);
+//        AppState.getInstatce().set User(newUser);
 //        StartActivity startActivity = (StartActivity) getActivity();
 //        startActivity.userRegistration();
     }

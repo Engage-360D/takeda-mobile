@@ -37,7 +37,7 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
         "id",
         "isEnabled",
         "roles",
-        "links",
+        "",
         // sent fields
         "plainPassword",
         "isDoctor",
@@ -423,19 +423,23 @@ public class Ca_User extends BaseModel {
     }
 
     public static void unPackLinks(ObjectNode objectNodePacked) {
-        JsonNode jsonNode = objectNodePacked.get("links");
-        objectNodePacked.remove("links");
-        objectNodePacked.putAll((ObjectNode) jsonNode);
+        if (objectNodePacked != null) {
+            JsonNode jsonNode = objectNodePacked.get("links");
+            objectNodePacked.remove("links");
+            objectNodePacked.putAll((ObjectNode) jsonNode);
+        }
     }
 
     public static void packLinks(ObjectNode objectNodeUnpacked) {
-        ObjectNode nodeLinks = JsonNodeFactory.instance.objectNode();
-        nodeLinks.put("region", objectNodeUnpacked.get("region"));
-        objectNodeUnpacked.remove("region");
-        objectNodeUnpacked.put("links", nodeLinks);
+        if (objectNodeUnpacked != null) {
+            ObjectNode nodeLinks = JsonNodeFactory.instance.objectNode();
+            nodeLinks.put("region", objectNodeUnpacked.get("region"));
+            objectNodeUnpacked.remove("region");
+            objectNodeUnpacked.put("links", nodeLinks);
+        }
     }
 
-    public static void caleanReceivedFields(ObjectNode objectNodeUncleaned) {
+    public static void cleanReceivedFields(ObjectNode objectNodeUncleaned) {
         objectNodeUncleaned.remove(Arrays.asList("id", "isEnabled", "roles", "vkontakteId", "facebookId"));
     }
 

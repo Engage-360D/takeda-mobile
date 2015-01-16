@@ -35,7 +35,7 @@ public class UserRegistration extends SFBaseCommand {
 
         try {
             Api api = new Api();
-//            JsonObject jsonObjectUser = api.userRegistration(AppState.getInstatce().getUser());
+//            JsonObject jsonObjectUser = api.userRegistration(AppState.getInstatce().get User());
 
 //            if (jsonObjectUser != null && jsonObjectUser.has("id")) {
 //                result = "";
@@ -47,7 +47,7 @@ public class UserRegistration extends SFBaseCommand {
             // TODO: USER
             // User user = new User(jsonObjectUser);
             // if (user.isInitialized()) {
-            // AppState.getInstatce().setUser(user);
+            // AppState.getInstatce().set User(user);
             // result = "";
             // }
         } catch (Exception e) {

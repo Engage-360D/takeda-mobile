@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.base.BaseModel;
 import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
@@ -20,6 +21,7 @@ import ru.com.cardiomagnil.ca_model.role.Ca_Role;
 import ru.com.cardiomagnil.ca_model.role.Ca_RoleDao;
 import ru.com.cardiomagnil.ca_model.role.Ca_UserRoleDao;
 import ru.com.cardiomagnil.ca_model.role.Ca_UserRole;
+import ru.com.cardiomagnil.ca_model.token.Ca_TokenDao;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 
@@ -45,6 +47,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Ca_User.class);
             TableUtils.createTable(connectionSource, Ca_Role.class);
             TableUtils.createTable(connectionSource, Ca_UserRole.class);
+            TableUtils.createTable(connectionSource, Ca_Token.class);
         } catch (/*SQLException*/Exception e) {
             Log.e(CardiomagnilApplication.getInstance().getTag(), "error creating DB " + DATABASE_NAME);
             throw new RuntimeException(e);
@@ -59,6 +62,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Ca_User.class, true);
             TableUtils.dropTable(connectionSource, Ca_Role.class, true);
             TableUtils.dropTable(connectionSource, Ca_UserRole.class, true);
+            TableUtils.dropTable(connectionSource, Ca_Token.class, true);
 
             onCreate(db, connectionSource);
         } catch (/*SQLException*/Exception e) {
@@ -97,6 +101,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Ca_UserDao mUserDao;
     private Ca_RoleDao mRoleDao;
     private Ca_UserRoleDao mUserRoleDao;
+    private Ca_TokenDao mTokenDao;
 
     public Ca_RegionDao getRegionDao() {
         try {
@@ -137,6 +142,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 mUserRoleDao = new Ca_UserRoleDao(getConnectionSource(), Ca_UserRole.class);
             }
             return mUserRoleDao;
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not create DAO", e);
+        }
+    }
+
+    public Ca_TokenDao getTokenDao() {
+        try {
+            if (mTokenDao == null) {
+                mTokenDao = new Ca_TokenDao(getConnectionSource(), Ca_Token.class);
+            }
+            return mTokenDao;
         } catch (SQLException e) {
             throw new RuntimeException("Could not create DAO", e);
         }

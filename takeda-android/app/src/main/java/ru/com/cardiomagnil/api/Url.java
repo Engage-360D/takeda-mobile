@@ -10,6 +10,7 @@ public final class Url {
     public static final String API_ADDR = API_SCHEME + API_HOST + API_PREFIX;
 
     public static final String USERS = API_ADDR + "users";
+    public static final String USERS_ID = API_ADDR + "users/%s";
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
 
@@ -17,4 +18,14 @@ public final class Url {
     public static final HashMap<String, String> POST_HEADERS = new HashMap<String, String>() {{
         put("Content-Type", "application/vnd.api+json");
     }};
+
+    // TODO:
+    // /test-results
+    // /test-results /{id}
+    // /test-results /{id} /send-email
+
+    // /account - PUT
+    // /account /reset-password - POST
+    // /account/test-results - GET, POST
+
 }

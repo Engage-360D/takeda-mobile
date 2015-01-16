@@ -28,7 +28,17 @@ public class DbDataLoader extends BaseDataLoader {
         try {
             // FIXME: add to answers signs of request (necessary to properly matching responses to requests)
             for (QueryBuilder queryBuilder : queryBuilders) {
-                Object currentResult = queryBuilder.query();
+                Object currentResult = null;
+
+                switch (dbRequestHolder.getQueryMethod()) {
+                    case query:
+                        currentResult = queryBuilder.query();
+                        break;
+                    case queryForFirst:
+                        currentResult = queryBuilder.queryForFirst();
+                        break;
+                }
+
                 resultTmp.add(currentResult);
             }
         } catch (Exception e) {
