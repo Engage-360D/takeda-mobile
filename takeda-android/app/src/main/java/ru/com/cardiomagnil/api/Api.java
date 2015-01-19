@@ -22,8 +22,6 @@ import java.util.List;
 import ru.com.cardiomagnil.application.AppConfig;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.ca_model.user.Ca_User;
-import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.model.TestIncoming;
 import ru.com.cardiomagnil.model.Token;
 

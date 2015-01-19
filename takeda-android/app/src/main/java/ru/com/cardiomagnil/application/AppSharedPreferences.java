@@ -1,68 +1,88 @@
 package ru.com.cardiomagnil.application;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class AppSharedPreferences {
-    // ///////////////////////////////////////////////////////////////
-    // Singleton implementation
-    // ///////////////////////////////////////////////////////////////
-    private static AppSharedPreferences instance;
 
-    private AppSharedPreferences() {
-    }
+    public static enum PrefClass {
+        bln(Boolean.class),
+        flt(Float.class),
+        ntg(Integer.class),
+        lng(Long.class),
+        str(String.class);
 
-    public static AppSharedPreferences getInstatce() {
-        if (instance == null) {
-            synchronized (AppSharedPreferences.class) {
-                if (instance == null)
-                    instance = new AppSharedPreferences();
-            }
+        private final Class mPrefClass;
+
+        PrefClass(Class prefClass) {
+            this.mPrefClass = prefClass;
         }
 
-        return instance;
-    }
-
-    // ///////////////////////////////////////////////////////////////
-
-    public enum PREFERENCES {
-        // token
-        token,
-        // user
-        email, plain_password,
-        // results
-        results
-    };
-
-    private Map<PREFERENCES, String> mPreferences = new HashMap<PREFERENCES, String>();
-
-    public void load() {
-        SharedPreferences settings = CardiomagnilApplication.getAppContext().getSharedPreferences(AppConfig.PREFERENCES_NAME, 0);
-        for (PREFERENCES preference : PREFERENCES.values()) {
-            if (settings.contains(preference.name())) {
-                mPreferences.put(preference, settings.getString(preference.name(), ""));
-            }
+        public Class getValue() {
+            return mPrefClass;
         }
     }
 
-    public void save() {
-        SharedPreferences settings = CardiomagnilApplication.getAppContext().getSharedPreferences(AppConfig.PREFERENCES_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        for (Entry<PREFERENCES, String> entry : mPreferences.entrySet()) {
-            editor.putString(entry.getKey().name(), entry.getValue());
+    public static enum Preference {
+        patient("token", PrefClass.str);
+
+        private final String mPrefName;
+        private final PrefClass mPrefClass;
+
+        Preference(String prefName, PrefClass prefClass) {
+            this.mPrefName = prefName;
+            this.mPrefClass = prefClass;
         }
-        editor.commit();
+
+        public String getPrefName() {
+            return mPrefName;
+        }
+
+        public PrefClass getPrefClass() {
+            return mPrefClass;
+        }
     }
 
-    public String getPreference(PREFERENCES preference) {
-        return mPreferences.get(preference);
+    public static Object get(Preference preference) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CardiomagnilApplication.getAppContext());
+
+        switch (preference.getPrefClass()) {
+            case bln:
+                return preferences.getBoolean(preference.getPrefName(), false);
+            case flt:
+                return preferences.getFloat(preference.getPrefName(), 0.0F);
+            case ntg:
+                return preferences.getInt(preference.getPrefName(), 0);
+            case lng:
+                return preferences.getLong(preference.getPrefName(), 0);
+            case str:
+                return preferences.getString(preference.getPrefName(), "");
+        }
+        return null;
     }
 
-    public void setPreference(PREFERENCES preference, String value) {
-        mPreferences.put(preference, value);
+    public static void put(Preference preference, Object value) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CardiomagnilApplication.getAppContext());
+
+        switch (preference.getPrefClass()) {
+            case bln:
+                preferences.edit().putBoolean(preference.getPrefName(), (Boolean)value);
+                break;
+            case flt:
+                preferences.edit().putFloat(preference.getPrefName(), (Float)value);
+                break;
+            case ntg:
+                preferences.edit().putInt(preference.getPrefName(), (Integer)value);
+                break;
+            case lng:
+                preferences.edit().putLong(preference.getPrefName(), (Long)value);
+                break;
+            case str:
+                preferences.edit().putString(preference.getPrefName(), (String)value);
+                break;
+        }
+
+        preferences.edit().commit();
     }
 
 }
