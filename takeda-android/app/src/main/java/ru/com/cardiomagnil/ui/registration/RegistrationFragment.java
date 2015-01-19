@@ -1,5 +1,6 @@
-package ru.com.cardiomagnil.ui.start.registration;
+package ru.com.cardiomagnil.ui.registration;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -37,12 +38,12 @@ import ru.com.cardiomagnil.social.OkApi;
 import ru.com.cardiomagnil.social.OkUser;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
-import ru.com.cardiomagnil.ui.start.CustomFragment;
+import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.ui.start.SignInWithSocialNetwork;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
 
-public class RegistrationFragment extends CustomFragment {
+public class RegistrationFragment extends BaseStartFragment {
     private final int[] mRequiredEditTextCommon = new int[]{
             R.id.editTextFirstName,
             R.id.editTextLastName,
@@ -73,17 +74,17 @@ public class RegistrationFragment extends CustomFragment {
     }
 
     @Override
-    public void initParent() {
-        TextView textViewHeader = (TextView) getActivity().findViewById(R.id.textViewHeader);
+    public void initParent(Activity activity) {
+        TextView textViewHeader = (TextView) activity.findViewById(R.id.textViewHeader);
 
-        ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) getActivity().findViewById(R.id.progressBarBottomOutsideStartWork);
-        TextView textViewBottomOutsideAction = (TextView) getActivity().findViewById(R.id.textViewBottomOutsideAction);
+        ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) activity.findViewById(R.id.progressBarBottomOutsideStartWork);
+        TextView textViewBottomOutsideAction = (TextView) activity.findViewById(R.id.textViewBottomOutsideAction);
 
-        textViewHeader.setText(getActivity().getString(R.string.header_registration));
+        textViewHeader.setText(activity.getString(R.string.header_registration));
 
         progressBarBottomOutsideStartWork.setMax(3);
         progressBarBottomOutsideStartWork.setProgress(2);
-        textViewBottomOutsideAction.setText(getActivity().getString(R.string.two_minutes));
+        textViewBottomOutsideAction.setText(activity.getString(R.string.two_minutes));
     }
 
     private void initRegistrationFragment(final View view) {
@@ -123,7 +124,7 @@ public class RegistrationFragment extends CustomFragment {
         final CustomOnDateSetListener customOnDateSetListener = new CustomOnDateSetListener();
         final Calendar calendar = Calendar.getInstance();
         final DatePickerDialog dateDialog = new DatePickerDialog(
-                getActivity(),
+                parentView.getContext(),
                 customOnDateSetListener,
                 calendar.get(Calendar.YEAR) - ageLimt,
                 calendar.get(Calendar.MONTH),
@@ -180,7 +181,7 @@ public class RegistrationFragment extends CustomFragment {
     private void initSpinnerRegionHelper(View parentView, List<Ca_Region> regionsList) {
         regionsList.add(Ca_Region.createNoRegion(parentView.getContext()));
 
-        Ca_RegionAdapter regionAdapter = new Ca_RegionAdapter(this.getActivity(), R.layout.custom_spinner_item, R.layout.ca_spinner_item_dropdown, regionsList);
+        Ca_RegionAdapter regionAdapter = new Ca_RegionAdapter(parentView.getContext(), R.layout.custom_spinner_item, R.layout.ca_spinner_item_dropdown, regionsList);
         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
@@ -206,7 +207,7 @@ public class RegistrationFragment extends CustomFragment {
 
     private void tryRegistration(final View parentView) {
         if (!validateRegistrationFields(parentView)) {
-            Toast.makeText(getActivity(), getActivity().getString(R.string.complete_required_fields), Toast.LENGTH_LONG).show();
+            Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_required_fields), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -408,7 +409,7 @@ public class RegistrationFragment extends CustomFragment {
         return newUser;
     }
 
-    // FIXME!!!
+    // FIXME!!! remove getActivity!!!
     @SuppressWarnings("unchecked")
     public void initFields(ru.com.cardiomagnil.social.User user) {
         // FIXME!!!

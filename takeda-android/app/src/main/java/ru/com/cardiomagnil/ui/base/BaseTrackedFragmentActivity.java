@@ -1,13 +1,13 @@
 package ru.com.cardiomagnil.ui.base;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 
 import com.google.analytics.tracking.android.EasyTracker;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseTrackedFragmentActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();

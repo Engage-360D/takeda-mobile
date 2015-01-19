@@ -1,5 +1,6 @@
 package ru.com.cardiomagnil.ui.start;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.util.Tools;
 
-public class WelcomeFragment extends CustomFragment {
+public class WelcomeFragment extends BaseStartFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -19,12 +21,17 @@ public class WelcomeFragment extends CustomFragment {
         return view;
     }
 
-    public void initParent() {
-        ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) getActivity().findViewById(R.id.progressBarBottomOutsideStartWork);
-        TextView textViewBottomOutsideAction = (TextView) getActivity().findViewById(R.id.textViewBottomOutsideAction);
+    @Override
+    public void initParent(Activity activity) {
+        ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) activity.findViewById(R.id.progressBarBottomOutsideStartWork);
+        TextView textViewBottomOutsideAction = (TextView) activity.findViewById(R.id.textViewBottomOutsideAction);
+        View linearLayoutTop = activity.findViewById(R.id.linearLayoutTop);
+        View textViewBottom = activity.findViewById(R.id.textViewBottom);
 
         progressBarBottomOutsideStartWork.setMax(5);
         progressBarBottomOutsideStartWork.setProgress(1);
-        textViewBottomOutsideAction.setText(getActivity().getString(R.string.three_minutes));
+        textViewBottomOutsideAction.setText(activity.getString(R.string.three_minutes));
+        linearLayoutTop.setAlpha(0);
+        textViewBottom.setAlpha(0);
     }
 }

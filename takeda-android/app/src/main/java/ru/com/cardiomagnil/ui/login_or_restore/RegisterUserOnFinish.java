@@ -1,8 +1,5 @@
-package ru.com.cardiomagnil.ui.start.login_or_restore;
+package ru.com.cardiomagnil.ui.login_or_restore;
 
-import android.widget.Toast;
-
-import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.social.AuthorizationListener;
 import ru.com.cardiomagnil.ui.start.StartActivity;

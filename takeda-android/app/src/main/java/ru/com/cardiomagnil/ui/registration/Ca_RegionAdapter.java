@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.start.registration;
+package ru.com.cardiomagnil.ui.registration;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 
 public class Ca_RegionAdapter extends ArrayAdapter<Ca_Region> implements SpinnerAdapter {

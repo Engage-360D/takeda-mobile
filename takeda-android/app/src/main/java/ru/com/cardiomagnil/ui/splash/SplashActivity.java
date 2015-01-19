@@ -23,7 +23,7 @@ import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
 
 public class SplashActivity extends BaseActivity implements AnimationListener {
-    private int mMinAnimRepeats = 6; // >= 1, nice look for 2*n
+    private int mMinAnimRepeats = 2; // >= 1, nice look for 2*n
     private boolean mActivityStarted;
     private boolean nInitializationFinished;
     private boolean mIsLogined;

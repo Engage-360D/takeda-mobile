@@ -1,5 +1,6 @@
-package ru.com.cardiomagnil.ui.start.login_or_restore;
+package ru.com.cardiomagnil.ui.login_or_restore;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,12 +23,12 @@ import ru.com.cardiomagnil.social.OkApi;
 import ru.com.cardiomagnil.social.OkUser;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
-import ru.com.cardiomagnil.ui.start.CustomFragment;
+import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.ui.start.SignInWithSocialNetwork;
 import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.Tools;
 
-public class LoginOrRestoreFragment extends CustomFragment {
+public class LoginOrRestoreFragment extends BaseStartFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ca_fragment_start_login_or_restore, container, false);
@@ -36,13 +37,13 @@ public class LoginOrRestoreFragment extends CustomFragment {
     }
 
     @Override
-    public void initParent() {
-        ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) getActivity().findViewById(R.id.progressBarBottomOutsideStartWork);
-        TextView textViewBottomOutsideAction = (TextView) getActivity().findViewById(R.id.textViewBottomOutsideAction);
+    public void initParent(Activity activity) {
+        ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) activity.findViewById(R.id.progressBarBottomOutsideStartWork);
+        TextView textViewBottomOutsideAction = (TextView) activity.findViewById(R.id.textViewBottomOutsideAction);
 
         progressBarBottomOutsideStartWork.setMax(5);
         progressBarBottomOutsideStartWork.setProgress(2);
-        textViewBottomOutsideAction.setText(getActivity().getString(R.string.two_minutes));
+        textViewBottomOutsideAction.setText(activity.getString(R.string.two_minutes));
     }
 
     private void initLoginOrRestoreFragment(final View view) {
@@ -99,7 +100,7 @@ public class LoginOrRestoreFragment extends CustomFragment {
         buttonRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                StartActivity startActivity = (StartActivity) getActivity();
+                StartActivity startActivity = (StartActivity) v.getContext();
                 startActivity.slideViewPager(true);
             }
         });
@@ -179,6 +180,7 @@ public class LoginOrRestoreFragment extends CustomFragment {
 //        }
     }
 
+    // FIXME: remove getActivity
     private void tryRestore() {
         String email = pickRestoreFields();
         if (Tools.isValidEmail(email)) {
@@ -189,6 +191,7 @@ public class LoginOrRestoreFragment extends CustomFragment {
         }
     }
 
+    // FIXME: remove getActivity
     private Ca_User pickAuthorizationFields() {
         Ca_User user = new Ca_User();
 
@@ -205,11 +208,13 @@ public class LoginOrRestoreFragment extends CustomFragment {
         return user;
     }
 
+    // FIXME: remove getActivity
     private String pickRestoreFields() {
         EditText editTextEmailRestore = (EditText) getActivity().findViewById(R.id.editTextEmailRestore);
         return editTextEmailRestore.getText().toString();
     }
 
+    // FIXME: remove getActivity
     private void initFields(ru.com.cardiomagnil.social.User user) {
         final EditText editTextEmail = (EditText) this.getActivity().findViewById(R.id.editTextEmailLogin);
 

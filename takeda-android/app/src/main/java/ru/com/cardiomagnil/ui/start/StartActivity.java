@@ -3,74 +3,37 @@ package ru.com.cardiomagnil.ui.start;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-
-import java.util.List;
 
 import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.commands.RestorePassword;
-import ru.com.cardiomagnil.commands.UserAuthorization;
-import ru.com.cardiomagnil.commands.UserRegistration;
+import ru.com.cardiomagnil.ui.base.BaseStartFragment;
+import ru.com.cardiomagnil.ui.base.BaseTrackedFragmentActivity;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.ui.start.CustomAnimation.OnAnimationEndListener;
-import ru.com.cardiomagnil.ui.start.login_or_restore.LoginOrRestoreFragment;
-import ru.com.cardiomagnil.ui.start.registration.RegistrationFragment;
 import ru.com.cardiomagnil.util.TestMethods;
-import ru.com.cardiomagnil.util.Tools;
-import ru.com.cardiomagnil.widget.TrackedFragmentActivity;
 
-public class StartActivity extends TrackedFragmentActivity {
-    private final int AMOUNT_OF_START_FRAGMENTS = 3;
-    private CustomFragment[] mFragments = new CustomFragment[AMOUNT_OF_START_FRAGMENTS];
+public class StartActivity extends BaseTrackedFragmentActivity {
 
     private ProgressDialog mProgressDialog = null;
-    private int mUserAuthorizationRequestId = -1;
-    private int mUserRegistrationRequestId = -1;
-    private int mRestorePasswordRequestId = -1;
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt("userAuthorizationRequestId", mUserAuthorizationRequestId);
-        savedInstanceState.putInt("userRegistrationRequestId", mUserRegistrationRequestId);
-        savedInstanceState.putInt("restorePasswordRequestId", mRestorePasswordRequestId);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mUserAuthorizationRequestId = savedInstanceState.getInt("userAuthorizationRequestId");
-        mUserRegistrationRequestId = savedInstanceState.getInt("userRegistrationRequestId");
-        mRestorePasswordRequestId = savedInstanceState.getInt("restorePasswordRequestId");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
         initStartActivity();
         customizeIfDebug();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        clearFragments();
-    }
-
-    // direction = true - forward
-    // direction = false - backward
+    /**
+     * @param direction direction = true - forward;
+     *                  direction = false - backward
+     */
     public void slideViewPager(boolean direction) {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerContent);
         int item = viewPager.getCurrentItem() + (direction ? 1 : -1);
@@ -90,38 +53,20 @@ public class StartActivity extends TrackedFragmentActivity {
         }
     }
 
-    private void clearFragments() {
-        for (int counter = 0; counter < mFragments.length; ++counter) {
-            mFragments[counter] = null;
-        }
-    }
-
-    private void initFragments(List<Fragment> customFragments) {
-        int amountOfFragments = (customFragments.size() < AMOUNT_OF_START_FRAGMENTS) ? customFragments.size() : AMOUNT_OF_START_FRAGMENTS;
-
-        for (int counter = 0; counter < amountOfFragments; ++counter) {
-            mFragments[counter] = (CustomFragment) customFragments.get(counter);
-        }
-    }
+//    private void initFragments(List<Fragment> customFragments) {
+//        int amountOfFragments = (customFragments.size() < AMOUNT_OF_START_FRAGMENTS) ? customFragments.size() : AMOUNT_OF_START_FRAGMENTS;
+//
+//        for (int counter = 0; counter < amountOfFragments; ++counter) {
+//            mFragments[counter] = (CustomFragment) customFragments.get(counter);
+//        }
+//    }
 
     private void initStartActivity() {
-        ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) findViewById(R.id.progressBarBottomOutsideStartWork);
-        progressBarBottomOutsideStartWork.setMax(5);
-        progressBarBottomOutsideStartWork.setProgress(2);
+        final ViewPager pager = (ViewPager) findViewById(R.id.viewPagerContent);
+        final CustomFragmentPagerAdapter customFragmentPagerAdapter = new CustomFragmentPagerAdapter(getSupportFragmentManager());
 
-        View linearLayoutTop = findViewById(R.id.linearLayoutTop);
-        View textViewBottom = findViewById(R.id.textViewBottom);
-        linearLayoutTop.setAlpha(0);
-        textViewBottom.setAlpha(0);
-
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (fragments != null) {
-            initFragments(fragments);
-        }
-
-        ViewPager pager = (ViewPager) findViewById(R.id.viewPagerContent);
-        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-
+        pager.setOffscreenPageLimit((customFragmentPagerAdapter.getCount() + 1) / 2);
+        pager.setAdapter(customFragmentPagerAdapter);
         pager.setOnPageChangeListener(new OnPageChangeListener() {
 
             @Override
@@ -136,17 +81,20 @@ public class StartActivity extends TrackedFragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-                initStartActivityAccordingCurrentFragment(position);
+                initStartActivityAccordingCurrentFragment(customFragmentPagerAdapter, position);
             }
         });
+
+        pager.setCurrentItem(0);
+        ((BaseStartFragment)customFragmentPagerAdapter.getItem(0)).initParent(StartActivity.this);
     }
 
-    private void initStartActivityAccordingCurrentFragment(int position) {
+    private void initStartActivityAccordingCurrentFragment(CustomFragmentPagerAdapter customFragmentPagerAdapter, int position) {
         View linearLayoutTop = findViewById(R.id.linearLayoutTop);
         View textViewBottom = findViewById(R.id.textViewBottom);
         View linearLayoutProgress = findViewById(R.id.linearLayoutProgress);
 
-        final CustomFragment currentFragment = mFragments[position];
+        final BaseStartFragment currentFragment = (BaseStartFragment) customFragmentPagerAdapter.getItem(position);
 
         animateTopAndBottom(linearLayoutTop, position != 0);
         animateTopAndBottom(textViewBottom, position != 0);
@@ -162,7 +110,7 @@ public class StartActivity extends TrackedFragmentActivity {
         }
     }
 
-    private void fadeOut(final CustomFragment customFragment, final View view) {
+    private void fadeOut(final BaseStartFragment customFragment, final View view) {
         view.setAlpha(1.0F);
         new CustomAnimation
         /**/.Builder(AnimationUtils.loadAnimation(this, R.anim.bottom_fade_out), view)
@@ -172,7 +120,7 @@ public class StartActivity extends TrackedFragmentActivity {
             public void onAnimationEnd(Animation animation) {
                 view.setAlpha(0.0F);
                 if (customFragment != null) {
-                    customFragment.initParent();
+                    customFragment.initParent(StartActivity.this);
                     fadeIn(customFragment, view);
                 }
             }
@@ -181,7 +129,7 @@ public class StartActivity extends TrackedFragmentActivity {
         /**/.startAnimation();
     }
 
-    private void fadeIn(final CustomFragment CustomFragment, final View view) {
+    private void fadeIn(final BaseStartFragment customFragment, final View view) {
         view.setAlpha(1.0F);
         new CustomAnimation
         /**/.Builder(AnimationUtils.loadAnimation(this, R.anim.bottom_fade_in), view)
@@ -194,42 +142,6 @@ public class StartActivity extends TrackedFragmentActivity {
         })
         /**/.build()
         /**/.startAnimation();
-    }
-
-    private class MyPagerAdapter extends FragmentPagerAdapter {
-
-        public MyPagerAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        @Override
-        public Fragment getItem(int pos) {
-            switch (pos) {
-
-                case 0:
-                    if (mFragments[0] == null) {
-                        mFragments[0] = new WelcomeFragment();
-                        mFragments[0].setInitParentAtFirstTime(true);
-                    }
-                    return mFragments[0];
-                case 1:
-                    if (mFragments[1] == null) {
-                        mFragments[1] = new LoginOrRestoreFragment();
-                    }
-                    return mFragments[1];
-                case 2:
-                    if (mFragments[2] == null) {
-                        mFragments[2] = new RegistrationFragment();
-                    }
-                    return mFragments[2];
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return AMOUNT_OF_START_FRAGMENTS;
-        }
     }
 
     // FIXME
@@ -250,64 +162,68 @@ public class StartActivity extends TrackedFragmentActivity {
 //        showProgressDialog();
     }
 
+    // FIXME
+
     /**
      * userRegistration -> userAuthorization -> startSlidingMenu
      */
     public void userRegistration() {
-        mUserRegistrationRequestId = getServiceHelper().executeCommand(new UserRegistration());
-        showProgressDialog();
+//        mUserRegistrationRequestId = getServiceHelper().executeCommand(new UserRegistration());
+//        showProgressDialog();
     }
+
+    // FIXME
 
     /**
      * restorePassword -> showAlertDialog
      */
     public void restorePassword(String emai) {
-        mUserRegistrationRequestId = getServiceHelper().executeCommand(new RestorePassword(emai));
-        showProgressDialog();
+//        mUserRegistrationRequestId = getServiceHelper().executeCommand(new RestorePassword(emai));
+//        showProgressDialog();
     }
 
-    @Override
+    // FIXME
     public void onServiceCallback(int requestId, Intent requestIntent, int resultCode, Bundle resultData) {
-        super.onServiceCallback(requestId, requestIntent, resultCode, resultData);
-
-        if (getServiceHelper().check(requestIntent, UserAuthorization.class)) {
-            if (resultCode == UserAuthorization.RESPONSE_SUCCESS) {
-                hideProgressDialog();
-                storePreferences();
-                startSlidingMenu();
-            } else if (resultCode == UserAuthorization.RESPONSE_PROGRESS) {
-                // do nothing
-            } else {
-                hideProgressDialog();
-                Tools.showAlertDialog(this, resultData.getString("error"), false);
-            }
-            return;
-        }
-
-        if (getServiceHelper().check(requestIntent, UserRegistration.class)) {
-            if (resultCode == UserRegistration.RESPONSE_SUCCESS) {
-                userAuthorization();
-            } else if (resultCode == UserRegistration.RESPONSE_PROGRESS) {
-                // do nothing
-            } else {
-                hideProgressDialog();
-                Tools.showAlertDialog(this, resultData.getString("error"), false);
-            }
-            return;
-        }
-
-        if (getServiceHelper().check(requestIntent, RestorePassword.class)) {
-            if (resultCode == RestorePassword.RESPONSE_SUCCESS) {
-                hideProgressDialog();
-                Tools.showAlertDialog(this, getResources().getString(R.string.restoring_info_sent), false);
-            } else if (resultCode == RestorePassword.RESPONSE_PROGRESS) {
-                // do nothing
-            } else {
-                hideProgressDialog();
-                Tools.showAlertDialog(this, resultData.getString("error"), false);
-            }
-            return;
-        }
+//        super.onServiceCallback(requestId, requestIntent, resultCode, resultData);
+//
+//        if (getServiceHelper().check(requestIntent, UserAuthorization.class)) {
+//            if (resultCode == UserAuthorization.RESPONSE_SUCCESS) {
+//                hideProgressDialog();
+//                storePreferences();
+//                startSlidingMenu();
+//            } else if (resultCode == UserAuthorization.RESPONSE_PROGRESS) {
+//                // do nothing
+//            } else {
+//                hideProgressDialog();
+//                Tools.showAlertDialog(this, resultData.getString("error"), false);
+//            }
+//            return;
+//        }
+//
+//        if (getServiceHelper().check(requestIntent, UserRegistration.class)) {
+//            if (resultCode == UserRegistration.RESPONSE_SUCCESS) {
+//                userAuthorization();
+//            } else if (resultCode == UserRegistration.RESPONSE_PROGRESS) {
+//                // do nothing
+//            } else {
+//                hideProgressDialog();
+//                Tools.showAlertDialog(this, resultData.getString("error"), false);
+//            }
+//            return;
+//        }
+//
+//        if (getServiceHelper().check(requestIntent, RestorePassword.class)) {
+//            if (resultCode == RestorePassword.RESPONSE_SUCCESS) {
+//                hideProgressDialog();
+//                Tools.showAlertDialog(this, getResources().getString(R.string.restoring_info_sent), false);
+//            } else if (resultCode == RestorePassword.RESPONSE_PROGRESS) {
+//                // do nothing
+//            } else {
+//                hideProgressDialog();
+//                Tools.showAlertDialog(this, resultData.getString("error"), false);
+//            }
+//            return;
+//        }
     }
 
     // FIXME

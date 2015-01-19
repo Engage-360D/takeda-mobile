@@ -15,7 +15,7 @@ public class AppSharedPreferences {
         private final java.lang.Class mPrefClass;
 
         Class(java.lang.Class prefClass) {
-            this.mPrefClass = prefClass;
+            mPrefClass = prefClass;
         }
 
         public java.lang.Class getValue() {
@@ -30,8 +30,8 @@ public class AppSharedPreferences {
         private final Class mClass;
 
         Preference(String prefName, Class prefClass) {
-            this.mPrefName = prefName;
-            this.mClass = prefClass;
+            mPrefName = prefName;
+            mClass = prefClass;
         }
 
         public String getPrefName() {
