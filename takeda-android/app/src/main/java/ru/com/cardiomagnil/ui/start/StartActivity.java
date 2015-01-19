@@ -18,19 +18,15 @@ import java.util.List;
 
 import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppConfig;
-import ru.com.cardiomagnil.application.AppSharedPreferences;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.ui.start.login_or_restore.LoginOrRestoreFragment;
-import ru.com.cardiomagnil.ui.start.registration.RegistrationFragment;
-import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.commands.RestorePassword;
 import ru.com.cardiomagnil.commands.UserAuthorization;
 import ru.com.cardiomagnil.commands.UserRegistration;
-import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.ui.start.CustomAnimation.OnAnimationEndListener;
+import ru.com.cardiomagnil.ui.start.login_or_restore.LoginOrRestoreFragment;
+import ru.com.cardiomagnil.ui.start.registration.RegistrationFragment;
 import ru.com.cardiomagnil.util.TestMethods;
+import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.widget.TrackedFragmentActivity;
 
 public class StartActivity extends TrackedFragmentActivity {
@@ -236,20 +232,22 @@ public class StartActivity extends TrackedFragmentActivity {
         }
     }
 
+    // FIXME
+
     /**
      * userAuthorization -> startSlidingMenu
      */
     public void userAuthorization() {
-        Authorization authorization = new Authorization();
-        authorization.setClientId(AppConfig.CLIENT_ID);
-        authorization.setClientSecret(AppConfig.CLIENT_SECRET);
-        authorization.setGrantType(AppConfig.GRANT_TYPE);
-        authorization.setUsername(AppState.getInstatce().getUser().getEmail());
-        authorization.setPassword(AppState.getInstatce().getUser().getPlainPassword());
-        AppState.getInstatce().setAuthorization(authorization);
-
-        mUserAuthorizationRequestId = getServiceHelper().executeCommand(new UserAuthorization());
-        showProgressDialog();
+//        Authorization authorization = new Authorization();
+//        authorization.setClientId(AppConfig.CLIENT_ID);
+//        authorization.setClientSecret(AppConfig.CLIENT_SECRET);
+//        authorization.setGrantType(AppConfig.GRANT_TYPE);
+//        authorization.setUsername(AppState.getInstatce().getUser().getEmail());
+//        authorization.setPassword(AppState.getInstatce().getUser().getPlainPassword());
+//        AppState.getInstatce().setAuthorization(authorization);
+//
+//        mUserAuthorizationRequestId = getServiceHelper().executeCommand(new UserAuthorization());
+//        showProgressDialog();
     }
 
     /**
@@ -312,15 +310,16 @@ public class StartActivity extends TrackedFragmentActivity {
         }
     }
 
+    // FIXME
     private void storePreferences() {
-        AppSharedPreferences appSharedPreferences = AppSharedPreferences.getInstatce();
-        AppState appState = AppState.getInstatce();
-
-        appSharedPreferences.load();
-        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.token, appState.getToken().getAsJson().toString());
-        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.email, appState.getUser().getEmail());
-        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.plain_password, appState.getUser().getPlainPassword());
-        appSharedPreferences.save();
+//        AppSharedPreferences appSharedPreferences = AppSharedPreferences.getInstatce();
+//        AppState appState = AppState.getInstatce();
+//
+//        appSharedPreferences.load();
+//        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.token, appState.getToken().getAsJson().toString());
+//        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.email, appState.getUser().getEmail());
+//        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.plain_password, appState.getUser().getPlainPassword());
+//        appSharedPreferences.save();
     }
 
     private void startSlidingMenu() {

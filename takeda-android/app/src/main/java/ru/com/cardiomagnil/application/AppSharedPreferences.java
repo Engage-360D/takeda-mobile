@@ -5,41 +5,41 @@ import android.preference.PreferenceManager;
 
 public class AppSharedPreferences {
 
-    public static enum PrefClass {
+    public static enum Class {
         bln(Boolean.class),
         flt(Float.class),
         ntg(Integer.class),
         lng(Long.class),
         str(String.class);
 
-        private final Class mPrefClass;
+        private final java.lang.Class mPrefClass;
 
-        PrefClass(Class prefClass) {
+        Class(java.lang.Class prefClass) {
             this.mPrefClass = prefClass;
         }
 
-        public Class getValue() {
+        public java.lang.Class getValue() {
             return mPrefClass;
         }
     }
 
     public static enum Preference {
-        patient("token", PrefClass.str);
+        tokenId("token_id", Class.str);
 
         private final String mPrefName;
-        private final PrefClass mPrefClass;
+        private final Class mClass;
 
-        Preference(String prefName, PrefClass prefClass) {
+        Preference(String prefName, Class prefClass) {
             this.mPrefName = prefName;
-            this.mPrefClass = prefClass;
+            this.mClass = prefClass;
         }
 
         public String getPrefName() {
             return mPrefName;
         }
 
-        public PrefClass getPrefClass() {
-            return mPrefClass;
+        public Class getPrefClass() {
+            return mClass;
         }
     }
 
@@ -66,19 +66,19 @@ public class AppSharedPreferences {
 
         switch (preference.getPrefClass()) {
             case bln:
-                preferences.edit().putBoolean(preference.getPrefName(), (Boolean)value);
+                preferences.edit().putBoolean(preference.getPrefName(), (Boolean) value);
                 break;
             case flt:
-                preferences.edit().putFloat(preference.getPrefName(), (Float)value);
+                preferences.edit().putFloat(preference.getPrefName(), (Float) value);
                 break;
             case ntg:
-                preferences.edit().putInt(preference.getPrefName(), (Integer)value);
+                preferences.edit().putInt(preference.getPrefName(), (Integer) value);
                 break;
             case lng:
-                preferences.edit().putLong(preference.getPrefName(), (Long)value);
+                preferences.edit().putLong(preference.getPrefName(), (Long) value);
                 break;
             case str:
-                preferences.edit().putString(preference.getPrefName(), (String)value);
+                preferences.edit().putString(preference.getPrefName(), (String) value);
                 break;
         }
 

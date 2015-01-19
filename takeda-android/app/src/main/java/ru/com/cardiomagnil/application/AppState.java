@@ -1,13 +1,11 @@
 package ru.com.cardiomagnil.application;
 
+import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
-import ru.com.cardiomagnil.model.Authorization;
 import ru.com.cardiomagnil.model.TestIncoming;
 import ru.com.cardiomagnil.model.TestResult;
 import ru.com.cardiomagnil.model.TestResultPage;
-import ru.com.cardiomagnil.model.Token;
 import ru.evilduck.framework.SFApplicationState;
-
 
 public class AppState {
     // ///////////////////////////////////////////////////////////////
@@ -31,34 +29,14 @@ public class AppState {
 
     // ///////////////////////////////////////////////////////////////
 
-    private Authorization mAuthorization;
-    private TestIncoming mTestIncoming;
-    private Token mToken;
+    private Ca_Token mToken;
     private Ca_User mUser;
-    private TestResult mTestResult;
-    private TestResultPage mTestResultPage;
 
-    public Authorization getAuthorization() {
-        return mAuthorization;
-    }
-
-    public void setAuthorization(Authorization authorization) {
-        mAuthorization = authorization;
-    }
-
-    public TestIncoming getTestIncoming() {
-        return mTestIncoming;
-    }
-
-    public void setTestIncoming(TestIncoming testIncoming) {
-        mTestIncoming = testIncoming;
-    }
-
-    public Token getToken() {
+    public Ca_Token getToken() {
         return mToken;
     }
 
-    public void setToken(Token token) {
+    public void setToken(Ca_Token token) {
         mToken = token;
     }
 
@@ -69,6 +47,22 @@ public class AppState {
     public void setUser(Ca_User user) {
         mUser = user;
     }
+
+
+    // *****************************************************************
+
+    private TestIncoming mTestIncoming;
+    private TestResult mTestResult;
+    private TestResultPage mTestResultPage;
+
+    public TestIncoming getTestIncoming() {
+        return mTestIncoming;
+    }
+
+    public void setTestIncoming(TestIncoming testIncoming) {
+        mTestIncoming = testIncoming;
+    }
+
 
     public TestResult getTestResult() {
         return mTestResult;

@@ -29,10 +29,23 @@ public class Ca_TokenDao extends BaseDaoImpl<Ca_Token, Integer> {
     public static void getByUserId(final String userId,
                                    final CallbackOne<Ca_Token> onSuccess,
                                    final CallbackOne<Ca_Response> onFailure) {
+        getByIdHelper("user_id", userId, onSuccess, onFailure);
+    }
+
+    public static void getByTokenId(final String tokenId,
+                                    final CallbackOne<Ca_Token> onSuccess,
+                                    final CallbackOne<Ca_Response> onFailure) {
+        getByIdHelper("token_id", tokenId, onSuccess, onFailure);
+    }
+
+    private static void getByIdHelper(final String idField,
+                                      final String idValue,
+                                      final CallbackOne<Ca_Token> onSuccess,
+                                      final CallbackOne<Ca_Response> onFailure) {
         RuntimeExceptionDao helperFactoryTokenDao = HelperFactory.getHelper().getRuntimeDataDao(Ca_Token.class);
         QueryBuilder queryBuilder = helperFactoryTokenDao.queryBuilder();
         try {
-            queryBuilder.where().idEq(userId);
+            queryBuilder.where().eq(idField, idValue);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,6 +64,7 @@ public class Ca_TokenDao extends BaseDaoImpl<Ca_Token, Integer> {
                         onFailure
                 );
     }
+
 
     public static void getByLgnPwd(final Ca_UserLgnPwd userLgnPwd,
                                    final CallbackOne<Ca_Token> onSuccess,

@@ -31,25 +31,26 @@ public class GetTestResults extends SFBaseCommand {
         }
     }
 
+    // FIXME
     private String getTestResults(Context context) {
         String result = context.getString(R.string.error_get_test_results);
 
-        try {
-            Api api = new Api();
-            JsonObject jsonObjectTestResult = api.testResults(AppState.getInstatce().getTestIncoming(), AppState.getInstatce().getToken());
-
-            TestResult testResult = new TestResult(jsonObjectTestResult);
-            if (testResult.isInitialized()) {
-                AppState.getInstatce().setTestResult(testResult);
-                result = "";
-                // TODO: убрать костыль: попросить коллег на том конце переделать API - нужны коды ошибок
-            } else if (jsonObjectTestResult.toString().equals("{\"_form\":[\"Test already passed by user.\"]}")) {
-                result = context.getString(R.string.error_tets_already_passed);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
-        }
+//        try {
+//            Api api = new Api();
+//            JsonObject jsonObjectTestResult = api.testResults(AppState.getInstatce().getTestIncoming(), AppState.getInstatce().getToken());
+//
+//            TestResult testResult = new TestResult(jsonObjectTestResult);
+//            if (testResult.isInitialized()) {
+//                AppState.getInstatce().setTestResult(testResult);
+//                result = "";
+//                // TODO: убрать костыль: попросить коллег на том конце переделать API - нужны коды ошибок
+//            } else if (jsonObjectTestResult.toString().equals("{\"_form\":[\"Test already passed by user.\"]}")) {
+//                result = context.getString(R.string.error_tets_already_passed);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
+//        }
 
         return result;
     }

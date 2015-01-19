@@ -211,13 +211,14 @@ public class SlidingMenuActivity extends SlidingFragmentActivity {
         }
     }
 
+    // FIXME
     private void storePreferences() {
-        AppSharedPreferences appSharedPreferences = AppSharedPreferences.getInstatce();
-        AppState appState = AppState.getInstatce();
-
-        appSharedPreferences.load();
-        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.results, appState.getTestResult().getAsJson().toString());
-        appSharedPreferences.save();
+//        AppSharedPreferences appSharedPreferences = AppSharedPreferences.getInstatce();
+//        AppState appState = AppState.getInstatce();
+//
+//        appSharedPreferences.load();
+//        appSharedPreferences.setPreference(AppSharedPreferences.PREFERENCES.results, appState.getTestResult().getAsJson().toString());
+//        appSharedPreferences.save();
     }
 
     public void showProgressDialog() {

@@ -23,43 +23,33 @@ import ru.com.cardiomagnil.application.AppConfig;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.model.TestIncoming;
-import ru.com.cardiomagnil.model.Token;
 
 public class Api {
     private final String mAppServerOAuthURL = /*                                                            */
-    AppConfig.APPLICATION_SERVER_SCHEMA + /*                                                                */
-    "://" + /*                                                                                              */
-    AppConfig.APPLICATION_SERVER_HOST + /*                                                                  */
-    (AppConfig.APPLICATION_SERVER_PORT.equals("80") ? "" : ":" + AppConfig.APPLICATION_SERVER_PORT) + /*    */
-    "/" + /*                                                                                                */
-    AppConfig.APPLICATION_SERVER_OAUTH;
+            AppConfig.APPLICATION_SERVER_SCHEMA + /*                                                                */
+                    "://" + /*                                                                                              */
+                    AppConfig.APPLICATION_SERVER_HOST + /*                                                                  */
+                    (AppConfig.APPLICATION_SERVER_PORT.equals("80") ? "" : ":" + AppConfig.APPLICATION_SERVER_PORT) + /*    */
+                    "/" + /*                                                                                                */
+                    AppConfig.APPLICATION_SERVER_OAUTH;
 
     private final String mAppServerApiURL = /*                                                              */
-    AppConfig.APPLICATION_SERVER_SCHEMA + /*                                                                */
-    "://" + /*                                                                                              */
-    AppConfig.APPLICATION_SERVER_HOST + /*                                                                  */
-    (AppConfig.APPLICATION_SERVER_PORT.equals("80") ? "" : ":" + AppConfig.APPLICATION_SERVER_PORT) + /*    */
-    "/" + /*                                                                                                */
-    AppConfig.APPLICATION_SERVER_API;
+            AppConfig.APPLICATION_SERVER_SCHEMA + /*                                                                */
+                    "://" + /*                                                                                              */
+                    AppConfig.APPLICATION_SERVER_HOST + /*                                                                  */
+                    (AppConfig.APPLICATION_SERVER_PORT.equals("80") ? "" : ":" + AppConfig.APPLICATION_SERVER_PORT) + /*    */
+                    "/" + /*                                                                                                */
+                    AppConfig.APPLICATION_SERVER_API;
 
     private final String REQUEST_AUTHORIZATION = mAppServerOAuthURL + "/token";
     private final String REQUEST_REGISTRATION = mAppServerApiURL + "/users";
     private final String REQUEST_TEST_RESULTS = mAppServerApiURL + "/test-results/";
     private final String REQUEST_RESET_PASSWORD = mAppServerApiURL + "/users/reset";
 
-    public JsonObject userAuthorization(Authorization authorization) {
-        return performGet(REQUEST_AUTHORIZATION, authorization.asValuePairs());
-    }
-
     public JsonObject restorePassword(String email) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("username", email);
         return performPost(REQUEST_RESET_PASSWORD, jsonObject, null);
-    }
-
-    public JsonObject testResults(TestIncoming testIncoming, Token token) {
-        BasicHeader header = new BasicHeader("Authorization", "Bearer " + token.getAccessToken());
-        return performPost(REQUEST_TEST_RESULTS, testIncoming.getAsJson(), new Header[] { header });
     }
 
     private JsonObject performGet(String url, List<NameValuePair> nameValuePairs) {

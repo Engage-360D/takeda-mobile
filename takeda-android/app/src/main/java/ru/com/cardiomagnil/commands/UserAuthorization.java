@@ -1,19 +1,13 @@
 package ru.com.cardiomagnil.commands;
 
-import ru.com.cardiomagnil.app.R;
-import com.google.gson.JsonObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.ResultReceiver;
-import ru.com.cardiomagnil.api.Api;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.CardiomagnilApplication;
-import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.model.Token;
+
+import ru.com.cardiomagnil.app.R;
 import ru.evilduck.framework.handlers.SFBaseCommand;
 
 public class UserAuthorization extends SFBaseCommand {
@@ -31,21 +25,22 @@ public class UserAuthorization extends SFBaseCommand {
         }
     }
 
+    // FIXME
     private String userAuthorization(Context context) {
         String result = context.getString(R.string.error_authorization);
 
-        try {
-            Api api = new Api();
-            JsonObject jsonObjectToken = api.userAuthorization(AppState.getInstatce().getAuthorization());
-            Token token = new Token(jsonObjectToken);
-            if (token.isInitialized()) {
-                AppState.getInstatce().setToken(token);
-                result = "";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
-        }
+//        try {
+//            Api api = new Api();
+//            JsonObject jsonObjectToken = api.userAuthorization(AppState.getInstatce().getAuthorization());
+//            Token token = new Token(jsonObjectToken);
+//            if (token.isInitialized()) {
+//                AppState.getInstatce().setToken(token);
+//                result = "";
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
+//        }
 
         return result;
     }
