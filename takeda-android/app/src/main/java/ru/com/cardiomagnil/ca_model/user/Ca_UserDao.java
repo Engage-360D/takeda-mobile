@@ -71,6 +71,36 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
                 );
     }
 
+    // FIXME!!!
+    public static void resetPassword(final String email,
+                                     final CallbackOne<Ca_User> onSuccess,
+                                     final CallbackOne<Ca_Response> onFailure) {
+        TypeReference typeReference = new TypeReference<Ca_User>() {
+        };
+
+        CallbackOne<Ca_Response> onOnBeforeExtract = new CallbackOne<Ca_Response>() {
+            @Override
+            public void execute(Ca_Response response) {
+                Ca_User.unPackLinks((ObjectNode) response.getData());
+            }
+        };
+
+        HttpRequestHolder httpRequestHolder =
+                new HttpRequestHolder
+                        .Builder(Request.Method.POST, Url.ACCOUNT_RESET_PASSWORD, typeReference)
+                        .addParam("email", email)
+                        .setOnBeforeExtract(onOnBeforeExtract)
+                        .create();
+
+        DataLoadDispatcher
+                .getInstance()
+                .receive(
+                        httpRequestHolder,
+                        onSuccess,
+                        onFailure
+                );
+    }
+
     public static void getById(final Ca_Token token,
                                final CallbackOne<Ca_User> onSuccess,
                                final CallbackOne<Ca_Response> onFailure,

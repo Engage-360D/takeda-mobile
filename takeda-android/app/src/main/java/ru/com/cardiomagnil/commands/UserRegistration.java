@@ -1,10 +1,5 @@
 package ru.com.cardiomagnil.commands;
 
-import ru.com.cardiomagnil.api.Api;
-import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.application.CardiomagnilApplication;
-import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.evilduck.framework.handlers.SFBaseCommand;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,21 +7,23 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.ResultReceiver;
 
+import ru.com.cardiomagnil.api.Api;
 import ru.com.cardiomagnil.app.R;
-import com.google.gson.JsonObject;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.ExeptionsHandler;
 
-public class UserRegistration extends SFBaseCommand {
+public class UserRegistration /* extends SFBaseCommand */{
 
-    @Override
+
     public void doExecute(Intent intent, Context context, ResultReceiver callback) {
         Bundle data = new Bundle();
 
         String message = userRegistration(context);
         if (message.isEmpty()) {
-            notifySuccess(data);
+//            notifySuccess(data);
         } else {
             data.putString("error", message);
-            notifyFailure(data);
+//            notifyFailure(data);
         }
     }
 
@@ -58,14 +55,14 @@ public class UserRegistration extends SFBaseCommand {
         return result;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//    }
 
     public static final Parcelable.Creator<UserRegistration> CREATOR = new Parcelable.Creator<UserRegistration>() {
         public UserRegistration createFromParcel(Parcel in) {

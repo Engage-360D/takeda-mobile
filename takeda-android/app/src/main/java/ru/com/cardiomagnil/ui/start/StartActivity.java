@@ -15,7 +15,8 @@ import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.ui.base.BaseTrackedFragmentActivity;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
-import ru.com.cardiomagnil.ui.start.CustomAnimation.OnAnimationEndListener;
+import ru.com.cardiomagnil.widget.CustomAnimation;
+import ru.com.cardiomagnil.widget.CustomAnimation.OnAnimationEndListener;
 import ru.com.cardiomagnil.util.TestMethods;
 
 public class StartActivity extends BaseTrackedFragmentActivity {

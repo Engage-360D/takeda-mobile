@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.ui.start.CustomAnimation;
+import ru.com.cardiomagnil.widget.CustomAnimation;
 
 public class ResultsWaitingFargment extends Fragment {
 

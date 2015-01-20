@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.registration;
+package ru.com.cardiomagnil.ui.start.registration;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,11 +12,11 @@ import java.util.List;
 
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 
-public class Ca_RegionAdapter extends ArrayAdapter<Ca_Region> implements SpinnerAdapter {
+public class RegionsSpinnerAdapter extends ArrayAdapter<Ca_Region> implements SpinnerAdapter {
     private final int mTextViewResourceId;
     private final int mDropDownTextViewResourceId;
 
-    public Ca_RegionAdapter(Context context, int textViewResourceId, int dropDownTextViewResourceId, List<Ca_Region> regionsList) {
+    public RegionsSpinnerAdapter(Context context, int textViewResourceId, int dropDownTextViewResourceId, List<Ca_Region> regionsList) {
         super(context, textViewResourceId, regionsList);
         mTextViewResourceId = textViewResourceId;
         mDropDownTextViewResourceId = dropDownTextViewResourceId;

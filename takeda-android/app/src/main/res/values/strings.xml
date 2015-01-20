@@ -160,7 +160,7 @@
     <string name="restore">Восстановить</string>
     <string name="if_no_account">Если у вас до сих пор нет логина,\nсоветуем вам зарегистироваться:</string>
     <string name="register">Регистрация</string>
-    <string name="restoring_info">Информация для восстановления пароля будет выслана\nна указанный email.</string>
+    <string name="restoring_info">Информация для восстановления пароля будет выслана на указанный email.</string>
     <string name="restoring_info_sent">Информация для восстановления пароля была выслана на указанный email.</string>
     <string name="bottom_login">Регистрация</string>
     <string name="two_minutes">2 минуты до начала работы приложения</string>ing>

@@ -5,7 +5,6 @@ import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.model.TestIncoming;
 import ru.com.cardiomagnil.model.TestResult;
 import ru.com.cardiomagnil.model.TestResultPage;
-import ru.evilduck.framework.SFApplicationState;
 
 public class AppState {
     // ///////////////////////////////////////////////////////////////
@@ -18,7 +17,7 @@ public class AppState {
 
     public static AppState getInstatce() {
         if (instance == null) {
-            synchronized (SFApplicationState.class) {
+            synchronized (AppState.class) {
                 if (instance == null)
                     instance = new AppState();
             }

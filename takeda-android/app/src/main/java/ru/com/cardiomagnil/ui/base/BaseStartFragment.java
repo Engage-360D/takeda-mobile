@@ -9,6 +9,7 @@ import ru.com.cardiomagnil.ca_model.token.Ca_TokenDao;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserLgnPwd;
+import ru.com.cardiomagnil.social.User;
 import ru.com.cardiomagnil.util.CallbackOne;
 
 public abstract class BaseStartFragment extends Fragment {
@@ -70,6 +71,6 @@ public abstract class BaseStartFragment extends Fragment {
         );
     }
 
-    public abstract void handleRegAuth(Ca_Token token, Ca_User user);
-
+    protected abstract void handleRegAuth(Ca_Token token, Ca_User user);
+    public abstract void initFields(User socialUser);
 }

@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.registration;
+package ru.com.cardiomagnil.ui.start.registration;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -40,6 +40,7 @@ import ru.com.cardiomagnil.social.OkUser;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
+import ru.com.cardiomagnil.ui.start.CustomAuthorizationListener;
 import ru.com.cardiomagnil.ui.start.SignInWithSocialNetwork;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
@@ -88,8 +89,42 @@ public class RegistrationFragment extends BaseStartFragment {
         textViewBottomOutsideAction.setText(activity.getString(R.string.two_minutes));
     }
 
+    // FIXME!!! remove getActivity!!!
     @Override
-    public void handleRegAuth(Ca_Token token, Ca_User user) {
+    public void initFields(ru.com.cardiomagnil.social.User user) {
+        // FIXME!!!
+        EditText editTextName = (EditText) getActivity().findViewById(R.id.editTextFirstName);
+
+
+        EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
+        Spinner spinnerRegion = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
+        TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
+
+        if (!user.getFirstName().isEmpty()) {
+            editTextName.setText(user.getFirstName());
+        }
+
+        if (!user.getEmail().isEmpty()) {
+            editTextRegEmail.setText(user.getEmail());
+        }
+
+        if (!user.getCountry().isEmpty()) {
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinnerRegion.getAdapter();
+            adapter.add(user.getCountry());
+            spinnerRegion.setSelection(adapter.getCount() - 1);
+            // FIXME
+//            mCountry = user.getCountry();
+        }
+
+        if (!user.getBirthday().isEmpty()) {
+            textViewBirthDate.setText(user.getBirthday());
+            // FIXME
+//            mBirthDate = user.getBirthday();
+        }
+    }
+
+    @Override
+    protected void handleRegAuth(Ca_Token token, Ca_User user) {
 
     }
 
@@ -187,18 +222,18 @@ public class RegistrationFragment extends BaseStartFragment {
     private void initSpinnerRegionHelper(View parentView, List<Ca_Region> regionsList) {
         regionsList.add(Ca_Region.createNoRegion(parentView.getContext()));
 
-        Ca_RegionAdapter regionAdapter = new Ca_RegionAdapter(parentView.getContext(), R.layout.custom_spinner_item, R.layout.ca_spinner_item_dropdown, regionsList);
-        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(parentView.getContext(), R.layout.custom_spinner_item, R.layout.ca_spinner_item_dropdown, regionsList);
+        regionsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
-        spinnerRegion.setAdapter(regionAdapter);
-        spinnerRegion.setSelection(regionAdapter.getCount() - 1);
+        spinnerRegion.setAdapter(regionsSpinnerAdapter);
+        spinnerRegion.setSelection(regionsSpinnerAdapter.getCount() - 1);
     }
 
     private void initSocials(final View view) {
-        view.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(this, new FbApi(), new RegisterUserOnFinish(this, FbUser.class)));
-        view.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(this, new VkApi(), new RegisterUserOnFinish(this, VkUser.class)));
-        view.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(this, new OkApi(), new RegisterUserOnFinish(this, OkUser.class)));
+        view.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(this, new FbApi(), new CustomAuthorizationListener(this, FbUser.class)));
+        view.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(this, new VkApi(), new CustomAuthorizationListener(this, VkUser.class)));
+        view.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(this, new OkApi(), new CustomAuthorizationListener(this, OkUser.class)));
     }
 
     private void initSignUpButton(final View parentView) {
@@ -413,39 +448,5 @@ public class RegistrationFragment extends BaseStartFragment {
         }
 
         return newUser;
-    }
-
-    // FIXME!!! remove getActivity!!!
-    @SuppressWarnings("unchecked")
-    public void initFields(ru.com.cardiomagnil.social.User user) {
-        // FIXME!!!
-        EditText editTextName = (EditText) getActivity().findViewById(R.id.editTextFirstName);
-
-
-        EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
-        Spinner spinnerRegion = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
-        TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
-
-        if (!user.getFirstName().isEmpty()) {
-            editTextName.setText(user.getFirstName());
-        }
-
-        if (!user.getEmail().isEmpty()) {
-            editTextRegEmail.setText(user.getEmail());
-        }
-
-        if (!user.getCountry().isEmpty()) {
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinnerRegion.getAdapter();
-            adapter.add(user.getCountry());
-            spinnerRegion.setSelection(adapter.getCount() - 1);
-            // FIXME
-//            mCountry = user.getCountry();
-        }
-
-        if (!user.getBirthday().isEmpty()) {
-            textViewBirthDate.setText(user.getBirthday());
-            // FIXME
-//            mBirthDate = user.getBirthday();
-        }
     }
 }

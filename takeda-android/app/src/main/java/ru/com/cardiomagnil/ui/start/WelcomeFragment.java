@@ -11,6 +11,7 @@ import android.widget.TextView;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
+import ru.com.cardiomagnil.social.User;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.util.Tools;
 
@@ -38,7 +39,12 @@ public class WelcomeFragment extends BaseStartFragment {
     }
 
     @Override
-    public void handleRegAuth(Ca_Token token, Ca_User user) {
+    protected void handleRegAuth(Ca_Token token, Ca_User user) {
+        // do nothing
+    }
+
+    @Override
+    public void initFields(User socialUser) {
         // do nothing
     }
 }

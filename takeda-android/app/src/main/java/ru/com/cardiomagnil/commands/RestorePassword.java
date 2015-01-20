@@ -4,7 +4,6 @@ import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.api.Api;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.evilduck.framework.handlers.SFBaseCommand;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,19 +13,18 @@ import android.os.ResultReceiver;
 
 import com.google.gson.JsonObject;
 
-public class RestorePassword extends SFBaseCommand {
+public class RestorePassword /*extends SFBaseCommand */{
     String mEmail;
 
-    @Override
     public void doExecute(Intent intent, Context context, ResultReceiver callback) {
         Bundle data = new Bundle();
 
         String message = restorePassword(context);
         if (message.isEmpty()) {
-            notifySuccess(data);
+//            notifySuccess(data);
         } else {
             data.putString("error", message);
-            notifyFailure(data);
+//            notifyFailure(data);
         }
     }
 
@@ -53,15 +51,15 @@ public class RestorePassword extends SFBaseCommand {
         return result;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mEmail);
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeString(mEmail);
+//    }
 
     public static final Parcelable.Creator<RestorePassword> CREATOR = new Parcelable.Creator<RestorePassword>() {
         public RestorePassword createFromParcel(Parcel in) {

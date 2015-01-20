@@ -20,12 +20,10 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppSharedPreferences;
-import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.util.Tools;
-import ru.com.cardiomagnil.commands.GetTestResults;
 import ru.com.cardiomagnil.ui.ca_content.Ca_MainFargment;
+import ru.com.cardiomagnil.util.Tools;
+import ru.com.cardiomagnil.util.Utils;
 
 public class SlidingMenuActivity extends SlidingFragmentActivity {
     protected ListFragment mMenuListFragment;
@@ -55,6 +53,7 @@ public class SlidingMenuActivity extends SlidingFragmentActivity {
 
         initActionBar();
         initMenu(savedInstanceState);
+        Utils.hideKeyboard(this);
     }
 
     @Override
@@ -185,30 +184,29 @@ public class SlidingMenuActivity extends SlidingFragmentActivity {
      * getTestResult -> switchContent(TestResultsFargment)
      */
     public void getTestResult() {
-        mGetTestResultRequestId = getServiceHelper().executeCommand(new GetTestResults());
-        showProgressDialog();
+//        mGetTestResultRequestId = getServiceHelper().executeCommand(new GetTestResults());
+//        showProgressDialog();
     }
 
-    @Override
     public void onServiceCallback(int requestId, Intent requestIntent, int resultCode, Bundle resultData) {
-        super.onServiceCallback(requestId, requestIntent, resultCode, resultData);
-
-        if (getServiceHelper().check(requestIntent, GetTestResults.class)) {
-            if (resultCode == GetTestResults.RESPONSE_SUCCESS) {
-                hideProgressDialog();
-                storePreferences();
-                switchContent(new TestResultsFargment());
-                refreshMenuItems();
-            } else if (resultCode == GetTestResults.RESPONSE_PROGRESS) {
-                // do nothing
-            } else {
-                hideProgressDialog();
-                SlidingMenu slidingMenu = getSlidingMenu();
-                slidingMenu.showMenu();
-                Tools.showAlertDialog(this, resultData.getString("error"), false);
-            }
-            return;
-        }
+//        super.onServiceCallback(requestId, requestIntent, resultCode, resultData);
+//
+//        if (getServiceHelper().check(requestIntent, GetTestResults.class)) {
+//            if (resultCode == GetTestResults.RESPONSE_SUCCESS) {
+//                hideProgressDialog();
+//                storePreferences();
+//                switchContent(new TestResultsFargment());
+//                refreshMenuItems();
+//            } else if (resultCode == GetTestResults.RESPONSE_PROGRESS) {
+//                // do nothing
+//            } else {
+//                hideProgressDialog();
+//                SlidingMenu slidingMenu = getSlidingMenu();
+//                slidingMenu.showMenu();
+//                Tools.showAlertDialog(this, resultData.getString("error"), false);
+//            }
+//            return;
+//        }
     }
 
     // FIXME

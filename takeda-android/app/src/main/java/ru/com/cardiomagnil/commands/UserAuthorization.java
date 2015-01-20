@@ -8,20 +8,18 @@ import android.os.Parcelable;
 import android.os.ResultReceiver;
 
 import ru.com.cardiomagnil.app.R;
-import ru.evilduck.framework.handlers.SFBaseCommand;
 
-public class UserAuthorization extends SFBaseCommand {
+public class UserAuthorization /* extends SFBaseCommand */{
 
-    @Override
     public void doExecute(Intent intent, Context context, ResultReceiver callback) {
         Bundle data = new Bundle();
 
         String message = userAuthorization(context);
         if (message.isEmpty()) {
-            notifySuccess(data);
+//            notifySuccess(data);
         } else {
             data.putString("error", message);
-            notifyFailure(data);
+//            notifyFailure(data);
         }
     }
 
@@ -45,14 +43,14 @@ public class UserAuthorization extends SFBaseCommand {
         return result;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//    }
 
     public static final Parcelable.Creator<UserAuthorization> CREATOR = new Parcelable.Creator<UserAuthorization>() {
         public UserAuthorization createFromParcel(Parcel in) {

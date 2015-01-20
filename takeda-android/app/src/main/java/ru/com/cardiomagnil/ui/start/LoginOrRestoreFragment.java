@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.login_or_restore;
+package ru.com.cardiomagnil.ui.start;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,10 +17,11 @@ import android.widget.Toast;
 
 import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
+import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserLgnPwd;
 import ru.com.cardiomagnil.social.FbApi;
 import ru.com.cardiomagnil.social.FbUser;
@@ -29,10 +30,9 @@ import ru.com.cardiomagnil.social.OkUser;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
-import ru.com.cardiomagnil.ui.start.SignInWithSocialNetwork;
-import ru.com.cardiomagnil.ui.start.StartActivity;
-import ru.com.cardiomagnil.util.TestMethods;
+import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
+import ru.com.cardiomagnil.util.Utils;
 
 public class LoginOrRestoreFragment extends BaseStartFragment {
     @Override
@@ -53,18 +53,39 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     @Override
-    public void handleRegAuth(Ca_Token token, Ca_User user) {
+    public void initFields(ru.com.cardiomagnil.social.User user) {
+        final EditText editTextEmail = (EditText) this.getActivity().findViewById(R.id.editTextEmailLogin);
+
+        if (!user.getEmail().isEmpty()) {
+            editTextEmail.setText(user.getEmail());
+        }
+    }
+
+    @Override
+    protected void handleRegAuth(Ca_Token token, Ca_User user) {
+        StartActivity startActivity = (StartActivity) getActivity();
+        startActivity.hideProgressDialog();
         if (token == null && user == null) {
             initAppState(null, null);
         } else {
             initAppState(token, user);
+            startActivity.startSlidingMenu();
+        }
+    }
+
+    public void handleResetPassword(Ca_User user) {
+        StartActivity startActivity = (StartActivity) getActivity();
+        startActivity.hideProgressDialog();
+        if (user == null) {
+            Toast.makeText(this.getActivity(), this.getActivity().getString(R.string.error_restoring), Toast.LENGTH_LONG).show();
         }
     }
 
     private void initAppState(Ca_Token token, Ca_User user) {
-        AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
         AppState.getInstatce().setToken(token);
         AppState.getInstatce().setUser(user);
+        // TODO: uncomment after tests
+        // AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
     }
 
     private void initLoginOrRestoreFragment(final View view) {
@@ -72,6 +93,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         initRestore(view);
         initLoginRestoreSwitcher(view);
         initSocials(view);
+        // TODO: remove after tests
         customizeIfDebug(view);
     }
 
@@ -115,6 +137,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonEnter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Utils.hideKeyboard(getActivity());
                 startAuthorization();
             }
         });
@@ -122,7 +145,8 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                StartActivity startActivity = (StartActivity) v.getContext();
+                Utils.hideKeyboard(getActivity());
+                StartActivity startActivity = (StartActivity) getActivity();
                 startActivity.slideViewPager(true);
             }
         });
@@ -152,6 +176,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonRestore.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Utils.hideKeyboard(getActivity());
                 startRestore();
             }
         });
@@ -167,6 +192,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         linearLayoutPerformLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Utils.hideKeyboard(getActivity());
                 linearLayoutLogin.setVisibility(View.VISIBLE);
                 linearLayoutRestore.setVisibility(View.GONE);
             }
@@ -175,6 +201,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         linearLayoutPerformRestore.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Utils.hideKeyboard(getActivity());
                 linearLayoutRestore.setVisibility(View.VISIBLE);
                 linearLayoutLogin.setVisibility(View.GONE);
             }
@@ -182,15 +209,16 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     private void initSocials(final View view) {
-        view.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(this, new FbApi(), new RegisterUserOnFinish(this, FbUser.class)));
-        view.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(this, new VkApi(), new RegisterUserOnFinish(this, VkUser.class)));
-        view.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(this, new OkApi(), new RegisterUserOnFinish(this, OkUser.class)));
+        view.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(this, new FbApi(), new CustomAuthorizationListener(this, FbUser.class)));
+        view.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(this, new VkApi(), new CustomAuthorizationListener(this, VkUser.class)));
+        view.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(this, new OkApi(), new CustomAuthorizationListener(this, OkUser.class)));
     }
 
+    // TODO: remove after tests
     private void customizeIfDebug(final View view) {
         if (BuildConfig.DEBUG) {
-            EditText editTextEmailLogin = (EditText ) view.findViewById(R.id.editTextEmailLogin);
-            EditText editTextPassword = (EditText ) view.findViewById(R.id.editTextPassword);
+            EditText editTextEmailLogin = (EditText) view.findViewById(R.id.editTextEmailLogin);
+            EditText editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
 
             editTextEmailLogin.setText("y.andreyko@gmail.com");
             editTextPassword.setText("aaa");
@@ -198,25 +226,39 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     private void startAuthorization() {
+        StartActivity startActivity = (StartActivity) getActivity();
+        startActivity.showProgressDialog();
+
         Ca_UserLgnPwd userLgnPwd = pickAuthorizationFields();
         // response handled in handleRegAuth
         startAuthorization(userLgnPwd);
     }
 
-    // FIXME: remove getActivity
     private void startRestore() {
+        StartActivity startActivity = (StartActivity) getActivity();
+        startActivity.showProgressDialog();
+
         String email = pickRestoreFields();
-        if (Tools.isValidEmail(email)) {
-            StartActivity startActivity = (StartActivity) getActivity();
-            restorePassword(email);
-        } else {
-            Toast.makeText(this.getActivity(), this.getActivity().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
-        }
+        restorePassword(email);
     }
 
     // FIXME
     private void restorePassword(String email) {
-
+        Ca_UserDao.resetPassword(
+                email,
+                new CallbackOne<Ca_User>() {
+                    @Override
+                    public void execute(Ca_User newUser) {
+                        handleResetPassword(newUser);
+                    }
+                },
+                new CallbackOne<Ca_Response>() {
+                    @Override
+                    public void execute(Ca_Response responseError) {
+                        handleResetPassword(null);
+                    }
+                }
+        );
     }
 
     private Ca_UserLgnPwd pickAuthorizationFields() {
@@ -238,14 +280,6 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     private String pickRestoreFields() {
         EditText editTextEmailRestore = (EditText) getActivity().findViewById(R.id.editTextEmailRestore);
         return editTextEmailRestore.getText().toString();
-    }
-
-    private void initFields(ru.com.cardiomagnil.social.User user) {
-        final EditText editTextEmail = (EditText) this.getActivity().findViewById(R.id.editTextEmailLogin);
-
-        if (!user.getEmail().isEmpty()) {
-            editTextEmail.setText(user.getEmail());
-        }
     }
 
 }
