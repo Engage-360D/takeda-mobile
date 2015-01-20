@@ -11,7 +11,7 @@
 #import "Vkontakte.h"
 #import "Odnoklassniki.h"
 
-@interface RegistrationPage : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource,VkontakteDelegate,OKSessionDelegate, OKRequestDelegate>{
+@interface RegistrationPage : VControllerExt<UIPickerViewDelegate, UIPickerViewDataSource,VkontakteDelegate,OKSessionDelegate, OKRequestDelegate>{
     Vkontakte *_vkontakte;
 }
 
@@ -31,6 +31,7 @@
 
 @property (nonatomic,retain) IBOutlet UIButton *btn_region;
 @property (nonatomic,retain) IBOutlet UIButton *btn_birthday;
+@property (nonatomic,retain) IBOutlet UILabel *danger_text;
 
 
 

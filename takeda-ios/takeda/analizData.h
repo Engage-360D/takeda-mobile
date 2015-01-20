@@ -24,4 +24,7 @@
 -(NSArray*)getListWalking;
 -(NSArray*)getListSport;
 -(NSArray*)getListSalt;
+
+-(id) recursiveMutable:(id)object;
+
 @end

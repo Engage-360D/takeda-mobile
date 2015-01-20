@@ -14,7 +14,6 @@
 
 @implementation DetailResultRiskAnalysis
 @synthesize data_result;
-@synthesize titleResult;
 @synthesize data_banner;
 @synthesize data_page;
 @synthesize scrol;
@@ -38,9 +37,9 @@
     [self clearScrollView];
     if (self.data_banner) {
         if ([self.data_banner objectForKey:@"title"]) {
-            self.titleResult.text = [self.data_banner objectForKey:@"title"];
+            self.vcSubTitle.text = [self.data_banner objectForKey:@"title"];
         }else{
-            self.titleResult.text  = @"";
+            self.vcSubTitle.text  = @"";
         }
 
     }

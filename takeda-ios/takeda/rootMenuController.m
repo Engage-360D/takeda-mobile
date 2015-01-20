@@ -16,6 +16,7 @@
 #import "UsefulKnowPage.h"
 #import "PublicationPage.h"
 #import "ReportsPage.h"
+#import "MainPage.h"
 
 #import "LeftMenu.h"
 
@@ -31,11 +32,13 @@
     PublicationPage *publicationPage;
     ReportsPage *reportsPage;
     LeftMenu *leftMenu;
-    
+    MainPage *mainPage;
+
     NVSlideMenuController *slideMenuVC;
     
     UIViewController *riskAnalysis_vc;
-    
+    UIViewController *mainPage_vc;
+
 }
 static rootMenuController *sharedInst = NULL;
 
@@ -50,7 +53,7 @@ static rootMenuController *sharedInst = NULL;
 
 -(NVSlideMenuController*)getMenuController{
     if (!slideMenuVC) {
-        slideMenuVC = [[NVSlideMenuController alloc] initWithMenuViewController:[self getLeftMenu] andContentViewController:[self riskAnalysis_vc]];
+        slideMenuVC = [[NVSlideMenuController alloc] initWithMenuViewController:[self getLeftMenu] andContentViewController:[self mainPage_vc]];
     }
     
     return slideMenuVC;
@@ -64,6 +67,12 @@ static rootMenuController *sharedInst = NULL;
     return riskAnalysis_vc;
 }
 
+-(UIViewController*)mainPage_vc{
+    if (!mainPage_vc) {
+        mainPage_vc = [[UINavigationController alloc] initWithRootViewController:[self getMainPage]];
+    }
+    return mainPage_vc;
+}
 
 -(LeftMenu*)getLeftMenu{
     if (!leftMenu) {
@@ -93,6 +102,13 @@ static rootMenuController *sharedInst = NULL;
         recomendationPage = [[RecomendationPage alloc] initWithNibName:@"RecomendationPage" bundle:nil];
     }
     return recomendationPage;
+}
+
+-(MainPage*)getMainPage{
+    if (!mainPage) {
+        mainPage = [[MainPage alloc] initWithNibName:@"MainPage" bundle:nil];
+    }
+    return mainPage;
 }
 
 -(AnalisisResultPage*)getAnalisisResultPage{

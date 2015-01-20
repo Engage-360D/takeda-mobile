@@ -13,6 +13,9 @@
 @implementation UserData
 static UserData *objectInstance = nil;
 
+@synthesize oauthToken = oauthToken_;
+@synthesize userData = userData_;
+
 +(UserData*)sharedObject{
     @synchronized(self){
         if (!objectInstance) {
@@ -24,27 +27,27 @@ static UserData *objectInstance = nil;
 
 
 -(BOOL)is_authorized{
-    if ([oauthToken isEqual:[NSNull null]] || !oauthToken) {
+    if ([oauthToken_ isEqual:[NSNull null]] || !oauthToken_) {
         return NO;
     }
     return YES;
 }
 
 -(NSString*)getAccessToken{
-    return oauthToken;
+    return oauthToken_;
 }
 
 -(void)setAccessToken:(NSString*)token{
-    oauthToken = token;
+    oauthToken_ = token;
 }
 
 
--(NSDictionary*)getUserData{
-    return userData;
+-(NSMutableDictionary*)getUserData{
+    return userData_;
 }
 
--(void)setUserData:(NSDictionary*)user_data{
-    userData = user_data;
+-(void)setUserData:(NSMutableDictionary*)user_data{
+    userData_ = user_data;
 }
 
 -(void)savePassword:(NSString*)pass{

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AnalisisResultPage : UIViewController
+@interface AnalisisResultPage : VControllerExt
 
 @end

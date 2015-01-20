@@ -59,6 +59,30 @@ NSMutableDictionary * dic_data;
     return dic_data;
 }
 
+-(id) recursiveMutable:(id)object
+{
+    if([object isKindOfClass:[NSDictionary class]])
+    {
+        NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:object];
+        for(NSString* key in [dict allKeys])
+        {
+            [dict setObject:[self recursiveMutable:[dict objectForKey:key]] forKey:key];
+        }
+        return dict;
+    }
+    else if([object isKindOfClass:[NSArray class]])
+    {
+        NSMutableArray* array = [NSMutableArray arrayWithArray:object];
+        for(int i=0;i<[array count];i++)
+        {
+            [array replaceObjectAtIndex:i withObject:[self recursiveMutable:[array objectAtIndex:i]]];
+        }
+        return array;
+    }
+    else if([object isKindOfClass:[NSString class]])
+        return [NSMutableString stringWithString:object];
+    return object;
+}
 
 
 

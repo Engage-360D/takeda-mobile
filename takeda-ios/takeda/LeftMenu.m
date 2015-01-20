@@ -17,6 +17,7 @@
 #import "UsefulKnowPage.h"
 #import "PublicationPage.h"
 #import "ReportsPage.h"
+#import "MainPage.h"
 
 @interface LeftMenu (){
     StateMenu last_stateMenu;
@@ -30,7 +31,8 @@
     UIViewController *usefulKnowPage_vc;
     UIViewController *publication_vc;
     UIViewController *reportsPage_vc;
-    
+    UIViewController *mainPage_vc;
+
 }
 
 @end
@@ -51,27 +53,21 @@
 {
     [super viewDidLoad];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
-    last_stateMenu = State_Risk_Analysis;
+    [GlobalSettings sharedInstance].stateMenu = State_MainPage;
+    last_stateMenu = State_MainPage;
     
-    
-    menuData =
-    @[@{@"name" :@"Анализ риска", @"enabled":@"YES"},
-      @{@"name" :@"Рекомендации", @"enabled":@"YES"}];
-    
-    
-    /*menuData =
-    @[@{@"name" :@"Анализ риска", @"enabled":@"YES"},
-      @{@"name" :@"Поиск учреждений", @"enabled":@"NO"},
-      @{@"name" :@"Рекомендации", @"enabled":@"YES"},
-      @{@"name" :@"Результаты анализа", @"enabled":@"NO"},
-      @{@"name" :@"Календарь", @"enabled":@"NO"},
-      @{@"name" :@"Полезно знать", @"enabled":@"NO"},
-      @{@"name" :@"Публикации", @"enabled":@"NO"},
-      @{@"name" :@"Отчеты", @"enabled":@"NO"}
-      ];
-    */
-}
+        menuData =
+          @[@{@"name" :@"Главная", @"enabled":@"YES"},
+          @{@"name" :@"Анализ риска", @"enabled":@"YES"},
+          @{@"name" :@"Поиск учреждений", @"enabled":@"YES"},
+          @{@"name" :@"Рекомендации", @"enabled":@"NO"},
+          @{@"name" :@"Результаты анализа", @"enabled":@"NO"},
+          @{@"name" :@"Календарь", @"enabled":@"NO"},
+          @{@"name" :@"Полезно знать", @"enabled":@"YES"},
+          @{@"name" :@"Публикации", @"enabled":@"YES"},
+          @{@"name" :@"Отчеты", @"enabled":@"YES"}
+          ];
+    }
 
 #pragma mark - Table view data source
 
@@ -128,13 +124,6 @@
         cell.name_group.textColor = RGB(95, 95, 95);
     }
     
-    
-    
-    
-    
-    
-    
-    
     cell.backgroundColor = [UIColor clearColor];
     
     
@@ -154,6 +143,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     switch ((indexPath.row+1)) {
+        case State_MainPage:{
+            [GlobalSettings sharedInstance].stateMenu = State_MainPage;
+            
+            if ([self checkLastController]) {
+                [self.slideMenuController closeMenuAnimated:YES completion:nil];
+            }else{
+                if (!mainPage_vc) {
+                    mainPage_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getMainPage]];
+                }
+                
+                last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
+                [self.slideMenuController closeMenuBehindContentViewController:mainPage_vc animated:YES completion:nil];
+                
+            }
+            break;}
+
         case State_Risk_Analysis:{
             [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
             

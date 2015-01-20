@@ -50,9 +50,16 @@ bool is_loading;
     
     if ([[UserData sharedObject] getUserName] && [[UserData sharedObject] getUserPassword]) {
         is_loading = YES;
-        [inetRequests authUserWithLogin:[[UserData sharedObject] getUserName] password:[[UserData sharedObject] getUserPassword] completion:^(BOOL result, NSError *error) {
+        [ServData authUserWithLogin:[[UserData sharedObject] getUserName] password:[[UserData sharedObject] getUserPassword] completion:^(BOOL result, NSError *error) {
+            
+            // temp
+            UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
+            [vc.navigationController setNavigationBarHidden:NO];
+            [ApplicationDelegate setRootViewController:vc];
+            return;
+            
             if (result) {
-                [inetRequests getUserDataWithCompletion:^(BOOL result, NSError *error) {
+                [ServData getUserDataWithCompletion:^(BOOL result, NSError *error) {
                     is_loading = NO;
                     if (result) {
                         UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];

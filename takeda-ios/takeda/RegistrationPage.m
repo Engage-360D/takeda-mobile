@@ -77,13 +77,13 @@ NSString *sentEmail;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        [self setDefoultData];
+        [self setDefaultData];
     }
     return self;
 }
 
 
--(void)setDefoultData{
+-(void)setDefaultData{
     self.user_is_doctor = NO;
     self.user_is_agree_personal_data = NO;
     self.user_is_agree_email_subscribe_data = NO;
@@ -100,18 +100,10 @@ NSString *sentEmail;
 
 
 
--(void)setFieldsSettings{
-    for (UIView *view in self.bg_block) {
-        CALayer *TopBorder = [CALayer layer];
-        TopBorder.frame = CGRectMake(0.0f, 0.0f, view.frame.size.width, 1.0f);
-        TopBorder.contents = (id)[UIImage imageNamed:@"bg_separator"].CGImage;
-        [view.layer addSublayer:TopBorder];
-        CALayer *BottomBorder = [CALayer layer];
-        BottomBorder.frame = CGRectMake(0.0f, view.frame.size.height, view.frame.size.width, 1.0f);
-        BottomBorder.contents = (id)[UIImage imageNamed:@"bg_separator"].CGImage;
-        [view.layer addSublayer:BottomBorder];
-    }
-    
+-(void)setupInterface{
+
+    [self drawBorders:self.bg_block];
+        
     [self.btn_register setBackgroundImage:[[UIImage imageNamed:@"button_arrow_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 30)] forState:UIControlStateNormal];
     
     self.email_field.placeholderColor = RGB(53, 65, 71);
@@ -125,33 +117,33 @@ NSString *sentEmail;
     self.name_field.placeholderColor = RGB(53, 65, 71);
     self.name_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
     self.name_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
     
+    self.btn_register.titleLabel.font = [UIFont fontWithName:@"SegoeWP Light" size:17.0];
+
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    
     
     [self setNavImage];
     [self setNavigationPanel];
-    [self setFieldsSettings];
-    
-
-    self.scrollView.frame = RectSetOrigin(self.view.frame, 0, 0);
-    self.scrollView.frame = CGRectMake(0, self.btn_register.frame.size.height+2, 320, self.view.frame.size.height - self.btn_register.frame.size.height);
+    [self setupInterface];
     [self.view addSubview:self.scrollView];
-    [self.scrollView setContentSize:CGSizeMake(320, 670)];
-    self.btn_register.titleLabel.font = [UIFont fontWithName:@"SegoeWP Light" size:17.0];
+    [self.scrollView setup_autosize];
 
 }
 
+-(void)loadRegions{
+    
+}
 
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.scrollView.frame = CGRectMake(0, 47, self.view.width, self.view.height - 47);
     [self updateFields];
 }
 
@@ -164,96 +156,133 @@ NSString *sentEmail;
 
 -(void)setBirthDayDataForSend:(NSDate*)date{
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
+    [dateFormat setDateFormat:@"yyyy-MM-ddTHH:mm:ssZ"];
     NSString *prettyVersion = [dateFormat stringFromDate:date];
+    
     birthday = prettyVersion;
 }
 
 
 -(IBAction)registerUser:(id)sender{
 
-    if ([self checkFields]) {
+    if (![self checkFields]) {return;}
         
         NSString *name = self.name_field.text;
         NSString *email = self.email_field.text;
         NSString *password = self.pass_field.text;
         NSString *region = self.btn_region.titleLabel.text;
+    region = @"1";
         NSString *confirmPersonalization = [NSString stringWithFormat:@"%i",user_is_agree_personal_data];
         NSString *confirmInformation = [NSString stringWithFormat:@"%i",user_is_agree_information_is_recomemd_style];
         NSString *doctor = [NSString stringWithFormat:@"%i",user_is_doctor];
         
+        NSDictionary *params = @{@"email": email,
+                                           @"firstname": name,
+                                           @"lastname" : @"",
+                                           @"birthday":@"1991-01-19T00:00:00+0300",//birthday,
+                                           @"specializationExperienceYears" : @"",
+                                           @"specializationInstitutionAddress" : @"",
+                                           @"specializationInstitutionName" : @"",
+                                           @"specializationInstitutionPhone" : @"",
+                                           @"specializationGraduationDate" : @"",
+                                           @"specializationInstitutionAddress" : @"",
+                                           @"specializationInstitutionName" : @"",
+                                           @"specializationInstitutionPhone" : @"",
+                                           @"specializationName" : @"",
+                                           @"plainPassword":password,
+                                           @"isDoctor" : doctor,
+                                           @"isSubscribed" : [NSNumber numberWithBool:user_is_agree_email_subscribe_data],
+                                           @"links": @{@"region": region}};
         
         
-        NSDictionary *params = @{@"firstname": name,
-                                 @"email": email,
-                                 @"confirmPersonalization": confirmPersonalization,
-                                 @"confirmInformation": confirmInformation,
-                                 @"doctor":doctor,
-                                 @"region":region,
-                                 @"specialization":specialization,
-                                 @"experience":experience,
-                                 @"address":address,
-                                 @"phone":phone,
-                                 @"institution":institution,
-                                 @"birthday":birthday,
-                                 @"graduation":graduation,
-                                 @"plainPassword": @{@"first": password,
-                                                     @"second":password}
-                                 };
+//        {
+//            "data" : {
+//                "email" : "a.b@c.d",
+//                "firstname" : "",
+//                "lastname" : "",
+//                "birthday" : "1990-10-10T00:00:00+0000",
         
-        NSString *sentPassword = password;
-        NSString *sentEmail = email;
+//                "specializationExperienceYears" : null,
         
-        [[UserData sharedObject] savePassword:self.pass_field.text];
-        [[UserData sharedObject] saveUserName:self.email_field.text];
-        
-        [inetRequests registrationUserWithData:params completion:^(BOOL result, NSError *error, NSString* textError) {
-            if (result) {
-                [inetRequests authUserWithLogin:sentEmail password:sentPassword completion:^(BOOL result, NSError *error) {
-                    if (result) {
-                        [inetRequests getUserDataWithCompletion:^(BOOL result, NSError *error) {
-                            if (result) {
-                                NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
-                                UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
-                                [vc.navigationController setNavigationBarHidden:NO];
-                                [ApplicationDelegate setRootViewController:vc];
-                            }else{
-                                [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
-                            }
-                        }];
-                    }else{
-                        [Helper fastAlert:@"Ошибка авторизации"];
-                    }
-                }];
-                
-                
+//                "specializationGraduationDate" : null,
+//                "specializationInstitutionAddress" : null,
+//                "specializationInstitutionName" : null,
+//                "specializationInstitutionPhone" : null,
+//                "specializationName" : null,
+//                "plainPassword" : "xxx",
+//                "isDoctor" : false,
+//                "isSubscribed" : true,
+//                "links" : {
+//                    "region" : ""
+//                }
+//            }
+//        }
+//        
 
-            }else{
-                NSString *text = @"Ошибка при регистрации";
-                if (textError) {
-                    text = textError;
-                }
-                
-                if ([[[error userInfo] allKeys] count]>0) {
-                    id key = [[[error userInfo] allKeys] objectAtIndex:0];
-                    id res = [[error userInfo] objectForKey:key];
-                    
-                    
-                    
-                    if (res) {
-                        if ([res isKindOfClass:[NSArray class]] && [res count]>0) {
-                            text = [res objectAtIndex:0];
-                        }else{
-                            text = res;
-                        }
-                    }
-                    
-                }
-                [Helper fastAlert:text];
-            }
-            
+        [ServData registrationUserWithData:params completion:^(BOOL result, NSError *error, NSString* textError){
+            [[UserData sharedObject] savePassword:self.pass_field.text];
+            [[UserData sharedObject] saveUserName:self.email_field.text];
+
         }];
-    }
+        
+        
+        //[ServData sendCommonPOST: body:<#(NSData *)#> success:<#^(id)successIm#>]
+        
+        
+        
+//        NSString *sentPassword = password;
+//        NSString *sentEmail = email;
+//        
+//        [[UserData sharedObject] savePassword:self.pass_field.text];
+//        [[UserData sharedObject] saveUserName:self.email_field.text];
+//        
+//        [inetRequests registrationUserWithData:params completion:^(BOOL result, NSError *error, NSString* textError) {
+//            if (result) {
+//                [inetRequests authUserWithLogin:sentEmail password:sentPassword completion:^(BOOL result, NSError *error) {
+//                    if (result) {
+//                        [ServData getUserDataWithCompletion:^(BOOL result, NSError *error) {
+//                            if (result) {
+//                                NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
+//                                UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
+//                                [vc.navigationController setNavigationBarHidden:NO];
+//                                [ApplicationDelegate setRootViewController:vc];
+//                            }else{
+//                                [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
+//                            }
+//                        }];
+//                    }else{
+//                        [Helper fastAlert:@"Ошибка авторизации"];
+//                    }
+//                }];
+//                
+//                
+//
+//            }else{
+//                NSString *text = @"Ошибка при регистрации";
+//                if (textError) {
+//                    text = textError;
+//                }
+//                
+//                if ([[[error userInfo] allKeys] count]>0) {
+//                    id key = [[[error userInfo] allKeys] objectAtIndex:0];
+//                    id res = [[error userInfo] objectForKey:key];
+//                    
+//                    
+//                    
+//                    if (res) {
+//                        if ([res isKindOfClass:[NSArray class]] && [res count]>0) {
+//                            text = [res objectAtIndex:0];
+//                        }else{
+//                            text = res;
+//                        }
+//                    }
+//                    
+//                }
+//                [Helper fastAlert:text];
+//            }
+//            
+//        }];
+
 }
 
 
@@ -799,7 +828,7 @@ numberOfRowsInComponent:(NSInteger)component
     if ([result hasKey:@"birthday"] ) {
         if ([[result objectForKey:@"birthday"] length]>0) {
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            [dateFormatter setDateFormat:@"yyyy-MM-ddTHH:mm:ssZ"];
             NSDate *dateFromString = [[NSDate alloc] init];
             dateFromString = [dateFormatter dateFromString:[result objectForKey:@"birthday"]];
             if (dateFromString) {

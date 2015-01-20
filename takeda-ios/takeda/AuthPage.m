@@ -50,19 +50,15 @@ ForgetPage *forgetPage;
     
     [self setNavImage];
     [self setNavigationPanel];
-    //self.navigationItem.leftBarButtonItem = nil;
-    
-    for (UIView *view in self.bg_block) {
-        CALayer *TopBorder = [CALayer layer];
-        TopBorder.frame = CGRectMake(0.0f, 0.0f, view.frame.size.width, 1.0f);
-        TopBorder.contents = (id)[UIImage imageNamed:@"bg_separator"].CGImage;
-        [view.layer addSublayer:TopBorder];
-        CALayer *BottomBorder = [CALayer layer];
-        BottomBorder.frame = CGRectMake(0.0f, view.frame.size.height, view.frame.size.width, 1.0f);
-        BottomBorder.contents = (id)[UIImage imageNamed:@"bg_separator"].CGImage;
-        [view.layer addSublayer:BottomBorder];
-    }
 
+    [self setupInterface];
+}
+
+
+-(void)setupInterface{
+
+    [self drawBorders:self.bg_block];
+    
     self.description_text.font = [UIFont fontWithName:@"SegoeUI-Light" size:12.0];
     
     self.login_btn.titleLabel.font = [UIFont fontWithName:@"SegoeWP Light" size:17.0];
@@ -71,6 +67,7 @@ ForgetPage *forgetPage;
     
     self.registration_btn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14.0];
     self.forget_btn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14.0];
+    
     self.email_field.placeholderColor = RGB(53, 65, 71);
     self.email_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
     self.email_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
@@ -78,14 +75,17 @@ ForgetPage *forgetPage;
     self.pass_field.placeholderColor = RGB(53, 65, 71);
     self.pass_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
     self.pass_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
-    
 }
-
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //[self.navigationItem setHidesBackButton:YES];
+    [self.scrollView setup_autosize];
     self.navigationController.navigationBarHidden = NO;
+    self.email_field.text = @"alexruden2012@gmail.com";
+    self.pass_field.text = @"test";
+    self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
+    
 }
 
 
@@ -161,11 +161,10 @@ ForgetPage *forgetPage;
         [[UserData sharedObject] savePassword:self.pass_field.text];
         [[UserData sharedObject] saveUserName:self.email_field.text];
         
-        [inetRequests authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
+        [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
             if (result) {
-                [inetRequests getUserDataWithCompletion:^(BOOL result, NSError *error) {
+                [ServData getUserDataWithCompletion:^(BOOL result, NSError *error) {
                     if (result) {
-                        NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
                         [self openGeneralApp:self];
                     }else{
                         [Helper fastAlert:@"Ошибка загрузки данных пользователя"];

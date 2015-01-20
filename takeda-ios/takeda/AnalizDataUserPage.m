@@ -20,7 +20,6 @@
 
 @implementation AnalizDataUserPage
 @synthesize nextStepBtn;
-@synthesize titleRisk;
 @synthesize sourceData;
 @synthesize tableView;
 @synthesize page;

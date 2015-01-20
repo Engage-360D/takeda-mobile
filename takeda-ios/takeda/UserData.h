@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface UserData : NSObject{
-    NSString *oauthToken;
-    NSDictionary *userData;
+    NSString *oauthToken_;
+    NSMutableDictionary *userData_;
 }
 +(UserData*)sharedObject;
+
+@property (nonatomic, strong) NSString *oauthToken;
+@property (nonatomic, strong) NSMutableDictionary *userData;
+
 
 -(BOOL)is_authorized;
     
@@ -20,7 +24,7 @@
 -(void)setAccessToken:(NSString*)token;
 
 -(NSDictionary*)getUserData;
--(void)setUserData:(NSDictionary*)userData;
+-(void)setUserData:(NSMutableDictionary*)userData;
 
 -(void)savePassword:(NSString*)pass;
 -(void)saveUserName:(NSString*)username;
@@ -30,4 +34,11 @@
 
 -(void)saveAnalisRiskData:(NSData*)data;
 -(id)getLastSavedAnalisRiskData;
+
+
+
+
+
+
+
 @end

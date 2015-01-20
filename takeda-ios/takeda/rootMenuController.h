@@ -19,6 +19,7 @@
 @class PublicationPage;
 @class ReportsPage;
 @class NVSlideMenuController;
+@class MainPage;
 
 @interface rootMenuController : NSObject
 +(rootMenuController*)sharedInstance;
@@ -32,6 +33,7 @@
 -(PublicationPage*)getPublicationPage;
 -(ReportsPage*)getReportsPage;
 -(NVSlideMenuController*)getMenuController;
+-(MainPage*)getMainPage;
 
 -(UIViewController*)riskAnalysis_vc;
 @end

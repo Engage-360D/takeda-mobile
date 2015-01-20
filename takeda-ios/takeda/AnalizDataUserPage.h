@@ -11,11 +11,10 @@
 
 @protocol AnalizDataUserPageDelegate;
 
-@interface AnalizDataUserPage : UIViewController
+@interface AnalizDataUserPage : VControllerExt
 
 @property int page;
 @property (nonatomic,retain) IBOutlet UIButton *nextStepBtn;
-@property (nonatomic,retain) IBOutlet UILabel *titleRisk;
 @property (nonatomic,retain) NSArray *sourceData;
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 @property (assign) __unsafe_unretained id <AnalizDataUserPageDelegate> delegate;

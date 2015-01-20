@@ -19,12 +19,14 @@ WelcomePage *welcomePage;
 {
     [Path checkDirectories];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+    [GMSServices provideAPIKey:@"AIzaSyCJbaqLyduDBLnzodgcq5WdD7ebS2tU2DM"];
+
     [self openWelcomePage];
     
     
     self.window.backgroundColor = [UIColor whiteColor];
-    [self showAllFonts];
+    // [self showAllFonts];
+  // [self showFonts];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -34,19 +36,6 @@ WelcomePage *welcomePage;
     welcomePage = [[WelcomePage alloc] initWithNibName:@"WelcomePage" bundle:nil];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:welcomePage];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 -(void)showAllFonts{
@@ -60,6 +49,25 @@ WelcomePage *welcomePage;
         NSLog (@"%@: %@", fontFamily, fontNames);
     }
 }
+
+-(void)showFonts{
+    
+    
+    NSMutableArray *fontNames = [[NSMutableArray alloc] init];
+    
+    NSArray *fontFamilyNames = [UIFont familyNames];
+    for (NSString *familyName in fontFamilyNames)
+    {
+           NSLog(@"Font Family Name = %@", familyName);
+        //font names under family
+        NSArray *names = [UIFont fontNamesForFamilyName:familyName];
+          NSLog(@"Font Names = %@", fontNames);
+        // add to array
+        [fontNames addObjectsFromArray:names];
+    }
+    
+}
+
 
 
 

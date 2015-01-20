@@ -62,7 +62,7 @@ int selectedIndex = 0;
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-        NSDate *curDate = [formatter dateFromString:[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]];
+        NSDate *curDate = [formatter dateFromString:[NSString stringWithFormat:@"%@",[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]]];
         if (curDate) {
             
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -112,7 +112,7 @@ int selectedIndex = 0;
     [firstPage willMoveToParentViewController:self];
     [firstPage.nextStepBtn addTarget:self action:@selector(goHistoryPacient:) forControlEvents:UIControlEventTouchDown];
     [firstPage.nextStepBtn setTitle:@"История пациента" forState:UIControlStateNormal];
-    firstPage.titleRisk.text = @"Данные пациента";
+    firstPage.vcSubTitle.text = @"Данные пациента";
     firstPage.page = 1;
     firstPage.delegate = self;
     firstPage.sourceData = [[analizData sharedObject] getQuestionsDataUser];
@@ -132,7 +132,7 @@ int selectedIndex = 0;
     [historyPacientPage willMoveToParentViewController:self];
     [historyPacientPage.nextStepBtn addTarget:self action:@selector(goDailyRation:) forControlEvents:UIControlEventTouchDown];
     [historyPacientPage.nextStepBtn setTitle:@"Дневной рацион" forState:UIControlStateNormal];
-    historyPacientPage.titleRisk.text = @"История пациента";
+    historyPacientPage.vcSubTitle.text = @"История пациента";
     [self.scroll setContentSize:CGSizeMake(320 * 2, 20)];
     historyPacientPage.page = 2;
     historyPacientPage.delegate = self;
@@ -152,7 +152,7 @@ int selectedIndex = 0;
     [dailyRationPage willMoveToParentViewController:self];
     [dailyRationPage.nextStepBtn addTarget:self action:@selector(goResultPage:) forControlEvents:UIControlEventTouchDown];
     [dailyRationPage.nextStepBtn setTitle:@"Результаты" forState:UIControlStateNormal];
-    dailyRationPage.titleRisk.text = @"Дневной рацион";
+    dailyRationPage.vcSubTitle.text = @"Дневной рацион";
     [self.scroll setContentSize:CGSizeMake(320 * 3, 20)];
     dailyRationPage.page = 3;
     dailyRationPage.delegate = self;
@@ -585,7 +585,7 @@ numberOfRowsInComponent:(NSInteger)component
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-        NSDate *curDate = [formatter dateFromString:[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]];
+        NSDate *curDate = [formatter dateFromString:[NSString stringWithFormat:@"%@",[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]]];
         
         
         if (!curDate) {
