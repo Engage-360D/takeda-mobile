@@ -66,23 +66,21 @@ public class AppSharedPreferences {
 
         switch (preference.getPrefClass()) {
             case bln:
-                preferences.edit().putBoolean(preference.getPrefName(), (Boolean) value);
+                preferences.edit().putBoolean(preference.getPrefName(), (Boolean) value).commit();
                 break;
             case flt:
-                preferences.edit().putFloat(preference.getPrefName(), (Float) value);
+                preferences.edit().putFloat(preference.getPrefName(), (Float) value).commit();
                 break;
             case ntg:
-                preferences.edit().putInt(preference.getPrefName(), (Integer) value);
+                preferences.edit().putInt(preference.getPrefName(), (Integer) value).commit();
                 break;
             case lng:
-                preferences.edit().putLong(preference.getPrefName(), (Long) value);
+                preferences.edit().putLong(preference.getPrefName(), (Long) value).commit();
                 break;
             case str:
-                preferences.edit().putString(preference.getPrefName(), (String) value);
+                preferences.edit().putString(preference.getPrefName(), (String) value).commit();
                 break;
         }
-
-        preferences.edit().commit();
     }
 
 }

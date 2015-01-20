@@ -30,6 +30,7 @@ import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
+import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 import ru.com.cardiomagnil.social.FbApi;
@@ -85,6 +86,11 @@ public class RegistrationFragment extends BaseStartFragment {
         progressBarBottomOutsideStartWork.setMax(3);
         progressBarBottomOutsideStartWork.setProgress(2);
         textViewBottomOutsideAction.setText(activity.getString(R.string.two_minutes));
+    }
+
+    @Override
+    public void handleRegAuth(Ca_Token token, Ca_User user) {
+
     }
 
     private void initRegistrationFragment(final View view) {

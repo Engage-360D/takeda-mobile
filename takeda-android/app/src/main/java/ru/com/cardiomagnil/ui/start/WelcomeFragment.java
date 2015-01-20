@@ -9,6 +9,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.ca_model.token.Ca_Token;
+import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.util.Tools;
 
@@ -33,5 +35,10 @@ public class WelcomeFragment extends BaseStartFragment {
         textViewBottomOutsideAction.setText(activity.getString(R.string.three_minutes));
         linearLayoutTop.setAlpha(0);
         textViewBottom.setAlpha(0);
+    }
+
+    @Override
+    public void handleRegAuth(Ca_Token token, Ca_User user) {
+        // do nothing
     }
 }

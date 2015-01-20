@@ -15,8 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppSharedPreferences;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
+import ru.com.cardiomagnil.ca_model.user.Ca_UserLgnPwd;
 import ru.com.cardiomagnil.social.FbApi;
 import ru.com.cardiomagnil.social.FbUser;
 import ru.com.cardiomagnil.social.OkApi;
@@ -26,6 +31,7 @@ import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.ui.start.SignInWithSocialNetwork;
 import ru.com.cardiomagnil.ui.start.StartActivity;
+import ru.com.cardiomagnil.util.TestMethods;
 import ru.com.cardiomagnil.util.Tools;
 
 public class LoginOrRestoreFragment extends BaseStartFragment {
@@ -46,11 +52,27 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         textViewBottomOutsideAction.setText(activity.getString(R.string.two_minutes));
     }
 
+    @Override
+    public void handleRegAuth(Ca_Token token, Ca_User user) {
+        if (token == null && user == null) {
+            initAppState(null, null);
+        } else {
+            initAppState(token, user);
+        }
+    }
+
+    private void initAppState(Ca_Token token, Ca_User user) {
+        AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
+        AppState.getInstatce().setToken(token);
+        AppState.getInstatce().setUser(user);
+    }
+
     private void initLoginOrRestoreFragment(final View view) {
         initLogin(view);
         initRestore(view);
         initLoginRestoreSwitcher(view);
         initSocials(view);
+        customizeIfDebug(view);
     }
 
     private void initLogin(final View view) {
@@ -93,7 +115,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonEnter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                tryAuthorization();
+                startAuthorization();
             }
         });
 
@@ -130,7 +152,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonRestore.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                tryRestore();
+                startRestore();
             }
         });
     }
@@ -165,56 +187,59 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         view.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(this, new OkApi(), new RegisterUserOnFinish(this, OkUser.class)));
     }
 
-    private void tryAuthorization() {
-        Ca_User user = pickAuthorizationFields();
+    private void customizeIfDebug(final View view) {
+        if (BuildConfig.DEBUG) {
+            EditText editTextEmailLogin = (EditText ) view.findViewById(R.id.editTextEmailLogin);
+            EditText editTextPassword = (EditText ) view.findViewById(R.id.editTextPassword);
 
-        // FIXME: implement authorization
+            editTextEmailLogin.setText("y.andreyko@gmail.com");
+            editTextPassword.setText("aaa");
+        }
+    }
 
-//        if (user.validate(true)) {
-//            AppState.getInstatce().set User(user);
-//
-//            StartActivity startActivity = (StartActivity) getActivity();
-//            startActivity.userAuthorization();
-//        } else {
-//            Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
-//        }
+    private void startAuthorization() {
+        Ca_UserLgnPwd userLgnPwd = pickAuthorizationFields();
+        // response handled in handleRegAuth
+        startAuthorization(userLgnPwd);
     }
 
     // FIXME: remove getActivity
-    private void tryRestore() {
+    private void startRestore() {
         String email = pickRestoreFields();
         if (Tools.isValidEmail(email)) {
             StartActivity startActivity = (StartActivity) getActivity();
-            startActivity.restorePassword(email);
+            restorePassword(email);
         } else {
             Toast.makeText(this.getActivity(), this.getActivity().getString(R.string.complete_all_fields), Toast.LENGTH_LONG).show();
         }
     }
 
-    // FIXME: remove getActivity
-    private Ca_User pickAuthorizationFields() {
-        Ca_User user = new Ca_User();
+    // FIXME
+    private void restorePassword(String email) {
+
+    }
+
+    private Ca_UserLgnPwd pickAuthorizationFields() {
+        Ca_UserLgnPwd userLgnPwd = new Ca_UserLgnPwd();
 
         try {
             EditText editTextEmailLogin = (EditText) getActivity().findViewById(R.id.editTextEmailLogin);
             EditText editTextPassword = (EditText) getActivity().findViewById(R.id.editTextPassword);
 
-            user.setEmail(editTextEmailLogin.getText().toString());
-            user.setPlainPassword(editTextPassword.getText().toString());
+            userLgnPwd.setEmail(editTextEmailLogin.getText().toString());
+            userLgnPwd.setPlainPassword(editTextPassword.getText().toString());
         } catch (Exception e) {
             // do nothing
         }
 
-        return user;
+        return userLgnPwd;
     }
 
-    // FIXME: remove getActivity
     private String pickRestoreFields() {
         EditText editTextEmailRestore = (EditText) getActivity().findViewById(R.id.editTextEmailRestore);
         return editTextEmailRestore.getText().toString();
     }
 
-    // FIXME: remove getActivity
     private void initFields(ru.com.cardiomagnil.social.User user) {
         final EditText editTextEmail = (EditText) this.getActivity().findViewById(R.id.editTextEmailLogin);
 
