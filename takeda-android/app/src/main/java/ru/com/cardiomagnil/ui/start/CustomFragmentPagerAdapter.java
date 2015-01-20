@@ -5,13 +5,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
 
 import ru.com.cardiomagnil.ui.login_or_restore.LoginOrRestoreFragment;
 import ru.com.cardiomagnil.ui.registration.RegistrationFragment;
 
 class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
-    private final SparseArray<Fragment> mStartFragments = new SparseArray<>();
+    private final SparseArray<WeakReference<Fragment>> mFragmentReferences = new SparseArray<>();
     private final Class[] StartFragmentsClasses = new Class[]{
             WelcomeFragment.class,
             LoginOrRestoreFragment.class,
@@ -23,7 +24,7 @@ class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int pos) {
-        Fragment fragment = mStartFragments.get(pos);
+        Fragment fragment = getFragmen(pos);
         if (fragment != null) {
             return fragment;
         }
@@ -31,7 +32,7 @@ class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
         try {
             Constructor<?> ctor = StartFragmentsClasses[pos].getConstructor();
             fragment = (Fragment) ctor.newInstance(new Object[]{});
-            mStartFragments.put(pos, fragment);
+            putFragment(pos, fragment);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,5 +43,14 @@ class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return StartFragmentsClasses.length;
+    }
+
+    private void putFragment(int pos, Fragment fragment) {
+        mFragmentReferences.put(pos, new WeakReference<Fragment>(fragment));
+    }
+
+    private Fragment getFragmen(int pos) {
+        WeakReference<Fragment> weakReference = mFragmentReferences.get(pos);
+        return weakReference == null ? null : weakReference.get();
     }
 }
