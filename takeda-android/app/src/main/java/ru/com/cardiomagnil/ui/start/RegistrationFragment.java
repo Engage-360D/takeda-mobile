@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.start.registration;
+package ru.com.cardiomagnil.ui.start;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -42,8 +42,10 @@ import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.ui.start.CustomAuthorizationListener;
 import ru.com.cardiomagnil.ui.start.SignInWithSocialNetwork;
+import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
+import ru.com.cardiomagnil.util.Utils;
 
 public class RegistrationFragment extends BaseStartFragment {
     private final int[] mRequiredEditTextCommon = new int[]{
@@ -90,7 +92,7 @@ public class RegistrationFragment extends BaseStartFragment {
     }
 
     @Override
-    public void initFields(User user) {
+    public void initFieldsFromSocial(User user) {
         EditText editTextName = (EditText) getActivity().findViewById(R.id.editTextFirstName);
         EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
         TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
@@ -107,10 +109,6 @@ public class RegistrationFragment extends BaseStartFragment {
             textViewBirthDate.setText(user.getBirthday());
             textViewBirthDate.setTag(Tools.calendarFromShort(user.getBirthday()));
         }
-    }
-
-    @Override
-    protected void handleRegAuth(Ca_Token token, Ca_User user) {
     }
 
     private void initRegistrationFragment(final View view) {
@@ -235,40 +233,17 @@ public class RegistrationFragment extends BaseStartFragment {
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View paramView) {
-                tryRegistration(parentView);
+                StartActivity startActivity = (StartActivity) getActivity();
+                startActivity.showProgressDialog();
+
+                if (validateRegistrationFields(parentView)) {
+                    // response handled in handleRegAuth
+                    startRegistration(pickRegistrationFields(parentView));
+                } else {
+                    Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_required_fields), Toast.LENGTH_LONG).show();
+                }
             }
         });
-    }
-
-    private void tryRegistration(final View parentView) {
-        if (!validateRegistrationFields(parentView)) {
-            Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_required_fields), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        Ca_User newUser = pickRegistrationFields(parentView);
-
-        Ca_UserDao.register(
-                newUser,
-                new CallbackOne<Ca_User>() {
-                    @Override
-                    public void execute(Ca_User user) {
-                        int t = 1;
-                        t++;
-                    }
-                },
-                new CallbackOne<Ca_Response>() {
-                    @Override
-                    public void execute(Ca_Response responseError) {
-                        int t = 1;
-                        t++;
-                    }
-                }
-        );
-
-//        AppState.getInstatce().set User(newUser);
-//        StartActivity startActivity = (StartActivity) getActivity();
-//        startActivity.userRegistration();
     }
 
     private boolean validateRegistrationFields(final View parentView) {

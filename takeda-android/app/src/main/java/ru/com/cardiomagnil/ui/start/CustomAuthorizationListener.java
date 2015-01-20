@@ -21,7 +21,7 @@ public class CustomAuthorizationListener implements AuthorizationListener {
     public void onAuthorized(String userInfo) {
         try {
             User user = mUserClass.getConstructor(String.class).newInstance(userInfo);
-            mFragment.initFields(user);
+            mFragment.initFieldsFromSocial(user);
             StartActivity startActivity = (StartActivity) mFragment.getActivity();
             startActivity.hideProgressDialog();
         } catch (Exception e) {

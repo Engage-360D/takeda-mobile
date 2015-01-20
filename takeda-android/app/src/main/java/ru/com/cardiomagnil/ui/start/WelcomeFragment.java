@@ -38,12 +38,7 @@ public class WelcomeFragment extends BaseStartFragment {
     }
 
     @Override
-    protected void handleRegAuth(Ca_Token token, Ca_User user) {
-        // do nothing
-    }
-
-    @Override
-    public void initFields(User socialUser) {
+    public void initFieldsFromSocial(User socialUser) {
         // do nothing
     }
 }

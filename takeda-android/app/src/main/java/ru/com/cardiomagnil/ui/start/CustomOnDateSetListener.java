@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.start.registration;
+package ru.com.cardiomagnil.ui.start;
 
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;

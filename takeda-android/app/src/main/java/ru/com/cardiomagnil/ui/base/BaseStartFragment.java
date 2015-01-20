@@ -3,6 +3,7 @@ package ru.com.cardiomagnil.ui.base;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
+import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.token.Ca_TokenDao;
@@ -10,6 +11,7 @@ import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserLgnPwd;
 import ru.com.cardiomagnil.social.User;
+import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
 
 public abstract class BaseStartFragment extends Fragment {
@@ -71,6 +73,21 @@ public abstract class BaseStartFragment extends Fragment {
         );
     }
 
-    protected abstract void handleRegAuth(Ca_Token token, Ca_User user);
-    public abstract void initFields(User socialUser);
+    private void handleRegAuth(Ca_Token token, Ca_User user) {
+        if (token == null && user == null) {
+            initAppState(null, null);
+        } else {
+            initAppState(token, user);
+            ((StartActivity) getActivity()).startSlidingMenu();
+        }
+    }
+
+    private void initAppState(Ca_Token token, Ca_User user) {
+        AppState.getInstatce().setToken(token);
+        AppState.getInstatce().setUser(user);
+        // TODO: uncomment after tests
+        // AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
+    }
+
+    public abstract void initFieldsFromSocial(User socialUser);
 }

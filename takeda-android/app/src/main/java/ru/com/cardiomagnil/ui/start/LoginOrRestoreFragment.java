@@ -17,9 +17,7 @@ import android.widget.Toast;
 
 import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
-import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserLgnPwd;
@@ -53,7 +51,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     @Override
-    public void initFields(ru.com.cardiomagnil.social.User user) {
+    public void initFieldsFromSocial(ru.com.cardiomagnil.social.User user) {
         final EditText editTextEmail = (EditText) getActivity().findViewById(R.id.editTextEmailLogin);
 
         if (!user.getEmail().isEmpty()) {
@@ -61,31 +59,13 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         }
     }
 
-    @Override
-    protected void handleRegAuth(Ca_Token token, Ca_User user) {
-        StartActivity startActivity = (StartActivity) getActivity();
-        startActivity.hideProgressDialog();
-        if (token == null && user == null) {
-            initAppState(null, null);
-        } else {
-            initAppState(token, user);
-            startActivity.startSlidingMenu();
-        }
-    }
-
     public void handleResetPassword(Ca_User user) {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.hideProgressDialog();
+
         if (user == null) {
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_restoring), Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void initAppState(Ca_Token token, Ca_User user) {
-        AppState.getInstatce().setToken(token);
-        AppState.getInstatce().setUser(user);
-        // TODO: uncomment after tests
-        // AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
     }
 
     private void initLoginOrRestoreFragment(final View view) {
@@ -137,7 +117,6 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonEnter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.hideKeyboard(getActivity());
                 startAuthorization();
             }
         });
@@ -176,7 +155,6 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonRestore.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.hideKeyboard(getActivity());
                 startRestore();
             }
         });
