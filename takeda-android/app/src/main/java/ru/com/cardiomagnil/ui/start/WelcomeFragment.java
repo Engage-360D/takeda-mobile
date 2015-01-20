@@ -16,7 +16,6 @@ import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.util.Tools;
 
 public class WelcomeFragment extends BaseStartFragment {
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ca_fragment_start_welcome, container, false);

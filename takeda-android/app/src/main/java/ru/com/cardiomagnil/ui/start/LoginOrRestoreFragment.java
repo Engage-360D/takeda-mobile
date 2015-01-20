@@ -54,7 +54,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
 
     @Override
     public void initFields(ru.com.cardiomagnil.social.User user) {
-        final EditText editTextEmail = (EditText) this.getActivity().findViewById(R.id.editTextEmailLogin);
+        final EditText editTextEmail = (EditText) getActivity().findViewById(R.id.editTextEmailLogin);
 
         if (!user.getEmail().isEmpty()) {
             editTextEmail.setText(user.getEmail());
@@ -77,7 +77,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.hideProgressDialog();
         if (user == null) {
-            Toast.makeText(this.getActivity(), this.getActivity().getString(R.string.error_restoring), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getActivity().getString(R.string.error_restoring), Toast.LENGTH_LONG).show();
         }
     }
 

@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -37,6 +36,7 @@ import ru.com.cardiomagnil.social.FbApi;
 import ru.com.cardiomagnil.social.FbUser;
 import ru.com.cardiomagnil.social.OkApi;
 import ru.com.cardiomagnil.social.OkUser;
+import ru.com.cardiomagnil.social.User;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
@@ -89,15 +89,10 @@ public class RegistrationFragment extends BaseStartFragment {
         textViewBottomOutsideAction.setText(activity.getString(R.string.two_minutes));
     }
 
-    // FIXME!!! remove getActivity!!!
     @Override
-    public void initFields(ru.com.cardiomagnil.social.User user) {
-        // FIXME!!!
+    public void initFields(User user) {
         EditText editTextName = (EditText) getActivity().findViewById(R.id.editTextFirstName);
-
-
         EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
-        Spinner spinnerRegion = (Spinner) getActivity().findViewById(R.id.spinnerRegion);
         TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
 
         if (!user.getFirstName().isEmpty()) {
@@ -108,24 +103,14 @@ public class RegistrationFragment extends BaseStartFragment {
             editTextRegEmail.setText(user.getEmail());
         }
 
-        if (!user.getCountry().isEmpty()) {
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinnerRegion.getAdapter();
-            adapter.add(user.getCountry());
-            spinnerRegion.setSelection(adapter.getCount() - 1);
-            // FIXME
-//            mCountry = user.getCountry();
-        }
-
         if (!user.getBirthday().isEmpty()) {
             textViewBirthDate.setText(user.getBirthday());
-            // FIXME
-//            mBirthDate = user.getBirthday();
+            textViewBirthDate.setTag(Tools.calendarFromShort(user.getBirthday()));
         }
     }
 
     @Override
     protected void handleRegAuth(Ca_Token token, Ca_User user) {
-
     }
 
     private void initRegistrationFragment(final View view) {
@@ -167,7 +152,7 @@ public class RegistrationFragment extends BaseStartFragment {
         final DatePickerDialog dateDialog = new DatePickerDialog(
                 parentView.getContext(),
                 customOnDateSetListener,
-                calendar.get(Calendar.YEAR) - ageLimt,
+                calendar.get(Calendar.YEAR) - ageLimt - 1,
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -178,6 +163,15 @@ public class RegistrationFragment extends BaseStartFragment {
             public boolean onTouch(View paramView, MotionEvent paramMotionEvent) {
                 if (!datePickerDialogIsStarted) {
                     datePickerDialogIsStarted = true;
+
+                    Calendar calendar = (Calendar) textViewBirthDate.getTag();
+                    if (calendar != null) {
+                        dateDialog.getDatePicker().updateDate(
+                                calendar.get(Calendar.YEAR),
+                                calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH));
+                    }
+
                     dateDialog.show();
 
                     dateDialog.setOnDismissListener(new OnDismissListener() {

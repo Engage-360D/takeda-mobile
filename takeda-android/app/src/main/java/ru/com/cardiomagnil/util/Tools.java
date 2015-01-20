@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import ru.com.cardiomagnil.app.R;
@@ -78,6 +79,23 @@ public class Tools {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
         String formatedDate = dateFormat.format(date);
         return formatedDate;
+    }
+
+    public static Calendar calendarFromShort(String shortDate) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+
+        try {
+            date = dateFormat.parse(shortDate);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        calendar.setTime(date);
+
+        return calendar;
     }
 
     public static ViewGroup initActionBar(LayoutInflater layoutInflater, ActionBar actionBar, boolean extended) {

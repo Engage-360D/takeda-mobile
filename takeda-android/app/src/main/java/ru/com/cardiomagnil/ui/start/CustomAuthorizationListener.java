@@ -5,8 +5,8 @@ import android.widget.Toast;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.social.AuthorizationListener;
+import ru.com.cardiomagnil.social.User;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
-import ru.com.cardiomagnil.ui.start.StartActivity;
 
 public class CustomAuthorizationListener implements AuthorizationListener {
     private BaseStartFragment mFragment;
@@ -20,7 +20,7 @@ public class CustomAuthorizationListener implements AuthorizationListener {
     @Override
     public void onAuthorized(String userInfo) {
         try {
-            ru.com.cardiomagnil.social.User user = mUserClass.getConstructor(String.class).newInstance(userInfo);
+            User user = mUserClass.getConstructor(String.class).newInstance(userInfo);
             mFragment.initFields(user);
             StartActivity startActivity = (StartActivity) mFragment.getActivity();
             startActivity.hideProgressDialog();
