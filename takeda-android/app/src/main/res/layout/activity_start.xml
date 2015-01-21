@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ca_bg_main_38"
@@ -37,14 +38,15 @@
             android:layout_gravity="center_horizontal"
             android:progress="@integer/scale_animation_time" />
 
-        <TextView
+        <com.devspark.robototextview.widget.RobotoTextView
             android:id="@+id/textViewBottomOutsideAction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:textColor="@color/ca_white"
-            android:textSize="@dimen/ca_text_size_xsmall" />
+            android:textSize="@dimen/ca_text_size_xsmall"
+            app:typeface="roboto_regular" />
     </LinearLayout>
 
 </LinearLayout>

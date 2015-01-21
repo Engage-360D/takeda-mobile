@@ -26,6 +26,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/CustomTheme">
+
         <activity
             android:name="ru.com.cardiomagnil.ui.splash.SplashActivity"
             android:label="@string/app_name"
@@ -37,21 +38,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:theme="@style/CustomThemeNoActionBar"
             android:name="ru.com.cardiomagnil.ui.start.StartActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:theme="@style/CustomThemeNoActionBar"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name="ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
 
-        <service
-            android:name="ru.evilduck.framework.service.SFCommandExecutorService"
-            android:exported="false" />
+        <activity
+            android:name="ru.com.cardiomagnil.ui.start.TestActivity"
+            android:label="@string/app_name"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -60,9 +63,6 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCWT6WII31OtrVgqYLlDQkIS1cWWWSfG1s" />
 
-        <activity
-            android:name="ru.com.cardiomagnil.ui.start.TestActivity"
-            android:label="@string/title_activity_test"></activity>
     </application>
 
 </manifest>

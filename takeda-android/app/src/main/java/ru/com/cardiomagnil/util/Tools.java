@@ -156,29 +156,6 @@ public class Tools {
         return keyHashB64;
     }
 
-    public static void setFontSegoeWP(ViewGroup viewGroup) {
-        Typeface typeface = Typeface.createFromAsset(CardiomagnilApplication.getAppContext().getAssets(), CardiomagnilApplication.getAppContext().getString(R.string.segoe_wp_font));
-        setFont(viewGroup, typeface);
-    }
-
-    public static void setFontSegoeWPLight(ViewGroup viewGroup) {
-        Typeface typeface = Typeface.createFromAsset(CardiomagnilApplication.getAppContext().getAssets(), CardiomagnilApplication.getAppContext().getString(R.string.segoe_wp_font_light));
-        setFont(viewGroup, typeface);
-    }
-
-    public static void setFont(ViewGroup viewGroup, Typeface typeface) {
-        int count = viewGroup.getChildCount();
-        View v;
-        for (int i = 0; i < count; i++) {
-            v = viewGroup.getChildAt(i);
-            if (v instanceof TextView) {
-                ((TextView) v).setTypeface(typeface);
-            } else if (v instanceof ViewGroup) {
-                setFont((ViewGroup) v, typeface);
-            }
-        }
-    }
-
     public static boolean isValidEmail(CharSequence target) {
         if (target == null || target.length() == 0) {
             return false;

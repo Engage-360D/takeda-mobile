@@ -132,20 +132,14 @@
     <string name="error_user_already_exist">Такой пользователь уже существует.\nУбедитесь, что вы правильно ввели электронный адрес.</string>
     <string name="error_password_already_requested">Пароль уже был запрошен.</string>
 
-    <!-- ===== -->
-    <!-- fonts -->
-    <!-- ===== -->
-    <string name="segoe_wp_font">fonts/SegoeWP.ttf</string>
-    <string name="segoe_wp_font_light">fonts/SegoeWP-Light.ttf</string>
-
     <!-- ================================================================================== -->
     <!-- Дневной рацион -->
 
     <!-- ================ -->
     <!-- fragment welcome -->
     <!-- ================ -->
-    <string name="welcome_1">Добро пожаловать\nв приложение\nпрепарата Кардиомагнил.</string>
-    <string name="welcome_2">Вы сможете следить за своим здоровьем\nи пользоваться советами\nпосле регистрации и прохождения теста.</string>
+    <string name="welcome_1">Добро пожаловать в приложение\nпрепарата Кардиомагнил.</string>
+    <string name="welcome_2">Вы сможете следить за своим здоровьем и\nпользоваться советами после регистрации и\nпрохождения теста.</string>
     <string name="swipe">Смахните</string>
     <string name="three_minutes">3 минуты до начала работы приложения</string>
 
@@ -334,9 +328,6 @@
     <string name="date_1">Сегодня (вторник)</string>
     <string name="date_2">26.11.2017 (понедельник)</string>
     <string name="date_3">25.11.2017 (воскресенье)</string>
-    <string name="title_activity_test">testActivity</string>
-    <string name="hello_world">Hello world!</string>
-
 
     <!-- ============== -->
     <!-- response_codes -->

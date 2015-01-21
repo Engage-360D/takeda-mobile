@@ -131,6 +131,7 @@
     <dimen name="ca_control_medium">130dp</dimen>
     <dimen name="ca_control_xlarge">220dp</dimen>
 
+    <!-- 14pt - ca_text_size_xsmall -->
     <!-- 16pt - ca_text_size_small -->
     <!-- 18pt - ca_text_size_medium -->
     <!-- 20pt - ca_text_size_medium -->
@@ -143,12 +144,19 @@
     <!-- text -->
     <!-- ==== -->
     <dimen name="ca_text_size_xxsmall">12sp</dimen>
-    <dimen name="ca_text_size_xsmall">14sp</dimen>
-    <dimen name="ca_text_size_small">16sp</dimen>
-    <dimen name="ca_text_size_medium">20sp</dimen>
-    <dimen name="ca_text_size_large">22sp</dimen>
-    <dimen name="ca_text_size_xlarge">24sp</dimen>
-    <dimen name="ca_text_size_xxlarge">28sp</dimen>
+    <dimen name="ca_text_size_xsmall">13sp</dimen>
+    <dimen name="ca_text_size_small">15sp</dimen>
+    <dimen name="ca_text_size_medium">18sp</dimen>
+    <dimen name="ca_text_size_large">19sp</dimen>
+    <dimen name="ca_text_size_xlarge">22sp</dimen>
+    <dimen name="ca_text_size_xxlarge">24sp</dimen>
+    <!--<dimen name="ca_text_size_xxsmall">12sp</dimen>-->
+    <!--<dimen name="ca_text_size_xsmall">14sp</dimen>-->
+    <!--<dimen name="ca_text_size_small">16sp</dimen>-->
+    <!--<dimen name="ca_text_size_medium">20sp</dimen>-->
+    <!--<dimen name="ca_text_size_large">22sp</dimen>-->
+    <!--<dimen name="ca_text_size_xlarge">24sp</dimen>-->
+    <!--<dimen name="ca_text_size_xxlarge">28sp</dimen>-->
     <dimen name="ca_text_size_percents">65sp</dimen>
 
 </resources>

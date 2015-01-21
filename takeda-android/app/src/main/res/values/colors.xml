@@ -63,6 +63,7 @@
     <color name="ca_divider_1">#FFC3C5C9</color>
     <color name="ca_divider_2">#FFDCDDE0</color>
     <color name="ca_divider_3">#FFDCDADA</color>
+    <color name="ca_divider_4">#FF4C545E</color>
 
     <!--background -->
     <color name="ca_bg_top">#FFFF3341</color>

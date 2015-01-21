@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ca_bg_main_38"
@@ -16,34 +17,37 @@
 
     <include layout="@layout/ca_layout_vertical_gap_plate_small" />
 
-    <TextView
+    <com.devspark.robototextview.widget.RobotoTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/welcome_1"
         android:textColor="@color/ca_white"
-        android:textSize="@dimen/ca_text_size_large" />
+        android:textSize="@dimen/ca_text_size_large"
+        app:typeface="roboto_regular" />
 
     <include layout="@layout/ca_layout_vertical_gap_plate_small" />
 
-    <TextView
+    <com.devspark.robototextview.widget.RobotoTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/welcome_2"
         android:textColor="@color/ca_text_main_88"
-        android:textSize="@dimen/ca_text_size_small" />
+        android:textSize="@dimen/ca_text_size_small"
+        app:typeface="roboto_regular" />
 
     <include layout="@layout/ca_layout_vertical_gap_plate_small" />
 
-    <TextView
+    <com.devspark.robototextview.widget.RobotoTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_big_light_left"
         android:gravity="center_vertical"
         android:text="@string/swipe"
         android:textColor="@color/ca_white"
-        android:textSize="@dimen/ca_text_size_medium" />
+        android:textSize="@dimen/ca_text_size_medium"
+        app:typeface="roboto_regular" />
 
 </LinearLayout>
 

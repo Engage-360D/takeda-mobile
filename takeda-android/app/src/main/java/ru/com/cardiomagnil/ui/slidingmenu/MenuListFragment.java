@@ -41,7 +41,6 @@ public class MenuListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ca_slidingmenu_list_fragment, null);
-        Tools.setFontSegoeWP((ViewGroup) view);
         return view;
     }
 
