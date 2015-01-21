@@ -18,6 +18,7 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = NO;
     [self setNavigationPanel];
+    [self setupData];
     [self setup_interface];
 }
 
@@ -48,9 +49,20 @@
 
 }
 
+-(void)setupData{
+    _danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
+}
+
 -(void)setup_interface{
+    self.danger_text.numberOfLines = 0;
+    self.danger_text.font = [UIFont fontWithName:@"SegoeWP" size:10];
+    self.danger_text.textColor = RGB(55, 64, 76);
     self.vcTitle.font = [UIFont fontWithName:@"SegoeWP-Light" size:25];
     self.vcSubTitle.font = [UIFont fontWithName:@"SegoeWP-Light" size:12];
+    for (UIImageView *separ in self.separators_collection){
+        separ.height = 0.5f;
+        separ.y += 0.5;
+    }
 
     //SegoeWP Light
 }
@@ -75,34 +87,14 @@
     view.backgroundColor = [UIColor clearColor];
     self.navigationItem.titleView = view;
     
-    UIImage *menuImage = [UIImage imageNamed:@"menu_icon"];
-    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [aButton setImage:menuImage forState:UIControlStateNormal];
-    aButton.frame = CGRectMake(0.0,0.0,menuImage.size.width+20,menuImage.size.height);
-    aButton.contentEdgeInsets = (UIEdgeInsets){.left=-20};
-    [aButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:aButton];
-    self.navigationItem.leftBarButtonItem = menuButton;
-    
-    
-    UIImage *peopleImage = [UIImage imageNamed:@"people_icon"];
-    UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [bButton setImage:peopleImage forState:UIControlStateNormal];
-    bButton.frame = CGRectMake(0.0,0.0,peopleImage.size.width+10,peopleImage.size.height);
-    bButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
-    //[bButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *peopleButton = [[UIBarButtonItem alloc] initWithCustomView:bButton];
-    
-    
-    UIImage *alarmImage = [UIImage imageNamed:@"alarm_icon"];
-    UIButton *cButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cButton setImage:alarmImage forState:UIControlStateNormal];
-    cButton.frame = CGRectMake(0.0,0.0,alarmImage.size.width+10,alarmImage.size.height);
-    cButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
-    //[cButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *alarmButton = [[UIBarButtonItem alloc] initWithCustomView:cButton];
-    
-    self.navigationItem.rightBarButtonItems = @[peopleButton,alarmButton];
+
+    self.navigationItem.rightBarButtonItems = @[[self peopleButton],[self alarmButton]];
+    if (self.isRootVC){
+        self.navigationItem.leftBarButtonItem = [self menuButton];
+    } else {
+        self.navigationItem.leftBarButtonItem = [self backBtn];
+    }
+
     
 }
 
@@ -112,6 +104,58 @@
     }else{
         [self.slideMenuController openMenuAnimated:YES completion:nil];
     }
+}
+
+-(void)backAction{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(UIImageView*)separatorLine{
+    UIImageView *sp = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0.5f)];
+    sp.height = 0.5f;
+    sp.backgroundColor = RGB(170, 170, 170);
+    return sp;
+}
+
+-(UIBarButtonItem*)menuButton{
+    UIImage *menuImage = [UIImage imageNamed:@"menu_icon"];
+    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [aButton setImage:menuImage forState:UIControlStateNormal];
+    aButton.frame = CGRectMake(0.0,0.0,menuImage.size.width+20,menuImage.size.height);
+    aButton.contentEdgeInsets = (UIEdgeInsets){.left=-20};
+    [aButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:aButton];
+}
+
+-(UIBarButtonItem*)peopleButton{
+    UIImage *peopleImage = [UIImage imageNamed:@"people_icon"];
+    UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [bButton setImage:peopleImage forState:UIControlStateNormal];
+    bButton.frame = CGRectMake(0.0,0.0,peopleImage.size.width+10,peopleImage.size.height);
+    bButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
+    //[bButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:bButton];
+}
+
+-(UIBarButtonItem*)alarmButton{
+    UIImage *alarmImage = [UIImage imageNamed:@"alarm_icon"];
+    UIButton *cButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cButton setImage:alarmImage forState:UIControlStateNormal];
+    cButton.frame = CGRectMake(0.0,0.0,alarmImage.size.width+10,alarmImage.size.height);
+    cButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
+    return [[UIBarButtonItem alloc] initWithCustomView:cButton];
+}
+
+-(UIBarButtonItem*)backBtn{
+    UIButton *leftButtonItem = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 48, 30)];
+    [leftButtonItem setImage:[UIImage imageNamed:@"back_btn"] forState:UIControlStateNormal];
+    leftButtonItem.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [leftButtonItem addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:leftButtonItem];
+}
+
+-(BOOL)isRootVC{
+    return  self == [self.navigationController.viewControllers objectAtIndex: 0];
 }
 
 

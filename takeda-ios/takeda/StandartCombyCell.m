@@ -13,6 +13,7 @@
 @synthesize subTitle;
 @synthesize rightCaption;
 @synthesize rightArrow;
+@synthesize checkBtn;
 
 - (void)awakeFromNib {
     
@@ -20,9 +21,15 @@
     subTitle.font = [UIFont fontWithName:@"SegoeWP-Light" size:10];
     rightCaption.font = [UIFont fontWithName:@"SegoeWP" size:14];
     
+    [checkBtn addTarget:self action:@selector(btnChecked:) forControlEvents:UIControlEventTouchDown];
+
 //    UIView *selectedView = [UIView new];
 //    selectedView.backgroundColor = [UIColor clearColor];
 //    self.selectedBackgroundView = selectedView;
+}
+
+-(void)btnChecked:(buttonWithID*)sender{
+    sender.selected = !sender.selected;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -47,7 +54,8 @@
     subTitle.hidden = YES;
     rightCaption.hidden = YES;
     rightArrow.hidden = YES;
-
+    checkBtn.hidden = YES;
+    
     switch (cellType) {
         case ctSimpleRightCaption:{
             
@@ -70,6 +78,14 @@
             
             break;
         }
+        case ctCaptionSubtitleChecked:{
+            caption.frame = CGRectMake(12, 2, self.width - 12, 20);
+
+            subTitle.hidden = NO;
+            checkBtn.hidden = NO;
+            break;
+        }
+        
     }
 }
 

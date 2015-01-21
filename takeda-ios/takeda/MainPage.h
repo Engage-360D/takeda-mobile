@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "StandartCombyCell.h"
+#import "Drugs.h"
 
-@interface MainPage : UIViewController
+@interface MainPage : VControllerExt
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UILabel *percentLabel;
 @property (nonatomic, strong) IBOutlet UILabel *indexCaptionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *datePeriod;
 @property (nonatomic, strong) IBOutlet UILabel *todayLabel;
-@property (nonatomic,retain) IBOutlet UILabel *danger_text;
+@property (nonatomic, strong) Drugs *drugs;
 
 @end

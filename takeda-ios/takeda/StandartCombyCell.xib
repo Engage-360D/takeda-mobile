@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightDarkArrow.png" id="OBC-Nm-ilm">
-                        <rect key="frame" x="290" y="3" width="8" height="36"/>
+                        <rect key="frame" x="290" y="5" width="8" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PAX-pj-X0k">
@@ -26,23 +26,32 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c8C-Sx-6mv">
-                        <rect key="frame" x="12" y="17" width="290" height="20"/>
+                        <rect key="frame" x="12" y="17" width="290" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.21176470589999999" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XjD-d5-xtm">
-                        <rect key="frame" x="71.999999151643948" y="8" width="226" height="21"/>
+                        <rect key="frame" x="71.999999210897784" y="8" width="226" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.21176470589999999" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UZF-eo-dBm" customClass="buttonWithID">
+                        <rect key="frame" x="256" y="0.0" width="64" height="38"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <state key="normal" image="unchecked_item.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected" image="checked_item.png"/>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="caption" destination="PAX-pj-X0k" id="5XK-uJ-sBr"/>
+                <outlet property="checkBtn" destination="UZF-eo-dBm" id="Qpu-x5-UDM"/>
                 <outlet property="rightArrow" destination="OBC-Nm-ilm" id="swU-dx-GP6"/>
                 <outlet property="rightCaption" destination="XjD-d5-xtm" id="LXs-45-tuY"/>
                 <outlet property="subTitle" destination="c8C-Sx-6mv" id="cAI-v2-CyS"/>
@@ -51,7 +60,9 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="checked_item.png" width="22" height="22"/>
         <image name="rightDarkArrow.png" width="8" height="15"/>
+        <image name="unchecked_item.png" width="24" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

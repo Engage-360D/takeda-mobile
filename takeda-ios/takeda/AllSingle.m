@@ -286,6 +286,13 @@ static AllSingle *dot = nil;
     return h;
 }
 
+-(CGFloat)heightLabel:(UILabel*)label{
+    UIFont *font = label.font;
+    CGSize size = CGSizeMake(label.bounds.size.width, CGFLOAT_MAX);
+    float h = [self text:label.text sizeWithFont:font constrainedToSize:size].height;
+    return h;
+}
+
 - (CGSize)text:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size
 {
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 7)

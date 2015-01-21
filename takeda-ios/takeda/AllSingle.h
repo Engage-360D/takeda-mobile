@@ -40,6 +40,7 @@ typedef void(^MyGlobalBlock)(void);
 - (float)widthForImageConstHeight:(float)toHeight forSize:(CGSize)imgUrlSize;
 - (CGFloat)getHeight:(NSString*)text font:(UIFont*)font width:(float)width;
 - (CGFloat)heightTextView:(UITextView*)textView;
+- (CGFloat)heightLabel:(UILabel*)label;
 - (CGSize)text:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
 - (CGFloat)measureHeightOfUITextView:(UITextView *)textView;
 - (CGFloat)heightForTextView:(UITextView*)textView containingString:(NSString*)string;

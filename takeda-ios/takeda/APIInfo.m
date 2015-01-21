@@ -3,6 +3,7 @@
 // #define kBaseServerURL @"http://cardiomagnyl.iengage.ru"
 // #define kBaseServerURL @"http://cardiomagnyl.iengage.ru"
 
+#define kReportURL @"http://cardiomagnyl.dev.iengage.ru"
 
 
 #define kServerURL [NSString stringWithFormat:@"%@/api/v1/",kBaseServerURL]

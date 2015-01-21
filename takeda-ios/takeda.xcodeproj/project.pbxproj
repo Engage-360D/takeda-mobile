@@ -42,6 +42,15 @@
 		5B1DB12E1A6E9F750099E35C /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5B1DB12D1A6E9F750099E35C /* GoogleMaps.bundle */; };
 		5B69F30C1A6ECF2800643978 /* LPUDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69F30A1A6ECF2800643978 /* LPUDetail.m */; };
 		5B69F30D1A6ECF2800643978 /* LPUDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B69F30B1A6ECF2800643978 /* LPUDetail.xib */; };
+		5B69F3101A6F95D800643978 /* greenAttention.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B69F30E1A6F95D800643978 /* greenAttention.png */; };
+		5B69F3111A6F95D800643978 /* greenAttention@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B69F30F1A6F95D800643978 /* greenAttention@2x.png */; };
+		5B69F3181A6FB44600643978 /* UIView+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69F3171A6FB44600643978 /* UIView+Ext.m */; };
+		5B69F31C1A6FE0CB00643978 /* back_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B69F31A1A6FE0CB00643978 /* back_btn.png */; };
+		5B69F31D1A6FE0CB00643978 /* back_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B69F31B1A6FE0CB00643978 /* back_btn@2x.png */; };
+		5B69F3251A6FFD0C00643978 /* Drugs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69F3231A6FFD0C00643978 /* Drugs.m */; };
+		5B69F3261A6FFD0C00643978 /* Drugs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B69F3241A6FFD0C00643978 /* Drugs.xib */; };
+		5B69F3291A7009BA00643978 /* BtnCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69F3281A7009BA00643978 /* BtnCheckBox.m */; };
+		5B69F32D1A7013F600643978 /* UIButton+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69F32C1A7013F600643978 /* UIButton+Ext.m */; };
 		5BA18DDA1A4DA9640090DD46 /* NSNull+Safed.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA18DD91A4DA9640090DD46 /* NSNull+Safed.m */; };
 		5BA18DDD1A4DAA9F0090DD46 /* NSObject+KezRemoveNulls.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA18DDC1A4DAA9F0090DD46 /* NSObject+KezRemoveNulls.m */; };
 		5BA18DE21A4DC6DD0090DD46 /* MainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA18DE01A4DC6DD0090DD46 /* MainPage.m */; };
@@ -267,6 +276,19 @@
 		5B69F3091A6ECF2800643978 /* LPUDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPUDetail.h; sourceTree = "<group>"; };
 		5B69F30A1A6ECF2800643978 /* LPUDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPUDetail.m; sourceTree = "<group>"; };
 		5B69F30B1A6ECF2800643978 /* LPUDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LPUDetail.xib; sourceTree = "<group>"; };
+		5B69F30E1A6F95D800643978 /* greenAttention.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenAttention.png; sourceTree = "<group>"; };
+		5B69F30F1A6F95D800643978 /* greenAttention@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenAttention@2x.png"; sourceTree = "<group>"; };
+		5B69F3161A6FB44600643978 /* UIView+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Ext.h"; sourceTree = "<group>"; };
+		5B69F3171A6FB44600643978 /* UIView+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Ext.m"; sourceTree = "<group>"; };
+		5B69F31A1A6FE0CB00643978 /* back_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_btn.png; sourceTree = "<group>"; };
+		5B69F31B1A6FE0CB00643978 /* back_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_btn@2x.png"; sourceTree = "<group>"; };
+		5B69F3221A6FFD0C00643978 /* Drugs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drugs.h; sourceTree = "<group>"; };
+		5B69F3231A6FFD0C00643978 /* Drugs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drugs.m; sourceTree = "<group>"; };
+		5B69F3241A6FFD0C00643978 /* Drugs.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Drugs.xib; sourceTree = "<group>"; };
+		5B69F3271A7009BA00643978 /* BtnCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BtnCheckBox.h; sourceTree = "<group>"; };
+		5B69F3281A7009BA00643978 /* BtnCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BtnCheckBox.m; sourceTree = "<group>"; };
+		5B69F32B1A7013F600643978 /* UIButton+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Ext.h"; sourceTree = "<group>"; };
+		5B69F32C1A7013F600643978 /* UIButton+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Ext.m"; sourceTree = "<group>"; };
 		5BA18DD81A4DA9640090DD46 /* NSNull+Safed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNull+Safed.h"; sourceTree = "<group>"; };
 		5BA18DD91A4DA9640090DD46 /* NSNull+Safed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+Safed.m"; sourceTree = "<group>"; };
 		5BA18DDB1A4DAA9F0090DD46 /* NSObject+KezRemoveNulls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KezRemoveNulls.h"; sourceTree = "<group>"; };
@@ -541,6 +563,8 @@
 			children = (
 				5B15F7BB1A6417AF00E5E838 /* VControllerExt.h */,
 				5B15F7BC1A6417AF00E5E838 /* VControllerExt.m */,
+				5BA18DE41A4DC8A50090DD46 /* RightPage.h */,
+				5BA18DE51A4DC8A50090DD46 /* RightPage.m */,
 			);
 			name = AllGUI;
 			sourceTree = "<group>";
@@ -592,9 +616,29 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		5B69F31E1A6FFC3E00643978 /* Drugs */ = {
+			isa = PBXGroup;
+			children = (
+				5B69F3221A6FFD0C00643978 /* Drugs.h */,
+				5B69F3231A6FFD0C00643978 /* Drugs.m */,
+				5B69F3241A6FFD0C00643978 /* Drugs.xib */,
+			);
+			name = Drugs;
+			sourceTree = "<group>";
+		};
+		5B69F32A1A7009BD00643978 /* BtnCheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				5B69F3271A7009BA00643978 /* BtnCheckBox.h */,
+				5B69F3281A7009BA00643978 /* BtnCheckBox.m */,
+			);
+			name = BtnCheckBox;
+			sourceTree = "<group>";
+		};
 		5BA18DDE1A4DC6BC0090DD46 /* MainPage */ = {
 			isa = PBXGroup;
 			children = (
+				5B69F31E1A6FFC3E00643978 /* Drugs */,
 				5BA18DDF1A4DC6DD0090DD46 /* MainPage.h */,
 				5BA18DE01A4DC6DD0090DD46 /* MainPage.m */,
 				5BA18DE11A4DC6DD0090DD46 /* MainPage.xib */,
@@ -838,6 +882,10 @@
 		B2B9C42D18EB5C460066F146 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5B69F31A1A6FE0CB00643978 /* back_btn.png */,
+				5B69F31B1A6FE0CB00643978 /* back_btn@2x.png */,
+				5B69F30E1A6F95D800643978 /* greenAttention.png */,
+				5B69F30F1A6F95D800643978 /* greenAttention@2x.png */,
 				B2AD4F3018F607D9006B56F5 /* icons */,
 				B2AD4F1818F5CEFF006B56F5 /* drob.png */,
 				B2AD4F1918F5CEFF006B56F5 /* drob@2x.png */,
@@ -924,6 +972,10 @@
 		B2BAA9EC18ECBC510079D305 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				5B69F32B1A7013F600643978 /* UIButton+Ext.h */,
+				5B69F32C1A7013F600643978 /* UIButton+Ext.m */,
+				5B69F3161A6FB44600643978 /* UIView+Ext.h */,
+				5B69F3171A6FB44600643978 /* UIView+Ext.m */,
 				5B1DB1111A6E73750099E35C /* UITableView+Separatored.h */,
 				5B1DB1121A6E73750099E35C /* UITableView+Separatored.m */,
 				5B15F7E71A65536700E5E838 /* NSDate+Utilities.h */,
@@ -959,8 +1011,6 @@
 			children = (
 				5B1DB0FE1A6E5CD30099E35C /* StandartElements */,
 				5B15F7BA1A64173400E5E838 /* AllGUI */,
-				5BA18DE41A4DC8A50090DD46 /* RightPage.h */,
-				5BA18DE51A4DC8A50090DD46 /* RightPage.m */,
 				B2D74CCB18E4D10000B31E16 /* WelcomePage */,
 				B2D74CCC18E4D11900B31E16 /* AuthPage */,
 				B2D74CCD18E4D12A00B31E16 /* RegistrationPage */,
@@ -981,6 +1031,7 @@
 		B2D74CC518E4C6EB00B31E16 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				5B69F32A1A7009BD00643978 /* BtnCheckBox */,
 				B2D74CC718E4C76F00B31E16 /* NVSlideMenuController */,
 			);
 			name = Feature;
@@ -1251,6 +1302,7 @@
 				B2B9C46B18EB7AD40066F146 /* analizEasyCell.xib in Resources */,
 				B2B9C46618EB78F70066F146 /* analizRadioCell.xib in Resources */,
 				B2B9C43018EB5C4E0066F146 /* bg_separator.png in Resources */,
+				5B69F3261A6FFD0C00643978 /* Drugs.xib in Resources */,
 				5B15F7C81A64273C00E5E838 /* APIInfo.m in Resources */,
 				B2AD4F3C18F608E1006B56F5 /* bell_icon_black@2x.png in Resources */,
 				B2B9C45F18EB733C0066F146 /* button_arrow_bg.png in Resources */,
@@ -1288,6 +1340,7 @@
 				B2D74CD218E4D2CF00B31E16 /* WelcomePage.xib in Resources */,
 				B282C53118F1FBFB009450B7 /* result_line@2x.png in Resources */,
 				B282C55318F2072C009450B7 /* SegoeWP-Light.ttf in Resources */,
+				5B69F3101A6F95D800643978 /* greenAttention.png in Resources */,
 				B2B9C43D18EB64CC0066F146 /* people_icon@2x.png in Resources */,
 				B2AD4F3B18F608E1006B56F5 /* bell_icon_black.png in Resources */,
 				B2B5A83D18EE039000299CAF /* left_white_arrow@2x.png in Resources */,
@@ -1296,6 +1349,7 @@
 				B21E95B418F4BC0B00F28B1E /* DetailResultRiskAnalysis.xib in Resources */,
 				B2B9C44F18EB73080066F146 /* unchecked_item.png in Resources */,
 				B2D74D0918E4D69900B31E16 /* CalendarPage.xib in Resources */,
+				5B69F31D1A6FE0CB00643978 /* back_btn@2x.png in Resources */,
 				B2AD4F4218F608E1006B56F5 /* undefined_result_icon_black@2x.png in Resources */,
 				B2D74D0418E4D68200B31E16 /* AnalisisResultPage.xib in Resources */,
 				B2B9C44018EB64D20066F146 /* menu_icon.png in Resources */,
@@ -1307,6 +1361,7 @@
 				B2D74CE818E4D40E00B31E16 /* menu_cell.xib in Resources */,
 				B2B8BE0018E20CA400F52B52 /* InfoPlist.strings in Resources */,
 				B2B9C45418EB731E0066F146 /* checked_item@2x.png in Resources */,
+				5B69F3111A6F95D800643978 /* greenAttention@2x.png in Resources */,
 				B2AD4F2118F5FF82006B56F5 /* doc_tools_icon_red.png in Resources */,
 				B2AD4F2F18F5FF8F006B56F5 /* danger_icon_red.png in Resources */,
 				B2AD4F2A18F5FF8A006B56F5 /* good_result_icon_red@2x.png in Resources */,
@@ -1323,6 +1378,7 @@
 				5B1DB10B1A6E5F1A0099E35C /* rightDarkArrow@2x.png in Resources */,
 				B2B9C45B18EB73300066F146 /* pageIndicator_disable.png in Resources */,
 				B2AD4F2B18F5FF8A006B56F5 /* good_result_icon_red.png in Resources */,
+				5B69F31C1A6FE0CB00643978 /* back_btn.png in Resources */,
 				B2B9C44318EB68320066F146 /* nav_bar_bg.png in Resources */,
 				B282C53618F1FC06009450B7 /* info_icon.png in Resources */,
 				B2D74CFF18E4D66D00B31E16 /* RecomendationPage.xib in Resources */,
@@ -1364,9 +1420,11 @@
 				B2D74CF918E4D65B00B31E16 /* SearchInstitutionPage.m in Sources */,
 				B2AE3AEE18F0240200B7A75E /* Vkontakte.m in Sources */,
 				5B15F7BD1A6417AF00E5E838 /* VControllerExt.m in Sources */,
+				5B69F32D1A7013F600643978 /* UIButton+Ext.m in Sources */,
 				B2D74D1218E4D6C100B31E16 /* PublicationPage.m in Sources */,
 				5BA18DDA1A4DA9640090DD46 /* NSNull+Safed.m in Sources */,
 				5BA18DE21A4DC6DD0090DD46 /* MainPage.m in Sources */,
+				5B69F3181A6FB44600643978 /* UIView+Ext.m in Sources */,
 				5B15F7C31A64248900E5E838 /* ServData.m in Sources */,
 				B2D74D1718E4D6D800B31E16 /* ReportsPage.m in Sources */,
 				B2AE3AED18F0240200B7A75E /* NSString+Gender.m in Sources */,
@@ -1387,6 +1445,7 @@
 				B282C52418F1F494009450B7 /* riskCell.m in Sources */,
 				B2BAA9E718ECAD8C0079D305 /* analizeCheckCell.m in Sources */,
 				B2B8BE0618E20CA400F52B52 /* AppDelegate.m in Sources */,
+				5B69F3251A6FFD0C00643978 /* Drugs.m in Sources */,
 				B2AE3A4C18F0082600B7A75E /* NSTypeExtended.m in Sources */,
 				B2D74D0818E4D69900B31E16 /* CalendarPage.m in Sources */,
 				B21466F718EA04A0001D77CF /* ForgetPage.m in Sources */,
@@ -1402,6 +1461,7 @@
 				5B15F7DB1A64299900E5E838 /* FMDatabaseQueue.m in Sources */,
 				B2AE3B0218F0300F00B7A75E /* OKRequest.m in Sources */,
 				B2D74D0318E4D68200B31E16 /* AnalisisResultPage.m in Sources */,
+				5B69F3291A7009BA00643978 /* BtnCheckBox.m in Sources */,
 				B2AE3B0518F0300F00B7A75E /* OKTokenCache.m in Sources */,
 				B2B9C46518EB78F70066F146 /* analizRadioCell.m in Sources */,
 				5B15F7DA1A64299900E5E838 /* FMDatabasePool.m in Sources */,

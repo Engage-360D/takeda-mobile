@@ -11,7 +11,7 @@
 #import "ResultRiskAnalysis.h"
 
 @class ResultRiskAnalysis;
-@interface RiskAnalysisPage : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource,AnalizDataUserPageDelegate>
+@interface RiskAnalysisPage : VControllerExt<UIPickerViewDelegate, UIPickerViewDataSource,AnalizDataUserPageDelegate>
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
 @property (nonatomic,retain) IBOutletCollection(UIImageView) NSArray *page_indicator;
 @property (nonatomic,retain) ResultRiskAnalysis *resultRiskAnalysis;

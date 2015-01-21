@@ -26,7 +26,7 @@ WelcomePage *welcomePage;
     
     self.window.backgroundColor = [UIColor whiteColor];
     // [self showAllFonts];
-  // [self showFonts];
+   [self showFonts];
     [self.window makeKeyAndVisible];
     return YES;
 }

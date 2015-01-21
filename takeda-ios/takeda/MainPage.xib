@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainPage">
             <connections>
-                <outlet property="danger_text" destination="BWh-yR-Fer" id="pPq-gu-0Uq"/>
                 <outlet property="datePeriod" destination="OG5-ap-yK9" id="FIe-YG-bFo"/>
                 <outlet property="indexCaptionLabel" destination="Gyh-Tg-MZD" id="Cdv-Hm-YgB"/>
                 <outlet property="percentLabel" destination="gtt-2p-vjd" id="P1R-Ye-bWC"/>
@@ -51,7 +50,7 @@
                                 <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сегодня (вторник)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VwO-kU-kJb">
-                                <rect key="frame" x="17" y="135" width="287" height="33"/>
+                                <rect key="frame" x="17" y="133" width="287" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.37254901960784315" green="0.37254901960784315" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
