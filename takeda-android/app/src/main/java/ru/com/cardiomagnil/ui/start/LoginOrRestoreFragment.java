@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.ca_api.Status;
+import ru.com.cardiomagnil.ca_model.common.Ca_Error;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
@@ -59,12 +61,22 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         }
     }
 
-    public void handleResetPassword(Ca_User user) {
+    public void handleResetPassword(Ca_User user, Ca_Response responseError) {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.hideProgressDialog();
 
+        responseError = (responseError == null || responseError.getError() == null) ?
+                new Ca_Response.Builder(new Ca_Error()).create() :
+                responseError;
+
         if (user == null) {
-            Toast.makeText(getActivity(), getActivity().getString(R.string.error_restoring), Toast.LENGTH_LONG).show();
+            switch (responseError.getError().getCode()){
+                case Status.NO_DATA_ERROR:
+                    Toast.makeText(getActivity(), getActivity().getString(R.string.error_user_not_found), Toast.LENGTH_LONG).show();
+                    break;
+                default:
+                    Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -204,9 +216,6 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     private void startAuthorization() {
-        StartActivity startActivity = (StartActivity) getActivity();
-        startActivity.showProgressDialog();
-
         Ca_UserLgnPwd userLgnPwd = pickAuthorizationFields();
         // response handled in handleRegAuth
         startAuthorization(userLgnPwd);
@@ -227,13 +236,13 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
                 new CallbackOne<Ca_User>() {
                     @Override
                     public void execute(Ca_User newUser) {
-                        handleResetPassword(newUser);
+                        handleResetPassword(newUser, null);
                     }
                 },
                 new CallbackOne<Ca_Response>() {
                     @Override
                     public void execute(Ca_Response responseError) {
-                        handleResetPassword(null);
+                        handleResetPassword(null, responseError);
                     }
                 }
         );

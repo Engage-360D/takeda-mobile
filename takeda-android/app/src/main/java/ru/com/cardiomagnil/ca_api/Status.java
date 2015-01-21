@@ -20,6 +20,8 @@ public class Status {
     public final static int INPUT_DATA_ERROR = 4;
     public final static int NO_DATA_ERROR = 5;
 
+    public final static int CONFLICT_ERROR = 409;
+
     public static String getDescription(int errorCode) {
         Context context = CardiomagnilApplication.getAppContext();
 
@@ -34,6 +36,8 @@ public class Status {
                 return context.getString(R.string.resp_004_input_data_error);
             case NO_DATA_ERROR:
                 return context.getString(R.string.resp_005_no_data_error);
+            case CONFLICT_ERROR:
+                return context.getString(R.string.resp_409_conflict_error);
 
             default:
                 Log.d("Error", "Error code: " + String.valueOf(errorCode));

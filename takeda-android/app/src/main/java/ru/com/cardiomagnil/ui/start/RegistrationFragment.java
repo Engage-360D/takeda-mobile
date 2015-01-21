@@ -29,9 +29,7 @@ import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
-import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
-import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 import ru.com.cardiomagnil.social.FbApi;
 import ru.com.cardiomagnil.social.FbUser;
 import ru.com.cardiomagnil.social.OkApi;
@@ -40,12 +38,8 @@ import ru.com.cardiomagnil.social.User;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
-import ru.com.cardiomagnil.ui.start.CustomAuthorizationListener;
-import ru.com.cardiomagnil.ui.start.SignInWithSocialNetwork;
-import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
-import ru.com.cardiomagnil.util.Utils;
 
 public class RegistrationFragment extends BaseStartFragment {
     private final int[] mRequiredEditTextCommon = new int[]{
@@ -233,9 +227,6 @@ public class RegistrationFragment extends BaseStartFragment {
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View paramView) {
-                StartActivity startActivity = (StartActivity) getActivity();
-                startActivity.showProgressDialog();
-
                 if (validateRegistrationFields(parentView)) {
                     // response handled in handleRegAuth
                     startRegistration(pickRegistrationFields(parentView));

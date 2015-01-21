@@ -51,7 +51,10 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
                             handleErrorResponse(error, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
                         } else {
                             ThtreadHelper.logThread("HttpDataLoader->onErrorResponse->error");
-                            handleErrorResponse(dataToResponse(volleyError.networkResponse.data), dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
+                            int errorCode = volleyError.networkResponse.statusCode;
+                            String errorDescription = Status.getDescription(errorCode);
+                            Ca_Response responseError = new Ca_Response.Builder(new Ca_Error(errorCode, errorDescription)).create();
+                            handleErrorResponse(responseError, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
                         }
                     }
                 });

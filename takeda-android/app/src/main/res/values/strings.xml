@@ -121,14 +121,15 @@
     <!-- ====== -->
     <!-- errors -->
     <!-- ====== -->
+    <string name="error_occurred">Произошла ошибка.</string>
     <string name="error_authorization">Произошла ошибка во время авторизации.</string>
     <string name="error_registration">Произошла ошибка во время регистрации.</string>
     <string name="error_get_test_results">Произошла ошибка во время получения результатов теста.</string>
     <string name="authorization_error">Ошибка авторизации</string>
     <string name="error_tets_already_passed">Вы уже проходили тест.\nТест проходится раз в 3 месяца.</string>
     <string name="error_tets_username_not_unique">Вы уже регистрировались, пожалуйста вернитесь к входу.\nТам же вы можете восстановить пароль.</string>
-    <string name="error_restoring">Произошла ошибка во время восстановления пароля.</string>
     <string name="error_user_not_found">Такой пользователь не найден.\nУбедитесь, что вы правильно ввели электронный адрес.</string>
+    <string name="error_user_already_exist">Такой пользователь уже существует.\nУбедитесь, что вы правильно ввели электронный адрес.</string>
     <string name="error_password_already_requested">Пароль уже был запрошен.</string>
 
     <!-- ===== -->
@@ -346,6 +347,7 @@
     <string name="resp_003_db_error">Ошибка базы данных</string>
     <string name="resp_004_input_data_error">Ошибка входных данных</string>
     <string name="resp_005_no_data_error">Ошибка: данные не обнаружены</string>
+    <string name="resp_409_conflict_error">Ошибка: возник конфликт</string>
     <string name="resp_200_ok">OK</string>
     <string name="resp_201_created">Создано успешно</string>
     <string name="resp_">...</string>
