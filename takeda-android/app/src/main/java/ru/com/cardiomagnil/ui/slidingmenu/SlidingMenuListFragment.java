@@ -10,33 +10,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.List;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
-import ru.com.cardiomagnil.util.Tools;
-import ru.com.cardiomagnil.ui.ca_content.Ca_MenuItem;
 import ru.com.cardiomagnil.ui.ca_menu.Ca_MenuAdapter;
 
 public class SlidingMenuListFragment extends ListFragment {
     private Ca_MenuAdapter mMenuItemsAdapter;
-    private View mPreviousSelectedItem;
-
-    private final List<Ca_MenuItem> mMenuItems = Arrays.asList(
-            Ca_MenuItem.item_main,
-            Ca_MenuItem.item_risk_analysis,
-            Ca_MenuItem.item_diary,
-            Ca_MenuItem.item_search_institutions,
-            Ca_MenuItem.item_information,
-            Ca_MenuItem.item_settings,
-            Ca_MenuItem.item_recommendations,
-            Ca_MenuItem.item_analysis_results,
-            Ca_MenuItem.item_calendar,
-            Ca_MenuItem.item_useful_to_know,
-            Ca_MenuItem.item_publications,
-            Ca_MenuItem.item_reports
-    );
+    private int mPreviousSelectedItemPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,17 +30,39 @@ public class SlidingMenuListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         mMenuItemsAdapter = new Ca_MenuAdapter(getActivity());
-        mMenuItemsAdapter.addAll(mMenuItems);
+        mMenuItemsAdapter.addAll(SlidingMenuActivity.MENU_ITEMS);
         setListAdapter(mMenuItemsAdapter);
+
+        onRestoreInstanceState(savedInstanceState);
+        setSelectedItem(mPreviousSelectedItemPosition);
     }
 
-    private void setSelectedItem(View view) {
-        TextView currentTextViewTitle = (TextView) view.findViewById(R.id.textViewTitle);
-        currentTextViewTitle.setSelected(true);
-        if (mPreviousSelectedItem != null) {
-            mPreviousSelectedItem.setSelected(false);
+    private void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState != null)
+            mPreviousSelectedItemPosition = savedInstanceState.getInt("selected_item", SlidingMenuActivity.START_ITEM_POSITION);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("selected_item", mPreviousSelectedItemPosition);
+    }
+
+    private void setSelectedItem(final int currentSelectedItemPosition) {
+        View previousSelectedItemView = getViewByPosition(mPreviousSelectedItemPosition, getListView());
+        View currentSelectedItemView = getViewByPosition(currentSelectedItemPosition, getListView());
+
+        if (previousSelectedItemView != null) {
+            TextView previousTextViewTitle = (TextView) previousSelectedItemView.findViewById(R.id.textViewTitle);
+            previousTextViewTitle.setSelected(false);
         }
-        mPreviousSelectedItem = currentTextViewTitle;
+
+        if (currentSelectedItemView != null) {
+            TextView currentTextViewTitle = (TextView) currentSelectedItemView.findViewById(R.id.textViewTitle);
+            currentTextViewTitle.setSelected(true);
+        }
+
+        mPreviousSelectedItemPosition = currentSelectedItemPosition;
     }
 
     @Override
@@ -67,32 +70,45 @@ public class SlidingMenuListFragment extends ListFragment {
         if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
             SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
             Fragment currentFragment = slidingMenuActivity.getCurrentFragment();
-            if (currentFragment != null && currentFragment.getClass().getName().equals(mMenuItems.get(position).getItemClass().getName())) {
+            if (currentFragment != null && currentFragment.getClass().getName().equals(SlidingMenuActivity.MENU_ITEMS[position].getItemClass().getName())) {
                 slidingMenuActivity.getSlidingMenu().showContent();
                 return;
             }
         }
 
-        Fragment newContent = null;
-        setSelectedItem(view);
+        setSelectedItem(position);
 
-        try {
-            Class clazz = mMenuItems.get(position).getItemClass();
-            Constructor<?> ctor = clazz.getConstructor();
-            newContent = (Fragment) ctor.newInstance(new Object[]{});
-        } catch (Exception e) {
-            e.printStackTrace();
-            ExeptionsHandler.getInstatce().handleException(getActivity(), e);
-        }
+        String fragmentClassName = SlidingMenuActivity.MENU_ITEMS[position].getItemClass().getName();
+        Fragment newContent = Fragment.instantiate(this.getActivity(), fragmentClassName, null);
+        switchFragment(newContent);
 
-        if (newContent != null) {
-            switchFragment(newContent);
-        }
+//        try {
+//            Class clazz = SlidingMenuActivity.MENU_ITEMS[position].getItemClass();
+//            Constructor<?> ctor = clazz.getConstructor();
+//            Fragment newContent = (Fragment) ctor.newInstance(new Object[]{});
+//            switchFragment(newContent);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            ExeptionsHandler.getInstatce().handleException(getActivity(), e);
+//        }
+
         super.onListItemClick(listView, view, position, id);
     }
 
     public void refreshMenuItems() {
         mMenuItemsAdapter.notifyDataSetChanged();
+    }
+
+    public View getViewByPosition(int pos, ListView listView) {
+        final int firstListItemPosition = listView.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition) {
+            return listView.getAdapter().getView(pos, null, listView);
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return listView.getChildAt(childIndex);
+        }
     }
 
     // the meat of switching the above fragment

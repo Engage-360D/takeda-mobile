@@ -9,18 +9,30 @@ import android.widget.RadioGroup;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import java.lang.reflect.Constructor;
-
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ui.base.BaseSlidingFragmentActivity;
 import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
-import ru.com.cardiomagnil.ui.ca_content.Ca_MainFargment;
+import ru.com.cardiomagnil.ui.ca_content.Ca_MenuItem;
 
 public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
-    // TODO: refactor
-    private Class mStartFragment = Ca_MainFargment.class;
-    private SlidingMenuListFragment mMenuListFragment;
+    private SlidingMenuListFragment mSlidingMenuListFragment;
     private ProgressDialog mProgressDialog = null;
+
+    public static final int START_ITEM_POSITION = 0;
+    public static final Ca_MenuItem[] MENU_ITEMS = new Ca_MenuItem[]{
+            Ca_MenuItem.item_main,
+            Ca_MenuItem.item_risk_analysis,
+            Ca_MenuItem.item_diary,
+            Ca_MenuItem.item_search_institutions,
+            Ca_MenuItem.item_information,
+            Ca_MenuItem.item_settings,
+            Ca_MenuItem.item_recommendations,
+            Ca_MenuItem.item_analysis_results,
+            Ca_MenuItem.item_calendar,
+            Ca_MenuItem.item_useful_to_know,
+            Ca_MenuItem.item_publications,
+            Ca_MenuItem.item_reports
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,8 +40,9 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
 
         // Both setBehindContentView must be called in onCreate in addition to setContentView.
         setContentView(R.layout.slidingmenu_menu_container);
-        setBehindContentView(findViewById(R.id.menu_frame) == null ?
-                getLayoutInflater().inflate(R.layout.slidingmenu_menu_frame, null) : new View(this));
+        if (findViewById(R.id.menu_frame) == null) {
+            setBehindContentView(getLayoutInflater().inflate(R.layout.slidingmenu_menu_frame, null));
+        }
 
         initUI(savedInstanceState);
     }
@@ -61,27 +74,28 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         getSlidingMenu().setSlidingEnabled(true);
         getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 
-        Fragment fragment;
+        Fragment fragment = getCurrentFragment();
 
         // set the Above View Fragment
-        if (!isBackStackEmpty()) {
-            fragment = getCurrentFragment();
-            mFragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-        } else {
-            try {
-                // TODO: refactor
-                Constructor<?> ctor = mStartFragment.getConstructor();
-                fragment = (Fragment) ctor.newInstance(new Object[]{});
-            } catch (Exception e) {
-                e.printStackTrace();
-                fragment = new Ca_MainFargment();
+        if (fragment != null) {
+            if (fragment.isDetached()) {
+                mFragmentManager.beginTransaction().attach(fragment).commit();
             }
+        } else {
+            String fragmentClassName = SlidingMenuActivity.MENU_ITEMS[START_ITEM_POSITION].getItemClass().getName();
+            fragment = Fragment.instantiate(this, fragmentClassName, null);
             replaceAllContent(fragment, true);
         }
 
-        // set the Behind View Fragment
-        mMenuListFragment = new SlidingMenuListFragment();
-        mFragmentManager.beginTransaction().replace(R.id.menu_frame, mMenuListFragment).commit();
+        initTopOnFragmentChanged(fragment, false);
+
+        mSlidingMenuListFragment = (SlidingMenuListFragment) mFragmentManager.findFragmentByTag(SlidingMenuListFragment.class.getName());
+        if (mSlidingMenuListFragment == null) {
+            mSlidingMenuListFragment = new SlidingMenuListFragment();
+            mFragmentManager.beginTransaction().replace(R.id.menu_frame, mSlidingMenuListFragment, SlidingMenuListFragment.class.getName()).commit();
+        } else if (mSlidingMenuListFragment.isDetached()) {
+            mFragmentManager.beginTransaction().attach(fragment).commit();
+        }
 
         // customize the SlidingMenu
         SlidingMenu slidingMenu = getSlidingMenu();
@@ -90,8 +104,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         slidingMenu.setShadowDrawable(R.drawable.shadow);
         slidingMenu.setBehindScrollScale(0.25f);
         slidingMenu.setFadeDegree(0.25f);
-
-        initTopOnFragmentChanged(fragment, false);
+        slidingMenu.onFinishTemporaryDetach();
     }
 
     private void initContentTopMenuButton() {
@@ -116,7 +129,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     }
 
     public void refreshMenuItems() {
-        ((SlidingMenuListFragment) mMenuListFragment).refreshMenuItems();
+        ((SlidingMenuListFragment) mSlidingMenuListFragment).refreshMenuItems();
     }
 
     public void showProgressDialog() {

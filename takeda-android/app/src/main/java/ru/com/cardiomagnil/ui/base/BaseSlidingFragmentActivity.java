@@ -149,6 +149,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
         }).start();
     }
 
+    // FIXME: Fragment.instantiate - "Create a new instance of a Fragment with the given class name. This is the same as calling its empty constructor."
     // -------------------- implements fragment stack ---------------------||
     // --------------------------------------------------------------------\/
     public void putContentOnTop(final Fragment newTopFragment, final boolean withSwitch) {
@@ -232,6 +233,8 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
     }
 
     public Fragment getCurrentFragment() {
+        if (mFragmentManager.getBackStackEntryCount() == 0) return null;
+
         FragmentManager.BackStackEntry backEntry = mFragmentManager.getBackStackEntryAt(mFragmentManager.getBackStackEntryCount() - 1);
         String string = backEntry.getName();
         Fragment fragment = mFragmentManager.findFragmentByTag(string);
