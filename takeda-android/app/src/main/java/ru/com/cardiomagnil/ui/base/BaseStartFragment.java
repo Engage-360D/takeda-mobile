@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.ca_api.Status;
 import ru.com.cardiomagnil.ca_model.common.Ca_Error;
@@ -95,7 +96,7 @@ public abstract class BaseStartFragment extends Fragment {
                 responseError;
 
         if (token == null && user == null) {
-            switch (responseError.getError().getCode()){
+            switch (responseError.getError().getCode()) {
                 case Status.NO_DATA_ERROR:
                     Toast.makeText(getActivity(), getActivity().getString(R.string.error_user_not_found), Toast.LENGTH_LONG).show();
                     break;
@@ -116,8 +117,7 @@ public abstract class BaseStartFragment extends Fragment {
     private void initAppState(Ca_Token token, Ca_User user) {
         AppState.getInstatce().setToken(token);
         AppState.getInstatce().setUser(user);
-        // TODO: uncomment after tests
-        // AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
+        AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
     }
 
     public abstract void initFieldsFromSocial(User socialUser);

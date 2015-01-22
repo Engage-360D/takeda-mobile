@@ -14,7 +14,7 @@ public class ResultsWaitingFargment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_slidingmenu_fragment_dummy, null);
+        View view = inflater.inflate(R.layout.layout_heart, null);
         return view;
     }
 
@@ -34,7 +34,8 @@ public class ResultsWaitingFargment extends Fragment {
     }
 
     private void tryGetTestResult() {
-        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity)getActivity();
-        slidingMenuActivity.getTestResult();
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        // FIXME!!!
+//        slidingMenuActivity.getTestResult();
     }
 }

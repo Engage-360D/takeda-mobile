@@ -11,7 +11,7 @@ import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 public class Ca_AnalysisResultsFargment extends Ca_BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_slidingmenu_fragment_dummy, null);
+        View view = inflater.inflate(R.layout.layout_heart, null);
         return view;
     }
 

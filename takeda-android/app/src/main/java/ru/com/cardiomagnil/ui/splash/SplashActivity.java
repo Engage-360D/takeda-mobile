@@ -31,7 +31,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.layout_heart);
         startInitialization();
 
 //        // TODO: fix it ater tests
@@ -62,7 +62,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
     }
 
     private void animate() {
-        ImageView mImage = (ImageView) findViewById(R.id.imageViewSplash);
+        ImageView mImage = (ImageView) findViewById(R.id.imageViewHeart);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_fade);
         Animation animation_first = ((AnimationSet) animation).getAnimations().get(1);
         animation_first.setAnimationListener(this);

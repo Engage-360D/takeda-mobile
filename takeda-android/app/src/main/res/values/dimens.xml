@@ -36,13 +36,6 @@
     <integer name="alpha_animation_time">1000</integer>
     <integer name="alpha_animation_time_short">300</integer>
 
-    <!-- ============ -->
-    <!-- sliding menu -->
-    <!-- ============ -->
-    <dimen name="slidingmenu_offset">60dp</dimen>
-    <dimen name="shadow_width">15dp</dimen>
-    <dimen name="list_padding">10dp</dimen>
-
     <!-- ======== -->
     <!-- dividers -->
     <!-- ======== -->

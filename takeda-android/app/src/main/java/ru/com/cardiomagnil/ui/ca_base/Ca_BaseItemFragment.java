@@ -11,7 +11,7 @@ import ru.com.cardiomagnil.app.R;
 public abstract class Ca_BaseItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.ca_slidingmenu_fragment_dummy, null);
+        return inflater.inflate(R.layout.layout_heart, null);
     }
 
     public abstract String getMenuItemName();

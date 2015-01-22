@@ -5,6 +5,4 @@
     android:layout_height="match_parent"
     android:background="@color/ca_bg_menu"
     android:divider="@color/ca_divider_4"
-    android:dividerHeight="@dimen/ca_divider_1"
-    android:paddingBottom="@dimen/ca_space_large"
-    android:paddingTop="@dimen/ca_space_large" />
+    android:dividerHeight="@dimen/ca_divider_1" />
