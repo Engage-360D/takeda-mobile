@@ -98,9 +98,8 @@ public class SlidingMenuListFragment extends ListFragment {
     // the meat of switching the above fragment
     private void switchFragment(Fragment fragment) {
         if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-            SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
-            // FIXME!!! switchContent
-//            mainActivity.switchContent(fragment);
+            SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+            slidingMenuActivity.replaceContentOnTop(fragment, true);
         }
     }
 }

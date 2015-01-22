@@ -47,13 +47,7 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuItemName() {
-        return null;
-    }
-
-    @Override
-    public View getTopView() {
-        return null;
+    public void initTopBar(ViewGroup viewGroupTopBar) {
     }
 
     private void initPatientDataFargment(View view) {

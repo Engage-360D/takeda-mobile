@@ -16,12 +16,6 @@ public class Ca_PublicationsFargment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuItemName() {
-        return null;
-    }
-
-    @Override
-    public View getTopView() {
-        return null;
+    public void initTopBar(ViewGroup viewGroupTopBar) {
     }
 }

@@ -14,7 +14,5 @@ public abstract class Ca_BaseItemFragment extends Fragment {
         return inflater.inflate(R.layout.layout_heart, null);
     }
 
-    public abstract String getMenuItemName();
-
-    public abstract View getTopView();
+    public abstract void initTopBar(ViewGroup viewGroupTopBar);
 }

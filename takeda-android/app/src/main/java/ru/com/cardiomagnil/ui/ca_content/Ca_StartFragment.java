@@ -14,12 +14,6 @@ public class Ca_StartFragment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuItemName() {
-        return null;
-    }
-
-    @Override
-    public View getTopView() {
-        return null;
+    public void initTopBar(ViewGroup viewGroupTopBar) {
     }
 }

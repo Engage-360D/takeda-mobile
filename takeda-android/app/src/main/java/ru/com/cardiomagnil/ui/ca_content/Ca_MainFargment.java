@@ -19,13 +19,7 @@ public class Ca_MainFargment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuItemName() {
-        return null;
-    }
-
-    @Override
-    public View getTopView() {
-        return null;
+    public void initTopBar(ViewGroup viewGroupTopBar) {
     }
 
     private void initFargment(View view) {
@@ -34,10 +28,9 @@ public class Ca_MainFargment extends Ca_BaseItemFragment {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-                    SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
+                    SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
                     Fragment fragment = new Ca_TakingPillsFargment();
-                    // FIXME!!! switchContent
-                    //mainActivity.switchContent(fragment);
+                    slidingMenuActivity.putContentOnTop(fragment, true);
                 }
             }
         });

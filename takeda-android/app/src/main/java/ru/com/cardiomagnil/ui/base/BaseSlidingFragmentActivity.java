@@ -6,18 +6,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
-import android.widget.TextView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
-import ru.com.cardiomagnil.application.Constants;
+import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
+import ru.com.cardiomagnil.util.Utils;
 
 public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivity {
     protected FragmentManager mFragmentManager;
@@ -26,6 +28,23 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
     private final long TOGGLE_DELAY = 1000;
     private boolean mIsLocked = false;
     private AtomicBoolean mPending = new AtomicBoolean(false);
+
+    abstract protected void initTopOnFragmentChanged(final Fragment fragment, boolean withBack);
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mFragmentManager = getSupportFragmentManager();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (getResources().getBoolean(R.bool.ga_analytics_enabled)) {
+            EasyTracker.getInstance(this).activityStart(this);
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -40,9 +59,11 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mFragmentManager = getSupportFragmentManager();
+    protected void onStop() {
+        super.onStop();
+        if (getResources().getBoolean(R.bool.ga_analytics_enabled)) {
+            EasyTracker.getInstance(this).activityStop(this);
+        }
     }
 
     @Override
@@ -54,6 +75,13 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                 toggle();
             }
         }, TOGGLE_DELAY);
+
+        getSlidingMenu().setOnOpenedListener(new SlidingMenu.OnOpenedListener() {
+            @Override
+            public void onOpened() {
+                Utils.hideKeyboard(getCurrentFocus());
+            }
+        });
     }
 
     @Override
@@ -133,10 +161,12 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
             fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();
 
-            initFragmentTop(newTopFragment, false);
+            initTopOnFragmentChanged(newTopFragment, mFragmentManager.getBackStackEntryCount() > 0);
             if (withSwitch) {
                 showContentDelayed();
             }
+
+            Utils.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -151,10 +181,12 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
             fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();
 
-            initFragmentTop(newTopFragment, false);
+            initTopOnFragmentChanged(newTopFragment, !isBackStackEmpty());
             if (withSwitch) {
                 showContentDelayed();
             }
+
+            Utils.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -169,10 +201,12 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
             fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();
 
-            initFragmentTop(newTopFragment, false);
+            initTopOnFragmentChanged(newTopFragment, false);
             if (withSwitch) {
                 showContentDelayed();
             }
+
+            Utils.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -180,20 +214,22 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
     public void makeContentStepBack(final boolean withSwitch) {
         try {
-            if (mFragmentManager.getBackStackEntryCount() > 1) {
+            if (!isBackStackEmpty()) {
                 mFragmentManager.popBackStackImmediate();
             }
 
-            initFragmentTop(getCurrentFragment(), false);
+            initTopOnFragmentChanged(getCurrentFragment(), mFragmentManager.getBackStackEntryCount() > 2);
             if (withSwitch) {
                 showContentDelayed();
             }
+
+            Utils.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    protected boolean isBackStackEmpty() {
+    public boolean isBackStackEmpty() {
         return !(mFragmentManager.getBackStackEntryCount() > 1);
     }
 
@@ -217,26 +253,5 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                 getSlidingMenu().showContent();
             }
         }, CONTENT_DELAY);
-    }
-
-    protected void initFragmentTop(final Fragment fragment, boolean withBack) {
-        try {
-            Class clazz = ((Object) fragment).getClass();
-            Field itemField = clazz.getDeclaredField(Constants.ITEM_NAME);
-            itemField.setAccessible(true);
-            int itemNameId = (Integer) itemField.get(null);
-            String itemNameString = getResources().getString(itemNameId);
-
-            TextView textViewCurrentFragment = (TextView) findViewById(R.id.textViewCurrentFragment);
-            textViewCurrentFragment.setText(itemNameString);
-
-            if (withBack) {
-                // TODO: add button 'back' to top
-            } else {
-                // TODO: remove button 'back' from top
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

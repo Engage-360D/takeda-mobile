@@ -19,13 +19,7 @@ public class Ca_TakingPillsFargment extends Ca_BaseItemFragment {
     }
 
     @Override
-    public String getMenuItemName() {
-        return null;
-    }
-
-    @Override
-    public View getTopView() {
-        return null;
+    public void initTopBar(ViewGroup viewGroupTopBar) {
     }
 
     private void initFargment(View view) {

@@ -92,6 +92,9 @@
 
     <dimen name="ca_space_xxxxxlarge">90dp</dimen>
 
+    <!-- FIXME: change layout and replace negative value-->
+    <dimen name="ca_space_small_negative">-10dp</dimen>
+
     <!-- 28px - ca_plate_xsmall -->
     <!-- 50px - ca_plate_small -->
     <!-- 59px - ca_plate_medium -->

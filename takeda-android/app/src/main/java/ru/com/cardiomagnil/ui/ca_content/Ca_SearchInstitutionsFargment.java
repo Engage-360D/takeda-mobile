@@ -19,6 +19,10 @@ import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 public class Ca_SearchInstitutionsFargment extends Ca_BaseItemFragment {
     GoogleMap map;
 
+    @Override
+    public void initTopBar(ViewGroup viewGroupTopBar) {
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_search_institutions, null);
 
@@ -44,13 +48,4 @@ public class Ca_SearchInstitutionsFargment extends Ca_BaseItemFragment {
         return view;
     }
 
-    @Override
-    public String getMenuItemName() {
-        return null;
-    }
-
-    @Override
-    public View getTopView() {
-        return null;
-    }
 }

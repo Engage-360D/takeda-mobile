@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -12,6 +13,7 @@ import java.lang.reflect.Constructor;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ui.base.BaseSlidingFragmentActivity;
+import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 import ru.com.cardiomagnil.ui.ca_content.Ca_MainFargment;
 
 public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
@@ -32,10 +34,23 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         initUI(savedInstanceState);
     }
 
+    @Override
+    protected void initTopOnFragmentChanged(final Fragment fragment, boolean withBack) {
+        if (fragment instanceof Ca_BaseItemFragment) {
+            ViewGroup layoutHeader = (ViewGroup) findViewById(R.id.layoutHeader);
+            ((Ca_BaseItemFragment) fragment).initTopBar(layoutHeader);
+        }
+
+        View contentTopRightMenu = findViewById(R.id.contentTopRightMenu);
+        View contentTopRightBack = findViewById(R.id.contentTopRightBack);
+
+        contentTopRightMenu.setVisibility(withBack ? View.INVISIBLE : View.VISIBLE);
+        contentTopRightBack.setVisibility(withBack ? View.VISIBLE : View.INVISIBLE);
+    }
+
     private void initUI(Bundle savedInstanceState) {
         initMenu(savedInstanceState);
-        // FIXME!!!
-        //        initContentTopMenuButton();
+        initContentTopMenuButton();
     }
 
     private void initMenu(Bundle savedInstanceState) {
@@ -73,13 +88,31 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         slidingMenu.setBehindScrollScale(0.25f);
         slidingMenu.setFadeDegree(0.25f);
 
-        initFragmentTop(fragment, false);
+        initTopOnFragmentChanged(fragment, false);
+    }
+
+    private void initContentTopMenuButton() {
+        View contentTopRightClickable = findViewById(R.id.contentTopRightClickable);
+
+        contentTopRightClickable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isLocked()) {
+                    return;
+                }
+
+                if (!isBackStackEmpty()) {
+                    makeContentStepBack(true);
+                } else {
+                    toggle();
+                }
+            }
+        });
     }
 
     public void refreshMenuItems() {
         ((SlidingMenuListFragment) mMenuListFragment).refreshMenuItems();
     }
-
 
     public void showProgressDialog() {
         if (mProgressDialog == null) {

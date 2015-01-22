@@ -163,6 +163,7 @@
     <!-- ===== -->
     <!-- menu -->
     <!-- ==== -->
+    <string name="menu_back">Назад</string>
     <string name="menu_item_main">Главная</string>
     <string name="menu_item_risk_analysis">Анализ риска</string>
     <string name="menu_item_diary">Дневник</string>
@@ -219,7 +220,6 @@
     <string name="specialization_institution_phone_">Телефон лечебного учреждения</string>
     <string name="specialization_graduation_date_">Дата окончания учебного заведения</string>
     <string name="specialization_experience_years_">Опыт работы (лет)</string>
-
 
     <!-- ========================= -->
     <!-- fragment_slidingmenu_main -->
