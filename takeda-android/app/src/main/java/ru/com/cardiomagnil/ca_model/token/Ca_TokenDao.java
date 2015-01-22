@@ -11,7 +11,7 @@ import com.j256.ormlite.support.ConnectionSource;
 
 import java.sql.SQLException;
 
-import ru.com.cardiomagnil.api.Url;
+import ru.com.cardiomagnil.ca_api.Url;
 import ru.com.cardiomagnil.ca_api.DataLoadDispatcher;
 import ru.com.cardiomagnil.ca_api.db.DbRequestHolder;
 import ru.com.cardiomagnil.ca_api.db.HelperFactory;

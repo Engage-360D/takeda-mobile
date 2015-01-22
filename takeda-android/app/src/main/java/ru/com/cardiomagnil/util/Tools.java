@@ -1,20 +1,13 @@
 package ru.com.cardiomagnil.util;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.graphics.Typeface;
 import android.util.Base64;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.google.gson.JsonElement;
@@ -26,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
 
@@ -96,31 +88,6 @@ public class Tools {
         calendar.setTime(date);
 
         return calendar;
-    }
-
-    public static ViewGroup initActionBar(LayoutInflater layoutInflater, ActionBar actionBar, boolean extended) {
-        ViewGroup actionBarLayout = (ViewGroup) layoutInflater.inflate(R.layout.custom_action_bar, null);
-        ImageView imageViewMenuDark = (ImageView) actionBarLayout.findViewById(R.id.imageViewMenuDark);
-        ImageView imageViewPerson = (ImageView) actionBarLayout.findViewById(R.id.imageViewPerson);
-        ImageView imageViewBell = (ImageView) actionBarLayout.findViewById(R.id.imageViewBell);
-
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(actionBarLayout);
-        actionBar.setBackgroundDrawable(layoutInflater.getContext().getResources().getDrawable(R.drawable.action_bar_background));
-
-        if (extended) {
-            imageViewMenuDark.setVisibility(View.VISIBLE);
-            imageViewBell.setVisibility(View.VISIBLE);
-            imageViewPerson.setVisibility(View.VISIBLE);
-        } else {
-            imageViewMenuDark.setVisibility(View.INVISIBLE);
-            imageViewBell.setVisibility(View.INVISIBLE);
-            imageViewPerson.setVisibility(View.INVISIBLE);
-        }
-
-        return actionBarLayout;
     }
 
     public static RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {

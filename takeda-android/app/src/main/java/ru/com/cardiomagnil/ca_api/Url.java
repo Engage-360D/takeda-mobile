@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.api;
+package ru.com.cardiomagnil.ca_api;
 
 import java.util.HashMap;
 

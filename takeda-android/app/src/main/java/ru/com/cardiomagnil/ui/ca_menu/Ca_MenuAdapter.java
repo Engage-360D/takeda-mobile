@@ -58,6 +58,7 @@ public class Ca_MenuAdapter extends ArrayAdapter<Ca_MenuItem> {
 
         if (mContext != null && mContext instanceof SlidingMenuActivity) {
             SlidingMenuActivity mainActivity = (SlidingMenuActivity) mContext;
+            // FIXME!!! getCurrentFragment must be protected
             Fragment currentFragment = mainActivity.getCurrentFragment();
             // FIXME: uncomment
 //            if (currentFragment != null && currentFragment.getClass().getName().equals(itemClass.getName()) && mPreviousSelectedItem == null) {

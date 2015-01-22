@@ -37,7 +37,8 @@ public class TestResultsRecomendationFargment extends Fragment {
         TextView textViewText = (TextView) view.findViewById(R.id.textViewText);
 
         if (pageData == null) {
-            slidingMenuActivity.switchContentBack();
+            // FIXME!!! switchContent
+//            slidingMenuActivity.switchContentBack();
         }
 
         try {

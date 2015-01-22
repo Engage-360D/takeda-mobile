@@ -39,7 +39,8 @@ public class Ca_TakingPillsFargment extends Ca_BaseItemFragment {
                 if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
                     SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
                     Fragment fragment = new Ca_AddPillsFargment();
-                    mainActivity.switchContent(fragment);
+                    // FIXME!!! switchContent
+//                    mainActivity.switchContent(fragment);
                 }
             }
         };

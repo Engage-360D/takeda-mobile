@@ -25,13 +25,13 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/CustomTheme">
+        android:theme="@style/CustomThemeNoActionBar">
 
         <activity
             android:name="ru.com.cardiomagnil.ui.splash.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,7 +43,6 @@
             android:name="ru.com.cardiomagnil.ui.start.StartActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/CustomThemeNoActionBar"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
@@ -54,7 +53,8 @@
 
         <activity
             android:name="ru.com.cardiomagnil.ui.start.TestActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden" />
 
         <meta-data
             android:name="com.google.android.gms.version"

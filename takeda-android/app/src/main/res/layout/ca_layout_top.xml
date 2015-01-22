@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:animateLayoutChanges="true"
-    android:layout_height="@dimen/ca_plate_large"
+    android:layout_height="wrap_content"
     android:background="@color/ca_bg_main_38"
     android:orientation="horizontal">
 

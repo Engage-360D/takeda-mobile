@@ -134,7 +134,8 @@ public class TestResultsFargment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     AppState.getInstatce().setTestResultPage(pageData);
-                    mSlidingMenuActivity.switchContent(new TestResultsRecomendationFargment(), TestResultsFargment.this);
+                    // FIXME!!! switchContent
+//                    mSlidingMenuActivity.switchContent(new TestResultsRecomendationFargment(), TestResultsFargment.this);
                 }
             });
         }

@@ -89,7 +89,8 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
 
         if (getActivity() instanceof SlidingMenuActivity) {
             SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
-            mainActivity.switchContent(fragment);
+            // FIXME!!! switchContent
+//            mainActivity.switchContent(fragment);
         }
     }
 }

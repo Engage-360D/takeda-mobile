@@ -5,180 +5,92 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.lang.reflect.Constructor;
 
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.ExeptionsHandler;
+import ru.com.cardiomagnil.ui.base.BaseSlidingFragmentActivity;
 import ru.com.cardiomagnil.ui.ca_content.Ca_MainFargment;
-import ru.com.cardiomagnil.util.Tools;
-import ru.com.cardiomagnil.util.Utils;
+import ru.com.cardiomagnil.ui.ca_content.Ca_StartFragment;
 
-public class SlidingMenuActivity extends SlidingFragmentActivity {
-    protected ListFragment mMenuListFragment;
-    private Fragment mCurrentFragment;
-    private Fragment mPreviousFragment;
-    private AtomicBoolean mPending = new AtomicBoolean(false);
-    private final long PENDING_TIME = 500;
-
+public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
+    // TODO: refactor
+    private Class mStartFragment = Ca_MainFargment.class;
+    private SlidingMenuListFragment mMenuListFragment;
     private ProgressDialog mProgressDialog = null;
-    private int mGetTestResultRequestId = -1;
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt("getTestResultRequestId", mGetTestResultRequestId);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mGetTestResultRequestId = savedInstanceState.getInt("getTestResultRequestId");
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//        initActionBar();
+//        initMenu(savedInstanceState);
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initActionBar();
+        // Both setBehindContentView must be called in onCreate in addition to setContentView.
+        setContentView(R.layout.slidingmenu_menu_container);
+        setBehindContentView(findViewById(R.id.menu_frame) == null ?
+                getLayoutInflater().inflate(R.layout.slidingmenu_menu_frame, null) : new View(this));
+
+        initUI(savedInstanceState);
+    }
+
+    private void initUI(Bundle savedInstanceState) {
         initMenu(savedInstanceState);
-        Utils.hideKeyboard(this);
-    }
-
-    @Override
-    public void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                toggle();
-            }
-        }, 1000);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mPreviousFragment != null) {
-            switchContentBack();
-        } else {
-            if (mPending.get()) {
-                super.onBackPressed();
-            } else {
-                startPending();
-            }
-        }
-    }
-
-    private void startPending() {
-        mPending.set(true);
-        Toast.makeText(this, getResources().getString(R.string.press_back_twice), Toast.LENGTH_SHORT).show();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(PENDING_TIME);
-                    mPending.set(false);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    ExeptionsHandler.getInstatce().handleException(SlidingMenuActivity.this.getParent(), e);
-                }
-            }
-        }).start();
-    }
-
-    private void initActionBar() {
-        ViewGroup viewGroup = Tools.initActionBar(getLayoutInflater(), getActionBar(), true);
-        ImageView imageViewMenuDark = (ImageView) viewGroup.findViewById(R.id.imageViewMenuDark);
-        imageViewMenuDark.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                toggle();
-            }
-        });
+        // FIXME!!!
+        //        initContentTopMenuButton();
     }
 
     private void initMenu(Bundle savedInstanceState) {
-        // set the Behind View
-        setBehindContentView(R.layout.slidingmenu_menu_container);
-        if (savedInstanceState == null) {
-            FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
-            mMenuListFragment = new MenuListFragment();
-            t.replace(R.id.menu_frame, mMenuListFragment);
-            t.commit();
+        // check if the content frame contains the menu frame
+        getSlidingMenu().setSlidingEnabled(true);
+        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+
+        Fragment fragment;
+
+        // set the Above View Fragment
+        if (!isBackStackEmpty()) {
+            fragment = getCurrentFragment();
+            mFragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         } else {
-            mMenuListFragment = (ListFragment) this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
+            try {
+                // TODO: refactor
+                Constructor<?> ctor = mStartFragment.getConstructor();
+                fragment = (Fragment) ctor.newInstance(new Object[]{});
+            } catch (Exception e) {
+                e.printStackTrace();
+                fragment = new Ca_MainFargment();
+            }
+            putContentOnTop(fragment, true);
         }
+
+        // set the Behind View Fragment
+        mMenuListFragment = new SlidingMenuListFragment();
+        mFragmentManager.beginTransaction().replace(R.id.menu_frame, mMenuListFragment).commit();
 
         // customize the SlidingMenu
         SlidingMenu sm = getSlidingMenu();
-        sm.setShadowWidthRes(R.dimen.shadow_width);
-        sm.setShadowDrawable(R.drawable.shadow);
-        sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        sm.setFadeDegree(0.35f);
-        sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        sm.setBehindOffsetRes(R.dimen.xxxxlarge_space);
+        sm.setShadowWidthRes(R.dimen.xxsmall_space);
+        sm.setShadowDrawable(R.drawable.shadow_slidingmenu);
+        sm.setBehindScrollScale(0.25f);
+        sm.setFadeDegree(0.25f);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // set the Above View
-        setContentView(R.layout.slidingmenu_content_container);
-        mCurrentFragment = new Ca_MainFargment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
-        // getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new
-        // TestResultsFargment()).commit();
-
-        setSlidingActionBarEnabled(true);
-    }
-
-    public Fragment getCurrentFragment() {
-        return mCurrentFragment;
+        initFragmentTop(fragment, false);
     }
 
     public void refreshMenuItems() {
-        ((MenuListFragment) mMenuListFragment).refreshMenuItems();
+        ((SlidingMenuListFragment) mMenuListFragment).refreshMenuItems();
     }
 
-    public void switchContent(final Fragment fragment) {
-        mPreviousFragment = null;
-        mCurrentFragment = fragment;
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-        Handler h = new Handler();
-        h.postDelayed(new Runnable() {
-            public void run() {
-                getSlidingMenu().showContent();
-            }
-        }, 50);
-    }
-
-    public void switchContent(final Fragment fragment, Fragment previousFragment) {
-        mPreviousFragment = previousFragment;
-        mCurrentFragment = fragment;
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-        Handler h = new Handler();
-        h.postDelayed(new Runnable() {
-            public void run() {
-                getSlidingMenu().showContent();
-            }
-        }, 50);
-    }
-
-    public void switchContentBack() {
-        if (mPreviousFragment != null) {
-            switchContent(mPreviousFragment);
-            mPreviousFragment = null;
-        }
-    }
 
     /**
      * getTestResult -> switchContent(TestResultsFargment)
