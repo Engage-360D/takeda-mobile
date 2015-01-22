@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -18,7 +16,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
-import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 import ru.com.cardiomagnil.util.Utils;
 
 public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivity {
@@ -28,6 +25,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
     private final long TOGGLE_DELAY = 1000;
     private boolean mIsLocked = false;
     private AtomicBoolean mPending = new AtomicBoolean(false);
+    private final boolean TOGGLE_ON_START = false;
 
     abstract protected void initTopOnFragmentChanged(final Fragment fragment, boolean withBack);
 
@@ -72,7 +70,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                toggle();
+                if (TOGGLE_ON_START) toggle();
             }
         }, TOGGLE_DELAY);
 

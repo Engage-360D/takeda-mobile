@@ -37,7 +37,6 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
         "id",
         "isEnabled",
         "roles",
-        "",
         // sent fields
         "plainPassword",
         "isDoctor",
@@ -418,7 +417,7 @@ public class Ca_User extends BaseModel {
     }
 
     @JsonProperty("isSubscribed")
-    public void setisSubscribed(boolean isSubscribed) {
+    public void setIsSubscribed(boolean isSubscribed) {
         this.isSubscribed = isSubscribed;
     }
 

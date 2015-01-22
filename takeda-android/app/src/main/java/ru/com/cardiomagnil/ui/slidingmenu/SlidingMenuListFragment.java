@@ -65,10 +65,10 @@ public class SlidingMenuListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-            SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
-            Fragment currentFragment = mainActivity.getCurrentFragment();
+            SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+            Fragment currentFragment = slidingMenuActivity.getCurrentFragment();
             if (currentFragment != null && currentFragment.getClass().getName().equals(mMenuItems.get(position).getItemClass().getName())) {
-                mainActivity.getSlidingMenu().showContent();
+                slidingMenuActivity.getSlidingMenu().showContent();
                 return;
             }
         }
@@ -99,7 +99,7 @@ public class SlidingMenuListFragment extends ListFragment {
     private void switchFragment(Fragment fragment) {
         if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
             SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-            slidingMenuActivity.replaceContentOnTop(fragment, true);
+            slidingMenuActivity.replaceAllContent(fragment, true);
         }
     }
 }

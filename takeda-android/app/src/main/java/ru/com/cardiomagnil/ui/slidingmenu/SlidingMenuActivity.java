@@ -35,17 +35,20 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     }
 
     @Override
-    protected void initTopOnFragmentChanged(final Fragment fragment, boolean withBack) {
+    protected void initTopOnFragmentChanged(final Fragment fragment, boolean butonIsBack) {
+        initMenuOrBackButton(butonIsBack);
         if (fragment instanceof Ca_BaseItemFragment) {
             ViewGroup layoutHeader = (ViewGroup) findViewById(R.id.layoutHeader);
             ((Ca_BaseItemFragment) fragment).initTopBar(layoutHeader);
         }
+    }
 
+    private void initMenuOrBackButton(boolean butonIsMenu) {
         View contentTopRightMenu = findViewById(R.id.contentTopRightMenu);
         View contentTopRightBack = findViewById(R.id.contentTopRightBack);
 
-        contentTopRightMenu.setVisibility(withBack ? View.INVISIBLE : View.VISIBLE);
-        contentTopRightBack.setVisibility(withBack ? View.VISIBLE : View.INVISIBLE);
+        contentTopRightMenu.setVisibility(butonIsMenu ? View.INVISIBLE : View.VISIBLE);
+        contentTopRightBack.setVisibility(butonIsMenu ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void initUI(Bundle savedInstanceState) {
@@ -73,7 +76,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
                 e.printStackTrace();
                 fragment = new Ca_MainFargment();
             }
-            putContentOnTop(fragment, true);
+            replaceAllContent(fragment, true);
         }
 
         // set the Behind View Fragment
@@ -108,6 +111,8 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
                 }
             }
         });
+
+        initMenuOrBackButton(!isBackStackEmpty());
     }
 
     public void refreshMenuItems() {

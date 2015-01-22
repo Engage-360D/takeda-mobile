@@ -402,7 +402,7 @@ public class RegistrationFragment extends BaseStartFragment {
             newUser.setSpecializationGraduationDate(specializationGraduationDate.isEmpty() ? null : specializationGraduationDate);
             newUser.setSpecializationExperienceYears(Integer.parseInt(editTextSpecializationExperienceYears.getText().toString()));
 
-            newUser.setisSubscribed(checkBoxAgreeToReceive.isChecked());
+            newUser.setIsSubscribed(checkBoxAgreeToReceive.isChecked());
         } catch (Exception e) {
             e.printStackTrace();
         }
