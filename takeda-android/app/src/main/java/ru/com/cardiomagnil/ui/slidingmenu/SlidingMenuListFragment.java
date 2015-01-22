@@ -6,13 +6,11 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.lang.reflect.Constructor;
-
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.ui.ca_menu.Ca_MenuAdapter;
 
 public class SlidingMenuListFragment extends ListFragment {
@@ -21,7 +19,8 @@ public class SlidingMenuListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_slidingmenu_list_fragment, null);
+        final View view = inflater.inflate(R.layout.ca_slidingmenu_list_fragment, null);
+        initViewTreeObserver(view);
         return view;
     }
 
@@ -34,12 +33,6 @@ public class SlidingMenuListFragment extends ListFragment {
         setListAdapter(mMenuItemsAdapter);
 
         onRestoreInstanceState(savedInstanceState);
-        setSelectedItem(mPreviousSelectedItemPosition);
-    }
-
-    private void onRestoreInstanceState(Bundle savedInstanceState) {
-        if (savedInstanceState != null)
-            mPreviousSelectedItemPosition = savedInstanceState.getInt("selected_item", SlidingMenuActivity.START_ITEM_POSITION);
     }
 
     @Override
@@ -48,17 +41,36 @@ public class SlidingMenuListFragment extends ListFragment {
         outState.putInt("selected_item", mPreviousSelectedItemPosition);
     }
 
+    private void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState != null)
+            mPreviousSelectedItemPosition = savedInstanceState.getInt("selected_item", SlidingMenuActivity.START_ITEM_POSITION);
+    }
+
+    private void initViewTreeObserver(final View view) {
+        view.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        setSelectedItem(mPreviousSelectedItemPosition);
+                        // unregister listener (this is important)
+                        view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
+                });
+    }
+
     private void setSelectedItem(final int currentSelectedItemPosition) {
         View previousSelectedItemView = getViewByPosition(mPreviousSelectedItemPosition, getListView());
         View currentSelectedItemView = getViewByPosition(currentSelectedItemPosition, getListView());
 
         if (previousSelectedItemView != null) {
             TextView previousTextViewTitle = (TextView) previousSelectedItemView.findViewById(R.id.textViewTitle);
+//            previousSelectedItemView.setSelected(false);
             previousTextViewTitle.setSelected(false);
         }
 
         if (currentSelectedItemView != null) {
             TextView currentTextViewTitle = (TextView) currentSelectedItemView.findViewById(R.id.textViewTitle);
+//            currentSelectedItemView.setSelected(true);
             currentTextViewTitle.setSelected(true);
         }
 
@@ -81,16 +93,6 @@ public class SlidingMenuListFragment extends ListFragment {
         String fragmentClassName = SlidingMenuActivity.MENU_ITEMS[position].getItemClass().getName();
         Fragment newContent = Fragment.instantiate(this.getActivity(), fragmentClassName, null);
         switchFragment(newContent);
-
-//        try {
-//            Class clazz = SlidingMenuActivity.MENU_ITEMS[position].getItemClass();
-//            Constructor<?> ctor = clazz.getConstructor();
-//            Fragment newContent = (Fragment) ctor.newInstance(new Object[]{});
-//            switchFragment(newContent);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            ExeptionsHandler.getInstatce().handleException(getActivity(), e);
-//        }
 
         super.onListItemClick(listView, view, position, id);
     }

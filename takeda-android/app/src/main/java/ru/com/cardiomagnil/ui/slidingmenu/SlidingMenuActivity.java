@@ -74,19 +74,17 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         getSlidingMenu().setSlidingEnabled(true);
         getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 
-        Fragment fragment = getCurrentFragment();
-
         // set the Above View Fragment
-        if (fragment != null) {
-            if (fragment.isDetached()) {
-                mFragmentManager.beginTransaction().attach(fragment).commit();
-            }
-        } else {
+        Fragment fragment = getCurrentFragment();
+        if (fragment == null) {
             String fragmentClassName = SlidingMenuActivity.MENU_ITEMS[START_ITEM_POSITION].getItemClass().getName();
             fragment = Fragment.instantiate(this, fragmentClassName, null);
             replaceAllContent(fragment, true);
+        } else {
+            if (fragment.isDetached()) {
+                mFragmentManager.beginTransaction().attach(fragment).commit();
+            }
         }
-
         initTopOnFragmentChanged(fragment, false);
 
         mSlidingMenuListFragment = (SlidingMenuListFragment) mFragmentManager.findFragmentByTag(SlidingMenuListFragment.class.getName());
