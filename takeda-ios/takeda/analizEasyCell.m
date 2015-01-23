@@ -18,7 +18,8 @@
 
 - (void)awakeFromNib
 {
-    // Initialization code
+//    self.top_separator.height = 0.5;
+//    self.bottom_separator.height = 0.5;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

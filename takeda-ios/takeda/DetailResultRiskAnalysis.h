@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailResultRiskAnalysis : UIViewController
+@interface DetailResultRiskAnalysis : VControllerExt
 @property (nonatomic,retain) NSDictionary *data_result;
 @property (nonatomic,retain) NSDictionary *data_banner;
 @property (nonatomic,retain) NSDictionary *data_page;
-@property (nonatomic,retain) IBOutlet UILabel  *titleResult;
 @property (nonatomic,retain) IBOutlet UIScrollView *scrol;
 @end

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReportsPage : UIViewController
+@interface ReportsPage : VControllerExt
 
 @end

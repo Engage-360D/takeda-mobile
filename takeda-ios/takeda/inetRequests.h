@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "analizData.h"
 
 @interface inetRequests : NSObject
 +(void)authUserWithLogin:(NSString*)login

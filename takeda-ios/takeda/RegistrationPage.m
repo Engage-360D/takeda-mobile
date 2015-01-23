@@ -16,8 +16,8 @@
     NSMutableArray *regions_data;
     UIPickerView *region_picker;
     UIDatePicker *date_picker;
-    
-    
+    NSDate *birthdayDate;
+    NSMutableDictionary *selectedRegion;
     
     
 }
@@ -77,40 +77,40 @@ NSString *sentEmail;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        [self setDefoultData];
+        [self setDefaultData];
     }
     return self;
 }
 
 
--(void)setDefoultData{
+-(void)setDefaultData{
     self.user_is_doctor = NO;
     self.user_is_agree_personal_data = NO;
     self.user_is_agree_email_subscribe_data = NO;
     self.user_is_agree_information_is_recomemd_style = NO;
-    
-    regions_data = [[NSMutableArray alloc] init];
-    [regions_data addObject:@"Российская Федерация"];
-    [regions_data addObject:@"Украина"];
-    [regions_data addObject:@"Польша"];
-    [regions_data addObject:@"Словакия"];
-    [regions_data addObject:@"Франция"];
+}
+
+-(void)initData{
+    [ServData loadRegionsWithCompletion:^(BOOL success, id result){
+        if (success){
+            regions_data = [GData regionsList];
+        }
+    }];
 }
 
 
+-(void)setupInterface{
 
-
--(void)setFieldsSettings{
-    for (UIView *view in self.bg_block) {
-        CALayer *TopBorder = [CALayer layer];
-        TopBorder.frame = CGRectMake(0.0f, 0.0f, view.frame.size.width, 1.0f);
-        TopBorder.contents = (id)[UIImage imageNamed:@"bg_separator"].CGImage;
-        [view.layer addSublayer:TopBorder];
-        CALayer *BottomBorder = [CALayer layer];
-        BottomBorder.frame = CGRectMake(0.0f, view.frame.size.height, view.frame.size.width, 1.0f);
-        BottomBorder.contents = (id)[UIImage imageNamed:@"bg_separator"].CGImage;
-        [view.layer addSublayer:BottomBorder];
+    [self drawBorders:self.bg_block];
+    
+    for (UILabel *lb in self.blockLabels){
+        lb.font = [UIFont fontWithName:@"SegoeWP-Light" size:17];
     }
+    
+    for (UIButton *bb in self.fontButtons){
+        bb.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:17];
+    }
+
     
     [self.btn_register setBackgroundImage:[[UIImage imageNamed:@"button_arrow_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 30)] forState:UIControlStateNormal];
     
@@ -125,34 +125,27 @@ NSString *sentEmail;
     self.name_field.placeholderColor = RGB(53, 65, 71);
     self.name_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
     self.name_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
     
+    self.btn_register.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:17.0];
+
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    
-    
-    [self setNavImage];
-    [self setNavigationPanel];
-    [self setFieldsSettings];
-    
-
-    self.scrollView.frame = RectSetOrigin(self.view.frame, 0, 0);
-    self.scrollView.frame = CGRectMake(0, self.btn_register.frame.size.height+2, 320, self.view.frame.size.height - self.btn_register.frame.size.height);
+    [self setupInterface];
     [self.view addSubview:self.scrollView];
-    [self.scrollView setContentSize:CGSizeMake(320, 670)];
-    self.btn_register.titleLabel.font = [UIFont fontWithName:@"SegoeWP Light" size:17.0];
-
+    [self.scrollView setup_autosize];
+    self.navigationItem.rightBarButtonItems = nil;
 }
-
-
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.scrollView.frame = CGRectMake(0, 45, self.view.width, self.view.height - 45);
     [self updateFields];
+    [self initData];
 }
 
 
@@ -164,7 +157,7 @@ NSString *sentEmail;
 
 -(void)setBirthDayDataForSend:(NSDate*)date{
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
+    [dateFormat setDateFormat:@"YYYY'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
     NSString *prettyVersion = [dateFormat stringFromDate:date];
     birthday = prettyVersion;
 }
@@ -172,135 +165,86 @@ NSString *sentEmail;
 
 -(IBAction)registerUser:(id)sender{
 
-    if ([self checkFields]) {
+    if (![self checkFields]) {return;}
         
         NSString *name = self.name_field.text;
         NSString *email = self.email_field.text;
         NSString *password = self.pass_field.text;
         NSString *region = self.btn_region.titleLabel.text;
-        NSString *confirmPersonalization = [NSString stringWithFormat:@"%i",user_is_agree_personal_data];
-        NSString *confirmInformation = [NSString stringWithFormat:@"%i",user_is_agree_information_is_recomemd_style];
-        NSString *doctor = [NSString stringWithFormat:@"%i",user_is_doctor];
+        region = [NSString stringWithFormat:@"%@", selectedRegion[@"id"]];
+        password = pass_field.text;
+        birthday = [birthdayDate stringWithFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"];
+        NSDictionary *params = @{          @"email": email,
+                                           @"firstname": name,
+                                           @"lastname" : @"",
+                                           @"birthday":birthday,
+                                           @"specializationExperienceYears" : [NSNull null],
+                                           @"specializationGraduationDate" : [NSNull null],
+                                           @"specializationInstitutionAddress" : [NSNull null],
+                                           @"specializationInstitutionName" : [NSNull null],
+                                           @"specializationInstitutionPhone" : [NSNull null],
+                                           @"specializationName" : [NSNull null],
+                                           @"plainPassword":password,
+                                           @"isDoctor" : [NSNumber numberWithBool:self.user_is_doctor],
+                                           @"isSubscribed" : [NSNumber numberWithBool:self.user_is_agree_email_subscribe_data],
+                                           @"links": @{@"region":region
+                                    }};
         
         
+//        {
+//            "data" : {
+//                "email" : "a.b@c.d",
+//                "firstname" : "",
+//                "lastname" : "",
+//                "birthday" : "1990-10-10T00:00:00+0000",
         
-        NSDictionary *params = @{@"firstname": name,
-                                 @"email": email,
-                                 @"confirmPersonalization": confirmPersonalization,
-                                 @"confirmInformation": confirmInformation,
-                                 @"doctor":doctor,
-                                 @"region":region,
-                                 @"specialization":specialization,
-                                 @"experience":experience,
-                                 @"address":address,
-                                 @"phone":phone,
-                                 @"institution":institution,
-                                 @"birthday":birthday,
-                                 @"graduation":graduation,
-                                 @"plainPassword": @{@"first": password,
-                                                     @"second":password}
-                                 };
+//                "specializationExperienceYears" : null,
         
-        NSString *sentPassword = password;
-        NSString *sentEmail = email;
-        
-        [[UserData sharedObject] savePassword:self.pass_field.text];
-        [[UserData sharedObject] saveUserName:self.email_field.text];
-        
-        [inetRequests registrationUserWithData:params completion:^(BOOL result, NSError *error, NSString* textError) {
-            if (result) {
-                [inetRequests authUserWithLogin:sentEmail password:sentPassword completion:^(BOOL result, NSError *error) {
-                    if (result) {
-                        [inetRequests getUserDataWithCompletion:^(BOOL result, NSError *error) {
-                            if (result) {
-                                NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
-                                UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
-                                [vc.navigationController setNavigationBarHidden:NO];
-                                [ApplicationDelegate setRootViewController:vc];
-                            }else{
-                                [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
-                            }
-                        }];
-                    }else{
-                        [Helper fastAlert:@"Ошибка авторизации"];
-                    }
-                }];
-                
-                
+//                "specializationGraduationDate" : null,
+//                "specializationInstitutionAddress" : null,
+//                "specializationInstitutionName" : null,
+//                "specializationInstitutionPhone" : null,
+//                "specializationName" : null,
+//                "plainPassword" : "xxx",
+//                "isDoctor" : false,
+//                "isSubscribed" : true,
+//                "links" : {
+//                    "region" : ""
+//                }
+//            }
+//        }
+//        
 
-            }else{
-                NSString *text = @"Ошибка при регистрации";
-                if (textError) {
-                    text = textError;
-                }
-                
-                if ([[[error userInfo] allKeys] count]>0) {
-                    id key = [[[error userInfo] allKeys] objectAtIndex:0];
-                    id res = [[error userInfo] objectForKey:key];
-                    
-                    
-                    
-                    if (res) {
-                        if ([res isKindOfClass:[NSArray class]] && [res count]>0) {
-                            text = [res objectAtIndex:0];
-                        }else{
-                            text = res;
+        [ServData registrationUserWithData:params completion:^(BOOL result, NSError *error, NSString* textError){
+            if (result){
+            [ServData authUserWithLogin:email password:password completion:^(BOOL result, NSError *error) {
+                if (result) {
+                    [User setCurrentUser:User.user_name];
+                    [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
+                        [User setCurrentUser:User.user_name];
+                        if (result){
+                            NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
+                            UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
+                            [vc.navigationController setNavigationBarHidden:NO];
+                            [ApplicationDelegate setRootViewController:vc];
+                        } else {
+                            [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
                         }
-                    }
+                    }];
                     
+                } else {
+                    [Helper fastAlert:@"Ошибка авторизации"];
                 }
-                [Helper fastAlert:text];
+            }];
+            } else {
+                [Helper fastAlert:@"Ошибка регистрации"];
             }
             
         }];
-    }
+        
+        
+ 
 }
-
-
-
-
-
-
-#pragma mark - navigation panel
--(void)setNavImage{
-    UINavigationBar *navBar = [[self navigationController] navigationBar];
-    UIImage *backgroundImage;
-    backgroundImage = [[UIImage imageNamed:@"nav_bar_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] ;
-    [navBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
-}
-
--(void)setNavigationPanel{
-    UIButton *back_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    back_btn.frame = CGRectMake(0, 0, 80, 40);
-    back_btn.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:17.0];
-    [back_btn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchDown];
-    
-    [back_btn setTitle:@"Назад" forState:UIControlStateNormal];
-    CALayer *back_arrow = [CALayer layer];
-    back_arrow.frame = CGRectMake(0.0f, back_btn.frame.size.height/2 - 7.5, 8, 15.0f);
-    back_arrow.contents = (id)[UIImage imageNamed:@"left_white_arrow"].CGImage;
-    [back_btn.layer addSublayer:back_arrow];
-    UIBarButtonItem *back_item = [[UIBarButtonItem alloc] initWithCustomView:back_btn];
-    self.navigationItem.leftBarButtonItem = back_item;
-    
-    
-    
-    UIImage *logoImage = [UIImage imageNamed:@"title_logo"];
-    UIImageView *img_logo = [[UIImageView alloc] initWithFrame:CGRectMake(40, 8, logoImage.size.width, logoImage.size.height)];
-    img_logo.image = logoImage;
-    self.navigationItem.titleView = img_logo;
-}
-
-
--(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-#pragma mark -
-
-
-
-
-
 
 -(void)updateFields{
     if (self.user_is_doctor) {
@@ -413,13 +357,13 @@ NSString *sentEmail;
 
 -(void)applyPicker:(id)sender{
     if ((int)[picker_cover tag]==1) {
-        [self.btn_region setTitle:[NSString stringWithFormat:@"Страна: %@",[regions_data objectAtIndex:sel_index_region]] forState:UIControlStateNormal];
-        
+        [self.btn_region setTitle:[NSString stringWithFormat:@"Страна: %@",[regions_data objectAtIndex:sel_index_region][@"name"]] forState:UIControlStateNormal];
+        selectedRegion = [regions_data objectAtIndex:sel_index_region];
         
     }else{
         if ((int)[picker_cover tag]==2) {
-            NSDate *myDate = date_picker.date;
-            [self setDateBirthDay:myDate];
+            birthdayDate = date_picker.date;
+            [self setDateBirthDay:birthdayDate];
         }
     }
     [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
@@ -431,7 +375,6 @@ NSString *sentEmail;
     [dateFormat setDateFormat:@"dd MMMM yyyy"];
     NSString *prettyVersion = [dateFormat stringFromDate:myDate];
     [self.btn_birthday setTitle:[NSString stringWithFormat:@"Дата рождения: %@",prettyVersion] forState:UIControlStateNormal];
-    [self setBirthDayDataForSend:myDate];
 }
 
 
@@ -453,7 +396,7 @@ numberOfRowsInComponent:(NSInteger)component
              titleForRow:(NSInteger)row
             forComponent:(NSInteger)component
 {
-    return [regions_data objectAtIndex:row];
+    return [regions_data objectAtIndex:row][@"name"];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
@@ -497,7 +440,8 @@ numberOfRowsInComponent:(NSInteger)component
     date_picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,40,picker_width,210)];
     date_picker.datePickerMode = UIDatePickerModeDate;
     //[date_picker addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventValueChanged];
-    [date_picker setDate:[Helper getAgoYear:25 fromDate:[NSDate date]]];
+    
+    [date_picker setDate:birthdayDate?birthdayDate:[Helper getAgoYear:25 fromDate:[NSDate date]]];
     
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:date_picker];
@@ -723,7 +667,7 @@ numberOfRowsInComponent:(NSInteger)component
 - (void)vkontakteDidFinishGettinCountry:(NSDictionary *)responce{
     if ([responce hasKey:@"name"] ) {
         if ([[responce objectForKey:@"name"] length]>0) {
-            [self.btn_region.titleLabel setText:[NSString stringWithFormat:@"Страна: %@",[responce objectForKey:@"name"]]];
+            [self.btn_region.titleLabel setText:[NSString stringWithFormat:@"Регион: %@",[responce objectForKey:@"name"]]];
         }
     }
 }
@@ -799,7 +743,7 @@ numberOfRowsInComponent:(NSInteger)component
     if ([result hasKey:@"birthday"] ) {
         if ([[result objectForKey:@"birthday"] length]>0) {
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            [dateFormatter setDateFormat:@"yyyy-MM-ddTHH:mm:ssZ"];
             NSDate *dateFromString = [[NSDate alloc] init];
             dateFromString = [dateFormatter dateFromString:[result objectForKey:@"birthday"]];
             if (dateFromString) {

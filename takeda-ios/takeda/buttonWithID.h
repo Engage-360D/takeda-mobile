@@ -11,4 +11,6 @@
 @interface buttonWithID : UIButton
 @property int id_button;
 @property (nonatomic,retain) NSString* type_object;
+@property (nonatomic) id info;
+
 @end

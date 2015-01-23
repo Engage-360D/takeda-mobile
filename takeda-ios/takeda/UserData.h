@@ -7,12 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "jsonInFile.h"
 
 @interface UserData : NSObject{
-    NSString *oauthToken;
-    NSDictionary *userData;
+    NSString *access_token_;
+    NSString *user_id_;
+    NSString *user_name_;
+    NSMutableDictionary *userData_;
 }
 +(UserData*)sharedObject;
+
+@property (nonatomic, strong) NSString *user_id;
+@property (nonatomic, strong) NSString *user_name;
+@property (nonatomic, strong) NSString *access_token;
+@property (nonatomic, strong) NSMutableDictionary *userData;
+
 
 -(BOOL)is_authorized;
     
@@ -20,7 +29,7 @@
 -(void)setAccessToken:(NSString*)token;
 
 -(NSDictionary*)getUserData;
--(void)setUserData:(NSDictionary*)userData;
+-(void)setUserData:(NSMutableDictionary*)userData;
 
 -(void)savePassword:(NSString*)pass;
 -(void)saveUserName:(NSString*)username;
@@ -30,4 +39,15 @@
 
 -(void)saveAnalisRiskData:(NSData*)data;
 -(id)getLastSavedAnalisRiskData;
+
+-(void)updateUser:(NSString*)login userInfo:(NSMutableDictionary*)userInfo accessToken:(NSString*)access_token;
+-(NSMutableDictionary*)getUserInfo:(NSString*)login;
+-(void)setCurrentUser:(NSString*)login;
+-(NSString*)getLastUser;
+
+
+
+
+
+
 @end

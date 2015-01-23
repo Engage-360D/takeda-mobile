@@ -10,7 +10,7 @@
 #import "PLTextField.h"
 
 
-@interface AuthPage : UIViewController
+@interface AuthPage : VControllerExt
 @property (nonatomic,retain) IBOutletCollection(UIView) NSArray *bg_block;
 @property (nonatomic,retain) IBOutlet PLTextField *email_field;
 @property (nonatomic,retain) IBOutlet PLTextField *pass_field;
@@ -20,6 +20,8 @@
 @property (nonatomic,retain) IBOutlet UIButton *registration_btn;
 
 @property (nonatomic,retain) IBOutlet UILabel *description_text;
+@property (nonatomic,retain) IBOutlet UILabel *danger_text;
+@property (nonatomic,retain) IBOutlet UIScrollView *scrollView;
 
 @property (nonatomic,retain) IBOutlet UINavigationBar *nav_bar;
 

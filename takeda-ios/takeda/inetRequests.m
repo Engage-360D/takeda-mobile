@@ -5,7 +5,7 @@
 //  Created by Serg on 4/4/14.
 //  Copyright (c) 2014 organization. All rights reserved.
 //
-
+// for del
 
 
 
@@ -32,7 +32,7 @@
                                            "&client_secret=%@"
                                            "&grant_type=password"
                                            "&username=%@"
-                                           "&password=%@",api_url,client_id,client_secret,login,password]];
+                                           "&password=%@",kServerURL,client_id,client_secret,login,password]];
         
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -93,7 +93,7 @@
             NSError*_e = nil;
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:
                                                @"%@/api/users/me?access_token=%@",
-                                               api_url,
+                                               kServerURL,
                                                [[UserData sharedObject] getAccessToken]]];
             
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
@@ -103,8 +103,9 @@
             NSHTTPURLResponse *response=nil;
             NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
             if (!err) {
-                id resp = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&_e];
-                
+                id resp = [[analizData sharedObject] recursiveMutable:[NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&_e]];
+                [self cleanJsonToObject:resp];
+
                 if ([resp hasKey:@"id"]) {
                     [[UserData sharedObject] setUserData:resp];
                     success = YES;
@@ -144,7 +145,7 @@
         NSError*_e = nil;
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:
                                            @"%@/api/users",
-                                           api_url]];
+                                           kServerURL]];
         
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -217,7 +218,7 @@
         NSError*_e = nil;
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:
                                            @"%@/api/users/reset",
-                                           api_url]];
+                                           kServerURL]];
         
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -299,12 +300,11 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         BOOL success = NO;
         
-        
         NSError*err = nil;
         NSError*_e = nil;
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:
                                            @"%@/api/test-results/",
-                                           api_url]];
+                                           kServerURL]];
         
         /*NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -363,6 +363,10 @@
             }
         });
     });
+}
+
++ (void)cleanJsonToObject:(id)data {
+    [data Kez_removeNulls];
 }
 
 

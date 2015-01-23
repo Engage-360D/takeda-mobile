@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CalendarPage : UIViewController
+@interface CalendarPage : VControllerExt
 
 @end

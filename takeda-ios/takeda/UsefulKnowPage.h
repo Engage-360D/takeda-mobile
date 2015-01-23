@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UsefulKnowPage : UIViewController
+@interface UsefulKnowPage : VControllerExt
 
 @end

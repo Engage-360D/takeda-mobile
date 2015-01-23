@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResultRiskAnalysis : UIViewController
+@interface ResultRiskAnalysis : VControllerExt
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 @property (nonatomic,retain) IBOutlet UIView *headerView;
 

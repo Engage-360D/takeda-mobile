@@ -11,13 +11,15 @@
 #import "Vkontakte.h"
 #import "Odnoklassniki.h"
 
-@interface RegistrationPage : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource,VkontakteDelegate,OKSessionDelegate, OKRequestDelegate>{
+@interface RegistrationPage : VControllerExt<UIPickerViewDelegate, UIPickerViewDataSource,VkontakteDelegate,OKSessionDelegate, OKRequestDelegate>{
     Vkontakte *_vkontakte;
 }
 
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,retain) IBOutlet UIButton *btn_register;
 @property (nonatomic,retain) IBOutletCollection(UIView) NSArray *bg_block;
+@property (nonatomic,retain) IBOutletCollection(UILabel) NSArray *blockLabels;
+@property (nonatomic,retain) IBOutletCollection(UIButton) NSArray *fontButtons;
 
 @property (nonatomic,retain) IBOutlet PLTextField *name_field;
 @property (nonatomic,retain) IBOutlet PLTextField *email_field;
@@ -31,6 +33,7 @@
 
 @property (nonatomic,retain) IBOutlet UIButton *btn_region;
 @property (nonatomic,retain) IBOutlet UIButton *btn_birthday;
+@property (nonatomic,retain) IBOutlet UILabel *danger_text;
 
 
 

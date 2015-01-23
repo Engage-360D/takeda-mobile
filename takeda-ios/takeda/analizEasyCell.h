@@ -17,6 +17,4 @@
 @property (nonatomic,retain) IBOutlet UILabel *description_1;
 @property (nonatomic,retain) IBOutlet UILabel *description_2;
 
-@property(nonatomic,retain) IBOutlet UIImageView *top_separator;
-@property(nonatomic,retain) IBOutlet UIImageView *bottom_separator;
 @end

@@ -20,7 +20,6 @@
 
 @implementation AnalizDataUserPage
 @synthesize nextStepBtn;
-@synthesize titleRisk;
 @synthesize sourceData;
 @synthesize tableView;
 @synthesize page;
@@ -40,6 +39,7 @@
     [super viewDidLoad];
     [self.nextStepBtn setBackgroundImage:[[UIImage imageNamed:@"button_arrow_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 30)] forState:UIControlStateNormal];
     self.nextStepBtn.titleLabel.font = [UIFont fontWithName:@"SegoeWP Light" size:17.0];
+    self.tableView.tableFooterView = self.tableView.separ;
 }
 
 
@@ -102,17 +102,6 @@
              cell.first_item.type_object = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"];
              cell.second_item.type_object = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"];
              
-             
-             
-             
-             
-             if (indexPath.row == 0) {
-                 cell.top_separator.hidden = NO;
-             }else{
-                 cell.top_separator.hidden = YES;
-             }
-             
-             
              int value = [[[sourceData objectAtIndex:indexPath.row] objectForKey:@"value"] intValue];
              
              if (value == 0) {
@@ -163,8 +152,8 @@
                      cell.description_1.text = objects[0];
                      cell.description_2.text = objects[1];
                      
-                     cell.description_1.font = [self getFontDescription];
-                     cell.description_2.font = [self getFontDescription];
+                     cell.description_1.font = [self getDrobDescriptionFont];
+                     cell.description_2.font = [self getDrobDescriptionFont];
                  }else{
                      cell.description_1 = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"description"];
                  }
@@ -176,15 +165,7 @@
              cell.description.font = [self getFontDescription];
              cell.value.font = [self getFontValue];
              cell.value.text = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"value"];
-             
-             if (indexPath.row == 0) {
-                 cell.top_separator.hidden = NO;
-             }else{
-                 cell.top_separator.hidden = YES;
-             }
-             
-             
-             
+
              UIView *sel_view = [[UIView alloc] init];
              sel_view.backgroundColor = [UIColor clearColor];
              cell.selectedBackgroundView = sel_view;
@@ -228,13 +209,7 @@
              
              cell.selected_item.type_object = [[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"];
              cell.selected_item.id_button = value;
-             
-             
-             if (indexPath.row == 0) {
-                 cell.top_separator.hidden = NO;
-             }else{
-                 cell.top_separator.hidden = YES;
-             }
+            
              UIView *sel_view = [[UIView alloc] init];
              sel_view.backgroundColor = [UIColor clearColor];
              cell.selectedBackgroundView = sel_view;
@@ -271,7 +246,9 @@
 {
     int type = [[[sourceData objectAtIndex:indexPath.row] objectForKey:@"type"] intValue];
     float width = (type==1)?62.0:(type==2)?164.0:225.0;
-    return (ceilf([Helper heightText:[[sourceData objectAtIndex:indexPath.row] objectForKey:@"name"] withFont:[self getFontName] withWidth:width] + 20.0));
+    float h = (ceilf([Helper heightText:[[sourceData objectAtIndex:indexPath.row] objectForKey:@"name"] withFont:[self getFontName] withWidth:width] + 20.0));
+    NSLog(@"h = %f",h);
+    return h;
     //return 44.0;
 }
 
@@ -288,6 +265,11 @@
 -(UIFont*)getFontDescription{
     return [UIFont fontWithName:@"SegoeUI-Light" size:15.0];
 }
+
+-(UIFont*)getDrobDescriptionFont{
+    return [UIFont fontWithName:@"SegoeUI-Light" size:13.0];
+}
+
 -(UIFont*)getFontValue{
     return [UIFont fontWithName:@"SegoeUI-Light" size:22.5];
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResultRiskAnalysis">
@@ -10,6 +11,8 @@
                 <outlet property="scoreCircle" destination="f5u-o6-3ce" id="mV8-6E-X8r"/>
                 <outlet property="scoreValue" destination="a4g-EU-YmX" id="ufT-GX-asg"/>
                 <outlet property="tableView" destination="x3V-FE-h15" id="mTD-nU-W1y"/>
+                <outlet property="vcSubTitle" destination="v0Q-TW-APh" id="CwI-A5-Pn0"/>
+                <outlet property="vcTitle" destination="dia-nW-gSa" id="kny-YH-Tbh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -51,7 +54,6 @@
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.42352941179999998" green="0.68235294120000001" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
         <view contentMode="scaleToFill" id="56x-Wm-l0r">
@@ -88,6 +90,7 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.42352941176470588" green="0.68235294117647061" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
@@ -97,4 +100,9 @@
         <image name="result_line.png" width="296" height="7"/>
         <image name="retry_icon.png" width="28" height="28"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>

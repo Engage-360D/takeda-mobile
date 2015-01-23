@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PublicationPage : UIViewController
+@interface PublicationPage : VControllerExt
 
 @end

@@ -15,6 +15,10 @@
     UIPickerView *picker_view;
     NSArray *pickerDataSource;
     UIDatePicker *date_picker;
+    int currentIndex;
+    AnalizDataUserPage *historyPacientPage;
+    AnalizDataUserPage *firstPage;
+    AnalizDataUserPage *dailyRationPage;
 }
 
 @end
@@ -41,7 +45,6 @@ int selectedIndex = 0;
 {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = NO;
-    [self setNavigationPanel];
     [self setDefaultDateBirthday];
     [self setFirstPageAnalize];
     
@@ -52,8 +55,6 @@ int selectedIndex = 0;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
-    [self setNavImage];
 }
 
 
@@ -62,7 +63,7 @@ int selectedIndex = 0;
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-        NSDate *curDate = [formatter dateFromString:[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]];
+        NSDate *curDate = [formatter dateFromString:[NSString stringWithFormat:@"%@",[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]]];
         if (curDate) {
             
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -95,45 +96,68 @@ int selectedIndex = 0;
 }
 
 
+-(void)backAction{
+    switch (currentIndex) {
+        case 2:{
+            [self setFirstPageAnalize];
+            [self.scroll scrollRectToVisible:firstPage.view.frame animated:YES];
 
+            break;
+        }
+            
+        case 3:{
+            [self setSecondPageAnalize];
+            [self.scroll scrollRectToVisible:historyPacientPage.view.frame animated:YES];
 
-
-
+            break;
+        }
+            
+        case 4:{
+            [self setThirdPageAnalize];
+            [self.scroll scrollRectToVisible:dailyRationPage.view.frame animated:YES];
+            break;
+        }
+            
+    }
+}
 
 
 #pragma mark - init pages
 
 -(void)setFirstPageAnalize{
     [self setPageindicator:1];
-    AnalizDataUserPage*firstPage = [[AnalizDataUserPage alloc] initWithNibName:@"AnalizDataUserPage" bundle:nil];
-    firstPage.view.frame = self.scroll.bounds;
-    [self addChildViewController:firstPage];
-    [self.scroll addSubview:firstPage.view];
-    [firstPage willMoveToParentViewController:self];
-    [firstPage.nextStepBtn addTarget:self action:@selector(goHistoryPacient:) forControlEvents:UIControlEventTouchDown];
-    [firstPage.nextStepBtn setTitle:@"История пациента" forState:UIControlStateNormal];
-    firstPage.titleRisk.text = @"Данные пациента";
+    if (!firstPage){
+        firstPage = [[AnalizDataUserPage alloc] initWithNibName:@"AnalizDataUserPage" bundle:nil];
+        firstPage.view.frame = self.scroll.bounds;
+        [self addChildViewController:firstPage];
+        [self.scroll addSubview:firstPage.view];
+        [firstPage willMoveToParentViewController:self];
+        [firstPage.nextStepBtn addTarget:self action:@selector(goHistoryPacient:) forControlEvents:UIControlEventTouchDown];
+        [firstPage.nextStepBtn setTitle:@"История пациента" forState:UIControlStateNormal];
+        firstPage.vcSubTitle.text = @"Данные пациента";
+        [self.scroll setContentSize:CGSizeMake(320 * 1, 20)];
+    }
     firstPage.page = 1;
     firstPage.delegate = self;
     firstPage.sourceData = [[analizData sharedObject] getQuestionsDataUser];
     [firstPage reloadData];
     
-    
 }
 
 -(void)setSecondPageAnalize{
     [self setPageindicator:2];
-    AnalizDataUserPage*historyPacientPage = [[AnalizDataUserPage alloc] initWithNibName:@"AnalizDataUserPage" bundle:nil];
-    CGRect frame = self.scroll.bounds;
-    frame.origin.x = self.view.frame.size.width;
-    historyPacientPage.view.frame = frame;
-    [self addChildViewController:historyPacientPage];
-    [self.scroll addSubview:historyPacientPage.view];
-    [historyPacientPage willMoveToParentViewController:self];
-    [historyPacientPage.nextStepBtn addTarget:self action:@selector(goDailyRation:) forControlEvents:UIControlEventTouchDown];
-    [historyPacientPage.nextStepBtn setTitle:@"Дневной рацион" forState:UIControlStateNormal];
-    historyPacientPage.titleRisk.text = @"История пациента";
-    [self.scroll setContentSize:CGSizeMake(320 * 2, 20)];
+    if (!historyPacientPage){
+        historyPacientPage = [[AnalizDataUserPage alloc] initWithNibName:@"AnalizDataUserPage" bundle:nil];
+        historyPacientPage.view.frame = self.scroll.bounds;
+        historyPacientPage.view.x = self.scroll.width;
+        [self addChildViewController:historyPacientPage];
+        [self.scroll addSubview:historyPacientPage.view];
+        [historyPacientPage willMoveToParentViewController:self];
+        [historyPacientPage.nextStepBtn addTarget:self action:@selector(goDailyRation:) forControlEvents:UIControlEventTouchDown];
+        [historyPacientPage.nextStepBtn setTitle:@"Дневной рацион" forState:UIControlStateNormal];
+        historyPacientPage.vcSubTitle.text = @"История пациента";
+        [self.scroll setContentSize:CGSizeMake(320 * 2, 20)];
+    }
     historyPacientPage.page = 2;
     historyPacientPage.delegate = self;
     historyPacientPage.sourceData = [[analizData sharedObject] getQuestionsHistoryUser];
@@ -143,16 +167,17 @@ int selectedIndex = 0;
 
 -(void)setThirdPageAnalize{
     [self setPageindicator:3];
-    AnalizDataUserPage*dailyRationPage = [[AnalizDataUserPage alloc] initWithNibName:@"AnalizDataUserPage" bundle:nil];
-    CGRect frame = self.scroll.bounds;
-    frame.origin.x = self.view.frame.size.width*2;
-    dailyRationPage.view.frame = frame;
-    [self addChildViewController:dailyRationPage];
-    [self.scroll addSubview:dailyRationPage.view];
-    [dailyRationPage willMoveToParentViewController:self];
-    [dailyRationPage.nextStepBtn addTarget:self action:@selector(goResultPage:) forControlEvents:UIControlEventTouchDown];
-    [dailyRationPage.nextStepBtn setTitle:@"Результаты" forState:UIControlStateNormal];
-    dailyRationPage.titleRisk.text = @"Дневной рацион";
+    if (!dailyRationPage){
+        dailyRationPage = [[AnalizDataUserPage alloc] initWithNibName:@"AnalizDataUserPage" bundle:nil];
+        dailyRationPage.view.frame = self.scroll.bounds;
+        dailyRationPage.view.x = self.scroll.width*2;
+        [self addChildViewController:dailyRationPage];
+        [self.scroll addSubview:dailyRationPage.view];
+        [dailyRationPage willMoveToParentViewController:self];
+        [dailyRationPage.nextStepBtn addTarget:self action:@selector(goResultPage:) forControlEvents:UIControlEventTouchDown];
+        [dailyRationPage.nextStepBtn setTitle:@"Результаты" forState:UIControlStateNormal];
+        dailyRationPage.vcSubTitle.text = @"Дневной рацион";
+    }
     [self.scroll setContentSize:CGSizeMake(320 * 3, 20)];
     dailyRationPage.page = 3;
     dailyRationPage.delegate = self;
@@ -300,10 +325,13 @@ int selectedIndex = 0;
 
 
 
-
-
-
 -(void)setPageindicator:(int)index{
+    currentIndex = index;
+    if (index>1){
+        self.navigationItem.leftBarButtonItem = [self backBtn];
+    } else {
+        self.navigationItem.leftBarButtonItem = [self menuButton];
+    }
     
     for (UIImageView *imageView in self.page_indicator) {
         if ([imageView tag]==index) {
@@ -313,73 +341,6 @@ int selectedIndex = 0;
         }
     }
 }
-
-
-
-
-
-#pragma mark - navigation panel
--(void)setNavImage{
-    UINavigationBar *navBar = [[self navigationController] navigationBar];
-    UIImage *backgroundImage;
-    backgroundImage = [[UIImage imageNamed:@"nav_bar_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] ;
-    [navBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
-}
-
--(void)setNavigationPanel{
-    UIView *view = [[UIView alloc] initWithFrame:[self.navigationController.navigationBar frame]];
-    
-    UIImage *logoImage = [UIImage imageNamed:@"title_logo"];
-    
-    
-    UIImageView *img_logo = [[UIImageView alloc] initWithFrame:CGRectMake(40, 8, logoImage.size.width, logoImage.size.height)];
-    img_logo.image = logoImage;
-    [view addSubview:img_logo];
-    view.backgroundColor = [UIColor clearColor];
-    self.navigationItem.titleView = view;
-    
-    
-    
-    UIImage *menuImage = [UIImage imageNamed:@"menu_icon"];
-    UIButton *aButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [aButton setImage:menuImage forState:UIControlStateNormal];
-    aButton.frame = CGRectMake(0.0,0.0,menuImage.size.width+20,menuImage.size.height);
-    aButton.contentEdgeInsets = (UIEdgeInsets){.left=-20};
-    [aButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:aButton];
-    self.navigationItem.leftBarButtonItem = menuButton;
-    
-
-    UIImage *peopleImage = [UIImage imageNamed:@"people_icon"];
-    UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [bButton setImage:peopleImage forState:UIControlStateNormal];
-    bButton.frame = CGRectMake(0.0,0.0,peopleImage.size.width+10,peopleImage.size.height);
-    bButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
-    //[bButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *peopleButton = [[UIBarButtonItem alloc] initWithCustomView:bButton];
-    
-    
-    UIImage *alarmImage = [UIImage imageNamed:@"alarm_icon"];
-    UIButton *cButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cButton setImage:alarmImage forState:UIControlStateNormal];
-    cButton.frame = CGRectMake(0.0,0.0,alarmImage.size.width+10,alarmImage.size.height);
-    cButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
-    //[cButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *alarmButton = [[UIBarButtonItem alloc] initWithCustomView:cButton];
-    
-    self.navigationItem.rightBarButtonItems = @[peopleButton,alarmButton];
-    
-}
-
--(void)openLeftMenu{
-    if ([self.slideMenuController isMenuOpen]) {
-        [self.slideMenuController closeMenuAnimated:YES completion:nil];
-    }else{
-        [self.slideMenuController openMenuAnimated:YES completion:nil];
-    }
-}
-#pragma mark -
-
 
 
 #pragma mark - AnalizDataUserPageDelegate
@@ -585,7 +546,7 @@ numberOfRowsInComponent:(NSInteger)component
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-        NSDate *curDate = [formatter dateFromString:[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]];
+        NSDate *curDate = [formatter dateFromString:[NSString stringWithFormat:@"%@",[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]]];
         
         
         if (!curDate) {

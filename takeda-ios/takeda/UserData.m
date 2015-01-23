@@ -13,6 +13,11 @@
 @implementation UserData
 static UserData *objectInstance = nil;
 
+@synthesize access_token = access_token_;
+@synthesize userData = userData_;
+@synthesize user_id = user_id_;
+@synthesize user_name = user_name_;
+
 +(UserData*)sharedObject{
     @synchronized(self){
         if (!objectInstance) {
@@ -24,27 +29,26 @@ static UserData *objectInstance = nil;
 
 
 -(BOOL)is_authorized{
-    if ([oauthToken isEqual:[NSNull null]] || !oauthToken) {
+    if ([access_token_ isEqual:[NSNull null]] || !access_token_) {
         return NO;
     }
     return YES;
 }
 
 -(NSString*)getAccessToken{
-    return oauthToken;
+    return access_token_;
 }
 
 -(void)setAccessToken:(NSString*)token{
-    oauthToken = token;
+    access_token_ = token;
 }
 
-
--(NSDictionary*)getUserData{
-    return userData;
+-(NSMutableDictionary*)getUserData{
+    return userData_;
 }
 
--(void)setUserData:(NSDictionary*)user_data{
-    userData = user_data;
+-(void)setUserData:(NSMutableDictionary*)user_data{
+    userData_ = user_data;
 }
 
 -(void)savePassword:(NSString*)pass{
@@ -54,21 +58,39 @@ static UserData *objectInstance = nil;
     [UserDefaults setObject:username forKey:@"username"];
 }
 
--(NSString*)getUserPassword{
-    return [UserDefaults objectForKey:@"pass"];
-}
-
--(NSString*)getUserName{
-    return [UserDefaults objectForKey:@"username"];
-}
-
-
 -(void)saveAnalisRiskData:(NSData*)data{
     [jsonInFile writeJsonToFile:data fileName:@"riskAnalis"];
 }
+
 -(id)getLastSavedAnalisRiskData{
     return [jsonInFile getDataFromFile:@"riskAnalis"];
 }
 
+-(void)updateUser:(NSString*)login userInfo:(NSMutableDictionary*)userInfo accessToken:(NSString*)access_token{
+    self.user_id = userInfo[@"id"];
+    self.access_token = access_token;
+    self.userData = userInfo;
+    [jsonInFile createUser:login userInfo:userInfo accessToken:access_token];
+}
+
+-(NSMutableDictionary*)getUserInfo:(NSString*)login{
+    NSMutableDictionary *userInfo = [jsonInFile getUserInfo:login];
+    return userInfo;
+}
+
+-(void)setCurrentUser:(NSString*)login{
+    self.user_name = login;
+    [UserDefaults setValue:login forKey:@"lastUser"];
+    NSMutableDictionary *usData = [self getUserInfo:login];
+    if (usData){
+        self.userData = usData;
+        if (self.userData[@"access_token"]) self.access_token = self.userData[@"access_token"];
+        if (self.userData[@"id"]) self.user_id = self.userData[@"id"];
+    }
+}
+
+-(NSString*)getLastUser{
+    return [UserDefaults valueForKey:@"lastUser"];
+}
 
 @end
