@@ -7,7 +7,8 @@
 #define LS(string) NSLocalizedString(string, nil)
 #define LIBRARY [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
 #define Global [AllSingle sharedInstance]
-#define GData [ServData sharedObject]
+#define SData [ServData sharedObject]
+#define GData [GlobalData sharedObject]
 
 #define User [UserData sharedObject]
 #define kTapScreenNotification @"tappedScreen"

@@ -82,8 +82,8 @@ ForgetPage *forgetPage;
     //[self.navigationItem setHidesBackButton:YES];
     [self.scrollView setup_autosize];
     self.navigationController.navigationBarHidden = NO;
-    self.email_field.text = @"alexruden2012@gmail.com";
-    self.pass_field.text = @"test";
+    self.email_field.text = @"alexruden@rambler.ru";
+    self.pass_field.text = @"password";
     self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
     
 }
@@ -153,32 +153,23 @@ ForgetPage *forgetPage;
 
 
 -(IBAction)authUser:(id)sender{
-    
-    //[self openGeneralApp:self];
-    //return;
-    
-    if ([self.email_field.text length]>0 && [self.pass_field.text length]>0) {
-        [[UserData sharedObject] savePassword:self.pass_field.text];
-        [[UserData sharedObject] saveUserName:self.email_field.text];
-        
-        [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
+
+    [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
             if (result) {
-                [ServData getUserDataWithCompletion:^(BOOL result, NSError *error) {
-                    if (result) {
+                [User setCurrentUser:User.user_name];
+                [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
+                    [User setCurrentUser:User.user_name];
+                    if (result){
                         [self openGeneralApp:self];
-                    }else{
+                    } else {
                         [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
                     }
                 }];
-            }else{
+
+            } else {
                 [Helper fastAlert:@"Ошибка авторизации"];
             }
         }];
-    }
-    
-    
-    
-
 }
 
 

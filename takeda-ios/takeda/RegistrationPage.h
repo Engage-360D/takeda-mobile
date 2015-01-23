@@ -18,6 +18,8 @@
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,retain) IBOutlet UIButton *btn_register;
 @property (nonatomic,retain) IBOutletCollection(UIView) NSArray *bg_block;
+@property (nonatomic,retain) IBOutletCollection(UILabel) NSArray *blockLabels;
+@property (nonatomic,retain) IBOutletCollection(UIButton) NSArray *fontButtons;
 
 @property (nonatomic,retain) IBOutlet PLTextField *name_field;
 @property (nonatomic,retain) IBOutlet PLTextField *email_field;

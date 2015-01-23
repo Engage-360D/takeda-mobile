@@ -224,11 +224,11 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
             break;
         }
         CASE(@"cholesterolDrugs"){
-            return @"Препараты для снижения холестирина";
+            return @"Препараты для снижения холестерина";
             break;
         }
         CASE(@"cholesterolLevel"){
-            return @"Холестирин";
+            return @"Холестерин";
             break;
         }
         CASE(@"extraSalt"){
@@ -334,7 +334,7 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
                                     ]}];
     [resultData addObject:@{@"title": @"Основные риски",
                             @"data":@[
-                                    @{@"img": @"bell_icon",@"text":@"Уровень холестирина\nОтклонение от нормы: 10%\nНеобходимо улучшение."},
+                                    @{@"img": @"bell_icon",@"text":@"Уровень холестерина\nОтклонение от нормы: 10%\nНеобходимо улучшение."},
                                     @{@"img": @"danger_icon",@"text":@"Систолическое давление\n Отклонение от нормы: 30%\nВсе хорошо"},
                                     @{@"img": @"doc_tools_icon",@"text":@"Отмечалось повышение\nуровня сахара в крови\nОбратитесь к врачу"},
                                     @{@"img": @"doc_tools_icon",@"text":@"Ваше давление выше нормы\nОбратитесь к врачу"},
@@ -429,16 +429,6 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
     cell.text_data.text = [[[[resultData objectAtIndex:indexPath.section] objectForKey:@"data"] objectAtIndex:indexPath.row] objectForKey:@"text"];
     cell.text_data.font = [self getFontDescription];
     cell.contentView.backgroundColor = [UIColor clearColor];
-    
-    
-    
-    if (indexPath.row == 0) {
-        cell.top_separator.hidden = NO;
-    }else{
-        cell.top_separator.hidden = YES;
-    }
-    
-    
     
     cell.backgroundColor = [UIColor colorWithRed:123.0/255 green:182.0/255 blue:242.0/255 alpha:1];
     

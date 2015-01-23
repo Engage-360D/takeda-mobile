@@ -11,27 +11,23 @@
 @implementation ServData
 
 static ServData *objectInstance = nil;
-@synthesize database;
 
 +(ServData*)sharedObject{
     @synchronized(self){
         if (!objectInstance) {
             objectInstance = [ServData new];
-            [objectInstance openDB];
         }
         return objectInstance;
     }
 }
 
--(void)openDB{
-    database = [FMDatabase databaseWithPath:[Global pathToDB]];
-    [database open];
-}
-
-+(NSMutableDictionary*)preparedParams:(NSDictionary*)params{
++(NSData*)preparedParams:(NSDictionary*)params{
     NSMutableDictionary *p = [NSMutableDictionary new];
     [p setObject:params forKey:@"data"];
-    return p;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject: p
+                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                         error:nil];
+    return jsonData;
 }
 
 #pragma mark - Network requests
@@ -41,65 +37,57 @@ static ServData *objectInstance = nil;
               completion:(void (^)(BOOL result, NSError* error))completion
 {
     
-    completion(YES, nil);
-
-    
-    
     NSString *url = [NSString stringWithFormat:
-                     @"%@/oauth/v2/token?"
-                     "&client_id=%@"
-                     "&client_secret=%@"
-                     "&grant_type=password"
-                     "&username=%@"
-                     "&password=%@",kServerURL,client_id,client_secret,login,password];
-    [self sendCommon:url success:^(id result){
-        if (result){
-            BOOL success = NO;
-            if ([result hasKey:@"access_token"]) {
-                [[UserData sharedObject] setAccessToken:[result objectForKey:@"access_token"]];
-                success = YES;
-            }
-            completion(success, nil);
+                     @"%@%@",kServerURL,kTokens];
+    
+    NSDictionary *params = @{@"email":login,@"plainPassword":password};
+
+    [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result){
+        if (result[@"data"][@"id"]){
+            User.access_token = result[@"data"][@"id"];
+            User.user_id = result[@"data"][@"links"][@"user"];
+            User.user_name = login;
+            // success
+            completion(YES,nil);
         } else {
-            completion(NO, nil);
+            completion(NO,nil);
         }
-        
     }];
 }
 
 
-+(void)getUserDataWithCompletion:(void (^)(BOOL result, NSError* error))completion
++(void)getUserIdData:(NSString*)user_id withCompletion:(void (^)(BOOL result, NSError* error))completion
 {
     NSString *url = [NSString stringWithFormat:
-                     @"%@/api/users/me?access_token=%@",
-                     kServerURL,
-                     User.oauthToken];
-    [self sendCommon:url success:^(id result){
-        BOOL success = NO;
-        if (result&&[result hasKey:@"id"]) {
-            [User setUserData:result];
-            success = YES;
+                     @"%@%@/%@",kServerURL,kUsers,user_id];
+    
+    [self sendCommon:url success:^(id res){
+        if (res[@"data"]){
+            // success
+            [User updateUser:res[@"email"] userInfo:res[@"data"] accessToken:User.access_token];
+            completion(YES,nil);
         } else {
-            completion(success, nil);
+            completion(NO,nil);
         }
         
+        
     }];
-    
 }
 
-+(void)getRegionsWithCompletion:(void (^)(BOOL result, NSError* error))completion
++(void)loadRegionsWithCompletion:(void (^)(BOOL result, NSError* error))completion
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kServerURL, kRegionsList];
     
     [self sendCommon:url success:^(id result){
         BOOL success = NO;
-        if (result&&[result hasKey:@"id"]) {
-            // save regions
+        if (result[@"data"]) {
+            [GData saveRegions:result[@"data"]];
             success = YES;
         } else {
-            completion(success, nil);
+            
         }
-        
+        completion(success, nil);
+
     }];
     
 }
@@ -109,18 +97,15 @@ static ServData *objectInstance = nil;
 +(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error, NSString* textError))completion
 {
 
-    
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject: [self preparedParams:params]
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
-                                                         error:nil];
 
     NSString *url = [NSString stringWithFormat:@"%@%@",kServerURL, kUsers];
-    [self sendCommonPOST:url body:jsonData success:^(id res){
+    [self sendCommonPOST:url body:[self preparedParams:params] success:^(id res){
         BOOL success = NO;
         NSString *textError;
         if ([res isKindOfClass:[NSDictionary class] ]) {
-            if ([res hasKey:@"id"]) {
-            //   [[UserData sharedObject] setUserData:res];
+                if (res[@"data"][@"id"]){
+                    User.user_id = res[@"data"][@"links"][@"user"];
+                    User.user_name = res[@"data"][@"email"];
                 success = YES;
                 completion(success, nil, textError);
             } else {
@@ -146,12 +131,6 @@ static ServData *objectInstance = nil;
     
     
     
-    
-    
-    
-    
-    
-    
 }
 
 
@@ -167,14 +146,13 @@ static ServData *objectInstance = nil;
 
 
 +(void)sendCommonPOST:(NSString*)urlStr params:(NSString*)HTMLStr success:(void (^)(id))successIm{
-    if (User.oauthToken.length>0){
-        urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.oauthToken];
+    if (User.access_token.length>0){
+        urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
     
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     HTMLStr = [self clearSendText:HTMLStr];
-    // HTMLStr = [NSString stringWithFormat:@"%@&type=mobile",HTMLStr];
     
     NSData* HTTPBody = [HTMLStr dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -184,7 +162,7 @@ static ServData *objectInstance = nil;
     urlRequest.HTTPMethod = @"POST";
     urlRequest.HTTPBody = HTTPBody;
     
-    //    [urlRequest setValue:@"XMLHttpRequest" forHTTPHeaderField:@"X-Requested-With"];
+    [urlRequest setValue:@"application/vnd.api+json" forHTTPHeaderField: @"Content-Type"];
     
     [NSURLConnection sendAsynchronousRequest:urlRequest
                                        queue:[NSOperationQueue mainQueue]
@@ -217,6 +195,10 @@ static ServData *objectInstance = nil;
 
 
 +(void)sendCommonDELETE:(NSString*)urlStr params:(NSString*)params success:(void (^)(id))successIm{
+    if (User.access_token.length>0){
+        urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
+    }
+
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     NSData* HTTPBody = [params dataUsingEncoding:NSUTF8StringEncoding];
@@ -254,6 +236,10 @@ static ServData *objectInstance = nil;
 
 
 +(void)sendCommonPOST:(NSString*)urlStr body:(NSData*)body success:(void (^)(id))successIm{
+    if (User.access_token.length>0){
+        urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
+    }
+
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     
@@ -263,6 +249,8 @@ static ServData *objectInstance = nil;
     urlRequest.HTTPMethod = @"POST";
     urlRequest.HTTPBody = body;
     
+    [urlRequest setValue:@"application/vnd.api+json" forHTTPHeaderField: @"Content-Type"];
+
     
     [NSURLConnection sendAsynchronousRequest:urlRequest
                                        queue:[NSOperationQueue mainQueue]
@@ -291,6 +279,10 @@ static ServData *objectInstance = nil;
 
 
 +(void)sendCommon:(NSString*)urlStr success:(void (^)(id))successIm{
+    if (User.access_token.length>0){
+        urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
+    }
+
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSMutableURLRequest *urlRequest=[NSMutableURLRequest requestWithURL:url
                                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -323,6 +315,8 @@ static ServData *objectInstance = nil;
                            }];
     
 }
+
+
 
 +(NSString*)clearSendText:(NSString*)text{
     if (!text) return nil;

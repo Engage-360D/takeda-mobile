@@ -11,8 +11,6 @@
 @implementation riskCell
 @synthesize text_data;
 @synthesize img_icon;
-@synthesize top_separator;
-@synthesize bottom_separator;
 
 - (void)awakeFromNib
 {

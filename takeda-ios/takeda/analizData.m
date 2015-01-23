@@ -48,7 +48,7 @@ NSMutableDictionary * dic_data;
     [dic_data setObject:@"0" forKey:@"infarct"];
     
     
-    [dic_data setObject:@"0" forKey:@"salt"];
+    [dic_data setObject:@"-" forKey:@"salt"];
     [dic_data setObject:@"0" forKey:@"accept_drags_risk_trombus"];
     
     
@@ -93,23 +93,23 @@ NSMutableDictionary * dic_data;
              @{@"object":@"old", @"id":@"2",@"type": @"2",@"name":@"Возраст",@"description":@"лет",@"value":[dic_data objectForKey:@"old"]},
              @{@"object":@"growth", @"id":@"3",@"type": @"2",@"name":@"Рост",@"description":@"см",@"value":[dic_data objectForKey:@"growth"]},
              @{@"object":@"weight", @"id":@"4",@"type": @"2",@"name":@"Вес",@"description":@"кг",@"value":[dic_data objectForKey:@"weight"]},
-             @{@"object":@"smoke", @"id":@"5",@"type": @"3",@"name":@"Вы курите?",@"value":[dic_data objectForKey:@"smoke"]},
-             @{@"object":@"cholesterol", @"id":@"6",@"type": @"2",@"fractions":@"1",@"name":@"Уровень общего холестирина",@"description":@"ммоль/литр",@"value":[dic_data objectForKey:@"cholesterol"]},
+             @{@"object":@"smoke", @"id":@"5",@"type": @"3",@"name":@"Курение",@"value":[dic_data objectForKey:@"smoke"]},
+             @{@"object":@"cholesterol", @"id":@"6",@"type": @"2",@"fractions":@"1",@"name":@"Уровень общего холестерина",@"description":@"ммоль/литр",@"value":[dic_data objectForKey:@"cholesterol"]},
              @{@"object":@"drags_cholesterol", @"id":@"7",@"type": @"3",@"name":@"Лекарства для снижения уровня холестерина",@"value":[dic_data objectForKey:@"drags_cholesterol"]}
              ];
 }
 
 -(NSArray*)getQuestionsHistoryUser{
     return @[
-             @{@"object":@"diabet", @"id":@"8",@"type": @"3",@"name":@"Страдаете ли вы диабетом?",@"value":[dic_data objectForKey:@"diabet"]},
+             @{@"object":@"diabet", @"id":@"8",@"type": @"3",@"name":@"Диабет",@"value":[dic_data objectForKey:@"diabet"]},
              
-             @{@"object":@"higher_suger_blood", @"id":@"9",@"type": @"3",@"name":@"Отмечалось ли повышение уровня сахара в крови?",@"value":[dic_data objectForKey:@"higher_suger_blood"]},
+             @{@"object":@"higher_suger_blood", @"id":@"9",@"type": @"3",@"name":@"Повышенный уровень сахара в крови",@"value":[dic_data objectForKey:@"higher_suger_blood"]},
              
-            @{@"object":@"accept_drags_suger", @"id":@"10",@"type": @"3",@"name":@"Принимает ли препараты для снижения уровня сахара в крови?",@"value":[dic_data objectForKey:@"accept_drags_suger"]},
+            @{@"object":@"accept_drags_suger", @"id":@"10",@"type": @"3",@"name":@"Препараты для снижения уровня сахара в крови",@"value":[dic_data objectForKey:@"accept_drags_suger"]},
              
-             @{@"object":@"arterial_pressure", @"id":@"11",@"type": @"2",@"name":@"Артериальное давнление",@"description":@"мм",@"value":[dic_data objectForKey:@"arterial_pressure"]},
+             @{@"object":@"arterial_pressure", @"id":@"11",@"type": @"2",@"name":@"Артериальное давление",@"description":@"мм",@"value":[dic_data objectForKey:@"arterial_pressure"]},
              
-             @{@"object":@"decrease_pressure_drags", @"id":@"12",@"type": @"3",@"name":@"Принимаете ли препараты для понижения давления?",@"value":[dic_data objectForKey:@"decrease_pressure_drags"]},
+             @{@"object":@"decrease_pressure_drags", @"id":@"12",@"type": @"3",@"name":@"Препараты для понижения давления",@"value":[dic_data objectForKey:@"decrease_pressure_drags"]},
              //@{@"object":@"walking", @"id":@"12",@"type": @"2",@"name":@"Ходьба",@"description":@"мин/нед",@"value":[dic_data objectForKey:@"walking"]},
              @{@"object":@"sport", @"id":@"13",@"type": @"2",@"fractions":@"1",@"name":@"Физическая активность",@"description":@"минут/неделя",@"value":[dic_data objectForKey:@"sport"]},
              @{@"object":@"infarct", @"id":@"14",@"type": @"3",@"name":@"Инфаркт/инсульт",@"value":[dic_data objectForKey:@"infarct"]},
@@ -118,8 +118,8 @@ NSMutableDictionary * dic_data;
 
 -(NSArray*)getQuestionsDailyRation{
     return @[
-             //@{@"object":@"salt", @"id":@"15",@"type": @"2",@"name":@"Досаливаете ли вы пищу?",@"description":@"грамм/день",@"value":[dic_data objectForKey:@"salt"]},
-             @{@"object":@"salt", @"id":@"15",@"type": @"3",@"name":@"Досаливаете ли вы пищу?",@"value":[dic_data objectForKey:@"salt"]},
+             @{@"object":@"salt", @"id":@"15",@"type": @"2",@"fractions":@"1",@"name":@"Соль",@"description":@"грамм/день",@"value":[dic_data objectForKey:@"salt"]},
+             //@{@"object":@"salt", @"id":@"15",@"type": @"3",@"name":@"Досаливаете ли вы пищу?",@"value":[dic_data objectForKey:@"salt"]},
              
              @{@"object":@"accept_drags_risk_trombus", @"id":@"16",@"type": @"3",@"name":@"Принимает ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?",@"value":[dic_data objectForKey:@"accept_drags_risk_trombus"]},
              ];
@@ -193,7 +193,7 @@ NSMutableDictionary * dic_data;
 
 -(NSArray*)getListSalt{
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 50; i < 220; i ++) {
+    for (int i = 0; i < 50; i ++) {
         [array addObject:[NSString stringWithFormat:@"%i",i]];
     }
     return array;

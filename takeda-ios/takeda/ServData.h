@@ -11,14 +11,14 @@
 @interface ServData : NSObject
 
 +(ServData*)sharedObject;
-@property (nonatomic, strong) FMDatabase *database;
 
 +(void)authUserWithLogin:(NSString*)login
                 password:(NSString*)password
               completion:(void (^)(BOOL result, NSError* error))completion;
 
-+(void)getUserDataWithCompletion:(void (^)(BOOL result, NSError* error))completion;
++(void)getUserIdData:(NSString*)user_id withCompletion:(void (^)(BOOL result, NSError* error))completion;
 +(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error, NSString* textError))completion;
++(void)loadRegionsWithCompletion:(void (^)(BOOL result, NSError* error))completion;
 
 
 +(void)sendCommonPOST:(NSString*)urlStr params:(NSString*)HTMLStr success:(void (^)(id))successIm;

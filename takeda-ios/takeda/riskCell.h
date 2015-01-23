@@ -11,7 +11,4 @@
 @interface riskCell : UITableViewCell
 @property (nonatomic,retain) IBOutlet UILabel *text_data;
 @property (nonatomic,retain) IBOutlet UIImageView *img_icon;
-
-@property(nonatomic,retain) IBOutlet UIImageView *top_separator;
-@property(nonatomic,retain) IBOutlet UIImageView *bottom_separator;
 @end

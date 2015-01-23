@@ -14,9 +14,6 @@
 @property (nonatomic,retain) IBOutlet UILabel *first_param;
 @property (nonatomic,retain) IBOutlet UILabel *second_param;
 
-@property(nonatomic,retain) IBOutlet UIImageView *top_separator;
-@property(nonatomic,retain) IBOutlet UIImageView *bottom_separator;
-
 @property (nonatomic,retain) IBOutlet buttonWithID *first_item;
 @property (nonatomic,retain) IBOutlet buttonWithID *second_item;
 @end

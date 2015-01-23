@@ -52,7 +52,7 @@
                                     ]}];
     [listData addObject:@{@"title": @"Основные риски",
                             @"data":@[
-                                    @{@"img": @"bell_icon_black",@"text":@"Уровень холестирина\nОтклонение от нормы: 10%\nНеобходимо улучшение."},
+                                    @{@"img": @"bell_icon_black",@"text":@"Уровень холестерина\nОтклонение от нормы: 10%\nНеобходимо улучшение."},
                                     @{@"img": @"danger_icon_black",@"text":@"Систолическое давление\n Отклонение от нормы: 30%\nВсе хорошо"},
                                     @{@"img": @"doc_tools_icon_black",@"text":@"Отмечалось повышение\nуровня сахара в крови\nОбратитесь к врачу"},
                                     @{@"img": @"doc_tools_icon_black",@"text":@"Ваше давление выше нормы\nОбратитесь к врачу"},
@@ -137,16 +137,7 @@
     cell.contentView.backgroundColor = [UIColor clearColor];
     
     cell.text_data.textColor = [UIColor colorWithRed:53.0/255 green:65.0/255 blue:71.0/255 alpha:1];
-    
-    
-    if (indexPath.row == 0) {
-        cell.top_separator.hidden = NO;
-    }else{
-        cell.top_separator.hidden = YES;
-    }
-    
-    
-    
+        
     cell.backgroundColor = [UIColor whiteColor];
     
     UIView *sel_view = [[UIView alloc] init];
