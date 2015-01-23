@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/ca_space_medium"
+    android:paddingRight="@dimen/ca_space_medium">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ca_plate_medium"
+        android:gravity="center_vertical"
+        android:text="@string/your_details"
+        android:textColor="@color/ca_text_main_41"
+        android:textSize="@dimen/ca_text_size_medium" />
+
+    <EditText
+        android:id="@+id/editTextFirstName"
+        style="@style/EditText"
+        android:hint="@string/first_name"
+        android:inputType="textPersonName">
+
+        <requestFocus />
+    </EditText>
+
+    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+
+    <EditText
+        android:id="@+id/editTextLastName"
+        style="@style/EditText"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName" />
+
+    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+
+    <EditText
+        android:id="@+id/editTextRegEmail"
+        style="@style/EditText"
+        android:hint="@string/registration_email"
+        android:inputType="textEmailAddress" />
+
+    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+
+    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+
+</LinearLayout>

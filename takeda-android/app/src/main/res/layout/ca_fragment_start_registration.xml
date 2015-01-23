@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ca_white">
+
+    <include
+        android:id="@+id/linearLayoutTop"
+        layout="@layout/layout_top_start" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textViewBottom"
+        android:layout_below="@id/linearLayoutTop"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_is_a_doctor" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <include layout="@layout/layout_use_social" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <include layout="@layout/layout_your_detailsl" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <include layout="@layout/layout_region" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <include layout="@layout/layout_birth_date" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <include layout="@layout/layout_create_password" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <include
+                android:id="@+id/layoutSpecializationDetailsl"
+                layout="@layout/layout_specialization_detailsl"
+                android:visibility="gone" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <include layout="@layout/layout_confirmation" />
+
+            <Button
+                android:id="@+id/buttonSignUp"
+                style="@style/button_main_long"
+                android:layout_margin="@dimen/ca_space_medium"
+                android:text="@string/sign_up" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

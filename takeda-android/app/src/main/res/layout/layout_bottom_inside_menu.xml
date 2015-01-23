@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ca_plate_medium"
+    android:background="@color/ca_bg_main_38"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBottomInsideContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/ca_space_medium"
+        android:paddingRight="@dimen/ca_space_medium">
+
+        <ImageView
+            android:id="@+id/imageViewBottomInsideLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_big_light_left" />
+
+        <TextView
+            android:id="@+id/textViewBottomInsideAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:text="@string/middle_dummy_tex"
+            android:textColor="@color/ca_white"
+            android:textSize="@dimen/ca_text_size_small" />
+
+        <ImageView
+            android:id="@+id/imageViewBottomInsideRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_big_light_right" />
+    </LinearLayout>
+
+</LinearLayout>
+
+<!-- TODO: ca_text_size_small must be ca_text_size_xsmall -->

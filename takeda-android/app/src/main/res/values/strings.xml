@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Кардиомагнил — здоровое сердце</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- ========== -->
+    <!-- activities -->
+    <!-- ========== -->
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="title_activity_sliding_menu">SlidingMenuActivity</string>
+
+    <!-- ==== -->
+    <!-- test -->
+    <!-- ==== -->
+    <string name="risk_analysis">Анализ риска</string>
+    <string name="tab_step_one">Шаг 1</string>
+    <string name="tab_patient_data">Данные пациента</string>
+    <string name="tab_step_two">Шаг 2</string>
+    <string name="tab_patient_history">История пациента</string>
+    <string name="tab_step_three">Шаг 3</string>
+    <string name="tab_daily_ration">Дневной рацион</string>
+    <string name="step_two_patient_history">Шаг 2. История пациента</string>
+    <string name="step_three_daily_ration">Шаг 3. Дневной рацион</string>
+    <string name="get_results">Получить результаты</string>
+    <string name="enter_birth_date">Введите дату рождения</string>
+    <string name="error_birth_date">Вы ввели недопустимое значение даты</string>
+    <string name="results">Результаты</string>
+    <string name="results_smoking">Курение</string>
+    <string name="results_physical_activity">Физическая активность</string>
+    <string name="results_main_risks">Основные риски</string>
+    <string name="results_diet">Диета</string>
+    <string name="results_recomendations">Рекомендации</string>
+    <string name="results_error">Не удалось получить результат.\nПожалуйста, попробуйте пройти тест позже.</string>
+    <string name="error_test_pressure">Давление может иметь значение от 80 до 200.</string>
+    <string name="error_test_activity">Физическая активность может иметь значение от 80 до 200.</string>
+    <string name="error_test_age">Возраст может иметь значение от 22.</string>
+    <string name="error_test_growth">Рост может иметь значение от 30 до 300.</string>
+    <string name="error_test_weight">Вес может иметь значение от 30 до 700.</string>
+    <string name="error_test_cholesterol_level">Уровень общего холестирина может иметь значение от 3 до 9.</string>
+
+    <!-- ============ -->
+    <!-- patient data -->
+    <!-- ============ -->
+    <string name="data_gender">Пол</string>
+    <string name="data_gender_male">Мужчина</string>
+    <string name="data_gender_female">Женщина</string>
+    <string name="data_age">Возраст</string>
+    <string name="data_age_hint">лет</string>
+    <string name="data_height">Рост</string>
+    <string name="data_height_hint">см</string>
+    <string name="data_weight">Вес</string>
+    <string name="data_weight_hint">кг</string>
+    <string name="data_cholesterol">Уровень общего холестерина, ммоль/литр</string>
+    <string name="data_cholesterol_hint">ммоль/литр</string>
+    <string name="data_cholesterol_drugs">Принимает ли препараты для снижения уровня холестерина в крови?</string>
+    <string name="data_smoking">Курение</string>
+
+    <!-- =============== -->
+    <!-- patient history -->
+    <!-- =============== -->
+    <string name="suffering_diabetes">Страдаете ли вы диабетом?</string>
+    <string name="sugar_problems">Отмечалось ли повышение уровня сахара в крови?</string>
+    <string name="diabetic_medicines">Принимаете лекарства для лечения сахарного диабета?</string>
+    <string name="arterial_pressure">Артериальное давление, мм</string>
+    <string name="arterial_pressure_hint">мм</string>
+    <string name="hypertonic_medicines">Принимаете ли препараты для понижения давления?</string>
+    <string name="physical_activity">Физические нагрузки</string>
+    <string name="physical_activity_hint">мин/неделя</string>
+    <string name="infarction_stroke">Был ли у вас инфаркт/инсульт?</string>
+
+    <!-- ============ -->
+    <!-- daily ration -->
+    <!-- ============ -->
+    <string name="salt">Досаливаете ли вы пищу?</string>
+    <string name="aspirin">Принимаете ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?</string>
+
+    <!-- ======= -->
+    <!-- results -->
+    <!-- ======= -->
+    <string name="probability">Вероятность тяжелых сердечно-сосудистых заболеваний в ближайшие 10 лет</string>
+    <string name="not_behaving_normally">Не соответствует норме\nВоспользуйтесь нашими рекомендациями</string>
+    <string name="recommendations">Рекомендации по SCORE</string>
+    <string name="diabetes">Диабет</string>
+    <string name="prophylaxis">Профилактика</string>
+    <string name="category">Категория: "норма"</string>
+    <string name="results_weight">Вес</string>
+    <string name="results_cholesterol">Уровень холестерина</string>
+    <string name="systolic_pressure">Систолическое давление</string>
+    <string name="increased_sugar">Отмечалось повышение уровня сахара в крови</string>
+    <string name="pressure_is_above_normal">Ваше давление выше нормы</string>
+    <string name="cholesterol_is_above_normal">Ваш холестерин выше нормы</string>
+    <string name="salt_intake">Потребление соли</string>
+    <string name="bakery_intake">Потребление мучных изделий</string>
+    <string name="diet_adjustment">Дополнительная корректировка диеты</string>
+    <string name="pass_survey">Пройти опрос</string>
+    <string name="create_calendar">Составить календарь профилактики</string>
+    <string name="everything_is_good">Все хорошо</string>
+    <string name="needs_to_improve">Необходимо улучшение</string>
+    <string name="risk_group">Группа риска</string>
+    <string name="deviation_from_norm">Отклонение от нормы</string>
+    <string name="сonsult_a_doctor"> Обратитесь к врачу</string>
+
+    <!-- ========== -->
+    <!-- dummy text -->
+    <!-- ========== -->
+    <string name="short_dummy_tex">--</string>
+    <string name="middle_dummy_tex">----------------</string>
+
+    <!-- ====== -->
+    <!-- common -->
+    <!-- ====== -->
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="progress_dialog_text">Подождите...</string>
+    <string name="complete_all_fields">Пожалуйста, заполните все поля</string>
+    <string name="complete_required_fields">Пожалуйста, заполните необходимые поля</string>
+    <string name="press_back_twice">Для выхода из приложения нажмите \'Back\' дважды</string>
+
+    <!-- ====== -->
+    <!-- errors -->
+    <!-- ====== -->
+    <string name="error_occurred">Произошла ошибка.</string>
+    <string name="error_authorization">Произошла ошибка во время авторизации.</string>
+    <string name="error_registration">Произошла ошибка во время регистрации.</string>
+    <string name="error_get_test_results">Произошла ошибка во время получения результатов теста.</string>
+    <string name="authorization_error">Ошибка авторизации</string>
+    <string name="error_tets_already_passed">Вы уже проходили тест.\nТест проходится раз в 3 месяца.</string>
+    <string name="error_tets_username_not_unique">Вы уже регистрировались, пожалуйста вернитесь к входу.\nТам же вы можете восстановить пароль.</string>
+    <string name="error_user_not_found">Такой пользователь не найден.\nУбедитесь, что вы правильно ввели электронный адрес.</string>
+    <string name="error_user_already_exist">Такой пользователь уже существует.\nУбедитесь, что вы правильно ввели электронный адрес.</string>
+    <string name="error_password_already_requested">Пароль уже был запрошен.</string>
+
+    <!-- ================================================================================== -->
+    <!-- Дневной рацион -->
+
+    <!-- ================ -->
+    <!-- fragment welcome -->
+    <!-- ================ -->
+    <string name="welcome_1">Добро пожаловать в приложение\nпрепарата Кардиомагнил.</string>
+    <string name="welcome_2">Вы сможете следить за своим здоровьем и\nпользоваться советами после регистрации и\nпрохождения теста.</string>
+    <string name="swipe">Смахните</string>
+    <string name="three_minutes">3 минуты до начала работы приложения</string>
+
+    <!-- ============== -->
+    <!-- fragment login -->
+    <!-- ============== -->
+    <string name="entry">Вход</string>
+    <string name="restoring_password">Восстановление пароля</string>
+    <string name="login_email">e-mail</string>
+    <string name="password">пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="enter">Войти</string>
+    <string name="restore">Восстановить</string>
+    <string name="if_no_account">Если у вас до сих пор нет логина,\nсоветуем вам зарегистироваться:</string>
+    <string name="register">Регистрация</string>
+    <string name="restoring_info">Информация для восстановления пароля будет выслана на указанный email.</string>
+    <string name="restoring_info_sent">Информация для восстановления пароля была выслана на указанный email.</string>
+    <string name="bottom_login">Регистрация</string>
+    <string name="two_minutes">2 минуты до начала работы приложения</string>ing>
+
+    <!-- ===== -->
+    <!-- menu -->
+    <!-- ==== -->
+    <string name="menu_back">Назад</string>
+    <string name="menu_item_main">Главная</string>
+    <string name="menu_item_risk_analysis">Анализ риска</string>
+    <string name="menu_item_diary">Дневник</string>
+    <string name="menu_item_search_institutions">Поиск учреждений</string>
+    <string name="menu_item_information">Информация</string>
+    <string name="menu_item_settings">Настройки</string>
+    <string name="menu_item_recommendations">Рекомендаци</string>
+    <string name="menu_item_analysis_results">Результаты анализа</string>
+    <string name="menu_item_calendar">Календарь</string>
+    <string name="menu_item_useful_to_know">Полезно знать</string>
+    <string name="menu_item_publications">Публикации</string>
+    <string name="menu_item_reports">Отчеты</string>
+    <string name="menu_item_patient_data">Данные пациента</string>
+    <string name="menu_item_patient_history">История пациента</string>
+    <string name="menu_item_daily_ration">Дневной рацион</string>
+
+    <!-- ================================== -->
+    <!-- ca_fragment_start_registration     -->
+    <!-- ca_fragment_start_login_or_restore -->
+    <!-- ================================== -->
+    <string name="header_registration">Регистрация</string>
+    <string name="is_a_doctor">Вы являетесь врачом?</string>
+    <string name="use_social">Использовать аккаунт социальных сетей:</string>
+    <string name="your_details">Ваши данные</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="registration_email">email</string>
+    <string name="region">Регион</string>
+    <string name="no_region">Не указан</string>
+    <string name="birth_date">Дата рождения</string>
+    <string name="select_birth_date">Дата рождения</string>
+    <string name="create_password">Создание пароля</string>
+    <string name="enter_the_password">Укажите пароль</string>
+    <string name="enter_the_password_again">Пароль еще раз</string>
+    <string name="confirmation">Подтверждение</string>
+    <string name="agree_to_processing">Согласен на обработку персональных данных</string>
+    <string name="agree_to_receive">Согласен получать информацию по email</string>
+    <string name="agree_that_advises">Согласен с тем, что вся информация носит рекомендательный характер</string>
+    <string name="registration">Регистрация</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="specialization_details">Данные по специализации</string>
+    <string name="specialization_name">Специализация в ЛУ</string>
+    <string name="specialization_institution_name">Название ЛУ</string>
+    <string name="specialization_institution_address">Адрес ЛУ</string>
+    <string name="specialization_institution_phone">Телефон ЛУ</string>
+    <string name="specialization_graduation_date">Дата окончания УЗ</string>
+    <string name="specialization_experience_years">Опыт работы (лет)</string>
+    <string name="must_be_selected">Необходимо выбрать</string>
+    <string name="can_not_be_empty">Не может быть пустым</string>
+    <string name="must_match">Должны совпадать</string>
+    <string name="specialization_name_">Специализация в лечебном учреждении</string>
+    <string name="specialization_institution_name_">Название лечебного учреждения</string>
+    <string name="specialization_institution_address_">Адрес лечебного учреждения</string>
+    <string name="specialization_institution_phone_">Телефон лечебного учреждения</string>
+    <string name="specialization_graduation_date_">Дата окончания учебного заведения</string>
+    <string name="specialization_experience_years_">Опыт работы (лет)</string>
+
+    <!-- ========================= -->
+    <!-- fragment_slidingmenu_main -->
+    <!-- ========================= -->
+    <string name="zero_percent">0%</string>
+    <string name="index_recommendations">Ваш индекс рекомендаций на этой неделе</string>
+    <string name="physical_load">Физическая нагрузка</string>
+    <string name="take_tablets">Принять таблетки</string>
+    <string name="eaten_today">Что вы сегодня ели?</string>
+    <string name="my_recommendations">Мои рекомендации</string>
+    <string name="my_success">Мои успехи</string>
+    <string name="consolidated_report">Сводный отчет</string>
+    <string name="go_to_website">Переход на сайт</string>
+
+    <!-- ================================= -->
+    <!-- fragment_slidingmenu_taking_pills -->
+    <!-- ================================= -->
+    <string name="pills">Таблетки</string>
+    <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
+
+    <!-- ================================= -->
+    <!-- ca_fragment_slidingmenu_add_pills -->
+    <!-- ================================= -->
+    <string name="add">Добавить</string>
+    <string name="pills_name">Название</string>
+    <string name="number_of_pills">Количество</string>
+    <string name="reception_frequency">Частота приема</string>
+    <string name="reception_hours">Время приема</string>
+    <string name="start_date_pills">Дата начала</string>
+    <string name="end_date_pills">Дата завершения</string>
+    <string name="condition">Состояние</string>
+
+    <!-- ======================================== -->
+    <!-- ca_fragment_slidingmenu_personal_cabinet -->
+    <!-- ======================================== -->
+    <string name="personal_cabinet">Личный кабинет</string>
+    <string name="personal_cabinet_new">Новые</string>
+    <string name="personal_cabinet_filled">Заполненные</string>
+    <string name="exercise_stress">Физическая нагрузка</string>
+    <string name="take_pills">Принять таблетки</string>
+    <string name="what_eaten">Что вы сегодня ели?</string>
+    <string name="still_smoke">Еще курите?</string>
+    <string name="enter_weight">Внесите вес</string>
+    <string name="enter_pressure">Внесите давление</string>
+    <string name="enter_cholesterol">Внесите холестерин</string>
+
+    <!-- =========================================== -->
+    <!-- ca_fragment_slidingmenu_search_institutions -->
+    <!-- =========================================== -->
+    <string name="institutions">Учреждения</string>
+    <string name="institutions_map">Карта</string>
+    <string name="institutions_list">Список</string>
+
+    <!-- ================================ -->
+    <!-- ca_fragment_slidingmenu_settings -->
+    <!-- ================================ -->
+    <string name="setting">Настройка</string>
+    <string name="personal_data">Личные данные</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_password">Пароль</string>
+    <string name="application_settings">Настройки приложения</string>
+    <string name="delete_all_reports">Удалить все отчеты</string>
+    <string name="must_be_password">Для операции необходимо пароль</string>
+    <string name="incident_occurred">У меня произошел инцидент</string>
+    <string name="warning">Внимание!</string>
+    <string name="infarction_occurred">вы перенесли Инфаркт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
+    <string name="apoplexy_occurred">вы перенесли Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
+    <string name="shunting_occurred">вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
+
+    <!-- =================================== -->
+    <!-- ca_fragment_slidingmenu_information -->
+    <!-- =================================== -->
+    <string name="information">Информация</string>
+    <string name="first_aid">Первая помощь</string>
+    <string name="recognize_infarction_apoplexy">Как распознать инфаркт-инсульт</string>
+    <string name="lifestyle">Образ жизни</string>
+
+    <!-- ========= -->
+    <!-- incidents -->
+    <!-- ========= -->
+    <string name="infarction">Инфаркт</string>
+    <string name="apoplexy">Инсульт</string>
+    <string name="shunting">Коронарное шунтирование</string>
+
+    <!-- ====== -->
+    <!-- common -->
+    <!-- ====== -->
+    <string name="contraindications">Имеются противопоказания\nнеобходимо ознакомится с инструкцией по применению</string>
+    <string name="min">мин</string>
+    <string name="kg">кг</string>
+    <string name="mg_dl">мг/дл</string>
+    <string name="today">Сегодня</string>
+    <string name="on">Вкл</string>
+    <string name="off">Выкл</string>
+    <string name="cancel">Отменить</string>
+    <string name="close">Закрыть</string>
+
+    <!-- === -->
+    <!-- tmp -->
+    <!-- === -->
+    <string name="kruglenkaya_sinyaya">Кругленькая синяя</string>
+    <string name="kvadratnaya">Квадратная</string>
+    <string name="time_1">15:00 (2 штуки)</string>
+    <string name="time_2">16:00 (Раздробить 2 пачки)</string>
+    <string name="time_3">18:45 (2 штуки)</string>
+
+    <!-- ============== -->
+    <!-- response_codes -->
+    <!-- ============== -->
+    <string name="resp_000_default_error">Error</string>
+    <string name="resp_001_lan_error">Ошибка сети</string>
+    <string name="resp_002_cache_error">Ошибка кеша</string>
+    <string name="resp_003_db_error">Ошибка базы данных</string>
+    <string name="resp_004_input_data_error">Ошибка входных данных</string>
+    <string name="resp_005_no_data_error">Ошибка: данные не обнаружены</string>
+    <string name="resp_409_conflict_error">Ошибка: возник конфликт</string>
+    <string name="resp_200_ok">OK</string>
+    <string name="resp_201_created">Создано успешно</string>
+    <string name="resp_">...</string>
+    <string name="resp_422">...</string>
+
+</resources>

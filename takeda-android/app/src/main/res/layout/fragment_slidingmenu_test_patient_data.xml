@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/middle_block_hight"
+        android:layout_alignParentTop="true"
+        android:background="@color/bg_tab_1"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/large_padding"
+        android:paddingRight="@dimen/large_padding" >
+
+        <TextView
+            android:id="@+id/textViewHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/risk_analysis"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textViewSubHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/tab_patient_data"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/layoutBottomInside"
+            layout="@layout/layout_bottom_inside_menu" />
+
+        <include
+            android:id="@+id/layoutBottomOutside"
+            layout="@layout/layout_bottom_outside_menu" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layoutBottom"
+        android:layout_below="@id/linearLayoutTop" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/middle_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/middle_padding" >
+
+                <RadioGroup
+                    android:id="@+id/radioGroupGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checkedButton="@+id/radioButtonMale"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radioButtonMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/data_gender_male" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/data_gender_female" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupGender"
+                    android:text="@string/data_gender"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/ca_text_main_38" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divider_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/middle_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/middle_padding" >
+
+                <EditText
+                    android:id="@+id/editTextAge"
+                    android:layout_width="@dimen/large_block_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:inputType="date"
+                    android:textColor="@color/ca_text_main_38" >
+                </EditText>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/editTextAge"
+                    android:text="@string/data_age"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/ca_text_main_38" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divider_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/middle_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/middle_padding" >
+
+                <EditText
+                    android:id="@+id/editTextHeigh"
+                    android:layout_width="@dimen/large_block_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:hint="@string/data_height_hint"
+                    android:inputType="number" >
+                </EditText>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/editTextHeigh"
+                    android:text="@string/data_height"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/ca_text_main_38" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divider_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/middle_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/middle_padding" >
+
+                <EditText
+                    android:id="@+id/editTextWeight"
+                    android:layout_width="@dimen/large_block_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:hint="@string/data_weight_hint"
+                    android:inputType="number" >
+                </EditText>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/editTextWeight"
+                    android:text="@string/data_weight"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/ca_text_main_38" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divider_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/middle_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/middle_padding" >
+
+                <ru.com.cardiomagnil.widget.SeekBarWithValues
+                    android:id="@+id/seekBarWithValuesCholesterol"
+                    android:layout_width="@dimen/xlarge_block_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    custom:max="9"
+                    custom:min="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/seekBarWithValuesCholesterol"
+                    android:text="@string/data_cholesterol"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/ca_text_main_38" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divider_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutCholesterolDrugs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:paddingBottom="@dimen/middle_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/middle_padding" >
+
+                <RadioGroup
+                    android:id="@+id/radioGroupCholesterolDrugs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNoCholesterolDrugs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="10dp"
+                        android:minWidth="10dp"
+                        android:onClick="onToggle"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonCholesterolDrugs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="10dp"
+                        android:minWidth="10dp"
+                        android:onClick="onToggle"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupCholesterolDrugs"
+                    android:text="@string/data_cholesterol_drugs"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/ca_text_main_38" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divider_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/middle_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/middle_padding" >
+
+                <RadioGroup
+                    android:id="@+id/radioGroupSmoking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNotSmoking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="10dp"
+                        android:minWidth="10dp"
+                        android:onClick="onToggle"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonSmoking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="10dp"
+                        android:minWidth="10dp"
+                        android:onClick="onToggle"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupSmoking"
+                    android:text="@string/data_smoking"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/ca_text_main_38" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divider_normal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

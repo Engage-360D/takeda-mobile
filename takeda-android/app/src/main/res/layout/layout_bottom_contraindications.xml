@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.devspark.robototextview.widget.RobotoTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/ca_white"
+    android:gravity="center"
+    android:padding="@dimen/ca_space_medium"
+    android:text="@string/contraindications"
+    android:textColor="@color/ca_text_main_37"
+    android:textSize="@dimen/ca_text_size_xsmall"
+    app:typeface="roboto_regular" />

@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ca_white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewTop"
+            android:text="@string/institutions" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupCondition"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ca_plate_small"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/toggleButtonConditionOn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ca_selector_checkbox_bg"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/institutions_map"
+                android:textColor="@drawable/ca_selector_checkbox_text"
+                android:textSize="@dimen/ca_text_size_small" />
+
+            <RadioButton
+                android:id="@+id/toggleButtonConditionOff"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ca_selector_checkbox_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/institutions_list"
+                android:textColor="@drawable/ca_selector_checkbox_text"
+                android:textSize="@dimen/ca_text_size_small" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/order_info_fragment_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linearLayoutTop" />
+
+</RelativeLayout>

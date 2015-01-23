@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ca_plate_medium"
+        android:background="@drawable/ca_selector_menu_item"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/ca_space_large"
+        android:paddingRight="@dimen/ca_space_large"
+        android:textColor="@drawable/ca_selector_menu_item_text"
+        android:textSize="@dimen/ca_text_size_xlarge"
+        app:typeface="roboto_regular" />
+
+</LinearLayout>
+
+
+
+

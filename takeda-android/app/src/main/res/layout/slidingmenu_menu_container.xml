@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <include
+            layout="@layout/ca_layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ca_plate_large" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layoutHeader" />
+
+</RelativeLayout>

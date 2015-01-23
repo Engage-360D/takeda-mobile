@@ -1,0 +1,14 @@
+.gradle
+.idea
+.DS_Store
+build
+local.properties
+libraries
+build_info*.txt
+*/.directory
+*.iml
+*.ipr
+*.iws
+app/src/main/res/drawable/.directory
+app/src/main/res/drawable-xhdpi/.directory
+app/src/main/res/drawable-hdpi/.directory

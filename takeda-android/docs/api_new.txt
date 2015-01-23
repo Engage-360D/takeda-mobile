@@ -1,0 +1,240 @@
+======================================================================================
+method:
+post
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/users
+--------
+
+headers:
+Content-Type: application/vnd.api+json
+--------
+
+data:
+{
+    "data" : {
+        "email" : "a.b@c.d",
+        "firstname" : "XXXX",
+        "lastname" : "XXXX",
+        "birthday" : "XXX-XX-XXT00:00:00+0000",
+        "specializationExperienceYears" : null,
+        "specializationGraduationDate" : null,
+        "specializationInstitutionAddress" : null,
+        "specializationInstitutionName" : null,
+        "specializationInstitutionPhone" : null,
+        "specializationName" : null,
+        "plainPassword" : "xxxx",
+        "isDoctor" : false,
+        "isSubscribed" : true,
+        "links" : {
+            "region" : ""
+        }
+    }
+}
+-----
+
+response:
+{
+    "links" : {
+        "users.region" : {
+            "href" : "\/api\/v1\/regions\/{users.region}",
+            "type" : "regions"
+        }
+    },
+    "data" : {
+        "id" : "25",
+        "email" : "a.b@c.d",
+        "firstname" : "XXXX",
+        "lastname" : "XXXX",
+        "birthday" : "XXXX-XX-XXT00:00:00+00:00",
+        "vkontakteId" : null,
+        "facebookId" : null,
+        "specializationExperienceYears" : null,
+        "specializationGraduationDate" : null,
+        "specializationInstitutionAddress" : null,
+        "specializationInstitutionName" : null,
+        "specializationInstitutionPhone" : null,
+        "specializationName" : null,
+        "roles" : ["ROLE_USER"],
+        "isEnabled" : false,
+        "links" : {
+            "region" : null
+        }
+    }
+}
+---------
+======================================================================================
+method:
+get
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/regions
+--------
+
+headers:
+--------
+
+data:
+-----
+
+response:
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "Москва"
+    },
+    {
+      "id": "2",
+      "name": "Санкт-Петербург"
+    }
+  ]
+}
+---------
+======================================================================================
+method:
+post
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/tokens
+--------
+
+headers:
+Content-Type: application/vnd.api+json
+--------
+
+data:
+{
+  "data": {
+    "email": "a.b@c.d",
+    "plainPassword": "xxxx"
+  }
+}
+-----
+
+response:
+{
+  "links": {
+    "tokens.user": {
+      "href": "https://cardiomagnyl.ru/api/v1/users/{tokens.user}",
+      "type": "users"
+    }
+  },
+  "data": {
+    "id": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0",
+    "links": {
+      "user": "24"
+    }
+  },
+  "linked": {
+    "users": [
+      {
+        "id": "25",
+        "email": "a.b@c.d",
+        "firstname": "XXXX",
+        "lastname": "XXXX",
+        "birthday" : "XXXX-XX-XXT00:00:00+00:00",
+        "vkontakteId": null,
+        "facebookId": null,
+        "specializationExperienceYears": 0,
+        "specializationGraduationDate": null,
+        "specializationInstitutionAddress": "",
+        "specializationInstitutionName": "",
+        "specializationInstitutionPhone": "",
+        "specializationName": "",
+        "roles": [
+          "ROLE_USER"
+        ],
+        "isEnabled": false,
+        "links": {
+          "region": "2"
+        }
+      }
+    ]
+  }
+}
+---------
+======================================================================================
+method:
+
+-------
+
+request:
+
+--------
+
+headers:
+
+--------
+
+data:
+
+-----
+
+response:
+
+---------
+======================================================================================
+method:
+
+-------
+
+request:
+
+--------
+
+headers:
+
+--------
+
+data:
+
+-----
+
+response:
+
+---------
+======================================================================================
+method:
+
+-------
+
+request:
+
+--------
+
+headers:
+
+--------
+
+data:
+
+-----
+
+response:
+
+---------
+======================================================================================
+GET
+200 OK
+
+POST
+200 OK
+201 Created
+400 Bad Request
+
+GET, POST, PUT, DELETE
+401 Unauthorized
+403 Forbidden
+404 Not Found
+405 Method Not Allowed
+5xx Server Error
+
+другие вряд ли будут
+======================================================================================
+Вопросы:
+Зачем http://cardiomagnyl.dev.iengage.ru/api/v1/tokens возвращает "links", "linked", почему поле токена - "id"?
+======================================================================================
