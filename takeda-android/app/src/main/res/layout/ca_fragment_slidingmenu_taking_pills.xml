@@ -69,7 +69,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ca_plate_medium"
                 android:layout_gravity="center_horizontal"
-                android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/ca_space_medium"
@@ -88,7 +87,7 @@
                     android:layout_marginTop="@dimen/ca_space_xxsmall"
                     android:text="@string/time_1"
                     android:textColor="@color/ca_text_main_37"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textSize="@dimen/ca_text_size_xsmall" />
             </LinearLayout>
 
             <View style="@style/divider_normal_1_2" />
@@ -98,7 +97,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ca_plate_medium"
                 android:layout_gravity="center_horizontal"
-                android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/ca_space_medium"
@@ -117,7 +115,7 @@
                     android:layout_marginTop="@dimen/ca_space_xxsmall"
                     android:text="@string/time_2"
                     android:textColor="@color/ca_text_main_37"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textSize="@dimen/ca_text_size_xsmall" />
             </LinearLayout>
 
             <View style="@style/divider_normal_1_2" />
@@ -127,7 +125,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ca_plate_medium"
                 android:layout_gravity="center_horizontal"
-                android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/ca_space_medium"
@@ -146,7 +143,7 @@
                     android:layout_marginTop="@dimen/ca_space_xxsmall"
                     android:text="@string/time_3"
                     android:textColor="@color/ca_text_main_37"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textSize="@dimen/ca_text_size_xsmall" />
             </LinearLayout>
 
             <View style="@style/divider_normal_1_2" />
@@ -155,3 +152,5 @@
     </ScrollView>
 
 </RelativeLayout>
+
+    <!-- TODO: text size changed from 16 to 14. Check it.-->
