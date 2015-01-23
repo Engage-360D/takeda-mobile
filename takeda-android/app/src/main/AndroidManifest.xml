@@ -48,7 +48,7 @@
         <activity
             android:name="ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity"
             android:label="@string/app_name"
-
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
 
         <activity

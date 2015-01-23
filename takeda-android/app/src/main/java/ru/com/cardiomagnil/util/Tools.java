@@ -2,11 +2,13 @@ package ru.com.cardiomagnil.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Base64;
+import android.util.Pair;
 import android.widget.RadioGroup;
 import android.widget.ToggleButton;
 
@@ -19,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
 
@@ -88,6 +91,29 @@ public class Tools {
         calendar.setTime(date);
 
         return calendar;
+    }
+
+    public static Pair<String, String> getCurrentWeekDateRange() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        String weekStart = simpleDateFormat.format(calendar.getTime()).toLowerCase();
+        calendar.add(Calendar.DAY_OF_MONTH, 4);
+        String weekEnd = simpleDateFormat.format(calendar.getTime()).toLowerCase();
+        return new Pair<>(weekStart, weekEnd);
+    }
+
+    public static String getDayOfWeek(int shiftRelativeToday) {
+        Calendar calendar = Calendar.getInstance();
+        if (shiftRelativeToday == 0) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(" (EEEE)");
+            String today = CardiomagnilApplication.getAppContext().getString(R.string.today);
+            return today + simpleDateFormat.format(calendar.getTime()).toLowerCase();
+        } else{
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy (EEEE)");
+            calendar.add(Calendar.DAY_OF_MONTH, shiftRelativeToday);
+            return simpleDateFormat.format(calendar.getTime()).toLowerCase();
+        }
     }
 
     public static RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {

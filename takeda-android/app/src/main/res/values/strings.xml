@@ -325,9 +325,6 @@
     <string name="time_1">15:00 (2 штуки)</string>
     <string name="time_2">16:00 (Раздробить 2 пачки)</string>
     <string name="time_3">18:45 (2 штуки)</string>
-    <string name="date_1">Сегодня (вторник)</string>
-    <string name="date_2">26.11.2017 (понедельник)</string>
-    <string name="date_3">25.11.2017 (воскресенье)</string>
 
     <!-- ============== -->
     <!-- response_codes -->

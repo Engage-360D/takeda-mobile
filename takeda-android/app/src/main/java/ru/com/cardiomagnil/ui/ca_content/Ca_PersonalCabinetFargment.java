@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
+import ru.com.cardiomagnil.util.Tools;
 
 public class Ca_PersonalCabinetFargment extends Ca_BaseItemFragment {
 
@@ -21,6 +23,15 @@ public class Ca_PersonalCabinetFargment extends Ca_BaseItemFragment {
     }
 
     private void initFargment(View view) {
+        TextView textViewDate1 = (TextView) view.findViewById(R.id.textViewDate1);
+        TextView textViewDate2 = (TextView) view.findViewById(R.id.textViewDate2);
+        TextView textViewDate3 = (TextView) view.findViewById(R.id.textViewDate3);
+
+        textViewDate1.setText(Tools.getDayOfWeek(0));
+        textViewDate2.setText(Tools.getDayOfWeek(-1));
+        textViewDate3.setText(Tools.getDayOfWeek(-2));
+
+
 //        View linearLayoutTime1 = view.findViewById(R.id.linearLayoutTime1);
 //        View linearLayoutTime2 = view.findViewById(R.id.linearLayoutTime1);
 //        View linearLayoutTime3 = view.findViewById(R.id.linearLayoutTime1);

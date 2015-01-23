@@ -5,11 +5,11 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textViewDate1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/ca_plate_large"
         android:background="@color/ca_white"
         android:gravity="center"
-        android:text="@string/date_1"
         android:textColor="@color/ca_text_main_48"
         android:textSize="@dimen/ca_text_size_xlarge" />
 
