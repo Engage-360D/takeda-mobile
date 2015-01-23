@@ -23,9 +23,13 @@ public class Ca_PersonalCabinetFargment extends Ca_BaseItemFragment {
     }
 
     private void initFargment(View view) {
-        TextView textViewDate1 = (TextView) view.findViewById(R.id.textViewDate1);
-        TextView textViewDate2 = (TextView) view.findViewById(R.id.textViewDate2);
-        TextView textViewDate3 = (TextView) view.findViewById(R.id.textViewDate3);
+        View item1 = view.findViewById(R.id.item1);
+        View item2 = view.findViewById(R.id.item2);
+        View item3 = view.findViewById(R.id.item3);
+
+        TextView textViewDate1 = (TextView) item1.findViewById(R.id.textViewDate);
+        TextView textViewDate2 = (TextView) item2.findViewById(R.id.textViewDate);
+        TextView textViewDate3 = (TextView) item3.findViewById(R.id.textViewDate);
 
         textViewDate1.setText(Tools.getDayOfWeek(0));
         textViewDate2.setText(Tools.getDayOfWeek(-1));

@@ -57,20 +57,26 @@
                     android:textColor="@color/ca_text_main_37"
                     android:textSize="@dimen/ca_text_size_medium" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/editTextPillsName"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/small_dark_right"
-                    android:visibility="gone" />
+                    android:layout_weight="3"
+                    android:ems="10"
+                    android:gravity="center_vertical|right"
+                    android:textColor="@color/ca_text_main_37"
+                    android:textColorHint="@color/ca_main_text_37_hint" />
+
             </LinearLayout>
+
+            <View style="@style/divider_normal_1_5" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutNumberOfPills"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ca_plate_medium"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/ca_bg_bottom_border_unpressed"
+                android:background="@color/ca_bg_main_unpressed"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/ca_space_medium"
@@ -96,133 +102,49 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayoutReceptionFrequency"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/ca_plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/ca_selector_bottom_border"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
+            <View style="@style/divider_normal_1_5" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/reception_frequency"
-                    android:textColor="@color/ca_text_main_37"
-                    android:textSize="@dimen/ca_text_size_medium" />
+            <TextView
+                android:id="@+id/textViewReceptionFrequency"
+                style="@style/TextViewItemClickable"
+                android:text="@string/reception_frequency" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/small_dark_right"
-                    android:visibility="gone" />
-            </LinearLayout>
+            <View style="@style/divider_normal_1_5" />
 
-            <LinearLayout
-                android:id="@+id/linearLayoutReceptionHours"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/ca_plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/ca_selector_bottom_border"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
+            <TextView
+                android:id="@+id/textViewReceptionHours"
+                style="@style/TextViewItemClickable"
+                android:text="@string/reception_hours" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/reception_hours"
-                    android:textColor="@color/ca_text_main_37"
-                    android:textSize="@dimen/ca_text_size_medium" />
+            <View style="@style/divider_normal_1_5" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/small_dark_right"
-                    android:visibility="gone" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textViewStartDatePills"
+                style="@style/TextViewItemClickable"
+                android:text="@string/start_date_pills" />
 
-            <LinearLayout
-                android:id="@+id/linearLayoutStartDatePills"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/ca_plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/ca_selector_bottom_border"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
+            <View style="@style/divider_normal_1_5" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/start_date_pills"
-                    android:textColor="@color/ca_text_main_37"
-                    android:textSize="@dimen/ca_text_size_medium" />
+            <TextView
+                android:id="@+id/textViewEndDatePills"
+                style="@style/TextViewItemClickable"
+                android:text="@string/end_date_pills" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/small_dark_right"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutEndDatePills"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/ca_plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/ca_selector_bottom_border"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/end_date_pills"
-                    android:textColor="@color/ca_text_main_37"
-                    android:textSize="@dimen/ca_text_size_medium" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/small_dark_right"
-                    android:visibility="gone" />
-            </LinearLayout>
+            <View style="@style/divider_normal_1_5" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ca_plate_xsmall"
                 android:background="@null" />
 
+            <View style="@style/divider_normal_1_5" />
+
             <LinearLayout
                 android:id="@+id/linearLayoutCondition"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ca_plate_medium"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/ca_bg_bottom_and_top_border_unpressed"
+                android:background="@color/ca_bg_main_unpressed"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/ca_space_medium"
@@ -269,6 +191,8 @@
                         android:textSize="@dimen/ca_text_size_small" />
                 </RadioGroup>
             </LinearLayout>
+
+            <View style="@style/divider_normal_1_5" />
 
         </LinearLayout>
     </ScrollView>
