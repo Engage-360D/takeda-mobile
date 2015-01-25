@@ -48,7 +48,7 @@ bool is_authorized;
 -(void)autologin{
     
     NSString *lastUser = [User getLastUser];
-    lastUser = nil; //temp
+   // lastUser = nil; //temp
     if (lastUser){
         is_loading = YES;
         // вытягиваем информацию о этом юзере

@@ -23,11 +23,44 @@ static ServData *objectInstance = nil;
 
 +(NSData*)preparedParams:(NSDictionary*)params{
     NSMutableDictionary *p = [NSMutableDictionary new];
-    [p setObject:params forKey:@"data"];
+    [p setObject:[self setupNulls:params] forKey:@"data"];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject: p
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
                                                          error:nil];
     return jsonData;
+}
+
++(id)setupNulls:(id)object{
+    if([object isKindOfClass:[NSDictionary class]])
+    {
+        NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:object];
+        for(NSString* key in [dict allKeys])
+        {
+            [dict setObject:[self setupNulls:[dict objectForKey:key]] forKey:key];
+        }
+        return dict;
+    }
+    else if([object isKindOfClass:[NSArray class]])
+    {
+        NSMutableArray* array = [NSMutableArray arrayWithArray:object];
+        for(int i=0;i<[array count];i++)
+        {
+            [array replaceObjectAtIndex:i withObject:[self setupNulls:[array objectAtIndex:i]]];
+        }
+        return array;
+    }
+    else if([object isKindOfClass:[NSString class]]){
+        if ([object isEqualToString:@"-"]){
+            // object = [NSNull null];
+            object = [NSNull null];
+
+            return object;
+        }
+        return [NSMutableString stringWithString:object];
+    }
+    
+    return object;
+
 }
 
 #pragma mark - Network requests
@@ -64,7 +97,7 @@ static ServData *objectInstance = nil;
     [self sendCommon:url success:^(id res){
         if (res[@"data"]){
             // success
-            [User updateUser:res[@"email"] userInfo:res[@"data"] accessToken:User.access_token];
+            [User updateUser:res[@"data"][@"email"] userInfo:res[@"data"] accessToken:User.access_token];
             completion(YES,nil);
         } else {
             completion(NO,nil);
@@ -81,7 +114,7 @@ static ServData *objectInstance = nil;
     [self sendCommon:url success:^(id result){
         BOOL success = NO;
         if (result[@"data"]) {
-            [GData saveRegions:result[@"data"]];
+            [GlobalData saveRegions:result[@"data"]];
             success = YES;
         } else {
             
@@ -96,7 +129,6 @@ static ServData *objectInstance = nil;
 
 +(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error, NSString* textError))completion
 {
-
 
     NSString *url = [NSString stringWithFormat:@"%@%@",kServerURL, kUsers];
     [self sendCommonPOST:url body:[self preparedParams:params] success:^(id res){
@@ -115,7 +147,6 @@ static ServData *objectInstance = nil;
 //                    err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"Ошибка при регистрации": resp}];
 //                }
                 completion(success, nil, textError);
-
             }
         } else {
 //            if (!resp) {
@@ -123,19 +154,25 @@ static ServData *objectInstance = nil;
 //            }
 //            err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"error": resp}];
             completion(success, nil, textError);
-
         }
-
     }];
-    
-    
-    
-    
 }
 
-
-
-
++(void)sendAnalysisToServer:(NSDictionary*)analysisData completion:(void (^)(BOOL success, NSError* error, id result))completion{
+    NSLog(@"before = %@",analysisData);
+    NSString *url = [NSString stringWithFormat:
+                     @"%@%@",kServerURL,kTestResults];
+    
+    NSLog(@"after = %@",[self setupNulls:analysisData]);
+    
+    [self sendCommonPOST:url body:[self preparedParams: analysisData] success:^(id result){
+        if (result[@"data"][@"id"]){
+            completion(YES,nil, result);
+        } else {
+            completion(NO,nil, result);
+        }
+    }];
+}
 
 
 #pragma mark - Common methods
@@ -266,6 +303,8 @@ static ServData *objectInstance = nil;
                                        jsonResponse = [Global recursiveMutable:jsonResponse];
                                        call_completion_block(successIm, jsonResponse);
                                    } else {
+                                       NSString *err = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                                       NSLog(@"err = %@",err);
                                        call_completion_block(successIm, [NSMutableDictionary new]);
                                        
                                    }

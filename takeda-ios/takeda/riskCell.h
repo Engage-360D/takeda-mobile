@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface riskCell : UITableViewCell
+@property (nonatomic,retain) IBOutlet UILabel *text_name;
 @property (nonatomic,retain) IBOutlet UILabel *text_data;
 @property (nonatomic,retain) IBOutlet UIImageView *img_icon;
+@property (nonatomic,retain) IBOutlet UIImageView *arrowRight;
+
 @end

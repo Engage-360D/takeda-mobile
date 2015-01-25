@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AnalizDataUserPage.h"
-#import "ResultRiskAnalysis.h"
+#import "ResultRiskAnal.h"
 
-@class ResultRiskAnalysis;
 @interface RiskAnalysisPage : VControllerExt<UIPickerViewDelegate, UIPickerViewDataSource,AnalizDataUserPageDelegate>
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
 @property (nonatomic,retain) IBOutletCollection(UIImageView) NSArray *page_indicator;
-@property (nonatomic,retain) ResultRiskAnalysis *resultRiskAnalysis;
+@property (nonatomic,retain) ResultRiskAnal *resultRiskAnalysis;
 @end

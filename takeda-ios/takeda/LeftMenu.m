@@ -13,6 +13,7 @@
 #import "SearchInstitutionPage.h"
 #import "RecomendationPage.h"
 #import "AnalisisResultPage.h"
+#import "ResultRiskAnal.h"
 #import "CalendarPage.h"
 #import "UsefulKnowPage.h"
 #import "PublicationPage.h"
@@ -27,12 +28,26 @@
     UIViewController *searchInstitution_vc;
     UIViewController *recomendation_vc;
     UIViewController *analisisResult_vc;
+    UIViewController *resultRiskAnal;
     UIViewController *calendarPage_vc;
     UIViewController *usefulKnowPage_vc;
     UIViewController *publication_vc;
     UIViewController *reportsPage_vc;
     UIViewController *mainPage_vc;
 
+    /*
+     RiskAnalysisPage *riskAnalysis_vc;
+     SearchInstitutionPage *searchInstitution_vc;
+     RecomendationPage *recomendation_vc;
+     AnalisisResultPage *analisisResult_vc;
+     ResultRiskAnal *resultRiskAnal;
+     CalendarPage *calendarPage_vc;
+     UsefulKnowPage *usefulKnowPage_vc;
+     PublicationPage *publication_vc;
+     ReportsPage *reportsPage_vc;
+     MainPage *mainPage_vc;
+     */
+    
 }
 
 @end
@@ -61,7 +76,7 @@
           @{@"name" :@"Анализ риска", @"enabled":@"YES"},
           @{@"name" :@"Поиск учреждений", @"enabled":@"YES"},
           @{@"name" :@"Рекомендации", @"enabled":@"NO"},
-          @{@"name" :@"Результаты анализа", @"enabled":@"NO"},
+          @{@"name" :@"Результаты анализа", @"enabled":@"YES"},
           @{@"name" :@"Календарь", @"enabled":@"NO"},
           @{@"name" :@"Полезно знать", @"enabled":@"YES"},
           @{@"name" :@"Публикации", @"enabled":@"YES"},
@@ -214,7 +229,6 @@
                 if (!analisisResult_vc) {
                     analisisResult_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getAnalisisResultPage]];
                 }
-                
                 last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
                 [self.slideMenuController closeMenuBehindContentViewController:analisisResult_vc animated:YES completion:nil];
                 

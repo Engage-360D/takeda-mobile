@@ -34,6 +34,16 @@
                     <rect key="frame" x="53" y="172" width="215" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5NS-QG-uP2">
+                    <rect key="frame" x="53" y="295" width="215" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Результаты">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="goToRes:" destination="-1" eventType="touchUpInside" id="xpw-SE-NNd"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

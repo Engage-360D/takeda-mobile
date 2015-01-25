@@ -191,7 +191,7 @@ static AllSingle *dot = nil;
 
 -(NSDate*) parseDateTime:(NSString *)dateString{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-ddTHH:mm:ssZ"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"];
     return [dateFormatter dateFromString:dateString];
 }
 
@@ -203,7 +203,7 @@ static AllSingle *dot = nil;
 
 -(NSString*) strDateTime:(NSDate *)date{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-ddTHH:mm:ssZ"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"];
     return [dateFormatter stringFromDate:date];
 }
 

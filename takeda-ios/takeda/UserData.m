@@ -27,12 +27,20 @@ static UserData *objectInstance = nil;
     }
 }
 
-
 -(BOOL)is_authorized{
     if ([access_token_ isEqual:[NSNull null]] || !access_token_) {
         return NO;
     }
     return YES;
+}
+
+-(UserType)userType{
+    NSArray *roles = self.userData[@"roles"];
+    for (NSString *role in roles){
+        if ([role isEqualToString:@"ROLE_USER"]) return tUser;
+        if ([role isEqualToString:@"ROLE_DOCTOR"]) return tDoctor;
+    }
+    return 0;
 }
 
 -(NSString*)getAccessToken{
@@ -70,11 +78,20 @@ static UserData *objectInstance = nil;
     self.user_id = userInfo[@"id"];
     self.access_token = access_token;
     self.userData = userInfo;
-    [jsonInFile createUser:login userInfo:userInfo accessToken:access_token];
+   /// [jsonInFile createUser:login userInfo:userInfo accessToken:access_token];
+    
+    [userInfo setObject:access_token forKey:@"access_token"];
+    if (userInfo){
+        NSString *filePath = [NSString stringWithFormat:@"%@/%@", [Path UsersFolder],login];
+        //[userInfo writeToFile:filePath atomically:YES];
+        [userInfo saveTofile:filePath];
+    }
+
 }
 
 -(NSMutableDictionary*)getUserInfo:(NSString*)login{
-    NSMutableDictionary *userInfo = [jsonInFile getUserInfo:login];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", [Path UsersFolder],login];
+    NSMutableDictionary *userInfo = [NSMutableDictionary readFromFile:filePath];// [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
     return userInfo;
 }
 

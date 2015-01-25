@@ -14,6 +14,7 @@
 @property(nonatomic, strong) IBOutlet UILabel *vcTitle;
 @property(nonatomic, strong) IBOutlet UILabel *vcSubTitle;
 @property (nonatomic,retain) IBOutlet UILabel *danger_text;
+@property(nonatomic) BOOL isFromMenu;
 
 - (BOOL)isRootVC;
 
@@ -23,8 +24,9 @@
 
 -(UIImageView*)separatorLine;
 -(UIBarButtonItem*)menuButton;
--(UIBarButtonItem*)peopleButton;
+-(UIBarButtonItem*)personalButton;
 -(UIBarButtonItem*)alarmButton;
 -(UIBarButtonItem*)backBtn;
+
 
 @end

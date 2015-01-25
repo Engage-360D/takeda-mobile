@@ -84,6 +84,7 @@
 
 +(void)getUserDataWithCompletion:(void (^)(BOOL result, NSError* error))completion
 {
+    return;
     ShowNetworkActivityIndicator();
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -94,7 +95,7 @@
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:
                                                @"%@/api/users/me?access_token=%@",
                                                kServerURL,
-                                               [[UserData sharedObject] getAccessToken]]];
+                                               @""]];
             
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                    cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -295,6 +296,7 @@
 
 
 +(void)sendAnalysisToServer:(NSDictionary*)analysisData completion:(void (^)(BOOL result, NSError* error))completion{
+    return;
     ShowNetworkActivityIndicator();
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -318,7 +320,7 @@
         //NSString *data = @"{\"testResult\":{\"growth\":\"109\",\"heartAttackOrStroke\":\"0\",\"acetylsalicylicDrugs\":\"0\",\"sex\":\"male\",\"extraSalt\":\"1\",\"cholesterolDrugs\":\"0\",\"diabetes\":\"0\",\"smoking\":\"0\",\"weight\":\"89\",\"birthday\":\"2000-04-29T00:00:00+0400\",\"arterialPressure\":\"114\",\"cholesterolLevel\":\"6.0\",\"physicalActivity\":\"94\"}}";
         
 
-        NSString *token = [NSString stringWithFormat:@"%@:%@",[[UserData sharedObject] getUserName],[[UserData sharedObject] getUserPassword]];
+        NSString *token = [NSString stringWithFormat:@"%@:%@",@"",@""];
         token = [token base64String:token];
         token = @"dmFzamFrMDA0QHlhbmRleC5ydToxMjM0NTY=";
         

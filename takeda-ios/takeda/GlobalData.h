@@ -13,10 +13,14 @@
 +(GlobalData*)sharedObject;
 @property (nonatomic, strong) FMDatabase *database;
 
--(NSMutableArray*)regionsList;
++(NSMutableArray*)regionsList;
 
--(void)loadRegionsList:(void (^)(BOOL success, id result))completion;
++(void)loadRegionsList:(void (^)(BOOL success, id result))completion;
 
--(void)saveRegions:(NSMutableArray*)regions;
++(void)saveRegions:(NSMutableArray*)regions;
+
++(void)saveResultAnalyses:(NSMutableDictionary*)result;
++(NSMutableArray*)resultAnalyses;
+
 
 @end

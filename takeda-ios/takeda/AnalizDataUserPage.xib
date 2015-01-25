@@ -41,7 +41,7 @@
                     <color key="backgroundColor" red="0.83529411760000005" green="0.1176470588" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QBU-Jz-oWm">
-                    <rect key="frame" x="25" y="430" width="270" height="44"/>
+                    <rect key="frame" x="13" y="430" width="299" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="История пациента">
