@@ -227,7 +227,6 @@
     <string name="zero_percent">0%</string>
     <string name="index_recommendations">Ваш индекс рекомендаций на этой неделе</string>
     <string name="physical_load">Физическая нагрузка</string>
-    <string name="take_tablets">Принять таблетки</string>
     <string name="eaten_today">Что вы сегодня ели?</string>
     <string name="my_recommendations">Мои рекомендации</string>
     <string name="my_success">Мои успехи</string>
@@ -259,7 +258,6 @@
     <string name="personal_cabinet_new">Новые</string>
     <string name="personal_cabinet_filled">Заполненные</string>
     <string name="exercise_stress">Физическая нагрузка</string>
-    <string name="take_pills">Принять таблетки</string>
     <string name="what_eaten">Что вы сегодня ели?</string>
     <string name="still_smoke">Еще курите?</string>
     <string name="enter_weight">Внесите вес</string>
@@ -316,6 +314,7 @@
     <string name="off">Выкл</string>
     <string name="cancel">Отменить</string>
     <string name="close">Закрыть</string>
+    <string name="take_pills">Принять таблетки</string>
 
     <!-- === -->
     <!-- tmp -->

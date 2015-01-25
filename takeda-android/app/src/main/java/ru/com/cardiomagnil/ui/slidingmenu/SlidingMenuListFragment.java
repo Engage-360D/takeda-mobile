@@ -64,13 +64,11 @@ public class SlidingMenuListFragment extends ListFragment {
 
         if (previousSelectedItemView != null) {
             TextView previousTextViewTitle = (TextView) previousSelectedItemView.findViewById(R.id.textViewTitle);
-//            previousSelectedItemView.setSelected(false);
             previousTextViewTitle.setSelected(false);
         }
 
         if (currentSelectedItemView != null) {
             TextView currentTextViewTitle = (TextView) currentSelectedItemView.findViewById(R.id.textViewTitle);
-//            currentSelectedItemView.setSelected(true);
             currentTextViewTitle.setSelected(true);
         }
 

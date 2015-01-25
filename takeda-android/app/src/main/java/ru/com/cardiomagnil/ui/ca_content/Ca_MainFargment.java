@@ -56,8 +56,8 @@ public class Ca_MainFargment extends Ca_BaseItemFragment {
     }
 
     private void initTablets(final View view) {
-        View linearLayoutTakeTablets = view.findViewById(R.id.linearLayoutTakeTablets);
-        linearLayoutTakeTablets.setOnClickListener(new View.OnClickListener() {
+        View textViewTakeTablets = view.findViewById(R.id.textViewTakeTablets);
+        textViewTakeTablets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {

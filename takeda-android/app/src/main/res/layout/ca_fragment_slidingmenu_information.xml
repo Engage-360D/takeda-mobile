@@ -45,50 +45,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/ca_plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/ca_selector_bottom_border"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
+            <View style="@style/divider_normal_1_5" />
 
-                <TextView
-                    android:id="@+id/textViewSettingsEmail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/recognize_infarction_apoplexy"
-                    android:textColor="@color/ca_text_main_37"
-                    android:textSize="@dimen/ca_text_size_medium" />
+            <TextView
+                android:id="@+id/textViewSettingsEmail"
+                style="@style/TextViewItemClickable"
+                android:text="@string/recognize_infarction_apoplexy" />
 
-            </LinearLayout>
+            <View style="@style/divider_normal_1_5" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/ca_plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/ca_selector_bottom_border"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
+            <TextView
+                android:id="@+id/textViewLifestyle"
+                style="@style/TextViewItemClickable"
+                android:text="@string/lifestyle" />
 
-                <TextView
-                    android:id="@+id/textViewSettingsPassword"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/lifestyle"
-                    android:textColor="@color/ca_text_main_37"
-                    android:textSize="@dimen/ca_text_size_medium" />
-            </LinearLayout>
+            <View style="@style/divider_normal_1_5" />
 
         </LinearLayout>
     </ScrollView>
