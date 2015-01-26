@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
@@ -20,21 +22,37 @@ public class Ca_TakingPillsFargment extends Ca_BaseItemFragment {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
+        LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
+        linearLayoutRightHolder.removeAllViews();
+
+        ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
+        imageViewBell.setImageResource(R.drawable.ic_button_bell);
+
+        ImageView imageViewPlus = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
+        imageViewPlus.setImageResource(R.drawable.ic_button_plus);
+
+        int space_small = (int) viewGroupTopBar.getResources().getDimension(R.dimen.ca_space_small);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(space_small, 0, 0, 0);
+
+        imageViewPlus.setLayoutParams(lp);
+
+        linearLayoutRightHolder.addView(imageViewBell);
+        linearLayoutRightHolder.addView(imageViewPlus);
     }
 
     private void initFargment(View view) {
         View linearLayoutTime1 = view.findViewById(R.id.linearLayoutTime1);
-        View linearLayoutTime2 = view.findViewById(R.id.linearLayoutTime1);
-        View linearLayoutTime3 = view.findViewById(R.id.linearLayoutTime1);
+        View linearLayoutTime2 = view.findViewById(R.id.linearLayoutTime2);
+        View linearLayoutTime3 = view.findViewById(R.id.linearLayoutTime3);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-                    SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
+                    SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
                     Fragment fragment = new Ca_AddPillsFargment();
-                    // FIXME!!! switchContent
-//                    mainActivity.switchContent(fragment);
+                    slidingMenuActivity.putContentOnTop(fragment, false);
                 }
             }
         };

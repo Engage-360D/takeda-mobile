@@ -51,14 +51,14 @@
 
     <TextView
         android:id="@+id/textViewTakePills"
-        style="@style/TextViewItemClickable"
+        style="@style/TextViewItemDrawable"
         android:text="@string/take_pills" />
 
     <View style="@style/divider_normal_1_5" />
 
     <TextView
         android:id="@+id/textWhatEaten"
-        style="@style/TextViewItemClickable"
+        style="@style/TextViewItemDrawable"
         android:text="@string/what_eaten" />
 
     <View style="@style/divider_normal_1_5" />

@@ -166,6 +166,7 @@
     <string name="menu_back">Назад</string>
     <string name="menu_item_main">Главная</string>
     <string name="menu_item_risk_analysis">Анализ риска</string>
+    <string name="menu_item_add_pills">Добавить</string>
     <string name="menu_item_diary">Дневник</string>
     <string name="menu_item_search_institutions">Поиск учреждений</string>
     <string name="menu_item_information">Информация</string>
@@ -237,6 +238,7 @@
     <!-- fragment_slidingmenu_taking_pills -->
     <!-- ================================= -->
     <string name="pills">Таблетки</string>
+    <string name="visit_doctor">Сходить к врачу</string>
     <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
 
     <!-- ================================= -->
@@ -281,6 +283,7 @@
     <string name="application_settings">Настройки приложения</string>
     <string name="delete_all_reports">Удалить все отчеты</string>
     <string name="must_be_password">Для операции необходимо пароль</string>
+    <string name="exit">Выход</string>
     <string name="incident_occurred">У меня произошел инцидент</string>
     <string name="warning">Внимание!</string>
     <string name="infarction_occurred">вы перенесли Инфаркт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>

@@ -116,14 +116,14 @@
 
             <TextView
                 android:id="@+id/textViewTakeTablets"
-                style="@style/TextViewItemClickable"
+                style="@style/TextViewItemDrawable"
                 android:text="@string/take_pills" />
 
             <View style="@style/divider_normal_1_5" />
 
             <TextView
                 android:id="@+id/textViewEatenToday"
-                style="@style/TextViewItemClickable"
+                style="@style/TextViewItemDrawable"
                 android:text="@string/eaten_today" />
 
             <View style="@style/divider_normal_1_5" />
@@ -137,29 +137,21 @@
 
             <TextView
                 android:id="@+id/textViewMyRecommendations"
-                style="@style/TextViewItemClickable"
+                style="@style/TextViewItemDrawable"
                 android:text="@string/my_recommendations" />
 
             <View style="@style/divider_normal_1_5" />
 
             <TextView
                 android:id="@+id/textViewMySuccess"
-                style="@style/TextViewItemClickable"
+                style="@style/TextViewItemDrawable"
                 android:text="@string/my_success" />
 
             <View style="@style/divider_normal_1_5" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutConsolidatedReport"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/ca_plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/ca_selector_bottom_and_top_border"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
+                style="@style/TextViewItem">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -168,19 +160,18 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        style="@style/TextViewItem"
+                        android:padding="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
                         android:text="@string/consolidated_report"
-                        android:textColor="@color/ca_text_main_37"
-                        android:textSize="@dimen/ca_text_size_medium" />
+                        android:clickable="false" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        style="@style/TextViewItem"
+                        android:padding="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
                         android:text="@string/go_to_website"
-                        android:textColor="@color/ca_text_main_37"
+                        android:clickable="false"
                         android:textSize="@dimen/ca_text_size_xsmall" />
                 </LinearLayout>
 
@@ -188,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/small_dark_right" />
+                    android:src="@drawable/ca_selector_list_item_ic" />
             </LinearLayout>
 
         </LinearLayout>

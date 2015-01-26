@@ -14,6 +14,15 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <!-- ========== -->
+    <!-- imageviews -->
+    <!-- ========== -->
+    <style name="ImageViewTop" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+
     <!-- ========= -->
     <!-- textviews -->
     <!-- ========= -->
@@ -57,18 +66,18 @@
     <style name="TextViewItem" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ca_plate_medium</item>
-        <item name="android:background">@color/ca_bg_main_unpressed</item>
+        <item name="android:background">@drawable/ca_selector_list_item_bg</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">@dimen/ca_space_medium</item>
         <item name="android:paddingRight">@dimen/ca_space_medium</item>
-        <item name="android:textColor">@color/ca_text_main_37</item>
+        <item name="android:textColor">@color/ca_selector_list_item_text</item>
         <item name="android:textSize">@dimen/ca_text_size_medium</item>
+        <item name="android:clickable">true</item>
     </style>
 
-    <style name="TextViewItemClickable" parent="@style/TextViewItem">
-        <item name="android:background">@drawable/ca_selector_bottom_and_top_border</item>
-        <item name="android:clickable">true</item>
-        <item name="android:drawableRight">@drawable/ic_small_dark_right</item>
+
+    <style name="TextViewItemDrawable" parent="@style/TextViewItem">
+        <item name="android:drawableRight">@drawable/ca_selector_list_item_ic</item>
     </style>
 
     <!-- ======== -->
