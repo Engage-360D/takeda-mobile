@@ -18,7 +18,7 @@ import android.widget.ToggleButton;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.model.TestIncoming;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.Tools;
 
@@ -97,8 +97,8 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
     }
 
     private void trySwitchNextFragment() {
-        TestIncoming testIncoming = AppState.getInstatce().getTestIncoming();
-        String resultString = pickTestIncomingFields(testIncoming);
+        Ca_TestSource testSource = AppState.getInstatce().getTestIncoming();
+        String resultString = pickTestIncomingFields(testSource);
 
         if (!resultString.isEmpty()) {
             Toast toast = Toast.makeText(parentView.getContext(), resultString, Toast.LENGTH_SHORT);
@@ -107,7 +107,7 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
             return;
         }
 
-        if (testIncoming.validate(TestIncoming.RESULT_GROUPS.second)) {
+        if (testSource.validate(Ca_TestSource.RESULT_GROUPS.second)) {
             Fragment dailyRationFargment = new RiskAnalysisDailyRationFargment();
             switchFragment(dailyRationFargment);
         } else {
@@ -117,7 +117,7 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
         }
     }
 
-    private String pickTestIncomingFields(TestIncoming testIncoming) {
+    private String pickTestIncomingFields(Ca_TestSource testSource) {
         ToggleButton toggleButtonDiabetes = (ToggleButton) parentView.findViewById(R.id.toggleButtonDiabetes);
         ToggleButton toggleButtonNotDiabetes = (ToggleButton) parentView.findViewById(R.id.toggleButtonNotDiabetes);
         ToggleButton toggleButtonSugarProblems = (ToggleButton) parentView.findViewById(R.id.toggleButtonSugarProblems);
@@ -149,13 +149,13 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
             }
 
             if (resultString.isEmpty()) {
-                testIncoming.setDiabetes(diabetes);
-                testIncoming.setSugarProblems(sugarProblems);
-                testIncoming.setSugarDrugs(sugarDrugs);
-                testIncoming.setArterialPressure(arterialPressure);
-                testIncoming.setArterialPressureDrugs(arterialPressureDrugs);
-                testIncoming.setPhysicalActivity(physicalActivity);
-                testIncoming.setHeartAttackOrStroke(HeartAttackOrStroke);
+                testSource.setHasDiabetes(diabetes);
+                testSource.setHadSugarProblems(sugarProblems);
+                testSource.setIsSugarDrugsConsumer(sugarDrugs);
+                testSource.setArterialPressure(arterialPressure);
+                testSource.setIsArterialPressureDrugsConsumer(arterialPressureDrugs);
+                testSource.setPhysicalActivityMinutes(physicalActivity);
+                testSource.setHadHeartAttackOrStroke(HeartAttackOrStroke);
             }
         } catch (Exception e) {
             // do nothing

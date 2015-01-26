@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.model.TestIncoming;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.Tools;
@@ -88,8 +88,8 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
     }
 
     private void trySwitchNextFragment() {
-        TestIncoming testIncoming = new TestIncoming();
-        String resultString = pickTestIncomingFields(testIncoming);
+        Ca_TestSource testSource = new Ca_TestSource();
+        String resultString = pickTestIncomingFields(testSource);
 
         if (!resultString.isEmpty()) {
             Toast toast = Toast.makeText(parentView.getContext(), resultString, Toast.LENGTH_SHORT);
@@ -98,8 +98,8 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
             return;
         }
 
-        if (testIncoming.validate(TestIncoming.RESULT_GROUPS.first)) {
-            AppState.getInstatce().setTestIncoming(testIncoming);
+        if (testSource.validate(Ca_TestSource.RESULT_GROUPS.first)) {
+            AppState.getInstatce().setTestSource(testSource);
             Fragment patientHistoryFargment = new RiskAnalysisPatientHistoryFargment();
             switchFragment(patientHistoryFargment);
         } else {
@@ -109,7 +109,7 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
         }
     }
 
-    private String pickTestIncomingFields(TestIncoming testIncoming) {
+    private String pickTestIncomingFields(Ca_TestSource testSource) {
         RadioButton radioButtonMale = (RadioButton) parentView.findViewById(R.id.radioButtonMale);
         EditText editTextAge = (EditText) parentView.findViewById(R.id.editTextAge);
         EditText editTextHeigh = (EditText) parentView.findViewById(R.id.editTextHeigh);
@@ -149,13 +149,13 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
                 resultString += parentView.getContext().getString(R.string.error_test_cholesterol_level);
             }
 
-            testIncoming.setSex(sex);
-            testIncoming.setBirthday(mBirthDate);
-            testIncoming.setGrowth(growth);
-            testIncoming.setWeight(weight);
-            testIncoming.setCholesterolLevel(cholesterolLevel);
-            testIncoming.setCholesterolDrugss(cholesterolDrugs);
-            testIncoming.setSmoking(smoking);
+            testSource.setSex(sex);
+            testSource.setBirthday(mBirthDate);
+            testSource.setGrowth(growth);
+            testSource.setWeight(weight);
+            testSource.setCholesterolLevel(cholesterolLevel);
+            testSource.setIsCholesterolDrugsConsumer(cholesterolDrugs);
+            testSource.setIsSmoker(smoking);
         } catch (Exception e) {
             // do nothing
         }

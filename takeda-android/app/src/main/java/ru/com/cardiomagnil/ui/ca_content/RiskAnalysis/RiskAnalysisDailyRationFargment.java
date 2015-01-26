@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -16,7 +15,7 @@ import android.widget.ToggleButton;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.model.TestIncoming;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ui.slidingmenu.ResultsWaitingFargment;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.Tools;
@@ -33,12 +32,14 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
     }
 
     private void initPatientDataFargment(View view) {
+        RadioGroup radioGroupExtraSalt = (RadioGroup) view.findViewById(R.id.radioGroupExtraSalt);
         RadioGroup radioGroupAspirin = (RadioGroup) view.findViewById(R.id.radioGroupAspirin);
         ImageView imageViewBottomInsideLeft = (ImageView) view.findViewById(R.id.imageViewBottomInsideLeft);
         TextView textViewBottomInsideAction = (TextView) view.findViewById(R.id.textViewBottomInsideAction);
         ImageView imageViewBottomInsideRight = (ImageView) view.findViewById(R.id.imageViewBottomInsideRight);
         View layoutBottomInside = view.findViewById(R.id.layoutBottomInside);
 
+        radioGroupExtraSalt.setOnCheckedChangeListener(Tools.ToggleListener);
         radioGroupAspirin.setOnCheckedChangeListener(Tools.ToggleListener);
         imageViewBottomInsideLeft.setVisibility(View.INVISIBLE);
         textViewBottomInsideAction.setText(this.getString(R.string.get_results));
@@ -54,10 +55,10 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
     }
 
     private void trySwitchNextFragment() {
-        TestIncoming testIncoming = AppState.getInstatce().getTestIncoming();
-        pickTestIncomingFields(testIncoming);
+        Ca_TestSource testSource = AppState.getInstatce().getTestIncoming();
+        pickTestIncomingFields(testSource);
 
-        if (testIncoming.validate(TestIncoming.RESULT_GROUPS.third)) {
+        if (testSource.validate(Ca_TestSource.RESULT_GROUPS.third)) {
             Fragment resultsWaitingFargment = new ResultsWaitingFargment();
             switchFragment(resultsWaitingFargment);
         } else {
@@ -67,17 +68,18 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
         }
     }
 
-    private void pickTestIncomingFields(TestIncoming testIncoming) {
-        EditText editTextExtraSalt = (EditText) parentView.findViewById(R.id.editTextExtraSalt);
+    private void pickTestIncomingFields(Ca_TestSource testSource) {
+        ToggleButton toggleButtonExtraSalt = (ToggleButton) parentView.findViewById(R.id.toggleButtonExtraSalt);
+        ToggleButton toggleButtonNoExtraSalt = (ToggleButton) parentView.findViewById(R.id.toggleButtonNoExtraSalt);
         ToggleButton toggleButtonAspirin = (ToggleButton) parentView.findViewById(R.id.toggleButtonAspirin);
         ToggleButton toggleButtonNoAspirin = (ToggleButton) parentView.findViewById(R.id.toggleButtonNoAspirin);
 
         try {
-            Integer ExtraSalt = editTextExtraSalt.length() != 0 ? Integer.parseInt(String.valueOf(editTextExtraSalt.getText().toString())) : null;
+            Boolean extraSalt = toggleButtonAspirin.isChecked() || toggleButtonNoAspirin.isChecked() ? toggleButtonAspirin.isChecked() : null;
             Boolean aspirin = toggleButtonAspirin.isChecked() || toggleButtonNoAspirin.isChecked() ? toggleButtonAspirin.isChecked() : null;
 
-            testIncoming.setExtraSalt(ExtraSalt);
-            testIncoming.setAcetylsalicylicDrugs(aspirin);
+            testSource.setIsAddingExtraSalt(extraSalt);
+            testSource.setIsAcetylsalicylicDrugsConsumer(aspirin);
         } catch (Exception e) {
             // do nothing
         }

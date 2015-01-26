@@ -70,42 +70,38 @@
                 android:paddingRight="@dimen/large_padding"
                 android:paddingTop="@dimen/middle_padding">
 
-                <EditText
-                    android:id="@+id/editTextExtraSalt"
-                    android:layout_width="@dimen/large_block_width"
-                    android:layout_height="wrap_content"
+                <RadioGroup
+                    android:id="@+id/radioGroupExtraSalt"
+                    android:layout_width="@dimen/ca_control_medium"
+                    android:layout_height="@dimen/ca_control_xxsmall"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/ca_text_main_38"
-                    android:textColorHint="@color/ca_text_main_38_hint"
-                    android:textSize="@dimen/ca_text_size_xlarge"
-                    android:gravity="center_vertical|right"
-                    android:hint="@string/gr"
-                    android:inputType="number" />
+                    android:orientation="horizontal">
 
-                <LinearLayout
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNoExtraSalt"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonExtraSalt"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/editTextExtraSalt"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/salt_1"
-                        android:textSize="@dimen/ca_text_size_small"
-                        android:textColor="@color/ca_text_main_38" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/salt_2"
-                        android:textSize="@dimen/ca_text_size_xsmall"
-                        android:textColor="@color/ca_text_main_38" />
-                </LinearLayout>
-
+                    android:layout_toLeftOf="@id/radioGroupExtraSalt"
+                    android:text="@string/salt"
+                    android:textSize="@dimen/ca_text_size_small"
+                    android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />

@@ -1,5 +1,6 @@
 package ru.com.cardiomagnil.application;
 
+import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.model.TestIncoming;
@@ -50,18 +51,17 @@ public class AppState {
 
     // *****************************************************************
 
-    private TestIncoming mTestIncoming;
+    private Ca_TestSource mTestSource;
     private TestResult mTestResult;
     private TestResultPage mTestResultPage;
 
-    public TestIncoming getTestIncoming() {
-        return mTestIncoming;
+    public Ca_TestSource getTestIncoming() {
+        return mTestSource;
     }
 
-    public void setTestIncoming(TestIncoming testIncoming) {
-        mTestIncoming = testIncoming;
+    public void setTestSource(Ca_TestSource testSource) {
+        mTestSource = testSource;
     }
-
 
     public TestResult getTestResult() {
         return mTestResult;

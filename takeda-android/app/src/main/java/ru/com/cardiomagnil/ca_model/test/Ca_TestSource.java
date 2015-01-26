@@ -31,38 +31,44 @@ import java.util.Map;
 })
 public class Ca_TestSource {
 
+    public enum RESULT_GROUPS {
+        all, first, second, third
+    }
+
+    ;
+
     @JsonProperty("sex")
     private String sex;
     @JsonProperty("birthday")
     private String birthday;
     @JsonProperty("growth")
-    private int growth;
+    private Integer growth;
     @JsonProperty("weight")
-    private int weight;
+    private Integer weight;
     @JsonProperty("isSmoker")
-    private boolean isSmoker;
+    private Boolean isSmoker;
     @JsonProperty("cholesterolLevel")
-    private int cholesterolLevel;
+    private Integer cholesterolLevel;
     @JsonProperty("isCholesterolDrugsConsumer")
-    private boolean isCholesterolDrugsConsumer;
+    private Boolean isCholesterolDrugsConsumer;
     @JsonProperty("hasDiabetes")
-    private boolean hasDiabetes;
+    private Boolean hasDiabetes;
     @JsonProperty("hadSugarProblems")
-    private boolean hadSugarProblems;
+    private Boolean hadSugarProblems;
     @JsonProperty("isSugarDrugsConsumer")
-    private boolean isSugarDrugsConsumer;
+    private Boolean isSugarDrugsConsumer;
     @JsonProperty("arterialPressure")
-    private int arterialPressure;
+    private Integer arterialPressure;
     @JsonProperty("isArterialPressureDrugsConsumer")
-    private boolean isArterialPressureDrugsConsumer;
+    private Boolean isArterialPressureDrugsConsumer;
     @JsonProperty("physicalActivityMinutes")
-    private int physicalActivityMinutes;
+    private Integer physicalActivityMinutes;
     @JsonProperty("hadHeartAttackOrStroke")
-    private boolean hadHeartAttackOrStroke;
+    private Boolean hadHeartAttackOrStroke;
     @JsonProperty("isAddingExtraSalt")
-    private boolean isAddingExtraSalt;
+    private Boolean isAddingExtraSalt;
     @JsonProperty("isAcetylsalicylicDrugsConsumer")
-    private boolean isAcetylsalicylicDrugsConsumer;
+    private Boolean isAcetylsalicylicDrugsConsumer;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -102,7 +108,7 @@ public class Ca_TestSource {
      * @return The growth
      */
     @JsonProperty("growth")
-    public int getGrowth() {
+    public Integer getGrowth() {
         return growth;
     }
 
@@ -110,7 +116,7 @@ public class Ca_TestSource {
      * @param growth The growth
      */
     @JsonProperty("growth")
-    public void setGrowth(int growth) {
+    public void setGrowth(Integer growth) {
         this.growth = growth;
     }
 
@@ -118,7 +124,7 @@ public class Ca_TestSource {
      * @return The weight
      */
     @JsonProperty("weight")
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
@@ -126,7 +132,7 @@ public class Ca_TestSource {
      * @param weight The weight
      */
     @JsonProperty("weight")
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -134,7 +140,7 @@ public class Ca_TestSource {
      * @return The isSmoker
      */
     @JsonProperty("isSmoker")
-    public boolean isIsSmoker() {
+    public Boolean isSmoker() {
         return isSmoker;
     }
 
@@ -142,7 +148,7 @@ public class Ca_TestSource {
      * @param isSmoker The isSmoker
      */
     @JsonProperty("isSmoker")
-    public void setIsSmoker(boolean isSmoker) {
+    public void setIsSmoker(Boolean isSmoker) {
         this.isSmoker = isSmoker;
     }
 
@@ -150,7 +156,7 @@ public class Ca_TestSource {
      * @return The cholesterolLevel
      */
     @JsonProperty("cholesterolLevel")
-    public int getCholesterolLevel() {
+    public Integer getCholesterolLevel() {
         return cholesterolLevel;
     }
 
@@ -158,7 +164,7 @@ public class Ca_TestSource {
      * @param cholesterolLevel The cholesterolLevel
      */
     @JsonProperty("cholesterolLevel")
-    public void setCholesterolLevel(int cholesterolLevel) {
+    public void setCholesterolLevel(Integer cholesterolLevel) {
         this.cholesterolLevel = cholesterolLevel;
     }
 
@@ -166,7 +172,7 @@ public class Ca_TestSource {
      * @return The isCholesterolDrugsConsumer
      */
     @JsonProperty("isCholesterolDrugsConsumer")
-    public boolean isIsCholesterolDrugsConsumer() {
+    public Boolean isCholesterolDrugsConsumer() {
         return isCholesterolDrugsConsumer;
     }
 
@@ -174,7 +180,7 @@ public class Ca_TestSource {
      * @param isCholesterolDrugsConsumer The isCholesterolDrugsConsumer
      */
     @JsonProperty("isCholesterolDrugsConsumer")
-    public void setIsCholesterolDrugsConsumer(boolean isCholesterolDrugsConsumer) {
+    public void setIsCholesterolDrugsConsumer(Boolean isCholesterolDrugsConsumer) {
         this.isCholesterolDrugsConsumer = isCholesterolDrugsConsumer;
     }
 
@@ -182,7 +188,7 @@ public class Ca_TestSource {
      * @return The hasDiabetes
      */
     @JsonProperty("hasDiabetes")
-    public boolean isHasDiabetes() {
+    public Boolean isHasDiabetes() {
         return hasDiabetes;
     }
 
@@ -190,7 +196,7 @@ public class Ca_TestSource {
      * @param hasDiabetes The hasDiabetes
      */
     @JsonProperty("hasDiabetes")
-    public void setHasDiabetes(boolean hasDiabetes) {
+    public void setHasDiabetes(Boolean hasDiabetes) {
         this.hasDiabetes = hasDiabetes;
     }
 
@@ -198,7 +204,7 @@ public class Ca_TestSource {
      * @return The hadSugarProblems
      */
     @JsonProperty("hadSugarProblems")
-    public boolean isHadSugarProblems() {
+    public Boolean isHadSugarProblems() {
         return hadSugarProblems;
     }
 
@@ -206,7 +212,7 @@ public class Ca_TestSource {
      * @param hadSugarProblems The hadSugarProblems
      */
     @JsonProperty("hadSugarProblems")
-    public void setHadSugarProblems(boolean hadSugarProblems) {
+    public void setHadSugarProblems(Boolean hadSugarProblems) {
         this.hadSugarProblems = hadSugarProblems;
     }
 
@@ -214,7 +220,7 @@ public class Ca_TestSource {
      * @return The isSugarDrugsConsumer
      */
     @JsonProperty("isSugarDrugsConsumer")
-    public boolean isIsSugarDrugsConsumer() {
+    public Boolean isSugarDrugsConsumer() {
         return isSugarDrugsConsumer;
     }
 
@@ -222,7 +228,7 @@ public class Ca_TestSource {
      * @param isSugarDrugsConsumer The isSugarDrugsConsumer
      */
     @JsonProperty("isSugarDrugsConsumer")
-    public void setIsSugarDrugsConsumer(boolean isSugarDrugsConsumer) {
+    public void setIsSugarDrugsConsumer(Boolean isSugarDrugsConsumer) {
         this.isSugarDrugsConsumer = isSugarDrugsConsumer;
     }
 
@@ -230,7 +236,7 @@ public class Ca_TestSource {
      * @return The arterialPressure
      */
     @JsonProperty("arterialPressure")
-    public int getArterialPressure() {
+    public Integer getArterialPressure() {
         return arterialPressure;
     }
 
@@ -238,7 +244,7 @@ public class Ca_TestSource {
      * @param arterialPressure The arterialPressure
      */
     @JsonProperty("arterialPressure")
-    public void setArterialPressure(int arterialPressure) {
+    public void setArterialPressure(Integer arterialPressure) {
         this.arterialPressure = arterialPressure;
     }
 
@@ -246,7 +252,7 @@ public class Ca_TestSource {
      * @return The isArterialPressureDrugsConsumer
      */
     @JsonProperty("isArterialPressureDrugsConsumer")
-    public boolean isIsArterialPressureDrugsConsumer() {
+    public Boolean isArterialPressureDrugsConsumer() {
         return isArterialPressureDrugsConsumer;
     }
 
@@ -254,7 +260,7 @@ public class Ca_TestSource {
      * @param isArterialPressureDrugsConsumer The isArterialPressureDrugsConsumer
      */
     @JsonProperty("isArterialPressureDrugsConsumer")
-    public void setIsArterialPressureDrugsConsumer(boolean isArterialPressureDrugsConsumer) {
+    public void setIsArterialPressureDrugsConsumer(Boolean isArterialPressureDrugsConsumer) {
         this.isArterialPressureDrugsConsumer = isArterialPressureDrugsConsumer;
     }
 
@@ -262,7 +268,7 @@ public class Ca_TestSource {
      * @return The physicalActivityMinutes
      */
     @JsonProperty("physicalActivityMinutes")
-    public int getPhysicalActivityMinutes() {
+    public Integer getPhysicalActivityMinutes() {
         return physicalActivityMinutes;
     }
 
@@ -270,7 +276,7 @@ public class Ca_TestSource {
      * @param physicalActivityMinutes The physicalActivityMinutes
      */
     @JsonProperty("physicalActivityMinutes")
-    public void setPhysicalActivityMinutes(int physicalActivityMinutes) {
+    public void setPhysicalActivityMinutes(Integer physicalActivityMinutes) {
         this.physicalActivityMinutes = physicalActivityMinutes;
     }
 
@@ -278,7 +284,7 @@ public class Ca_TestSource {
      * @return The hadHeartAttackOrStroke
      */
     @JsonProperty("hadHeartAttackOrStroke")
-    public boolean isHadHeartAttackOrStroke() {
+    public Boolean isHadHeartAttackOrStroke() {
         return hadHeartAttackOrStroke;
     }
 
@@ -286,7 +292,7 @@ public class Ca_TestSource {
      * @param hadHeartAttackOrStroke The hadHeartAttackOrStroke
      */
     @JsonProperty("hadHeartAttackOrStroke")
-    public void setHadHeartAttackOrStroke(boolean hadHeartAttackOrStroke) {
+    public void setHadHeartAttackOrStroke(Boolean hadHeartAttackOrStroke) {
         this.hadHeartAttackOrStroke = hadHeartAttackOrStroke;
     }
 
@@ -294,7 +300,7 @@ public class Ca_TestSource {
      * @return The isAddingExtraSalt
      */
     @JsonProperty("isAddingExtraSalt")
-    public boolean isIsAddingExtraSalt() {
+    public Boolean isAddingExtraSalt() {
         return isAddingExtraSalt;
     }
 
@@ -302,7 +308,7 @@ public class Ca_TestSource {
      * @param isAddingExtraSalt The isAddingExtraSalt
      */
     @JsonProperty("isAddingExtraSalt")
-    public void setIsAddingExtraSalt(boolean isAddingExtraSalt) {
+    public void setIsAddingExtraSalt(Boolean isAddingExtraSalt) {
         this.isAddingExtraSalt = isAddingExtraSalt;
     }
 
@@ -310,7 +316,7 @@ public class Ca_TestSource {
      * @return The isAcetylsalicylicDrugsConsumer
      */
     @JsonProperty("isAcetylsalicylicDrugsConsumer")
-    public boolean isIsAcetylsalicylicDrugsConsumer() {
+    public Boolean isAcetylsalicylicDrugsConsumer() {
         return isAcetylsalicylicDrugsConsumer;
     }
 
@@ -318,7 +324,7 @@ public class Ca_TestSource {
      * @param isAcetylsalicylicDrugsConsumer The isAcetylsalicylicDrugsConsumer
      */
     @JsonProperty("isAcetylsalicylicDrugsConsumer")
-    public void setIsAcetylsalicylicDrugsConsumer(boolean isAcetylsalicylicDrugsConsumer) {
+    public void setIsAcetylsalicylicDrugsConsumer(Boolean isAcetylsalicylicDrugsConsumer) {
         this.isAcetylsalicylicDrugsConsumer = isAcetylsalicylicDrugsConsumer;
     }
 
@@ -332,4 +338,36 @@ public class Ca_TestSource {
         this.additionalProperties.put(name, value);
     }
 
+
+    /**
+     * Only required fields != null
+     */
+    public boolean validate(RESULT_GROUPS group) {
+        boolean result = true;
+
+        if (group == RESULT_GROUPS.first || group == RESULT_GROUPS.all) {
+            result = (sex != null) &&
+            /*     */(birthday != null) &&
+            /*     */(growth != null) &&
+            /*     */(weight != null) &&
+            /*     */(isSmoker() != null) &&
+            /*     */(cholesterolLevel != null);
+        }
+
+        if (group == RESULT_GROUPS.second || group == RESULT_GROUPS.all) {
+            result = (result) &&
+            /*     */(isHasDiabetes() != null) &&
+            /*     */(arterialPressure != null) &&
+            /*     */(physicalActivityMinutes != null) &&
+            /*     */(hadHeartAttackOrStroke != null);
+        }
+
+        if (group == RESULT_GROUPS.third || group == RESULT_GROUPS.all) {
+            result = (result) &&
+            /*     */(isAddingExtraSalt() != null) &&
+            /*     */(isAcetylsalicylicDrugsConsumer != null);
+        }
+
+        return result;
+    }
 }
