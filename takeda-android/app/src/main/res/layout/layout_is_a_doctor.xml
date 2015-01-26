@@ -29,30 +29,14 @@
 
         <RadioButton
             android:id="@+id/radioButtonNotDoctor"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/ca_selector_checkbox_bg"
-            android:button="@null"
+            style="@style/ToggleRadioButton"
             android:checked="false"
-            android:gravity="center"
-            android:onClick="onToggle"
-            android:textColor="@drawable/ca_selector_checkbox_text"
-            android:text="@string/no"
-            android:textSize="@dimen/ca_text_size_small" />
+            android:text="@string/no" />
 
         <RadioButton
             android:id="@+id/radioButtonDoctor"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/ca_selector_checkbox_bg"
-            android:button="@null"
+            style="@style/ToggleRadioButton"
             android:checked="false"
-            android:gravity="center"
-            android:onClick="onToggle"
-            android:textColor="@drawable/ca_selector_checkbox_text"
-            android:text="@string/yes"
-            android:textSize="@dimen/ca_text_size_small" />
+            android:text="@string/yes" />
     </RadioGroup>
 </LinearLayout>

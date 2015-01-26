@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/menu_frame"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
@@ -14,7 +14,7 @@
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingLeft="@dimen/large_padding"
-        android:paddingRight="@dimen/large_padding" >
+        android:paddingRight="@dimen/large_padding">
 
         <TextView
             android:id="@+id/textViewHeader"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <include
             android:id="@+id/layoutBottomInside"
@@ -55,12 +55,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/layoutBottom"
-        android:layout_below="@id/linearLayoutTop" >
+        android:layout_below="@id/linearLayoutTop">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -68,52 +68,47 @@
                 android:paddingBottom="@dimen/middle_padding"
                 android:paddingLeft="@dimen/large_padding"
                 android:paddingRight="@dimen/large_padding"
-                android:paddingTop="@dimen/middle_padding" >
+                android:paddingTop="@dimen/middle_padding">
 
-                <RadioGroup
-                    android:id="@+id/radioGroupExtraSalt"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/editTextExtraSalt"
+                    android:layout_width="@dimen/large_block_width"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:orientation="horizontal" >
+                    android:textColor="@color/ca_text_main_38"
+                    android:textColorHint="@color/ca_text_main_38_hint"
+                    android:textSize="@dimen/ca_text_size_xlarge"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/gr"
+                    android:inputType="number" />
 
-                    <ToggleButton
-                        android:id="@+id/toggleButtonNoExtraSalt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="10dp"
-                        android:minWidth="10dp"
-                        android:onClick="onToggle"
-                        android:textOff="@string/no"
-                        android:textOn="@string/no" />
-
-                    <ToggleButton
-                        android:id="@+id/toggleButtonExtraSalt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="10dp"
-                        android:minWidth="10dp"
-                        android:onClick="onToggle"
-                        android:textOff="@string/yes"
-                        android:textOn="@string/yes" />
-                </RadioGroup>
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/radioGroupExtraSalt"
-                    android:text="@string/salt"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/ca_text_main_38" />
+                    android:layout_toLeftOf="@id/editTextExtraSalt"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/salt_1"
+                        android:textSize="@dimen/ca_text_size_small"
+                        android:textColor="@color/ca_text_main_38" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/salt_2"
+                        android:textSize="@dimen/ca_text_size_xsmall"
+                        android:textColor="@color/ca_text_main_38" />
+                </LinearLayout>
+
             </RelativeLayout>
 
-            <View
-                style="@style/divider_normal"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
+            <View style="@style/divider_normal_1_3" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -121,33 +116,27 @@
                 android:paddingBottom="@dimen/middle_padding"
                 android:paddingLeft="@dimen/large_padding"
                 android:paddingRight="@dimen/large_padding"
-                android:paddingTop="@dimen/middle_padding" >
+                android:paddingTop="@dimen/middle_padding">
 
                 <RadioGroup
                     android:id="@+id/radioGroupAspirin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/ca_control_medium"
+                    android:layout_height="@dimen/ca_control_xxsmall"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <ToggleButton
                         android:id="@+id/toggleButtonNoAspirin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="10dp"
-                        android:minWidth="10dp"
-                        android:onClick="onToggle"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
                         android:textOff="@string/no"
                         android:textOn="@string/no" />
 
                     <ToggleButton
                         android:id="@+id/toggleButtonAspirin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="10dp"
-                        android:minWidth="10dp"
-                        android:onClick="onToggle"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
                         android:textOff="@string/yes"
                         android:textOn="@string/yes" />
                 </RadioGroup>
@@ -159,14 +148,12 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupAspirin"
                     android:text="@string/aspirin"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="@dimen/ca_text_size_small"
                     android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
-            <View
-                style="@style/divider_normal"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
+            <View style="@style/divider_normal_1_3" />
+
         </LinearLayout>
     </ScrollView>
 

@@ -40,42 +40,6 @@
     <string name="error_test_weight">Вес может иметь значение от 30 до 700.</string>
     <string name="error_test_cholesterol_level">Уровень общего холестирина может иметь значение от 3 до 9.</string>
 
-    <!-- ============ -->
-    <!-- patient data -->
-    <!-- ============ -->
-    <string name="data_gender">Пол</string>
-    <string name="data_gender_male">Мужчина</string>
-    <string name="data_gender_female">Женщина</string>
-    <string name="data_age">Возраст</string>
-    <string name="data_age_hint">лет</string>
-    <string name="data_height">Рост</string>
-    <string name="data_height_hint">см</string>
-    <string name="data_weight">Вес</string>
-    <string name="data_weight_hint">кг</string>
-    <string name="data_cholesterol">Уровень общего холестерина, ммоль/литр</string>
-    <string name="data_cholesterol_hint">ммоль/литр</string>
-    <string name="data_cholesterol_drugs">Принимает ли препараты для снижения уровня холестерина в крови?</string>
-    <string name="data_smoking">Курение</string>
-
-    <!-- =============== -->
-    <!-- patient history -->
-    <!-- =============== -->
-    <string name="suffering_diabetes">Страдаете ли вы диабетом?</string>
-    <string name="sugar_problems">Отмечалось ли повышение уровня сахара в крови?</string>
-    <string name="diabetic_medicines">Принимаете лекарства для лечения сахарного диабета?</string>
-    <string name="arterial_pressure">Артериальное давление, мм</string>
-    <string name="arterial_pressure_hint">мм</string>
-    <string name="hypertonic_medicines">Принимаете ли препараты для понижения давления?</string>
-    <string name="physical_activity">Физические нагрузки</string>
-    <string name="physical_activity_hint">мин/неделя</string>
-    <string name="infarction_stroke">Был ли у вас инфаркт/инсульт?</string>
-
-    <!-- ============ -->
-    <!-- daily ration -->
-    <!-- ============ -->
-    <string name="salt">Досаливаете ли вы пищу?</string>
-    <string name="aspirin">Принимаете ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?</string>
-
     <!-- ======= -->
     <!-- results -->
     <!-- ======= -->
@@ -304,6 +268,41 @@
     <string name="infarction">Инфаркт</string>
     <string name="apoplexy">Инсульт</string>
     <string name="shunting">Коронарное шунтирование</string>
+
+    <!-- ============ -->
+    <!-- patient data -->
+    <!-- ============ -->
+    <string name="data_gender">Пол</string>
+    <string name="data_gender_male">Мужчина</string>
+    <string name="data_gender_female">Женщина</string>
+    <string name="data_age">Возраст</string>
+    <string name="data_age_hint">лет</string>
+    <string name="data_height">Рост</string>
+    <string name="data_height_hint">см</string>
+    <string name="data_weight">Вес</string>
+    <string name="data_weight_hint">кг</string>
+    <string name="data_cholesterol">Уровень общего холестерина</string>
+    <string name="data_cholesterol_hint">мг/дл</string>
+
+    <!-- =============== -->
+    <!-- patient history -->
+    <!-- =============== -->
+    <string name="suffering_diabetes">Страдаете ли вы диабетом?</string>
+    <string name="diabetic_medicines">Принимаете лекарства для лечения сахарного диабета?</string>
+    <string name="arterial_pressure">Артериальное давление</string>
+    <string name="arterial_pressure_hint">мм</string>
+    <string name="hypertonic_medicines">Принимаете ли препараты для понижения давления?</string>
+    <string name="physical_activity">Физические нагрузки</string>
+    <string name="physical_activity_hint">мин/неделя</string>
+    <string name="infarction_stroke">Был ли у вас инфаркт/инсульт?</string>
+
+    <!-- ============ -->
+    <!-- daily ration -->
+    <!-- ============ -->
+    <string name="salt_1">Сколько соли употребляете?</string>
+    <string name="salt_2">*1 чайная ложка - 12 грамм</string>
+    <string name="gr">грамм</string>
+    <string name="aspirin">Принимаете ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?</string>
 
     <!-- ====== -->
     <!-- common -->
