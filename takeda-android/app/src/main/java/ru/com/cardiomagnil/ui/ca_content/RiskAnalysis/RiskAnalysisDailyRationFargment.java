@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -15,10 +16,10 @@ import android.widget.ToggleButton;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.model.TestIncoming;
 import ru.com.cardiomagnil.ui.slidingmenu.ResultsWaitingFargment;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
+import ru.com.cardiomagnil.util.Tools;
 
 public class RiskAnalysisDailyRationFargment extends Fragment {
     private View parentView;
@@ -32,14 +33,12 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
     }
 
     private void initPatientDataFargment(View view) {
-        RadioGroup radioGroupExtraSalt = (RadioGroup) view.findViewById(R.id.radioGroupExtraSalt);
         RadioGroup radioGroupAspirin = (RadioGroup) view.findViewById(R.id.radioGroupAspirin);
         ImageView imageViewBottomInsideLeft = (ImageView) view.findViewById(R.id.imageViewBottomInsideLeft);
         TextView textViewBottomInsideAction = (TextView) view.findViewById(R.id.textViewBottomInsideAction);
         ImageView imageViewBottomInsideRight = (ImageView) view.findViewById(R.id.imageViewBottomInsideRight);
         View layoutBottomInside = view.findViewById(R.id.layoutBottomInside);
 
-        radioGroupExtraSalt.setOnCheckedChangeListener(Tools.ToggleListener);
         radioGroupAspirin.setOnCheckedChangeListener(Tools.ToggleListener);
         imageViewBottomInsideLeft.setVisibility(View.INVISIBLE);
         textViewBottomInsideAction.setText(this.getString(R.string.get_results));
@@ -69,14 +68,16 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
     }
 
     private void pickTestIncomingFields(TestIncoming testIncoming) {
-        ToggleButton toggleButtonExtraSalt = (ToggleButton) parentView.findViewById(R.id.toggleButtonExtraSalt);
-        ToggleButton toggleButtonNoExtraSalt = (ToggleButton) parentView.findViewById(R.id.toggleButtonNoExtraSalt);
+        EditText editTextExtraSalt = (EditText) parentView.findViewById(R.id.editTextExtraSalt);
         ToggleButton toggleButtonAspirin = (ToggleButton) parentView.findViewById(R.id.toggleButtonAspirin);
         ToggleButton toggleButtonNoAspirin = (ToggleButton) parentView.findViewById(R.id.toggleButtonNoAspirin);
 
         try {
-            testIncoming.setExtraSalt(toggleButtonExtraSalt.isChecked() || toggleButtonNoExtraSalt.isChecked() ? toggleButtonExtraSalt.isChecked() : null);
-            testIncoming.setAcetylsalicylicDrugs(toggleButtonAspirin.isChecked() || toggleButtonNoAspirin.isChecked() ? toggleButtonAspirin.isChecked() : null);
+            Integer ExtraSalt = editTextExtraSalt.length() != 0 ? Integer.parseInt(String.valueOf(editTextExtraSalt.getText().toString())) : null;
+            Boolean aspirin = toggleButtonAspirin.isChecked() || toggleButtonNoAspirin.isChecked() ? toggleButtonAspirin.isChecked() : null;
+
+            testIncoming.setExtraSalt(ExtraSalt);
+            testIncoming.setAcetylsalicylicDrugs(aspirin);
         } catch (Exception e) {
             // do nothing
         }

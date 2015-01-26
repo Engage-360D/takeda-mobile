@@ -20,7 +20,7 @@ public class TestIncoming {
     private Boolean mArterialPressureDrugs = null; // notRequired
     private Integer mPhysicalActivity = null; // "physicalActivity" : 100
     private Boolean mHeartAttackOrStroke = null; // "heartAttackOrStroke" : true
-    private Boolean mExtraSalt = null; // "extraSalt" : true
+    private Integer mExtraSalt = null; // "extraSalt" : true
     private Boolean mAcetylsalicylicDrugs = null; // "acetylsalicylicDrugs" : true
 
     // ///////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ public class TestIncoming {
         mHeartAttackOrStroke = heartAttackOrStroke;
     }
 
-    public void setExtraSalt(Boolean extraSalt) {
+    public void setExtraSalt(Integer extraSalt) {
         mExtraSalt = extraSalt;
     }
 

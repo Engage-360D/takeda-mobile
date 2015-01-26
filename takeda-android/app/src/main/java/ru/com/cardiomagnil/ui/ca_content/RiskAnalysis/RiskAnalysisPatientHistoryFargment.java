@@ -12,18 +12,15 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.model.TestIncoming;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
-import ru.com.cardiomagnil.widget.SeekBarWithValues;
-import ru.com.cardiomagnil.widget.SeekBarWithValues.OnProgressChangedListener;
+import ru.com.cardiomagnil.util.Tools;
 
 public class RiskAnalysisPatientHistoryFargment extends Fragment {
     private View parentView;
@@ -39,12 +36,9 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
     private void initPatientDataFargment(View view) {
         RadioGroup radioGroupDiabetes = (RadioGroup) view.findViewById(R.id.radioGroupDiabetes);
         final int toggleButtonDiabetesId = parentView.findViewById(R.id.toggleButtonDiabetes).getId();
-        final RelativeLayout relativeLayoutSugarProblems = (RelativeLayout) view.findViewById(R.id.relativeLayoutSugarProblems);
-        RadioGroup radioGroupSugarProblems = (RadioGroup) view.findViewById(R.id.radioGroupSugarProblems);
         final RelativeLayout relativeLayoutDiabeticMedicines = (RelativeLayout) view.findViewById(R.id.relativeLayoutDiabeticMedicines);
         RadioGroup radioGroupDiabeticMedicines = (RadioGroup) view.findViewById(R.id.radioGroupDiabeticMedicines);
         final RelativeLayout relativeLayoutHypertonicMedicines = (RelativeLayout) view.findViewById(R.id.relativeLayoutHypertonicMedicines);
-        SeekBarWithValues seekBarWithValuesPressure = (SeekBarWithValues) parentView.findViewById(R.id.seekBarWithValuesPressure);
         RadioGroup radioGroupHypertonicMedicines = (RadioGroup) view.findViewById(R.id.radioGroupHypertonicMedicines);
         RadioGroup radioGroupInfarctionStroke = (RadioGroup) view.findViewById(R.id.radioGroupInfarctionStroke);
         ImageView imageViewBottomInsideLeft = (ImageView) view.findViewById(R.id.imageViewBottomInsideLeft);
@@ -57,32 +51,15 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Tools.onCheckedChangedHelper(group, checkedId);
                 if (checkedId == toggleButtonDiabetesId) {
-                    relativeLayoutSugarProblems.setVisibility(View.VISIBLE);
-                    relativeLayoutDiabeticMedicines.setVisibility(View.GONE);
-                } else {
-                    relativeLayoutSugarProblems.setVisibility(View.GONE);
                     relativeLayoutDiabeticMedicines.setVisibility(View.VISIBLE);
-                }
-
-            }
-        });
-
-        radioGroupSugarProblems.setOnCheckedChangeListener(Tools.ToggleListener);
-        radioGroupDiabeticMedicines.setOnCheckedChangeListener(Tools.ToggleListener);
-
-        seekBarWithValuesPressure.setOnProgressChangedListener(new OnProgressChangedListener() {
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int actualProgress, boolean fromUser) {
-                if (actualProgress >= 140) {
-                    relativeLayoutHypertonicMedicines.setVisibility(View.VISIBLE);
                 } else {
-                    relativeLayoutHypertonicMedicines.setVisibility(View.GONE);
+                    relativeLayoutDiabeticMedicines.setVisibility(View.GONE);
                 }
-            }
 
+            }
         });
 
+        radioGroupDiabeticMedicines.setOnCheckedChangeListener(Tools.ToggleListener);
         radioGroupHypertonicMedicines.setOnCheckedChangeListener(Tools.ToggleListener);
         radioGroupInfarctionStroke.setOnCheckedChangeListener(Tools.ToggleListener);
         imageViewBottomInsideLeft.setVisibility(View.INVISIBLE);
@@ -122,9 +99,8 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
     private String pickTestIncomingFields(TestIncoming testIncoming) {
         ToggleButton toggleButtonDiabetes = (ToggleButton) parentView.findViewById(R.id.toggleButtonDiabetes);
         ToggleButton toggleButtonNotDiabetes = (ToggleButton) parentView.findViewById(R.id.toggleButtonNotDiabetes);
-        ToggleButton toggleButtonSugarProblems = (ToggleButton) parentView.findViewById(R.id.toggleButtonSugarProblems);
         ToggleButton toggleButtonDiabeticMedicines = (ToggleButton) parentView.findViewById(R.id.toggleButtonDiabeticMedicines);
-        SeekBarWithValues seekBarWithValuesPressure = (SeekBarWithValues) parentView.findViewById(R.id.seekBarWithValuesPressure);
+        EditText editTextPressure = (EditText) parentView.findViewById(R.id.editTextPressure);
         ToggleButton toggleButtonHypertonicMedicines = (ToggleButton) parentView.findViewById(R.id.toggleButtonHypertonicMedicines);
         EditText editTextPhysicalActivity = (EditText) parentView.findViewById(R.id.editTextPhysicalActivity);
         ToggleButton toggleButtonInfarctionStroke = (ToggleButton) parentView.findViewById(R.id.toggleButtonInfarctionStroke);
@@ -134,9 +110,8 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
 
         try {
             Boolean diabetes = toggleButtonDiabetes.isChecked() || toggleButtonNotDiabetes.isChecked() ? toggleButtonDiabetes.isChecked() : null;
-            Boolean sugarProblems = toggleButtonSugarProblems.isChecked();
             Boolean sugarDrugs = toggleButtonDiabeticMedicines.isChecked();
-            Integer arterialPressure = seekBarWithValuesPressure.getActualValue();
+            Integer arterialPressure = editTextPressure.length() != 0 ? Integer.parseInt(String.valueOf(editTextPressure.getText().toString())) : null;
             Boolean arterialPressureDrugs = toggleButtonHypertonicMedicines.isChecked();
             Integer physicalActivity = editTextPhysicalActivity.length() != 0 ? Integer.parseInt(String.valueOf(editTextPhysicalActivity.getText().toString())) : null;
             Boolean HeartAttackOrStroke = toggleButtonInfarctionStroke.isChecked() || toggleButtonNoInfarctionStroke.isChecked() ? toggleButtonInfarctionStroke.isChecked() : null;
@@ -152,7 +127,6 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
 
             if (resultString.isEmpty()) {
                 testIncoming.setDiabetes(diabetes);
-                testIncoming.setSugarProblems(sugarProblems);
                 testIncoming.setSugarDrugs(sugarDrugs);
                 testIncoming.setArterialPressure(arterialPressure);
                 testIncoming.setArterialPressureDrugs(arterialPressureDrugs);
