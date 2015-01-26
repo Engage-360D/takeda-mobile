@@ -281,6 +281,8 @@
     <string name="data_height_hint">см</string>
     <string name="data_weight">Вес</string>
     <string name="data_weight_hint">кг</string>
+    <string name="data_cholesterol_drugs">Принимает ли препараты для снижения уровня холестерина в крови?</string>
+    <string name="data_smoking">Курение</string>
     <string name="data_cholesterol">Уровень общего холестерина</string>
     <string name="data_cholesterol_hint">мг/дл</string>
 
@@ -288,6 +290,7 @@
     <!-- patient history -->
     <!-- =============== -->
     <string name="suffering_diabetes">Страдаете ли вы диабетом?</string>
+    <string name="sugar_problems">Отмечалось ли повышение уровня сахара в крови?</string>
     <string name="diabetic_medicines">Принимаете лекарства для лечения сахарного диабета?</string>
     <string name="arterial_pressure">Артериальное давление</string>
     <string name="arterial_pressure_hint">мм</string>

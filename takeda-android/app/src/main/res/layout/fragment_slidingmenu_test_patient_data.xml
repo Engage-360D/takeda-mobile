@@ -203,6 +203,49 @@
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/middle_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/middle_padding">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupSmoking"
+                    android:layout_width="@dimen/ca_control_medium"
+                    android:layout_height="@dimen/ca_control_xxsmall"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNotSmoking"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonSmoking"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupSmoking"
+                    android:text="@string/data_smoking"
+                    android:textSize="@dimen/ca_text_size_small"
+                    android:textColor="@color/ca_text_main_38" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -230,6 +273,52 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/editTextCholesterol"
                     android:text="@string/data_cholesterol"
+                    android:textSize="@dimen/ca_text_size_small"
+                    android:textColor="@color/ca_text_main_38" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutCholesterolDrugs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:paddingBottom="@dimen/middle_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/middle_padding" >
+
+                <RadioGroup
+                    android:id="@+id/radioGroupCholesterolDrugs"
+                    android:layout_width="@dimen/ca_control_medium"
+                    android:layout_height="@dimen/ca_control_xxsmall"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNoCholesterolDrugs"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonCholesterolDrugs"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupCholesterolDrugs"
+                    android:text="@string/data_cholesterol_drugs"
                     android:textSize="@dimen/ca_text_size_small"
                     android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
