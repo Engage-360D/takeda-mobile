@@ -170,9 +170,8 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
             return;
 
         if (getActivity() instanceof SlidingMenuActivity) {
-            SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
-            // FIXME!!! switchContent
-//            mainActivity.switchContent(fragment);
+            SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+            slidingMenuActivity.replaceContentOnTop(fragment, false);
         }
     }
 }

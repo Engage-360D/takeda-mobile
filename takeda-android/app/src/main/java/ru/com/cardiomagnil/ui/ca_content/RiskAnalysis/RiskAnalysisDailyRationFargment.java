@@ -16,7 +16,6 @@ import android.widget.ToggleButton;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
-import ru.com.cardiomagnil.ui.slidingmenu.ResultsWaitingFargment;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.Tools;
 
@@ -49,18 +48,17 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
 
             @Override
             public void onClick(View arg0) {
-                trySwitchNextFragment();
+                tryGetResults();
             }
         });
     }
 
-    private void trySwitchNextFragment() {
+    private void tryGetResults() {
         Ca_TestSource testSource = AppState.getInstatce().getTestIncoming();
         pickTestIncomingFields(testSource);
 
         if (testSource.validate(Ca_TestSource.RESULT_GROUPS.third)) {
-            Fragment resultsWaitingFargment = new ResultsWaitingFargment();
-            switchFragment(resultsWaitingFargment);
+            tryGetTestResultHelper(testSource);
         } else {
             Toast toast = Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
@@ -85,15 +83,20 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
         }
     }
 
+    private void tryGetTestResultHelper(Ca_TestSource testSource) {
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        // FIXME!!!
+//        slidingMenuActivity.getTestResult();
+    }
+
     // the meat of switching the above fragment
     private void switchFragment(Fragment fragment) {
         if (getActivity() == null)
             return;
 
         if (getActivity() instanceof SlidingMenuActivity) {
-            SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
-            // FIXME!!! switchContent
-//            mainActivity.switchContent(fragment);
+            SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+            slidingMenuActivity.replaceContentOnTop(fragment, false);
         }
     }
 }

@@ -169,9 +169,8 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
             return;
 
         if (getActivity() instanceof SlidingMenuActivity) {
-            SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
-            // FIXME!!! switchContent
-//            mainActivity.switchContent(fragment);
+            SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+            slidingMenuActivity.replaceContentOnTop(fragment, false);
         }
     }
 
