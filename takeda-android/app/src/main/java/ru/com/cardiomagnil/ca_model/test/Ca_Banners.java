@@ -9,7 +9,7 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "physicalActivityMinutes",
-        "weight",
+        "bmi",
         "isAddingExtraSalt",
         "isSmoker",
         "cholesterolLevel",
@@ -22,8 +22,8 @@ public class Ca_Banners extends BaseModel {
 
     @JsonProperty("physicalActivityMinutes")
     private Ca_Banner physicalActivityMinutes;
-    @JsonProperty("weight")
-    private Ca_Banner weight;
+    @JsonProperty("bmi")
+    private Ca_Banner bmi;
     @JsonProperty("isAddingExtraSalt")
     private Ca_Banner isAddingExtraSalt;
     @JsonProperty("isSmoker")
@@ -56,19 +56,19 @@ public class Ca_Banners extends BaseModel {
     }
 
     /**
-     * @return The weight
+     * @return The bmi
      */
-    @JsonProperty("weight")
-    public Ca_Banner getWeight() {
-        return weight;
+    @JsonProperty("bmi")
+    public Ca_Banner getBmi() {
+        return bmi;
     }
 
     /**
-     * @param weight The weight
+     * @param bmi The bmi
      */
-    @JsonProperty("weight")
-    public void setWeight(Ca_Banner weight) {
-        this.weight = weight;
+    @JsonProperty("bmi")
+    public void setBmi(Ca_Banner bmi) {
+        this.bmi = bmi;
     }
 
     /**

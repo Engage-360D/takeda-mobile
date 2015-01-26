@@ -1,11 +1,23 @@
 package ru.com.cardiomagnil.ca_model.test;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import ru.com.cardiomagnil.ca_model.base.BaseModel;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "pageUrl",
+        "state",
+        "title",
+        "subtitle",
+        "note"
+})
 public class Ca_Banner extends BaseModel {
 
+    @JsonProperty("pageUrl")
+    private String pageUrl;
     @JsonProperty("state")
     private String state;
     @JsonProperty("title")
@@ -14,8 +26,22 @@ public class Ca_Banner extends BaseModel {
     private String subtitle;
     @JsonProperty("note")
     private String note;
-    @JsonProperty("shouldHaveLink")
-    private boolean shouldHaveLink;
+
+    /**
+     * @return The pageUrl
+     */
+    @JsonProperty("pageUrl")
+    public String getPageUrl() {
+        return pageUrl;
+    }
+
+    /**
+     * @param pageUrl The pageUrl
+     */
+    @JsonProperty("pageUrl")
+    public void setPageUrl(String pageUrl) {
+        this.pageUrl = pageUrl;
+    }
 
     /**
      * @return The state
@@ -79,22 +105,6 @@ public class Ca_Banner extends BaseModel {
     @JsonProperty("note")
     public void setNote(String note) {
         this.note = note;
-    }
-
-    /**
-     * @return The shouldHaveLink
-     */
-    @JsonProperty("shouldHaveLink")
-    public boolean isShouldHaveLink() {
-        return shouldHaveLink;
-    }
-
-    /**
-     * @param shouldHaveLink The shouldHaveLink
-     */
-    @JsonProperty("shouldHaveLink")
-    public void setShouldHaveLink(boolean shouldHaveLink) {
-        this.shouldHaveLink = shouldHaveLink;
     }
 
 }

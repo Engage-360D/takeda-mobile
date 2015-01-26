@@ -1,11 +1,12 @@
 package ru.com.cardiomagnil.application;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import ru.com.cardiomagnil.ca_model.base.BaseModel;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
-import ru.com.cardiomagnil.model.TestIncoming;
-import ru.com.cardiomagnil.model.TestResult;
-import ru.com.cardiomagnil.model.TestResultPage;
 
 public class AppState {
     // ///////////////////////////////////////////////////////////////
@@ -31,6 +32,8 @@ public class AppState {
 
     private Ca_Token mToken;
     private Ca_User mUser;
+    private Ca_TestSource mTestSource;
+    private Ca_TestResult mTestResult;
 
     public Ca_Token getToken() {
         return mToken;
@@ -48,14 +51,7 @@ public class AppState {
         mUser = user;
     }
 
-
-    // *****************************************************************
-
-    private Ca_TestSource mTestSource;
-    private TestResult mTestResult;
-    private TestResultPage mTestResultPage;
-
-    public Ca_TestSource getTestIncoming() {
+    public Ca_TestSource getTestSource() {
         return mTestSource;
     }
 
@@ -63,19 +59,17 @@ public class AppState {
         mTestSource = testSource;
     }
 
-    public TestResult getTestResult() {
+    public Ca_TestResult getTestResult() {
         return mTestResult;
     }
 
-    public void setTestResult(TestResult testResult) {
+    public void setTestResult(Ca_TestResult testResult) {
         mTestResult = testResult;
     }
 
-    public TestResultPage getTestResultPage() {
-        return mTestResultPage;
-    }
-
-    public void setTestResultPage(TestResultPage testResultPage) {
-        mTestResultPage = testResultPage;
+    public void setTestResult(String testResult) {
+        TypeReference typeReference = new TypeReference<Ca_TestResult>() {
+        };
+        mTestResult = (Ca_TestResult) BaseModel.stringToObject(testResult, typeReference);
     }
 }

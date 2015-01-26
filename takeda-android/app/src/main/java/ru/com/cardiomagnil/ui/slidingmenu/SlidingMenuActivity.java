@@ -3,6 +3,7 @@ package ru.com.cardiomagnil.ui.slidingmenu;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
@@ -10,6 +11,8 @@ import android.widget.RadioGroup;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
 import ru.com.cardiomagnil.ui.base.BaseSlidingFragmentActivity;
 import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 import ru.com.cardiomagnil.ui.ca_content.Ca_MenuItem;
@@ -18,7 +21,8 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     private SlidingMenuListFragment mSlidingMenuListFragment;
     private ProgressDialog mProgressDialog = null;
 
-    public static final int START_ITEM_POSITION = 0;
+    private static final int MAIN_ITEM_POSITION = 0;
+    private static final int TEST_ITEM_POSITION = 1;
     public static final Ca_MenuItem[] MENU_ITEMS = new Ca_MenuItem[]{
             Ca_MenuItem.item_main,
             Ca_MenuItem.item_risk_analysis,
@@ -77,8 +81,8 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         // set the Above View Fragment
         Fragment fragment = getCurrentFragment();
         if (fragment == null) {
-            String fragmentClassName = SlidingMenuActivity.MENU_ITEMS[START_ITEM_POSITION].getItemClass().getName();
-            fragment = Fragment.instantiate(this, fragmentClassName, null);
+            String firstFragmentClassName = SlidingMenuActivity.MENU_ITEMS[getFistItem()].getItemClass().getName();
+            fragment = Fragment.instantiate(this, firstFragmentClassName, null);
             replaceAllContent(fragment, true);
         } else {
             if (fragment.isDetached()) {
@@ -103,6 +107,23 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         slidingMenu.setBehindScrollScale(0.25f);
         slidingMenu.setFadeDegree(0.25f);
         slidingMenu.onFinishTemporaryDetach();
+
+        lockMenuIfneed();
+    }
+
+    private void lockMenuIfneed() {
+        Ca_TestResult testResult = AppState.getInstatce().getTestResult();
+
+        if (testResult != null && !TextUtils.isEmpty(testResult.getId())) {
+            unLockMenu();
+        } else {
+            lockMenu();
+        }
+    }
+
+    public static int getFistItem() {
+        Ca_TestResult testResult = AppState.getInstatce().getTestResult();
+        return (testResult != null && !TextUtils.isEmpty(testResult.getId())) ? MAIN_ITEM_POSITION : TEST_ITEM_POSITION;
     }
 
     private void initContentTopMenuButton() {

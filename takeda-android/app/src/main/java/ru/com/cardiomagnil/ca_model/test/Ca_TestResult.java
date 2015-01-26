@@ -72,6 +72,10 @@ public class Ca_TestResult extends BaseModel {
     @JsonProperty("recommendations")
     private Ca_Recomendations recommendations;
 
+    public enum STATES {
+        attention, ok, bell, doctor, ask, empty
+    }
+
     /**
      * @return The id
      */

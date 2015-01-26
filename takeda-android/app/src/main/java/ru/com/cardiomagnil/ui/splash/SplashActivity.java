@@ -124,6 +124,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
     private void initAppState(Ca_Token token, Ca_User user) {
         AppState.getInstatce().setToken(token);
         AppState.getInstatce().setUser(user);
+        AppState.getInstatce().setUser(user);
     }
 
     private void tryToStartStartActivity() {

@@ -115,9 +115,10 @@ public abstract class BaseStartFragment extends Fragment {
     }
 
     private void initAppState(Ca_Token token, Ca_User user) {
+        AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
         AppState.getInstatce().setToken(token);
         AppState.getInstatce().setUser(user);
-        AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
+        AppState.getInstatce().setTestResult((String) AppSharedPreferences.get(AppSharedPreferences.Preference.testResult));
     }
 
     public abstract void initFieldsFromSocial(User socialUser);

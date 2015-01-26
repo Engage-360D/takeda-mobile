@@ -30,7 +30,7 @@ public class Ca_MenuAdapter extends ArrayAdapter<Ca_MenuItem> {
         titleTextView.setText(mContext.getString(menuItem.getItemName()));
 
         boolean isResultFragment = menuItem.getItemClass().equals(Ca_MenuItem.item_analysis_results);
-        boolean resultNotEmpty = AppState.getInstatce().getTestResult() != null && AppState.getInstatce().getTestResult().isInitialized();
+        boolean resultNotEmpty = AppState.getInstatce().getTestResult() != null && AppState.getInstatce().getTestResult().getId() != null;
 
         boolean isVisible = menuItem.isItemVisible();
         boolean isClickable = menuItem.isItemEnabled();

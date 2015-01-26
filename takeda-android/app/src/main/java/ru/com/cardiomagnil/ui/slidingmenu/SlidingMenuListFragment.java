@@ -42,8 +42,11 @@ public class SlidingMenuListFragment extends ListFragment {
     }
 
     private void onRestoreInstanceState(Bundle savedInstanceState) {
-        if (savedInstanceState != null)
-            mPreviousSelectedItemPosition = savedInstanceState.getInt("selected_item", SlidingMenuActivity.START_ITEM_POSITION);
+        if (savedInstanceState != null) {
+            mPreviousSelectedItemPosition = savedInstanceState.getInt("selected_item", SlidingMenuActivity.getFistItem());
+        } else {
+            mPreviousSelectedItemPosition = SlidingMenuActivity.getFistItem();
+        }
     }
 
     private void initViewTreeObserver(final View view) {

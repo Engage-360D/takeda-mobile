@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -36,14 +37,29 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_slidingmenu_test_patient_data, null);
-
         initPatientDataFargment(parentView);
-
         return parentView;
     }
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
+        LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
+        linearLayoutRightHolder.removeAllViews();
+
+        ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
+        imageViewBell.setImageResource(R.drawable.ic_button_bell);
+
+        ImageView imageViewPlus = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
+        imageViewPlus.setImageResource(R.drawable.ic_button_plus);
+
+        int space_small = (int) viewGroupTopBar.getResources().getDimension(R.dimen.ca_space_small);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(space_small, 0, 0, 0);
+
+        imageViewPlus.setLayoutParams(lp);
+
+        linearLayoutRightHolder.addView(imageViewBell);
+        linearLayoutRightHolder.addView(imageViewPlus);
     }
 
     private void initPatientDataFargment(View view) {

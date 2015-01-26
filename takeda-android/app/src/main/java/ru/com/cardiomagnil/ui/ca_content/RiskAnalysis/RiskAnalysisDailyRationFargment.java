@@ -13,13 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestResultDao;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
+import ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
 
@@ -58,7 +63,7 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
     }
 
     private void tryGetResults() {
-        Ca_TestSource testSource = AppState.getInstatce().getTestIncoming();
+        Ca_TestSource testSource = AppState.getInstatce().getTestSource();
         pickTestIncomingFields(testSource);
 
         if (testSource.validate(Ca_TestSource.RESULT_GROUPS.third)) {
@@ -114,12 +119,22 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
         slidingMenuActivity.hideProgressDialog();
 
         if (testResult != null) {
-            // TODO: show result
+            storeResult(testResult);
+            slidingMenuActivity.replaceContentOnTop(new TestResultsFargment(), false);
         } else if (responseError != null) {
+            // TODO: show message according to error
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void storeResult(Ca_TestResult testResult) {
+        ObjectNode objectNode = new ObjectMapper().valueToTree(testResult);
+        String testResultString = objectNode.toString();
+
+        AppSharedPreferences.put(AppSharedPreferences.Preference.testResult, testResultString);
+        AppState.getInstatce().setTestResult(testResult);
     }
 
     // the meat of switching the above fragment

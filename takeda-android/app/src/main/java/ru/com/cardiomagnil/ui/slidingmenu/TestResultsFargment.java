@@ -2,6 +2,7 @@ package ru.com.cardiomagnil.ui.slidingmenu;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,39 +11,30 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.Map;
-
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.model.TestResult;
-import ru.com.cardiomagnil.model.TestResult.BANNERS;
-import ru.com.cardiomagnil.model.TestResult.PAGES;
-import ru.com.cardiomagnil.model.TestResult.PIECES;
-import ru.com.cardiomagnil.model.TestResult.STATES;
-import ru.com.cardiomagnil.model.TestResultBanner;
-import ru.com.cardiomagnil.model.TestResultPage;
-import ru.com.cardiomagnil.model.TestResultPiece;
+import ru.com.cardiomagnil.ca_model.test.Ca_Banner;
+import ru.com.cardiomagnil.ca_model.test.Ca_Banners;
+import ru.com.cardiomagnil.ca_model.test.Ca_Note;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestResult.STATES;
 
 public class TestResultsFargment extends Fragment {
     private View parentView;
-    private SlidingMenuActivity mSlidingMenuActivity;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_slidingmenu_analysis_results, null);
-        mSlidingMenuActivity = (SlidingMenuActivity) getActivity();
-
         initTestResultsFargment(parentView);
-
         return parentView;
     }
 
     private void initTestResultsFargment(View view) {
-        TestResult testResult = AppState.getInstatce().getTestResult();
+        Ca_TestResult testResult = AppState.getInstatce().getTestResult();
 
         ScrollView scrollViewResults = (ScrollView) view.findViewById(R.id.scrollViewResults);
         TextView textViewError = (TextView) view.findViewById(R.id.textViewError);
 
-        if (testResult.isInitialized()) {
+        if (testResult != null && testResult.getId() != null) {
             scrollViewResults.setVisibility(View.VISIBLE);
             textViewError.setVisibility(View.INVISIBLE);
         } else {
@@ -67,65 +59,67 @@ public class TestResultsFargment extends Fragment {
         View linearLayoutBanneholesterolDrugs = view.findViewById(R.id.linearLayoutBanneholesterolDrugs);
         View linearLayoutBanneExtraSalt = view.findViewById(R.id.linearLayoutBanneExtraSalt);
 
-        textViewResult.setText(String.valueOf(testResult.getScoreValue()) + "%");
+        textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
 
-        initPeace(linearLayoutScoreDescription, testResult.getPieces().get(PIECES.scoreDescription.name()));
-        initPeace(linearLayoutDangerAlert, testResult.getPieces().get(PIECES.dangerAlert.name()));
+        initPeace(linearLayoutScoreDescription, testResult.getRecommendations().getScoreNote());
+        initPeace(linearLayoutDangerAlert, testResult.getRecommendations().getFullscreenAlert());
         if (linearLayoutDangerAlert.getVisibility() != View.GONE) {
             // View linearLayoutBigWrapper = view.findViewById(R.id.linearLayoutBigWrapper);
             // linearLayoutBigWrapper.setVisibility(View.GONE);
             // return;
         }
-        initPeace(linearLayoutMainRecommendation, testResult.getPieces().get(PIECES.mainRecommendation.name()));
+        initPeace(linearLayoutMainRecommendation, testResult.getRecommendations().getMainRecommendation());
 
-        Map<String, TestResultBanner> banners = testResult.getBanners();
-        Map<String, TestResultPage> pages = testResult.getPages();
+        // FIXME: implement placesLinkShouldBeVisible
 
-        initBanner(linearLayoutBannerSmoking, banners.get(BANNERS.smoking.name()), pages.get(PAGES.smoking.name()));
-        initBanner(linearLayoutBannerPhysicalActivity, banners.get(BANNERS.physicalActivity.name()), pages.get(PAGES.physicalActivity.name()));
-        initBanner(linearLayoutBannerBMI, banners.get(BANNERS.bmi.name()), pages.get(PAGES.bmi.name()));
-        initBanner(linearLayoutBannerCholesterolLevel, banners.get(BANNERS.cholesterolLevel.name()), pages.get(PAGES.cholesterolLevel.name()));
-        initBanner(linearLayoutBanneArterialPressure, banners.get(BANNERS.arterialPressure.name()), pages.get(PAGES.arterialPressure.name()));
-        initBanner(linearLayoutBanneSugarProblems, banners.get(BANNERS.sugarProblems.name()), pages.get(PAGES.sugarProblems.name()));
-        initBanner(linearLayoutBannePressureDrugs, banners.get(BANNERS.arterialPressureDrugs.name()), pages.get(PAGES.arterialPressureDrugs.name()));
-        initBanner(linearLayoutBanneholesterolDrugs, banners.get(BANNERS.cholesterolDrugs.name()), pages.get(PAGES.cholesterolDrugs.name()));
-        initBanner(linearLayoutBanneExtraSalt, banners.get(BANNERS.extraSalt.name()), pages.get(PAGES.extraSalt.name()));
+        Ca_Banners banners = testResult.getRecommendations().getBanners();
+
+        initBanner(linearLayoutBannerSmoking, banners.getIsSmoker());
+        initBanner(linearLayoutBannerPhysicalActivity, banners.getPhysicalActivityMinutes());
+        initBanner(linearLayoutBannerBMI, banners.getBmi());
+        initBanner(linearLayoutBannerCholesterolLevel, banners.getCholesterolLevel());
+        initBanner(linearLayoutBanneArterialPressure, banners.getArterialPressure());
+        initBanner(linearLayoutBanneSugarProblems, banners.getHadSugarProblems());
+        initBanner(linearLayoutBannePressureDrugs, banners.getIsArterialPressureDrugsConsumer());
+        initBanner(linearLayoutBanneholesterolDrugs, banners.getIsCholesterolDrugsConsumer());
+        initBanner(linearLayoutBanneExtraSalt, banners.getIsAddingExtraSalt());
     }
 
-    private void initPeace(View pieceView, TestResultPiece peaceData) {
+    private void initPeace(View pieceView, Ca_Note note) {
         ImageView imageViewState = (ImageView) pieceView.findViewById(R.id.imageViewState);
         TextView textViewText = (TextView) pieceView.findViewById(R.id.textViewText);
 
-        if (peaceData == null || (peaceData.getState() == STATES.empty && peaceData.getText().isEmpty())) {
+        if (note == null || (TextUtils.isEmpty(note.getState()) && TextUtils.isEmpty(note.getText()))) {
             pieceView.setVisibility(View.GONE);
             return;
         }
 
-        setImageView(imageViewState, peaceData.getState());
-        setTextView(textViewText, peaceData.getText());
+        setImageView(imageViewState, note.getState());
+        setTextView(textViewText, note.getText());
     }
 
-    private void initBanner(View bannerView, TestResultBanner bannerData, final TestResultPage pageData) {
+    private void initBanner(View bannerView, Ca_Banner bannerData) {
         ImageView imageViewState = (ImageView) bannerView.findViewById(R.id.imageViewState);
         TextView textViewTitle = (TextView) bannerView.findViewById(R.id.textViewTitle);
-        TextView textViewAberration = (TextView) bannerView.findViewById(R.id.textViewAberration);
+        TextView textViewSubtitle = (TextView) bannerView.findViewById(R.id.textViewSubtitle);
         TextView textViewNote = (TextView) bannerView.findViewById(R.id.textViewNote);
         ImageView imageViewRight = (ImageView) bannerView.findViewById(R.id.imageViewRight);
 
-        if (bannerData == null || (bannerData.getState() == STATES.empty &&
-        /**/bannerData.getTitle().isEmpty() &&
-        /**/bannerData.getAberration().isEmpty() &&
-        /**/bannerData.getNote().isEmpty())) {
+        if (bannerData == null
+                || ((TextUtils.isEmpty(bannerData.getState()) &&
+                TextUtils.isEmpty(bannerData.getTitle()) &&
+                TextUtils.isEmpty(bannerData.getSubtitle()) &&
+                TextUtils.isEmpty(bannerData.getNote())))) {
             bannerView.setVisibility(View.GONE);
             return;
         }
 
         setImageView(imageViewState, bannerData.getState());
         setTextView(textViewTitle, bannerData.getTitle());
-        setTextView(textViewAberration, bannerData.getAberration());
+        setTextView(textViewSubtitle, bannerData.getSubtitle());
         setTextView(textViewNote, bannerData.getNote());
 
-        if (pageData == null) {
+        if (TextUtils.isEmpty(bannerData.getPageUrl())) {
             imageViewRight.setVisibility(View.INVISIBLE);
             imageViewRight.setOnClickListener(null);
         } else {
@@ -133,7 +127,8 @@ public class TestResultsFargment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
-                    AppState.getInstatce().setTestResultPage(pageData);
+                    // FIXME!!!
+//                    AppState.getInstatce().setTestResultPage(pageData);
                     // FIXME!!! switchContent
 //                    mSlidingMenuActivity.switchContent(new TestResultsRecomendationFargment(), TestResultsFargment.this);
                 }
@@ -141,31 +136,38 @@ public class TestResultsFargment extends Fragment {
         }
     }
 
-    private void setImageView(ImageView imageView, STATES state) {
+    private void setImageView(ImageView imageView, String stateString) {
         int imageResource;
+        STATES state = STATES.empty;
+
+        try {
+            state = STATES.valueOf(stateString.toLowerCase());
+        } catch (IllegalArgumentException ex) {
+            // do nothing
+        }
 
         switch (state) {
-        case ask:
-            imageResource = R.drawable.ic_undefined;
-            break;
-        case attention:
-            imageResource = R.drawable.ic_danger;
-            break;
-        case bell:
-            imageResource = R.drawable.ic_bell;
-            break;
-        case doctor:
-            imageResource = R.drawable.ic_doctor;
-            break;
-        case ok:
-            imageResource = R.drawable.ic_good;
-            break;
-        case empty:
-            imageResource = -1;
-            break;
-        default:
-            imageResource = -1;
-            break;
+            case ask:
+                imageResource = R.drawable.ic_undefined;
+                break;
+            case attention:
+                imageResource = R.drawable.ic_danger;
+                break;
+            case bell:
+                imageResource = R.drawable.ic_bell;
+                break;
+            case doctor:
+                imageResource = R.drawable.ic_doctor;
+                break;
+            case ok:
+                imageResource = R.drawable.ic_good;
+                break;
+            case empty:
+                imageResource = -1;
+                break;
+            default:
+                imageResource = -1;
+                break;
 
         }
         if (imageResource > 0) {

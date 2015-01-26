@@ -97,7 +97,7 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
     }
 
     private void trySwitchNextFragment() {
-        Ca_TestSource testSource = AppState.getInstatce().getTestIncoming();
+        Ca_TestSource testSource = AppState.getInstatce().getTestSource();
         String resultString = pickTestIncomingFields(testSource);
 
         if (!resultString.isEmpty()) {
