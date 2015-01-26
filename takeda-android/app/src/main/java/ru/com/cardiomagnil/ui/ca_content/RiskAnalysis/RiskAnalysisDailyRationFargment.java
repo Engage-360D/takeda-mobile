@@ -120,13 +120,15 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
 
         if (testResult != null) {
             storeResult(testResult);
-            slidingMenuActivity.replaceContentOnTop(new TestResultsFargment(), false);
+            slidingMenuActivity.unLockMenu();
         } else if (responseError != null) {
             // TODO: show message according to error
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
         }
+
+        slidingMenuActivity.replaceContentOnTop(new TestResultsFargment(), false);
     }
 
     private void storeResult(Ca_TestResult testResult) {

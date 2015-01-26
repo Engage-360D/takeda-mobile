@@ -18,14 +18,20 @@ import ru.com.cardiomagnil.ca_model.test.Ca_Banners;
 import ru.com.cardiomagnil.ca_model.test.Ca_Note;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestResult.STATES;
+import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 
-public class TestResultsFargment extends Fragment {
+public class TestResultsFargment extends Ca_BaseItemFragment {
     private View parentView;
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_slidingmenu_analysis_results, null);
         initTestResultsFargment(parentView);
         return parentView;
+    }
+
+    @Override
+    public void initTopBar(ViewGroup viewGroupTopBar) {
     }
 
     private void initTestResultsFargment(View view) {
@@ -142,7 +148,7 @@ public class TestResultsFargment extends Fragment {
 
         try {
             state = STATES.valueOf(stateString.toLowerCase());
-        } catch (IllegalArgumentException ex) {
+        } catch (Exception ex) {
             // do nothing
         }
 

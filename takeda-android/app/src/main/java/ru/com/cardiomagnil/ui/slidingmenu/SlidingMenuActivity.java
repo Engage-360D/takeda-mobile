@@ -109,6 +109,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         slidingMenu.onFinishTemporaryDetach();
 
         lockMenuIfneed();
+        unlockItemsIfneed();
     }
 
     private void lockMenuIfneed() {
@@ -118,6 +119,15 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
             unLockMenu();
         } else {
             lockMenu();
+        }
+    }
+
+    private void unlockItemsIfneed() {
+        Ca_TestResult testResult = AppState.getInstatce().getTestResult();
+
+        if (testResult != null && !TextUtils.isEmpty(testResult.getId())) {
+            Ca_MenuItem.item_analysis_results.setItemIsEnabled(true);
+            Ca_MenuItem.item_analysis_results.setItemIsVisible(true);
         }
     }
 
