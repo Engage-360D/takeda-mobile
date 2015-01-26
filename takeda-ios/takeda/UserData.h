@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "jsonInFile.h"
 
+typedef enum {
+    tUser = 1,
+    tDoctor = 2,
+} UserType;
+
 @interface UserData : NSObject{
     NSString *access_token_;
     NSString *user_id_;
@@ -21,11 +26,11 @@
 @property (nonatomic, strong) NSString *user_name;
 @property (nonatomic, strong) NSString *access_token;
 @property (nonatomic, strong) NSMutableDictionary *userData;
+@property (nonatomic) UserType userType;
 
 
 -(BOOL)is_authorized;
     
--(NSString*)getAccessToken;
 -(void)setAccessToken:(NSString*)token;
 
 -(NSDictionary*)getUserData;
@@ -33,9 +38,6 @@
 
 -(void)savePassword:(NSString*)pass;
 -(void)saveUserName:(NSString*)username;
-
--(NSString*)getUserPassword;
--(NSString*)getUserName;
 
 -(void)saveAnalisRiskData:(NSData*)data;
 -(id)getLastSavedAnalisRiskData;

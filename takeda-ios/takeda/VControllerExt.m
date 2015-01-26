@@ -7,6 +7,7 @@
 //
 
 #import "VControllerExt.h"
+#import "Personal.h"
 
 @interface VControllerExt ()
 
@@ -28,6 +29,9 @@
     self.navigationController.navigationBarHidden = NO;
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+    self.isFromMenu = NO;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -88,7 +92,7 @@
     self.navigationItem.titleView = view;
     
 
-    self.navigationItem.rightBarButtonItems = @[[self peopleButton],[self alarmButton]];
+    self.navigationItem.rightBarButtonItems = @[[self personalButton],[self alarmButton]];
     if (self.isRootVC){
         self.navigationItem.leftBarButtonItem = [self menuButton];
     } else {
@@ -127,13 +131,16 @@
     return [[UIBarButtonItem alloc] initWithCustomView:aButton];
 }
 
--(UIBarButtonItem*)peopleButton{
+-(UIBarButtonItem*)personalButton{
     UIImage *peopleImage = [UIImage imageNamed:@"people_icon"];
+    UIImage *peopleImageSel = [UIImage imageNamed:@"peopleIconSel"];
     UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [bButton setImage:peopleImage forState:UIControlStateNormal];
+    [bButton setImage:peopleImageSel forState:UIControlStateDisabled];
+
     bButton.frame = CGRectMake(0.0,0.0,peopleImage.size.width+10,peopleImage.size.height);
     bButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
-    //[bButton addTarget:self action:@selector(openLeftMenu) forControlEvents:UIControlEventTouchUpInside];
+    [bButton addTarget:self action:@selector(showPersonal) forControlEvents:UIControlEventTouchUpInside];
     return [[UIBarButtonItem alloc] initWithCustomView:bButton];
 }
 
@@ -158,5 +165,9 @@
     return  self == [self.navigationController.viewControllers objectAtIndex: 0];
 }
 
+-(void)showPersonal{
+    Personal *personal = [Personal new];
+    [self.navigationController pushViewController:personal animated:YES];
+}
 
 @end

@@ -14,6 +14,7 @@
 @interface ResultRiskAnalysis (){
     NSMutableArray *resultData;
     id data;
+    NSMutableDictionary *currentTest;
 }
 @end
 
@@ -38,27 +39,30 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
 
 
 -(void)getSavedData{
-    if (!resultData) {
-        resultData = [[NSMutableArray alloc] init];
+
+    resultData = [GlobalData resultAnalyses];
+    if (resultData.count>0){
+        currentTest = [resultData lastObject];
     }
-    [resultData removeAllObjects];
+    data = currentTest;
+       if (data) {
+            if ([data isKindOfClass:[NSDictionary class]]) {
+                if (![[data objectForKey:@"recommendations"] isEqual:[NSNull null]] && [data hasKey:@"recommendations"]) {
     
-    data = [[UserData sharedObject] getLastSavedAnalisRiskData];
-    if (data) {
-        if ([data isKindOfClass:[NSDictionary class]]) {
-            if (![[data objectForKey:@"recommendations"] isEqual:[NSNull null]] && [data hasKey:@"recommendations"]) {
-                
-                [self makeHeaderUI:[data objectForKey:@"recommendations"]];
-                
-                if (![[[data objectForKey:@"recommendations"] objectForKey:@"banners"] isEqual:[NSNull null]] && [[data objectForKey:@"recommendations"] hasKey:@"banners"]) {
-                    [self makeDataResultArray:[[data objectForKey:@"recommendations"] objectForKey:@"banners"]];
-                }
+                    [self makeHeaderUI:[data objectForKey:@"recommendations"]];
+    
+                    if (![[[data objectForKey:@"recommendations"] objectForKey:@"banners"] isEqual:[NSNull null]] && [[data objectForKey:@"recommendations"] hasKey:@"banners"]) {
+                        [self makeDataResultArray:[[data objectForKey:@"recommendations"] objectForKey:@"banners"]];
+               }
+               }
             }
+    
+           [self setScoreData:data];
+           
         }
-        
-        [self setScoreData:data];
-        
-    }
+
+    
+    NSLog(@"resultSaved = %@", currentTest);
 }
 
 -(void)setScoreData:(NSDictionary*)dic{
@@ -126,9 +130,6 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
                     
                     imgView.image = [UIImage imageNamed:[self getNameImage:[data_d objectForKey:@"state"]]];//[UIImage imageNamed:@"danger_big.png"];
                     
-                    
-                    
-                    
                     imgView.contentMode = UIViewContentModeCenter;
                     imgView.tag = 150 + i;
                     [headerView addSubview:imgView];
@@ -153,27 +154,6 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
     headerView.frame = RectSetHeight(headerView.frame, current_Y);
     self.tableView.tableHeaderView = headerView;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -216,7 +196,7 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
             break;
         }
         CASE(@"arterialPressureDrugs"){
-            return @"Препараты для нормаллизации давления";
+            return @"Препараты для нормализации давления";
             break;
         }
         CASE(@"bmi"){
@@ -307,50 +287,6 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
 
 
 
-
-
-/*
--(void)initTMPArray{
-    return;
-    
-    
-    if (!resultData) {
-        resultData = [[NSMutableArray alloc] init];
-    }
-    [resultData addObject:@{@"title": @"Рекомендации по SCORE",
-                            @"data":@[
-                                    @{@"img": @"danger_icon",@"text":@"Диабет.\nГруппа риска."},
-                                    @{@"img": @"danger_icon",@"text":@"Инфаркт.\nГруппа риска."},
-                                    @{@"img": @"bell_icon",@"text":@"Профилактика.\nКатегория: \"норма\"\nНеобходимо улучшение."}
-                                    ]}];
-    [resultData addObject:@{@"title": @"Курение",
-                            @"data":@[
-                                    @{@"img": @"danger_icon",@"text":@"Курение.\nГруппа риска."},
-                                    ]}];
-    [resultData addObject:@{@"title": @"Физическая активность",
-                            @"data":@[
-                                    @{@"img": @"bell_icon",@"text":@"Физическая активность\nОтклонение от нормы: 10%\nНеобходимо улучшение."},
-                                    @{@"img": @"good_result_icon",@"text":@"Вес\nОтклонение от нормы: 2%\nВсе хорошо"}
-                                    ]}];
-    [resultData addObject:@{@"title": @"Основные риски",
-                            @"data":@[
-                                    @{@"img": @"bell_icon",@"text":@"Уровень холестерина\nОтклонение от нормы: 10%\nНеобходимо улучшение."},
-                                    @{@"img": @"danger_icon",@"text":@"Систолическое давление\n Отклонение от нормы: 30%\nВсе хорошо"},
-                                    @{@"img": @"doc_tools_icon",@"text":@"Отмечалось повышение\nуровня сахара в крови\nОбратитесь к врачу"},
-                                    @{@"img": @"doc_tools_icon",@"text":@"Ваше давление выше нормы\nОбратитесь к врачу"},
-                                    @{@"img": @"doc_tools_icon",@"text":@"Ваш холестерин выше нормы\nОбратитесь к врачу"}
-                                    ]}];
-    [resultData addObject:@{@"title": @"Диета",
-                            @"data":@[
-                                    @{@"img": @"bell_icon",@"text":@"Потребление соли\nОтклонение от нормы: 10%\nНеобходимо улучшение."},
-                                    @{@"img": @"undefined_result_icon",@"text":@"Дополнительная\nкорректировка диеты\nПройти опрос"}
-                                    ]}];
-}
-
-
-*/
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -363,10 +299,10 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (needUpdate) {
+   // if (needUpdate) {
         [self getSavedData];
-        needUpdate = NO;
-    }
+  //      needUpdate = NO;
+ //   }
     
 }
 
@@ -423,14 +359,21 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
         }
     }
 
-    cell.img_icon.image = [UIImage imageNamed:[[[[resultData objectAtIndex:indexPath.section] objectForKey:@"data"] objectAtIndex:indexPath.row] objectForKey:@"img"]];
+    NSMutableDictionary *item = resultData[indexPath.section][@"data"][indexPath.row];
     
+    cell.img_icon.image = [UIImage imageNamed:item[@"img"]];
     
-    cell.text_data.text = [[[[resultData objectAtIndex:indexPath.section] objectForKey:@"data"] objectAtIndex:indexPath.row] objectForKey:@"text"];
+    cell.text_data.text = item[@"text"];
     cell.text_data.font = [self getFontDescription];
     cell.contentView.backgroundColor = [UIColor clearColor];
     
-    cell.backgroundColor = [UIColor colorWithRed:123.0/255 green:182.0/255 blue:242.0/255 alpha:1];
+    
+    BOOL attention = [item[@"state"] isEqualToString:@"ok"];
+    if (attention){
+        cell.backgroundColor = [self attentionCellColor];
+    } else {
+        cell.backgroundColor = [self normCellColor];
+    }
     
     UIView *sel_view = [[UIView alloc] init];
     sel_view.backgroundColor = [UIColor clearColor];
@@ -444,11 +387,8 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
+
     NSString *key = [[[[resultData objectAtIndex:indexPath.section] objectForKey:@"data"] objectAtIndex:indexPath.row] objectForKey:@"key"];
-    
-    
     NSDictionary *data_page = [self getDicPage:key];
     
     if (!data_page || [data_page isEqual:[NSNull null]]) {
@@ -456,20 +396,14 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
         return;
     }
     
-    
-    
-    
     NSDictionary *data_banner = nil;
     if (key && ![key isEqual:[NSNull null]]) {
         data_banner = [self getDicBanner:key];
     }
     
-    
     if (!detailResultRiskAnalysis) {
         detailResultRiskAnalysis = [[DetailResultRiskAnalysis alloc] initWithNibName:@"DetailResultRiskAnalysis" bundle:nil];
     }
-    
-    
     
     detailResultRiskAnalysis.data_page = data_page;
     detailResultRiskAnalysis.data_banner = data_banner;
@@ -520,5 +454,12 @@ DetailResultRiskAnalysis *detailResultRiskAnalysis;
     return [UIFont fontWithName:@"SegoeUI-Light" size:15.0];
 }
 
+-(UIColor*)normCellColor{
+    return RGB(101, 147, 194);
+}
+
+-(UIColor*)attentionCellColor{
+    return RGB(108, 174, 241);
+}
 
 @end

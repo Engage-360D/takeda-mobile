@@ -7,9 +7,10 @@
 
 
 #define kServerURL [NSString stringWithFormat:@"%@/api/v1/",kBaseServerURL]
-#define kTokens @"tokens"
-#define kUsers @"users"
-#define kRegionsList @"regions"
+#define kTokens @"tokens"   // получить токен пользователя (исп. для авторизации)
+#define kUsers @"users" // Пользователи. POST - создать пользователя, GET - получить пользователей, /id - информация о пользователе
+#define kRegionsList @"regions" // получить список регионов
+#define kTestResults @"account/test-results" // POST - сохранение результатов теста , GET - (получение результата(ов) теста пользователя
 
 
 #define client_id @"3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4"

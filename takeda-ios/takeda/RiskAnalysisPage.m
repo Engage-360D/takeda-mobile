@@ -59,25 +59,12 @@ int selectedIndex = 0;
 
 
 -(void)setDefaultDateBirthday{
-    if ([[[UserData sharedObject] getUserData] objectForKey:@"birthday"]) {
+    if (User.userData[@"birthday"]) {
         
-        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-        NSDate *curDate = [formatter dateFromString:[NSString stringWithFormat:@"%@",[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]]];
+        NSDate *curDate = [Global parseDateTime: User.userData[@"birthday"]];
         if (curDate) {
-            
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
-            
-            NSString *prettyVersion = [dateFormat stringFromDate:curDate];
-            
-            if (!prettyVersion) {
-                [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ssZZZ"];
-                prettyVersion = [dateFormat stringFromDate:curDate];
-            }
-            
-            
-            [[[analizData sharedObject] dicRiskData] setObject:prettyVersion forKey:@"birthday"];
+
+            [[[analizData sharedObject] dicRiskData] setObject:User.userData[@"birthday"] forKey:@"birthday"];
             
             NSDateComponents* agecalcul = [[NSCalendar currentCalendar]
                                            components:NSYearCalendarUnit
@@ -87,7 +74,6 @@ int selectedIndex = 0;
             //show the age as integer
             NSInteger age = [agecalcul year];
             [[[analizData sharedObject] dicRiskData] setObject:[NSString stringWithFormat:@"%i",(int)age] forKey:@"old"];
-
 
         }
         
@@ -281,32 +267,33 @@ int selectedIndex = 0;
     
     
     
-    NSDictionary *params = @{@"acetylsalicylicDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_risk_trombus"],
-                             @"arterialPressure": [[[analizData sharedObject] dicRiskData] objectForKey:@"arterial_pressure"],
-                             @"arterialPressureDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"decrease_pressure_drags"],
-                             //@"birthday": [[[UserData sharedObject] getUserData] objectForKey:@"birthday"],
+    NSDictionary *params = @{@"sex":sex,
                              @"birthday": [[[analizData sharedObject] dicRiskData] objectForKey:@"birthday"],
-                             @"cholesterolDrugs": [[[analizData sharedObject] dicRiskData] objectForKey:@"drags_cholesterol"],
-                             @"cholesterolLevel":[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"],
-                             @"diabetes":[[[analizData sharedObject] dicRiskData] objectForKey:@"diabet"],
-                             @"sugarProblems":[[[analizData sharedObject] dicRiskData] objectForKey:@"higher_suger_blood"],
-                             @"sugarDrugs":[[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_suger"],
-                             @"extraSalt":[[[analizData sharedObject] dicRiskData] objectForKey:@"salt"],
-                             @"growth":[[[analizData sharedObject] dicRiskData] objectForKey:@"growth"],
-                             @"heartAttackOrStroke":[[[analizData sharedObject] dicRiskData] objectForKey:@"infarct"],
-                             @"physicalActivity":[[[analizData sharedObject] dicRiskData] objectForKey:@"sport"],
-                             @"sex":sex,
-                             @"smoking":[[[analizData sharedObject] dicRiskData] objectForKey:@"smoke"],
-                             @"weight":[[[analizData sharedObject] dicRiskData] objectForKey:@"weight"]
+                             @"growth":[NSNumber numberWithInt:[[[[analizData sharedObject] dicRiskData] objectForKey:@"growth"] intValue]],
+                             @"weight":[NSNumber numberWithInt:[[[[analizData sharedObject] dicRiskData] objectForKey:@"weight"] intValue]],
+                             @"isSmoker":[NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"smoke"] boolValue]],
+                             @"cholesterolLevel":[NSNumber numberWithFloat:[[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"]floatValue]],
+                             @"isCholesterolDrugsConsumer":[[[analizData sharedObject] dicRiskData] objectForKey:@"drags_cholesterol"],
+                             @"hasDiabetes": [NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"diabet"] boolValue]],
+                             @"hadSugarProblems":[[[analizData sharedObject] dicRiskData] objectForKey:@"higher_suger_blood"],
+                             @"isSugarDrugsConsumer":[[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_suger"],
+                             @"arterialPressure": [NSNumber numberWithInt:[[[[analizData sharedObject] dicRiskData] objectForKey:@"arterial_pressure"] intValue]],
+                             @"isArterialPressureDrugsConsumer": [[[analizData sharedObject] dicRiskData] objectForKey:@"decrease_pressure_drags"],
+                             @"physicalActivityMinutes":[NSNumber numberWithInt:[[[[analizData sharedObject] dicRiskData] objectForKey:@"sport"] intValue]],
+                             @"hadHeartAttackOrStroke":[NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"infarct"]boolValue]],
+                             @"isAddingExtraSalt":[NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"salt"]boolValue]],
+                             @"isAcetylsalicylicDrugsConsumer": [NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_risk_trombus"]boolValue]]
                              };
     
     
     
     
-    [inetRequests sendAnalysisToServer:@{@"testResult": params} completion:^(BOOL result, NSError *error) {
+    [ServData sendAnalysisToServer:params completion:^(BOOL success, NSError *error, id result) {
         if (result) {
+            [GlobalData saveResultAnalyses:result[@"data"]];
+            
             if (!resultRiskAnalysis) {
-                resultRiskAnalysis = [[ResultRiskAnalysis alloc] initWithNibName:@"ResultRiskAnalysis" bundle:nil];
+                resultRiskAnalysis = [ResultRiskAnal new];
             }
             resultRiskAnalysis.needUpdate = YES;
             [self.navigationController pushViewController:resultRiskAnalysis animated:YES];
@@ -437,6 +424,19 @@ int selectedIndex = 0;
     [picker_cover showInView:self.view.superview];
     [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 1;
+    selectedIndex = 0;
+    
+    float value = [[[[analizData sharedObject] dicRiskData] valueForKey:currentKey] floatValue];
+    for (int i = 0; i<pickerDataSource.count; i++){
+        if (value == [pickerDataSource[i] floatValue]){
+            selectedIndex = i;
+            break;
+        }
+    }
+    
+    [picker_view selectRow:selectedIndex inComponent:0 animated:NO];
+    
+
     
 }
 
@@ -454,11 +454,11 @@ int selectedIndex = 0;
         
         if ((int)[picker_cover tag]==2) {
             NSDate *myDate = date_picker.date;
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
-            
-            NSString *prettyVersion = [dateFormat stringFromDate:myDate];
-            [[[analizData sharedObject] dicRiskData] setObject:prettyVersion forKey:@"birthday"];
+//            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//            [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
+//            
+//            NSString *prettyVersion = [dateFormat stringFromDate:myDate];
+            [[[analizData sharedObject] dicRiskData] setObject:[Global strDateTime:myDate] forKey:@"birthday"];
             
             NSDateComponents* agecalcul = [[NSCalendar currentCalendar]
                                            components:NSYearCalendarUnit
@@ -542,18 +542,10 @@ numberOfRowsInComponent:(NSInteger)component
     date_picker.datePickerMode = UIDatePickerModeDate;
     //[date_picker addTarget:self action:@selector(changeDate) forControlEvents:UIControlEventValueChanged];
     
-    if ([[[UserData sharedObject] getUserData] objectForKey:@"birthday"]) {
+    if (User.userData[@"birthday"]) {
         
-        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-        [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-        NSDate *curDate = [formatter dateFromString:[NSString stringWithFormat:@"%@",[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]]];
-        
-        
-        if (!curDate) {
-            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ssZZZ"];
-            curDate = [formatter dateFromString:[[[UserData sharedObject] getUserData] objectForKey:@"birthday"]];
-        }
-        
+        NSDate *curDate = [Global parseDateTime:User.userData[@"birthday"]];
+
         if (curDate) {
             [date_picker setDate:curDate];
         }else{
@@ -561,7 +553,6 @@ numberOfRowsInComponent:(NSInteger)component
         }
 
     }
-    
     
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:date_picker];

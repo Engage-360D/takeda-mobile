@@ -7,6 +7,7 @@
 //
 
 #import "AnalisisResultPage.h"
+#import "ResultRiskAnal.h"
 
 @interface AnalisisResultPage ()
 
@@ -26,6 +27,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.isFromMenu){
+        [self goToRes:nil];
+    }
+}
+
+-(IBAction)goToRes:(id)sender{
+    ResultRiskAnal *rr = [ResultRiskAnal new];
+    [self.navigationController pushViewController:rr animated:YES];
 }
 
 

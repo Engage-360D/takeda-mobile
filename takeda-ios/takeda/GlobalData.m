@@ -9,6 +9,8 @@
 #import "GlobalData.h"
 #define filePath(fileName) [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],fileName]
 #define regionsListFile  @"regionsListFile"
+#define resultAnalysesFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"test"]
+
 
 @implementation GlobalData
 
@@ -31,15 +33,31 @@ static GlobalData *objectInstance = nil;
     [database open];
 }
 
--(NSMutableArray*)regionsList{
++(NSMutableArray*)regionsList{
     return [Global recursiveMutable: [[NSMutableArray alloc] initWithContentsOfFile:filePath(regionsListFile)]];
 }
 
--(void)loadRegionsList:(void (^)(BOOL success, id result))completion{
++(void)loadRegionsList:(void (^)(BOOL success, id result))completion{
 }
 
--(void)saveRegions:(NSMutableArray*)regions{
++(void)saveRegions:(NSMutableArray*)regions{
     [regions writeToFile:filePath(regionsListFile) atomically:YES];
+}
+
++(void)saveResultAnalyses:(NSMutableDictionary*)result{
+    NSString *fileN = resultAnalysesFile;
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithContentsOfFile:fileN];
+    if (User.userType == tUser){
+        arr = [NSMutableArray new];
+    }
+    [arr addObject:result];
+    [arr saveTofile:fileN];
+}
+
++(NSMutableArray*)resultAnalyses{
+    NSString *fileN = resultAnalysesFile;
+    NSMutableArray *arr = [NSMutableArray readFromFile:fileN];
+    return arr;
 }
 
 @end

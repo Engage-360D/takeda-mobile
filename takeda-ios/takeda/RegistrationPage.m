@@ -93,7 +93,7 @@ NSString *sentEmail;
 -(void)initData{
     [ServData loadRegionsWithCompletion:^(BOOL success, id result){
         if (success){
-            regions_data = [GData regionsList];
+            regions_data = [GlobalData regionsList];
         }
     }];
 }
@@ -151,6 +151,9 @@ NSString *sentEmail;
 
 
 -(BOOL)checkFields{
+    if (name_field.text.length==0||email_field.text.length==0||pass_field.text.length==0) return NO;
+    if (birthdayDate==nil||selectedRegion==nil) return NO;
+    if (user_is_agree_personal_data==NO||user_is_agree_information_is_recomemd_style==NO) return NO;
     return YES;
 }
 
@@ -173,8 +176,9 @@ NSString *sentEmail;
         NSString *region = self.btn_region.titleLabel.text;
         region = [NSString stringWithFormat:@"%@", selectedRegion[@"id"]];
         password = pass_field.text;
-        birthday = [birthdayDate stringWithFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"];
-        NSDictionary *params = @{          @"email": email,
+        birthday = [Global strDateTime:birthdayDate];
+        //birthday = [birthdayDate stringWithFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    NSDictionary *params = @{          @"email": email,
                                            @"firstname": name,
                                            @"lastname" : @"",
                                            @"birthday":birthday,
@@ -347,7 +351,7 @@ NSString *sentEmail;
     [picker_cover showInView:self.view.superview];
     [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 1;
-    
+    [region_picker selectRow:sel_index_region inComponent:0 animated:NO];
 }
 
 -(void)closePicker{
@@ -359,7 +363,6 @@ NSString *sentEmail;
     if ((int)[picker_cover tag]==1) {
         [self.btn_region setTitle:[NSString stringWithFormat:@"Страна: %@",[regions_data objectAtIndex:sel_index_region][@"name"]] forState:UIControlStateNormal];
         selectedRegion = [regions_data objectAtIndex:sel_index_region];
-        
     }else{
         if ((int)[picker_cover tag]==2) {
             birthdayDate = date_picker.date;

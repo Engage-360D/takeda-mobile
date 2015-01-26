@@ -326,6 +326,11 @@
         cholesterol = [[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"] floatValue];
     }
     if (cholesterol <= 4.9) {
+        [[[analizData sharedObject] dicRiskData] setObject:@"-" forKey:@"drags_cholesterol"];
+    } else {
+        [[[analizData sharedObject] dicRiskData] setObject:[NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"drags_cholesterol"] boolValue]] forKey:@"drags_cholesterol"];
+    }
+    if (cholesterol <= 4.9) {
         NSMutableArray *tmp = [[NSMutableArray alloc] init];
         for (int i = 0; i < [self.sourceData count]; i++) {
             if (![[[self.sourceData objectAtIndex:i] objectForKey:@"object"] isEqualToString:@"drags_cholesterol"]) {
@@ -355,14 +360,23 @@
         
         if ([[[self.sourceData objectAtIndex:i] objectForKey:@"object"] isEqualToString:@"decrease_pressure_drags"] && arterial_pressure<=139) {
             can_add = NO;
+            [[[analizData sharedObject] dicRiskData] setObject:@"-" forKey:@"decrease_pressure_drags"];
+        } else {
+            [[[analizData sharedObject] dicRiskData] setObject:[NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"decrease_pressure_drags"] boolValue]] forKey:@"decrease_pressure_drags"];
         }
         
         if ([[[self.sourceData objectAtIndex:i] objectForKey:@"object"] isEqualToString:@"higher_suger_blood"] && suffer_diabet) {
             can_add = NO;
+            [[[analizData sharedObject] dicRiskData] setObject:@"-" forKey:@"higher_suger_blood"];
+        } else {
+            [[[analizData sharedObject] dicRiskData] setObject:[NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"higher_suger_blood"] boolValue]] forKey:@"higher_suger_blood"];
         }
         
         if ([[[self.sourceData objectAtIndex:i] objectForKey:@"object"] isEqualToString:@"accept_drags_suger"] && !suffer_diabet) {
             can_add = NO;
+            [[[analizData sharedObject] dicRiskData] setObject:@"-" forKey:@"accept_drags_suger"];
+        } else {
+            [[[analizData sharedObject] dicRiskData] setObject:[NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_suger"] boolValue]] forKey:@"accept_drags_suger"];
         }
         
         if (can_add) {

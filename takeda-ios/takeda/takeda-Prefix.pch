@@ -17,6 +17,8 @@
     #import "UIView+Ext.h"
     #import "FMDatabase.h"
     #import "UIButton+Ext.h"
+    #import "NSArray+Filed.h"
+    #import "NSDictionary+Filed.h"
     #import "StandartCombyCell.h"
     #import "UITableView+Separatored.h"
     #import "NSDate+Utilities.h"
