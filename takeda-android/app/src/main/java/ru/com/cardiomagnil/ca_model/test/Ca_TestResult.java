@@ -70,7 +70,7 @@ public class Ca_TestResult extends BaseModel {
     @JsonProperty("score")
     private int score;
     @JsonProperty("recommendations")
-    private int recommendations;
+    private Ca_Recomendations recommendations;
 
     /**
      * @return The id
@@ -380,7 +380,7 @@ public class Ca_TestResult extends BaseModel {
      * @return The recommendations
      */
     @JsonProperty("recommendations")
-    public int getRecommendations() {
+    public Ca_Recomendations getRecommendations() {
         return recommendations;
     }
 
@@ -388,7 +388,7 @@ public class Ca_TestResult extends BaseModel {
      * @param recommendations The recommendations
      */
     @JsonProperty("recommendations")
-    public void setRecommendations(int recommendations) {
+    public void setRecommendations(Ca_Recomendations recommendations) {
         this.recommendations = recommendations;
     }
 

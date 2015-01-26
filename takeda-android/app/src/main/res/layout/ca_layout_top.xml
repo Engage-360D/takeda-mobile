@@ -31,12 +31,14 @@
                 android:text="@string/menu_back"
                 android:textColor="@color/ca_white"
                 android:textSize="@dimen/ca_text_size_small"
+                android:visibility="invisible"
                 app:typeface="roboto_medium" />
 
             <ImageView
                 android:id="@+id/contentTopRightMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:adjustViewBounds="true"
                 android:src="@drawable/ic_menu" />
         </RelativeLayout>

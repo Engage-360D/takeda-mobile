@@ -15,8 +15,12 @@ import android.widget.ToggleButton;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.ca_model.common.Ca_Response;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestResultDao;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
+import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
 
 public class RiskAnalysisDailyRationFargment extends Fragment {
@@ -73,7 +77,7 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
         ToggleButton toggleButtonNoAspirin = (ToggleButton) parentView.findViewById(R.id.toggleButtonNoAspirin);
 
         try {
-            Boolean extraSalt = toggleButtonAspirin.isChecked() || toggleButtonNoAspirin.isChecked() ? toggleButtonAspirin.isChecked() : null;
+            Boolean extraSalt = toggleButtonExtraSalt.isChecked() || toggleButtonNoExtraSalt.isChecked() ? toggleButtonExtraSalt.isChecked() : null;
             Boolean aspirin = toggleButtonAspirin.isChecked() || toggleButtonNoAspirin.isChecked() ? toggleButtonAspirin.isChecked() : null;
 
             testSource.setIsAddingExtraSalt(extraSalt);
@@ -85,8 +89,37 @@ public class RiskAnalysisDailyRationFargment extends Fragment {
 
     private void tryGetTestResultHelper(Ca_TestSource testSource) {
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-        // FIXME!!!
-//        slidingMenuActivity.getTestResult();
+        slidingMenuActivity.showProgressDialog();
+
+        Ca_TestResultDao.sendTestSource(
+                testSource,
+                AppState.getInstatce().getToken(),
+                new CallbackOne<Ca_TestResult>() {
+                    @Override
+                    public void execute(Ca_TestResult testResult) {
+                        handleTestResult(testResult, null);
+                    }
+                },
+                new CallbackOne<Ca_Response>() {
+                    @Override
+                    public void execute(Ca_Response responseError) {
+                        handleTestResult(null, responseError);
+                    }
+                }
+        );
+    }
+
+    private void handleTestResult(Ca_TestResult testResult, Ca_Response responseError) {
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.hideProgressDialog();
+
+        if (testResult != null) {
+            // TODO: show result
+        } else if (responseError != null) {
+            Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+        }
     }
 
     // the meat of switching the above fragment

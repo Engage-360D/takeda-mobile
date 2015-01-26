@@ -2,9 +2,12 @@ package ru.com.cardiomagnil.util;
 
 import java.util.List;
 
+import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
+import ru.com.cardiomagnil.ca_model.test.Ca_TestResultDao;
 import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.ca_model.token.Ca_TokenDao;
 import ru.com.cardiomagnil.ca_model.user.Ca_User;
@@ -14,11 +17,33 @@ import ru.com.cardiomagnil.ca_model.user.Ca_UserLgnPwd;
 public class TestMethods {
 
     public static void testCurrentMethod() {
-        Ca_UserDaoGetById();
+        Ca_TestResultDaoSendTestSource();
+//        Ca_UserDaoGetById();
 //        Ca_TokenDaoGetByUserId();
 //        Ca_TokenDaoGetByLgnPwd();
 //        Ca_UserRegister();
 //        Ca_RegionDaoGetAll();
+    }
+
+    public static void Ca_TestResultDaoSendTestSource() {
+        Ca_TestResultDao.sendTestSource(
+                null,
+                AppState.getInstatce().getToken(),
+                new CallbackOne<Ca_TestResult>() {
+                    @Override
+                    public void execute(Ca_TestResult testResult) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Ca_Response>() {
+                    @Override
+                    public void execute(Ca_Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
     }
 
     public static void Ca_UserDaoGetById() {

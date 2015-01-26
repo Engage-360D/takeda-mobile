@@ -11,10 +11,10 @@ public final class Url {
 
     public static final String USERS = API_ADDR + "users";
     public static final String USERS_ID = API_ADDR + "users/%s";
-    public static final String ACCOUNT_RESET_PASSWORD = API_ADDR + "reset-password";
+    public static final String ACCOUNT_RESET_PASSWORD = API_ADDR + "account/reset-password";
+    public static final String ACCOUNT_TEST_RESULTS = API_ADDR + "account/test-results?token=%s";
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
-
 
     public static final HashMap<String, String> POST_HEADERS = new HashMap<String, String>() {{
         put("Content-Type", "application/vnd.api+json");

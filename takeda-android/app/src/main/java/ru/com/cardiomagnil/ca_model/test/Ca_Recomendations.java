@@ -18,21 +18,21 @@ import ru.com.cardiomagnil.ca_model.base.BaseModel;
 public class Ca_Recomendations extends BaseModel {
 
     @JsonProperty("scoreNote")
-    private String scoreNote;
+    private Ca_Note scoreNote;
     @JsonProperty("fullscreenAlert")
-    private String fullscreenAlert;
+    private Ca_Note fullscreenAlert;
     @JsonProperty("mainRecommendation")
-    private String mainRecommendation;
+    private Ca_Note mainRecommendation;
     @JsonProperty("placesLinkShouldBeVisible")
-    private String placesLinkShouldBeVisible;
+    private boolean placesLinkShouldBeVisible;
     @JsonProperty("banners")
-    private String banners;
+    private Ca_Banners banners;
 
     /**
      * @return The scoreNote
      */
     @JsonProperty("scoreNote")
-    public String getScoreNote() {
+    public Ca_Note getScoreNote() {
         return scoreNote;
     }
 
@@ -40,7 +40,7 @@ public class Ca_Recomendations extends BaseModel {
      * @param scoreNote The scoreNote
      */
     @JsonProperty("scoreNote")
-    public void setScoreNote(String scoreNote) {
+    public void setScoreNote(Ca_Note scoreNote) {
         this.scoreNote = scoreNote;
     }
 
@@ -48,7 +48,7 @@ public class Ca_Recomendations extends BaseModel {
      * @return The fullscreenAlert
      */
     @JsonProperty("fullscreenAlert")
-    public String getFullscreenAlert() {
+    public Ca_Note getFullscreenAlert() {
         return fullscreenAlert;
     }
 
@@ -56,7 +56,7 @@ public class Ca_Recomendations extends BaseModel {
      * @param fullscreenAlert The fullscreenAlert
      */
     @JsonProperty("fullscreenAlert")
-    public void setFullscreenAlert(String fullscreenAlert) {
+    public void setFullscreenAlert(Ca_Note fullscreenAlert) {
         this.fullscreenAlert = fullscreenAlert;
     }
 
@@ -64,7 +64,7 @@ public class Ca_Recomendations extends BaseModel {
      * @return The mainRecommendation
      */
     @JsonProperty("mainRecommendation")
-    public String getMainRecommendation() {
+    public Ca_Note getMainRecommendation() {
         return mainRecommendation;
     }
 
@@ -72,7 +72,7 @@ public class Ca_Recomendations extends BaseModel {
      * @param mainRecommendation The mainRecommendation
      */
     @JsonProperty("mainRecommendation")
-    public void setMainRecommendation(String mainRecommendation) {
+    public void setMainRecommendation(Ca_Note mainRecommendation) {
         this.mainRecommendation = mainRecommendation;
     }
 
@@ -80,7 +80,7 @@ public class Ca_Recomendations extends BaseModel {
      * @return The placesLinkShouldBeVisible
      */
     @JsonProperty("placesLinkShouldBeVisible")
-    public String getPlacesLinkShouldBeVisible() {
+    public boolean getPlacesLinkShouldBeVisible() {
         return placesLinkShouldBeVisible;
     }
 
@@ -88,7 +88,7 @@ public class Ca_Recomendations extends BaseModel {
      * @param placesLinkShouldBeVisible The placesLinkShouldBeVisible
      */
     @JsonProperty("placesLinkShouldBeVisible")
-    public void setPlacesLinkShouldBeVisible(String placesLinkShouldBeVisible) {
+    public void setPlacesLinkShouldBeVisible(boolean placesLinkShouldBeVisible) {
         this.placesLinkShouldBeVisible = placesLinkShouldBeVisible;
     }
 
@@ -96,7 +96,7 @@ public class Ca_Recomendations extends BaseModel {
      * @return The banners
      */
     @JsonProperty("banners")
-    public String getBanners() {
+    public Ca_Banners getBanners() {
         return banners;
     }
 
@@ -104,7 +104,7 @@ public class Ca_Recomendations extends BaseModel {
      * @param banners The banners
      */
     @JsonProperty("banners")
-    public void setBanners(String banners) {
+    public void setBanners(Ca_Banners banners) {
         this.banners = banners;
     }
 

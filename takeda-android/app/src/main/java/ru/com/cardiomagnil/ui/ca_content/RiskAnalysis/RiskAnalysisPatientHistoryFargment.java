@@ -36,7 +36,7 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
     private void initPatientDataFargment(View view) {
 
         RadioGroup radioGroupDiabetes = (RadioGroup) view.findViewById(R.id.radioGroupDiabetes);
-        final int toggleButtonDiabetesId = parentView.findViewById(R.id.toggleButtonDiabetes).getId();
+        final int toggleButtonNotDiabetes = parentView.findViewById(R.id.toggleButtonNotDiabetes).getId();
         final RelativeLayout relativeLayoutSugarProblems = (RelativeLayout) view.findViewById(R.id.relativeLayoutSugarProblems);
         RadioGroup radioGroupSugarProblems = (RadioGroup) view.findViewById(R.id.radioGroupSugarProblems);
         final RelativeLayout relativeLayoutDiabeticMedicines = (RelativeLayout) view.findViewById(R.id.relativeLayoutDiabeticMedicines);
@@ -54,7 +54,7 @@ public class RiskAnalysisPatientHistoryFargment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Tools.onCheckedChangedHelper(group, checkedId);
-                if (checkedId == toggleButtonDiabetesId) {
+                if (checkedId == toggleButtonNotDiabetes) {
                     relativeLayoutSugarProblems.setVisibility(View.VISIBLE);
                     relativeLayoutDiabeticMedicines.setVisibility(View.GONE);
                 } else {
