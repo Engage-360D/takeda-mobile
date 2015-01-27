@@ -105,14 +105,14 @@
 
             <View style="@style/divider_normal_1_5" />
 
-            <include layout="@layout/ca_layout_vertical_gap_plate_xsmall" />
+            <View style="@style/gapa_vertical_plate_small" />
 
             <Button
                 android:id="@+id/buttonExit"
                 style="@style/button_main_short"
                 android:text="@string/exit" />
 
-            <include layout="@layout/ca_layout_vertical_gap_plate_xsmall" />
+            <View style="@style/gapa_vertical_plate_small" />
 
             <View style="@style/divider_normal_1_5" />
 

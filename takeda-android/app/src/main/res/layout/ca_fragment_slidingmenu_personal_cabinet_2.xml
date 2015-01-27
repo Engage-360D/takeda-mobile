@@ -19,7 +19,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/layout_is_a_doctor" />
+            <include layout="@layout/layout_your_detailsl" />
+
+            <Button
+                android:id="@+id/buttonGenerate"
+                android:layout_width="match_parent"
+                style="@style/button_main_short"
+                android:textSize="@dimen/ca_text_size_small"
+                android:layout_marginTop="@dimen/ca_space_small"
+                android:layout_marginLeft="@dimen/ca_space_medium"
+                android:layout_marginRight="@dimen/ca_space_medium"
+                android:layout_marginBottom="@dimen/ca_space_large"
+                android:text="@string/generate" />
 
             <View style="@style/divider_normal_1_3" />
 
@@ -27,35 +38,22 @@
 
             <View style="@style/divider_normal_1_3" />
 
-            <include layout="@layout/layout_your_detailsl" />
-
-            <View style="@style/divider_normal_1_3" />
-
-            <include layout="@layout/layout_region" />
-
-            <View style="@style/divider_normal_1_3" />
-
             <include layout="@layout/layout_birth_date" />
-
-            <View style="@style/divider_normal_1_3" />
-
-            <include layout="@layout/layout_create_password" />
 
             <View style="@style/divider_normal_1_3" />
 
             <include
                 android:id="@+id/layoutSpecializationDetailsl"
-                layout="@layout/layout_specialization_detailsl" />
+                layout="@layout/layout_specialization_detailsl"/>
 
             <View style="@style/divider_normal_1_3" />
 
-            <include layout="@layout/layout_confirmation" />
 
             <Button
-                android:id="@+id/buttonSignUp"
-                style="@style/button_main_long"
+                android:id="@+id/buttonSave"
+                style="@style/button_main_short"
                 android:layout_margin="@dimen/ca_space_medium"
-                android:text="@string/sign_up" />
+                android:text="@string/save" />
 
         </LinearLayout>
     </ScrollView>

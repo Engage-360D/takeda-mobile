@@ -16,7 +16,7 @@
             style="@style/TextViewTitle"
             android:text="@string/restoring_password" />
 
-        <include layout="@layout/ca_layout_vertical_gap_space_small" />
+        <View style="@style/gapa_vertical_space_small" />
 
         <LinearLayout
             android:layout_width="match_parent"

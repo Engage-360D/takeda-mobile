@@ -56,7 +56,7 @@
     <style name="EditText" parent="@android:style/Widget.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ca_plate_medium</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">bottom|center</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/ca_text_main_48</item>
         <item name="android:textColorHint">@color/ca_text_main_48_hint</item>
@@ -105,6 +105,39 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ca_divider_1</item>
         <item name="android:background">@color/ca_divider_5</item>
+    </style>
+
+    <!-- ==== -->
+    <!-- gaps -->
+    <!-- ==== -->
+    <style name="gapa_vertical_plate_small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ca_plate_small</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="gapa_vertical_plate_xsmall">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ca_plate_xsmall</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="gapa_vertical_plate_xxxlarge">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ca_plate_xxxlarge</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="gapa_vertical_space_small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ca_space_small</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="gapa_vertical_space_xsmall">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ca_space_xsmall</item>
+        <item name="android:background">@null</item>
     </style>
 
     <!-- ======= -->

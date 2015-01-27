@@ -46,7 +46,7 @@
             android:textColor="@color/ca_text_main_37"
             android:textSize="@dimen/ca_text_size_small" />
 
-        <include layout="@layout/ca_layout_vertical_gap_plate_xsmall" />
+        <View style="@style/gapa_vertical_plate_xxxlarge" />
 
         <Button
             android:id="@+id/buttonVisitDoctor"

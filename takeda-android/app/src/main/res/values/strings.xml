@@ -169,13 +169,13 @@
     <string name="agree_that_advises">Согласен с тем, что вся информация носит рекомендательный характер</string>
     <string name="registration">Регистрация</string>
     <string name="sign_up">Зарегистрироваться</string>
-    <string name="specialization_details">Данные по специализации</string>
-    <string name="specialization_name">Специализация в ЛУ</string>
-    <string name="specialization_institution_name">Название ЛУ</string>
-    <string name="specialization_institution_address">Адрес ЛУ</string>
-    <string name="specialization_institution_phone">Телефон ЛУ</string>
-    <string name="specialization_graduation_date">Дата окончания УЗ</string>
-    <string name="specialization_experience_years">Опыт работы (лет)</string>
+    <string name="additional_information">Дополнительная информация</string>
+    <string name="specialization_name">Специализация</string>
+    <string name="specialization_institution_name">Учебное заведение</string>
+    <string name="specialization_institution_address">Адрес</string>
+    <string name="specialization_institution_phone">Телефон</string>
+    <string name="specialization_graduation_date">Год окончания</string>
+    <string name="specialization_experience_years">Стаж</string>
     <string name="must_be_selected">Необходимо выбрать</string>
     <string name="can_not_be_empty">Не может быть пустым</string>
     <string name="must_match">Должны совпадать</string>
@@ -229,6 +229,9 @@
     <string name="enter_weight">Внесите вес</string>
     <string name="enter_pressure">Внесите давление</string>
     <string name="enter_cholesterol">Внесите холестерин</string>
+
+    <string name="generate">Сгенерировать пароль и отправить на email</string>
+    <string name="save">Сохранить</string>
 
     <!-- =========================================== -->
     <!-- ca_fragment_slidingmenu_search_institutions -->

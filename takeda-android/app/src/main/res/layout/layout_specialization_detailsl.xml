@@ -3,64 +3,139 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/ca_space_medium"
-    android:paddingRight="@dimen/ca_space_medium">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/ca_plate_medium"
         android:gravity="center_vertical"
-        android:text="@string/specialization_details"
+        android:layout_marginLeft="@dimen/ca_space_medium"
+        android:layout_marginRight="@dimen/ca_space_medium"
+        android:text="@string/additional_information"
         android:textColor="@color/ca_text_main_41"
         android:textSize="@dimen/ca_text_size_medium" />
 
-    <EditText
-        android:id="@+id/editTextSpecializationName"
-        style="@style/EditText"
-        android:hint="@string/specialization_name"
-        android:inputType="textCapSentences" />
+    <LinearLayout
+        android:layout_height="@dimen/ca_plate_large"
+        android:layout_width="match_parent"
+        android:layout_marginRight="@dimen/ca_space_medium"
+        android:layout_marginLeft="@dimen/ca_space_medium">
 
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+        <EditText
+            android:id="@+id/editTextSpecializationName"
+            style="@style/EditText"
+            android:hint="@string/specialization_name"
+            android:inputType="textCapSentences" />
 
-    <EditText
-        android:id="@+id/editTextSpecializationInstitutionName"
-        style="@style/EditText"
-        android:hint="@string/specialization_institution_name"
-        android:inputType="textCapSentences" />
+    </LinearLayout>
 
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+    <View style="@style/divider_normal_1_3" />
 
-    <EditText
-        android:id="@+id/editTextSpecializationInstitutionAddress"
-        style="@style/EditText"
-        android:hint="@string/specialization_institution_address"
-        android:inputType="textPostalAddress" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ca_plate_medium"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/ca_space_medium"
+        android:layout_marginRight="@dimen/ca_space_medium"
+        android:layout_marginBottom="@dimen/ca_space_small"
+        android:orientation="horizontal">
 
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:text="@string/specialization_experience_years"
+            android:textColor="@color/ca_text_main_48"
+            android:textSize="@dimen/ca_text_size_medium" />
 
-    <EditText
-        android:id="@+id/editTextSpecializationInstitutionPhone"
-        style="@style/EditText"
-        android:hint="@string/specialization_institution_phone"
-        android:inputType="phone" />
+        <Spinner
+            android:id="@+id/spinnerExperienceYears"
+            android:layout_width="@dimen/ca_control_medium"
+            android:layout_height="wrap_content" />
 
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextSpecializationGraduationDate"
-        style="@style/EditText"
-        android:hint="@string/specialization_graduation_date"
-        android:inputType="date" />
+    <View style="@style/divider_normal_1_3" />
 
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+    <LinearLayout
+        android:layout_height="@dimen/ca_plate_large"
+        android:layout_width="match_parent"
+        android:layout_marginRight="@dimen/ca_space_medium"
+        android:layout_marginLeft="@dimen/ca_space_medium">
 
-    <EditText
-        android:id="@+id/editTextSpecializationExperienceYears"
-        style="@style/EditText"
-        android:hint="@string/specialization_experience_years"
-        android:inputType="numberDecimal" />
+        <EditText
+            android:id="@+id/editTextSpecializationInstitutionPhone"
+            style="@style/EditText"
+            android:hint="@string/specialization_institution_phone"
+            android:inputType="phone" />
 
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+    </LinearLayout>
+
+    <View style="@style/divider_normal_1_3" />
+
+    <LinearLayout
+        android:layout_height="@dimen/ca_plate_large"
+        android:layout_width="match_parent"
+        android:layout_marginRight="@dimen/ca_space_medium"
+        android:layout_marginLeft="@dimen/ca_space_medium">
+
+        <EditText
+            android:id="@+id/editTextSpecializationInstitutionName"
+            style="@style/EditText"
+            android:hint="@string/specialization_institution_name"
+            android:inputType="textCapSentences" />
+
+    </LinearLayout>
+
+    <View style="@style/divider_normal_1_3" />
+
+    <LinearLayout
+        android:layout_height="@dimen/ca_plate_large"
+        android:layout_width="match_parent"
+        android:layout_marginRight="@dimen/ca_space_medium"
+        android:layout_marginLeft="@dimen/ca_space_medium">
+
+        <EditText
+            android:id="@+id/editTextSpecializationInstitutionAddress"
+            style="@style/EditText"
+            android:hint="@string/specialization_institution_address"
+            android:inputType="textPostalAddress" />
+
+    </LinearLayout>
+
+    <View style="@style/divider_normal_1_3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ca_plate_medium"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/ca_space_medium"
+        android:layout_marginRight="@dimen/ca_space_medium"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:text="@string/specialization_graduation_date"
+            android:textColor="@color/ca_text_main_48"
+            android:textSize="@dimen/ca_text_size_medium" />
+
+        <Spinner
+            android:id="@+id/spinnerGraduationDate"
+            android:layout_width="@dimen/ca_control_medium"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View style="@style/divider_normal_1_3" />
 
 </LinearLayout>

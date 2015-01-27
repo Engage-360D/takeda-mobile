@@ -13,7 +13,7 @@ import ru.com.cardiomagnil.util.Tools;
 public class Ca_PersonalCabinetFargment extends Ca_BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_personal_cabinet, null);
+        View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_personal_cabinet_1, null);
         initFargment(view);
         return view;
     }
