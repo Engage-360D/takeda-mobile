@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 import ru.com.cardiomagnil.widget.CustomDialogLayout;
 
@@ -18,7 +20,7 @@ public class Ca_SettingsFargment extends Ca_BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_settings, null);
-        initFragment( view);
+        initFragment(view);
         return view;
     }
 
@@ -28,11 +30,19 @@ public class Ca_SettingsFargment extends Ca_BaseItemFragment {
 
     private void initFragment(View view) {
         final ImageView imageViewAddIncident = (ImageView) view.findViewById(R.id.imageViewAddIncident);
+        final Button buttonExit = (Button) view.findViewById(R.id.buttonExit);
 
         imageViewAddIncident.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogIncident();
+            }
+        });
+
+        buttonExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CardiomagnilApplication.getInstance().logout();
             }
         });
     }
@@ -68,7 +78,7 @@ public class Ca_SettingsFargment extends Ca_BaseItemFragment {
         textViewInfarction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int layoutId =  R.layout.ca_item_incident_infarction;
+                int layoutId = R.layout.ca_item_incident_infarction;
                 onIncidentSelected(alertDialog, layoutId /*some other params*/);
             }
         });
@@ -76,7 +86,7 @@ public class Ca_SettingsFargment extends Ca_BaseItemFragment {
         textViewApoplexy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int layoutId =  R.layout.ca_item_incident_apoplexy;
+                int layoutId = R.layout.ca_item_incident_apoplexy;
                 onIncidentSelected(alertDialog, layoutId /*some other params*/);
             }
         });
@@ -84,7 +94,7 @@ public class Ca_SettingsFargment extends Ca_BaseItemFragment {
         textViewShunting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int layoutId =  R.layout.ca_item_incident_shunting;
+                int layoutId = R.layout.ca_item_incident_shunting;
                 onIncidentSelected(alertDialog, layoutId /*some other params*/);
             }
         });

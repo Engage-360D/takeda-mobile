@@ -1,0 +1,7 @@
+keytool -list -v -keystore keystore.jks -alias cardiomagnil_release -storepass developer -keypass developer
+
+MD5:  47:DA:E2:5F:47:FC:A4:A2:CF:15:1C:B6:7C:17:90:67
+SHA1: F2:62:D8:C8:DB:1C:D0:48:D2:32:43:37:93:0D:18:F7:68:63:40:F3
+SHA256: 8C:26:5D:11:F3:F5:49:7D:B1:7B:27:EF:78:C8:04:4D:90:E5:88:74:AB:0B:9E:95:F2:95:B7:0B:AE:3D:5D:1C
+Signature algorithm name: SHA256withRSA
+Version: 3

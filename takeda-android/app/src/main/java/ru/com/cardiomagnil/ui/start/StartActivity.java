@@ -28,7 +28,7 @@ public class StartActivity extends BaseTrackedFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         initStartActivity();
-        customizeIfDebug();
+//        customizeIfDebug();
     }
 
     /**

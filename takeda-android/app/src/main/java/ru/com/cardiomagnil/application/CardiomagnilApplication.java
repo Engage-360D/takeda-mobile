@@ -57,4 +57,10 @@ public class CardiomagnilApplication extends Application {
         }
     }
 
+    public void logout() {
+        getCurrentActivity().finish();
+        AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, null);
+        // FIXME: test_results
+    }
+
 }

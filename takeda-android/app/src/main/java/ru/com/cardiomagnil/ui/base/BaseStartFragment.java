@@ -115,7 +115,8 @@ public abstract class BaseStartFragment extends Fragment {
     }
 
     private void initAppState(Ca_Token token, Ca_User user) {
-        AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, token.getTokenId());
+        String tokenId = token == null ?  null : token.getTokenId();
+        AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, tokenId);
         AppState.getInstatce().setToken(token);
         AppState.getInstatce().setUser(user);
         AppState.getInstatce().setTestResult((String) AppSharedPreferences.get(AppSharedPreferences.Preference.testResult));

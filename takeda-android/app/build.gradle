@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/dependencies.txt'
@@ -22,49 +23,52 @@ android {
         versionCode 7
         versionName "1.06"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("../keystore.jks")
+            storePassword "developer"
+            keyAlias "cardiomagnil_release"
+            keyPassword "developer"
+        }
+        debug {
+            storeFile file("../keystore.jks")
+            storePassword "developer"
+            keyAlias "cardiomagnil_release"
+            keyPassword "developer"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
         }
         debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        defaultConfig {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.debug
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
-    }
-    signingConfigs {
-        release {
-            storeFile file("../cardiomagnil.keystore")
-            storePassword "developer"
-            keyAlias "cardiomagnil_release"
-            keyPassword "developer"
-        }
-        debug {
-            storeFile file("../cardiomagnil.keystore")
-            storePassword "developer"
-            keyAlias "cardiomagnil_release"
-            keyPassword "developer"
-        }
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.google.android.gms:play-services:6.5.87'
     compile files('libs/libGoogleAnalyticsServices.jar')
     compile project(':libraries:slidingmenu')
+    compile 'com.google.android.gms:play-services:6.5.+'
+    compile 'com.android.support:support-v4:21.0.+'
     compile 'com.github.johnkil.android-robototextview:robototextview:2.2.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'commons-codec:commons-codec:1.7'
     compile 'commons-collections:commons-collections:3.2.1'
     compile 'org.apache.commons:commons-lang3:3.1'
-    compile 'com.android.support:support-v4:21.0.3'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.3.3'
     compile 'com.fasterxml.jackson.core:jackson-core:2.3.3'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
