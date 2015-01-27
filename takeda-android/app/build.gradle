@@ -62,7 +62,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/libGoogleAnalyticsServices.jar')
     compile project(':libraries:slidingmenu')
-    compile 'com.google.android.gms:play-services:6.+'
+    compile 'com.google.android.gms:play-services-maps:6.+'
     compile 'com.android.support:support-v4:21.0.+'
     compile 'com.github.johnkil.android-robototextview:robototextview:2.2.0'
     compile 'com.google.code.gson:gson:2.3.1'
