@@ -13,7 +13,7 @@
             android:id="@+id/linearLayoutTop"
             android:layout_width="match_parent"
             android:layout_height="@dimen/middle_block_hight"
-            android:background="@color/bg_tab_3"
+            android:background="@color/ca_bg_test"
             android:baselineAligned="false"
             android:gravity="center_vertical"
             android:orientation="vertical"
@@ -50,7 +50,7 @@
                     android:text="Small Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <View style="@style/divider_normal" />
+                <View style="@style/divider_normal_1_7" />
 
                 <TextView
                     android:id="@+id/textViewTitle"

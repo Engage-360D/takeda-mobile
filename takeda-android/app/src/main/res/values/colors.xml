@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="very_soft_blue">#85ADED</color>
-    <color name="pure_red">#FF0000</color>
-    <color name="strong_red">#D2292F</color>
-
     <color name="bg_tab_1">#E1363D</color>
     <color name="bg_tab_2">#D2292F</color>
     <color name="bg_tab_3">#BC0D14</color>
-
-    <color name="divider_normal">#E8E8E8</color>
 
     <!-- ================================================= -->
     <!-- bg_main -->
@@ -35,6 +28,8 @@
     <color name="ca_text_main_41">#FF414141</color>
     <color name="ca_text_main_48">#FF485662</color>
     <color name="ca_text_main_88">#FF88909C</color>
+    <color name="ca_text_test_passed">#FF750005</color>
+    <color name="ca_text_test_result">#FF85ADED</color>
     <!-- text_hint -->
     <color name="ca_main_text_37_hint">#7737404C</color>
     <color name="ca_text_main_38_hint">#7738404C</color>
@@ -62,9 +57,15 @@
     <color name="ca_divider_3">#FFDCDADA</color>
     <color name="ca_divider_4">#FF4C545E</color>
     <color name="ca_divider_5">#FFC8CACC</color>
+    <color name="ca_divider_6">#FF9DBDF1</color>
+    <color name="ca_divider_7">#FFCACCD0</color>
 
     <!--background -->
     <color name="ca_bg_top">#FFFF3341</color>
+    <color name="ca_bg_test">#FFE1363D</color>
+    <color name="ca_bg_test_passed">#FFD2292F</color>
+    <color name="ca_bg_test_result">#FF85ADED</color>
+    <color name="ca_bg_test_result_top">#FFDC363D</color>
 
     <!--background_item -->
     <color name="ca_bg_main_unpressed">#FFE7E7E7</color>

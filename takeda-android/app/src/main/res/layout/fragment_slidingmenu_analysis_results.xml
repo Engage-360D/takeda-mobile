@@ -2,10 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/very_soft_blue" >
+    android:background="@color/ca_bg_test_result" >
 
     <include
         android:id="@+id/layoutTopMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         layout="@layout/layout_top_menu" />
 
@@ -44,7 +46,7 @@
                     android:id="@+id/linearLayoutMainRecommendation"
                     layout="@layout/layout_piece" />
 
-                <View style="@style/divider_normal" />
+                <View style="@style/divider_normal_1_6" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -54,7 +56,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/white" />
 
-                <View style="@style/divider_normal" />
+                <View style="@style/divider_normal_1_6" />
 
                 <include
                     android:id="@+id/linearLayoutBannerSmoking"
@@ -68,7 +70,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/white" />
 
-                <View style="@style/divider_normal" />
+                <View style="@style/divider_normal_1_6" />
 
                 <include
                     android:id="@+id/linearLayoutBannerPhysicalActivity"
@@ -86,7 +88,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/white" />
 
-                <View style="@style/divider_normal" />
+                <View style="@style/divider_normal_1_6" />
 
                 <include
                     android:id="@+id/linearLayoutBannerCholesterolLevel"
@@ -116,7 +118,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/white" />
 
-                <View style="@style/divider_normal" />
+                <View style="@style/divider_normal_1_6" />
 
                 <include
                     android:id="@+id/linearLayoutBanneExtraSalt"
