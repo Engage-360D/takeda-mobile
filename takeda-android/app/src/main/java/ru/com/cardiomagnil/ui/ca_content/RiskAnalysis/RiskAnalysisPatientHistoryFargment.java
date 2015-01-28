@@ -19,18 +19,23 @@ import android.widget.ToggleButton;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
+import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.Tools;
 
-public class RiskAnalysisPatientHistoryFargment extends Fragment {
+public class RiskAnalysisPatientHistoryFargment extends Ca_BaseItemFragment {
     private View parentView;
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_slidingmenu_test_patient_history, null);
-
         initPatientDataFargment(parentView);
-
         return parentView;
+    }
+
+    @Override
+    public void initTopBar(ViewGroup viewGroupTopBar) {
+        initTopBarBellCabinet(viewGroupTopBar, false);
     }
 
     private void initPatientDataFargment(View view) {

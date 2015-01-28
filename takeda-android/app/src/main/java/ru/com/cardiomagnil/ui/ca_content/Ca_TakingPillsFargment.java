@@ -26,10 +26,10 @@ public class Ca_TakingPillsFargment extends Ca_BaseItemFragment {
         linearLayoutRightHolder.removeAllViews();
 
         ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
-        imageViewBell.setImageResource(R.drawable.ic_button_bell);
+        imageViewBell.setImageResource(R.drawable.ic_button_bell_unpressed);
 
         ImageView imageViewPlus = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
-        imageViewPlus.setImageResource(R.drawable.ic_button_plus);
+        imageViewPlus.setImageResource(R.drawable.ic_button_empty_plus_unpressed);
 
         int space_small = (int) viewGroupTopBar.getResources().getDimension(R.dimen.ca_space_small);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);

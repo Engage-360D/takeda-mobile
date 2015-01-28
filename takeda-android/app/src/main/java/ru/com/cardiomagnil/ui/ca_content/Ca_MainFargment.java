@@ -6,8 +6,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -27,23 +25,7 @@ public class Ca_MainFargment extends Ca_BaseItemFragment {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
-        linearLayoutRightHolder.removeAllViews();
-
-        ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
-        imageViewBell.setImageResource(R.drawable.ic_button_bell);
-
-        ImageView imageViewPlus = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
-        imageViewPlus.setImageResource(R.drawable.ic_button_plus);
-
-        int space_small = (int) viewGroupTopBar.getResources().getDimension(R.dimen.ca_space_small);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(space_small, 0, 0, 0);
-
-        imageViewPlus.setLayoutParams(lp);
-
-        linearLayoutRightHolder.addView(imageViewBell);
-        linearLayoutRightHolder.addView(imageViewPlus);
+        initTopBarBellCabinet(viewGroupTopBar, true);
     }
 
     private void initFargment(final View view) {

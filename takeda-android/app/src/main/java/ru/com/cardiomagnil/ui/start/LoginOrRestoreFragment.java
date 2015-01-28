@@ -86,7 +86,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         initLoginRestoreSwitcher(view);
         initSocials(view);
         // TODO: remove after tests
-//        customizeIfDebug(view);
+        customizeIfDebug(view);
     }
 
     private void initLogin(final View view) {

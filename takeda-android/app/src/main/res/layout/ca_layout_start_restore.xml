@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
-                android:src="@drawable/small_dark_left" />
+                android:src="@drawable/ic_small_dark_left" />
 
             <TextView
                 android:layout_width="wrap_content"

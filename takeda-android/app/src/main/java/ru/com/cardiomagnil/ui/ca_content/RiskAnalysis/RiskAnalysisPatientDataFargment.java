@@ -26,6 +26,7 @@ import java.util.Calendar;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.application.Constants;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
@@ -43,23 +44,7 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
-        linearLayoutRightHolder.removeAllViews();
-
-        ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
-        imageViewBell.setImageResource(R.drawable.ic_button_bell);
-
-        ImageView imageViewPlus = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
-        imageViewPlus.setImageResource(R.drawable.ic_button_plus);
-
-        int space_small = (int) viewGroupTopBar.getResources().getDimension(R.dimen.ca_space_small);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(space_small, 0, 0, 0);
-
-        imageViewPlus.setLayoutParams(lp);
-
-        linearLayoutRightHolder.addView(imageViewBell);
-        linearLayoutRightHolder.addView(imageViewPlus);
+        initTopBarBellCabinet(viewGroupTopBar, false);
     }
 
     private void initPatientDataFargment(View view) {
@@ -236,7 +221,7 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
 
             int years = currentYear - year;
 
-            if (years > 21) {
+            if (years > Constants.AGE_LIMIT) {
                 TextView editTextAge = (TextView) parentView.findViewById(R.id.editTextAge);
                 mBirthDate = Tools.formatFullDate(calendar.getTime());
                 editTextAge.setText(String.valueOf(years));

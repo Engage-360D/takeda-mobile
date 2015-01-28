@@ -23,20 +23,27 @@ import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestResultDao;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
+import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
 
-public class RiskAnalysisDailyRationFargment extends Fragment {
+public class RiskAnalysisDailyRationFargment extends Ca_BaseItemFragment {
     private View parentView;
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_slidingmenu_test_daily_ration, null);
 
         initPatientDataFargment(parentView);
 
         return parentView;
+    }
+
+    @Override
+    public void initTopBar(ViewGroup viewGroupTopBar) {
+        initTopBarBellCabinet(viewGroupTopBar, false);
     }
 
     private void initPatientDataFargment(View view) {

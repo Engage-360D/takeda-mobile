@@ -2,7 +2,6 @@ package ru.com.cardiomagnil.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -18,11 +17,14 @@ import com.google.gson.JsonObject;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.Constants;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
 
 public class Tools {
@@ -76,6 +78,18 @@ public class Tools {
         return formatedDate;
     }
 
+    public static String yearToDate(int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return (formatFullDate(calendar.getTime()));
+    }
+
     public static Calendar calendarFromShort(String shortDate) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -109,11 +123,29 @@ public class Tools {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(" (EEEE)");
             String today = CardiomagnilApplication.getAppContext().getString(R.string.today);
             return today + simpleDateFormat.format(calendar.getTime()).toLowerCase();
-        } else{
+        } else {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy (EEEE)");
             calendar.add(Calendar.DAY_OF_MONTH, shiftRelativeToday);
             return simpleDateFormat.format(calendar.getTime()).toLowerCase();
         }
+    }
+
+    public static List<Integer> getRange(final Integer range) {
+        final List<Integer> rangeList = new ArrayList<Integer>();
+        for (Integer counter = 0; counter < Constants.YEARS_RANGE; ++counter) {
+            rangeList.add(counter);
+        }
+        return rangeList;
+    }
+
+    public static List<Integer> getYearsRange(final Integer range) {
+        final List<Integer> yearsRangeList = new ArrayList<Integer>();
+        final Calendar calendar = Calendar.getInstance();
+        final Integer currentYear = calendar.get(Calendar.YEAR);
+        for (Integer counter = 0; counter < Constants.YEARS_RANGE; ++counter) {
+            yearsRangeList.add(currentYear - counter);
+        }
+        return yearsRangeList;
     }
 
     public static RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {

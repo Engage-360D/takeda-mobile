@@ -26,6 +26,7 @@ import java.util.List;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.application.Constants;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.region.Ca_Region;
 import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
@@ -38,6 +39,7 @@ import ru.com.cardiomagnil.social.User;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
+import ru.com.cardiomagnil.ui.ca_content.RangeSpinnerAdapter;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
 
@@ -59,9 +61,7 @@ public class RegistrationFragment extends BaseStartFragment {
             R.id.editTextSpecializationName,
             R.id.editTextSpecializationInstitutionName,
             R.id.editTextSpecializationInstitutionAddress,
-            R.id.editTextSpecializationInstitutionPhone,
-            R.id.editTextSpecializationGraduationDate,
-            R.id.editTextSpecializationExperienceYears
+            R.id.editTextSpecializationInstitutionPhone
     };
 
     @Override
@@ -109,6 +109,8 @@ public class RegistrationFragment extends BaseStartFragment {
         intiRadioGroupDoctor(view);
         initTextViewBirthDate(view);
         initSpinnerRegion(view);
+        initSpinnerExperienceYears(view);
+        initSpinnerGraduationDate(view);
         initSocials(view);
         initSignUpButton(view);
     }
@@ -137,14 +139,13 @@ public class RegistrationFragment extends BaseStartFragment {
     }
 
     private void initTextViewBirthDate(final View parentView) {
-        final int ageLimt = 21;
         final TextView textViewBirthDate = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
         final CustomOnDateSetListener customOnDateSetListener = new CustomOnDateSetListener();
         final Calendar calendar = Calendar.getInstance();
         final DatePickerDialog dateDialog = new DatePickerDialog(
                 parentView.getContext(),
                 customOnDateSetListener,
-                calendar.get(Calendar.YEAR) - ageLimt - 1,
+                calendar.get(Calendar.YEAR) - Constants.AGE_LIMIT - 1,
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -169,7 +170,7 @@ public class RegistrationFragment extends BaseStartFragment {
                     dateDialog.setOnDismissListener(new OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
-                            if (customOnDateSetListener.isRightAge(ageLimt)) {
+                            if (customOnDateSetListener.isRightAge(Constants.AGE_LIMIT)) {
                                 textViewBirthDate.setTag(customOnDateSetListener.getCalendar());
                                 textViewBirthDate.setText(Tools.formatShortDate(customOnDateSetListener.getCalendar().getTime()));
                             } else {
@@ -188,12 +189,12 @@ public class RegistrationFragment extends BaseStartFragment {
         });
     }
 
-    private void initSpinnerRegion(final View parentView) {
+    private void initSpinnerRegion(final View spinner) {
         Ca_RegionDao.getAll(
                 new CallbackOne<List<Ca_Region>>() {
                     @Override
                     public void execute(List<Ca_Region> regionsList) {
-                        initSpinnerRegionHelper(parentView, regionsList);
+                        initSpinnerRegionHelper(spinner, regionsList);
                     }
                 },
                 new CallbackOne<Ca_Response>() {
@@ -205,15 +206,45 @@ public class RegistrationFragment extends BaseStartFragment {
         );
     }
 
-    private void initSpinnerRegionHelper(View parentView, List<Ca_Region> regionsList) {
-        regionsList.add(Ca_Region.createNoRegion(parentView.getContext()));
+    private void initSpinnerRegionHelper(View spinner, List<Ca_Region> regionsList) {
+        regionsList.add(Ca_Region.createNoRegion(spinner.getContext()));
 
-        RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(parentView.getContext(), R.layout.custom_spinner_item, R.layout.ca_spinner_item_dropdown, regionsList);
+        RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(spinner.getContext(), R.layout.custom_spinner_item, R.layout.ca_spinner_item_dropdown, regionsList);
         regionsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
+        Spinner spinnerRegion = (Spinner) spinner.findViewById(R.id.spinnerRegion);
         spinnerRegion.setAdapter(regionsSpinnerAdapter);
         spinnerRegion.setSelection(regionsSpinnerAdapter.getCount() - 1);
+    }
+
+    private void initSpinnerExperienceYears(final View spinner) {
+        List<Integer> range = Tools.getRange(Constants.YEARS_RANGE);
+        range.add(0, null);
+
+        RangeSpinnerAdapter rangeSpinnerAdapter = new RangeSpinnerAdapter(
+                spinner.getContext(),
+                R.layout.custom_spinner_item,
+                R.layout.ca_spinner_item_dropdown,
+                range);
+        rangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner spinnerExperienceYears = (Spinner) spinner.findViewById(R.id.spinnerExperienceYears);
+        spinnerExperienceYears.setAdapter(rangeSpinnerAdapter);
+    }
+
+    private void initSpinnerGraduationDate(final View spinner) {
+        List<Integer> yearsRange = Tools.getYearsRange(Constants.YEARS_RANGE);
+        yearsRange.add(0, null);
+
+        RangeSpinnerAdapter rangeSpinnerAdapter = new RangeSpinnerAdapter(
+                spinner.getContext(),
+                R.layout.custom_spinner_item,
+                R.layout.ca_spinner_item_dropdown,
+                yearsRange);
+        rangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner spinnerGraduationDate = (Spinner) spinner.findViewById(R.id.spinnerGraduationDate);
+        spinnerGraduationDate.setAdapter(rangeSpinnerAdapter);
     }
 
     private void initSocials(final View view) {
@@ -240,10 +271,12 @@ public class RegistrationFragment extends BaseStartFragment {
     private boolean validateRegistrationFields(final View parentView) {
         View errorRadioButtons = validateRadioButtons(parentView);
         View errorEditTextCommon = validateTextViewFields(parentView, mRequiredEditTextCommon);
-        View errorSpinner = validateSpinner(parentView);
+        View errorSpinnerRegion = validateSpinnerRegion(parentView);
         View errorTextViewBirthDate = validateTextViewBirthDate(parentView);
         View errorCheckBoxCommon = validateCheckBoxFields(parentView, mRequiredCheckBoxCommon);
         View errorEditTextCommonDoctor = validateTextViewFields(parentView, mRequiredEditTextCommonDoctor);
+        View errorSpinnerExperienceYears = validateSpinnerExperienceYears(parentView);
+        View errorSpinnerGraduationDate = validateSpinnerGraduationDate(parentView);
         View errorEditTextPassword = validateTextViewPassword(parentView);
 
         // FIXME: validate email - Tools.isValidEmail(...)
@@ -254,14 +287,18 @@ public class RegistrationFragment extends BaseStartFragment {
             errorRadioButtons.requestFocus();
         else if (errorEditTextCommon != null)
             errorEditTextCommon.requestFocus();
-        else if (errorSpinner != null)
-            errorSpinner.requestFocus();
+        else if (errorSpinnerRegion != null)
+            errorSpinnerRegion.requestFocus();
         else if (errorTextViewBirthDate != null)
             errorTextViewBirthDate.requestFocus();
         else if (errorCheckBoxCommon != null)
             errorCheckBoxCommon.requestFocus();
         else if (errorEditTextCommonDoctor != null && radioButtonDoctor.isChecked())
             errorEditTextCommonDoctor.requestFocus();
+        else if (errorSpinnerExperienceYears != null)
+            errorSpinnerExperienceYears.requestFocus();
+        else if (errorSpinnerGraduationDate != null)
+            errorSpinnerGraduationDate.requestFocus();
         else if (errorEditTextPassword != null)
             errorEditTextPassword.requestFocus();
         else
@@ -301,7 +338,7 @@ public class RegistrationFragment extends BaseStartFragment {
         return errorView;
     }
 
-    private View validateSpinner(final View parentView) {
+    private View validateSpinnerRegion(final View parentView) {
         View errorView = null;
 
         TextView textViewRegion = (TextView) parentView.findViewById(R.id.textViewRegion);
@@ -312,6 +349,38 @@ public class RegistrationFragment extends BaseStartFragment {
             errorView = textViewRegion;
         } else {
             textViewRegion.setError(null);
+        }
+
+        return errorView;
+    }
+
+    private View validateSpinnerExperienceYears(final View parentView) {
+        View errorView = null;
+
+        TextView textViewExperienceYears = (TextView) parentView.findViewById(R.id.textViewExperienceYears);
+        Spinner spinnerExperienceYears = (Spinner) parentView.findViewById(R.id.spinnerExperienceYears);
+
+        if (spinnerExperienceYears.getTag() == null) {
+            textViewExperienceYears.setError(getString(R.string.must_be_selected));
+            errorView = textViewExperienceYears;
+        } else {
+            textViewExperienceYears.setError(null);
+        }
+
+        return errorView;
+    }
+
+    private View validateSpinnerGraduationDate(final View parentView) {
+        View errorView = null;
+
+        TextView textViewGraduationDate = (TextView) parentView.findViewById(R.id.textViewGraduationDate);
+        Spinner spinnerGraduationDate = (Spinner) parentView.findViewById(R.id.spinnerGraduationDate);
+
+        if (spinnerGraduationDate.getTag() == null) {
+            textViewGraduationDate.setError(getString(R.string.must_be_selected));
+            errorView = textViewGraduationDate;
+        } else {
+            textViewGraduationDate.setError(null);
         }
 
         return errorView;
@@ -381,8 +450,8 @@ public class RegistrationFragment extends BaseStartFragment {
             EditText editTextSpecializationInstitutionName = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionName);
             EditText editTextSpecializationInstitutionAddress = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
             EditText editTextSpecializationInstitutionPhone = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
-            EditText editTextSpecializationGraduationDate = (EditText) parentView.findViewById(R.id.editTextSpecializationGraduationDate);
-            EditText editTextSpecializationExperienceYears = (EditText) parentView.findViewById(R.id.editTextSpecializationExperienceYears);
+            Spinner spinnerExperienceYears = (Spinner) parentView.findViewById(R.id.spinnerExperienceYears);
+            Spinner spinnerGraduationDate = (Spinner) parentView.findViewById(R.id.spinnerGraduationDate);
 
             CheckBox checkBoxAgreeToReceive = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeToReceive);
 
@@ -398,9 +467,8 @@ public class RegistrationFragment extends BaseStartFragment {
             newUser.setSpecializationInstitutionName(editTextSpecializationInstitutionName.getText().toString());
             newUser.setSpecializationInstitutionAddress(editTextSpecializationInstitutionAddress.getText().toString());
             newUser.setSpecializationInstitutionPhone(editTextSpecializationInstitutionPhone.getText().toString());
-            String specializationGraduationDate = editTextSpecializationGraduationDate.getText().toString();
-            newUser.setSpecializationGraduationDate(specializationGraduationDate.isEmpty() ? null : specializationGraduationDate);
-            newUser.setSpecializationExperienceYears(Integer.parseInt(editTextSpecializationExperienceYears.getText().toString()));
+            newUser.setSpecializationExperienceYears((Integer) spinnerExperienceYears.getTag());
+            newUser.setSpecializationGraduationDate(Tools.yearToDate((Integer) spinnerGraduationDate.getTag()));
 
             newUser.setIsSubscribed(checkBoxAgreeToReceive.isChecked());
         } catch (Exception e) {
