@@ -28,7 +28,7 @@
             android:textSize="@dimen/ca_text_size_medium"
             android:textStyle="bold" />
 
-        <View style="@style/gapa_vertical_space_xsmall" />
+        <View style="@style/gap_vertical_space_xsmall" />
 
         <TextView
             android:id="@+id/textViewIncidentDescription"

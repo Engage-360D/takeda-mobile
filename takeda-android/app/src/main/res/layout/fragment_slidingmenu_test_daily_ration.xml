@@ -5,33 +5,17 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/middle_block_hight"
-        android:layout_alignParentTop="true"
-        android:background="@color/bg_tab_3"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/large_padding"
-        android:paddingRight="@dimen/large_padding">
+        style="@style/LinearLayoutTestTop">
 
         <TextView
             android:id="@+id/textViewHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/risk_analysis"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
+            style="@style/TextViewTestSmall"
+            android:text="@string/risk_analysis" />
 
         <TextView
             android:id="@+id/textViewSubHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/tab_daily_ration"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
+            style="@style/TextViewTestLarge"
+            android:text="@string/daily_ration" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,18 +45,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/middle_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/large_padding"
-                android:paddingTop="@dimen/middle_padding">
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
 
                 <RadioGroup
                     android:id="@+id/radioGroupExtraSalt"
                     android:layout_width="@dimen/ca_control_medium"
-                    android:layout_height="@dimen/ca_control_xxsmall"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:orientation="horizontal">
@@ -106,17 +84,15 @@
             <View style="@style/divider_normal_1_3" />
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                style="@style/LinearLayoutItemLarge"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/middle_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/large_padding"
                 android:paddingTop="@dimen/middle_padding">
 
                 <RadioGroup
                     android:id="@+id/radioGroupAspirin"
                     android:layout_width="@dimen/ca_control_medium"
-                    android:layout_height="@dimen/ca_control_xxsmall"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:orientation="horizontal">

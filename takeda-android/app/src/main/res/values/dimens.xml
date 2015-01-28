@@ -30,7 +30,7 @@
     <dimen name="xlarge_block_width">192dp</dimen>
 
     <!-- ==== -->
-    <!-- misc -->
+    <!-- time -->
     <!-- ==== -->
     <integer name="scale_animation_time">500</integer>
     <integer name="alpha_animation_time">1000</integer>
@@ -41,7 +41,6 @@
     <!-- ======== -->
     <dimen name="divider_menu_hight">1dp</dimen>
     <dimen name="divider_content_hight">1dp</dimen>
-    <dimen name="divider_normal_hight">1dp</dimen>
 
     <!-- ==== -->
     <!-- text -->
@@ -97,11 +96,13 @@
 
     <!-- 28px - ca_plate_xsmall -->
     <!-- 50px - ca_plate_small -->
+    <!-- 53px - ca_plate_small -->
     <!-- 59px - ca_plate_medium -->
     <!-- 60px - ca_plate_medium -->
     <!-- 62px - ca_plate_medium -->
     <!-- 63px - ca_plate_medium -->
     <!-- 66px - ca_plate_large -->
+    <!-- 68px - ca_plate_large -->
     <!-- 70px - ca_plate_large -->
     <!-- 74px - ca_plate_large -->
     <!-- 78px - ca_plate_large -->

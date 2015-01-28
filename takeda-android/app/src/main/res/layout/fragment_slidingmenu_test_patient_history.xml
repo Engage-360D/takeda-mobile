@@ -5,33 +5,17 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/middle_block_hight"
-        android:layout_alignParentTop="true"
-        android:background="@color/bg_tab_2"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/large_padding"
-        android:paddingRight="@dimen/large_padding">
+        style="@style/LinearLayoutTestTop">
 
         <TextView
             android:id="@+id/textViewHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/risk_analysis"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
+            style="@style/TextViewTestSmall"
+            android:text="@string/risk_analysis" />
 
         <TextView
             android:id="@+id/textViewSubHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/tab_patient_history"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
+            style="@style/TextViewTestLarge"
+            android:text="@string/patient_history" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,13 +45,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/middle_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/large_padding"
-                android:paddingTop="@dimen/middle_padding">
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
 
                 <RadioGroup
                     android:id="@+id/radioGroupDiabetes"
@@ -107,11 +85,9 @@
 
             <RelativeLayout
                 android:id="@+id/relativeLayoutDiabeticMedicines"
-                android:layout_width="match_parent"
+                style="@style/LinearLayoutItemLarge"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/middle_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/large_padding"
                 android:paddingTop="@dimen/middle_padding"
                 android:visibility="gone">
 
@@ -149,19 +125,15 @@
                     android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
-            <View
-
-                style="@style/divider_normal_1_3" />
+            <View style="@style/divider_normal_1_3" />
 
             <RelativeLayout
                 android:id="@+id/relativeLayoutSugarProblems"
-                android:layout_width="match_parent"
+                style="@style/LinearLayoutItemLarge"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/middle_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/large_padding"
-                android:visibility="gone"
-                android:paddingTop="@dimen/middle_padding">
+                android:paddingTop="@dimen/middle_padding"
+                android:visibility="gone">
 
                 <RadioGroup
                     android:id="@+id/radioGroupSugarProblems"
@@ -197,21 +169,13 @@
                     android:textColor="@color/ca_text_main_38" />
             </RelativeLayout>
 
-            <View
+            <View style="@style/divider_normal_1_3" />
 
-                style="@style/divider_normal_1_3" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/middle_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/large_padding"
-                android:paddingTop="@dimen/middle_padding">
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
 
                 <EditText
                     android:id="@+id/editTextPressure"
-                    android:layout_width="@dimen/large_block_width"
+                    android:layout_width="@dimen/ca_control_medium"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -233,14 +197,7 @@
 
             <View style="@style/divider_normal_1_3" />
 
-            <RelativeLayout
-                android:id="@+id/relativeLayoutHypertonicMedicines"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/middle_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/large_padding"
-                android:paddingTop="@dimen/middle_padding">
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
 
                 <RadioGroup
                     android:id="@+id/radioGroupHypertonicMedicines"
@@ -278,17 +235,11 @@
 
             <View style="@style/divider_normal_1_3" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/middle_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/large_padding"
-                android:paddingTop="@dimen/middle_padding">
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
 
                 <EditText
                     android:id="@+id/editTextPhysicalActivity"
-                    android:layout_width="@dimen/large_block_width"
+                    android:layout_width="@dimen/ca_control_medium"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -310,13 +261,7 @@
 
             <View style="@style/divider_normal_1_3" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/middle_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/large_padding"
-                android:paddingTop="@dimen/middle_padding">
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
 
                 <RadioGroup
                     android:id="@+id/radioGroupInfarctionStroke"

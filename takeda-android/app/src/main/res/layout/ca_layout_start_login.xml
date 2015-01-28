@@ -16,7 +16,7 @@
             style="@style/TextViewTitle"
             android:text="@string/entry" />
 
-        <View style="@style/gapa_vertical_space_xsmall" />
+        <View style="@style/gap_vertical_space_xsmall" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,11 +83,11 @@
             style="@style/button_main_short"
             android:text="@string/enter" />
 
-        <View style="@style/gapa_vertical_space_xsmall" />
+        <View style="@style/gap_vertical_space_xsmall" />
 
         <include layout="@layout/layout_socials" />
 
-        <View style="@style/gapa_vertical_space_xsmall" />
+        <View style="@style/gap_vertical_space_xsmall" />
 
         <TextView
             android:id="@+id/textViewIfNoAccoun"
@@ -98,7 +98,7 @@
             android:textColor="@color/ca_text_main_38"
             android:textSize="@dimen/ca_text_size_small" />
 
-        <View style="@style/gapa_vertical_space_xsmall" />
+        <View style="@style/gap_vertical_space_xsmall" />
 
         <Button
             android:id="@+id/buttonRegister"

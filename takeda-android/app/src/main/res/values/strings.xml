@@ -15,12 +15,12 @@
     <!-- test -->
     <!-- ==== -->
     <string name="risk_analysis">Анализ риска</string>
-    <string name="tab_step_one">Шаг 1</string>
-    <string name="tab_patient_data">Данные пациента</string>
-    <string name="tab_step_two">Шаг 2</string>
-    <string name="tab_patient_history">История пациента</string>
-    <string name="tab_step_three">Шаг 3</string>
-    <string name="tab_daily_ration">Дневной рацион</string>
+    <string name="patient_data">Данные пациента</string>
+    <string name="patient_history">История пациента</string>
+    <string name="daily_ration">Дневной рацион</string>
+    <string name="tab_step_one">Шаг 1\nДанные пациента</string>
+    <string name="tab_step_two">Шаг 2\nИстория пациента</string>
+    <string name="tab_step_three">Шаг 3\nДневной рацион</string>
     <string name="step_two_patient_history">Шаг 2. История пациента</string>
     <string name="step_three_daily_ration">Шаг 3. Дневной рацион</string>
     <string name="get_results">Получить результаты</string>

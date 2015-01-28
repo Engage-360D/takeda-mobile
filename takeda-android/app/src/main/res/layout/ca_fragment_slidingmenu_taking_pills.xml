@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/ca_plate_medium"
-            android:background="@color/ca_bg_top"
+            android:background="@color/ca_bg_test_top"
             android:gravity="center"
             android:text="@string/pills"
             android:textColor="@color/ca_white"
