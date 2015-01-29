@@ -88,6 +88,23 @@
         <item name="android:drawableRight">@drawable/ca_selector_list_item_ic</item>
     </style>
 
+    <style name="TextViewBanner" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/ca_selector_clickable_text_banner</item>
+        <item name="android:textSize">@dimen/ca_text_size_xsmall</item>
+    </style>
+
+    <style name="TextViewBannerHeader" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/ca_space_medium</item>
+        <item name="android:layout_marginBottom">@dimen/ca_space_xsmall</item>
+        <item name="android:textColor">@color/ca_white</item>
+        <item name="android:textSize">@dimen/ca_text_size_medium</item>
+    </style>
+
     <!-- ======== -->
     <!-- dividers -->
     <!-- ======== -->
@@ -136,19 +153,19 @@
     <!-- ==== -->
     <!-- gaps -->
     <!-- ==== -->
-    <style name="gapa_vertical_plate_small">
+    <style name="gap_vertical_plate_small">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ca_plate_small</item>
         <item name="android:background">@null</item>
     </style>
 
-    <style name="gapa_vertical_plate_xsmall">
+    <style name="gap_vertical_plate_xsmall">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ca_plate_xsmall</item>
         <item name="android:background">@null</item>
     </style>
 
-    <style name="gapa_vertical_plate_xxxlarge">
+    <style name="gap_vertical_plate_xxxlarge">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ca_plate_xxxlarge</item>
         <item name="android:background">@null</item>

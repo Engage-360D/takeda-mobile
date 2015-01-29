@@ -24,7 +24,6 @@ import ru.com.cardiomagnil.ca_model.test.Ca_TestResultDao;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ui.ca_base.BaseRiskAnalysis;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
-import ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
 
@@ -134,7 +133,7 @@ public class RiskAnalysisDailyRationFargment extends BaseRiskAnalysis {
             Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
         }
 
-        slidingMenuActivity.replaceContentOnTop(new TestResultsFargment(), false);
+        slidingMenuActivity.replaceContentOnTop(new RiskAnalysisResultsFargment(), false);
     }
 
     private void storeResult(Ca_TestResult testResult) {

@@ -33,13 +33,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/middle_margin"
-            android:layout_marginRight="@dimen/middle_margin" >
+            android:layout_marginLeft="@dimen/ca_space_xsmall"
+            android:layout_marginRight="@dimen/ca_space_xsmall" >
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/middle_margin"
+                android:layout_marginTop="@dimen/ca_space_xsmall"
                 android:layout_weight="1"
                 android:orientation="vertical" >
 
@@ -63,7 +63,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/middle_margin"
+                android:layout_margin="@dimen/ca_space_xsmall"
                 android:src="@drawable/exclamation_red" />
 
         </LinearLayout>
@@ -73,8 +73,8 @@
         android:id="@+id/textViewText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/middle_margin"
-        android:layout_marginRight="@dimen/middle_margin"
+        android:layout_marginLeft="@dimen/ca_space_xsmall"
+        android:layout_marginRight="@dimen/ca_space_xsmall"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

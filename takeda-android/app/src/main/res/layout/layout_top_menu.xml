@@ -5,14 +5,13 @@
     android:background="@color/ca_bg_test_result_top"
     android:baselineAligned="false"
     android:orientation="horizontal"
-    android:weightSum="4" >
+    android:weightSum="4">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal" >
-    </LinearLayout>
+        android:orientation="horizontal"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutTopInsideContent"
@@ -22,7 +21,7 @@
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingLeft="@dimen/large_padding"
-        android:paddingRight="@dimen/large_padding" >
+        android:paddingRight="@dimen/large_padding">
 
         <TextView
             android:id="@+id/textViewHeader"
@@ -47,24 +46,26 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal" >
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageViewArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/middle_margin"
+            android:layout_marginRight="@dimen/ca_space_medium"
+            android:clickable="true"
             android:contentDescription="@null"
-            android:src="@drawable/arrow_light" />
+            android:src="@drawable/ca_selector_button_mail" />
 
         <ImageView
             android:id="@+id/imageViewInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/middle_margin"
+            android:layout_marginRight="@dimen/ca_space_medium"
+            android:clickable="true"
             android:contentDescription="@null"
-            android:src="@drawable/info_light" />
+            android:src="@drawable/ca_selector_button_info" />
     </LinearLayout>
 
 </LinearLayout>

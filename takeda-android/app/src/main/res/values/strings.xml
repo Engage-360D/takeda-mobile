@@ -59,7 +59,6 @@
     <string name="bakery_intake">Потребление мучных изделий</string>
     <string name="diet_adjustment">Дополнительная корректировка диеты</string>
     <string name="pass_survey">Пройти опрос</string>
-    <string name="create_calendar">Составить календарь профилактики</string>
     <string name="everything_is_good">Все хорошо</string>
     <string name="needs_to_improve">Необходимо улучшение</string>
     <string name="risk_group">Группа риска</string>
@@ -273,7 +272,7 @@
     <string name="shunting">Коронарное шунтирование</string>
 
     <!-- ============ -->
-    <!-- patient data -->
+    <!-- patient_data -->
     <!-- ============ -->
     <string name="data_gender">Пол</string>
     <string name="data_gender_male">Мужчина</string>
@@ -290,7 +289,7 @@
     <string name="data_cholesterol_hint">мг/дл</string>
 
     <!-- =============== -->
-    <!-- patient history -->
+    <!-- patient_history -->
     <!-- =============== -->
     <string name="suffering_diabetes">Страдаете ли вы диабетом?</string>
     <string name="sugar_problems">Отмечалось ли повышение уровня сахара в крови?</string>
@@ -303,10 +302,16 @@
     <string name="infarction_stroke">Был ли у вас инфаркт/инсульт?</string>
 
     <!-- ============ -->
-    <!-- daily ration -->
+    <!-- daily_ration -->
     <!-- ============ -->
     <string name="salt">Досаливаете ли вы пищу?</string>
     <string name="aspirin">Принимаете ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?</string>
+
+    <!-- ======= -->
+    <!-- results -->
+    <!-- ======= -->
+    <string name="choose_medical_institution">Подобрать мед. учереждение по близости</string>
+    <string name="create_calendar">Составить календарь профилактики</string>
 
     <!-- ====== -->
     <!-- common -->

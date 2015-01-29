@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.splash;
+package ru.com.cardiomagnil.ui.start;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,6 @@ import ru.com.cardiomagnil.ca_model.user.Ca_User;
 import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
 import ru.com.cardiomagnil.ui.base.BaseActivity;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
-import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
 
 public class SplashActivity extends BaseActivity implements AnimationListener {

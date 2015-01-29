@@ -73,7 +73,7 @@ public class Ca_TestResult extends BaseModel {
     private Ca_Recomendations recommendations;
 
     public enum STATES {
-        attention, ok, bell, doctor, ask, empty
+        attention, ok, bell, doctor, ask, empty, undefined
     }
 
     /**

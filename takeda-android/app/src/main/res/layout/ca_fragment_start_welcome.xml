@@ -15,7 +15,7 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:src="@drawable/ic_wide_logo" />
 
-    <View style="@style/gapa_vertical_plate_small" />
+    <View style="@style/gap_vertical_plate_small" />
 
     <com.devspark.robototextview.widget.RobotoTextView
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         android:textSize="@dimen/ca_text_size_large"
         app:typeface="roboto_regular" />
 
-    <View style="@style/gapa_vertical_plate_small" />
+    <View style="@style/gap_vertical_plate_small" />
 
     <com.devspark.robototextview.widget.RobotoTextView
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:textSize="@dimen/ca_text_size_small"
         app:typeface="roboto_regular" />
 
-    <View style="@style/gapa_vertical_plate_small" />
+    <View style="@style/gap_vertical_plate_small" />
 
     <com.devspark.robototextview.widget.RobotoTextView
         android:layout_width="wrap_content"

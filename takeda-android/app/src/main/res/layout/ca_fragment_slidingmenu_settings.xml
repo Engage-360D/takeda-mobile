@@ -30,7 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/linearLayoutTop"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:scrollbarStyle="outsideOverlay">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,17 +83,17 @@
 
                     <TextView
                         style="@style/TextViewItem"
-                        android:padding="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/delete_all_reports"
-                        android:clickable="false" />
+                        android:clickable="false"
+                        android:padding="0dp"
+                        android:text="@string/delete_all_reports" />
 
                     <TextView
                         style="@style/TextViewItem"
-                        android:padding="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/must_be_password"
                         android:clickable="false"
+                        android:padding="0dp"
+                        android:text="@string/must_be_password"
                         android:textSize="@dimen/ca_text_size_xsmall" />
                 </LinearLayout>
 
@@ -105,14 +106,14 @@
 
             <View style="@style/divider_normal_1_5" />
 
-            <View style="@style/gapa_vertical_plate_small" />
+            <View style="@style/gap_vertical_plate_small" />
 
             <Button
                 android:id="@+id/buttonExit"
                 style="@style/button_main_short"
                 android:text="@string/exit" />
 
-            <View style="@style/gapa_vertical_plate_small" />
+            <View style="@style/gap_vertical_plate_small" />
 
             <View style="@style/divider_normal_1_5" />
 

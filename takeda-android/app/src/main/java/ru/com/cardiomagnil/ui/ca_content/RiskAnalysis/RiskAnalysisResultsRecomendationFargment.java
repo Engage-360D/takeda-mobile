@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.slidingmenu;
+package ru.com.cardiomagnil.ui.ca_content.RiskAnalysis;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 
-public class TestResultsRecomendationFargment extends Fragment {
+public class RiskAnalysisResultsRecomendationFargment extends Fragment {
     private View parentView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

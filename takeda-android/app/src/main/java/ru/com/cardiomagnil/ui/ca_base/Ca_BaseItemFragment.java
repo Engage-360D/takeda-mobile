@@ -22,9 +22,9 @@ public abstract class Ca_BaseItemFragment extends Fragment {
         LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
         linearLayoutRightHolder.removeAllViews();
 
-        int space_small = (int) viewGroupTopBar.getResources().getDimension(R.dimen.ca_space_small);
+        int spaceMedium = (int) viewGroupTopBar.getResources().getDimension(R.dimen.ca_space_medium);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(space_small, 0, 0, 0);
+        lp.setMargins(0, 0, spaceMedium, 0);
 
         ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
         imageViewBell.setImageResource(R.drawable.ca_selector_button_bell);

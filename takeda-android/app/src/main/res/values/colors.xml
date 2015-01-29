@@ -3,6 +3,7 @@
     <!-- background_main -->
     <color name="ca_bg_main_38">#FF38404C</color>
     <color name="ca_bg_shadow">#33000000</color>
+    <color name="ca_bg_transparent">#00000000</color>
 
     <!-- background_test -->
     <color name="ca_bg_test_top">#FFFF3341</color>

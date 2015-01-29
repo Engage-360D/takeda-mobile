@@ -2,7 +2,7 @@ package ru.com.cardiomagnil.ui.ca_content;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ui.ca_content.RiskAnalysis.RiskAnalysisPatientDataFargment;
-import ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment;
+import ru.com.cardiomagnil.ui.ca_content.RiskAnalysis.RiskAnalysisResultsFargment;
 
 public enum Ca_MenuItem {
     item_main(Ca_MainFargment.class, R.string.menu_item_main, true, true),
@@ -12,7 +12,7 @@ public enum Ca_MenuItem {
     item_information(Ca_InformationFragment.class, R.string.menu_item_information, true, true),
     item_settings(Ca_SettingsFargment.class, R.string.menu_item_settings, true, true),
     item_recommendations(Ca_RecommendationsFargment.class, R.string.menu_item_recommendations, true, false),
-    item_analysis_results(TestResultsFargment.class, R.string.menu_item_analysis_results, true, false),
+    item_analysis_results(RiskAnalysisResultsFargment.class, R.string.menu_item_analysis_results, true, false),
     item_calendar(Ca_CalendarFragment.class, R.string.menu_item_calendar, true, false),
     item_useful_to_know(Ca_UsefulToKnowFargment.class, R.string.menu_item_useful_to_know, true, true),
     item_publications(Ca_PublicationsFargment.class, R.string.menu_item_publications, true, true),

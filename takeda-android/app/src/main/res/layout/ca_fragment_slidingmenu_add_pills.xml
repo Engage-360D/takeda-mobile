@@ -29,7 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/textViewBottom"
         android:layout_below="@id/linearLayoutTop"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:scrollbarStyle="outsideOverlay">
 
         <LinearLayout
             android:layout_width="match_parent"

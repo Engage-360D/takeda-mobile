@@ -6,7 +6,8 @@
     android:background="@color/ca_white"
     android:fillViewport="true"
     android:paddingLeft="@dimen/ca_space_medium"
-    android:paddingRight="@dimen/ca_space_medium">
+    android:paddingRight="@dimen/ca_space_medium"
+    android:scrollbarStyle="outsideOverlay">
 
     <LinearLayout
         android:layout_width="match_parent"

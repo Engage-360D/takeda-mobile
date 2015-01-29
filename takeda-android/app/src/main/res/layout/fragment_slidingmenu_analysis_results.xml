@@ -2,59 +2,65 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ca_bg_test_result" >
+    android:background="@color/ca_bg_test_result">
 
     <include
         android:id="@+id/layoutTopMenu"
+        layout="@layout/layout_top_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        layout="@layout/layout_top_menu" />
+        android:layout_alignParentTop="true" />
 
     <ScrollView
         android:id="@+id/scrollViewResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTopMenu"
-        android:paddingLeft="@dimen/large_padding"
-        android:paddingRight="@dimen/large_padding" >
+        android:paddingLeft="@dimen/ca_space_medium"
+        android:paddingRight="@dimen/ca_space_medium"
+        android:scrollbarStyle="outsideOverlay">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/relativeLayoutScore"
                 layout="@layout/layout_score" />
 
             <include
-                android:id="@+id/linearLayoutScoreDescription"
-                layout="@layout/layout_piece" />
+                android:id="@+id/linearLayoutScoreNote"
+                layout="@layout/layout_piece_large" />
 
             <include
-                android:id="@+id/linearLayoutDangerAlert"
+                android:id="@+id/linearLayoutMainRecommendation"
                 layout="@layout/layout_piece" />
+
+            <View style="@style/gap_vertical_space_small" />
+
+            <View style="@style/divider_normal_1_6" />
+
+            <TextView
+                android:id="@+id/textViewChooseMedicalInstitution"
+                style="@style/TextViewBanner"
+                android:background="@drawable/ca_selector_banner_bg"
+                android:clickable="true"
+                android:drawableRight="@drawable/ca_selector_banner_ic"
+                android:minHeight="@dimen/ca_plate_small"
+                android:text="@string/choose_medical_institution" />
+
+            <View style="@style/divider_normal_1_6" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutBigWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <include
-                    android:id="@+id/linearLayoutMainRecommendation"
-                    layout="@layout/layout_piece" />
-
-                <View style="@style/divider_normal_1_6" />
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/middle_margin"
-                    android:text="@string/results_smoking"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/results_smoking" />
 
                 <View style="@style/divider_normal_1_6" />
 
@@ -63,12 +69,8 @@
                     layout="@layout/layout_banner" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/middle_margin"
-                    android:text="@string/results_physical_activity"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/results_physical_activity" />
 
                 <View style="@style/divider_normal_1_6" />
 
@@ -81,12 +83,8 @@
                     layout="@layout/layout_banner" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/middle_margin"
-                    android:text="@string/results_main_risks"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/results_main_risks" />
 
                 <View style="@style/divider_normal_1_6" />
 
@@ -111,12 +109,8 @@
                     layout="@layout/layout_banner" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/middle_margin"
-                    android:text="@string/results_diet"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/results_diet" />
 
                 <View style="@style/divider_normal_1_6" />
 
@@ -124,6 +118,15 @@
                     android:id="@+id/linearLayoutBanneExtraSalt"
                     layout="@layout/layout_banner" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonСreateСalendar"
+                style="@style/button_main_long"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/ca_space_xlarge"
+                android:layout_marginTop="@dimen/ca_space_medium"
+                android:text="@string/create_calendar" />
+
         </LinearLayout>
     </ScrollView>
 
@@ -134,7 +137,7 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:text="@string/results_error"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/ca_text_size_large"
         android:textColor="@android:color/white"
         android:visibility="invisible" />
 

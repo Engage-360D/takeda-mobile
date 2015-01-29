@@ -46,7 +46,7 @@
             android:textColor="@color/ca_text_main_37"
             android:textSize="@dimen/ca_text_size_small" />
 
-        <View style="@style/gapa_vertical_plate_xxxlarge" />
+        <View style="@style/gap_vertical_plate_xxxlarge" />
 
         <Button
             android:id="@+id/buttonVisitDoctor"
@@ -62,7 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/textViewBottom"
         android:layout_below="@id/linearLayoutTop"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:scrollbarStyle="outsideOverlay">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,8 +76,8 @@
                 android:id="@+id/linearLayoutTime1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:clickable="true"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/ca_space_medium"
                 android:paddingRight="@dimen/ca_space_medium">
 
@@ -87,8 +88,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
->
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -108,10 +108,10 @@
 
                 <CheckBox
                     android:id="@+id/checkBox"
-                    android:layout_gravity="center_vertical"
-                    android:button="@drawable/ca_selector_checkbox"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:button="@drawable/ca_selector_checkbox" />
 
             </LinearLayout>
 
@@ -122,8 +122,8 @@
                 android:id="@+id/linearLayoutTime2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:clickable="true"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/ca_space_medium"
                 android:paddingRight="@dimen/ca_space_medium">
 
@@ -134,8 +134,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -155,9 +154,9 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:button="@drawable/ca_selector_checkbox"
-                    android:layout_height="wrap_content" />
+                    android:button="@drawable/ca_selector_checkbox" />
 
             </LinearLayout>
 
@@ -167,8 +166,8 @@
                 android:id="@+id/linearLayoutTime3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:clickable="true"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/ca_space_medium"
                 android:paddingRight="@dimen/ca_space_medium">
 
@@ -178,8 +177,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -199,9 +197,9 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:button="@drawable/ca_selector_checkbox"
-                    android:layout_height="wrap_content" />
+                    android:button="@drawable/ca_selector_checkbox" />
 
             </LinearLayout>
 

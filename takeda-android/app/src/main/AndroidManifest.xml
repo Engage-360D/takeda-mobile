@@ -28,7 +28,7 @@
         android:theme="@style/CustomThemeNoActionBar">
 
         <activity
-            android:name="ru.com.cardiomagnil.ui.splash.SplashActivity"
+            android:name="ru.com.cardiomagnil.ui.start.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">

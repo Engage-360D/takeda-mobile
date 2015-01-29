@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.ui.slidingmenu;
+package ru.com.cardiomagnil.ui.ca_content.RiskAnalysis;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,7 +19,7 @@ import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestResult.STATES;
 import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
 
-public class TestResultsFargment extends Ca_BaseItemFragment {
+public class RiskAnalysisResultsFargment extends Ca_BaseItemFragment {
     private View parentView;
 
     @Override
@@ -47,11 +47,17 @@ public class TestResultsFargment extends Ca_BaseItemFragment {
             textViewError.setVisibility(View.VISIBLE);
             return;
         }
+        // copy state from scoreNote into mainRecommendation because state in mainRecommendation is empty
+        String state = testResult.getRecommendations().getScoreNote().getState();
+        testResult.getRecommendations().getMainRecommendation().setState(state);
+        testResult.getRecommendations().getScoreNote().setState(STATES.empty.name());
 
         TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
 
-        View linearLayoutScoreDescription = view.findViewById(R.id.linearLayoutScoreDescription);
-        View linearLayoutDangerAlert = view.findViewById(R.id.linearLayoutDangerAlert);
+        // FIXME
+        // View linearLayoutDangerAlert = view.findViewById(R.id.linearLayoutDangerAlert);
+
+        View linearLayoutScoreNote = view.findViewById(R.id.linearLayoutScoreNote);
         View linearLayoutMainRecommendation = view.findViewById(R.id.linearLayoutMainRecommendation);
 
         View linearLayoutBannerSmoking = view.findViewById(R.id.linearLayoutBannerSmoking);
@@ -66,13 +72,15 @@ public class TestResultsFargment extends Ca_BaseItemFragment {
 
         textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
 
-        initPeace(linearLayoutScoreDescription, testResult.getRecommendations().getScoreNote());
-        initPeace(linearLayoutDangerAlert, testResult.getRecommendations().getFullscreenAlert());
-        if (linearLayoutDangerAlert.getVisibility() != View.GONE) {
-            // View linearLayoutBigWrapper = view.findViewById(R.id.linearLayoutBigWrapper);
-            // linearLayoutBigWrapper.setVisibility(View.GONE);
-            // return;
-        }
+        // FIXME
+        // initPeace(linearLayoutDangerAlert, testResult.getRecommendations().getFullscreenAlert());
+        // if (linearLayoutDangerAlert.getVisibility() != View.GONE) {
+        //     View linearLayoutBigWrapper = view.findViewById(R.id.linearLayoutBigWrapper);
+        //     linearLayoutBigWrapper.setVisibility(View.GONE);
+        //     return;
+        // }
+
+        initPeace(linearLayoutScoreNote, testResult.getRecommendations().getScoreNote());
         initPeace(linearLayoutMainRecommendation, testResult.getRecommendations().getMainRecommendation());
 
         // FIXME: implement placesLinkShouldBeVisible
@@ -125,10 +133,11 @@ public class TestResultsFargment extends Ca_BaseItemFragment {
         setTextView(textViewNote, bannerData.getNote());
 
         if (TextUtils.isEmpty(bannerData.getPageUrl())) {
-            imageViewRight.setVisibility(View.INVISIBLE);
-            imageViewRight.setOnClickListener(null);
+            imageViewRight.setVisibility(View.GONE);
+            bannerView.setClickable(false);
         } else {
-            imageViewRight.setOnClickListener(new OnClickListener() {
+            imageViewRight.setVisibility(View.VISIBLE);
+            bannerView.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -143,7 +152,7 @@ public class TestResultsFargment extends Ca_BaseItemFragment {
 
     private void setImageView(ImageView imageView, String stateString) {
         int imageResource;
-        STATES state = STATES.empty;
+        STATES state = STATES.undefined;
 
         try {
             state = STATES.valueOf(stateString.toLowerCase());
@@ -153,22 +162,22 @@ public class TestResultsFargment extends Ca_BaseItemFragment {
 
         switch (state) {
             case ask:
-                imageResource = R.drawable.ic_undefined;
+                imageResource = R.drawable.ca_selector_undefined;
                 break;
             case attention:
-                imageResource = R.drawable.ic_danger;
+                imageResource = R.drawable.ca_selector_danger;
                 break;
             case bell:
-                imageResource = R.drawable.ic_bell;
+                imageResource = R.drawable.ca_selector_bell;
                 break;
             case doctor:
-                imageResource = R.drawable.ic_doctor;
+                imageResource = R.drawable.ca_selector_doctor;
                 break;
             case ok:
-                imageResource = R.drawable.ic_good;
+                imageResource = R.drawable.ca_selector_good;
                 break;
             case empty:
-                imageResource = -1;
+                imageResource = 0;
                 break;
             default:
                 imageResource = -1;
@@ -177,6 +186,8 @@ public class TestResultsFargment extends Ca_BaseItemFragment {
         }
         if (imageResource > 0) {
             imageView.setImageResource(imageResource);
+        } else if (imageResource == 0) {
+            imageView.setVisibility(View.GONE);
         } else {
             imageView.setVisibility(View.INVISIBLE);
         }
