@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
+import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.util.Utils;
 
 public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivity {
@@ -135,7 +136,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
     private void startPending() {
         mPending.set(true);
-        Toast.makeText(this, getResources().getString(R.string.press_back_twice), Toast.LENGTH_SHORT).show();
+        Tools.showToast(this, R.string.press_back_twice, Toast.LENGTH_SHORT);
         new Thread(new Runnable() {
             @Override
             public void run() {

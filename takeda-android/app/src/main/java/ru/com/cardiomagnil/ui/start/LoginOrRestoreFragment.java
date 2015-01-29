@@ -72,10 +72,10 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         if (user == null) {
             switch (responseError.getError().getCode()){
                 case Status.NO_DATA_ERROR:
-                    Toast.makeText(getActivity(), getActivity().getString(R.string.error_user_not_found), Toast.LENGTH_LONG).show();
+                    Tools.showToast(getActivity(), R.string.error_user_not_found, Toast.LENGTH_LONG);
                     break;
                 default:
-                    Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+                    Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
             }
         }
     }

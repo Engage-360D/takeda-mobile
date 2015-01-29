@@ -36,6 +36,7 @@ import android.widget.Toast;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.ExeptionsHandler;
+import ru.com.cardiomagnil.util.Tools;
 
 public class AuthorizationDialog {
 
@@ -155,7 +156,7 @@ public class AuthorizationDialog {
                     return super.shouldOverrideUrlLoading(view, url);
 
                 if (params.containsKey("error")) {
-                    Toast.makeText(mContext, R.string.authorization_error, Toast.LENGTH_LONG).show();
+                    Tools.showToast(mContext, R.string.authorization_error, Toast.LENGTH_LONG);
                     mDialog.dismiss();
                 } else if (params.containsKey("code")) {
                     retrieveAccessToken(params.get("code"));
@@ -165,7 +166,7 @@ public class AuthorizationDialog {
                 e.printStackTrace();
                 ExeptionsHandler.getInstatce().handleException(CardiomagnilApplication.getAppContext(), e);
 
-                Toast.makeText(mContext, "Unexpected error", Toast.LENGTH_LONG).show();
+                Tools.showToast(mContext, "Unexpected error", Toast.LENGTH_LONG);
                 mDialog.dismiss();
             }
             return true;
@@ -193,7 +194,7 @@ public class AuthorizationDialog {
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             super.onReceivedError(view, errorCode, description, failingUrl);
 
-            Toast.makeText(mContext, description, Toast.LENGTH_LONG).show();
+            Tools.showToast(mContext, description, Toast.LENGTH_LONG);
             mDialog.dismiss();
         }
     }
@@ -219,7 +220,7 @@ public class AuthorizationDialog {
                 if (accessToken != null) {
                     onObtainedAccessToken(accessToken, false);
                 } else {
-                    Toast.makeText(mContext, R.string.authorization_error, Toast.LENGTH_LONG).show();
+                    Tools.showToast(mContext, R.string.authorization_error, Toast.LENGTH_LONG);
                     setProgressVisible(false);
                 }
             }

@@ -2,7 +2,6 @@ package ru.com.cardiomagnil.ui.ca_content.RiskAnalysis;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -19,11 +17,11 @@ import android.widget.ToggleButton;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
-import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
+import ru.com.cardiomagnil.ui.ca_base.BaseRiskAnalysis;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.Tools;
 
-public class RiskAnalysisPatientHistoryFargment extends Ca_BaseItemFragment {
+public class RiskAnalysisPatientHistoryFargment extends BaseRiskAnalysis {
     private View parentView;
 
     @Override
@@ -39,12 +37,13 @@ public class RiskAnalysisPatientHistoryFargment extends Ca_BaseItemFragment {
     }
 
     private void initPatientDataFargment(View view) {
+        initTabs(view, 1);
 
         RadioGroup radioGroupDiabetes = (RadioGroup) view.findViewById(R.id.radioGroupDiabetes);
         final int toggleButtonNotDiabetes = parentView.findViewById(R.id.toggleButtonNotDiabetes).getId();
-        final RelativeLayout relativeLayoutSugarProblems = (RelativeLayout) view.findViewById(R.id.relativeLayoutSugarProblems);
+        final View layoutSugarProblems = view.findViewById(R.id.layoutSugarProblems);
         RadioGroup radioGroupSugarProblems = (RadioGroup) view.findViewById(R.id.radioGroupSugarProblems);
-        final RelativeLayout relativeLayoutDiabeticMedicines = (RelativeLayout) view.findViewById(R.id.relativeLayoutDiabeticMedicines);
+        final View layoutDiabeticMedicines = view.findViewById(R.id.layoutDiabeticMedicines);
         RadioGroup radioGroupDiabeticMedicines = (RadioGroup) view.findViewById(R.id.radioGroupDiabeticMedicines);
 //        final RelativeLayout relativeLayoutHypertonicMedicines = (RelativeLayout) view.findViewById(R.id.relativeLayoutHypertonicMedicines);
 //        SeekBarWithValues seekBarWithValuesPressure = (SeekBarWithValues) parentView.findViewById(R.id.seekBarWithValuesPressure);
@@ -60,11 +59,11 @@ public class RiskAnalysisPatientHistoryFargment extends Ca_BaseItemFragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Tools.onCheckedChangedHelper(group, checkedId);
                 if (checkedId == toggleButtonNotDiabetes) {
-                    relativeLayoutSugarProblems.setVisibility(View.VISIBLE);
-                    relativeLayoutDiabeticMedicines.setVisibility(View.GONE);
+                    layoutSugarProblems.setVisibility(View.VISIBLE);
+                    layoutDiabeticMedicines.setVisibility(View.GONE);
                 } else {
-                    relativeLayoutSugarProblems.setVisibility(View.GONE);
-                    relativeLayoutDiabeticMedicines.setVisibility(View.VISIBLE);
+                    layoutSugarProblems.setVisibility(View.GONE);
+                    layoutDiabeticMedicines.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -106,9 +105,7 @@ public class RiskAnalysisPatientHistoryFargment extends Ca_BaseItemFragment {
         String resultString = pickTestIncomingFields(testSource);
 
         if (!resultString.isEmpty()) {
-            Toast toast = Toast.makeText(parentView.getContext(), resultString, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-            toast.show();
+            Tools.showToast(getActivity(), resultString, Toast.LENGTH_LONG);
             return;
         }
 
@@ -116,9 +113,7 @@ public class RiskAnalysisPatientHistoryFargment extends Ca_BaseItemFragment {
             Fragment dailyRationFargment = new RiskAnalysisDailyRationFargment();
             switchFragment(dailyRationFargment);
         } else {
-            Toast toast = Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-            toast.show();
+            Tools.showToast(getActivity(), R.string.complete_all_fields, Toast.LENGTH_SHORT);
         }
     }
 

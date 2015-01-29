@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -28,11 +26,11 @@ import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.application.Constants;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
-import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
+import ru.com.cardiomagnil.ui.ca_base.BaseRiskAnalysis;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.Tools;
 
-public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
+public class RiskAnalysisPatientDataFargment extends BaseRiskAnalysis {
     private View parentView;
     private String mBirthDate = null;
 
@@ -48,6 +46,8 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
     }
 
     private void initPatientDataFargment(View view) {
+        initTabs(view, 0);
+
         RadioGroup radioGroupCholesterolDrugs = (RadioGroup) view.findViewById(R.id.radioGroupCholesterolDrugs);
         RadioGroup radioGroupSmoking = (RadioGroup) view.findViewById(R.id.radioGroupSmoking);
 //        final RelativeLayout relativeLayoutCholesterolDrugs = (RelativeLayout) view.findViewById(R.id.relativeLayoutCholesterolDrugs);
@@ -93,9 +93,7 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
         String resultString = pickTestIncomingFields(testSource);
 
         if (!resultString.isEmpty()) {
-            Toast toast = Toast.makeText(parentView.getContext(), resultString, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-            toast.show();
+            Tools.showToast(getActivity(), resultString, Toast.LENGTH_LONG);
             return;
         }
 
@@ -104,9 +102,7 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
             Fragment patientHistoryFargment = new RiskAnalysisPatientHistoryFargment();
             switchFragment(patientHistoryFargment);
         } else {
-            Toast toast = Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-            toast.show();
+            Tools.showToast(getActivity(), R.string.complete_all_fields, Toast.LENGTH_SHORT);
         }
     }
 
@@ -226,9 +222,7 @@ public class RiskAnalysisPatientDataFargment extends Ca_BaseItemFragment {
                 mBirthDate = Tools.formatFullDate(calendar.getTime());
                 editTextAge.setText(String.valueOf(years));
             } else {
-                Toast toast = Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.error_birth_date), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-                toast.show();
+                Tools.showToast(getActivity(), R.string.error_birth_date, Toast.LENGTH_LONG);
             }
         }
     };

@@ -18,6 +18,7 @@ import ru.com.cardiomagnil.ca_model.user.Ca_UserLgnPwd;
 import ru.com.cardiomagnil.social.User;
 import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
+import ru.com.cardiomagnil.util.Tools;
 
 public abstract class BaseStartFragment extends Fragment {
     public abstract void initParent(Activity activity);
@@ -98,13 +99,13 @@ public abstract class BaseStartFragment extends Fragment {
         if (token == null && user == null) {
             switch (responseError.getError().getCode()) {
                 case Status.NO_DATA_ERROR:
-                    Toast.makeText(getActivity(), getActivity().getString(R.string.error_user_not_found), Toast.LENGTH_LONG).show();
+                    Tools.showToast(getActivity(), R.string.error_user_not_found, Toast.LENGTH_LONG);
                     break;
                 case Status.CONFLICT_ERROR:
-                    Toast.makeText(getActivity(), getActivity().getString(R.string.error_user_already_exist), Toast.LENGTH_LONG).show();
+                    Tools.showToast(getActivity(), R.string.error_user_already_exist, Toast.LENGTH_LONG);
                     break;
                 default:
-                    Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+                    Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
             }
 
             initAppState(null, null);

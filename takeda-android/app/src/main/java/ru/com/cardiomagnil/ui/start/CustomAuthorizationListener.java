@@ -7,6 +7,7 @@ import ru.com.cardiomagnil.application.ExeptionsHandler;
 import ru.com.cardiomagnil.social.AuthorizationListener;
 import ru.com.cardiomagnil.social.User;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
+import ru.com.cardiomagnil.util.Tools;
 
 public class CustomAuthorizationListener implements AuthorizationListener {
     private BaseStartFragment mFragment;
@@ -27,7 +28,7 @@ public class CustomAuthorizationListener implements AuthorizationListener {
         } catch (Exception e) {
             e.printStackTrace();
             ExeptionsHandler.getInstatce().handleException(mFragment.getActivity(), e);
-            Toast.makeText(mFragment.getActivity(), R.string.authorization_error, Toast.LENGTH_LONG).show();
+            Tools.showToast(mFragment.getActivity(), R.string.authorization_error, Toast.LENGTH_LONG);
         }
     }
 
@@ -35,7 +36,7 @@ public class CustomAuthorizationListener implements AuthorizationListener {
     public void onAuthorizationFailed() {
         StartActivity startActivity = (StartActivity) mFragment.getActivity();
         startActivity.hideProgressDialog();
-        Toast.makeText(mFragment.getActivity(), R.string.authorization_error, Toast.LENGTH_LONG).show();
+        Tools.showToast(mFragment.getActivity(), R.string.authorization_error, Toast.LENGTH_LONG);
     }
 
     @Override

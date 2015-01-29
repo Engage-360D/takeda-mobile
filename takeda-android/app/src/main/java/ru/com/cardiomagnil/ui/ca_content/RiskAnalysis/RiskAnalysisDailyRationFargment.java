@@ -2,7 +2,6 @@ package ru.com.cardiomagnil.ui.ca_content.RiskAnalysis;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,13 +22,13 @@ import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestResult;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestResultDao;
 import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
-import ru.com.cardiomagnil.ui.ca_base.Ca_BaseItemFragment;
+import ru.com.cardiomagnil.ui.ca_base.BaseRiskAnalysis;
 import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
 import ru.com.cardiomagnil.ui.slidingmenu.TestResultsFargment;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
 
-public class RiskAnalysisDailyRationFargment extends Ca_BaseItemFragment {
+public class RiskAnalysisDailyRationFargment extends BaseRiskAnalysis {
     private View parentView;
 
     @Override
@@ -47,6 +46,8 @@ public class RiskAnalysisDailyRationFargment extends Ca_BaseItemFragment {
     }
 
     private void initPatientDataFargment(View view) {
+        initTabs(view, 2);
+
         RadioGroup radioGroupExtraSalt = (RadioGroup) view.findViewById(R.id.radioGroupExtraSalt);
         RadioGroup radioGroupAspirin = (RadioGroup) view.findViewById(R.id.radioGroupAspirin);
         ImageView imageViewBottomInsideLeft = (ImageView) view.findViewById(R.id.imageViewBottomInsideLeft);
@@ -76,9 +77,7 @@ public class RiskAnalysisDailyRationFargment extends Ca_BaseItemFragment {
         if (testSource.validate(Ca_TestSource.RESULT_GROUPS.third)) {
             tryGetTestResultHelper(testSource);
         } else {
-            Toast toast = Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_all_fields), Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-            toast.show();
+            Tools.showToast(parentView.getContext(), R.string.complete_all_fields, Toast.LENGTH_SHORT);
         }
     }
 
@@ -130,9 +129,9 @@ public class RiskAnalysisDailyRationFargment extends Ca_BaseItemFragment {
             slidingMenuActivity.unLockMenu();
         } else if (responseError != null) {
             // TODO: show message according to error
-            Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+            Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
         } else {
-            Toast.makeText(getActivity(), getActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+            Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
         }
 
         slidingMenuActivity.replaceContentOnTop(new TestResultsFargment(), false);

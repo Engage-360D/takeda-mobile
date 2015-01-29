@@ -176,7 +176,7 @@ public class RegistrationFragment extends BaseStartFragment {
                             } else {
                                 textViewBirthDate.setTag(null);
                                 textViewBirthDate.setText(textViewBirthDate.getContext().getString(R.string.birth_date));
-                                Toast.makeText(textViewBirthDate.getContext(), textViewBirthDate.getContext().getString(R.string.error_birth_date), Toast.LENGTH_LONG).show();
+                                Tools.showToast(getActivity(), R.string.error_birth_date, Toast.LENGTH_LONG);
                             }
 
                             datePickerDialogIsStarted = false;
@@ -262,7 +262,7 @@ public class RegistrationFragment extends BaseStartFragment {
                     // response handled in handleRegAuth
                     startRegistration(pickRegistrationFields(parentView));
                 } else {
-                    Toast.makeText(parentView.getContext(), parentView.getContext().getString(R.string.complete_required_fields), Toast.LENGTH_LONG).show();
+                    Tools.showToast(getActivity(), R.string.complete_required_fields, Toast.LENGTH_SHORT);
                 }
             }
         });

@@ -2,13 +2,16 @@ package ru.com.cardiomagnil.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Base64;
 import android.util.Pair;
+import android.view.Gravity;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.JsonElement;
@@ -187,5 +190,15 @@ public class Tools {
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    public static void showToast(Context context, int textId, int length) {
+        showToast(context, context.getString(textId), length);
+    }
+
+    public static void showToast(Context context, String text, int length) {
+        Toast toast = Toast.makeText(context, text, length);
+        toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }

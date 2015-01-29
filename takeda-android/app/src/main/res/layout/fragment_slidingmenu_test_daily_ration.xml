@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/ca_white">
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
@@ -77,8 +78,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupExtraSalt"
                     android:text="@string/salt"
-                    android:textSize="@dimen/ca_text_size_small"
-                    android:textColor="@color/ca_text_main_38" />
+                    android:textColor="@color/ca_text_main_38"
+                    android:textSize="@dimen/ca_text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
@@ -119,8 +120,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupAspirin"
                     android:text="@string/aspirin"
-                    android:textSize="@dimen/ca_text_size_small"
-                    android:textColor="@color/ca_text_main_38" />
+                    android:textColor="@color/ca_text_main_38"
+                    android:textSize="@dimen/ca_text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />

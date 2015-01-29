@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.util.Tools;
 import ru.com.cardiomagnil.widget.CustomDialogLayout;
 
 public class TestActivity extends Activity {
@@ -55,16 +56,13 @@ public class TestActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (view.equals(textViewInfarction)) {
-                    Toast.makeText(getApplicationContext(), "textViewInfarction",
-                            Toast.LENGTH_LONG).show();
+                    Tools.showToast(getApplicationContext(), "textViewInfarction", Toast.LENGTH_SHORT);
                     alertDialog.dismiss();
                 } else if (view.equals(textViewApoplexy)) {
-                    Toast.makeText(getApplicationContext(), "textViewApoplexy",
-                            Toast.LENGTH_LONG).show();
+                    Tools.showToast(getApplicationContext(), "textViewApoplexy", Toast.LENGTH_SHORT);
                     alertDialog.dismiss();
                 } else if (view.equals(textViewShunting)) {
-                    Toast.makeText(getApplicationContext(), "textViewShunting",
-                            Toast.LENGTH_LONG).show();
+                    Tools.showToast(getApplicationContext(), "textViewShunting", Toast.LENGTH_SHORT);
                     alertDialog.dismiss();
                 }
             }

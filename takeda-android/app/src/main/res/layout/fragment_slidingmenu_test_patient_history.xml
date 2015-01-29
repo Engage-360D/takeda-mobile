@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/ca_white">
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
@@ -77,99 +78,113 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupDiabetes"
                     android:text="@string/suffering_diabetes"
-                    android:textSize="@dimen/ca_text_size_small"
-                    android:textColor="@color/ca_text_main_38" />
+                    android:textColor="@color/ca_text_main_38"
+                    android:textSize="@dimen/ca_text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
 
-            <RelativeLayout
-                android:id="@+id/relativeLayoutDiabeticMedicines"
-                style="@style/LinearLayoutItemLarge"
+            <LinearLayout
+                android:id="@+id/layoutDiabeticMedicines"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/middle_padding"
-                android:paddingTop="@dimen/middle_padding"
+                android:orientation="vertical"
                 android:visibility="gone">
 
-                <RadioGroup
-                    android:id="@+id/radioGroupDiabeticMedicines"
-                    android:layout_width="@dimen/ca_control_medium"
-                    android:layout_height="@dimen/ca_control_xxsmall"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal">
-
-                    <ToggleButton
-                        android:id="@+id/toggleButtonNoDiabeticMedicines"
-                        style="@style/ToggleRadioButton"
-                        android:checked="false"
-                        android:textOff="@string/no"
-                        android:textOn="@string/no" />
-
-                    <ToggleButton
-                        android:id="@+id/toggleButtonDiabeticMedicines"
-                        style="@style/ToggleRadioButton"
-                        android:checked="false"
-                        android:textOff="@string/yes"
-                        android:textOn="@string/yes" />
-                </RadioGroup>
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    style="@style/LinearLayoutItemLarge"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/radioGroupDiabeticMedicines"
-                    android:text="@string/diabetic_medicines"
-                    android:textSize="@dimen/ca_text_size_small"
-                    android:textColor="@color/ca_text_main_38" />
-            </RelativeLayout>
+                    android:paddingBottom="@dimen/middle_padding"
+                    android:paddingTop="@dimen/middle_padding">
 
-            <View style="@style/divider_normal_1_3" />
+                    <RadioGroup
+                        android:id="@+id/radioGroupDiabeticMedicines"
+                        android:layout_width="@dimen/ca_control_medium"
+                        android:layout_height="@dimen/ca_control_xxsmall"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal">
 
-            <RelativeLayout
-                android:id="@+id/relativeLayoutSugarProblems"
-                style="@style/LinearLayoutItemLarge"
+                        <ToggleButton
+                            android:id="@+id/toggleButtonNoDiabeticMedicines"
+                            style="@style/ToggleRadioButton"
+                            android:checked="false"
+                            android:textOff="@string/no"
+                            android:textOn="@string/no" />
+
+                        <ToggleButton
+                            android:id="@+id/toggleButtonDiabeticMedicines"
+                            style="@style/ToggleRadioButton"
+                            android:checked="false"
+                            android:textOff="@string/yes"
+                            android:textOn="@string/yes" />
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/radioGroupDiabeticMedicines"
+                        android:text="@string/diabetic_medicines"
+                        android:textColor="@color/ca_text_main_38"
+                        android:textSize="@dimen/ca_text_size_small" />
+                </RelativeLayout>
+
+                <View style="@style/divider_normal_1_3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutSugarProblems"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/middle_padding"
-                android:paddingTop="@dimen/middle_padding"
+                android:orientation="vertical"
                 android:visibility="gone">
 
-                <RadioGroup
-                    android:id="@+id/radioGroupSugarProblems"
-                    android:layout_width="@dimen/ca_control_medium"
-                    android:layout_height="@dimen/ca_control_xxsmall"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal">
-
-                    <ToggleButton
-                        android:id="@+id/toggleButtonNoSugarProblems"
-                        style="@style/ToggleRadioButton"
-                        android:checked="false"
-                        android:textOff="@string/no"
-                        android:textOn="@string/no" />
-
-                    <ToggleButton
-                        android:id="@+id/toggleButtonSugarProblems"
-                        style="@style/ToggleRadioButton"
-                        android:checked="false"
-                        android:textOff="@string/yes"
-                        android:textOn="@string/yes" />
-                </RadioGroup>
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    style="@style/LinearLayoutItemLarge"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/radioGroupSugarProblems"
-                    android:text="@string/sugar_problems"
-                    android:textSize="@dimen/ca_text_size_small"
-                    android:textColor="@color/ca_text_main_38" />
-            </RelativeLayout>
+                    android:paddingBottom="@dimen/middle_padding"
+                    android:paddingTop="@dimen/middle_padding">
 
-            <View style="@style/divider_normal_1_3" />
+                    <RadioGroup
+                        android:id="@+id/radioGroupSugarProblems"
+                        android:layout_width="@dimen/ca_control_medium"
+                        android:layout_height="@dimen/ca_control_xxsmall"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal">
+
+                        <ToggleButton
+                            android:id="@+id/toggleButtonNoSugarProblems"
+                            style="@style/ToggleRadioButton"
+                            android:checked="false"
+                            android:textOff="@string/no"
+                            android:textOn="@string/no" />
+
+                        <ToggleButton
+                            android:id="@+id/toggleButtonSugarProblems"
+                            style="@style/ToggleRadioButton"
+                            android:checked="false"
+                            android:textOff="@string/yes"
+                            android:textOn="@string/yes" />
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/radioGroupSugarProblems"
+                        android:text="@string/sugar_problems"
+                        android:textColor="@color/ca_text_main_38"
+                        android:textSize="@dimen/ca_text_size_small" />
+                </RelativeLayout>
+
+                <View style="@style/divider_normal_1_3" />
+            </LinearLayout>
+
 
             <RelativeLayout style="@style/LinearLayoutItemLarge">
 
@@ -191,8 +206,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/editTextPressure"
                     android:text="@string/arterial_pressure"
-                    android:textSize="@dimen/ca_text_size_small"
-                    android:textColor="@color/ca_text_main_38" />
+                    android:textColor="@color/ca_text_main_38"
+                    android:textSize="@dimen/ca_text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
@@ -229,8 +244,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupHypertonicMedicines"
                     android:text="@string/hypertonic_medicines"
-                    android:textSize="@dimen/ca_text_size_small"
-                    android:textColor="@color/ca_text_main_38" />
+                    android:textColor="@color/ca_text_main_38"
+                    android:textSize="@dimen/ca_text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
@@ -255,8 +270,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/editTextPhysicalActivity"
                     android:text="@string/physical_activity"
-                    android:textSize="@dimen/ca_text_size_small"
-                    android:textColor="@color/ca_text_main_38" />
+                    android:textColor="@color/ca_text_main_38"
+                    android:textSize="@dimen/ca_text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
@@ -293,8 +308,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupInfarctionStroke"
                     android:text="@string/infarction_stroke"
-                    android:textSize="@dimen/ca_text_size_small"
-                    android:textColor="@color/ca_text_main_38" />
+                    android:textColor="@color/ca_text_main_38"
+                    android:textSize="@dimen/ca_text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
