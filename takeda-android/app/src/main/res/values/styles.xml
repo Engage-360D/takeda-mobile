@@ -205,7 +205,7 @@
         <item name="android:layout_width">@dimen/ca_control_xlarge</item>
     </style>
 
-    <style name="checkbox">
+    <style name="checkbox_small_41">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@null</item>
@@ -216,6 +216,16 @@
         <item name="android:textSize">@dimen/ca_text_size_small</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+    <style name="checkbox_medium_37" parent="@style/checkbox_small_41">
+        <item name="android:minHeight">@dimen/ca_plate_medium</item>
+        <item name="android:drawableLeft">@null</item>
+        <item name="android:drawableRight">@drawable/ca_selector_checkbox</item>
+        <item name="android:textColor">@color/ca_text_main_37</item>
+        <item name="android:textSize">@dimen/ca_text_size_medium</item>
+        <item name="android:layout_marginLeft">@dimen/ca_space_medium</item>
+        <item name="android:layout_marginRight">@dimen/ca_space_medium</item>
     </style>
 
     <style name="ToggleRadioButton" parent="@android:style/Widget.Button.Toggle">

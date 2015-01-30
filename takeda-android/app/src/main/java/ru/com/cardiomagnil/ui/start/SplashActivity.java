@@ -91,7 +91,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
     }
 
     private void getUser(final Ca_Token token) {
-        Ca_UserDao.getById(
+        Ca_UserDao.getByToken(
                 token,
                 new CallbackOne<Ca_User>() {
                     @Override

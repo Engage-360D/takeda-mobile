@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_marginRight="@dimen/ca_space_small"
-            android:layout_marginTop="@dimen/ca_space_xsmall"
+            android:layout_marginTop="@dimen/ca_space_xxsmall"
             android:contentDescription="@null" />
 
         <LinearLayout

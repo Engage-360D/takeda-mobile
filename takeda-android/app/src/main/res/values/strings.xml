@@ -99,7 +99,7 @@
     <!-- Дневной рацион -->
 
     <!-- ================ -->
-    <!-- fragment welcome -->
+    <!-- fragment_welcome -->
     <!-- ================ -->
     <string name="welcome_1">Добро пожаловать в приложение\nпрепарата Кардиомагнил.</string>
     <string name="welcome_2">Вы сможете следить за своим здоровьем и\nпользоваться советами после регистрации и\nпрохождения теста.</string>
@@ -107,7 +107,7 @@
     <string name="three_minutes">3 минуты до начала работы приложения</string>
 
     <!-- ============== -->
-    <!-- fragment login -->
+    <!-- fragment_login -->
     <!-- ============== -->
     <string name="entry">Вход</string>
     <string name="restoring_password">Восстановление пароля</string>
@@ -270,6 +270,7 @@
     <string name="infarction">Инфаркт</string>
     <string name="apoplexy">Инсульт</string>
     <string name="shunting">Коронарное шунтирование</string>
+    <string name="your_comment">Ваш комментарий</string>
 
     <!-- ============ -->
     <!-- patient_data -->
@@ -312,6 +313,8 @@
     <!-- ======= -->
     <string name="choose_medical_institution">Подобрать мед. учереждение по близости</string>
     <string name="create_calendar">Составить календарь профилактики</string>
+    <string name="adjustment_of_diet">Дополнительная корректировка диеты</string>
+    <string name="pass_poll">Пройти опрос</string>
 
     <!-- ====== -->
     <!-- common -->

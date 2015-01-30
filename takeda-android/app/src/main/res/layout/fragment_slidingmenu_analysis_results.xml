@@ -41,16 +41,9 @@
 
             <View style="@style/divider_normal_1_6" />
 
-            <TextView
-                android:id="@+id/textViewChooseMedicalInstitution"
-                style="@style/TextViewBanner"
-                android:background="@drawable/ca_selector_banner_bg"
-                android:clickable="true"
-                android:drawableRight="@drawable/ca_selector_banner_ic"
-                android:minHeight="@dimen/ca_plate_small"
-                android:text="@string/choose_medical_institution" />
-
-            <View style="@style/divider_normal_1_6" />
+            <include
+                android:id="@+id/linearLayoutBannerChooseMedicalInstitution"
+                layout="@layout/layout_banner" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutBigWrapper"
@@ -115,15 +108,20 @@
                 <View style="@style/divider_normal_1_6" />
 
                 <include
-                    android:id="@+id/linearLayoutBanneExtraSalt"
+                    android:id="@+id/linearLayoutBannerExtraSalt"
                     layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerAdjustmentOfDiet"
+                    layout="@layout/layout_banner" />
+
             </LinearLayout>
 
             <Button
                 android:id="@+id/buttonСreateСalendar"
                 style="@style/button_main_long"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/ca_space_xlarge"
+                android:layout_marginBottom="@dimen/ca_space_medium"
                 android:layout_marginTop="@dimen/ca_space_medium"
                 android:text="@string/create_calendar" />
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.ca_api.Url;
 import ru.com.cardiomagnil.ca_model.test.Ca_Banner;
 import ru.com.cardiomagnil.ca_model.test.Ca_Banners;
 import ru.com.cardiomagnil.ca_model.test.Ca_Note;
@@ -49,17 +50,36 @@ public class RiskAnalysisResultsFargment extends Ca_BaseItemFragment {
         }
         // copy state from scoreNote into mainRecommendation because state in mainRecommendation is empty
         String state = testResult.getRecommendations().getScoreNote().getState();
-        testResult.getRecommendations().getMainRecommendation().setState(state);
-        testResult.getRecommendations().getScoreNote().setState(STATES.empty.name());
+        if (!STATES.empty.name().equals(state)) {
+            testResult.getRecommendations().getMainRecommendation().setState(state);
+            testResult.getRecommendations().getScoreNote().setState(STATES.empty.name());
+        }
 
-        TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
+        Ca_Banners banners = testResult.getRecommendations().getBanners();
+
+        Ca_Banner bannerAdjustmentOfDiet = new Ca_Banner();
+        bannerAdjustmentOfDiet.setState(STATES.ask.name());
+        bannerAdjustmentOfDiet.setTitle(getString(R.string.adjustment_of_diet));
+        bannerAdjustmentOfDiet.setSubtitle(getString(R.string.pass_poll));
+        bannerAdjustmentOfDiet.setPageUrl(Url.BANNER_CHOOSE_MEDICAL_INSTITUTION);
+
+        Ca_Banner bannerChooseMedicalInstitution = new Ca_Banner();
+        if (testResult.getRecommendations().getPlacesLinkShouldBeVisible()) {
+            bannerChooseMedicalInstitution.setState(STATES.undefined.name());
+            bannerChooseMedicalInstitution.setTitle("");
+            bannerChooseMedicalInstitution.setSubtitle(getString(R.string.choose_medical_institution));
+            bannerChooseMedicalInstitution.setPageUrl(Url.BANNER_PASS_POLL);
+        }
 
         // FIXME
         // View linearLayoutDangerAlert = view.findViewById(R.id.linearLayoutDangerAlert);
 
+        TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
+
         View linearLayoutScoreNote = view.findViewById(R.id.linearLayoutScoreNote);
         View linearLayoutMainRecommendation = view.findViewById(R.id.linearLayoutMainRecommendation);
 
+        View linearLayoutBannerChooseMedicalInstitution = view.findViewById(R.id.linearLayoutBannerChooseMedicalInstitution);
         View linearLayoutBannerSmoking = view.findViewById(R.id.linearLayoutBannerSmoking);
         View linearLayoutBannerPhysicalActivity = view.findViewById(R.id.linearLayoutBannerPhysicalActivity);
         View linearLayoutBannerBMI = view.findViewById(R.id.linearLayoutBannerBMI);
@@ -68,9 +88,8 @@ public class RiskAnalysisResultsFargment extends Ca_BaseItemFragment {
         View linearLayoutBanneSugarProblems = view.findViewById(R.id.linearLayoutBanneSugarProblems);
         View linearLayoutBannePressureDrugs = view.findViewById(R.id.linearLayoutBannePressureDrugs);
         View linearLayoutBanneholesterolDrugs = view.findViewById(R.id.linearLayoutBanneholesterolDrugs);
-        View linearLayoutBanneExtraSalt = view.findViewById(R.id.linearLayoutBanneExtraSalt);
-
-        textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
+        View linearLayoutBanneExtraSalt = view.findViewById(R.id.linearLayoutBannerExtraSalt);
+        View linearLayoutBannerAdjustmentOfDiet = view.findViewById(R.id.linearLayoutBannerAdjustmentOfDiet);
 
         // FIXME
         // initPeace(linearLayoutDangerAlert, testResult.getRecommendations().getFullscreenAlert());
@@ -80,13 +99,12 @@ public class RiskAnalysisResultsFargment extends Ca_BaseItemFragment {
         //     return;
         // }
 
+        textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
+
         initPeace(linearLayoutScoreNote, testResult.getRecommendations().getScoreNote());
         initPeace(linearLayoutMainRecommendation, testResult.getRecommendations().getMainRecommendation());
 
-        // FIXME: implement placesLinkShouldBeVisible
-
-        Ca_Banners banners = testResult.getRecommendations().getBanners();
-
+        initBanner(linearLayoutBannerChooseMedicalInstitution, bannerChooseMedicalInstitution);
         initBanner(linearLayoutBannerSmoking, banners.getIsSmoker());
         initBanner(linearLayoutBannerPhysicalActivity, banners.getPhysicalActivityMinutes());
         initBanner(linearLayoutBannerBMI, banners.getBmi());
@@ -96,6 +114,7 @@ public class RiskAnalysisResultsFargment extends Ca_BaseItemFragment {
         initBanner(linearLayoutBannePressureDrugs, banners.getIsArterialPressureDrugsConsumer());
         initBanner(linearLayoutBanneholesterolDrugs, banners.getIsCholesterolDrugsConsumer());
         initBanner(linearLayoutBanneExtraSalt, banners.getIsAddingExtraSalt());
+        initBanner(linearLayoutBannerAdjustmentOfDiet, bannerAdjustmentOfDiet);
     }
 
     private void initPeace(View pieceView, Ca_Note note) {
@@ -116,7 +135,7 @@ public class RiskAnalysisResultsFargment extends Ca_BaseItemFragment {
         TextView textViewTitle = (TextView) bannerView.findViewById(R.id.textViewTitle);
         TextView textViewSubtitle = (TextView) bannerView.findViewById(R.id.textViewSubtitle);
         TextView textViewNote = (TextView) bannerView.findViewById(R.id.textViewNote);
-        ImageView imageViewRight = (ImageView) bannerView.findViewById(R.id.imageViewRight);
+
 
         if (bannerData == null
                 || ((TextUtils.isEmpty(bannerData.getState()) &&
@@ -127,12 +146,17 @@ public class RiskAnalysisResultsFargment extends Ca_BaseItemFragment {
             return;
         }
 
+        setClicable(bannerView, bannerData.getPageUrl());
         setImageView(imageViewState, bannerData.getState());
         setTextView(textViewTitle, bannerData.getTitle());
         setTextView(textViewSubtitle, bannerData.getSubtitle());
         setTextView(textViewNote, bannerData.getNote());
+    }
 
-        if (TextUtils.isEmpty(bannerData.getPageUrl())) {
+    private void setClicable(final View bannerView, final String pageUrl) {
+        ImageView imageViewRight = (ImageView) bannerView.findViewById(R.id.imageViewRight);
+
+        if (TextUtils.isEmpty(pageUrl)) {
             imageViewRight.setVisibility(View.GONE);
             bannerView.setClickable(false);
         } else {
@@ -141,13 +165,26 @@ public class RiskAnalysisResultsFargment extends Ca_BaseItemFragment {
 
                 @Override
                 public void onClick(View v) {
-                    // FIXME!!!
-//                    AppState.getInstatce().setTestResultPage(pageData);
-                    // FIXME!!! switchContent
-//                    mSlidingMenuActivity.switchContent(new TestResultsRecomendationFargment(), TestResultsFargment.this);
+                    if (pageUrl.startsWith(Url.LOCAL)) {
+                        showLocalPage(pageUrl);
+                    } else {
+                        showRemotePage(pageUrl);
+                    }
                 }
             });
         }
+    }
+
+    private void showLocalPage(String pageUrl) {
+        if (Url.BANNER_CHOOSE_MEDICAL_INSTITUTION.equals(pageUrl)) {
+
+        } else if (Url.BANNER_PASS_POLL.equals(pageUrl)) {
+
+        }
+    }
+
+    private void showRemotePage(String pageUrl) {
+        // do_in_background
     }
 
     private void setImageView(ImageView imageView, String stateString) {
@@ -194,7 +231,7 @@ public class RiskAnalysisResultsFargment extends Ca_BaseItemFragment {
     }
 
     private void setTextView(TextView textView, String text) {
-        if (text.isEmpty()) {
+        if (TextUtils.isEmpty(text)) {
             // textView.setVisibility(View.INVISIBLE);
             textView.setHeight(0);
         } else {

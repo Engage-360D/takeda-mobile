@@ -36,12 +36,6 @@
     <integer name="alpha_animation_time">1000</integer>
     <integer name="alpha_animation_time_short">300</integer>
 
-    <!-- ======== -->
-    <!-- dividers -->
-    <!-- ======== -->
-    <dimen name="divider_menu_hight">1dp</dimen>
-    <dimen name="divider_content_hight">1dp</dimen>
-
     <!-- ==== -->
     <!-- text -->
     <!-- ==== -->

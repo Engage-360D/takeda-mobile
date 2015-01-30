@@ -17,17 +17,17 @@
 
     <CheckBox
         android:id="@+id/checkBoxAgreeToProcessing"
-        style="@style/checkbox"
+        style="@style/checkbox_small_41"
         android:text="@string/agree_to_processing" />
 
     <CheckBox
         android:id="@+id/checkBoxAgreeToReceive"
-        style="@style/checkbox"
+        style="@style/checkbox_small_41"
         android:text="@string/agree_to_receive" />
 
     <CheckBox
         android:id="@+id/checkBoxAgreeThatAdvises"
-        style="@style/checkbox"
+        style="@style/checkbox_small_41"
         android:text="@string/agree_that_advises" />
 
 </LinearLayout>

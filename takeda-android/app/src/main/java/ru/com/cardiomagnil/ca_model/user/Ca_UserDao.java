@@ -20,7 +20,6 @@ import ru.com.cardiomagnil.ca_api.http.HttpRequestHolder;
 import ru.com.cardiomagnil.ca_model.common.Ca_DataWraper;
 import ru.com.cardiomagnil.ca_model.common.Ca_Response;
 import ru.com.cardiomagnil.ca_model.role.Ca_UserRoleDao;
-import ru.com.cardiomagnil.ca_model.test.Ca_TestSource;
 import ru.com.cardiomagnil.ca_model.token.Ca_Token;
 import ru.com.cardiomagnil.util.CallbackOne;
 
@@ -102,10 +101,10 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
                 );
     }
 
-    public static void getById(final Ca_Token token,
-                               final CallbackOne<Ca_User> onSuccess,
-                               final CallbackOne<Ca_Response> onFailure,
-                               final boolean forceHttp) {
+    public static void getByToken(final Ca_Token token,
+                                  final CallbackOne<Ca_User> onSuccess,
+                                  final CallbackOne<Ca_Response> onFailure,
+                                  final boolean forceHttp) {
         TypeReference typeReference = new TypeReference<Ca_User>() {
         };
 
@@ -139,7 +138,7 @@ public class Ca_UserDao extends BaseDaoImpl<Ca_User, Integer> {
 
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
-                        .Builder(Request.Method.GET, String.format(Url.USERS_ID, token.getUserId()), typeReference)
+                        .Builder(Request.Method.GET, Url.ACCOUNT, typeReference)
                         .addParam("token", token.getTokenId())
                         .setOnBeforeExtract(onOnBeforeExtract)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)

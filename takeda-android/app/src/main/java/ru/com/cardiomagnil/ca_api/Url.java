@@ -10,7 +10,7 @@ public final class Url {
     public static final String API_ADDR = API_SCHEME + API_HOST + API_PREFIX;
 
     public static final String USERS = API_ADDR + "users";
-    public static final String USERS_ID = API_ADDR + "users/%s";
+    public static final String ACCOUNT = API_ADDR + "account";
     public static final String ACCOUNT_RESET_PASSWORD = API_ADDR + "account/reset-password";
     public static final String ACCOUNT_TEST_RESULTS = API_ADDR + "account/test-results?token=%s";
     public static final String TOKENS = API_ADDR + "tokens";
@@ -20,13 +20,8 @@ public final class Url {
         put("Content-Type", "application/vnd.api+json");
     }};
 
-    // TODO:
-    // /test-results
-    // /test-results /{id}
-    // /test-results /{id} /send-email
-
-    // /account - PUT
-    // /account /reset-password - POST
-    // /account/test-results - GET, POST
+    public static final String LOCAL = "local/";
+    public static final String BANNER_CHOOSE_MEDICAL_INSTITUTION = LOCAL + "choose_medical_institution";
+    public static final String BANNER_PASS_POLL = LOCAL + "pass_poll";
 
 }
