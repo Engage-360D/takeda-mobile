@@ -12,13 +12,13 @@ import android.widget.ImageView;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
-import ru.com.cardiomagnil.ca_model.common.Ca_Response;
-import ru.com.cardiomagnil.ca_model.token.Ca_Token;
-import ru.com.cardiomagnil.ca_model.token.Ca_TokenDao;
-import ru.com.cardiomagnil.ca_model.user.Ca_User;
-import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
+import ru.com.cardiomagnil.model.common.Response;
+import ru.com.cardiomagnil.model.token.Token;
+import ru.com.cardiomagnil.model.token.TokenDao;
+import ru.com.cardiomagnil.model.user.User;
+import ru.com.cardiomagnil.model.user.UserDao;
 import ru.com.cardiomagnil.ui.base.BaseActivity;
-import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
+import ru.com.cardiomagnil.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
 
 public class SplashActivity extends BaseActivity implements AnimationListener {
@@ -73,35 +73,35 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
 
         if (TextUtils.isEmpty(tokenId)) finishInitialization(null, null);
 
-        Ca_TokenDao.getByTokenId(
+        TokenDao.getByTokenId(
                 tokenId,
-                new CallbackOne<Ca_Token>() {
+                new CallbackOne<Token>() {
                     @Override
-                    public void execute(Ca_Token token) {
+                    public void execute(Token token) {
                         getUser(token);
                     }
                 },
-                new CallbackOne<Ca_Response>() {
+                new CallbackOne<Response>() {
                     @Override
-                    public void execute(Ca_Response responseError) {
+                    public void execute(Response responseError) {
                         finishInitialization(null, null);
                     }
                 }
         );
     }
 
-    private void getUser(final Ca_Token token) {
-        Ca_UserDao.getByToken(
+    private void getUser(final Token token) {
+        UserDao.getByToken(
                 token,
-                new CallbackOne<Ca_User>() {
+                new CallbackOne<User>() {
                     @Override
-                    public void execute(Ca_User user) {
+                    public void execute(User user) {
                         finishInitialization(token, user);
                     }
                 },
-                new CallbackOne<Ca_Response>() {
+                new CallbackOne<Response>() {
                     @Override
-                    public void execute(Ca_Response responseError) {
+                    public void execute(Response responseError) {
                         finishInitialization(token, null);
                     }
                 },
@@ -109,7 +109,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
         );
     }
 
-    private void finishInitialization(Ca_Token token, Ca_User user) {
+    private void finishInitialization(Token token, User user) {
         if (token == null || user == null) {
             initAppState(null, null);
             mIsLogined = false;
@@ -120,7 +120,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
         nInitializationFinished = true;
     }
 
-    private void initAppState(Ca_Token token, Ca_User user) {
+    private void initAppState(Token token, User user) {
         AppState.getInstatce().setToken(token);
         AppState.getInstatce().setUser(user);
         AppState.getInstatce().setUser(user);

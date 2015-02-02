@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ca_white">
+    android:background="@color/white">
 
     <include
         android:id="@+id/linearLayoutTop"
@@ -24,16 +24,16 @@
                 android:id="@+id/editTextComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ca_space_small"
+                android:layout_margin="@dimen/space_small"
                 android:background="@drawable/rounded_edit_text"
                 android:gravity="top|left"
                 android:hint="@string/your_comment"
                 android:maxLines="5"
                 android:minLines="5"
-                android:padding="@dimen/ca_space_xsmall"
-                android:textColor="@color/ca_text_main_37"
-                android:textColorHint="@color/ca_main_text_37_hint"
-                android:textSize="@dimen/ca_text_size_medium" />
+                android:padding="@dimen/space_xsmall"
+                android:textColor="@color/text_main_37"
+                android:textColorHint="@color/main_text_37_hint"
+                android:textSize="@dimen/text_size_medium" />
 
             <RadioGroup
                 android:id="@+id/radioGroupIncident"
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/ca_space_medium" />
+                android:padding="@dimen/space_medium" />
 
         </LinearLayout>
     </ScrollView>

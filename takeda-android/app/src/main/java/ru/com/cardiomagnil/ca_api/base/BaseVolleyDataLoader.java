@@ -5,19 +5,19 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import ru.com.cardiomagnil.ca_api.DataLoadSequence;
 import ru.com.cardiomagnil.ca_api.Status;
-import ru.com.cardiomagnil.ca_model.base.BaseModel;
-import ru.com.cardiomagnil.ca_model.common.Ca_Error;
-import ru.com.cardiomagnil.ca_model.common.Ca_Response;
+import ru.com.cardiomagnil.model.base.BaseModel;
+import ru.com.cardiomagnil.model.common.Error;
+import ru.com.cardiomagnil.model.common.Response;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.ThtreadHelper;
 
 public abstract class BaseVolleyDataLoader extends BaseDataLoader {
     @SuppressWarnings("unchecked")
-    protected <T_IN, T_OUT> void handleSuccessResponse(final Ca_Response response,
+    protected <T_IN, T_OUT> void handleSuccessResponse(final Response response,
                                                        final BaseVolleyRequestHolder volleyRequestHolder,
                                                        final DataLoadSequence dataLoadSequence,
                                                        final CallbackOne<T_OUT> callbackOneOnSuccess,
-                                                       final CallbackOne<Ca_Response> callbackOneOnError) {
+                                                       final CallbackOne<Response> callbackOneOnError) {
         ThtreadHelper.logThread("BaseVolleyDataLoader->handleSuccessResponse");
 
         if (volleyRequestHolder.getOnBeforeExtracted() != null) {
@@ -34,19 +34,19 @@ public abstract class BaseVolleyDataLoader extends BaseDataLoader {
         }
     }
 
-    protected <T> void handleErrorResponse(final Ca_Response error,
+    protected <T> void handleErrorResponse(final Response error,
                                            final DataLoadSequence dataLoadSequence,
                                            final CallbackOne<T> callbackOneOnSuccess,
-                                           final CallbackOne<Ca_Response> callbackOneOnError) {
+                                           final CallbackOne<Response> callbackOneOnError) {
         ThtreadHelper.logThread("BaseVolleyDataLoader->handleErrorResponse");
         handleResult(null, error, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
     }
 
-    protected Ca_Response dataToResponse(byte[] responseData) {
-        Ca_Response response = null;
+    protected Response dataToResponse(byte[] responseData) {
+        Response response = null;
         try {
             String responseString = new String(responseData, "UTF-8");
-            response = (Ca_Response) BaseModel.stringToObject(responseString, new TypeReference<Ca_Response>() {
+            response = (Response) BaseModel.stringToObject(responseString, new TypeReference<Response>() {
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,17 +54,17 @@ public abstract class BaseVolleyDataLoader extends BaseDataLoader {
         return checkResponse(response);
     }
 
-    protected Ca_Response stringToResponse(String responseString) {
-        Ca_Response response = (Ca_Response) BaseModel.stringToObject(responseString, new TypeReference<Ca_Response>() {
+    protected Response stringToResponse(String responseString) {
+        Response response = (Response) BaseModel.stringToObject(responseString, new TypeReference<Response>() {
         });
         return checkResponse(response);
     }
 
-    protected Ca_Response checkResponse(Ca_Response response) {
+    protected Response checkResponse(Response response) {
         return response != null ?
                 response :
-                new Ca_Response
-                        .Builder(new Ca_Error(Status.INPUT_DATA_ERROR, Status.getDescription(Status.INPUT_DATA_ERROR)))
+                new Response
+                        .Builder(new Error(Status.INPUT_DATA_ERROR, Status.getDescription(Status.INPUT_DATA_ERROR)))
                         .create();
     }
 
@@ -72,7 +72,7 @@ public abstract class BaseVolleyDataLoader extends BaseDataLoader {
                                                  final BaseVolleyRequestHolder volleyRequestHolder,
                                                  final DataLoadSequence dataLoadSequence,
                                                  final CallbackOne<T> callbackOneOnSuccess,
-                                                 final CallbackOne<Ca_Response> callbackOneOnError) {
+                                                 final CallbackOne<Response> callbackOneOnError) {
         if (volleyRequestHolder.getOnStoreIntoDatabase() != null) {
             storeIntoDB(result, volleyRequestHolder);
         }

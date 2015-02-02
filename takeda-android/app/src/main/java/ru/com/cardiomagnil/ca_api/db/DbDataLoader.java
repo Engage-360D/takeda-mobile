@@ -8,8 +8,8 @@ import java.util.List;
 import ru.com.cardiomagnil.ca_api.DataLoadSequence;
 import ru.com.cardiomagnil.ca_api.Status;
 import ru.com.cardiomagnil.ca_api.base.BaseDataLoader;
-import ru.com.cardiomagnil.ca_model.common.Ca_Error;
-import ru.com.cardiomagnil.ca_model.common.Ca_Response;
+import ru.com.cardiomagnil.model.common.Error;
+import ru.com.cardiomagnil.model.common.Response;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.ThtreadHelper;
 
@@ -17,11 +17,11 @@ public class DbDataLoader extends BaseDataLoader {
     @Override
     public <T> void invokeDataLoad(final DataLoadSequence dataLoadSequence,
                                    final CallbackOne<T> callbackOneOnSuccess,
-                                   final CallbackOne<Ca_Response> callbackOneOnError) {
+                                   final CallbackOne<Response> callbackOneOnError) {
         final DbRequestHolder dbRequestHolder = (DbRequestHolder) dataLoadSequence.poll();
 
         List<Object> resultTmp = new ArrayList<Object>();
-        Ca_Response error = null;
+        Response error = null;
 
         List<QueryBuilder> queryBuilders = dbRequestHolder.getQueryBuilder();
 
@@ -43,8 +43,8 @@ public class DbDataLoader extends BaseDataLoader {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            error = new Ca_Response
-                    .Builder(new Ca_Error(Status.DB_ERROR, Status.getDescription(Status.DB_ERROR)))
+            error = new Response
+                    .Builder(new Error(Status.DB_ERROR, Status.getDescription(Status.DB_ERROR)))
                     .create();
             ThtreadHelper.logThread("DbDataLoader->invokeDataLoad->db_error");
         }
@@ -57,8 +57,8 @@ public class DbDataLoader extends BaseDataLoader {
         if (!errorIsNotPresent) {
             handleErrorResponse(error, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
         } else if (errorIsNotPresent && resultIsNotPresent) {
-            error = new Ca_Response
-                    .Builder(new Ca_Error(Status.NO_DATA_ERROR, Status.getDescription(Status.NO_DATA_ERROR)))
+            error = new Response
+                    .Builder(new Error(Status.NO_DATA_ERROR, Status.getDescription(Status.NO_DATA_ERROR)))
                     .create();
             handleErrorResponse(error, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
         } else {
@@ -83,7 +83,7 @@ public class DbDataLoader extends BaseDataLoader {
                                                        final DbRequestHolder dbRequestHolder,
                                                        final DataLoadSequence dataLoadSequence,
                                                        final CallbackOne<T_OUT> callbackOneOnSuccess,
-                                                       final CallbackOne<Ca_Response> callbackOneOnError) {
+                                                       final CallbackOne<Response> callbackOneOnError) {
         ThtreadHelper.logThread("DbDataLoader->handleSuccessResponse");
 
         if (dbRequestHolder.getOnAfterExtracted() != null) {
@@ -94,10 +94,10 @@ public class DbDataLoader extends BaseDataLoader {
         }
     }
 
-    protected <T> void handleErrorResponse(final Ca_Response error,
+    protected <T> void handleErrorResponse(final Response error,
                                            final DataLoadSequence dataLoadSequence,
                                            final CallbackOne<T> callbackOneOnSuccess,
-                                           final CallbackOne<Ca_Response> callbackOneOnError) {
+                                           final CallbackOne<Response> callbackOneOnError) {
         ThtreadHelper.logThread("DbDataLoader->handleErrorResponse");
         handleResult(null, error, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
     }

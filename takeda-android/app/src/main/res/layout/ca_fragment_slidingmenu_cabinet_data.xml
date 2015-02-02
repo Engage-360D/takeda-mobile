@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewTop"
+            android:text="@string/personal_cabinet" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupCondition"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plate_small"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonRecomendations"
+                style="@style/RadioButtonTwoLines"
+                android:text="@string/personal_cabinet_my_recomendations" />
+
+            <RadioButton
+                android:id="@+id/radioButtonData"
+                style="@style/RadioButtonTwoLines"
+                android:checked="true"
+                android:text="@string/personal_cabinet_my_data" />
+
+            <RadioButton
+                android:id="@+id/radioButtonSetting"
+                style="@style/RadioButtonTwoLines"
+                android:text="@string/personal_cabinet_my_setting" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/textViewBottom"
+        layout="@layout/layout_bottom_contraindications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textViewBottom"
+        android:layout_below="@id/linearLayoutTop"
+        android:layout_gravity="center_horizontal"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_your_detailsl" />
+
+            <Button
+                android:id="@+id/buttonGenerate"
+                style="@style/button_main_very_long"
+                android:text="@string/generate"
+                android:textSize="@dimen/text_size_small" />
+
+            <View style="@style/gap_vertical_space_small" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <include layout="@layout/layout_use_social" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <View style="@style/gap_vertical_space_small" />
+
+            <include
+                android:id="@+id/layoutSpecializationDetailsl"
+                layout="@layout/layout_specialization_detailsl" />
+
+            <View style="@style/divider_normal_1_3" />
+
+            <Button
+                android:id="@+id/buttonSave"
+                style="@style/button_main_short"
+                android:layout_margin="@dimen/space_medium"
+                android:text="@string/save" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

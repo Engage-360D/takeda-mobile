@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:fillAfter="true"
-    android:shareInterpolator="false" >
+    android:shareInterpolator="false">
 
     <scale
         android:duration="@integer/scale_animation_time"
@@ -20,7 +20,6 @@
         android:repeatCount="-1"
         android:repeatMode="reverse"
         android:startOffset="0"
-        android:toAlpha="1.0" >
-    </alpha>
+        android:toAlpha="1.0" />
 
 </set>

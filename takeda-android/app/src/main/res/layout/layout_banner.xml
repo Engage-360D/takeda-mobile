@@ -12,18 +12,18 @@
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:gravity="center_vertical"
-        android:minHeight="@dimen/ca_plate_small"
+        android:minHeight="@dimen/plate_small"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/ca_space_xsmall"
-        android:paddingTop="@dimen/ca_space_xsmall">
+        android:paddingBottom="@dimen/space_xsmall"
+        android:paddingTop="@dimen/space_xsmall">
 
         <ImageView
             android:id="@+id/imageViewState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:layout_marginRight="@dimen/ca_space_small"
-            android:layout_marginTop="@dimen/ca_space_xxsmall"
+            android:layout_marginRight="@dimen/space_small"
+            android:layout_marginTop="@dimen/space_xxsmall"
             android:contentDescription="@null" />
 
         <LinearLayout
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/ca_space_small"
+            android:layout_marginLeft="@dimen/space_small"
             android:contentDescription="@null"
             android:src="@drawable/ca_selector_banner_ic" />
     </LinearLayout>

@@ -7,13 +7,13 @@
     <com.devspark.robototextview.widget.RobotoTextView
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ca_plate_medium"
+        android:layout_height="@dimen/plate_medium"
         android:background="@drawable/ca_selector_menu_item_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/ca_space_large"
-        android:paddingRight="@dimen/ca_space_large"
-        android:textColor="@color/ca_selector_menu_item_text"
-        android:textSize="@dimen/ca_text_size_xlarge"
+        android:paddingLeft="@dimen/space_large"
+        android:paddingRight="@dimen/space_large"
+        android:textColor="@color/selector_menu_item_text"
+        android:textSize="@dimen/text_size_xlarge"
         app:typeface="roboto_regular" />
 
 </LinearLayout>

@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:weightSum="4"
-    android:padding="@dimen/ca_space_medium"
+    android:padding="@dimen/space_medium"
     android:orientation="horizontal">
 
     <ImageView
@@ -24,8 +24,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="@string/warning"
-            android:textColor="@color/ca_text_main_37"
-            android:textSize="@dimen/ca_text_size_medium"
+            android:textColor="@color/text_main_37"
+            android:textSize="@dimen/text_size_medium"
             android:textStyle="bold" />
 
         <View style="@style/gap_vertical_space_xsmall" />
@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="@string/infarction_occurred"
-            android:textColor="@color/ca_text_main_37"
-            android:textSize="@dimen/ca_text_size_medium" />
+            android:textColor="@color/text_main_37"
+            android:textSize="@dimen/text_size_medium" />
 
     </LinearLayout>
 </LinearLayout>

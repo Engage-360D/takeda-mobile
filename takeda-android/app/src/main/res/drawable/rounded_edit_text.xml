@@ -1,7 +1,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@color/ca_bg_edit_text" />
+    <solid android:color="@color/bg_edit_text" />
 
     <corners
         android:bottomLeftRadius="5dp"
@@ -10,7 +10,7 @@
         android:topRightRadius="5dp" />
 
     <stroke
-        android:width="@dimen/ca_divider_1"
-        android:color="@color/ca_divider_5" />
+        android:width="@dimen/divider_1"
+        android:color="@color/divider_5" />
 
 </shape>

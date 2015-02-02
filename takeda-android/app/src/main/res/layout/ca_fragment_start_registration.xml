@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ca_white">
+    android:background="@color/white">
 
     <include
         android:id="@+id/linearLayoutTop"
@@ -30,6 +30,8 @@
 
             <include layout="@layout/layout_your_detailsl" />
 
+            <View style="@style/gap_vertical_space_small" />
+
             <View style="@style/divider_normal_1_3" />
 
             <include layout="@layout/layout_region" />
@@ -55,7 +57,7 @@
             <Button
                 android:id="@+id/buttonSignUp"
                 style="@style/button_main_long"
-                android:layout_margin="@dimen/ca_space_medium"
+                android:layout_margin="@dimen/space_medium"
                 android:text="@string/sign_up" />
 
         </LinearLayout>

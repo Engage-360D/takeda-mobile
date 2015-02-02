@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:background="@color/ca_bg_main_38"
+    android:background="@color/bg_main_38"
     android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/linearLayoutLeftHolder"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/ca_space_small_negative"
+        android:layout_marginBottom="@dimen/space_small_negative"
         android:layout_weight="1"
         android:gravity="center_vertical|left"
         android:orientation="horizontal">
@@ -18,7 +18,7 @@
         <RelativeLayout
             android:id="@+id/contentTopRightClickable"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="@dimen/ca_space_medium"
+            android:layout_marginLeft="@dimen/space_medium"
             android:layout_height="wrap_content"
             android:clickable="true">
 
@@ -28,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_small_light_left"
                 android:text="@string/menu_back"
-                android:textColor="@color/ca_white"
-                android:textSize="@dimen/ca_text_size_small"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small"
                 android:visibility="invisible"
                 app:typeface="roboto_medium" />
 
@@ -53,7 +53,7 @@
         android:id="@+id/linearLayoutRightHolder"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/ca_space_small_negative"
+        android:layout_marginBottom="@dimen/space_small_negative"
         android:layout_weight="1"
         android:gravity="center_vertical|right"
         android:orientation="horizontal" />

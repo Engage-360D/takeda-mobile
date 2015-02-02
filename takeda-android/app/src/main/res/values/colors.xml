@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- background_main -->
-    <color name="ca_bg_main_38">#FF38404C</color>
-    <color name="ca_bg_shadow">#33000000</color>
-    <color name="ca_bg_transparent">#00000000</color>
-    <color name="ca_bg_edit_text">#FFE7E7E7</color>
+    <color name="bg_main_38">#FF38404C</color>
+    <color name="bg_shadow">#33000000</color>
+    <color name="bg_transparent">#00000000</color>
+    <color name="bg_edit_text">#FFE7E7E7</color>
 
     <!-- background_test -->
-    <color name="ca_bg_test_top">#FFFF3341</color>
-    <color name="ca_bg_test_tab">#FFE1363D</color>
-    <color name="ca_bg_test_tab_passed">#FFD2292F</color>
-    <color name="ca_bg_test_result">#FF85ADED</color>
-    <color name="ca_bg_test_result_top">#FFDC363D</color>
+    <color name="bg_test_top">#FFFF3341</color>
+    <color name="bg_test_tab">#FFE1363D</color>
+    <color name="bg_test_tab_passed">#FFD2292F</color>
+    <color name="bg_test_result">#FF85ADED</color>
+    <color name="bg_test_result_top">#FFDC363D</color>
 
     <!-- background_item -->
-    <color name="ca_bg_main_unpressed">#FFE7E7E7</color>
-    <color name="ca_bg_main_pressed">#FF4E5662</color>
+    <color name="bg_main_unpressed">#FFE7E7E7</color>
+    <color name="bg_main_pressed">#FF4E5662</color>
 
     <!-- background_menu -->
-    <color name="ca_bg_menu">#FF38404C</color>
-    <color name="ca_bg_menu_unpressed">#FF38404C</color>
-    <color name="ca_bg_menu_pressed">#FFF5F5F5</color>
-    <color name="ca_bg_menu_disabled">#FF38404C</color>
+    <color name="bg_menu">#FF38404C</color>
+    <color name="bg_menu_unpressed">#FF38404C</color>
+    <color name="bg_menu_pressed">#FFF5F5F5</color>
+    <color name="bg_menu_disabled">#FF38404C</color>
 
     <!-- background_button -->
-    <color name="ca_bg_button_main_unpressed">#FF38404C</color>
-    <color name="ca_bg_button_main_pressed">#FF262B33</color>
-    <color name="ca_bg_button_main_disabled">#7738404C</color>
+    <color name="bg_button_main_unpressed">#FF38404C</color>
+    <color name="bg_button_main_pressed">#FF262B33</color>
+    <color name="bg_button_main_disabled">#7738404C</color>
 
     <!-- bg_and_txt -->
-    <color name="ca_white">#FFFFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
 
     <!-- text_main -->
-    <color name="ca_text_main_37">#FF37404C</color>
-    <color name="ca_text_main_38">#FF38404C</color>
-    <color name="ca_text_main_41">#FF414141</color>
-    <color name="ca_text_main_48">#FF485662</color>
-    <color name="ca_text_main_88">#FF88909C</color>
-    <color name="ca_text_test_passed">#FF750005</color>
-    <color name="ca_text_test_result">#FF85ADED</color>
+    <color name="text_main_37">#FF37404C</color>
+    <color name="text_main_38">#FF38404C</color>
+    <color name="text_main_41">#FF414141</color>
+    <color name="text_main_48">#FF485662</color>
+    <color name="text_main_88">#FF88909C</color>
+    <color name="text_test_passed">#FF750005</color>
+    <color name="text_test_result">#FF85ADED</color>
 
     <!-- text_hint -->
-    <color name="ca_main_text_37_hint">#7737404C</color>
-    <color name="ca_text_main_38_hint">#7738404C</color>
-    <color name="ca_text_main_48_hint">#77485662</color>
+    <color name="main_text_37_hint">#7737404C</color>
+    <color name="text_main_38_hint">#7738404C</color>
+    <color name="text_main_48_hint">#77485662</color>
 
     <!-- text_button -->
-    <color name="ca_txt_button_main_unpressed">#FFFFFFFF</color>
-    <color name="ca_txt_button_main_pressed">#FFAAAAAA</color>
-    <color name="ca_txt_button_main_disabled">#77FFFFFF</color>
+    <color name="text_button_main_unpressed">#FFFFFFFF</color>
+    <color name="text_button_main_pressed">#FFAAAAAA</color>
+    <color name="text_button_main_disabled">#77FFFFFF</color>
 
     <!-- text_checkbox -->
-    <color name="ca_text_checkbox_unchecked">#FF414141</color>
-    <color name="ca_text_checkbox_checked">#FFFFFFFF</color>
+    <color name="text_checkbox_unchecked">#FF414141</color>
+    <color name="text_checkbox_checked">#FFFFFFFF</color>
 
     <!-- text_clickable -->
-    <color name="ca_text_main_48_unpressed">#FF485662</color>
-    <color name="ca_text_main_48_pressed">#FF121212</color>
+    <color name="text_main_48_unpressed">#FF485662</color>
+    <color name="text_main_48_pressed">#FF121212</color>
 
     <!-- text_menu_item -->
-    <color name="ca_text_menu_item_unpressed">#FFFFFFFF</color>
-    <color name="ca_text_menu_item_pressed">#FF38404C</color>
-    <color name="ca_text_menu_item_disabled">#FF12161D</color>
+    <color name="text_menu_item_unpressed">#FFFFFFFF</color>
+    <color name="text_menu_item_pressed">#FF38404C</color>
+    <color name="text_menu_item_disabled">#FF12161D</color>
 
     <!-- text_list_item -->
-    <color name="ca_text_list_item_unpressed">#FF37404C</color>
-    <color name="ca_text_list_item_pressed">#FFFFFFFF</color>
-    <color name="ca_text_list_item_disabled">#7737404C</color>
+    <color name="text_list_item_unpressed">#FF37404C</color>
+    <color name="text_list_item_pressed">#FFFFFFFF</color>
+    <color name="text_list_item_disabled">#7737404C</color>
 
     <!-- divider -->
-    <color name="ca_divider_1">#FFC3C5C9</color>
-    <color name="ca_divider_2">#FFDCDDE0</color>
-    <color name="ca_divider_3">#FFDCDADA</color>
-    <color name="ca_divider_4">#FF4C545E</color>
-    <color name="ca_divider_5">#FFC8CACC</color>
-    <color name="ca_divider_6">#FF9DBDF1</color>
-    <color name="ca_divider_7">#FFCACCD0</color>
-    <color name="ca_divider_8">#FFC81B1E</color>
+    <color name="divider_1">#FFC3C5C9</color>
+    <color name="divider_2">#FFDCDDE0</color>
+    <color name="divider_3">#FFDCDADA</color>
+    <color name="divider_4">#FF4C545E</color>
+    <color name="divider_5">#FFC8CACC</color>
+    <color name="divider_6">#FF9DBDF1</color>
+    <color name="divider_7">#FFCACCD0</color>
+    <color name="divider_8">#FFC81B1E</color>
 
     <!-- border -->
-    <color name="ca_border_main">#FFC8CACC</color>
+    <color name="border_main">#FFC8CACC</color>
 
 </resources>

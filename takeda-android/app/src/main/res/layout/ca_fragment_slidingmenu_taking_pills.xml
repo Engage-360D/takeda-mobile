@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ca_white">
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
@@ -12,21 +12,21 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ca_plate_medium"
-            android:background="@color/ca_bg_test_top"
+            android:layout_height="@dimen/plate_medium"
+            android:background="@color/bg_test_top"
             android:gravity="center"
             android:text="@string/pills"
-            android:textColor="@color/ca_white"
-            android:textSize="@dimen/ca_text_size_large" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ca_plate_large"
-            android:background="@color/ca_white"
+            android:layout_height="@dimen/plate_large"
+            android:background="@color/white"
             android:gravity="center"
             android:text="@string/today"
-            android:textColor="@color/ca_text_main_48"
-            android:textSize="@dimen/ca_text_size_xlarge" />
+            android:textColor="@color/text_main_48"
+            android:textSize="@dimen/text_size_xlarge" />
 
     </LinearLayout>
 
@@ -41,10 +41,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:padding="@dimen/ca_space_medium"
+            android:padding="@dimen/space_medium"
             android:text="@string/consult_a_doctor"
-            android:textColor="@color/ca_text_main_37"
-            android:textSize="@dimen/ca_text_size_small" />
+            android:textColor="@color/text_main_37"
+            android:textSize="@dimen/text_size_small" />
 
         <View style="@style/gap_vertical_plate_xxxlarge" />
 
@@ -78,13 +78,13 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium">
 
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/ca_plate_medium"
+                    android:layout_height="@dimen/plate_medium"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -94,16 +94,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/kruglenkaya_sinyaya"
-                        android:textColor="@color/ca_text_main_37"
-                        android:textSize="@dimen/ca_text_size_medium" />
+                        android:textColor="@color/text_main_37"
+                        android:textSize="@dimen/text_size_medium" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/ca_space_xxsmall"
+                        android:layout_marginTop="@dimen/space_xxsmall"
                         android:text="@string/time_1"
-                        android:textColor="@color/ca_text_main_37"
-                        android:textSize="@dimen/ca_text_size_xsmall" />
+                        android:textColor="@color/text_main_37"
+                        android:textSize="@dimen/text_size_xsmall" />
                 </LinearLayout>
 
                 <CheckBox
@@ -124,13 +124,13 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium">
 
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/ca_plate_medium"
+                    android:layout_height="@dimen/plate_medium"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -140,16 +140,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/kvadratnaya"
-                        android:textColor="@color/ca_text_main_37"
-                        android:textSize="@dimen/ca_text_size_medium" />
+                        android:textColor="@color/text_main_37"
+                        android:textSize="@dimen/text_size_medium" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/ca_space_xxsmall"
+                        android:layout_marginTop="@dimen/space_xxsmall"
                         android:text="@string/time_2"
-                        android:textColor="@color/ca_text_main_37"
-                        android:textSize="@dimen/ca_text_size_xsmall" />
+                        android:textColor="@color/text_main_37"
+                        android:textSize="@dimen/text_size_xsmall" />
                 </LinearLayout>
 
                 <CheckBox
@@ -168,12 +168,12 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/ca_space_medium"
-                android:paddingRight="@dimen/ca_space_medium">
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium">
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/ca_plate_medium"
+                    android:layout_height="@dimen/plate_medium"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -183,16 +183,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/kruglenkaya_sinyaya"
-                        android:textColor="@color/ca_text_main_37"
-                        android:textSize="@dimen/ca_text_size_medium" />
+                        android:textColor="@color/text_main_37"
+                        android:textSize="@dimen/text_size_medium" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/ca_space_xxsmall"
+                        android:layout_marginTop="@dimen/space_xxsmall"
                         android:text="@string/time_3"
-                        android:textColor="@color/ca_text_main_37"
-                        android:textSize="@dimen/ca_text_size_xsmall" />
+                        android:textColor="@color/text_main_37"
+                        android:textSize="@dimen/text_size_xsmall" />
                 </LinearLayout>
 
                 <CheckBox

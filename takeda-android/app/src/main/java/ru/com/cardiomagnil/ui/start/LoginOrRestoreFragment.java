@@ -18,11 +18,11 @@ import android.widget.Toast;
 import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ca_api.Status;
-import ru.com.cardiomagnil.ca_model.common.Ca_Error;
-import ru.com.cardiomagnil.ca_model.common.Ca_Response;
-import ru.com.cardiomagnil.ca_model.user.Ca_User;
-import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
-import ru.com.cardiomagnil.ca_model.user.Ca_UserLgnPwd;
+import ru.com.cardiomagnil.model.common.Error;
+import ru.com.cardiomagnil.model.common.Response;
+import ru.com.cardiomagnil.model.user.User;
+import ru.com.cardiomagnil.model.user.UserDao;
+import ru.com.cardiomagnil.model.user.UserLgnPwd;
 import ru.com.cardiomagnil.social.FbApi;
 import ru.com.cardiomagnil.social.FbUser;
 import ru.com.cardiomagnil.social.OkApi;
@@ -61,12 +61,12 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         }
     }
 
-    public void handleResetPassword(Ca_User user, Ca_Response responseError) {
+    public void handleResetPassword(User user, Response responseError) {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.hideProgressDialog();
 
         responseError = (responseError == null || responseError.getError() == null) ?
-                new Ca_Response.Builder(new Ca_Error()).create() :
+                new Response.Builder(new Error()).create() :
                 responseError;
 
         if (user == null) {
@@ -216,7 +216,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     private void startAuthorization() {
-        Ca_UserLgnPwd userLgnPwd = pickAuthorizationFields();
+        UserLgnPwd userLgnPwd = pickAuthorizationFields();
         // response handled in handleRegAuth
         startAuthorization(userLgnPwd);
     }
@@ -231,25 +231,25 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
 
     // FIXME
     private void restorePassword(String email) {
-        Ca_UserDao.resetPassword(
+        UserDao.resetPassword(
                 email,
-                new CallbackOne<Ca_User>() {
+                new CallbackOne<User>() {
                     @Override
-                    public void execute(Ca_User newUser) {
+                    public void execute(User newUser) {
                         handleResetPassword(newUser, null);
                     }
                 },
-                new CallbackOne<Ca_Response>() {
+                new CallbackOne<Response>() {
                     @Override
-                    public void execute(Ca_Response responseError) {
+                    public void execute(Response responseError) {
                         handleResetPassword(null, responseError);
                     }
                 }
         );
     }
 
-    private Ca_UserLgnPwd pickAuthorizationFields() {
-        Ca_UserLgnPwd userLgnPwd = new Ca_UserLgnPwd();
+    private UserLgnPwd pickAuthorizationFields() {
+        UserLgnPwd userLgnPwd = new UserLgnPwd();
 
         try {
             EditText editTextEmailLogin = (EditText) getActivity().findViewById(R.id.editTextEmailLogin);

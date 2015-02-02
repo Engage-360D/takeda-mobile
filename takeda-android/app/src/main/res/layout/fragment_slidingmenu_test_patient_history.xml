@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ca_white">
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
@@ -51,8 +51,8 @@
 
                 <RadioGroup
                     android:id="@+id/radioGroupDiabetes"
-                    android:layout_width="@dimen/ca_control_medium"
-                    android:layout_height="@dimen/ca_control_xxsmall"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="@dimen/control_xxsmall"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:orientation="horizontal">
@@ -79,8 +79,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupDiabetes"
                     android:text="@string/suffering_diabetes"
-                    android:textColor="@color/ca_text_main_38"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
@@ -95,13 +95,13 @@
                 <RelativeLayout
                     style="@style/LinearLayoutItemLarge"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/middle_padding"
-                    android:paddingTop="@dimen/middle_padding">
+                    android:paddingBottom="@dimen/space_xsmall"
+                    android:paddingTop="@dimen/space_xsmall">
 
                     <RadioGroup
                         android:id="@+id/radioGroupDiabeticMedicines"
-                        android:layout_width="@dimen/ca_control_medium"
-                        android:layout_height="@dimen/ca_control_xxsmall"
+                        android:layout_width="@dimen/control_medium"
+                        android:layout_height="@dimen/control_xxsmall"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:orientation="horizontal">
@@ -128,8 +128,8 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@id/radioGroupDiabeticMedicines"
                         android:text="@string/diabetic_medicines"
-                        android:textColor="@color/ca_text_main_38"
-                        android:textSize="@dimen/ca_text_size_small" />
+                        android:textColor="@color/text_main_38"
+                        android:textSize="@dimen/text_size_small" />
                 </RelativeLayout>
 
                 <View style="@style/divider_normal_1_3" />
@@ -146,13 +146,13 @@
                 <RelativeLayout
                     style="@style/LinearLayoutItemLarge"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/middle_padding"
-                    android:paddingTop="@dimen/middle_padding">
+                    android:paddingBottom="@dimen/space_xsmall"
+                    android:paddingTop="@dimen/space_xsmall">
 
                     <RadioGroup
                         android:id="@+id/radioGroupSugarProblems"
-                        android:layout_width="@dimen/ca_control_medium"
-                        android:layout_height="@dimen/ca_control_xxsmall"
+                        android:layout_width="@dimen/control_medium"
+                        android:layout_height="@dimen/control_xxsmall"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:orientation="horizontal">
@@ -179,8 +179,8 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@id/radioGroupSugarProblems"
                         android:text="@string/sugar_problems"
-                        android:textColor="@color/ca_text_main_38"
-                        android:textSize="@dimen/ca_text_size_small" />
+                        android:textColor="@color/text_main_38"
+                        android:textSize="@dimen/text_size_small" />
                 </RelativeLayout>
 
                 <View style="@style/divider_normal_1_3" />
@@ -191,7 +191,7 @@
 
                 <EditText
                     android:id="@+id/editTextPressure"
-                    android:layout_width="@dimen/ca_control_medium"
+                    android:layout_width="@dimen/control_medium"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -207,8 +207,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/editTextPressure"
                     android:text="@string/arterial_pressure"
-                    android:textColor="@color/ca_text_main_38"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
@@ -217,8 +217,8 @@
 
                 <RadioGroup
                     android:id="@+id/radioGroupHypertonicMedicines"
-                    android:layout_width="@dimen/ca_control_medium"
-                    android:layout_height="@dimen/ca_control_xxsmall"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="@dimen/control_xxsmall"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:orientation="horizontal">
@@ -245,8 +245,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupHypertonicMedicines"
                     android:text="@string/hypertonic_medicines"
-                    android:textColor="@color/ca_text_main_38"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
@@ -255,7 +255,7 @@
 
                 <EditText
                     android:id="@+id/editTextPhysicalActivity"
-                    android:layout_width="@dimen/ca_control_medium"
+                    android:layout_width="@dimen/control_medium"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -271,8 +271,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/editTextPhysicalActivity"
                     android:text="@string/physical_activity"
-                    android:textColor="@color/ca_text_main_38"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
@@ -281,8 +281,8 @@
 
                 <RadioGroup
                     android:id="@+id/radioGroupInfarctionStroke"
-                    android:layout_width="@dimen/ca_control_medium"
-                    android:layout_height="@dimen/ca_control_xxsmall"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="@dimen/control_xxsmall"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:orientation="horizontal">
@@ -309,8 +309,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupInfarctionStroke"
                     android:text="@string/infarction_stroke"
-                    android:textColor="@color/ca_text_main_38"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />

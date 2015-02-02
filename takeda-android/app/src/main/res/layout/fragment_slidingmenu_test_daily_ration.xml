@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ca_white">
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/linearLayoutTop"
@@ -51,7 +51,7 @@
 
                 <RadioGroup
                     android:id="@+id/radioGroupExtraSalt"
-                    android:layout_width="@dimen/ca_control_medium"
+                    android:layout_width="@dimen/control_medium"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -79,8 +79,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupExtraSalt"
                     android:text="@string/salt"
-                    android:textColor="@color/ca_text_main_38"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />
@@ -88,12 +88,12 @@
             <RelativeLayout
                 style="@style/LinearLayoutItemLarge"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/middle_padding"
-                android:paddingTop="@dimen/middle_padding">
+                android:paddingBottom="@dimen/space_xsmall"
+                android:paddingTop="@dimen/space_xsmall">
 
                 <RadioGroup
                     android:id="@+id/radioGroupAspirin"
-                    android:layout_width="@dimen/ca_control_medium"
+                    android:layout_width="@dimen/control_medium"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -121,8 +121,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/radioGroupAspirin"
                     android:text="@string/aspirin"
-                    android:textColor="@color/ca_text_main_38"
-                    android:textSize="@dimen/ca_text_size_small" />
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
             <View style="@style/divider_normal_1_3" />

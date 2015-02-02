@@ -1,155 +1,97 @@
 <resources>
-
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-
-    <!-- ======= -->
-    <!-- margins -->
-    <!-- ======= -->
-    <dimen name="small_margin">4dp</dimen>
-    <dimen name="middle_margin">8dp</dimen>
-    <dimen name="large_margin">16dp</dimen>
-    <dimen name="xlarge_margin">32dp</dimen>
-
-    <!-- ======== -->
-    <!-- paddings -->
-    <!-- ======== -->
-    <dimen name="small_padding">4dp</dimen>
-    <dimen name="middle_padding">8dp</dimen>
-    <dimen name="large_padding">16dp</dimen>
-    <dimen name="xlarge_padding">32dp</dimen>
-
-    <!-- ====== -->
-    <!-- blocks -->
-    <!-- ====== -->
-    <dimen name="small_block_hight">32dp</dimen>
-    <dimen name="middle_block_hight">64dp</dimen>
-    <dimen name="middle_block_width">64dp</dimen>
-    <dimen name="large_block_width">128dp</dimen>
-    <dimen name="xlarge_block_width">192dp</dimen>
-
     <!-- ==== -->
     <!-- time -->
     <!-- ==== -->
     <integer name="scale_animation_time">500</integer>
     <integer name="alpha_animation_time">1000</integer>
     <integer name="alpha_animation_time_short">300</integer>
+    <item name="line_spacing_extra" format="float" type="dimen">0.75</item>
 
-    <!-- ==== -->
-    <!-- text -->
-    <!-- ==== -->
-    <dimen name="text_size_large">16sp</dimen>
-
-    <!-- ====== -->
-    <!-- spaces -->
-    <!-- ====== -->
-    <dimen name="xxxsmall_space">1dp</dimen>
-    <dimen name="xxsmall_space">1dp</dimen>
-    <dimen name="xsmall_space">2dp</dimen>
-    <dimen name="small_space">3dp</dimen>
-    <dimen name="medium_space">6dp</dimen>
-    <dimen name="large_space">9dp</dimen>
-    <dimen name="xlarge_space">12dp</dimen>
-    <dimen name="xxlarge_space">18dp</dimen>
-    <dimen name="xxxlarge_space">24dp</dimen>
-    <dimen name="xxxxlarge_space">48dp</dimen>
-
-    <dimen name="c_slidingmenu_shadow_width">2dp</dimen>
-
-    <!-- 1px - ca_divider_1 -->
-    <!-- 2px - ca_divider_2 -->
-    <!-- 25px - ca_space_medium -->
-    <!-- 133px - ca_space_xxxxxlarge -->
-
+    <!-- 1px - divider_1 -->
+    <!-- 2px - divider_2 -->
+    <!-- 23px - space_medium -->
+    <!-- 25px - space_medium -->
+    <!-- 133px - space_xxxxxlarge -->
     <!-- ======= -->
     <!-- divider -->
     <!-- ======= -->
-    <dimen name="ca_divider_1">1dp</dimen>
-    <dimen name="ca_divider_2">2dp</dimen>
+    <dimen name="divider_1">1dp</dimen>
+    <dimen name="divider_2">2dp</dimen>
 
     <!-- ====== -->
     <!-- spaces -->
     <!-- ====== -->
-    <dimen name="ca_space_xxxxsmall">1dp</dimen>
-    <dimen name="ca_space_xxxsmall">2dp</dimen>
-    <dimen name="ca_space_xxsmall">3dp</dimen>
-    <dimen name="ca_space_xsmall">6dp</dimen>
-    <dimen name="ca_space_small">10dp</dimen>
-    <dimen name="ca_space_medium">16dp</dimen>
-    <dimen name="ca_space_large">24dp</dimen>
-    <dimen name="ca_space_xlarge">36dp</dimen>
-    <dimen name="ca_space_xxlarge">42dp</dimen>
-    <dimen name="ca_space_xxxlarge">52dp</dimen>
-    <dimen name="ca_space_xxxxlarge">64dp</dimen>
-
-    <dimen name="ca_space_xxxxxlarge">90dp</dimen>
+    <dimen name="space_xxxxsmall">1dp</dimen>
+    <dimen name="space_xxxsmall">2dp</dimen>
+    <dimen name="space_xxsmall">3dp</dimen>
+    <dimen name="space_xsmall">6dp</dimen>
+    <dimen name="space_small">10dp</dimen>
+    <dimen name="space_medium">16dp</dimen>
+    <dimen name="space_large">24dp</dimen>
+    <dimen name="space_xlarge">36dp</dimen>
+    <dimen name="space_xxlarge">42dp</dimen>
+    <dimen name="space_xxxlarge">52dp</dimen>
+    <dimen name="space_xxxxlarge">64dp</dimen>
+    <dimen name="space_xxxxxlarge">90dp</dimen>
 
     <!-- FIXME: change layout and replace negative value-->
-    <dimen name="ca_space_small_negative">-10dp</dimen>
+    <dimen name="space_small_negative">-10dp</dimen>
 
-    <!-- 28px - ca_plate_xsmall -->
-    <!-- 50px - ca_plate_small -->
-    <!-- 53px - ca_plate_small -->
-    <!-- 59px - ca_plate_medium -->
-    <!-- 60px - ca_plate_medium -->
-    <!-- 62px - ca_plate_medium -->
-    <!-- 63px - ca_plate_medium -->
-    <!-- 66px - ca_plate_large -->
-    <!-- 68px - ca_plate_large -->
-    <!-- 70px - ca_plate_large -->
-    <!-- 74px - ca_plate_large -->
-    <!-- 78px - ca_plate_large -->
-    <!-- 88px - ca_plate_xlarge -->
-    <!-- 122px - ca_plate_xxlarge -->
+    <!-- 28px - plate_xsmall -->
+    <!-- 50px - plate_small -->
+    <!-- 53px - plate_small -->
+    <!-- 59px - plate_medium -->
+    <!-- 60px - plate_medium -->
+    <!-- 62px - plate_medium -->
+    <!-- 63px - plate_medium -->
+    <!-- 66px - plate_large -->
+    <!-- 68px - plate_large -->
+    <!-- 70px - plate_large -->
+    <!-- 74px - plate_large -->
+    <!-- 78px - plate_large -->
+    <!-- 88px - plate_xlarge -->
+    <!-- 122px - plate_xxlarge -->
     <!-- ===== -->
     <!-- plate -->
     <!-- ===== -->
-    <dimen name="ca_plate_xsmall">22dp</dimen>
-    <dimen name="ca_plate_small">38dp</dimen>
-    <dimen name="ca_plate_medium">45dp</dimen>
-    <dimen name="ca_plate_large">52dp</dimen>
-    <dimen name="ca_plate_xlarge">60dp</dimen>
-    <dimen name="ca_plate_xxlarge">75dp</dimen>
-    <dimen name="ca_plate_xxxlarge">90dp</dimen>
+    <dimen name="plate_xsmall">22dp</dimen>
+    <dimen name="plate_small">38dp</dimen>
+    <dimen name="plate_medium">45dp</dimen>
+    <dimen name="plate_large">52dp</dimen>
+    <dimen name="plate_xlarge">60dp</dimen>
+    <dimen name="plate_xxlarge">75dp</dimen>
+    <dimen name="plate_xxxlarge">90dp</dimen>
 
-    <!-- 41px - ca_control_xxsmall -->
-    <!-- 134px - ca_control_medium -->
-    <!-- 133px - ca_control_medium -->
+    <!-- 41px - control_xxsmall -->
+    <!-- 134px - control_medium -->
+    <!-- 133px - control_medium -->
     <!-- ======= -->
     <!-- control -->
     <!-- ======= -->
-    <dimen name="ca_control_xxsmall">40dp</dimen>
-    <dimen name="ca_control_medium">130dp</dimen>
-    <dimen name="ca_control_xlarge">220dp</dimen>
+    <dimen name="control_xxsmall">40dp</dimen>
+    <dimen name="control_medium">130dp</dimen>
+    <dimen name="control_xlarge">220dp</dimen>
 
-    <!-- 14pt - ca_text_size_xsmall -->
-    <!-- 16pt - ca_text_size_small -->
-    <!-- 18pt - ca_text_size_medium -->
-    <!-- 20pt - ca_text_size_medium -->
-    <!-- 21pt - ca_text_size_large -->
-    <!-- 22pt - ca_text_size_large -->
-    <!-- 24pt - ca_text_size_xlarge -->
-    <!-- 28pt - ca_text_size_xxlarge -->
-    <!-- 30pt - ca_text_size_xxlarge -->
-    <!-- 65pt - ca_text_size_percents -->
+    <!-- 14pt - text_size_xsmall -->
+    <!-- 16pt - text_size_small -->
+    <!-- 18pt - text_size_medium -->
+    <!-- 20pt - text_size_medium -->
+    <!-- 21pt - text_size_large -->
+    <!-- 22pt - text_size_large -->
+    <!-- 24pt - text_size_xlarge -->
+    <!-- 28pt - text_size_xxlarge -->
+    <!-- 30pt - text_size_xxlarge -->
+    <!-- 65pt - text_size_percents -->
     <!-- ==== -->
     <!-- text -->
     <!-- ==== -->
-    <dimen name="ca_text_size_xxsmall">12sp</dimen>
-    <dimen name="ca_text_size_xsmall">13sp</dimen>
-    <dimen name="ca_text_size_small">15sp</dimen>
-    <dimen name="ca_text_size_medium">18sp</dimen>
-    <dimen name="ca_text_size_large">19sp</dimen>
-    <dimen name="ca_text_size_xlarge">22sp</dimen>
-    <dimen name="ca_text_size_xxlarge">24sp</dimen>
-    <!--<dimen name="ca_text_size_xxsmall">12sp</dimen>-->
-    <!--<dimen name="ca_text_size_xsmall">14sp</dimen>-->
-    <!--<dimen name="ca_text_size_small">16sp</dimen>-->
-    <!--<dimen name="ca_text_size_medium">20sp</dimen>-->
-    <!--<dimen name="ca_text_size_large">22sp</dimen>-->
-    <!--<dimen name="ca_text_size_xlarge">24sp</dimen>-->
-    <!--<dimen name="ca_text_size_xxlarge">28sp</dimen>-->
-    <dimen name="ca_text_size_percents">65sp</dimen>
+    <dimen name="text_size_xxsmall">12sp</dimen>
+    <dimen name="text_size_xsmall">13sp</dimen>
+    <dimen name="text_size_small">15sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_large">19sp</dimen>
+    <dimen name="text_size_xlarge">22sp</dimen>
+    <dimen name="text_size_xxlarge">24sp</dimen>
+    <dimen name="text_size_percents">65sp</dimen>
 
 </resources>

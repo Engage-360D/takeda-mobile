@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.com.cardiomagnil.ca_model.region.Ca_Region;
+import ru.com.cardiomagnil.model.region.Region;
 
-public class RegionsSpinnerAdapter extends ArrayAdapter<Ca_Region> implements SpinnerAdapter {
+public class RegionsSpinnerAdapter extends ArrayAdapter<Region> implements SpinnerAdapter {
     private final int mTextViewResourceId;
     private final int mDropDownTextViewResourceId;
 
-    public RegionsSpinnerAdapter(Context context, int textViewResourceId, int dropDownTextViewResourceId, List<Ca_Region> regionsList) {
+    public RegionsSpinnerAdapter(Context context, int textViewResourceId, int dropDownTextViewResourceId, List<Region> regionsList) {
         super(context, textViewResourceId, regionsList);
         mTextViewResourceId = textViewResourceId;
         mDropDownTextViewResourceId = dropDownTextViewResourceId;
@@ -28,7 +28,7 @@ public class RegionsSpinnerAdapter extends ArrayAdapter<Ca_Region> implements Sp
             convertView = LayoutInflater.from(getContext()).inflate(mTextViewResourceId, null);
         }
 
-        Ca_Region regionItem = getItem(position);
+        Region regionItem = getItem(position);
         ((TextView) convertView).setText(regionItem.getName());
 
         if (position == getCount() - 1) {
@@ -46,7 +46,7 @@ public class RegionsSpinnerAdapter extends ArrayAdapter<Ca_Region> implements Sp
             convertView = LayoutInflater.from(getContext()).inflate(mDropDownTextViewResourceId, null);
         }
 
-        Ca_Region regionItem = getItem(position);
+        Region regionItem = getItem(position);
         ((TextView) convertView).setText(regionItem.getName());
 
         return convertView;

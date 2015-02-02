@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/ca_plate_medium"
+    android:layout_height="@dimen/plate_medium"
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:weightSum="3">

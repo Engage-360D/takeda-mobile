@@ -27,19 +27,18 @@ import java.util.List;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
 import ru.com.cardiomagnil.application.Constants;
-import ru.com.cardiomagnil.ca_model.common.Ca_Response;
-import ru.com.cardiomagnil.ca_model.region.Ca_Region;
-import ru.com.cardiomagnil.ca_model.region.Ca_RegionDao;
-import ru.com.cardiomagnil.ca_model.user.Ca_User;
+import ru.com.cardiomagnil.model.common.Response;
+import ru.com.cardiomagnil.model.region.Region;
+import ru.com.cardiomagnil.model.region.RegionDao;
+import ru.com.cardiomagnil.model.user.User;
 import ru.com.cardiomagnil.social.FbApi;
 import ru.com.cardiomagnil.social.FbUser;
 import ru.com.cardiomagnil.social.OkApi;
 import ru.com.cardiomagnil.social.OkUser;
-import ru.com.cardiomagnil.social.User;
 import ru.com.cardiomagnil.social.VkApi;
 import ru.com.cardiomagnil.social.VkUser;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
-import ru.com.cardiomagnil.ui.ca_content.RangeSpinnerAdapter;
+import ru.com.cardiomagnil.ui.slidingmenu.content.RangeSpinnerAdapter;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
 
@@ -86,7 +85,7 @@ public class RegistrationFragment extends BaseStartFragment {
     }
 
     @Override
-    public void initFieldsFromSocial(User user) {
+    public void initFieldsFromSocial(ru.com.cardiomagnil.social.User user) {
         EditText editTextName = (EditText) getActivity().findViewById(R.id.editTextFirstName);
         EditText editTextRegEmail = (EditText) getActivity().findViewById(R.id.editTextRegEmail);
         TextView textViewBirthDate = (TextView) getActivity().findViewById(R.id.textViewBirthDateValue);
@@ -190,24 +189,24 @@ public class RegistrationFragment extends BaseStartFragment {
     }
 
     private void initSpinnerRegion(final View spinner) {
-        Ca_RegionDao.getAll(
-                new CallbackOne<List<Ca_Region>>() {
+        RegionDao.getAll(
+                new CallbackOne<List<Region>>() {
                     @Override
-                    public void execute(List<Ca_Region> regionsList) {
+                    public void execute(List<Region> regionsList) {
                         initSpinnerRegionHelper(spinner, regionsList);
                     }
                 },
-                new CallbackOne<Ca_Response>() {
+                new CallbackOne<Response>() {
                     @Override
-                    public void execute(Ca_Response responseError) {
+                    public void execute(Response responseError) {
                         Log.d(CardiomagnilApplication.getInstance().getTag(), "initSpinnerRegion: " + responseError.getError().getMessage());
                     }
                 }
         );
     }
 
-    private void initSpinnerRegionHelper(View spinner, List<Ca_Region> regionsList) {
-        regionsList.add(Ca_Region.createNoRegion(spinner.getContext()));
+    private void initSpinnerRegionHelper(View spinner, List<Region> regionsList) {
+        regionsList.add(Region.createNoRegion(spinner.getContext()));
 
         RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(spinner.getContext(), R.layout.custom_spinner_item, R.layout.ca_spinner_item_dropdown, regionsList);
         regionsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -434,8 +433,8 @@ public class RegistrationFragment extends BaseStartFragment {
         return errorView;
     }
 
-    private Ca_User pickRegistrationFields(final View parentView) {
-        Ca_User newUser = new Ca_User();
+    private User pickRegistrationFields(final View parentView) {
+        User newUser = new User();
 
         try {
             RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
@@ -459,7 +458,7 @@ public class RegistrationFragment extends BaseStartFragment {
             newUser.setFirstname(editTextFirstName.getText().toString());
             newUser.setLastname(editTextLastName.getText().toString());
             newUser.setEmail(editTextRegEmail.getText().toString());
-            newUser.setRegion(String.valueOf(((Ca_Region) spinnerRegion.getTag()).getId()));
+            newUser.setRegion(String.valueOf(((Region) spinnerRegion.getTag()).getId()));
             newUser.setBirthday(Tools.formatFullDate(((Calendar) textViewBirthDateValue.getTag()).getTime()));
             newUser.setPlainPassword(editTextPasswordFirst.getText().toString());
 

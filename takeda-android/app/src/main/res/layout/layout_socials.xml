@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linearLayoutSocials"
-    android:layout_width="@dimen/ca_control_medium"
+    android:layout_width="@dimen/control_medium"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="horizontal">

@@ -7,8 +7,8 @@ import ru.com.cardiomagnil.ca_api.DataLoadSequence;
 import ru.com.cardiomagnil.ca_api.Status;
 import ru.com.cardiomagnil.ca_api.base.BaseVolleyDataLoader;
 import ru.com.cardiomagnil.ca_api.http.HttpHelper;
-import ru.com.cardiomagnil.ca_model.common.Ca_Error;
-import ru.com.cardiomagnil.ca_model.common.Ca_Response;
+import ru.com.cardiomagnil.model.common.Error;
+import ru.com.cardiomagnil.model.common.Response;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.ThtreadHelper;
 
@@ -18,7 +18,7 @@ public class CacheDataLoader extends BaseVolleyDataLoader {
     public <T> void invokeDataLoad(
             final DataLoadSequence dataLoadSequence,
             final CallbackOne<T> callbackOneOnSuccess,
-            final CallbackOne<Ca_Response> callbackOneOnError) {
+            final CallbackOne<Response> callbackOneOnError) {
         final CacheRequestHolder cacheRequestHolder = (CacheRequestHolder) dataLoadSequence.poll();
 
         CachedStringRequest cachedStringRequest = new CachedStringRequest(
@@ -38,12 +38,12 @@ public class CacheDataLoader extends BaseVolleyDataLoader {
 
         if (entry == null || entry.data == null) {
             ThtreadHelper.logThread("CacheDataLoader->invokeDataLoad->error_null");
-            Ca_Response responseError = new Ca_Response
-                    .Builder(new Ca_Error(Status.CACHE_ERROR, Status.getDescription(Status.CACHE_ERROR)))
+            Response responseError = new Response
+                    .Builder(new Error(Status.CACHE_ERROR, Status.getDescription(Status.CACHE_ERROR)))
                     .create();
             handleErrorResponse(responseError, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
         } else {
-            Ca_Response response = dataToResponse(entry.data);
+            Response response = dataToResponse(entry.data);
             if (response.isSuccessful()) {
                 ThtreadHelper.logThread("CacheDataLoader->invokeDataLoad->success");
                 handleSuccessResponse(response, cacheRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);

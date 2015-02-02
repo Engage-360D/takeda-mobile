@@ -14,7 +14,7 @@ import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.ui.base.BaseTrackedFragmentActivity;
-import ru.com.cardiomagnil.ui.slidingmenu.SlidingMenuActivity;
+import ru.com.cardiomagnil.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.Utils;
 import ru.com.cardiomagnil.widget.CustomAnimation;
 import ru.com.cardiomagnil.widget.CustomAnimation.OnAnimationEndListener;

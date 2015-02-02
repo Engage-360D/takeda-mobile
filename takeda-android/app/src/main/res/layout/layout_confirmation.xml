@@ -4,16 +4,16 @@
     android:layout_gravity="center_horizontal"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/ca_space_medium"
-    android:paddingRight="@dimen/ca_space_medium">
+    android:paddingLeft="@dimen/space_medium"
+    android:paddingRight="@dimen/space_medium">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ca_plate_medium"
+        android:layout_height="@dimen/plate_medium"
         android:gravity="center_vertical"
         android:text="@string/confirmation"
-        android:textColor="@color/ca_text_main_41"
-        android:textSize="@dimen/ca_text_size_medium" />
+        android:textColor="@color/text_main_41"
+        android:textSize="@dimen/text_size_medium" />
 
     <CheckBox
         android:id="@+id/checkBoxAgreeToProcessing"

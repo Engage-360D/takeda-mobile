@@ -12,13 +12,13 @@
         <LinearLayout
             android:id="@+id/linearLayoutTop"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/middle_block_hight"
-            android:background="@color/ca_bg_test_tab"
+            android:layout_height="@dimen/plate_medium"
+            android:background="@color/bg_test_tab"
             android:baselineAligned="false"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/large_padding"
-            android:paddingRight="@dimen/large_padding" >
+            android:paddingLeft="@dimen/space_medium"
+            android:paddingRight="@dimen/space_medium" >
 
             <TextView
                 android:id="@+id/textViewRecomendation"
@@ -33,13 +33,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ca_space_xsmall"
-            android:layout_marginRight="@dimen/ca_space_xsmall" >
+            android:layout_marginLeft="@dimen/space_xsmall"
+            android:layout_marginRight="@dimen/space_xsmall" >
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/ca_space_xsmall"
+                android:layout_marginTop="@dimen/space_xsmall"
                 android:layout_weight="1"
                 android:orientation="vertical" >
 
@@ -63,7 +63,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ca_space_xsmall"
+                android:layout_margin="@dimen/space_xsmall"
                 android:src="@drawable/exclamation_red" />
 
         </LinearLayout>
@@ -73,8 +73,8 @@
         android:id="@+id/textViewText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/ca_space_xsmall"
-        android:layout_marginRight="@dimen/ca_space_xsmall"
+        android:layout_marginLeft="@dimen/space_xsmall"
+        android:layout_marginRight="@dimen/space_xsmall"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

@@ -8,14 +8,13 @@ import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppSharedPreferences;
 import ru.com.cardiomagnil.application.AppState;
 import ru.com.cardiomagnil.ca_api.Status;
-import ru.com.cardiomagnil.ca_model.common.Ca_Error;
-import ru.com.cardiomagnil.ca_model.common.Ca_Response;
-import ru.com.cardiomagnil.ca_model.token.Ca_Token;
-import ru.com.cardiomagnil.ca_model.token.Ca_TokenDao;
-import ru.com.cardiomagnil.ca_model.user.Ca_User;
-import ru.com.cardiomagnil.ca_model.user.Ca_UserDao;
-import ru.com.cardiomagnil.ca_model.user.Ca_UserLgnPwd;
-import ru.com.cardiomagnil.social.User;
+import ru.com.cardiomagnil.model.common.Error;
+import ru.com.cardiomagnil.model.common.Response;
+import ru.com.cardiomagnil.model.token.Token;
+import ru.com.cardiomagnil.model.token.TokenDao;
+import ru.com.cardiomagnil.model.user.User;
+import ru.com.cardiomagnil.model.user.UserDao;
+import ru.com.cardiomagnil.model.user.UserLgnPwd;
 import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
@@ -23,64 +22,64 @@ import ru.com.cardiomagnil.util.Tools;
 public abstract class BaseStartFragment extends Fragment {
     public abstract void initParent(Activity activity);
 
-    protected void startRegistration(final Ca_User user) {
+    protected void startRegistration(final User user) {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.showProgressDialog();
 
-        Ca_UserDao.register(
+        UserDao.register(
                 user,
-                new CallbackOne<Ca_User>() {
+                new CallbackOne<User>() {
                     @Override
-                    public void execute(Ca_User newUser) {
-                        Ca_UserLgnPwd userLgnPwd = new Ca_UserLgnPwd(user.getEmail(), user.getPlainPassword());
+                    public void execute(User newUser) {
+                        UserLgnPwd userLgnPwd = new UserLgnPwd(user.getEmail(), user.getPlainPassword());
                         startAuthorization(userLgnPwd);
                     }
                 },
-                new CallbackOne<Ca_Response>() {
+                new CallbackOne<Response>() {
                     @Override
-                    public void execute(Ca_Response responseError) {
+                    public void execute(Response responseError) {
                         handleRegAuth(null, null, responseError);
                     }
                 }
         );
     }
 
-    protected void startAuthorization(final Ca_UserLgnPwd userLgnPwd) {
+    protected void startAuthorization(final UserLgnPwd userLgnPwd) {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.showProgressDialog();
 
-        Ca_TokenDao.getByLgnPwd(
+        TokenDao.getByLgnPwd(
                 userLgnPwd,
-                new CallbackOne<Ca_Token>() {
+                new CallbackOne<Token>() {
                     @Override
-                    public void execute(Ca_Token token) {
+                    public void execute(Token token) {
                         getUser(token);
                     }
                 },
-                new CallbackOne<Ca_Response>() {
+                new CallbackOne<Response>() {
                     @Override
-                    public void execute(Ca_Response responseError) {
+                    public void execute(Response responseError) {
                         handleRegAuth(null, null, responseError);
                     }
                 }
         );
     }
 
-    protected void getUser(final Ca_Token token) {
+    protected void getUser(final Token token) {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.showProgressDialog();
 
-        Ca_UserDao.getByToken(
+        UserDao.getByToken(
                 token,
-                new CallbackOne<Ca_User>() {
+                new CallbackOne<User>() {
                     @Override
-                    public void execute(Ca_User user) {
+                    public void execute(User user) {
                         handleRegAuth(token, user, null);
                     }
                 },
-                new CallbackOne<Ca_Response>() {
+                new CallbackOne<Response>() {
                     @Override
-                    public void execute(Ca_Response responseError) {
+                    public void execute(Response responseError) {
                         handleRegAuth(null, null, responseError);
                     }
                 },
@@ -88,12 +87,12 @@ public abstract class BaseStartFragment extends Fragment {
         );
     }
 
-    private void handleRegAuth(Ca_Token token, Ca_User user, Ca_Response responseError) {
+    private void handleRegAuth(Token token, User user, Response responseError) {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.hideProgressDialog();
 
         responseError = (responseError == null || responseError.getError() == null) ?
-                new Ca_Response.Builder(new Ca_Error()).create() :
+                new Response.Builder(new Error()).create() :
                 responseError;
 
         if (token == null && user == null) {
@@ -115,7 +114,7 @@ public abstract class BaseStartFragment extends Fragment {
         }
     }
 
-    private void initAppState(Ca_Token token, Ca_User user) {
+    private void initAppState(Token token, User user) {
         String tokenId = token == null ? null : token.getTokenId();
         AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, tokenId);
         AppState.getInstatce().setToken(token);
@@ -123,5 +122,5 @@ public abstract class BaseStartFragment extends Fragment {
         AppState.getInstatce().setTestResult((String) AppSharedPreferences.get(AppSharedPreferences.Preference.testResult));
     }
 
-    public abstract void initFieldsFromSocial(User socialUser);
+    public abstract void initFieldsFromSocial(ru.com.cardiomagnil.social.User socialUser);
 }

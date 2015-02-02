@@ -13,22 +13,33 @@
     <!-- textviews -->
     <!-- ========= -->
     <style name="TextViewMedium37" parent="@android:style/Widget.TextView">
-        <item name="android:textSize">@dimen/ca_text_size_medium</item>
-        <item name="android:textColor">@color/ca_text_main_37</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_main_37</item>
+    </style>
+
+    <style name="TextViewMedium37Margined" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_main_37</item>
+        <item name="android:layout_marginBottom">@dimen/space_medium</item>
+        <item name="android:layout_marginLeft">@dimen/space_medium</item>
+        <item name="android:layout_marginTop">@dimen/space_medium</item>
+        <item name="android:layout_marginRight">@dimen/space_medium</item>
     </style>
 
     <style name="TextViewMedium38" parent="@android:style/Widget.TextView">
-        <item name="android:textSize">@dimen/ca_text_size_medium</item>
-        <item name="android:textColor">@color/ca_text_main_38</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_main_38</item>
     </style>
 
     <style name="TextViewTop" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_plate_medium</item>
-        <item name="android:textSize">@dimen/ca_text_size_large</item>
-        <item name="android:textColor">@color/ca_white</item>
+        <item name="android:layout_height">@dimen/plate_medium</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@color/ca_bg_test_top</item>
+        <item name="android:background">@color/bg_test_top</item>
     </style>
 
     <style name="TextViewTestSmall" parent="@android:style/Widget.TextView">
@@ -36,52 +47,52 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:textSize">@dimen/ca_text_size_small</item>
-        <item name="android:textColor">@color/ca_white</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextViewTestLarge" parent="@style/TextViewTestSmall">
-        <item name="android:textSize">@dimen/ca_text_size_large</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
     <style name="TextViewTitle" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_plate_medium</item>
-        <item name="android:textSize">@dimen/ca_text_size_xxlarge</item>
-        <item name="android:textColor">@color/ca_text_main_37</item>
+        <item name="android:layout_height">@dimen/plate_medium</item>
+        <item name="android:textSize">@dimen/text_size_xxlarge</item>
+        <item name="android:textColor">@color/text_main_37</item>
         <item name="android:gravity">center</item>
     </style>
 
     <style name="EditText" parent="@android:style/Widget.EditText">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_plate_medium</item>
+        <item name="android:layout_height">@dimen/plate_medium</item>
         <item name="android:gravity">bottom|center</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/ca_text_main_48</item>
-        <item name="android:textColorHint">@color/ca_text_main_48_hint</item>
-        <item name="android:textSize">@dimen/ca_text_size_xlarge</item>
+        <item name="android:textColor">@color/text_main_48</item>
+        <item name="android:textColorHint">@color/text_main_48_hint</item>
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
     </style>
 
     <style name="TextViewItem" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_plate_medium</item>
+        <item name="android:layout_height">@dimen/plate_medium</item>
         <item name="android:background">@drawable/ca_selector_list_item_bg</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">@dimen/ca_space_medium</item>
-        <item name="android:paddingRight">@dimen/ca_space_medium</item>
-        <item name="android:textColor">@color/ca_selector_list_item_text</item>
-        <item name="android:textSize">@dimen/ca_text_size_medium</item>
+        <item name="android:paddingLeft">@dimen/space_medium</item>
+        <item name="android:paddingRight">@dimen/space_medium</item>
+        <item name="android:textColor">@color/selector_list_item_text</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:clickable">true</item>
     </style>
 
     <style name="TextViewTestTab" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/ca_bg_test_tab</item>
+        <item name="android:background">@color/bg_test_tab</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:textSize">@dimen/ca_text_size_xsmall</item>
-        <item name="android:textColor">@color/ca_white</item>
+        <item name="android:textSize">@dimen/text_size_xsmall</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextViewItemDrawable" parent="@style/TextViewItem">
@@ -92,17 +103,17 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/ca_selector_clickable_text_banner</item>
-        <item name="android:textSize">@dimen/ca_text_size_xsmall</item>
+        <item name="android:textColor">@color/selector_clickable_text_banner</item>
+        <item name="android:textSize">@dimen/text_size_xsmall</item>
     </style>
 
     <style name="TextViewBannerHeader" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/ca_space_medium</item>
-        <item name="android:layout_marginBottom">@dimen/ca_space_xsmall</item>
-        <item name="android:textColor">@color/ca_white</item>
-        <item name="android:textSize">@dimen/ca_text_size_medium</item>
+        <item name="android:layout_marginTop">@dimen/space_medium</item>
+        <item name="android:layout_marginBottom">@dimen/space_xsmall</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
     </style>
 
     <!-- ======== -->
@@ -110,44 +121,44 @@
     <!-- ======== -->
     <style name="divider_normal_1_1">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_divider_1</item>
-        <item name="android:background">@color/ca_divider_1</item>
+        <item name="android:layout_height">@dimen/divider_1</item>
+        <item name="android:background">@color/divider_1</item>
     </style>
 
     <style name="divider_normal_1_2">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_divider_1</item>
-        <item name="android:background">@color/ca_divider_2</item>
+        <item name="android:layout_height">@dimen/divider_1</item>
+        <item name="android:background">@color/divider_2</item>
     </style>
 
     <style name="divider_normal_1_3">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_divider_1</item>
-        <item name="android:background">@color/ca_divider_3</item>
+        <item name="android:layout_height">@dimen/divider_1</item>
+        <item name="android:background">@color/divider_3</item>
     </style>
 
     <style name="divider_normal_1_5">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_divider_1</item>
-        <item name="android:background">@color/ca_divider_5</item>
+        <item name="android:layout_height">@dimen/divider_1</item>
+        <item name="android:background">@color/divider_5</item>
     </style>
 
     <style name="divider_normal_1_6">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_divider_1</item>
-        <item name="android:background">@color/ca_divider_6</item>
+        <item name="android:layout_height">@dimen/divider_1</item>
+        <item name="android:background">@color/divider_6</item>
     </style>
 
     <style name="divider_normal_1_7">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_divider_1</item>
-        <item name="android:background">@color/ca_divider_7</item>
+        <item name="android:layout_height">@dimen/divider_1</item>
+        <item name="android:background">@color/divider_7</item>
     </style>
 
     <style name="divider_normal_1_8">
-        <item name="android:layout_width">@dimen/ca_divider_1</item>
+        <item name="android:layout_width">@dimen/divider_1</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/ca_divider_8</item>
+        <item name="android:background">@color/divider_8</item>
     </style>
 
     <!-- ==== -->
@@ -155,54 +166,56 @@
     <!-- ==== -->
     <style name="gap_vertical_plate_small">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_plate_small</item>
+        <item name="android:layout_height">@dimen/plate_small</item>
         <item name="android:background">@null</item>
     </style>
 
     <style name="gap_vertical_plate_xsmall">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_plate_xsmall</item>
+        <item name="android:layout_height">@dimen/plate_xsmall</item>
         <item name="android:background">@null</item>
     </style>
 
     <style name="gap_vertical_plate_xxxlarge">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_plate_xxxlarge</item>
+        <item name="android:layout_height">@dimen/plate_xxxlarge</item>
         <item name="android:background">@null</item>
     </style>
 
     <style name="gap_vertical_space_small">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_space_small</item>
+        <item name="android:layout_height">@dimen/space_small</item>
         <item name="android:background">@null</item>
     </style>
 
     <style name="gap_vertical_space_xsmall">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_space_xsmall</item>
+        <item name="android:layout_height">@dimen/space_xsmall</item>
         <item name="android:background">@null</item>
     </style>
 
     <!-- ======= -->
     <!-- buttons -->
     <!-- ======= -->
-    <style name="ButtonBase37" parent="@android:style/Widget.Button">
-        <item name="android:textSize">@dimen/ca_text_size_medium</item>
-        <item name="android:textColor">@color/ca_text_main_37</item>
-        <item name="android:layout_gravity">center</item>
-    </style>
-
     <style name="button_main_short">
-        <item name="android:layout_width">@dimen/ca_control_medium</item>
-        <item name="android:layout_height">@dimen/ca_plate_medium</item>
+        <item name="android:layout_width">@dimen/control_medium</item>
+        <item name="android:layout_height">@dimen/plate_medium</item>
         <item name="android:background">@drawable/ca_selector_button_main</item>
-        <item name="android:textSize">@dimen/ca_text_size_medium</item>
-        <item name="android:textColor">@color/ca_selector_button_main_text</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/selector_button_main_text</item>
         <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="button_main_long" parent="@style/button_main_short">
-        <item name="android:layout_width">@dimen/ca_control_xlarge</item>
+        <item name="android:layout_width">@dimen/control_xlarge</item>
+    </style>
+
+    <style name="button_main_very_long" parent="@style/button_main_short">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">@dimen/space_large</item>
+        <item name="android:layout_marginLeft">@dimen/space_medium</item>
+        <item name="android:layout_marginRight">@dimen/space_medium</item>
+        <item name="android:layout_marginTop">@dimen/space_large</item>
     </style>
 
     <style name="checkbox_small_41">
@@ -211,33 +224,47 @@
         <item name="android:background">@null</item>
         <item name="android:button">@null</item>
         <item name="android:drawableLeft">@drawable/ca_selector_checkbox</item>
-        <item name="android:drawablePadding">@dimen/ca_space_xxsmall</item>
-        <item name="android:textColor">@color/ca_text_main_41</item>
-        <item name="android:textSize">@dimen/ca_text_size_small</item>
+        <item name="android:drawablePadding">@dimen/space_xxsmall</item>
+        <item name="android:textColor">@color/text_main_41</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
     </style>
 
     <style name="checkbox_medium_37" parent="@style/checkbox_small_41">
-        <item name="android:minHeight">@dimen/ca_plate_medium</item>
+        <item name="android:minHeight">@dimen/plate_medium</item>
         <item name="android:drawableLeft">@null</item>
         <item name="android:drawableRight">@drawable/ca_selector_checkbox</item>
-        <item name="android:textColor">@color/ca_text_main_37</item>
-        <item name="android:textSize">@dimen/ca_text_size_medium</item>
-        <item name="android:layout_marginLeft">@dimen/ca_space_medium</item>
-        <item name="android:layout_marginRight">@dimen/ca_space_medium</item>
+        <item name="android:textColor">@color/text_main_37</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:layout_marginLeft">@dimen/space_medium</item>
+        <item name="android:layout_marginRight">@dimen/space_medium</item>
+    </style>
+
+    <style name="RadioButtonTwoLines" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/ca_selector_checkbox_bg</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">@dimen/space_xxsmall</item>
+        <item name="android:lineSpacingMultiplier">@dimen/line_spacing_extra</item>
+        <item name="android:textColor">@drawable/ca_selector_checkbox_text</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
     <style name="ToggleRadioButton" parent="@android:style/Widget.Button.Toggle">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">@dimen/ca_plate_small</item>
+        <item name="android:layout_height">@dimen/plate_small</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">@drawable/ca_selector_checkbox_bg</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:onClick">onToggle</item>
         <item name="android:textColor">@drawable/ca_selector_checkbox_text</item>
-        <item name="android:textSize">@dimen/ca_text_size_small</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
     <!-- ============== -->
@@ -245,18 +272,18 @@
     <!-- ============== -->
     <style name="LinearLayoutTestTop">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_plate_large</item>
+        <item name="android:layout_height">@dimen/plate_large</item>
         <item name="android:layout_alignParentTop">true</item>
-        <item name="android:background">@color/ca_bg_test_tab</item>
+        <item name="android:background">@color/bg_test_tab</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">vertical</item>
     </style>
 
     <style name="LinearLayoutItemLarge">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/ca_plate_large</item>
-        <item name="android:paddingLeft">@dimen/large_padding</item>
-        <item name="android:paddingRight">@dimen/large_padding</item>
+        <item name="android:layout_height">@dimen/plate_large</item>
+        <item name="android:paddingLeft">@dimen/space_medium</item>
+        <item name="android:paddingRight">@dimen/space_medium</item>
     </style>
 
 </resources>

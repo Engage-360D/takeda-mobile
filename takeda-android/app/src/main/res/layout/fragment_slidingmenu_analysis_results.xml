@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ca_bg_test_result">
+    android:background="@color/bg_test_result">
 
     <include
         android:id="@+id/layoutTopMenu"
@@ -16,8 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTopMenu"
-        android:paddingLeft="@dimen/ca_space_medium"
-        android:paddingRight="@dimen/ca_space_medium"
+        android:paddingLeft="@dimen/space_medium"
+        android:paddingRight="@dimen/space_medium"
         android:scrollbarStyle="outsideOverlay">
 
         <LinearLayout
@@ -121,8 +121,8 @@
                 android:id="@+id/buttonСreateСalendar"
                 style="@style/button_main_long"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/ca_space_medium"
-                android:layout_marginTop="@dimen/ca_space_medium"
+                android:layout_marginBottom="@dimen/space_medium"
+                android:layout_marginTop="@dimen/space_medium"
                 android:text="@string/create_calendar" />
 
         </LinearLayout>
@@ -135,7 +135,7 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:text="@string/results_error"
-        android:textSize="@dimen/ca_text_size_large"
+        android:textSize="@dimen/text_size_large"
         android:textColor="@android:color/white"
         android:visibility="invisible" />
 

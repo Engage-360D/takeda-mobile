@@ -3,6 +3,6 @@
     android:id="@android:id/list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ca_bg_menu"
-    android:divider="@color/ca_divider_4"
-    android:dividerHeight="@dimen/ca_divider_1" />
+    android:background="@color/bg_menu"
+    android:divider="@color/divider_4"
+    android:dividerHeight="@dimen/divider_1" />

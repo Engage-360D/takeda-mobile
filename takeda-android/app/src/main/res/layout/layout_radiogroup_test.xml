@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radioGroupCondition"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/plate_small"
+    android:orientation="horizontal">
+
+    <RadioButton
+        android:id="@+id/radioButtonRecomendations"
+        style="@style/RadioButtonTwoLines"
+        android:text="@string/every_day" />
+
+    <RadioButton
+        android:id="@+id/radioButtonData"
+        style="@style/RadioButtonTwoLines"
+        android:text="@string/try_to_limit" />
+
+    <RadioButton
+        android:id="@+id/radioButtonSetting"
+        style="@style/RadioButtonTwoLines"
+        android:text="@string/almost_never" />
+</RadioGroup>

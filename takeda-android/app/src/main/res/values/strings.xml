@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Кардиомагнил — здоровое сердце</string>
-    <string name="action_settings">Settings</string>
 
     <!-- ========== -->
     <!-- activities -->
@@ -39,37 +38,6 @@
     <string name="error_test_growth">Рост может иметь значение от 30 до 300.</string>
     <string name="error_test_weight">Вес может иметь значение от 30 до 700.</string>
     <string name="error_test_cholesterol_level">Уровень общего холестирина может иметь значение от 3 до 9.</string>
-
-    <!-- ======= -->
-    <!-- results -->
-    <!-- ======= -->
-    <string name="probability">Вероятность тяжелых сердечно-сосудистых заболеваний в ближайшие 10 лет</string>
-    <string name="not_behaving_normally">Не соответствует норме\nВоспользуйтесь нашими рекомендациями</string>
-    <string name="recommendations">Рекомендации по SCORE</string>
-    <string name="diabetes">Диабет</string>
-    <string name="prophylaxis">Профилактика</string>
-    <string name="category">Категория: "норма"</string>
-    <string name="results_weight">Вес</string>
-    <string name="results_cholesterol">Уровень холестерина</string>
-    <string name="systolic_pressure">Систолическое давление</string>
-    <string name="increased_sugar">Отмечалось повышение уровня сахара в крови</string>
-    <string name="pressure_is_above_normal">Ваше давление выше нормы</string>
-    <string name="cholesterol_is_above_normal">Ваш холестерин выше нормы</string>
-    <string name="salt_intake">Потребление соли</string>
-    <string name="bakery_intake">Потребление мучных изделий</string>
-    <string name="diet_adjustment">Дополнительная корректировка диеты</string>
-    <string name="pass_survey">Пройти опрос</string>
-    <string name="everything_is_good">Все хорошо</string>
-    <string name="needs_to_improve">Необходимо улучшение</string>
-    <string name="risk_group">Группа риска</string>
-    <string name="deviation_from_norm">Отклонение от нормы</string>
-    <string name="сonsult_a_doctor"> Обратитесь к врачу</string>
-
-    <!-- ========== -->
-    <!-- dummy text -->
-    <!-- ========== -->
-    <string name="short_dummy_tex">--</string>
-    <string name="middle_dummy_tex">----------------</string>
 
     <!-- ====== -->
     <!-- common -->
@@ -144,10 +112,10 @@
     <string name="menu_item_patient_history">История пациента</string>
     <string name="menu_item_daily_ration">Дневной рацион</string>
 
-    <!-- ================================== -->
-    <!-- ca_fragment_start_registration     -->
-    <!-- ca_fragment_start_login_or_restore -->
-    <!-- ================================== -->
+    <!-- =============================== -->
+    <!-- fragment_start_registration     -->
+    <!-- fragment_start_login_or_restore -->
+    <!-- =============================== -->
     <string name="header_registration">Регистрация</string>
     <string name="is_a_doctor">Вы являетесь врачом?</string>
     <string name="use_social">Использовать аккаунт социальных сетей:</string>
@@ -204,9 +172,9 @@
     <string name="visit_doctor">Сходить к врачу</string>
     <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
 
-    <!-- ================================= -->
-    <!-- ca_fragment_slidingmenu_add_pills -->
-    <!-- ================================= -->
+    <!-- ============================== -->
+    <!-- fragment_slidingmenu_add_pills -->
+    <!-- ============================== -->
     <string name="add">Добавить</string>
     <string name="pills_name">Название</string>
     <string name="number_of_pills">Количество</string>
@@ -216,12 +184,12 @@
     <string name="end_date_pills">Дата завершения</string>
     <string name="condition">Состояние</string>
 
-    <!-- ======================================== -->
-    <!-- ca_fragment_slidingmenu_personal_cabinet -->
-    <!-- ======================================== -->
-    <string name="personal_cabinet">Личный кабинет</string>
-    <string name="personal_cabinet_new">Новые</string>
-    <string name="personal_cabinet_filled">Заполненные</string>
+    <!-- ============================ -->
+    <!-- fragment_slidingmenu_journal -->
+    <!-- ============================ -->
+    <string name="journal">Дневник</string>
+    <string name="journal_new">Новые</string>
+    <string name="journal_filled">Заполненные</string>
     <string name="exercise_stress">Физическая нагрузка</string>
     <string name="what_eaten">Что вы сегодня ели?</string>
     <string name="still_smoke">Еще курите?</string>
@@ -229,19 +197,35 @@
     <string name="enter_pressure">Внесите давление</string>
     <string name="enter_cholesterol">Внесите холестерин</string>
 
+    <!-- ===================== -->
+    <!-- personal_cabinet_data -->
+    <!-- ===================== -->
+    <string name="personal_cabinet">Личный кабинет</string>
+    <string name="personal_cabinet_my_recomendations">Мои\nрекомендации</string>
+    <string name="personal_cabinet_my_data">Мои\nданные</string>
+    <string name="personal_cabinet_my_setting">Мои\nнастройки</string>
     <string name="generate">Сгенерировать пароль и отправить на email</string>
     <string name="save">Сохранить</string>
 
-    <!-- =========================================== -->
-    <!-- ca_fragment_slidingmenu_search_institutions -->
-    <!-- =========================================== -->
-    <string name="institutions">Учреждения</string>
-    <string name="institutions_map">Карта</string>
-    <string name="institutions_list">Список</string>
+    <!-- ======================== -->
+    <!-- slidingmenu_cabinet_test -->
+    <!-- ======================== -->
+    <string name="recommendations">Рекомендации</string>
+    <string name="additional_test">Дополнительный опрос\nпо корректировке диеты</string>
+    <string name="cake_ice_cream">Торты/мороженое</string>
+    <string name="fat_cheese">Жирный сыр/сливки/желток яиц/цельное молоко/йогурты</string>
+    <string name="butter_margarine">Сливочное масло/маргарин/пальмовое кокосовое масло/сало/соусы с яичным желтком (майонез)</string>
+    <string name="coconut">Кокос</string>
+    <string name="fried_food">Любая пища, приготовления во фритюре</string>
+    <string name="get_recommendations">Получить рекомендации по диете</string>
+    <string name="every_day">ем\nкаждый день</string>
+    <string name="try_to_limit">стараюсь\nограничивать</string>
+    <string name="almost_never">почти\nне употребляю</string>
 
-    <!-- ================================ -->
-    <!-- ca_fragment_slidingmenu_settings -->
-    <!-- ================================ -->
+
+    <!-- ============================ -->
+    <!-- slidingmenu_cabinet_settings -->
+    <!-- ============================ -->
     <string name="setting">Настройка</string>
     <string name="personal_data">Личные данные</string>
     <string name="settings_email">Email</string>
@@ -256,9 +240,16 @@
     <string name="apoplexy_occurred">вы перенесли Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
     <string name="shunting_occurred">вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
 
-    <!-- =================================== -->
-    <!-- ca_fragment_slidingmenu_information -->
-    <!-- =================================== -->
+    <!-- ======================================== -->
+    <!-- fragment_slidingmenu_search_institutions -->
+    <!-- ======================================== -->
+    <string name="institutions">Учреждения</string>
+    <string name="institutions_map">Карта</string>
+    <string name="institutions_list">Список</string>
+
+    <!-- ================================ -->
+    <!-- fragment_slidingmenu_information -->
+    <!-- ================================ -->
     <string name="information">Информация</string>
     <string name="first_aid">Первая помощь</string>
     <string name="recognize_infarction_apoplexy">Как распознать инфаркт-инсульт</string>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/middle_block_hight"
-    android:background="@color/ca_bg_test_result_top"
+    android:layout_height="@dimen/plate_medium"
+    android:background="@color/bg_test_result_top"
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:weightSum="4">
@@ -20,8 +20,8 @@
         android:layout_weight="2"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/large_padding"
-        android:paddingRight="@dimen/large_padding">
+        android:paddingLeft="@dimen/space_medium"
+        android:paddingRight="@dimen/space_medium">
 
         <TextView
             android:id="@+id/textViewHeader"
@@ -53,7 +53,7 @@
             android:id="@+id/imageViewArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/ca_space_medium"
+            android:layout_marginRight="@dimen/space_medium"
             android:clickable="true"
             android:contentDescription="@null"
             android:src="@drawable/ca_selector_button_mail" />
@@ -62,7 +62,7 @@
             android:id="@+id/imageViewInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/ca_space_medium"
+            android:layout_marginRight="@dimen/space_medium"
             android:clickable="true"
             android:contentDescription="@null"
             android:src="@drawable/ca_selector_button_info" />
