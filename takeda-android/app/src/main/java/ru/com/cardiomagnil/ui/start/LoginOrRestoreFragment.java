@@ -210,7 +210,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
             EditText editTextEmailLogin = (EditText) view.findViewById(R.id.editTextEmailLogin);
             EditText editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
 
-            editTextEmailLogin.setText("y.andreyko@gmail.com");
+            editTextEmailLogin.setText("y.andreyko+3@gmail.com");
             editTextPassword.setText("aaa");
         }
     }

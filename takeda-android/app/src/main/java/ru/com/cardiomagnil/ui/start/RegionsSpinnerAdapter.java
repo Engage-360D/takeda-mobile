@@ -34,7 +34,7 @@ public class RegionsSpinnerAdapter extends ArrayAdapter<Region> implements Spinn
         if (position == getCount() - 1) {
             parent.setTag(null);
         } else {
-            parent.setTag(regionItem);
+            parent.setTag(regionItem.getId());
         }
 
         return convertView;

@@ -206,6 +206,7 @@
     <string name="personal_cabinet_my_setting">Мои\nнастройки</string>
     <string name="generate">Сгенерировать пароль и отправить на email</string>
     <string name="save">Сохранить</string>
+    <string name="saved_successfully">Сохранено успешно</string>
 
     <!-- ======================== -->
     <!-- slidingmenu_cabinet_test -->

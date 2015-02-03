@@ -18,7 +18,7 @@ public class UserRoleDao extends BaseDaoImpl<UserRole, Integer> {
         super(connectionSource, dataClass);
     }
 
-    public void createOrUpdate(User user, List<String> roles) {
+    public static void createOrUpdate(User user, List<String> roles) {
         try {
             if (user != null && roles != null && !roles.isEmpty()) {
                 UserDao userDao = HelperFactory.getHelper().getUserDao();
@@ -39,7 +39,7 @@ public class UserRoleDao extends BaseDaoImpl<UserRole, Integer> {
         }
     }
 
-    public List<Role> getRolesForUser(User user) throws SQLException {
+    public static List<Role> getRolesForUser(User user) throws SQLException {
         UserRoleDao userRoleDao = HelperFactory.getHelper().getUserRoleDao();
         RoleDao roleDao = HelperFactory.getHelper().getRoleDao();
 
@@ -59,7 +59,7 @@ public class UserRoleDao extends BaseDaoImpl<UserRole, Integer> {
         return roleDao.query(rolesForUser);
     }
 
-    public List<User> getUsersForRole(Role role) throws SQLException {
+    public static List<User> getUsersForRole(Role role) throws SQLException {
         UserRoleDao userRoleDao = HelperFactory.getHelper().getUserRoleDao();
         UserDao userDao = HelperFactory.getHelper().getUserDao();
 

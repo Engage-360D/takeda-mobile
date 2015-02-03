@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Pair;
 import android.view.Gravity;
@@ -19,6 +20,7 @@ import com.google.gson.JsonObject;
 
 import java.security.MessageDigest;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -81,6 +83,16 @@ public class Tools {
         return formatedDate;
     }
 
+    public static Date dateFromFullDate(String dateString) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        try {
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static String yearToDate(int year) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -108,6 +120,15 @@ public class Tools {
         calendar.setTime(date);
 
         return calendar;
+    }
+
+    public static int getDifferenceInYears(String dateString) {
+        if (TextUtils.isEmpty(dateString)) return 0;
+
+        Calendar calendarCurrent = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateFromFullDate(dateString));
+        return calendarCurrent.get(Calendar.YEAR) - calendar.get(Calendar.YEAR);
     }
 
     public static Pair<String, String> getCurrentWeekDateRange() {

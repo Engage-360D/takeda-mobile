@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 import ru.com.cardiomagnil.model.base.BaseModel;
+import ru.com.cardiomagnil.model.role.Role;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -44,6 +45,7 @@ import ru.com.cardiomagnil.model.base.BaseModel;
 })
 @DatabaseTable(tableName = "user")
 public class User extends BaseModel {
+    public static enum Roles {role_doctor, role_user}
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.INTEGER, columnName = "id")
     @JsonProperty("id")
@@ -104,7 +106,7 @@ public class User extends BaseModel {
 
     // implemented manually many_to_many
     @JsonProperty("roles")
-    private Collection<String> roles = new ArrayList<>();
+    private final Collection<String> roles = new ArrayList<>();
 
     // links
     @DatabaseField(dataType = DataType.STRING, columnName = "region")
@@ -359,8 +361,14 @@ public class User extends BaseModel {
      * @param roles The roles
      */
     @JsonProperty("roles")
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setRoles(List<?> roles) {
+        this.roles.clear();
+        if (roles != null && !roles.isEmpty() && roles.get(0) instanceof String) {
+
+            this.roles.addAll((List<String>) roles);
+        } else if (roles != null && !roles.isEmpty() && roles.get(0) instanceof Role) {
+            if (roles != null) for (Role role : (List<Role>) roles) this.roles.add(role.getName());
+        }
     }
 
     /**
@@ -412,13 +420,30 @@ public class User extends BaseModel {
     }
 
     @JsonProperty("isDoctor")
+    public boolean isDoctor() {
+        return isDoctor;
+    }
+
+    @JsonProperty("isDoctor")
     public void setIsDoctor(boolean isDoctor) {
         this.isDoctor = isDoctor;
     }
 
     @JsonProperty("isSubscribed")
+    public boolean isSubscribed() {
+        return isSubscribed;
+    }
+
+    @JsonProperty("isSubscribed")
     public void setIsSubscribed(boolean isSubscribed) {
         this.isSubscribed = isSubscribed;
+    }
+
+    public boolean checkRole(Roles role) {
+        for (String currentRole : roles) {
+            if (role.name().toUpperCase().equals(currentRole)) return true;
+        }
+        return false;
     }
 
     public static void unPackLinks(ObjectNode objectNodePacked) {
@@ -438,8 +463,27 @@ public class User extends BaseModel {
         }
     }
 
-    public static void cleanReceivedFields(ObjectNode objectNodeUncleaned) {
-        objectNodeUncleaned.remove(Arrays.asList("id", "isEnabled", "roles", "vkontakteId", "facebookId"));
+    public static void cleanForRegister(ObjectNode objectNodeUncleaned) {
+        // FIXME: "vkontakteId" and "facebookId" must used
+        objectNodeUncleaned.remove(Arrays
+                .asList("id",
+                        "isEnabled",
+                        "roles",
+                        "vkontakteId",
+                        "facebookId"));
     }
 
+    public static void cleanForupdate(ObjectNode objectNodeUncleaned) {
+        // FIXME: "vkontakteId" and "facebookId" must used
+        objectNodeUncleaned.remove(Arrays
+                .asList("id",
+                        "isEnabled",
+                        "roles",
+                        "plainPassword",
+                        "isDoctor",
+                        "isSubscribed",
+                        "region",
+                        "vkontakteId",
+                        "facebookId"));
+    }
 }

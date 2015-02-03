@@ -7,10 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.model.common.Response;
+import ru.com.cardiomagnil.model.token.Token;
+import ru.com.cardiomagnil.model.user.User;
+import ru.com.cardiomagnil.model.user.UserDao;
 import ru.com.cardiomagnil.ui.base.BaseItemFragment;
 import ru.com.cardiomagnil.ui.slidingmenu.menu.SlidingMenuActivity;
+import ru.com.cardiomagnil.util.CallbackOne;
+import ru.com.cardiomagnil.util.ProfileHelper;
+import ru.com.cardiomagnil.util.Tools;
 
 public class Ca_CabinetDataFargment extends BaseItemFragment {
 
@@ -26,13 +35,20 @@ public class Ca_CabinetDataFargment extends BaseItemFragment {
     }
 
     private void initFargment(View view) {
+        unselectCurrentItem(view);
+        initTabs(view);
+        initButtons(view);
+        ProfileHelper.initCabinetDataFargment(view, this);
+    }
+
+    private void unselectCurrentItem(final View view) {
         if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
             SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
             slidingMenuActivity.unselectCurrentItem();
         }
+    }
 
-        initFargmentHelper(view);
-
+    private void initTabs(final View view) {
         RadioButton radioButtonRecomendations = (RadioButton) view.findViewById(R.id.radioButtonRecomendations);
         RadioButton radioButtonSetting = (RadioButton) view.findViewById(R.id.radioButtonSetting);
 
@@ -61,27 +77,56 @@ public class Ca_CabinetDataFargment extends BaseItemFragment {
                 }
             }
         });
-
     }
 
-    private void initFargmentHelper(View view) {
-//        editTextFirstName
-//        editTextLastName
-//        editTextRegEmail
+    private void initButtons(final View parentView) {
+        View buttonGenerate = parentView.findViewById(R.id.buttonGenerate);
+        View buttonSave = parentView.findViewById(R.id.buttonSave);
 
-//        buttonGenerate
+        buttonGenerate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-//        imageViewVK
-//        imageViewFB
-//        imageViewOK
+            }
+        });
 
-//        editTextSpecializationName
-//        spinnerExperienceYears
-//        editTextSpecializationInstitutionPhone
-//        editTextSpecializationInstitutionName
-//        editTextSpecializationInstitutionAddress
-//        spinnerGraduationDate
 
-//        buttonSave
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View paramView) {
+                if (ProfileHelper.validateRegistrationFields(parentView)) {
+                    User user = ProfileHelper.pickRegistrationFields(parentView);
+                    Token token = AppState.getInstatce().getToken();
+                    startUpdating(user, token);
+                } else {
+                    Tools.showToast(getActivity(), R.string.complete_required_fields, Toast.LENGTH_SHORT);
+                }
+            }
+        });
+    }
+
+    protected void startUpdating(final User user, Token token) {
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.showProgressDialog();
+
+        UserDao.update(
+                user,
+                token,
+                new CallbackOne<User>() {
+                    @Override
+                    public void execute(User newUser) {
+                        slidingMenuActivity.hideProgressDialog();
+                        AppState.getInstatce().setUser(user);
+                        Tools.showToast(getActivity(), R.string.saved_successfully, Toast.LENGTH_LONG);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        slidingMenuActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                    }
+                }
+        );
     }
 }

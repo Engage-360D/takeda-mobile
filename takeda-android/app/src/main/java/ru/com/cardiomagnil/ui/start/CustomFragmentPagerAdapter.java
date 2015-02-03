@@ -8,8 +8,6 @@ import android.util.SparseArray;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
 
-import ru.com.cardiomagnil.ui.start.RegistrationFragment;
-
 public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
     private final SparseArray<WeakReference<Fragment>> mFragmentReferences = new SparseArray<>();
     private final Class[] StartFragmentsClasses = new Class[]{

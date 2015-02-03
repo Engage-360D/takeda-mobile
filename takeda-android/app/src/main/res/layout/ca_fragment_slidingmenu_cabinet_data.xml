@@ -59,6 +59,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <include
+                layout="@layout/layout_is_a_doctor"
+                android:visibility="gone" />
+
+            <include
+                layout="@layout/layout_birth_date"
+                android:visibility="gone" />
+
+            <include
+                layout="@layout/layout_region"
+                android:visibility="gone" />
+
+            <include
+                layout="@layout/layout_create_password"
+                android:visibility="gone" />
+
+            <include
+                layout="@layout/layout_confirmation"
+                android:visibility="gone" />
+
             <include layout="@layout/layout_your_detailsl" />
 
             <Button

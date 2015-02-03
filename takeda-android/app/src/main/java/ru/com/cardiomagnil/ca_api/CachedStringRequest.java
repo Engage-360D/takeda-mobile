@@ -60,7 +60,7 @@ public class CachedStringRequest extends StringRequest {
         Map<String, String> params = getParams();
 
         String cacheKey = super.getCacheKey();
-        if (getMethod() == Method.POST && params != null && !params.isEmpty()) {
+        if ((getMethod() == Method.POST || getMethod() == Method.PUT) && params != null && !params.isEmpty()) {
             cacheKey += "?";
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 cacheKey += entry.getKey() + "=" + entry.getValue();
@@ -86,7 +86,7 @@ public class CachedStringRequest extends StringRequest {
     public byte[] getBody() throws AuthFailureError {
         if (mMethod == Method.GET) {
             return mBody;
-        } else if (mMethod == Method.POST) {
+        } else if (mMethod == Method.POST || mMethod == Method.PUT ) {
             return mBody != null ? mBody : super.getBody();
         } else {
             return super.getBody();

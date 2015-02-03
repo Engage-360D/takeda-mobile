@@ -19,9 +19,11 @@ import ru.com.cardiomagnil.ca_api.db.HelperFactory;
 import ru.com.cardiomagnil.ca_api.http.HttpRequestHolder;
 import ru.com.cardiomagnil.model.common.DataWraper;
 import ru.com.cardiomagnil.model.common.Response;
+import ru.com.cardiomagnil.model.role.UserRole;
 import ru.com.cardiomagnil.model.role.UserRoleDao;
 import ru.com.cardiomagnil.model.token.Token;
 import ru.com.cardiomagnil.util.CallbackOne;
+import ru.com.cardiomagnil.util.CallbackOneReturnable;
 
 public class UserDao extends BaseDaoImpl<User, Integer> {
     public UserDao(ConnectionSource connectionSource, Class<User> dataClass) throws SQLException {
@@ -41,6 +43,14 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
             }
         };
 
+        CallbackOneReturnable<User, User> onOnAfterExtract = new CallbackOneReturnable<User, User>() {
+            @Override
+            public User execute(User user) {
+                user.setIsDoctor(user.checkRole(User.Roles.role_doctor));
+                return user;
+            }
+        };
+
         CallbackOne<User> onStoreIntoDatabase = new CallbackOne<User>() {
             @Override
             public void execute(User user) {
@@ -50,7 +60,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
 
         ObjectNode objectNode = new ObjectMapper().valueToTree(user);
         User.packLinks(objectNode);
-        User.cleanReceivedFields(objectNode);
+        User.cleanForRegister(objectNode);
         String packedUser = DataWraper.wrap(objectNode).toString();
 
         HttpRequestHolder httpRequestHolder =
@@ -59,6 +69,59 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                         .addHeaders(Url.POST_HEADERS)
                         .setBody(packedUser)
                         .setOnBeforeExtract(onOnBeforeExtract)
+                        .setOnAfterExtracted(onOnAfterExtract)
+                        .setOnStoreIntoDatabase(onStoreIntoDatabase)
+                        .create();
+
+        DataLoadDispatcher
+                .getInstance()
+                .receive(
+                        httpRequestHolder,
+                        onSuccess,
+                        onFailure
+                );
+    }
+
+    public static void update(final User user,
+                              final Token token,
+                              final CallbackOne<User> onSuccess,
+                              final CallbackOne<Response> onFailure) {
+        TypeReference typeReference = new TypeReference<User>() {
+        };
+
+        CallbackOne<Response> onOnBeforeExtract = new CallbackOne<Response>() {
+            @Override
+            public void execute(Response response) {
+                User.unPackLinks((ObjectNode) response.getData());
+            }
+        };
+
+        CallbackOneReturnable<User, User> onOnAfterExtract = new CallbackOneReturnable<User, User>() {
+            @Override
+            public User execute(User user) {
+                user.setIsDoctor(user.checkRole(User.Roles.role_doctor));
+                return user;
+            }
+        };
+
+        CallbackOne<User> onStoreIntoDatabase = new CallbackOne<User>() {
+            @Override
+            public void execute(User user) {
+                storeIntoDatabase(user);
+            }
+        };
+
+        ObjectNode objectNode = new ObjectMapper().valueToTree(user);
+        User.cleanForupdate(objectNode);
+        String cleanedUser = DataWraper.wrap(objectNode).toString();
+
+        HttpRequestHolder httpRequestHolder =
+                new HttpRequestHolder
+                        .Builder(Request.Method.PUT, String.format(Url.ACCOUNT_UPDATE, token.getTokenId()), typeReference)
+                        .addHeaders(Url.POST_HEADERS)
+                        .setBody(cleanedUser)
+                        .setOnBeforeExtract(onOnBeforeExtract)
+                        .setOnAfterExtracted(onOnAfterExtract)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
@@ -115,6 +178,30 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
             }
         };
 
+        CallbackOneReturnable<User, User> onOnAfterExtractDb = new CallbackOneReturnable<User, User>() {
+            @Override
+            public User execute(User user) {
+                RuntimeExceptionDao helperFactoryUserRole = HelperFactory.getHelper().getRuntimeDataDao(UserRole.class);
+                QueryBuilder queryBuilder = helperFactoryUserRole.queryBuilder();
+                try {
+                    user.setRoles(UserRoleDao.getRolesForUser(user));
+                    queryBuilder.where().eq("user_id", user.getId());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                user.setIsDoctor(user.checkRole(User.Roles.role_doctor));
+                return user;
+            }
+        };
+
+        CallbackOneReturnable<User, User> onOnAfterExtractHttp = new CallbackOneReturnable<User, User>() {
+            @Override
+            public User execute(User user) {
+                user.setIsDoctor(user.checkRole(User.Roles.role_doctor));
+                return user;
+            }
+        };
+
         CallbackOne<User> onStoreIntoDatabase = new CallbackOne<User>() {
             @Override
             public void execute(User user) {
@@ -134,6 +221,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                 new DbRequestHolder
                         .Builder(queryBuilder)
                         .setQueryMethod(DbRequestHolder.QueryMethod.queryForFirst)
+                        .setOnAfterExtracted(onOnAfterExtractDb)
                         .create();
 
         HttpRequestHolder httpRequestHolder =
@@ -141,6 +229,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                         .Builder(Request.Method.GET, Url.ACCOUNT, typeReference)
                         .addParam("token", token.getTokenId())
                         .setOnBeforeExtract(onOnBeforeExtract)
+                        .setOnAfterExtracted(onOnAfterExtractHttp)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
@@ -168,3 +257,4 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
     }
 
 }
+

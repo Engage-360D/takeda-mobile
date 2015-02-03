@@ -8,17 +8,16 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RadioGroup;
 
 import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.ui.base.BaseStartFragment;
 import ru.com.cardiomagnil.ui.base.BaseTrackedFragmentActivity;
 import ru.com.cardiomagnil.ui.slidingmenu.menu.SlidingMenuActivity;
+import ru.com.cardiomagnil.util.TestMethods;
 import ru.com.cardiomagnil.util.Utils;
 import ru.com.cardiomagnil.widget.CustomAnimation;
 import ru.com.cardiomagnil.widget.CustomAnimation.OnAnimationEndListener;
-import ru.com.cardiomagnil.util.TestMethods;
 
 public class StartActivity extends BaseTrackedFragmentActivity {
     private ProgressDialog mProgressDialog = null;
@@ -66,10 +65,6 @@ public class StartActivity extends BaseTrackedFragmentActivity {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
-    }
-
-    public void onToggle(View view) {
-        ((RadioGroup) view.getParent()).check(view.getId());
     }
 
     private void customizeIfDebug() {
