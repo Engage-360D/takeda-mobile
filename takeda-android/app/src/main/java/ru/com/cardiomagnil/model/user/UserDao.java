@@ -10,6 +10,8 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ru.com.cardiomagnil.ca_api.DataLoadDispatcher;
 import ru.com.cardiomagnil.ca_api.DataLoadSequence;
@@ -18,6 +20,8 @@ import ru.com.cardiomagnil.ca_api.db.DbRequestHolder;
 import ru.com.cardiomagnil.ca_api.db.HelperFactory;
 import ru.com.cardiomagnil.ca_api.http.HttpRequestHolder;
 import ru.com.cardiomagnil.model.common.DataWraper;
+import ru.com.cardiomagnil.model.common.Dummy;
+import ru.com.cardiomagnil.model.common.Email;
 import ru.com.cardiomagnil.model.common.Response;
 import ru.com.cardiomagnil.model.role.UserRole;
 import ru.com.cardiomagnil.model.role.UserRoleDao;
@@ -134,25 +138,20 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                 );
     }
 
-    // FIXME!!!
-    public static void resetPassword(final String email,
-                                     final CallbackOne<User> onSuccess,
+    public static void resetPassword(final Email email,
+                                     final CallbackOne<List<Dummy>> onSuccess,
                                      final CallbackOne<Response> onFailure) {
-        TypeReference typeReference = new TypeReference<User>() {
+        TypeReference typeReference = new TypeReference<List<Dummy>>() {
         };
 
-        CallbackOne<Response> onOnBeforeExtract = new CallbackOne<Response>() {
-            @Override
-            public void execute(Response response) {
-                User.unPackLinks((ObjectNode) response.getData());
-            }
-        };
+        ObjectNode objectNode = new ObjectMapper().valueToTree(email);
+        String packedEmail = DataWraper.wrap(objectNode).toString();
 
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
                         .Builder(Request.Method.POST, Url.ACCOUNT_RESET_PASSWORD, typeReference)
-                        .addParam("email", email)
-                        .setOnBeforeExtract(onOnBeforeExtract)
+                        .addHeaders(Url.POST_HEADERS)
+                        .setBody(packedEmail)
                         .create();
 
         DataLoadDispatcher

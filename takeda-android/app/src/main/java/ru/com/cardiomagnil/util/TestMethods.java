@@ -3,6 +3,9 @@ package ru.com.cardiomagnil.util;
 import java.util.List;
 
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.model.common.Dummy;
+import ru.com.cardiomagnil.model.common.Email;
+import ru.com.cardiomagnil.model.common.LgnPwd;
 import ru.com.cardiomagnil.model.common.Response;
 import ru.com.cardiomagnil.model.region.Region;
 import ru.com.cardiomagnil.model.region.RegionDao;
@@ -12,18 +15,42 @@ import ru.com.cardiomagnil.model.token.Token;
 import ru.com.cardiomagnil.model.token.TokenDao;
 import ru.com.cardiomagnil.model.user.User;
 import ru.com.cardiomagnil.model.user.UserDao;
-import ru.com.cardiomagnil.model.user.UserLgnPwd;
 
 public class TestMethods {
 
     public static void testCurrentMethod() {
-        Ca_TestResultDaoSendTestSource();
+        Ca_UserDaoResetPassword();
+//        Ca_TestResultDaoSendTestSource();
 //        Ca_UserDaoGetById();
 //        Ca_TokenDaoGetByUserId();
 //        Ca_TokenDaoGetByLgnPwd();
 //        Ca_UserRegister();
 //        Ca_RegionDaoGetAll();
     }
+
+    public static void Ca_UserDaoResetPassword() {
+        Email email = new Email();
+        email.setEmail("y.andreyko+11@gmail.com");
+
+        UserDao.resetPassword(
+                email,
+                new CallbackOne<List<Dummy>>() {
+                    @Override
+                    public void execute(List<Dummy> dummy) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
+    }
+
 
     public static void Ca_TestResultDaoSendTestSource() {
         TestResultDao.sendTestSource(
@@ -92,7 +119,7 @@ public class TestMethods {
 
     public static void Ca_TokenDaoGetByLgnPwd() {
         TokenDao.getByLgnPwd(
-                new UserLgnPwd("ethjjfd@hg.com", "t"),
+                new LgnPwd("ethjjfd@hg.com", "t"),
                 new CallbackOne<Token>() {
                     @Override
                     public void execute(Token token) {

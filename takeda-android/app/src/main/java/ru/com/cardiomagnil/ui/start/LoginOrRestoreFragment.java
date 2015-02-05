@@ -15,14 +15,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import ru.com.cardiomagnil.app.BuildConfig;
 import ru.com.cardiomagnil.app.R;
-import ru.com.cardiomagnil.ca_api.Status;
-import ru.com.cardiomagnil.model.common.Error;
+import ru.com.cardiomagnil.model.common.Dummy;
+import ru.com.cardiomagnil.model.common.Email;
+import ru.com.cardiomagnil.model.common.LgnPwd;
 import ru.com.cardiomagnil.model.common.Response;
-import ru.com.cardiomagnil.model.user.User;
 import ru.com.cardiomagnil.model.user.UserDao;
-import ru.com.cardiomagnil.model.user.UserLgnPwd;
 import ru.com.cardiomagnil.social.FbApi;
 import ru.com.cardiomagnil.social.FbUser;
 import ru.com.cardiomagnil.social.OkApi;
@@ -58,25 +59,6 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
 
         if (!user.getEmail().isEmpty()) {
             editTextEmail.setText(user.getEmail());
-        }
-    }
-
-    public void handleResetPassword(User user, Response responseError) {
-        StartActivity startActivity = (StartActivity) getActivity();
-        startActivity.hideProgressDialog();
-
-        responseError = (responseError == null || responseError.getError() == null) ?
-                new Response.Builder(new Error()).create() :
-                responseError;
-
-        if (user == null) {
-            switch (responseError.getError().getCode()){
-                case Status.NO_DATA_ERROR:
-                    Tools.showToast(getActivity(), R.string.error_user_not_found, Toast.LENGTH_LONG);
-                    break;
-                default:
-                    Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
-            }
         }
     }
 
@@ -167,7 +149,9 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonRestore.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startRestore();
+                Email email = new Email();
+                email.setEmail(pickRestoreFields());
+                startRestoring(email);
             }
         });
     }
@@ -216,52 +200,48 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     private void startAuthorization() {
-        UserLgnPwd userLgnPwd = pickAuthorizationFields();
+        LgnPwd lgnPwd = pickAuthorizationFields();
         // response handled in handleRegAuth
-        startAuthorization(userLgnPwd);
+        startAuthorization(lgnPwd);
     }
 
-    private void startRestore() {
-        StartActivity startActivity = (StartActivity) getActivity();
+    private void startRestoring(Email email) {
+        final StartActivity startActivity = (StartActivity) getActivity();
         startActivity.showProgressDialog();
 
-        String email = pickRestoreFields();
-        restorePassword(email);
-    }
-
-    // FIXME
-    private void restorePassword(String email) {
         UserDao.resetPassword(
                 email,
-                new CallbackOne<User>() {
+                new CallbackOne<List<Dummy>>() {
                     @Override
-                    public void execute(User newUser) {
-                        handleResetPassword(newUser, null);
+                    public void execute(List<Dummy> dummy) {
+                        startActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.restored_successfully, Toast.LENGTH_LONG);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        handleResetPassword(null, responseError);
+                        startActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
                     }
                 }
         );
     }
 
-    private UserLgnPwd pickAuthorizationFields() {
-        UserLgnPwd userLgnPwd = new UserLgnPwd();
+    private LgnPwd pickAuthorizationFields() {
+        LgnPwd lgnPwd = new LgnPwd();
 
         try {
             EditText editTextEmailLogin = (EditText) getActivity().findViewById(R.id.editTextEmailLogin);
             EditText editTextPassword = (EditText) getActivity().findViewById(R.id.editTextPassword);
 
-            userLgnPwd.setEmail(editTextEmailLogin.getText().toString());
-            userLgnPwd.setPlainPassword(editTextPassword.getText().toString());
+            lgnPwd.setEmail(editTextEmailLogin.getText().toString());
+            lgnPwd.setPlainPassword(editTextPassword.getText().toString());
         } catch (Exception e) {
             // do nothing
         }
 
-        return userLgnPwd;
+        return lgnPwd;
     }
 
     private String pickRestoreFields() {

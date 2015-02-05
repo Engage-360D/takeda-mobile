@@ -9,8 +9,12 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.util.List;
+
 import ru.com.cardiomagnil.app.R;
 import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.model.common.Dummy;
+import ru.com.cardiomagnil.model.common.Email;
 import ru.com.cardiomagnil.model.common.Response;
 import ru.com.cardiomagnil.model.token.Token;
 import ru.com.cardiomagnil.model.user.User;
@@ -86,7 +90,9 @@ public class Ca_CabinetDataFargment extends BaseItemFragment {
         buttonGenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Email email = new Email();
+                email.setEmail(AppState.getInstatce().getUser().getEmail());
+                startGeneration(email);
             }
         });
 
@@ -103,6 +109,29 @@ public class Ca_CabinetDataFargment extends BaseItemFragment {
                 }
             }
         });
+    }
+
+    private void startGeneration(Email email) {
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.showProgressDialog();
+
+        UserDao.resetPassword(
+                email,
+                new CallbackOne<List<Dummy>>() {
+                    @Override
+                    public void execute(List<Dummy> dummy) {
+                        slidingMenuActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.restored_successfully, Toast.LENGTH_LONG);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        slidingMenuActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                    }
+                }
+        );
     }
 
     protected void startUpdating(final User user, Token token) {

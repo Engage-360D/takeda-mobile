@@ -14,7 +14,7 @@ import ru.com.cardiomagnil.model.token.Token;
 import ru.com.cardiomagnil.model.token.TokenDao;
 import ru.com.cardiomagnil.model.user.User;
 import ru.com.cardiomagnil.model.user.UserDao;
-import ru.com.cardiomagnil.model.user.UserLgnPwd;
+import ru.com.cardiomagnil.model.common.LgnPwd;
 import ru.com.cardiomagnil.ui.start.StartActivity;
 import ru.com.cardiomagnil.util.CallbackOne;
 import ru.com.cardiomagnil.util.Tools;
@@ -31,8 +31,8 @@ public abstract class BaseStartFragment extends Fragment {
                 new CallbackOne<User>() {
                     @Override
                     public void execute(User newUser) {
-                        UserLgnPwd userLgnPwd = new UserLgnPwd(user.getEmail(), user.getPlainPassword());
-                        startAuthorization(userLgnPwd);
+                        LgnPwd lgnPwd = new LgnPwd(user.getEmail(), user.getPlainPassword());
+                        startAuthorization(lgnPwd);
                     }
                 },
                 new CallbackOne<Response>() {
@@ -44,12 +44,12 @@ public abstract class BaseStartFragment extends Fragment {
         );
     }
 
-    protected void startAuthorization(final UserLgnPwd userLgnPwd) {
+    protected void startAuthorization(final LgnPwd lgnPwd) {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.showProgressDialog();
 
         TokenDao.getByLgnPwd(
-                userLgnPwd,
+                lgnPwd,
                 new CallbackOne<Token>() {
                     @Override
                     public void execute(Token token) {

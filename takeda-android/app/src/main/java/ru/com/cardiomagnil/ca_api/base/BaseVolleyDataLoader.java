@@ -26,11 +26,15 @@ public abstract class BaseVolleyDataLoader extends BaseDataLoader {
 
         T_IN resultIn = (T_IN) BaseModel.stringToObject(((Object) response.getData()).toString(), volleyRequestHolder.getTypeReference());
 
-        if (volleyRequestHolder.getOnAfterExtracted() != null) {
-            T_OUT resultOut = (T_OUT) volleyRequestHolder.getOnAfterExtracted().execute(resultIn);
-            handleSuccessResponseHelper(resultOut, volleyRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
+        if (resultIn == null) {
+            handleErrorResponse(createInputDataError(), dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
         } else {
-            handleSuccessResponseHelper((T_OUT) resultIn, volleyRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
+            if (volleyRequestHolder.getOnAfterExtracted() != null) {
+                T_OUT resultOut = (T_OUT) volleyRequestHolder.getOnAfterExtracted().execute(resultIn);
+                handleSuccessResponseHelper(resultOut, volleyRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
+            } else {
+                handleSuccessResponseHelper((T_OUT) resultIn, volleyRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
+            }
         }
     }
 
@@ -63,9 +67,13 @@ public abstract class BaseVolleyDataLoader extends BaseDataLoader {
     protected Response checkResponse(Response response) {
         return response != null ?
                 response :
-                new Response
-                        .Builder(new Error(Status.INPUT_DATA_ERROR, Status.getDescription(Status.INPUT_DATA_ERROR)))
-                        .create();
+                createInputDataError();
+    }
+
+    private Response createInputDataError() {
+        return new Response
+                .Builder(new Error(Status.INPUT_DATA_ERROR, Status.getDescription(Status.INPUT_DATA_ERROR)))
+                .create();
     }
 
     private <T> void handleSuccessResponseHelper(final T result,

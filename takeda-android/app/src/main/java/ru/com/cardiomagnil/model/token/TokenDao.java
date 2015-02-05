@@ -18,7 +18,7 @@ import ru.com.cardiomagnil.ca_api.db.HelperFactory;
 import ru.com.cardiomagnil.ca_api.http.HttpRequestHolder;
 import ru.com.cardiomagnil.model.common.DataWraper;
 import ru.com.cardiomagnil.model.common.Response;
-import ru.com.cardiomagnil.model.user.UserLgnPwd;
+import ru.com.cardiomagnil.model.common.LgnPwd;
 import ru.com.cardiomagnil.util.CallbackOne;
 
 public class TokenDao extends BaseDaoImpl<Token, Integer> {
@@ -66,7 +66,7 @@ public class TokenDao extends BaseDaoImpl<Token, Integer> {
     }
 
 
-    public static void getByLgnPwd(final UserLgnPwd userLgnPwd,
+    public static void getByLgnPwd(final LgnPwd lgnPwd,
                                    final CallbackOne<Token> onSuccess,
                                    final CallbackOne<Response> onFailure) {
         TypeReference typeReference = new TypeReference<Token>() {
@@ -87,7 +87,7 @@ public class TokenDao extends BaseDaoImpl<Token, Integer> {
             }
         };
 
-        ObjectNode objectNode = new ObjectMapper().valueToTree(userLgnPwd);
+        ObjectNode objectNode = new ObjectMapper().valueToTree(lgnPwd);
         String packedToken = DataWraper.wrap(objectNode).toString();
 
         HttpRequestHolder httpRequestHolder =

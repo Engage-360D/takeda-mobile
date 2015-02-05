@@ -1,4 +1,4 @@
-package ru.com.cardiomagnil.model.user;
+package ru.com.cardiomagnil.model.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,17 +11,17 @@ import ru.com.cardiomagnil.model.base.BaseModel;
         "email",
         "plainPassword"
 })
-public class UserLgnPwd extends BaseModel {
+public class LgnPwd extends BaseModel {
 
     @JsonProperty("email")
     private String email;
     @JsonProperty("plainPassword")
     private String plainPassword;
 
-    public UserLgnPwd() {
+    public LgnPwd() {
     }
 
-    public UserLgnPwd(String email, String plainPassword) {
+    public LgnPwd(String email, String plainPassword) {
         this.email = email;
         this.plainPassword = plainPassword;
     }
