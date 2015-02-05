@@ -362,23 +362,198 @@ response:
 ---------
 ======================================================================================
 method:
-
+get
 -------
 
 request:
-
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
 --------
 
 headers:
-
+Content-Type: application/vnd.api+json
 --------
 
 data:
-
+null
 -----
 
 response:
-
+{
+  "data": [
+    {
+      "id": "19",
+      "sex": "male",
+      "birthday": "1960-01-01T00:00:00+0300",
+      "growth": 180,
+      "weight": 140,
+      "isSmoker": true,
+      "cholesterolLevel": 5,
+      "isCholesterolDrugsConsumer": true,
+      "hasDiabetes": false,
+      "hadSugarProblems": true,
+      "isSugarDrugsConsumer": true,
+      "arterialPressure": 160,
+      "isArterialPressureDrugsConsumer": true,
+      "physicalActivityMinutes": 80,
+      "hadHeartAttackOrStroke": false,
+      "isAddingExtraSalt": true,
+      "isAcetylsalicylicDrugsConsumer": true,
+      "bmi": 43.2,
+      "score": 9,
+      "recommendations": {
+        "scoreNote": {
+          "state": "bell",
+          "text": "Категория среднего риска развития смертельных сердечно-сосудистых заболеваний в ближайшие 10 лет"
+        },
+        "fullScreenAlert": null,
+        "mainRecommendation": {
+          "text": "Прием препаратов ацетилсалициловой кислоты является фактором риска развития язвенной болезни желудка.\nОбратите внимание на специализированные препараты, снижающие этот риск, например, кардиомагнил."
+        },
+        "placesLinkShouldBeVisible": true,
+        "banners": {
+          "isSmoker": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/isSmoker",
+            "state": "attention",
+            "title": "Курение",
+            "subtitle": "",
+            "note": "Фактор риска"
+          },
+          "arterialPressure": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/arterialPressure",
+            "state": "attention",
+            "title": "Систолическое давление",
+            "subtitle": "большое отклонение",
+            "note": "Фактор риска"
+          },
+          "isAddingExtraSalt": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/isAddingExtraSalt",
+            "state": "attention",
+            "title": "Потребление соли",
+            "subtitle": "",
+            "note": "Необходимо улучшение"
+          },
+          "cholesterolLevel": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/cholesterolLevel",
+            "state": "bell",
+            "title": "Уровень холестирина",
+            "subtitle": "среднее отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "physicalActivityMinutes": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/physicalActivityMinutes",
+            "state": "attention",
+            "title": "Физическая активность",
+            "subtitle": "большое отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "bmi": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/bmi",
+            "state": "attention",
+            "title": "Вес",
+            "subtitle": "большое отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "hadSugarProblems": {
+            "pageUrl": null,
+            "state": "doctor",
+            "title": "",
+            "subtitle": "",
+            "note": "У вас отмечается повышение уровня сахара в крови. Вам необходимо обратиться к врачу."
+          },
+          "isArterialPressureDrugsConsumer": null,
+          "isCholesterolDrugsConsumer": null
+        }
+      },
+      "createdAt": "2015-01-29T17:13:04+0300"
+    },
+    {
+      "id": "21",
+      "sex": "male",
+      "birthday": "1960-01-01T00:00:00+0300",
+      "growth": 180,
+      "weight": 140,
+      "isSmoker": true,
+      "cholesterolLevel": 5,
+      "isCholesterolDrugsConsumer": true,
+      "hasDiabetes": false,
+      "hadSugarProblems": true,
+      "isSugarDrugsConsumer": true,
+      "arterialPressure": 160,
+      "isArterialPressureDrugsConsumer": true,
+      "physicalActivityMinutes": 80,
+      "hadHeartAttackOrStroke": false,
+      "isAddingExtraSalt": true,
+      "isAcetylsalicylicDrugsConsumer": true,
+      "bmi": 43.2,
+      "score": 9,
+      "recommendations": {
+        "scoreNote": {
+          "state": "bell",
+          "text": "Категория среднего риска развития смертельных сердечно-сосудистых заболеваний в ближайшие 10 лет"
+        },
+        "fullScreenAlert": null,
+        "mainRecommendation": {
+          "text": "Прием препаратов ацетилсалициловой кислоты является фактором риска развития язвенной болезни желудка.\nОбратите внимание на специализированные препараты, снижающие этот риск, например, кардиомагнил."
+        },
+        "placesLinkShouldBeVisible": true,
+        "banners": {
+          "isSmoker": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/isSmoker",
+            "state": "attention",
+            "title": "Курение",
+            "subtitle": "",
+            "note": "Фактор риска"
+          },
+          "arterialPressure": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/arterialPressure",
+            "state": "attention",
+            "title": "Систолическое давление",
+            "subtitle": "большое отклонение",
+            "note": "Фактор риска"
+          },
+          "isAddingExtraSalt": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/isAddingExtraSalt",
+            "state": "attention",
+            "title": "Потребление соли",
+            "subtitle": "",
+            "note": "Необходимо улучшение"
+          },
+          "cholesterolLevel": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/cholesterolLevel",
+            "state": "bell",
+            "title": "Уровень холестирина",
+            "subtitle": "среднее отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "physicalActivityMinutes": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/physicalActivityMinutes",
+            "state": "attention",
+            "title": "Физическая активность",
+            "subtitle": "большое отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "bmi": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/bmi",
+            "state": "attention",
+            "title": "Вес",
+            "subtitle": "большое отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "hadSugarProblems": {
+            "pageUrl": null,
+            "state": "doctor",
+            "title": "",
+            "subtitle": "",
+            "note": "У вас отмечается повышение уровня сахара в крови. Вам необходимо обратиться к врачу."
+          },
+          "isArterialPressureDrugsConsumer": null,
+          "isCholesterolDrugsConsumer": null
+        }
+      },
+      "createdAt": "2015-01-30T17:20:35+0300"
+    }
+  ]
+}
 ---------
 ======================================================================================
 method:

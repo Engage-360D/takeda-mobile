@@ -10,7 +10,6 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import ru.com.cardiomagnil.ca_api.DataLoadDispatcher;

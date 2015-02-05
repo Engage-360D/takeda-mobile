@@ -27,7 +27,8 @@ import ru.com.cardiomagnil.model.base.BaseModel;
         "isAcetylsalicylicDrugsConsumer",
         "bmi",
         "score",
-        "recommendations"
+        "recommendations",
+        "createdAt"
 })
 public class TestResult extends BaseModel {
 
@@ -71,6 +72,8 @@ public class TestResult extends BaseModel {
     private int score;
     @JsonProperty("recommendations")
     private Recomendations recommendations;
+    @JsonProperty("createdAt")
+    private String createdAt;
 
     public enum STATES {
         attention, ok, bell, doctor, ask, empty, undefined
@@ -394,6 +397,22 @@ public class TestResult extends BaseModel {
     @JsonProperty("recommendations")
     public void setRecommendations(Recomendations recommendations) {
         this.recommendations = recommendations;
+    }
+
+    /**
+     * @return The createdAt
+     */
+    @JsonProperty("createdAt")
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param createdAt The createdAt
+     */
+    @JsonProperty("createdAt")
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
 }

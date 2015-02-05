@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Random;
-
 import ru.com.cardiomagnil.app.R;
+import ru.com.cardiomagnil.application.AppState;
+import ru.com.cardiomagnil.model.test.TestResult;
 import ru.com.cardiomagnil.ui.base.BaseItemFragment;
 import ru.com.cardiomagnil.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnil.util.Tools;
@@ -36,9 +36,11 @@ public class Ca_MainFargment extends BaseItemFragment {
     }
 
     private void initIndex(final View view) {
-        // FIXME: replace on API ready
-        Random random = new Random();
-        int index = random.nextInt(80 - 50) + 50;
+        int index = 0;
+        TestResult testResult = AppState.getInstatce().getTestResult();
+        if (testResult != null) {
+            index = testResult.getScore();
+        }
 
         TextView textViewIndex = (TextView) view.findViewById(R.id.textViewIndex);
         textViewIndex.setText(String.valueOf(index) + "%");
