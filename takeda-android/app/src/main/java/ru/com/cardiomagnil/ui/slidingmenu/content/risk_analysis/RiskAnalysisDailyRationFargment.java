@@ -124,7 +124,7 @@ public class RiskAnalysisDailyRationFargment extends BaseRiskAnalysis {
         slidingMenuActivity.hideProgressDialog();
 
         if (testResult != null) {
-            storeResult(testResult);
+            AppState.getInstatce().setTestResult(testResult);
             slidingMenuActivity.unLockMenu();
         } else if (responseError != null) {
             // TODO: show message according to error
@@ -134,14 +134,6 @@ public class RiskAnalysisDailyRationFargment extends BaseRiskAnalysis {
         }
 
         slidingMenuActivity.replaceContentOnTop(new RiskAnalysisResultsFargment(), false);
-    }
-
-    private void storeResult(TestResult testResult) {
-        ObjectNode objectNode = new ObjectMapper().valueToTree(testResult);
-        String testResultString = objectNode.toString();
-
-        AppSharedPreferences.put(AppSharedPreferences.Preference.testResult, testResultString);
-        AppState.getInstatce().setTestResult(testResult);
     }
 
     // the meat of switching the above fragment

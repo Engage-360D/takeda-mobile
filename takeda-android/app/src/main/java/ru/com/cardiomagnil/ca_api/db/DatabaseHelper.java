@@ -13,14 +13,15 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import ru.com.cardiomagnil.application.CardiomagnilApplication;
-import ru.com.cardiomagnil.model.token.Token;
-import ru.com.cardiomagnil.model.region.Region;
 import ru.com.cardiomagnil.model.base.BaseModel;
+import ru.com.cardiomagnil.model.region.Region;
 import ru.com.cardiomagnil.model.region.RegionDao;
 import ru.com.cardiomagnil.model.role.Role;
 import ru.com.cardiomagnil.model.role.RoleDao;
-import ru.com.cardiomagnil.model.role.UserRoleDao;
 import ru.com.cardiomagnil.model.role.UserRole;
+import ru.com.cardiomagnil.model.role.UserRoleDao;
+import ru.com.cardiomagnil.model.test.TestResultHolder;
+import ru.com.cardiomagnil.model.token.Token;
 import ru.com.cardiomagnil.model.token.TokenDao;
 import ru.com.cardiomagnil.model.user.User;
 import ru.com.cardiomagnil.model.user.UserDao;
@@ -48,6 +49,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Role.class);
             TableUtils.createTable(connectionSource, UserRole.class);
             TableUtils.createTable(connectionSource, Token.class);
+            TableUtils.createTable(connectionSource, TestResultHolder.class);
         } catch (/*SQLException*/Exception e) {
             Log.e(CardiomagnilApplication.getInstance().getTag(), "error creating DB " + DATABASE_NAME);
             throw new RuntimeException(e);
@@ -63,6 +65,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Role.class, true);
             TableUtils.dropTable(connectionSource, UserRole.class, true);
             TableUtils.dropTable(connectionSource, Token.class, true);
+            TableUtils.dropTable(connectionSource, TestResultHolder.class, true);
 
             onCreate(db, connectionSource);
         } catch (/*SQLException*/Exception e) {

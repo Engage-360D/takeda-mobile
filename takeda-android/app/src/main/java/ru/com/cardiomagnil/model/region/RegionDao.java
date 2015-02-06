@@ -10,9 +10,9 @@ import com.j256.ormlite.support.ConnectionSource;
 import java.sql.SQLException;
 import java.util.List;
 
-import ru.com.cardiomagnil.ca_api.Url;
 import ru.com.cardiomagnil.ca_api.DataLoadDispatcher;
 import ru.com.cardiomagnil.ca_api.DataLoadSequence;
+import ru.com.cardiomagnil.ca_api.Url;
 import ru.com.cardiomagnil.ca_api.db.DbRequestHolder;
 import ru.com.cardiomagnil.ca_api.db.HelperFactory;
 import ru.com.cardiomagnil.ca_api.http.HttpRequestHolder;
@@ -50,7 +50,6 @@ public class RegionDao extends BaseDaoImpl<Region, Integer> {
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
-
         DataLoadSequence dataLoadSequence =
                 new DataLoadSequence
                         .Builder(dbRequestHolder)
@@ -67,14 +66,10 @@ public class RegionDao extends BaseDaoImpl<Region, Integer> {
     }
 
     public static void storeIntoDatabase(final List<Region> regionList) {
-        storeIntoDatabaseHelper(regionList);
-    }
-
-    private static void storeIntoDatabaseHelper(final List<Region> regionList) {
         if (regionList != null && !regionList.isEmpty()) {
-            RuntimeExceptionDao helperFactoryLpuAutocomplete = HelperFactory.getHelper().getRuntimeDataDao(Region.class);
+            RuntimeExceptionDao helperFactoryRegion = HelperFactory.getHelper().getRuntimeDataDao(Region.class);
             for (Region region : regionList) {
-                helperFactoryLpuAutocomplete.createOrUpdate(region);
+                helperFactoryRegion.createOrUpdate(region);
             }
         }
     }

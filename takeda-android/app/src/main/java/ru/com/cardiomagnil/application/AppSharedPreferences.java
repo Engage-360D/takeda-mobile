@@ -24,8 +24,7 @@ public class AppSharedPreferences {
     }
 
     public static enum Preference {
-        tokenId("token_id", Class.str),
-        testResult("test_result", Class.str);
+        tokenId("token_id", Class.str);
 
         private final String mPrefName;
         private final Class mClass;
