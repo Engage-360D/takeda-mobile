@@ -18,7 +18,7 @@ public class SlidingMenuListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.ca_slidingmenu_list_fragment, null);
+        final View view = inflater.inflate(R.layout.slidingmenu_list_fragment, null);
         initViewTreeObserver(view);
         return view;
     }

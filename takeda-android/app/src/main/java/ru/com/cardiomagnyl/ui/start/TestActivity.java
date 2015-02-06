@@ -25,7 +25,7 @@ public class TestActivity extends Activity {
 
     private void showDialog() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View bodyView = inflater.inflate(R.layout.ca_dialog_incident, null);
+        View bodyView = inflater.inflate(R.layout.dialog_incident, null);
 
         CustomDialogLayout customDialogLayout = new CustomDialogLayout
                 .Builder(this)

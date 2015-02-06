@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/forgot_password"
-                android:textColor="@color/text_main_38"
+                android:textColor="@color/selector_clickable_text_38"
                 android:textSize="@dimen/text_size_small" />
 
             <ImageView

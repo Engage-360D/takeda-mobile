@@ -13,7 +13,7 @@ import ru.com.cardiomagnyl.util.Tools;
 public class JournalFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_journal, null);
+        View view = inflater.inflate(R.layout.fragment_slidingmenu_journal, null);
         initFragment(view);
         return view;
     }
@@ -45,7 +45,7 @@ public class JournalFragment extends BaseItemFragment {
 //            public void onClick(View v) {
 //                if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
 //                    SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
-//                    Fragment fragment = new Ca_AddPillsFragment();
+//                    Fragment fragment = new AddPillsFragment();
 //                    mainActivity.switchContent(fragment);
 //                }
 //            }

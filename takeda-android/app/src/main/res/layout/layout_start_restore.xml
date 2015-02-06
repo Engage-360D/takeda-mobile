@@ -56,15 +56,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/entry"
-                android:textColor="@color/text_main_38"
+                android:textColor="@color/selector_clickable_text_38"
                 android:textSize="@dimen/text_size_small" />
         </LinearLayout>
 
         <Button
             android:id="@+id/buttonRestore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            style="@style/button_main_long"
             android:text="@string/restore" />
     </LinearLayout>
 

@@ -15,7 +15,7 @@ import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
 public class WelcomeFragment extends BaseStartFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_fragment_start_welcome, container, false);
+        View view = inflater.inflate(R.layout.fragment_start_welcome, container, false);
         return view;
     }
 

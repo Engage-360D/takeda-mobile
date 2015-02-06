@@ -171,7 +171,7 @@ public final class ProfileHelper {
     private static void initSpinnerRegionHelper(View spinner, List<Region> regionsList) {
         regionsList.add(Region.createNoRegion(spinner.getContext()));
 
-        RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(spinner.getContext(), R.layout.custom_spinner_item, R.layout.ca_spinner_item_dropdown, regionsList);
+        RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(spinner.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, regionsList);
         regionsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinnerRegion = (Spinner) spinner.findViewById(R.id.spinnerRegion);
@@ -186,7 +186,7 @@ public final class ProfileHelper {
         RangeSpinnerAdapter rangeSpinnerAdapter = new RangeSpinnerAdapter(
                 spinner.getContext(),
                 R.layout.custom_spinner_item,
-                R.layout.ca_spinner_item_dropdown,
+                R.layout.spinner_item_dropdown,
                 range);
         rangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -201,7 +201,7 @@ public final class ProfileHelper {
         RangeSpinnerAdapter rangeSpinnerAdapter = new RangeSpinnerAdapter(
                 spinner.getContext(),
                 R.layout.custom_spinner_item,
-                R.layout.ca_spinner_item_dropdown,
+                R.layout.spinner_item_dropdown,
                 yearsRange);
         rangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

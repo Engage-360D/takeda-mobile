@@ -20,7 +20,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.ca_slidingmenu_list_item, null);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.slidingmenu_list_item, null);
         }
 
         MenuItem menuItem = getItem(position);

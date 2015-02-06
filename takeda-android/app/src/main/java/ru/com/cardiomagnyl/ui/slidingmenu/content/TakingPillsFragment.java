@@ -15,7 +15,7 @@ import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 public class TakingPillsFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_taking_pills, null);
+        View view = inflater.inflate(R.layout.fragment_slidingmenu_taking_pills, null);
         initFragment(view);
         return view;
     }

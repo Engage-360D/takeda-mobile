@@ -20,6 +20,8 @@ import ru.com.cardiomagnyl.model.test.Note;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResult.STATES;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 
 public class RiskAnalysisResultsFragment extends BaseItemFragment {
     private View parentView;
@@ -33,6 +35,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
+        initTopBarBellCabinet(viewGroupTopBar, true, true);
     }
 
     private void initTestResultsFragment(View view) {
@@ -62,14 +65,14 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         bannerAdjustmentOfDiet.setState(STATES.ask.name());
         bannerAdjustmentOfDiet.setTitle(getString(R.string.adjustment_of_diet));
         bannerAdjustmentOfDiet.setSubtitle(getString(R.string.pass_poll));
-        bannerAdjustmentOfDiet.setPageUrl(Url.BANNER_CHOOSE_MEDICAL_INSTITUTION);
+        bannerAdjustmentOfDiet.setPageUrl(Url.BANNER_PASS_POLL);
 
         Banner bannerChooseMedicalInstitution = new Banner();
         if (testResult.getRecommendations().getPlacesLinkShouldBeVisible()) {
             bannerChooseMedicalInstitution.setState(STATES.undefined.name());
             bannerChooseMedicalInstitution.setTitle("");
             bannerChooseMedicalInstitution.setSubtitle(getString(R.string.choose_medical_institution));
-            bannerChooseMedicalInstitution.setPageUrl(Url.BANNER_PASS_POLL);
+            bannerChooseMedicalInstitution.setPageUrl(Url.BANNER_CHOOSE_MEDICAL_INSTITUTION);
         }
 
         initScore(view, testResult);
@@ -160,7 +163,6 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         TextView textViewSubtitle = (TextView) bannerView.findViewById(R.id.textViewSubtitle);
         TextView textViewNote = (TextView) bannerView.findViewById(R.id.textViewNote);
 
-
         if (bannerData == null
                 || ((TextUtils.isEmpty(bannerData.getState()) &&
                 TextUtils.isEmpty(bannerData.getTitle()) &&
@@ -200,10 +202,12 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     }
 
     private void showLocalPage(String pageUrl) {
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         if (Url.BANNER_CHOOSE_MEDICAL_INSTITUTION.equals(pageUrl)) {
 
         } else if (Url.BANNER_PASS_POLL.equals(pageUrl)) {
-
+            BaseItemFragment cabinetTestFragment = new CabinetTestFragment();
+            slidingMenuActivity.replaceAllContent(cabinetTestFragment, false);
         }
     }
 

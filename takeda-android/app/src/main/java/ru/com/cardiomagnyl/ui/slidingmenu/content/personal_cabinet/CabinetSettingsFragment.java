@@ -19,7 +19,7 @@ import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 public class CabinetSettingsFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_cabinet_settings, null);
+        View view = inflater.inflate(R.layout.fragment_slidingmenu_cabinet_settings, null);
         initFragment(view);
         return view;
     }
@@ -52,7 +52,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         if (getActivity() == null) return;
 
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View bodyView = inflater.inflate(R.layout.ca_dialog_incident, null);
+        View bodyView = inflater.inflate(R.layout.dialog_incident, null);
 
         CustomDialogLayout customDialogLayout = new CustomDialogLayout
                 .Builder(getActivity())
@@ -79,7 +79,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         textViewInfarction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int layoutId = R.layout.ca_item_incident_infarction;
+                int layoutId = R.layout.item_incident_infarction;
                 onIncidentSelected(alertDialog, layoutId /*some other params*/);
             }
         });
@@ -87,7 +87,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         textViewApoplexy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int layoutId = R.layout.ca_item_incident_apoplexy;
+                int layoutId = R.layout.item_incident_apoplexy;
                 onIncidentSelected(alertDialog, layoutId /*some other params*/);
             }
         });
@@ -95,7 +95,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         textViewShunting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int layoutId = R.layout.ca_item_incident_shunting;
+                int layoutId = R.layout.item_incident_shunting;
                 onIncidentSelected(alertDialog, layoutId /*some other params*/);
             }
         });

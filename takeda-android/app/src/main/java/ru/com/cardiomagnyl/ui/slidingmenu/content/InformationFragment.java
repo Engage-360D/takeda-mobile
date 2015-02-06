@@ -11,7 +11,7 @@ import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 public class InformationFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_fragment_slidingmenu_information, null);
+        View view = inflater.inflate(R.layout.fragment_slidingmenu_information, null);
         return view;
     }
 

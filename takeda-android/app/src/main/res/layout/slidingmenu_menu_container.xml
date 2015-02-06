@@ -10,7 +10,7 @@
         android:orientation="horizontal">
 
         <include
-            layout="@layout/ca_layout_top"
+            layout="@layout/layout_top"
             android:layout_width="match_parent"
             android:layout_height="@dimen/plate_large" />
 

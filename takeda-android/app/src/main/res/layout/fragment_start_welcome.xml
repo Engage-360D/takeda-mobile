@@ -42,7 +42,7 @@
     <com.devspark.robototextview.widget.RobotoTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_big_light_left"
+        android:drawableLeft="@drawable/ic_small_light_left"
         android:gravity="center_vertical"
         android:text="@string/swipe"
         android:textColor="@color/white"
@@ -51,4 +51,4 @@
 
 </LinearLayout>
 
-    <!-- TODO: ca_text_size_large must be ca_text_size_xlarge, ca_text_size_small must be ca_text_size_medium -->
+    <!-- TODO: text_size_large must be text_size_xlarge, text_size_small must be text_size_medium -->

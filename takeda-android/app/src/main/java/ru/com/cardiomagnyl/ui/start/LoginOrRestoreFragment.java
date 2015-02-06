@@ -38,7 +38,7 @@ import ru.com.cardiomagnyl.util.Utils;
 public class LoginOrRestoreFragment extends BaseStartFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ca_fragment_start_login_or_restore, container, false);
+        View view = inflater.inflate(R.layout.fragment_start_login_or_restore, container, false);
         initLoginOrRestoreFragment(view);
         return view;
     }

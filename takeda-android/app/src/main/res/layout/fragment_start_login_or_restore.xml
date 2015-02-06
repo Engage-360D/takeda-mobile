@@ -16,14 +16,14 @@
 
         <include
             android:id="@+id/linearLayoutLogin"
-            layout="@layout/ca_layout_start_login"
+            layout="@layout/layout_start_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
         <include
             android:id="@+id/linearLayoutRestore"
-            layout="@layout/ca_layout_start_restore"
+            layout="@layout/layout_start_restore"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

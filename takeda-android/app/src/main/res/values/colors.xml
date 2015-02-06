@@ -55,6 +55,8 @@
     <color name="text_checkbox_checked">#FFFFFFFF</color>
 
     <!-- text_clickable -->
+    <color name="text_main_38_unpressed">#FF38404C</color>
+    <color name="text_main_38_pressed">#FF0E0E0E</color>
     <color name="text_main_48_unpressed">#FF485662</color>
     <color name="text_main_48_pressed">#FF121212</color>
 

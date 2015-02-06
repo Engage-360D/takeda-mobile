@@ -71,15 +71,15 @@
 
             <include
                 android:id="@+id/item1"
-                layout="@layout/ca_list_item_personal_journal_one_day" />
+                layout="@layout/list_item_personal_journal_one_day" />
 
             <include
                 android:id="@+id/item2"
-                layout="@layout/ca_list_item_personal_journal_one_day" />
+                layout="@layout/list_item_personal_journal_one_day" />
 
             <include
                 android:id="@+id/item3"
-                layout="@layout/ca_list_item_personal_journal_one_day" />
+                layout="@layout/list_item_personal_journal_one_day" />
 
         </LinearLayout>
     </ScrollView>
