@@ -86,19 +86,19 @@
                     layout="@layout/layout_banner" />
 
                 <include
-                    android:id="@+id/linearLayoutBanneArterialPressure"
+                    android:id="@+id/linearLayoutBannerArterialPressure"
                     layout="@layout/layout_banner" />
 
                 <include
-                    android:id="@+id/linearLayoutBanneSugarProblems"
+                    android:id="@+id/linearLayoutBannerSugarProblems"
                     layout="@layout/layout_banner" />
 
                 <include
-                    android:id="@+id/linearLayoutBannePressureDrugs"
+                    android:id="@+id/linearLayoutBannerPressureDrugs"
                     layout="@layout/layout_banner" />
 
                 <include
-                    android:id="@+id/linearLayoutBanneholesterolDrugs"
+                    android:id="@+id/linearLayoutBannerCholesterolDrugs"
                     layout="@layout/layout_banner" />
 
                 <TextView

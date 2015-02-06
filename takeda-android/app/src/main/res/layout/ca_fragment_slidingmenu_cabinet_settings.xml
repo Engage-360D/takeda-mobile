@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ca_selector_list_item_ic" />
+                    android:src="@drawable/selector_list_item_ic" />
             </LinearLayout>
 
             <View style="@style/divider_normal_1_5" />
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/ca_selector_button_plus" />
+                    android:src="@drawable/selector_button_plus" />
             </LinearLayout>
 
             <View style="@style/divider_normal_1_5" />

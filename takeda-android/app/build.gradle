@@ -33,7 +33,7 @@ android {
     buildToolsVersion '21.1.2'
 
     defaultConfig {
-        applicationId "ru.com.cardiomagnil.app"
+        applicationId "ru.com.cardiomagnyl.app"
         minSdkVersion 14
         targetSdkVersion 14
         versionCode 7
@@ -59,19 +59,19 @@ android {
         production {
             storeFile file("../keystore.jks")
             storePassword "developer"
-            keyAlias "cardiomagnil_release"
+            keyAlias "cardiomagnyl_release"
             keyPassword "developer"
         }
         release {
             storeFile file("../keystore.jks")
             storePassword "developer"
-            keyAlias "cardiomagnil_release"
+            keyAlias "cardiomagnyl_release"
             keyPassword "developer"
         }
         debug {
             storeFile file("../keystore.jks")
             storePassword "developer"
-            keyAlias "cardiomagnil_release"
+            keyAlias "cardiomagnyl_release"
             keyPassword "developer"
         }
     }

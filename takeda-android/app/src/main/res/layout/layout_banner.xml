@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ca_selector_banner_bg"
+    android:background="@drawable/selector_banner_bg"
     android:baselineAligned="false"
     android:clickable="true"
     android:orientation="vertical">
@@ -52,7 +52,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/space_small"
             android:contentDescription="@null"
-            android:src="@drawable/ca_selector_banner_ic" />
+            android:src="@drawable/selector_banner_ic" />
     </LinearLayout>
 
     <View style="@style/divider_normal_1_6" />

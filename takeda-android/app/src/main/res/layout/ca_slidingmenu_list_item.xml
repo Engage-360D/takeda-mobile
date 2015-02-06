@@ -8,7 +8,7 @@
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/plate_medium"
-        android:background="@drawable/ca_selector_menu_item_bg"
+        android:background="@drawable/selector_menu_item_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/space_large"
         android:paddingRight="@dimen/space_large"

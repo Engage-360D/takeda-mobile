@@ -25,12 +25,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/ca_selector_checkbox_bg"
+                android:background="@drawable/selector_checkbox_bg"
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
                 android:text="@string/journal_new"
-                android:textColor="@drawable/ca_selector_checkbox_text"
+                android:textColor="@drawable/selector_checkbox_text"
                 android:textSize="@dimen/text_size_small" />
 
             <RadioButton
@@ -38,11 +38,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/ca_selector_checkbox_bg"
+                android:background="@drawable/selector_checkbox_bg"
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/journal_filled"
-                android:textColor="@drawable/ca_selector_checkbox_text"
+                android:textColor="@drawable/selector_checkbox_text"
                 android:textSize="@dimen/text_size_small" />
         </RadioGroup>
 

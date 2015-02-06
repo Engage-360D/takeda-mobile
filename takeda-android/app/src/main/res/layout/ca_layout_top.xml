@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
                 android:adjustViewBounds="true"
-                android:src="@drawable/ca_selector_button_menu" />
+                android:src="@drawable/selector_button_menu" />
         </RelativeLayout>
     </LinearLayout>
 

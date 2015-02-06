@@ -76,7 +76,7 @@
     <style name="TextViewItem" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/plate_medium</item>
-        <item name="android:background">@drawable/ca_selector_list_item_bg</item>
+        <item name="android:background">@drawable/selector_list_item_bg</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">@dimen/space_medium</item>
         <item name="android:paddingRight">@dimen/space_medium</item>
@@ -96,7 +96,7 @@
     </style>
 
     <style name="TextViewItemDrawable" parent="@style/TextViewItem">
-        <item name="android:drawableRight">@drawable/ca_selector_list_item_ic</item>
+        <item name="android:drawableRight">@drawable/selector_list_item_ic</item>
     </style>
 
     <style name="TextViewBanner" parent="@android:style/Widget.TextView">
@@ -200,7 +200,7 @@
     <style name="button_main_short">
         <item name="android:layout_width">@dimen/control_medium</item>
         <item name="android:layout_height">@dimen/plate_medium</item>
-        <item name="android:background">@drawable/ca_selector_button_main</item>
+        <item name="android:background">@drawable/selector_button_main</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:textColor">@color/selector_button_main_text</item>
         <item name="android:layout_gravity">center</item>
@@ -223,7 +223,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@null</item>
         <item name="android:button">@null</item>
-        <item name="android:drawableLeft">@drawable/ca_selector_checkbox</item>
+        <item name="android:drawableLeft">@drawable/selector_checkbox</item>
         <item name="android:drawablePadding">@dimen/space_xxsmall</item>
         <item name="android:textColor">@color/text_main_41</item>
         <item name="android:textSize">@dimen/text_size_small</item>
@@ -234,7 +234,7 @@
     <style name="checkbox_medium_37" parent="@style/checkbox_small_41">
         <item name="android:minHeight">@dimen/plate_medium</item>
         <item name="android:drawableLeft">@null</item>
-        <item name="android:drawableRight">@drawable/ca_selector_checkbox</item>
+        <item name="android:drawableRight">@drawable/selector_checkbox</item>
         <item name="android:textColor">@color/text_main_37</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:layout_marginLeft">@dimen/space_medium</item>
@@ -245,13 +245,13 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/ca_selector_checkbox_bg</item>
+        <item name="android:background">@drawable/selector_checkbox_bg</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">@dimen/space_xxsmall</item>
         <item name="android:lineSpacingMultiplier">@dimen/line_spacing_extra</item>
-        <item name="android:textColor">@drawable/ca_selector_checkbox_text</item>
+        <item name="android:textColor">@drawable/selector_checkbox_text</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
@@ -259,11 +259,11 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/plate_small</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/ca_selector_checkbox_bg</item>
+        <item name="android:background">@drawable/selector_checkbox_bg</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:onClick">onToggle</item>
-        <item name="android:textColor">@drawable/ca_selector_checkbox_text</item>
+        <item name="android:textColor">@drawable/selector_checkbox_text</item>
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
