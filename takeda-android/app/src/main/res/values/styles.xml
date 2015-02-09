@@ -17,7 +17,7 @@
         <item name="android:textColor">@color/text_main_37</item>
     </style>
 
-    <style name="TextViewMedium37Margined" parent="@android:style/Widget.TextView">
+    <style name="TextViewMedium37MarginedMedium" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
@@ -26,6 +26,10 @@
         <item name="android:layout_marginLeft">@dimen/space_medium</item>
         <item name="android:layout_marginTop">@dimen/space_medium</item>
         <item name="android:layout_marginRight">@dimen/space_medium</item>
+    </style>
+
+    <style name="TextViewMedium37MarginedXsmall" parent="@style/TextViewMedium37MarginedMedium">
+        <item name="android:textSize">@dimen/text_size_xsmall</item>
     </style>
 
     <style name="TextViewMedium38" parent="@android:style/Widget.TextView">
@@ -95,8 +99,14 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="TextViewItemDrawable" parent="@style/TextViewItem">
-        <item name="android:drawableRight">@drawable/selector_list_item_ic</item>
+    <style name="TextViewItemDrawableRR" parent="@style/TextViewItem">
+        <item name="android:drawableRight">@drawable/selector_list_item_rr_ic</item>
+    </style>
+
+    <style name="TextViewItemDrawableRD" parent="@style/TextViewItem">
+        <item name="android:layout_height">@dimen/plate_small</item>
+        <item name="android:textSize">@dimen/text_size_xsmall</item>
+        <item name="android:drawableRight">@drawable/selector_list_item_rd_ic</item>
     </style>
 
     <style name="TextViewBanner" parent="@android:style/Widget.TextView">

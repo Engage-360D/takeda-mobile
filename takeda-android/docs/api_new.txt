@@ -370,7 +370,7 @@ http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results?token=eyJhbGciOiJ
 --------
 
 headers:
-Content-Type: application/vnd.api+json
+null
 --------
 
 data:
@@ -557,43 +557,54 @@ response:
 ---------
 ======================================================================================
 method:
-
+post
 -------
 
 request:
-
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results/19/send-email?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
 --------
 
 headers:
-
+Content-Type: application/vnd.api+json
 --------
 
 data:
-
+{
+    "data": {
+        "email": "a.b@c.d"
+    }
+}
 -----
 
 response:
-
+{
+  "data": []
+}
 ---------
 ======================================================================================
 method:
-
+get
 -------
 
 request:
-
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results/00/pages/physicalActivityMinutes
 --------
 
 headers:
-
+null
 --------
 
 data:
-
+null
 -----
 
 response:
-
+{
+	"state" : "attention",
+	"title" : "У вас недостаточно физической активности 80 минут в неделю",
+	"subtitle" : "Нормой является значение от 150 минут в неделю",
+	"text" : "Физическая активность является средством сохранения здоровья сердца и сосудов.\n\nЖелательно предпочесть аэробную динамическую нагрузку 5 раз в неделю от 30 мин. до 2 ч. в день.\nНагрузка  рекомендуется такая, чтобы частота пульса достигла 65-70% от максимальной частоты пульса для данного возраста.\n\nМаксимальная частота пульса рассчитывается по формуле: 220 минус возраст в годах.\n\nБольным с заболеваниями сердца и сосудов режим нагрузок подбирается врачом индивидуально в соответствии с результатами электрокардиографического теста с физической нагрузкой.\n"
+}
 ---------
 ======================================================================================
 GET

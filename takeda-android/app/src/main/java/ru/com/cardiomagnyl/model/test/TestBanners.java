@@ -18,32 +18,32 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
         "isArterialPressureDrugsConsumer",
         "isCholesterolDrugsConsumer"
 })
-public class Banners extends BaseModel {
+public class TestBanners extends BaseModel {
 
     @JsonProperty("physicalActivityMinutes")
-    private Banner physicalActivityMinutes;
+    private TestBanner physicalActivityMinutes;
     @JsonProperty("bmi")
-    private Banner bmi;
+    private TestBanner bmi;
     @JsonProperty("isAddingExtraSalt")
-    private Banner isAddingExtraSalt;
+    private TestBanner isAddingExtraSalt;
     @JsonProperty("isSmoker")
-    private Banner isSmoker;
+    private TestBanner isSmoker;
     @JsonProperty("cholesterolLevel")
-    private Banner cholesterolLevel;
+    private TestBanner cholesterolLevel;
     @JsonProperty("arterialPressure")
-    private Banner arterialPressure;
+    private TestBanner arterialPressure;
     @JsonProperty("hadSugarProblems")
-    private Banner hadSugarProblems;
+    private TestBanner hadSugarProblems;
     @JsonProperty("isArterialPressureDrugsConsumer")
-    private Banner isArterialPressureDrugsConsumer;
+    private TestBanner isArterialPressureDrugsConsumer;
     @JsonProperty("isCholesterolDrugsConsumer")
-    private Banner isCholesterolDrugsConsumer;
+    private TestBanner isCholesterolDrugsConsumer;
 
     /**
      * @return The physicalActivityMinutes
      */
     @JsonProperty("physicalActivityMinutes")
-    public Banner getPhysicalActivityMinutes() {
+    public TestBanner getPhysicalActivityMinutes() {
         return physicalActivityMinutes;
     }
 
@@ -51,7 +51,7 @@ public class Banners extends BaseModel {
      * @param physicalActivityMinutes The physicalActivityMinutes
      */
     @JsonProperty("physicalActivityMinutes")
-    public void setPhysicalActivityMinutes(Banner physicalActivityMinutes) {
+    public void setPhysicalActivityMinutes(TestBanner physicalActivityMinutes) {
         this.physicalActivityMinutes = physicalActivityMinutes;
     }
 
@@ -59,7 +59,7 @@ public class Banners extends BaseModel {
      * @return The bmi
      */
     @JsonProperty("bmi")
-    public Banner getBmi() {
+    public TestBanner getBmi() {
         return bmi;
     }
 
@@ -67,7 +67,7 @@ public class Banners extends BaseModel {
      * @param bmi The bmi
      */
     @JsonProperty("bmi")
-    public void setBmi(Banner bmi) {
+    public void setBmi(TestBanner bmi) {
         this.bmi = bmi;
     }
 
@@ -75,7 +75,7 @@ public class Banners extends BaseModel {
      * @return The isAddingExtraSalt
      */
     @JsonProperty("isAddingExtraSalt")
-    public Banner getIsAddingExtraSalt() {
+    public TestBanner getIsAddingExtraSalt() {
         return isAddingExtraSalt;
     }
 
@@ -83,7 +83,7 @@ public class Banners extends BaseModel {
      * @param isAddingExtraSalt The isAddingExtraSalt
      */
     @JsonProperty("isAddingExtraSalt")
-    public void setIsAddingExtraSalt(Banner isAddingExtraSalt) {
+    public void setIsAddingExtraSalt(TestBanner isAddingExtraSalt) {
         this.isAddingExtraSalt = isAddingExtraSalt;
     }
 
@@ -91,7 +91,7 @@ public class Banners extends BaseModel {
      * @return The isSmoker
      */
     @JsonProperty("isSmoker")
-    public Banner getIsSmoker() {
+    public TestBanner getIsSmoker() {
         return isSmoker;
     }
 
@@ -99,7 +99,7 @@ public class Banners extends BaseModel {
      * @param isSmoker The isSmoker
      */
     @JsonProperty("isSmoker")
-    public void setIsSmoker(Banner isSmoker) {
+    public void setIsSmoker(TestBanner isSmoker) {
         this.isSmoker = isSmoker;
     }
 
@@ -107,7 +107,7 @@ public class Banners extends BaseModel {
      * @return The cholesterolLevel
      */
     @JsonProperty("cholesterolLevel")
-    public Banner getCholesterolLevel() {
+    public TestBanner getCholesterolLevel() {
         return cholesterolLevel;
     }
 
@@ -115,7 +115,7 @@ public class Banners extends BaseModel {
      * @param cholesterolLevel The cholesterolLevel
      */
     @JsonProperty("cholesterolLevel")
-    public void setCholesterolLevel(Banner cholesterolLevel) {
+    public void setCholesterolLevel(TestBanner cholesterolLevel) {
         this.cholesterolLevel = cholesterolLevel;
     }
 
@@ -123,7 +123,7 @@ public class Banners extends BaseModel {
      * @return The arterialPressure
      */
     @JsonProperty("arterialPressure")
-    public Banner getArterialPressure() {
+    public TestBanner getArterialPressure() {
         return arterialPressure;
     }
 
@@ -131,7 +131,7 @@ public class Banners extends BaseModel {
      * @param arterialPressure The arterialPressure
      */
     @JsonProperty("arterialPressure")
-    public void setArterialPressure(Banner arterialPressure) {
+    public void setArterialPressure(TestBanner arterialPressure) {
         this.arterialPressure = arterialPressure;
     }
 
@@ -139,7 +139,7 @@ public class Banners extends BaseModel {
      * @return The hadSugarProblems
      */
     @JsonProperty("hadSugarProblems")
-    public Banner getHadSugarProblems() {
+    public TestBanner getHadSugarProblems() {
         return hadSugarProblems;
     }
 
@@ -147,7 +147,7 @@ public class Banners extends BaseModel {
      * @param hadSugarProblems The hadSugarProblems
      */
     @JsonProperty("hadSugarProblems")
-    public void setHadSugarProblems(Banner hadSugarProblems) {
+    public void setHadSugarProblems(TestBanner hadSugarProblems) {
         this.hadSugarProblems = hadSugarProblems;
     }
 
@@ -155,7 +155,7 @@ public class Banners extends BaseModel {
      * @return The isArterialPressureDrugsConsumer
      */
     @JsonProperty("isArterialPressureDrugsConsumer")
-    public Banner getIsArterialPressureDrugsConsumer() {
+    public TestBanner getIsArterialPressureDrugsConsumer() {
         return isArterialPressureDrugsConsumer;
     }
 
@@ -163,7 +163,7 @@ public class Banners extends BaseModel {
      * @param isArterialPressureDrugsConsumer The isArterialPressureDrugsConsumer
      */
     @JsonProperty("isArterialPressureDrugsConsumer")
-    public void setIsArterialPressureDrugsConsumer(Banner isArterialPressureDrugsConsumer) {
+    public void setIsArterialPressureDrugsConsumer(TestBanner isArterialPressureDrugsConsumer) {
         this.isArterialPressureDrugsConsumer = isArterialPressureDrugsConsumer;
     }
 
@@ -171,7 +171,7 @@ public class Banners extends BaseModel {
      * @return The isCholesterolDrugsConsumer
      */
     @JsonProperty("isCholesterolDrugsConsumer")
-    public Banner getIsCholesterolDrugsConsumer() {
+    public TestBanner getIsCholesterolDrugsConsumer() {
         return isCholesterolDrugsConsumer;
     }
 
@@ -179,7 +179,7 @@ public class Banners extends BaseModel {
      * @param isCholesterolDrugsConsumer The isCholesterolDrugsConsumer
      */
     @JsonProperty("isCholesterolDrugsConsumer")
-    public void setIsCholesterolDrugsConsumer(Banner isCholesterolDrugsConsumer) {
+    public void setIsCholesterolDrugsConsumer(TestBanner isCholesterolDrugsConsumer) {
         this.isCholesterolDrugsConsumer = isCholesterolDrugsConsumer;
     }
 

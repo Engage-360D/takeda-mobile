@@ -117,14 +117,14 @@
 
             <TextView
                 android:id="@+id/textViewTakeTablets"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/take_pills" />
 
             <View style="@style/divider_normal_1_5" />
 
             <TextView
                 android:id="@+id/textViewEatenToday"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/eaten_today" />
 
             <View style="@style/divider_normal_1_5" />
@@ -138,14 +138,14 @@
 
             <TextView
                 android:id="@+id/textViewMyRecommendations"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/my_recommendations" />
 
             <View style="@style/divider_normal_1_5" />
 
             <TextView
                 android:id="@+id/textViewMySuccess"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/my_success" />
 
             <View style="@style/divider_normal_1_5" />
@@ -180,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/selector_list_item_ic" />
+                    android:src="@drawable/selector_list_item_rr_ic" />
             </LinearLayout>
 
         </LinearLayout>

@@ -9,6 +9,8 @@ import ru.com.cardiomagnyl.model.common.LgnPwd;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.region.Region;
 import ru.com.cardiomagnyl.model.region.RegionDao;
+import ru.com.cardiomagnyl.model.test.PageDao;
+import ru.com.cardiomagnyl.model.test.TestPage;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
 import ru.com.cardiomagnyl.model.token.Token;
@@ -19,7 +21,8 @@ import ru.com.cardiomagnyl.model.user.UserDao;
 public class TestMethods {
 
     public static void testCurrentMethod() {
-        TestResultDaoGetAll();
+        TestPageDaoGetByLink();
+//        TestResultDaoGetAll();
 //        UserDaoResetPassword();
 //        TestResultDaoSendTestSource();
 //        UserDaoGetById();
@@ -27,6 +30,30 @@ public class TestMethods {
 //        TokenDaoGetByLgnPwd();
 //        UserRegister();
 //        RegionDaoGetAll();
+    }
+
+    public static void TestPageDaoGetByLink() {
+        Token token = new Token();
+        token.setUserId("45");
+        token.setTokenId("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjM1NjU4NTksInVzZXJuYW1lIjoieS5hbmRyZXlrbyszQGdtYWlsLmNvbSIsImlhdCI6IjE0MjM0Nzk0NTkifQ.AFvbLYoQF8FAXu0onhj5O-6kD7sYdzym-zv5dwNk86s1Bq0HXE_ehYNIcaNfl2otMI3y6zehDCG2LCo9FjA-ZiaXzywO_Lsyu8tKlP1nl8109k4iORfzejISuz81yyRO6js5V9pN8WJ62erKF0LpmQzMJNjhx7QGWpoYII69A7hH2OcmhNsX5iqn_y5G1hvIVfQDiK5iCKy3Qq_ix6ZmIGOhg4xP8kDlR9HbuCS8AlJcZ6p1TfonQGxqJvGefvsh8DVU0uNaMerV6wAucbYePXBZ7vHPB3sUwT9OwV4TMB425XbdGACrRQF5lWe31ByPjefJA-Czk7YZqaDn8umD2PZGHF3Z-CppTgvNjZU6YuaBxoviCDdLE9fyXJqWEmfo0mmwshpbaTMZ-Pk0jewwRzMs2hVdXXBgWei3nULpDo9UFCotfoBFQjzN4tHuFv9QPtq_cfnfbSpn8uXf7-dQw9C1rs2LMRA6YGfiD1K0390-PY8hw5UWywWZ-Hm3Jg-537cp9pv_zbnEicNpPL4V3569XU8Svzyvrx0WUjYyIFaIy0-JRZRad5wszLwOFM2AO3HPe-MnkuFaRDUAbA5r3UGC8HkhzxfQ1FsEGOYYG6hnGdHSKdB-fvz-uURJMdM3FeUD_TyS1aTE1qdfDS5pa4zP5obWvQjTop6-fVyu7T0");
+        PageDao.getByLink(
+                "/api/v1/account/test-results/21/pages/physicalActivityMinutes",
+                token,
+                new CallbackOne<TestPage>() {
+                    @Override
+                    public void execute(TestPage testResultList) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
     }
 
     public static void TestResultDaoGetAll() {

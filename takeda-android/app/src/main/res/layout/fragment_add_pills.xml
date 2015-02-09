@@ -106,28 +106,28 @@
 
             <TextView
                 android:id="@+id/textViewReceptionFrequency"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/reception_frequency" />
 
             <View style="@style/divider_normal_1_5" />
 
             <TextView
                 android:id="@+id/textViewReceptionHours"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/reception_hours" />
 
             <View style="@style/divider_normal_1_5" />
 
             <TextView
                 android:id="@+id/textViewStartDatePills"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/start_date_pills" />
 
             <View style="@style/divider_normal_1_5" />
 
             <TextView
                 android:id="@+id/textViewEndDatePills"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/end_date_pills" />
 
             <View style="@style/divider_normal_1_5" />

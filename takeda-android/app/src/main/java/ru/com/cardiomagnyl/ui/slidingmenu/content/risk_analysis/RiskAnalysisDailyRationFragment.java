@@ -28,7 +28,7 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_slidingmenu_test_daily_ration, null);
+        parentView = inflater.inflate(R.layout.fragment_analysis_daily_ration, null);
 
         initPatientDataFragment(parentView);
 

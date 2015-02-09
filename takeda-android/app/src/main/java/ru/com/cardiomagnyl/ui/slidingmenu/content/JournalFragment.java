@@ -13,7 +13,7 @@ import ru.com.cardiomagnyl.util.Tools;
 public class JournalFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_slidingmenu_journal, null);
+        View view = inflater.inflate(R.layout.fragment_journal, null);
         initFragment(view);
         return view;
     }

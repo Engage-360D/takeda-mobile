@@ -10,25 +10,36 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.List;
+
+import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
-import ru.com.cardiomagnyl.api.Url;
-import ru.com.cardiomagnyl.model.test.Banner;
-import ru.com.cardiomagnyl.model.test.Banners;
-import ru.com.cardiomagnyl.model.test.Note;
+import ru.com.cardiomagnyl.model.common.Dummy;
+import ru.com.cardiomagnyl.model.common.Email;
+import ru.com.cardiomagnyl.model.common.Response;
+import ru.com.cardiomagnyl.model.test.TestBanner;
+import ru.com.cardiomagnyl.model.test.TestBanners;
+import ru.com.cardiomagnyl.model.test.TestNote;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResult.STATES;
+import ru.com.cardiomagnyl.model.test.TestResultDao;
+import ru.com.cardiomagnyl.model.token.Token;
+import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
+import ru.com.cardiomagnyl.util.CallbackOne;
+import ru.com.cardiomagnyl.util.Tools;
 
 public class RiskAnalysisResultsFragment extends BaseItemFragment {
     private View parentView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_slidingmenu_analysis_results, null);
+        parentView = inflater.inflate(R.layout.fragment_analysis_results, null);
         initTestResultsFragment(parentView);
         return parentView;
     }
@@ -40,6 +51,11 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
 
     private void initTestResultsFragment(View view) {
         TestResult testResult = AppState.getInsnatce().getTestResult();
+        User user = AppState.getInsnatce().getUser();
+        Token token = AppState.getInsnatce().getToken();
+
+        initButtons(view, testResult, user, token);
+        initScore(view, testResult);
 
         ScrollView scrollViewResults = (ScrollView) view.findViewById(R.id.scrollViewResults);
         TextView textViewError = (TextView) view.findViewById(R.id.textViewError);
@@ -59,23 +75,21 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             testResult.getRecommendations().getScoreNote().setState(STATES.empty.name());
         }
 
-        Banners banners = testResult.getRecommendations().getBanners();
+        TestBanners banners = testResult.getRecommendations().getBanners();
 
-        Banner bannerAdjustmentOfDiet = new Banner();
+        TestBanner bannerAdjustmentOfDiet = new TestBanner();
         bannerAdjustmentOfDiet.setState(STATES.ask.name());
         bannerAdjustmentOfDiet.setTitle(getString(R.string.adjustment_of_diet));
         bannerAdjustmentOfDiet.setSubtitle(getString(R.string.pass_poll));
         bannerAdjustmentOfDiet.setPageUrl(Url.BANNER_PASS_POLL);
 
-        Banner bannerChooseMedicalInstitution = new Banner();
+        TestBanner bannerChooseMedicalInstitution = new TestBanner();
         if (testResult.getRecommendations().getPlacesLinkShouldBeVisible()) {
             bannerChooseMedicalInstitution.setState(STATES.undefined.name());
             bannerChooseMedicalInstitution.setTitle("");
             bannerChooseMedicalInstitution.setSubtitle(getString(R.string.choose_medical_institution));
             bannerChooseMedicalInstitution.setPageUrl(Url.BANNER_CHOOSE_MEDICAL_INSTITUTION);
         }
-
-        initScore(view, testResult);
 
         // FIXME
         // View linearLayoutDangerAlert = view.findViewById(R.id.linearLayoutDangerAlert);
@@ -119,6 +133,25 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         initBanner(linearLayoutBannerAdjustmentOfDiet, bannerAdjustmentOfDiet);
     }
 
+    private void initButtons(final View view, final TestResult testResult, final User user, final Token token) {
+        View imageViewSendEmail = view.findViewById(R.id.imageViewSendEmail);
+        View imageViewInfo = view.findViewById(R.id.imageViewInfo);
+
+        imageViewSendEmail.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendByEmail(testResult, user, token);
+            }
+        });
+
+        imageViewInfo.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
     private void initScore(final View view, final TestResult testResult) {
         view.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -131,6 +164,34 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
                 });
     }
 
+    private void sendByEmail(final TestResult testResult, final User user, Token token) {
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.showProgressDialog();
+
+        Email email = new Email();
+        email.setEmail(user.getEmail());
+
+        TestResultDao.sendByEmail(
+                testResult,
+                email,
+                token,
+                new CallbackOne<List<Dummy>>() {
+                    @Override
+                    public void execute(List<Dummy> dummy) {
+                        slidingMenuActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.results_sent_successfully, Toast.LENGTH_LONG);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        slidingMenuActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                    }
+                }
+        );
+    }
+
     private void initScoreHelper(View view, TestResult testResult) {
         View relativeLayoutScore = view.findViewById(R.id.relativeLayoutScore);
         View imageViewResultCircleHolder = view.findViewById(R.id.imageViewResultCircleHolder);
@@ -140,24 +201,24 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         int maxX = relativeLayoutScore.getWidth() - (imageViewResultCircleHolder.getWidth() + layoutParams.leftMargin + layoutParams.rightMargin);
         int x = (maxX / 100) * testResult.getScore() + layoutParams.leftMargin;
 
-        layoutParams.setMargins(x,  layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
+        layoutParams.setMargins(x, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
         textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
     }
 
-    private void initPeace(View pieceView, Note note) {
+    private void initPeace(View pieceView, TestNote testNote) {
         ImageView imageViewState = (ImageView) pieceView.findViewById(R.id.imageViewState);
         TextView textViewText = (TextView) pieceView.findViewById(R.id.textViewText);
 
-        if (note == null || (TextUtils.isEmpty(note.getState()) && TextUtils.isEmpty(note.getText()))) {
+        if (testNote == null || (TextUtils.isEmpty(testNote.getState()) && TextUtils.isEmpty(testNote.getText()))) {
             pieceView.setVisibility(View.GONE);
             return;
         }
 
-        setImageView(imageViewState, note.getState());
-        setTextView(textViewText, note.getText());
+        setImageView(imageViewState, testNote.getState());
+        setTextView(textViewText, testNote.getText());
     }
 
-    private void initBanner(View bannerView, Banner bannerData) {
+    private void initBanner(View bannerView, TestBanner bannerData) {
         ImageView imageViewState = (ImageView) bannerView.findViewById(R.id.imageViewState);
         TextView textViewTitle = (TextView) bannerView.findViewById(R.id.textViewTitle);
         TextView textViewSubtitle = (TextView) bannerView.findViewById(R.id.textViewSubtitle);

@@ -35,7 +35,7 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
     private String mBirthDate = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_slidingmenu_test_patient_data, null);
+        parentView = inflater.inflate(R.layout.fragment_analysis_patient_data, null);
         initPatientDataFragment(parentView);
         return parentView;
     }

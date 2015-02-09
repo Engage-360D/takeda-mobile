@@ -14,6 +14,9 @@ public final class Url {
     public static final String ACCOUNT_UPDATE = API_ADDR + "account?token=%s";
     public static final String ACCOUNT_RESET_PASSWORD = API_ADDR + "account/reset-password";
     public static final String ACCOUNT_TEST_RESULTS = API_ADDR + "account/test-results?token=%s";
+    public static final String ACCOUNT_TEST_SEND_EMAIL = API_ADDR + "account/test-results/%s/send-email?token=%s";
+    // FIXME: remove "/api/v1/" from link returned by server
+    public static final String ACCOUNT_TEST_PAGES = API_SCHEME + API_HOST + "%s?token=%s";
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
 

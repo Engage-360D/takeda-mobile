@@ -50,14 +50,14 @@
 
             <TextView
                 android:id="@+id/textViewSettingsEmail"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/recognize_infarction_apoplexy" />
 
             <View style="@style/divider_normal_1_5" />
 
             <TextView
                 android:id="@+id/textViewLifestyle"
-                style="@style/TextViewItemDrawable"
+                style="@style/TextViewItemDrawableRR"
                 android:text="@string/lifestyle" />
 
             <View style="@style/divider_normal_1_5" />

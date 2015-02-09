@@ -18,7 +18,7 @@ import ru.com.cardiomagnyl.util.Tools;
 public class MainFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_slidingmenu_main, null);
+        View view = inflater.inflate(R.layout.fragment_main, null);
         initFragment(view);
         return view;
     }

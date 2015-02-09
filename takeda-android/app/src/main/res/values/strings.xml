@@ -30,7 +30,6 @@
     <string name="results_physical_activity">Физическая активность</string>
     <string name="results_main_risks">Основные риски</string>
     <string name="results_diet">Диета</string>
-    <string name="results_recomendations">Рекомендации</string>
     <string name="results_error">Не удалось получить результат.\nПожалуйста, попробуйте пройти тест позже.</string>
     <string name="error_test_pressure">Давление может иметь значение от 80 до 200.</string>
     <string name="error_test_activity">Физическая активность может иметь значение от 80 до 200.</string>
@@ -65,6 +64,15 @@
 
     <!-- ================================================================================== -->
     <!-- Дневной рацион -->
+
+    <!-- =============================== -->
+    <!-- fragment_analysis_recomendation -->
+    <!-- =============================== -->
+    <string name="results_recomendations">Рекомендации</string>
+    <string name="general">Общее</string>
+    <string name="impact">Влияние на повседневную жизнь</string>
+    <string name="symptoms">Симптомы</string>
+    <string name="treatment">Лечение и профилактика</string>
 
     <!-- ================ -->
     <!-- fragment_welcome -->
@@ -155,7 +163,7 @@
     <string name="specialization_experience_years_">Опыт работы (лет)</string>
 
     <!-- ========================= -->
-    <!-- fragment_slidingmenu_main -->
+    <!-- fragment_main -->
     <!-- ========================= -->
     <string name="zero_percent">0%</string>
     <string name="index_recommendations">Ваш индекс рекомендаций на этой неделе</string>
@@ -167,14 +175,14 @@
     <string name="go_to_website">Переход на сайт</string>
 
     <!-- ================================= -->
-    <!-- fragment_slidingmenu_taking_pills -->
+    <!-- fragment_taking_pills -->
     <!-- ================================= -->
     <string name="pills">Таблетки</string>
     <string name="visit_doctor">Сходить к врачу</string>
     <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
 
     <!-- ============================== -->
-    <!-- fragment_slidingmenu_add_pills -->
+    <!-- fragment_add_pills -->
     <!-- ============================== -->
     <string name="add">Добавить</string>
     <string name="pills_name">Название</string>
@@ -186,7 +194,7 @@
     <string name="condition">Состояние</string>
 
     <!-- ============================ -->
-    <!-- fragment_slidingmenu_journal -->
+    <!-- fragment_journal -->
     <!-- ============================ -->
     <string name="journal">Дневник</string>
     <string name="journal_new">Новые</string>
@@ -224,7 +232,6 @@
     <string name="try_to_limit">стараюсь\nограничивать</string>
     <string name="almost_never">почти\nне употребляю</string>
 
-
     <!-- ============================ -->
     <!-- slidingmenu_cabinet_settings -->
     <!-- ============================ -->
@@ -243,14 +250,14 @@
     <string name="shunting_occurred">вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
 
     <!-- ======================================== -->
-    <!-- fragment_slidingmenu_search_institutions -->
+    <!-- fragment_search_institutions -->
     <!-- ======================================== -->
     <string name="institutions">Учреждения</string>
     <string name="institutions_map">Карта</string>
     <string name="institutions_list">Список</string>
 
     <!-- ================================ -->
-    <!-- fragment_slidingmenu_information -->
+    <!-- fragment_information -->
     <!-- ================================ -->
     <string name="information">Информация</string>
     <string name="first_aid">Первая помощь</string>
@@ -308,6 +315,7 @@
     <string name="create_calendar">Составить календарь профилактики</string>
     <string name="adjustment_of_diet">Дополнительная корректировка диеты</string>
     <string name="pass_poll">Пройти опрос</string>
+    <string name="results_sent_successfully">Результаты отосланы успешно.\nПроверьте почту.</string>
 
     <!-- ====== -->
     <!-- common -->

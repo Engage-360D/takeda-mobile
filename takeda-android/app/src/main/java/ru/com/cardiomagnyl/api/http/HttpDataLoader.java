@@ -60,7 +60,8 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
             }
         };
 
-        final String fakeResponse = "{\"links\":{\"users.region\":{\"href\":\"/api/v1/regions/{users.region}\",\"type\":\"regions\"}},\"data\":{\"id\":\"8\",\"email\":\"y.andreyko3@gmail.com\",\"firstname\":\"XXXX\",\"lastname\":\"XXXX\",\"birthday\":\"1990-10-10T00:00:00+00:00\",\"vkontakteId\":null,\"facebookId\":null,\"specializationExperienceYears\":null,\"specializationGraduationDate\":null,\"specializationInstitutionAddress\":null,\"specializationInstitutionName\":null,\"specializationInstitutionPhone\":null,\"specializationName\":null,\"roles\":[\"ROLE_USER\", \"ROLE_Test1\", \"ROLE_Test2\"],\"isEnabled\":false,\"links\":{\"region\":\"1\"}}}";
+//        final String fakeResponse = "{\"links\":{\"users.region\":{\"href\":\"/api/v1/regions/{users.region}\",\"type\":\"regions\"}},\"data\":{\"id\":\"8\",\"email\":\"y.andreyko3@gmail.com\",\"firstname\":\"XXXX\",\"lastname\":\"XXXX\",\"birthday\":\"1990-10-10T00:00:00+00:00\",\"vkontakteId\":null,\"facebookId\":null,\"specializationExperienceYears\":null,\"specializationGraduationDate\":null,\"specializationInstitutionAddress\":null,\"specializationInstitutionName\":null,\"specializationInstitutionPhone\":null,\"specializationName\":null,\"roles\":[\"ROLE_USER\", \"ROLE_Test1\", \"ROLE_Test2\"],\"isEnabled\":false,\"links\":{\"region\":\"1\"}}}";
+        final String fakeResponse = "{\"data\":{\"state\":\"attention\",\"title\":\"У вас недостаточно физической активности 80 минут в неделю\",\"subtitle\":\"Нормой является значение от 150 минут в неделю\",\"text\":\"Физическая активность является средством сохранения здоровья сердца и сосудов.\\n\\nЖелательно предпочесть аэробную динамическую нагрузку 5 раз в неделю от 30 мин. до 2 ч. в день.\\nНагрузка  рекомендуется такая, чтобы частота пульса достигла 65-70% от максимальной частоты пульса для данного возраста.\\n\\nМаксимальная частота пульса рассчитывается по формуле: 220 минус возраст в годах.\\n\\nБольным с заболеваниями сердца и сосудов режим нагрузок подбирается врачом индивидуально в соответствии с результатами электрокардиографического теста с физической нагрузкой.\\n\"}}";
         final com.android.volley.Response.Listener<String> fakeSuccessListener = new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(final String responseString) {
@@ -90,10 +91,10 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
                 httpRequestHolder.getHeaders(),
                 httpRequestHolder.getParams(),
                 httpRequestHolder.getBody(),
-//                fakeSuccessListener,
-//                fakeErrorListener
-                successListener,
-                errorListener
+                fakeSuccessListener,
+                fakeErrorListener
+//                successListener,
+//                errorListener
         );
 
         // Adding request to request queue

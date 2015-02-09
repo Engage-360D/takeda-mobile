@@ -14,7 +14,7 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
         "subtitle",
         "note"
 })
-public class Banner extends BaseModel {
+public class TestBanner extends BaseModel {
 
     @JsonProperty("pageUrl")
     private String pageUrl;

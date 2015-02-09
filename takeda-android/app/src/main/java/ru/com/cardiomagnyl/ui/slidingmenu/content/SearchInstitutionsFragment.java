@@ -24,7 +24,7 @@ public class SearchInstitutionsFragment extends BaseItemFragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_slidingmenu_search_institutions, null);
+        View view = inflater.inflate(R.layout.fragment_search_institutions, null);
 
         FragmentManager fm = getChildFragmentManager();
         SupportMapFragment supportMapFragment  = (SupportMapFragment)fm.findFragmentById(R.id.order_info_fragment_map);

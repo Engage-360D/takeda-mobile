@@ -20,6 +20,8 @@ import ru.com.cardiomagnyl.model.role.Role;
 import ru.com.cardiomagnyl.model.role.RoleDao;
 import ru.com.cardiomagnyl.model.role.UserRole;
 import ru.com.cardiomagnyl.model.role.UserRoleDao;
+import ru.com.cardiomagnyl.model.test.TestPage;
+import ru.com.cardiomagnyl.model.test.PageDao;
 import ru.com.cardiomagnyl.model.test.TestResultHolder;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.token.TokenDao;
@@ -50,6 +52,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, UserRole.class);
             TableUtils.createTable(connectionSource, Token.class);
             TableUtils.createTable(connectionSource, TestResultHolder.class);
+            TableUtils.createTable(connectionSource, TestPage.class);
         } catch (/*SQLException*/Exception e) {
             Log.e(CardiomagnylApplication.getInstance().getTag(), "error creating DB " + DATABASE_NAME);
             throw new RuntimeException(e);
@@ -66,6 +69,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, UserRole.class, true);
             TableUtils.dropTable(connectionSource, Token.class, true);
             TableUtils.dropTable(connectionSource, TestResultHolder.class, true);
+            TableUtils.dropTable(connectionSource, TestPage.class, true);
 
             onCreate(db, connectionSource);
         } catch (/*SQLException*/Exception e) {
@@ -105,6 +109,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private RoleDao mRoleDao;
     private UserRoleDao mUserRoleDao;
     private TokenDao mTokenDao;
+    private PageDao mMpageDao;
 
     public RegionDao getRegionDao() {
         try {
@@ -156,6 +161,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 mTokenDao = new TokenDao(getConnectionSource(), Token.class);
             }
             return mTokenDao;
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not create DAO", e);
+        }
+    }
+
+    public PageDao getPageDao() {
+        try {
+            if (mMpageDao == null) {
+                mMpageDao = new PageDao(getConnectionSource(), TestPage.class);
+            }
+            return mMpageDao;
         } catch (SQLException e) {
             throw new RuntimeException("Could not create DAO", e);
         }

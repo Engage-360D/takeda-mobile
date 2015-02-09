@@ -26,7 +26,7 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_slidingmenu_test_patient_history, null);
+        parentView = inflater.inflate(R.layout.fragment_analysis_patient_history, null);
         initPatientDataFragment(parentView);
         return parentView;
     }

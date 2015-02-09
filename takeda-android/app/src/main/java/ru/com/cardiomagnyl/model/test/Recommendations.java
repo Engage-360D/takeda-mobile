@@ -18,21 +18,21 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
 public class Recommendations extends BaseModel {
 
     @JsonProperty("scoreNote")
-    private Note scoreNote;
+    private TestNote scoreNote;
     @JsonProperty("fullscreenAlert")
-    private Note fullscreenAlert;
+    private TestNote fullscreenAlert;
     @JsonProperty("mainRecommendation")
-    private Note mainRecommendation;
+    private TestNote mainRecommendation;
     @JsonProperty("placesLinkShouldBeVisible")
     private boolean placesLinkShouldBeVisible;
     @JsonProperty("banners")
-    private Banners banners;
+    private TestBanners banners;
 
     /**
      * @return The scoreNote
      */
     @JsonProperty("scoreNote")
-    public Note getScoreNote() {
+    public TestNote getScoreNote() {
         return scoreNote;
     }
 
@@ -40,7 +40,7 @@ public class Recommendations extends BaseModel {
      * @param scoreNote The scoreNote
      */
     @JsonProperty("scoreNote")
-    public void setScoreNote(Note scoreNote) {
+    public void setScoreNote(TestNote scoreNote) {
         this.scoreNote = scoreNote;
     }
 
@@ -48,7 +48,7 @@ public class Recommendations extends BaseModel {
      * @return The fullscreenAlert
      */
     @JsonProperty("fullscreenAlert")
-    public Note getFullscreenAlert() {
+    public TestNote getFullscreenAlert() {
         return fullscreenAlert;
     }
 
@@ -56,7 +56,7 @@ public class Recommendations extends BaseModel {
      * @param fullscreenAlert The fullscreenAlert
      */
     @JsonProperty("fullscreenAlert")
-    public void setFullscreenAlert(Note fullscreenAlert) {
+    public void setFullscreenAlert(TestNote fullscreenAlert) {
         this.fullscreenAlert = fullscreenAlert;
     }
 
@@ -64,7 +64,7 @@ public class Recommendations extends BaseModel {
      * @return The mainRecommendation
      */
     @JsonProperty("mainRecommendation")
-    public Note getMainRecommendation() {
+    public TestNote getMainRecommendation() {
         return mainRecommendation;
     }
 
@@ -72,7 +72,7 @@ public class Recommendations extends BaseModel {
      * @param mainRecommendation The mainRecommendation
      */
     @JsonProperty("mainRecommendation")
-    public void setMainRecommendation(Note mainRecommendation) {
+    public void setMainRecommendation(TestNote mainRecommendation) {
         this.mainRecommendation = mainRecommendation;
     }
 
@@ -96,7 +96,7 @@ public class Recommendations extends BaseModel {
      * @return The banners
      */
     @JsonProperty("banners")
-    public Banners getBanners() {
+    public TestBanners getBanners() {
         return banners;
     }
 
@@ -104,7 +104,7 @@ public class Recommendations extends BaseModel {
      * @param banners The banners
      */
     @JsonProperty("banners")
-    public void setBanners(Banners banners) {
+    public void setBanners(TestBanners banners) {
         this.banners = banners;
     }
 

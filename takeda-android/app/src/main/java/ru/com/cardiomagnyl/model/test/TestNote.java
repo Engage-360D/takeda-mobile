@@ -11,7 +11,7 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
         "state",
         "text"
 })
-public class Note extends BaseModel {
+public class TestNote extends BaseModel {
 
     @JsonProperty("state")
     private String state;

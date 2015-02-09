@@ -22,6 +22,8 @@ import ru.com.cardiomagnyl.api.db.DbRequestHolder;
 import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
+import ru.com.cardiomagnyl.model.common.Dummy;
+import ru.com.cardiomagnyl.model.common.Email;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.util.CallbackOne;
@@ -108,6 +110,33 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
                         .addHeaders(Url.POST_HEADERS)
                         .setBody(packedTestSource)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
+                        .create();
+
+        DataLoadDispatcher
+                .getInstance()
+                .receive(
+                        httpRequestHolder,
+                        onSuccess,
+                        onFailure
+                );
+    }
+
+    public static void sendByEmail(TestResult testResult,
+                                   final Email email,
+                                   final Token token,
+                                   final CallbackOne<List<Dummy>> onSuccess,
+                                   final CallbackOne<Response> onFailure) {
+        TypeReference typeReference = new TypeReference<List<Dummy>>() {
+        };
+
+        ObjectNode objectNode = new ObjectMapper().valueToTree(email);
+        String packedEmail = DataWrapper.wrap(objectNode).toString();
+
+        HttpRequestHolder httpRequestHolder =
+                new HttpRequestHolder
+                        .Builder(Request.Method.POST, String.format(Url.ACCOUNT_TEST_SEND_EMAIL, testResult.getId(), token.getTokenId()), typeReference)
+                        .addHeaders(Url.POST_HEADERS)
+                        .setBody(packedEmail)
                         .create();
 
         DataLoadDispatcher

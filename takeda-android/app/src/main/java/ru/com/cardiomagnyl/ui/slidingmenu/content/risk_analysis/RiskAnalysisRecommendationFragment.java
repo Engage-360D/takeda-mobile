@@ -10,11 +10,11 @@ import android.widget.TextView;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 
-public class RiskAnalysisResultsRecommendationFragment extends Fragment {
+public class RiskAnalysisRecommendationFragment extends Fragment {
     private View parentView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_slidingmenu_test_recomendation, null);
+        parentView = inflater.inflate(R.layout.fragment_analysis_recomendation, null);
 
         initTestResultsRecomendationFragment(parentView);
 
