@@ -254,9 +254,9 @@ public final class ProfileHelper {
             errorCheckBoxCommon.requestFocus();
         else if (errorEditTextCommonDoctor != null && radioButtonDoctor.isChecked())
             errorEditTextCommonDoctor.requestFocus();
-        else if (errorSpinnerExperienceYears != null)
+        else if (errorSpinnerExperienceYears != null && radioButtonDoctor.isChecked())
             errorSpinnerExperienceYears.requestFocus();
-        else if (errorSpinnerGraduationDate != null)
+        else if (errorSpinnerGraduationDate != null && radioButtonDoctor.isChecked())
             errorSpinnerGraduationDate.requestFocus();
         else if (errorEditTextPassword != null)
             errorEditTextPassword.requestFocus();

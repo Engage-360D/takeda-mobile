@@ -25,6 +25,13 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
                     @Override
                     public void execute() {
                         Response response = stringToResponse(responseString);
+
+                        // FIXME: remove after tests
+                        if (response.isSuccessful()) {
+
+                        }
+
+
                         if (response.isSuccessful()) {
                             ThreadHelper.logThread("HttpDataLoader->onResponse->success");
                             handleSuccessResponse(response, httpRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
