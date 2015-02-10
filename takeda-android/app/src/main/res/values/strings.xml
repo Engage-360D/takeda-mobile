@@ -47,6 +47,7 @@
     <string name="complete_all_fields">Пожалуйста, заполните все поля</string>
     <string name="complete_required_fields">Пожалуйста, заполните необходимые поля</string>
     <string name="press_back_twice">Для выхода из приложения нажмите \'Back\' дважды</string>
+    <string name="information">Информация</string>
 
     <!-- ====== -->
     <!-- errors -->
@@ -259,7 +260,6 @@
     <!-- ================================ -->
     <!-- fragment_information -->
     <!-- ================================ -->
-    <string name="information">Информация</string>
     <string name="first_aid">Первая помощь</string>
     <string name="recognize_infarction_apoplexy">Как распознать инфаркт-инсульт</string>
     <string name="lifestyle">Образ жизни</string>

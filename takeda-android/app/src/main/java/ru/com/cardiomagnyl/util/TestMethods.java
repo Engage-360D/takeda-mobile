@@ -35,13 +35,13 @@ public class TestMethods {
     public static void TestPageDaoGetByLink() {
         Token token = new Token();
         token.setUserId("45");
-        token.setTokenId("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjM1NjU4NTksInVzZXJuYW1lIjoieS5hbmRyZXlrbyszQGdtYWlsLmNvbSIsImlhdCI6IjE0MjM0Nzk0NTkifQ.AFvbLYoQF8FAXu0onhj5O-6kD7sYdzym-zv5dwNk86s1Bq0HXE_ehYNIcaNfl2otMI3y6zehDCG2LCo9FjA-ZiaXzywO_Lsyu8tKlP1nl8109k4iORfzejISuz81yyRO6js5V9pN8WJ62erKF0LpmQzMJNjhx7QGWpoYII69A7hH2OcmhNsX5iqn_y5G1hvIVfQDiK5iCKy3Qq_ix6ZmIGOhg4xP8kDlR9HbuCS8AlJcZ6p1TfonQGxqJvGefvsh8DVU0uNaMerV6wAucbYePXBZ7vHPB3sUwT9OwV4TMB425XbdGACrRQF5lWe31ByPjefJA-Czk7YZqaDn8umD2PZGHF3Z-CppTgvNjZU6YuaBxoviCDdLE9fyXJqWEmfo0mmwshpbaTMZ-Pk0jewwRzMs2hVdXXBgWei3nULpDo9UFCotfoBFQjzN4tHuFv9QPtq_cfnfbSpn8uXf7-dQw9C1rs2LMRA6YGfiD1K0390-PY8hw5UWywWZ-Hm3Jg-537cp9pv_zbnEicNpPL4V3569XU8Svzyvrx0WUjYyIFaIy0-JRZRad5wszLwOFM2AO3HPe-MnkuFaRDUAbA5r3UGC8HkhzxfQ1FsEGOYYG6hnGdHSKdB-fvz-uURJMdM3FeUD_TyS1aTE1qdfDS5pa4zP5obWvQjTop6-fVyu7T0");
+        token.setTokenId("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjM2NzMzMzgsInVzZXJuYW1lIjoieS5hbmRyZXlrbyszQGdtYWlsLmNvbSIsImlhdCI6IjE0MjM1ODY5MzgifQ.N_9UgyyhYHrXPheigoAlopwcrP6tvAxhhDT51ZPGRSBWxyJ0JnCrkUxoIvKAsyD9HMFI4r_w7m_4RT77qeJXe2GCT3Sm0tTo5O36q_Fksw8V4sTdzIYsAxeRhoCA1GToDS9EOt40gttQ4OSsMtukxA6nw9LV_XOEApaPNdDAIY0BUzZ3G6VnQolUnqTnNzACmEHfvjY4BZuL4N12EIRWz605AlqZCCZTGqc_JW6zWa34MKeDSBJKA31BfK160Jc-pQLJ93EOXJhDeH5nu5avKR0eHnotKeitbRPewXFgbbxIFPiLNbvuJ93xnUB_eweYO23yyV9d1m6OytoFp9jD8BM-d8OuX6WWVsdOMyCPCFX4pv_B-6MsJcKFMBZOfIGHKS3TBJjragfwCl79nPrqGOys7fDG94oC29X25VCSotETgFC2FUiHep8lGZLKrI8dDzykk_fYNkbt-wP9NsRLyxZuof2lVd5QCzXRw6KCfLh29G5wxC3fJ_D-loQwa0vrh01f1_L_DBtgpq_Id_d6j9YWimnEikIfAsZrhnrQCiNJog7x5_T7pUTxiv1qK7IiyNa5pu4Wgm3m9d2jDssLpOyF4nHyJ5b0I9kd06abxof84raEm7dJwe1znhrvgyPaLqtpWzINp5bVlBNiSa_H2GTdJ4ATv_pjPRAJLHagerE");
         PageDao.getByLink(
                 "/api/v1/account/test-results/21/pages/physicalActivityMinutes",
                 token,
                 new CallbackOne<TestPage>() {
                     @Override
-                    public void execute(TestPage testResultList) {
+                    public void execute(TestPage testPage) {
                         int t = 1;
                         t++;
                     }

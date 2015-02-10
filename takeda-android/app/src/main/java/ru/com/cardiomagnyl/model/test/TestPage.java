@@ -1,5 +1,7 @@
 package ru.com.cardiomagnyl.model.test;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Pair;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,6 +11,8 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import ru.com.cardiomagnyl.model.base.BaseModel;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "state",
@@ -17,7 +21,7 @@ import com.j256.ormlite.table.DatabaseTable;
         "text"
 })
 @DatabaseTable(tableName = "page")
-public class TestPage {
+public class TestPage extends BaseModel implements Parcelable {
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     private String id;
 
@@ -122,4 +126,42 @@ public class TestPage {
         return new Pair(testId, recomendationName);
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    // implements Parcelable
+    ///////////////////////////////////////////////////////////////////////
+    public TestPage() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.state);
+        dest.writeString(this.title);
+        dest.writeString(this.subtitle);
+        dest.writeString(this.text);
+    }
+
+    private TestPage(Parcel in) {
+        this.id = in.readString();
+        this.state = in.readString();
+        this.title = in.readString();
+        this.subtitle = in.readString();
+        this.text = in.readString();
+    }
+
+    public static final Parcelable.Creator<TestPage> CREATOR = new Parcelable.Creator<TestPage>() {
+        public TestPage createFromParcel(Parcel source) {
+            return new TestPage(source);
+        }
+
+        public TestPage[] newArray(int size) {
+            return new TestPage[size];
+        }
+    };
+    ///////////////////////////////////////////////////////////////////////
 }

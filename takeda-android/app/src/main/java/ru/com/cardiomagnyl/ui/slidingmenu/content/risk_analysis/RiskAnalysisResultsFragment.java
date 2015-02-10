@@ -17,12 +17,15 @@ import java.util.List;
 import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
+import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.common.Dummy;
 import ru.com.cardiomagnyl.model.common.Email;
 import ru.com.cardiomagnyl.model.common.Response;
+import ru.com.cardiomagnyl.model.test.PageDao;
 import ru.com.cardiomagnyl.model.test.TestBanner;
 import ru.com.cardiomagnyl.model.test.TestBanners;
 import ru.com.cardiomagnyl.model.test.TestNote;
+import ru.com.cardiomagnyl.model.test.TestPage;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResult.STATES;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
@@ -245,17 +248,17 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             return;
         }
 
-        setClickable(bannerView, bannerData.getPageUrl());
+        setClickable(bannerView, bannerData);
         setImageView(imageViewState, bannerData.getState());
         setTextView(textViewTitle, bannerData.getTitle());
         setTextView(textViewSubtitle, bannerData.getSubtitle());
         setTextView(textViewNote, bannerData.getNote());
     }
 
-    private void setClickable(final View bannerView, final String pageUrl) {
+    private void setClickable(final View bannerView, final TestBanner bannerData) {
         ImageView imageViewRight = (ImageView) bannerView.findViewById(R.id.imageViewRight);
 
-        if (TextUtils.isEmpty(pageUrl)) {
+        if (TextUtils.isEmpty(bannerData.getPageUrl())) {
             imageViewRight.setVisibility(View.GONE);
             bannerView.setClickable(false);
         } else {
@@ -264,28 +267,59 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
 
                 @Override
                 public void onClick(View v) {
-                    if (pageUrl.startsWith(Url.LOCAL)) {
-                        showLocalPage(pageUrl);
+                    if (bannerData.getPageUrl().startsWith(Url.LOCAL)) {
+                        showLocalPage(bannerData);
                     } else {
-                        showRemotePage(pageUrl);
+                        showRemotePage(bannerData);
                     }
                 }
             });
         }
     }
 
-    private void showLocalPage(String pageUrl) {
+    private void showLocalPage(final TestBanner bannerData) {
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-        if (Url.BANNER_CHOOSE_MEDICAL_INSTITUTION.equals(pageUrl)) {
+        if (Url.BANNER_CHOOSE_MEDICAL_INSTITUTION.equals(bannerData.getPageUrl())) {
 
-        } else if (Url.BANNER_PASS_POLL.equals(pageUrl)) {
+        } else if (Url.BANNER_PASS_POLL.equals(bannerData.getPageUrl())) {
             BaseItemFragment cabinetTestFragment = new CabinetTestFragment();
             slidingMenuActivity.replaceAllContent(cabinetTestFragment, false);
         }
     }
 
-    private void showRemotePage(String pageUrl) {
-        // do_in_background
+    private void showRemotePage(final TestBanner bannerData) {
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.showProgressDialog();
+
+        Token token = AppState.getInsnatce().getToken();
+
+        PageDao.getByLink(
+                bannerData.getPageUrl(),
+                token,
+                new CallbackOne<TestPage>() {
+                    @Override
+                    public void execute(TestPage testPage) {
+                        slidingMenuActivity.hideProgressDialog();
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.PAGE_TITLE, bannerData.getTitle());
+                        bundle.putParcelable(Constants.TEST_PAGE, testPage);
+
+                        RiskAnalysisRecommendationFragment riskAnalysisRecommendationFragment = new RiskAnalysisRecommendationFragment();
+                        riskAnalysisRecommendationFragment.setArguments(bundle);
+
+                        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+                        slidingMenuActivity.putContentOnTop(riskAnalysisRecommendationFragment, true);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        slidingMenuActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                    }
+                }
+        );
     }
 
     private void setImageView(ImageView imageView, String stateString) {

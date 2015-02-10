@@ -1,11 +1,17 @@
 package ru.com.cardiomagnyl.api.http;
 
 import com.android.volley.VolleyError;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.io.IOException;
 
 import ru.com.cardiomagnyl.api.CachedStringRequest;
 import ru.com.cardiomagnyl.api.DataLoadSequence;
 import ru.com.cardiomagnyl.api.Status;
 import ru.com.cardiomagnyl.api.base.BaseVolleyDataLoader;
+import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Error;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.util.Callback;
@@ -26,11 +32,20 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
                     public void execute() {
                         Response response = stringToResponse(responseString);
 
+                        ///////////////////////////////////////////////////////////
                         // FIXME: remove after tests
-                        if (response.isSuccessful()) {
-
+                        ///////////////////////////////////////////////////////////
+                        if (!response.isSuccessful()) {
+                            try {
+                                ObjectMapper mapper = new ObjectMapper();
+                                JsonNode jsonNode = mapper.readTree(responseString);
+                                ObjectNode objectNode = DataWrapper.wrap(jsonNode);
+                                response = stringToResponse(objectNode.toString());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-
+                        ///////////////////////////////////////////////////////////
 
                         if (response.isSuccessful()) {
                             ThreadHelper.logThread("HttpDataLoader->onResponse->success");

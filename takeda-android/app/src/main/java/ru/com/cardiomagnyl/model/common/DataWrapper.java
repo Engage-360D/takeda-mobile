@@ -13,4 +13,11 @@ public class DataWrapper {
         return objectNode;
     }
 
+    public static ObjectNode wrap(String data) {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode objectNode = mapper.createObjectNode();
+        objectNode.put("data", data);
+        return objectNode;
+    }
+
 }
