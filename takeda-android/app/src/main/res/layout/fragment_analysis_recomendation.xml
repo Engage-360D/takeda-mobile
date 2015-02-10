@@ -70,7 +70,6 @@
 
             </LinearLayout>
 
-
             <View style="@style/divider_normal_1_2" />
 
             <TextView

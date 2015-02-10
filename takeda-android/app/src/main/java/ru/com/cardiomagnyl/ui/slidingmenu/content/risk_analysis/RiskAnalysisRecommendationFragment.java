@@ -31,9 +31,9 @@ public class RiskAnalysisRecommendationFragment extends Fragment {
 //        TestResultPage pageData = AppState.getInstance().getTestResultPage();
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
 
-        TextView textViewUrlText = (TextView) view.findViewById(R.id.textViewUrlText);
-        TextView textViewTitle = (TextView) view.findViewById(R.id.textViewTitle);
-        TextView textViewText = (TextView) view.findViewById(R.id.textViewText);
+        TextView textViewRecommendationAbout = (TextView) view.findViewById(R.id.textViewRecommendationAbout);
+//        TextView textViewTitle = (TextView) view.findViewById(R.id.textViewTitle);
+//        TextView textViewText = (TextView) view.findViewById(R.id.textViewText);
 
 //        if (pageData == null) {
 //            // FIXME!!! switchContent
