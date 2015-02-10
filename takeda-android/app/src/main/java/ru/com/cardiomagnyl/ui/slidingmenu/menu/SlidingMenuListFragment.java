@@ -60,7 +60,7 @@ public class SlidingMenuListFragment extends ListFragment {
                 });
     }
 
-    private void setSelectedItem(final int currentSelectedItemPosition) {
+    public void setSelectedItem(final int currentSelectedItemPosition) {
         View previousSelectedItemView = getViewByPosition(mPreviousSelectedItemPosition, getListView());
         View currentSelectedItemView = getViewByPosition(currentSelectedItemPosition, getListView());
 

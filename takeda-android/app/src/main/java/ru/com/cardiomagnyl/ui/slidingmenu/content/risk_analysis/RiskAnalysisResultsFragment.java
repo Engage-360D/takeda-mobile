@@ -30,6 +30,7 @@ import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.menu.MenuItem;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
@@ -68,6 +69,9 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             textViewError.setVisibility(View.VISIBLE);
             return;
         }
+
+        updateMenu();
+
         // copy state from scoreNote into mainRecommendation because state in mainRecommendation is empty
         String state = testResult.getRecommendations().getScoreNote().getState();
         if (!STATES.empty.name().equals(state)) {
@@ -131,6 +135,14 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         initBanner(linearLayoutBannerCholesterolDrugs, banners.getIsCholesterolDrugsConsumer());
         initBanner(linearLayoutBannerExtraSalt, banners.getIsAddingExtraSalt());
         initBanner(linearLayoutBannerAdjustmentOfDiet, bannerAdjustmentOfDiet);
+    }
+
+    private void updateMenu() {
+        MenuItem.item_analysis_results.setItemIsEnabled(true);
+        MenuItem.item_analysis_results.setItemIsVisible(true);
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.refreshMenuItems();
+        slidingMenuActivity.selectCurrentItem(this);
     }
 
     private void initButtons(final View view, final TestResult testResult, final User user, final Token token) {

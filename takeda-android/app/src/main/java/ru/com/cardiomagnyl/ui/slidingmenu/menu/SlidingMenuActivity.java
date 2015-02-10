@@ -13,8 +13,8 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.test.TestResult;
-import ru.com.cardiomagnyl.ui.base.BaseSlidingFragmentActivity;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.base.BaseSlidingFragmentActivity;
 
 public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     private SlidingMenuListFragment mSlidingMenuListFragment;
@@ -154,7 +154,17 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     }
 
     public void unselectCurrentItem() {
-         mSlidingMenuListFragment.unselectCurrentItem();
+        mSlidingMenuListFragment.unselectCurrentItem();
+    }
+
+    public void selectCurrentItem(BaseItemFragment itemFragment) {
+        int counter;
+        for (counter = 0; counter < MENU_ITEMS.length; ++counter) {
+            if (MENU_ITEMS[counter].getItemClass().equals(itemFragment.getClass())) {
+                mSlidingMenuListFragment.setSelectedItem(counter);
+                break;
+            }
+        }
     }
 
     public void refreshMenuItems() {

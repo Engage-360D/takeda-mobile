@@ -27,6 +27,7 @@ import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.test.TestSource;
 import ru.com.cardiomagnyl.ui.base.BaseRiskAnalysis;
+import ru.com.cardiomagnyl.ui.slidingmenu.menu.MenuItem;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Tools;
 
