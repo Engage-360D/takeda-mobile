@@ -40,11 +40,8 @@ public class SearchInstitutionsFragment extends BaseItemFragment implements OnMa
     }
 
     private void initMap(GoogleMap googleMap) {
-        FragmentManager fm = getChildFragmentManager();
-        SupportMapFragment supportMapFragment = (SupportMapFragment) fm.findFragmentById(R.id.order_info_fragment_map);
-
         // Gets to GoogleMap from the MapView and does initialization stuff
-        map = supportMapFragment.getMap();
+        map = googleMap;
         map.getUiSettings().setMyLocationButtonEnabled(true);
         map.setMyLocationEnabled(true);
 

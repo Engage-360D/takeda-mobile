@@ -29,13 +29,13 @@
 
         <RadioButton
             android:id="@+id/radioButtonNotDoctor"
-            style="@style/ToggleRadioButton"
+            style="@style/RadioButton"
             android:checked="false"
             android:text="@string/no" />
 
         <RadioButton
             android:id="@+id/radioButtonDoctor"
-            style="@style/ToggleRadioButton"
+            style="@style/RadioButton"
             android:checked="false"
             android:text="@string/yes" />
     </RadioGroup>

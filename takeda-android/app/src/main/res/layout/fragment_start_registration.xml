@@ -48,7 +48,8 @@
 
             <include
                 android:id="@+id/layoutSpecializationDetailsl"
-                layout="@layout/layout_specialization_detailsl" />
+                layout="@layout/layout_specialization_detailsl"
+                android:visibility="gone" />
 
             <View style="@style/divider_normal_1_3" />
 
