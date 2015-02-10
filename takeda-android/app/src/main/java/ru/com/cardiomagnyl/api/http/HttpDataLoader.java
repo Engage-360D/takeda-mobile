@@ -91,10 +91,10 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
                 httpRequestHolder.getHeaders(),
                 httpRequestHolder.getParams(),
                 httpRequestHolder.getBody(),
-                fakeSuccessListener,
-                fakeErrorListener
-//                successListener,
-//                errorListener
+//                fakeSuccessListener,
+//                fakeErrorListener
+                successListener,
+                errorListener
         );
 
         // Adding request to request queue

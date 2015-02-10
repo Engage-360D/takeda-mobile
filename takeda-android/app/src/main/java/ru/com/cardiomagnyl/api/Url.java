@@ -20,8 +20,14 @@ public final class Url {
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
 
+    public static final HashMap<String, String> GET_HEADERS = new HashMap<String, String>() {{
+        put("Content-Type", "application/vnd.api+json");
+        put("Accept", "*/*");
+    }};
+
     public static final HashMap<String, String> POST_HEADERS = new HashMap<String, String>() {{
         put("Content-Type", "application/vnd.api+json");
+        put("Accept", "*/*");
     }};
 
     public static final String LOCAL = "local/";

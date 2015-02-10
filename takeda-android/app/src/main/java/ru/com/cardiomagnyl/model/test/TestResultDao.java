@@ -67,6 +67,7 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
                         .Builder(Request.Method.GET, String.format(Url.ACCOUNT_TEST_RESULTS, token.getTokenId()), typeReference)
+                        .addHeaders(Url.GET_HEADERS)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 

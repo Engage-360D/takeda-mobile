@@ -47,6 +47,7 @@ public class RegionDao extends BaseDaoImpl<Region, Integer> {
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
                         .Builder(Request.Method.GET, Url.REGIONS, typeReference)
+                        .addHeaders(Url.GET_HEADERS)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 

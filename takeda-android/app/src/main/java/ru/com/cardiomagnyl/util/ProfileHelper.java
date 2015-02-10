@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -151,12 +152,22 @@ public final class ProfileHelper {
         });
     }
 
-    private static void initSpinnerRegion(final View spinner) {
+    private static void initSpinnerRegion(final View view) {
+        List<Region> regionsList = new ArrayList<>();
+        regionsList.add(Region.createNoRegion(view.getContext()));
+
+        RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(view.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, regionsList);
+        regionsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        final Spinner spinnerRegion = (Spinner) view.findViewById(R.id.spinnerRegion);
+        spinnerRegion.setAdapter(regionsSpinnerAdapter);
+        spinnerRegion.setSelection(0);
+
         RegionDao.getAll(
                 new CallbackOne<List<Region>>() {
                     @Override
                     public void execute(List<Region> regionsList) {
-                        initSpinnerRegionHelper(spinner, regionsList);
+                        initSpinnerRegionHelper(spinnerRegion, regionsList);
                     }
                 },
                 new CallbackOne<Response>() {
@@ -168,15 +179,16 @@ public final class ProfileHelper {
         );
     }
 
-    private static void initSpinnerRegionHelper(View spinner, List<Region> regionsList) {
-        regionsList.add(Region.createNoRegion(spinner.getContext()));
+    private static void initSpinnerRegionHelper(Spinner spinnerRegion, List<Region> regionsList) {
+        RegionsSpinnerAdapter regionsSpinnerAdapter =  (RegionsSpinnerAdapter)spinnerRegion.getAdapter();
 
-        RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(spinner.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, regionsList);
-        regionsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        Spinner spinnerRegion = (Spinner) spinner.findViewById(R.id.spinnerRegion);
+        regionsSpinnerAdapter.notifyDataSetInvalidated();
+        regionsList.add(Region.createNoRegion(spinnerRegion.getContext()));
+        regionsSpinnerAdapter.clear();
+        regionsSpinnerAdapter.addAll(regionsList);
         spinnerRegion.setAdapter(regionsSpinnerAdapter);
-        spinnerRegion.setSelection(regionsSpinnerAdapter.getCount() - 1);
+        spinnerRegion.setSelection(regionsSpinnerAdapter.getCount() - 1, true);
+        regionsSpinnerAdapter.notifyDataSetChanged();
     }
 
     private static void initSpinnerExperienceYears(final View spinner) {

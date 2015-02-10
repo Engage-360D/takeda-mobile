@@ -55,6 +55,7 @@ public class PageDao extends BaseDaoImpl<TestPage, Integer> {
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
                         .Builder(Request.Method.GET, String.format(Url.ACCOUNT_TEST_PAGES, link, token.getTokenId()), typeReference)
+                        .addHeaders(Url.GET_HEADERS)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 

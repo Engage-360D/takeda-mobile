@@ -225,6 +225,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
                         .Builder(Request.Method.GET, Url.ACCOUNT, typeReference)
+                        .addHeaders(Url.GET_HEADERS)
                         .addParam("token", token.getTokenId())
                         .setOnBeforeExtract(onOnBeforeExtract)
                         .setOnAfterExtracted(onOnAfterExtractHttp)
