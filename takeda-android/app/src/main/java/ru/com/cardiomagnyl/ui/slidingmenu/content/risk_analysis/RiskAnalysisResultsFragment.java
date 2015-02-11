@@ -32,6 +32,7 @@ import ru.com.cardiomagnyl.model.test.TestResultDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.SearchInstitutionsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.MenuItem;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
@@ -39,11 +40,9 @@ import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
 
 public class RiskAnalysisResultsFragment extends BaseItemFragment {
-    private View parentView;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_analysis_results, null);
+        View parentView = inflater.inflate(R.layout.fragment_analysis_results, null);
         initTestResultsFragment(parentView);
         return parentView;
     }
@@ -172,9 +171,9 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        initScoreHelper(view, testResult);
                         // unregister listener (this is important)
                         view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        initScoreHelper(view, testResult);
                     }
                 });
     }
@@ -280,10 +279,21 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     private void showLocalPage(final TestBanner bannerData) {
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         if (Url.BANNER_CHOOSE_MEDICAL_INSTITUTION.equals(bannerData.getPageUrl())) {
+            // attempt to fix slow initialization of SupportMapFragment ("dirty hack")
+            ((ViewGroup) getView()).removeAllViews();
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View layout_loading_map = layoutInflater.inflate(R.layout.layout_loading_map, null);
+            ((ViewGroup) getView()).addView(layout_loading_map);
 
+            BaseItemFragment searchInstitutionsFragment = new SearchInstitutionsFragment();
+            slidingMenuActivity.replaceAllContent(searchInstitutionsFragment, false);
+            slidingMenuActivity.selectCurrentItem(searchInstitutionsFragment);
         } else if (Url.BANNER_PASS_POLL.equals(bannerData.getPageUrl())) {
             BaseItemFragment cabinetTestFragment = new CabinetTestFragment();
             slidingMenuActivity.replaceAllContent(cabinetTestFragment, false);
+            //FIXME: change if need
+            // slidingMenuActivity.selectCurrentItem(cabinetTestFragment);
+            slidingMenuActivity.unselectCurrentItem();
         }
     }
 

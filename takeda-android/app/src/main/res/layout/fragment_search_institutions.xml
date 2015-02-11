@@ -48,11 +48,15 @@
 
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/order_info_fragment_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <FrameLayout
+        android:id="@+id/frameLayoutMapHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/linearLayoutTop" />
+        android:layout_below="@id/linearLayoutTop"
+        android:visibility="invisible" />
+
+    <include
+        layout="@layout/layout_loading_map"
+        android:visibility="visible" />
 
 </RelativeLayout>

@@ -1,17 +1,17 @@
 package ru.com.cardiomagnyl.widget;
 
-import ru.com.cardiomagnyl.app.R;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+import ru.com.cardiomagnyl.app.R;
 
 public class SeekBarWithValues extends RelativeLayout {
     private int mMin;
@@ -64,20 +64,25 @@ public class SeekBarWithValues extends RelativeLayout {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
-        });
-
-        ViewTreeObserver viewTreeObserver = mSeekBar.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-            public void onGlobalLayout() {
-                mSeekBar.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                Rect thumbRect = mSeekBar.getThumb().getBounds();
-                updateCurrentText(mCurrentValue, thumbRect.right - thumbRect.left);
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+
+
+        mSeekBar.getViewTreeObserver().addOnGlobalLayoutListener(
+                new OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        // unregister listener (this is important)
+                        mSeekBar.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        Rect thumbRect = mSeekBar.getThumb().getBounds();
+                        updateCurrentText(mCurrentValue, thumbRect.right - thumbRect.left);
+                    }
+                });
     }
 
     public int getMin() {

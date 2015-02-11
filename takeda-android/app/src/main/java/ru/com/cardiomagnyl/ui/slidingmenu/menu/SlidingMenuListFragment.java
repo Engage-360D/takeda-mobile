@@ -53,9 +53,9 @@ public class SlidingMenuListFragment extends ListFragment {
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        setSelectedItem(mPreviousSelectedItemPosition);
                         // unregister listener (this is important)
                         view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        setSelectedItem(mPreviousSelectedItemPosition);
                     }
                 });
     }

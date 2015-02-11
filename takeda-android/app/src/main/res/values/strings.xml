@@ -256,6 +256,7 @@
     <string name="institutions">Учреждения</string>
     <string name="institutions_map">Карта</string>
     <string name="institutions_list">Список</string>
+    <string name="loading_map">Загрузка карты...</string>
 
     <!-- ================================ -->
     <!-- fragment_information -->

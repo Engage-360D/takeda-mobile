@@ -3,6 +3,9 @@ package ru.com.cardiomagnyl.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
+
+import com.google.android.gms.maps.MapsInitializer;
 
 import ru.com.cardiomagnyl.api.db.HelperFactory;
 
