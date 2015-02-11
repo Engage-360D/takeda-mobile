@@ -17,5 +17,6 @@ public class InformationFragment extends BaseItemFragment {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
+        // is empty by design
     }
 }

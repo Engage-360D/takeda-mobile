@@ -237,9 +237,6 @@
     <!-- slidingmenu_cabinet_settings -->
     <!-- ============================ -->
     <string name="setting">Настройка</string>
-    <string name="personal_data">Личные данные</string>
-    <string name="settings_email">Email</string>
-    <string name="settings_password">Пароль</string>
     <string name="application_settings">Настройки приложения</string>
     <string name="delete_all_reports">Удалить все отчеты</string>
     <string name="must_be_password">Для операции необходимо пароль</string>
@@ -316,6 +313,7 @@
     <string name="create_calendar">Составить календарь профилактики</string>
     <string name="adjustment_of_diet">Дополнительная корректировка диеты</string>
     <string name="pass_poll">Пройти опрос</string>
+    <string name="send_results">Отослать результаты на почту?</string>
     <string name="results_sent_successfully">Результаты отосланы успешно.\nПроверьте почту.</string>
 
     <!-- ====== -->

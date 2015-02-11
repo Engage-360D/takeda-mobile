@@ -19,7 +19,7 @@
             android:layout_height="@dimen/plate_large"
             android:background="@color/white"
             android:gravity="center"
-            android:text="@string/personal_data"
+            android:text="@string/application_settings"
             android:textColor="@color/text_main_48"
             android:textSize="@dimen/text_size_xlarge" />
 
@@ -37,37 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <View style="@style/divider_normal_1_5" />
-
-            <TextView
-                android:id="@+id/textViewSettingsEmail"
-                style="@style/TextViewItem"
-                android:text="@string/settings_email" />
-
-            <View style="@style/divider_normal_1_5" />
-
-            <TextView
-                android:id="@+id/textViewSettingsPassword"
-                style="@style/TextViewItem"
-                android:text="@string/settings_password" />
-
-            <View style="@style/divider_normal_1_5" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/plate_large"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:text="@string/application_settings"
-                    android:textColor="@color/text_main_48"
-                    android:textSize="@dimen/text_size_xlarge" />
-            </LinearLayout>
 
             <View style="@style/divider_normal_1_5" />
 

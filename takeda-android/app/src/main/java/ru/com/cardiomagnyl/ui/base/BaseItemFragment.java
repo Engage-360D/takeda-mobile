@@ -65,4 +65,5 @@ public abstract class BaseItemFragment extends Fragment {
             imageViewCabinet.setClickable(false);
         }
     }
+
 }

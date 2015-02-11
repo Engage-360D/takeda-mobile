@@ -32,12 +32,14 @@ import ru.com.cardiomagnyl.model.test.TestResultDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.InformationFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.SearchInstitutionsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.MenuItem;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
+import ru.com.cardiomagnyl.widget.CustomDialogs;
 
 public class RiskAnalysisResultsFragment extends BaseItemFragment {
     @Override
@@ -154,14 +156,16 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         imageViewSendEmail.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendByEmail(testResult, user, token);
+                tryToSend(testResult, user, token);
             }
         });
 
         imageViewInfo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+                BaseItemFragment informationFragment = new InformationFragment();
+                slidingMenuActivity.putContentOnTop(informationFragment, false);
             }
         });
     }
@@ -178,7 +182,20 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
                 });
     }
 
-    private void sendByEmail(final TestResult testResult, final User user, Token token) {
+    private void tryToSend(final TestResult testResult, final User user, final Token token) {
+        CustomDialogs.showConfirmationDialog(
+                getActivity(),
+                R.string.send_results,
+                new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendByEmail(testResult, user, token);
+                    }
+                }
+        );
+    }
+
+    private void sendByEmail(final TestResult testResult, final User user, final Token token) {
         final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.showProgressDialog();
 
