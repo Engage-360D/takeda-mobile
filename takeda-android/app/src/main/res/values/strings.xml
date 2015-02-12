@@ -313,7 +313,7 @@
     <string name="create_calendar">Составить календарь профилактики</string>
     <string name="adjustment_of_diet">Дополнительная корректировка диеты</string>
     <string name="pass_poll">Пройти опрос</string>
-    <string name="send_results">Отослать результаты на почту?</string>
+    <string name="send_results">Отослать результаты на email %s?</string>
     <string name="results_sent_successfully">Результаты отосланы успешно.\nПроверьте почту.</string>
 
     <!-- ====== -->

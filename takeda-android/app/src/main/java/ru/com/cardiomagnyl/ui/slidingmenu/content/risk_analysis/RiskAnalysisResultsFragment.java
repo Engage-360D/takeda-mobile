@@ -185,7 +185,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     private void tryToSend(final TestResult testResult, final User user, final Token token) {
         CustomDialogs.showConfirmationDialog(
                 getActivity(),
-                R.string.send_results,
+                String.format(getString(R.string.send_results), user.getEmail()),
                 new OnClickListener() {
                     @Override
                     public void onClick(View v) {
