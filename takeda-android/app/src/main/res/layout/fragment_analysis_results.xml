@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_test_result">
+    android:background="@color/bg_test_result_good">
 
     <include
         android:id="@+id/layoutTopMenu"
@@ -31,6 +31,10 @@
 
             <include
                 android:id="@+id/linearLayoutScoreNote"
+                layout="@layout/layout_piece" />
+
+            <include
+                android:id="@+id/linearLayoutFullScreenAlert"
                 layout="@layout/layout_piece_large" />
 
             <include
@@ -115,16 +119,15 @@
                     android:id="@+id/linearLayoutBannerAdjustmentOfDiet"
                     layout="@layout/layout_banner" />
 
+                <Button
+                    android:id="@+id/buttonСreateСalendar"
+                    style="@style/button_main_long"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="@dimen/space_medium"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:text="@string/create_calendar" />
+
             </LinearLayout>
-
-            <Button
-                android:id="@+id/buttonСreateСalendar"
-                style="@style/button_main_long"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/space_medium"
-                android:layout_marginTop="@dimen/space_medium"
-                android:text="@string/create_calendar" />
-
         </LinearLayout>
     </ScrollView>
 
@@ -135,8 +138,8 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:text="@string/results_error"
-        android:textSize="@dimen/text_size_large"
         android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_large"
         android:visibility="invisible" />
 
 </RelativeLayout>

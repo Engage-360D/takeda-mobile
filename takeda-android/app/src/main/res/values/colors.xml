@@ -5,13 +5,13 @@
     <color name="bg_shadow">#33000000</color>
     <color name="bg_transparent">#00000000</color>
     <color name="bg_edit_text">#FFE7E7E7</color>
+    <color name="bg_header">#FFFF3341</color>
 
     <!-- background_test -->
-    <color name="bg_test_top">#FFFF3341</color>
     <color name="bg_test_tab">#FFE1363D</color>
     <color name="bg_test_tab_passed">#FFD2292F</color>
-    <color name="bg_test_result">#FF85ADED</color>
-    <color name="bg_test_result_top">#FFDC363D</color>
+    <color name="bg_test_result_good">#FF85ADED</color>
+    <color name="bg_test_result_bad">#FFED4149</color>
 
     <!-- background_item -->
     <color name="bg_main_unpressed">#FFE7E7E7</color>

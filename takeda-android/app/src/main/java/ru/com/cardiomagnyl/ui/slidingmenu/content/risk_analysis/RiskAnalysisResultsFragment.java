@@ -76,34 +76,29 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
 
         updateMenu();
 
-        // copy state from scoreNote into mainRecommendation because state in mainRecommendation is empty
-        String state = testResult.getRecommendations().getScoreNote().getState();
-        if (!STATES.empty.name().equals(state)) {
-            testResult.getRecommendations().getMainRecommendation().setState(state);
-            testResult.getRecommendations().getScoreNote().setState(STATES.empty.name());
+        View linearLayoutScoreNote = view.findViewById(R.id.linearLayoutScoreNote);
+        View linearLayoutFullScreenAlert = view.findViewById(R.id.linearLayoutFullScreenAlert);
+        View linearLayoutMainRecommendation = view.findViewById(R.id.linearLayoutScoreNote);
+
+        TestNote scoreNote = testResult.getRecommendations().getScoreNote();
+        TestNote fullScreenAlert = testResult.getRecommendations().getFullScreenAlert();
+        TestNote mainRecommendation = testResult.getRecommendations().getMainRecommendation();
+
+        if (TestNote.isEmpty(fullScreenAlert)) {
+            initPeace(linearLayoutScoreNote, scoreNote);
+            initPeace(linearLayoutFullScreenAlert, null);
+            initPeace(linearLayoutMainRecommendation, mainRecommendation);
+        } else {
+            initPeace(linearLayoutScoreNote, null);
+            initPeace(linearLayoutFullScreenAlert, fullScreenAlert);
+            initPeace(linearLayoutMainRecommendation, null);
+
+            customizeOnFullScreenAlert(view, linearLayoutFullScreenAlert, testResult);
         }
 
         TestBanners banners = testResult.getRecommendations().getBanners();
-
-        TestBanner bannerAdjustmentOfDiet = new TestBanner();
-        bannerAdjustmentOfDiet.setState(STATES.ask.name());
-        bannerAdjustmentOfDiet.setTitle(getString(R.string.adjustment_of_diet));
-        bannerAdjustmentOfDiet.setSubtitle(getString(R.string.pass_poll));
-        bannerAdjustmentOfDiet.setPageUrl(Url.BANNER_PASS_POLL);
-
-        TestBanner bannerChooseMedicalInstitution = new TestBanner();
-        if (testResult.getRecommendations().getPlacesLinkShouldBeVisible()) {
-            bannerChooseMedicalInstitution.setState(STATES.undefined.name());
-            bannerChooseMedicalInstitution.setTitle("");
-            bannerChooseMedicalInstitution.setSubtitle(getString(R.string.choose_medical_institution));
-            bannerChooseMedicalInstitution.setPageUrl(Url.BANNER_CHOOSE_MEDICAL_INSTITUTION);
-        }
-
-        // FIXME
-        // View linearLayoutDangerAlert = view.findViewById(R.id.linearLayoutDangerAlert);
-
-        View linearLayoutScoreNote = view.findViewById(R.id.linearLayoutScoreNote);
-        View linearLayoutMainRecommendation = view.findViewById(R.id.linearLayoutMainRecommendation);
+        TestBanner bannerChooseMedicalInstitution = createBannerChooseMedicalInstitution(testResult);
+        TestBanner bannerAdjustmentOfDiet = createBannerAdjustmentOfDiet();
 
         View linearLayoutBannerChooseMedicalInstitution = view.findViewById(R.id.linearLayoutBannerChooseMedicalInstitution);
         View linearLayoutBannerSmoking = view.findViewById(R.id.linearLayoutBannerSmoking);
@@ -117,18 +112,6 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         View linearLayoutBannerExtraSalt = view.findViewById(R.id.linearLayoutBannerExtraSalt);
         View linearLayoutBannerAdjustmentOfDiet = view.findViewById(R.id.linearLayoutBannerAdjustmentOfDiet);
 
-        // FIXME
-        // initPeace(linearLayoutDangerAlert, testResult.getRecommendations().getFullscreenAlert());
-        // if (linearLayoutDangerAlert.getVisibility() != View.GONE) {
-        //     View linearLayoutBigWrapper = view.findViewById(R.id.linearLayoutBigWrapper);
-        //     linearLayoutBigWrapper.setVisibility(View.GONE);
-        //     return;
-        // }
-
-        initPeace(linearLayoutScoreNote, testResult.getRecommendations().getScoreNote());
-        initPeace(linearLayoutMainRecommendation, testResult.getRecommendations().getMainRecommendation());
-
-        initBanner(linearLayoutBannerChooseMedicalInstitution, bannerChooseMedicalInstitution);
         initBanner(linearLayoutBannerSmoking, banners.getIsSmoker());
         initBanner(linearLayoutBannerPhysicalActivity, banners.getPhysicalActivityMinutes());
         initBanner(linearLayoutBannerBMI, banners.getBmi());
@@ -138,7 +121,41 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         initBanner(linearLayoutBannerPressureDrugs, banners.getIsArterialPressureDrugsConsumer());
         initBanner(linearLayoutBannerCholesterolDrugs, banners.getIsCholesterolDrugsConsumer());
         initBanner(linearLayoutBannerExtraSalt, banners.getIsAddingExtraSalt());
+        initBanner(linearLayoutBannerChooseMedicalInstitution, bannerChooseMedicalInstitution);
         initBanner(linearLayoutBannerAdjustmentOfDiet, bannerAdjustmentOfDiet);
+    }
+
+    private TestBanner createBannerChooseMedicalInstitution(TestResult testResult) {
+        TestBanner bannerChooseMedicalInstitution = new TestBanner();
+        if (testResult.getRecommendations().getPlacesLinkShouldBeVisible()) {
+            bannerChooseMedicalInstitution.setState(STATES.undefined.name());
+            bannerChooseMedicalInstitution.setTitle("");
+            bannerChooseMedicalInstitution.setSubtitle(getString(R.string.choose_medical_institution));
+            bannerChooseMedicalInstitution.setPageUrl(Url.BANNER_CHOOSE_MEDICAL_INSTITUTION);
+        }
+        return bannerChooseMedicalInstitution;
+    }
+
+    private TestBanner createBannerAdjustmentOfDiet() {
+        TestBanner bannerAdjustmentOfDiet = new TestBanner();
+        bannerAdjustmentOfDiet.setState(STATES.ask.name());
+        bannerAdjustmentOfDiet.setTitle(getString(R.string.adjustment_of_diet));
+        bannerAdjustmentOfDiet.setSubtitle(getString(R.string.pass_poll));
+        bannerAdjustmentOfDiet.setPageUrl(Url.BANNER_PASS_POLL);
+        return bannerAdjustmentOfDiet;
+    }
+
+    private void customizeOnFullScreenAlert(View parentView, View linearLayoutFullScreenAlert, TestResult testResult) {
+        TestBanner bannerChooseMedicalInstitution = createBannerChooseMedicalInstitution(testResult);
+
+        ImageView imageViewState = (ImageView) linearLayoutFullScreenAlert.findViewById(R.id.imageViewState);
+        View linearLayoutBannerChooseMedicalInstitution = parentView.findViewById(R.id.linearLayoutBannerChooseMedicalInstitution);
+        View linearLayoutBigWrapper = parentView.findViewById(R.id.linearLayoutBigWrapper);
+
+        parentView.setBackgroundColor(getResources().getColor(R.color.bg_test_result_bad));
+        imageViewState.setImageResource(R.drawable.ic_attention);
+        initBanner(linearLayoutBannerChooseMedicalInstitution, bannerChooseMedicalInstitution);
+        linearLayoutBigWrapper.setVisibility(View.GONE);
     }
 
     private void updateMenu() {
@@ -240,7 +257,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         ImageView imageViewState = (ImageView) pieceView.findViewById(R.id.imageViewState);
         TextView textViewText = (TextView) pieceView.findViewById(R.id.textViewText);
 
-        if (testNote == null || (TextUtils.isEmpty(testNote.getState()) && TextUtils.isEmpty(testNote.getText()))) {
+        if (TestNote.isEmpty(testNote)) {
             pieceView.setVisibility(View.GONE);
             return;
         }

@@ -43,7 +43,7 @@
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@color/bg_test_top</item>
+        <item name="android:background">@color/bg_header</item>
     </style>
 
     <style name="TextViewTestSmall" parent="@android:style/Widget.TextView">

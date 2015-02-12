@@ -11,13 +11,8 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/plate_medium"
-            android:background="@color/bg_test_top"
-            android:gravity="center"
-            android:text="@string/pills"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_large" />
+            style="@style/TextViewTop"
+            android:text="@string/pills" />
 
         <TextView
             android:layout_width="match_parent"

@@ -9,7 +9,7 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "scoreNote",
-        "fullscreenAlert",
+        "fullScreenAlert",
         "mainRecommendation",
         "placesLinkShouldBeVisible",
         "banners"
@@ -19,8 +19,8 @@ public class Recommendations extends BaseModel {
 
     @JsonProperty("scoreNote")
     private TestNote scoreNote;
-    @JsonProperty("fullscreenAlert")
-    private TestNote fullscreenAlert;
+    @JsonProperty("fullScreenAlert")
+    private TestNote fullScreenAlert;
     @JsonProperty("mainRecommendation")
     private TestNote mainRecommendation;
     @JsonProperty("placesLinkShouldBeVisible")
@@ -45,19 +45,19 @@ public class Recommendations extends BaseModel {
     }
 
     /**
-     * @return The fullscreenAlert
+     * @return The fullScreenAlert
      */
-    @JsonProperty("fullscreenAlert")
-    public TestNote getFullscreenAlert() {
-        return fullscreenAlert;
+    @JsonProperty("fullScreenAlert")
+    public TestNote getFullScreenAlert() {
+        return fullScreenAlert;
     }
 
     /**
-     * @param fullscreenAlert The fullscreenAlert
+     * @param fullScreenAlert The fullScreenAlert
      */
-    @JsonProperty("fullscreenAlert")
-    public void setFullscreenAlert(TestNote fullscreenAlert) {
-        this.fullscreenAlert = fullscreenAlert;
+    @JsonProperty("fullScreenAlert")
+    public void setFullScreenAlert(TestNote fullScreenAlert) {
+        this.fullScreenAlert = fullScreenAlert;
     }
 
     /**

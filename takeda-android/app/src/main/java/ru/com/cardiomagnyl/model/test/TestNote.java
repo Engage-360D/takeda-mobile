@@ -1,5 +1,7 @@
 package ru.com.cardiomagnyl.model.test;
 
+import android.text.TextUtils;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -48,6 +50,10 @@ public class TestNote extends BaseModel {
     @JsonProperty("text")
     public void setText(String text) {
         this.text = text;
+    }
+
+    public static boolean isEmpty(TestNote testNote) {
+        return testNote == null || (TextUtils.isEmpty(testNote.getState()) && TextUtils.isEmpty(testNote.getText()));
     }
 
 }

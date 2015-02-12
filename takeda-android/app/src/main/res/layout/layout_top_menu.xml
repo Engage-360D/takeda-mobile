@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/plate_medium"
-    android:background="@color/bg_test_result_top"
+    android:background="@color/bg_header"
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:weightSum="4">
@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal" />
 
     <LinearLayout
         android:id="@+id/linearLayoutTopInsideContent"
@@ -69,3 +69,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
+    <!-- TODO: color of the header was changed from #FFDC363D to #FFFF3341 -->
