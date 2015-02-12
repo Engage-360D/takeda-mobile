@@ -473,7 +473,7 @@ public class User extends BaseModel {
                         "facebookId"));
     }
 
-    public static void cleanForupdate(ObjectNode objectNodeUncleaned) {
+    public static void cleanForUpdate(ObjectNode objectNodeUncleaned) {
         // FIXME: "vkontakteId" and "facebookId" must used
         objectNodeUncleaned.remove(Arrays
                 .asList("id",

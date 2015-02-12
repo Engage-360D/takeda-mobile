@@ -6,10 +6,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import ru.com.cardiomagnyl.api.Status;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppSharedPreferences;
 import ru.com.cardiomagnyl.application.AppState;
-import ru.com.cardiomagnyl.api.Status;
 import ru.com.cardiomagnyl.model.common.Error;
 import ru.com.cardiomagnyl.model.common.LgnPwd;
 import ru.com.cardiomagnyl.model.common.Response;
@@ -97,7 +97,8 @@ public abstract class BaseStartFragment extends Fragment {
                 new CallbackOne<List<TestResult>>() {
                     @Override
                     public void execute(List<TestResult> testResultList) {
-                        handleRegAuth(token, user, TestResultDao.getNewestResult(testResultList), null);
+                        TestResult newestTestResult = TestResultDao.getNewestResult(testResultList, user);
+                        handleRegAuth(token, user, newestTestResult, null);
                     }
                 },
                 new CallbackOne<Response>() {

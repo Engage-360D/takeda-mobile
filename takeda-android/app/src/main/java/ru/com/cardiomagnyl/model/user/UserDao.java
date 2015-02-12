@@ -115,7 +115,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
         };
 
         ObjectNode objectNode = new ObjectMapper().valueToTree(user);
-        User.cleanForupdate(objectNode);
+        User.cleanForUpdate(objectNode);
         String cleanedUser = DataWrapper.wrap(objectNode).toString();
 
         HttpRequestHolder httpRequestHolder =

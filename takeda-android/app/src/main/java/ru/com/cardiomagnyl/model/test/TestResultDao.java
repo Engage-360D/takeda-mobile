@@ -21,11 +21,13 @@ import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.api.db.DbRequestHolder;
 import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
+import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Dummy;
 import ru.com.cardiomagnyl.model.common.Email;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.token.Token;
+import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.CallbackOneReturnable;
 import ru.com.cardiomagnyl.util.Tools;
@@ -57,6 +59,11 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
 
         RuntimeExceptionDao helperFactoryTestResultHolder = HelperFactory.getHelper().getRuntimeDataDao(TestResultHolder.class);
         QueryBuilder queryBuilder = helperFactoryTestResultHolder.queryBuilder();
+        try {
+            queryBuilder.where().eq("user_id", token.getUserId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         DbRequestHolder dbRequestHolder =
                 new DbRequestHolder
@@ -170,7 +177,7 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
         return testResultList;
     }
 
-    public static TestResult getNewestResult(List<TestResult> testResultList) {
+    public static TestResult getNewestResult(List<TestResult> testResultList, User user) {
         TestResult newestResult = (testResultList == null || testResultList.isEmpty()) ? null : testResultList.get(0);
         if (newestResult != null) {
             for (TestResult currentTestResult : testResultList) {
@@ -180,8 +187,9 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
             }
 
             Calendar calendar = Calendar.getInstance();
-            calendar.roll(Calendar.DAY_OF_YEAR, -30);
-            newestResult = Tools.dateFromFullDate(newestResult.getCreatedAt()).after(calendar.getTime()) ? newestResult : null;
+            calendar.roll(Calendar.DAY_OF_YEAR, -Constants.TEST_PERIOD);
+            boolean period_ended = Tools.dateFromFullDate(newestResult.getCreatedAt()).after(calendar.getTime());
+            newestResult = period_ended || user.isDoctor() ? newestResult : null;
         }
         return newestResult;
     }

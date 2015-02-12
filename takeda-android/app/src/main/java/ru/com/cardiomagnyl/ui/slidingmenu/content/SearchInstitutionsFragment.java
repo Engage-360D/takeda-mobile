@@ -24,6 +24,7 @@ public class SearchInstitutionsFragment extends BaseItemFragment implements OnMa
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
+        initTopBarBellCabinet(viewGroupTopBar, true, true);
     }
 
     @Override

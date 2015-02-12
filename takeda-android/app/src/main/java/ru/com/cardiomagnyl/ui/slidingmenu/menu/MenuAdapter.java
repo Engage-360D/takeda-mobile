@@ -28,12 +28,21 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
         TextView titleTextView = (TextView) convertView.findViewById(R.id.textViewTitle);
         titleTextView.setText(mContext.getString(menuItem.getItemName()));
 
-        boolean isResultFragment = menuItem.getItemClass().equals(MenuItem.item_analysis_results);
+        boolean isResultItem = menuItem.equals(MenuItem.item_analysis_results);
         boolean resultNotEmpty = AppState.getInsnatce().getTestResult() != null && AppState.getInsnatce().getTestResult().getId() != null;
+
+        boolean isAnalysisItem = menuItem.equals(MenuItem.item_risk_analysis);
+        boolean isDoctor = AppState.getInsnatce().getUser().isDoctor();
 
         boolean isVisible = menuItem.isItemVisible();
         boolean isClickable = menuItem.isItemEnabled();
-        if (isResultFragment && resultNotEmpty) isClickable = isVisible = true;
+
+        if (isResultItem && resultNotEmpty) {
+            isClickable = isVisible = true;
+        } else if (isAnalysisItem) {
+            isVisible = true;
+            isClickable = isDoctor;
+        }
 
         convertView.setVisibility(isVisible ? View.VISIBLE : View.GONE);
         convertView.setEnabled(isClickable);
