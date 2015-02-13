@@ -6,6 +6,7 @@
     <color name="bg_transparent">#00000000</color>
     <color name="bg_edit_text">#FFE7E7E7</color>
     <color name="bg_header">#FFFF3341</color>
+    <color name="bg_header_result_bad">#FFD21F2D</color>
 
     <!-- background_test -->
     <color name="bg_test_tab">#FFE1363D</color>

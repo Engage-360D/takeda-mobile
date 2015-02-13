@@ -78,7 +78,7 @@ public class RiskAnalysisRecommendationFragment extends Fragment {
                 imageResource = R.drawable.ic_undefined_pressed;
                 break;
             case attention:
-                imageResource = R.drawable.ic_attention;
+                imageResource = R.drawable.ic_attention_big_red;
                 break;
             case bell:
                 imageResource = R.drawable.ic_bell_pressed;

@@ -11,7 +11,7 @@
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:src="@drawable/ic_attention" />
+        android:src="@drawable/ic_attention_big_red" />
 
     <LinearLayout
         android:layout_width="0dp"

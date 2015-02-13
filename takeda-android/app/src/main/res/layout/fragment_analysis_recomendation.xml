@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_medium"
-                    android:src="@drawable/ic_attention" />
+                    android:src="@drawable/ic_attention_big_red" />
 
             </LinearLayout>
 

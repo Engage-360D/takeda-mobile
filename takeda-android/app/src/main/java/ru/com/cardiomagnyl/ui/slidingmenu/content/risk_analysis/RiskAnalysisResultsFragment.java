@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -148,12 +149,16 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     private void customizeOnFullScreenAlert(View parentView, View linearLayoutFullScreenAlert, TestResult testResult) {
         TestBanner bannerChooseMedicalInstitution = createBannerChooseMedicalInstitution(testResult);
 
+        View layoutTopMenu = parentView.findViewById(R.id.layoutTopMenu);
+        TextView textViewResult = (TextView) parentView.findViewById(R.id.textViewResult);
         ImageView imageViewState = (ImageView) linearLayoutFullScreenAlert.findViewById(R.id.imageViewState);
         View linearLayoutBannerChooseMedicalInstitution = parentView.findViewById(R.id.linearLayoutBannerChooseMedicalInstitution);
         View linearLayoutBigWrapper = parentView.findViewById(R.id.linearLayoutBigWrapper);
 
         parentView.setBackgroundColor(getResources().getColor(R.color.bg_test_result_bad));
-        imageViewState.setImageResource(R.drawable.ic_attention);
+        layoutTopMenu.setBackgroundColor(getResources().getColor(R.color.bg_header_result_bad));
+        textViewResult.setTextColor(getResources().getColor(R.color.bg_test_result_bad));
+        imageViewState.setImageResource(R.drawable.ic_attention_big_white);
         initBanner(linearLayoutBannerChooseMedicalInstitution, bannerChooseMedicalInstitution);
         linearLayoutBigWrapper.setVisibility(View.GONE);
     }
@@ -241,16 +246,19 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     }
 
     private void initScoreHelper(View view, TestResult testResult) {
-        View relativeLayoutScore = view.findViewById(R.id.relativeLayoutScore);
-        View imageViewResultCircleHolder = view.findViewById(R.id.imageViewResultCircleHolder);
-        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) imageViewResultCircleHolder.getLayoutParams();
         TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
+        View relativeLayoutScore = view.findViewById(R.id.relativeLayoutScore);
+        RelativeLayout imageViewResultCircleHolder = (RelativeLayout) view.findViewById(R.id.relativeLayoutResultCircleHolder);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageViewResultCircleHolder.getLayoutParams();
+
+        textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
 
         int maxX = relativeLayoutScore.getWidth() - (imageViewResultCircleHolder.getWidth() + layoutParams.leftMargin + layoutParams.rightMargin);
-        int x = (maxX / 100) * testResult.getScore() + layoutParams.leftMargin;
+        int x = (maxX * testResult.getScore() / 100) + layoutParams.leftMargin;
 
-        layoutParams.setMargins(x, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
-        textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
+        RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(imageViewResultCircleHolder.getMeasuredWidth(), imageViewResultCircleHolder.getMeasuredWidth());
+        newLayoutParams.setMargins(x, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
+        imageViewResultCircleHolder.setLayoutParams(newLayoutParams);
     }
 
     private void initPeace(View pieceView, TestNote testNote) {

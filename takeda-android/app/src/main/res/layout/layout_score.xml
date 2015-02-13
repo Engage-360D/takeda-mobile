@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/plate_xlarge"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/space_xsmall"
     android:layout_marginTop="@dimen/space_xsmall"
+    android:minHeight="@dimen/plate_xlarge"
     android:orientation="vertical">
 
     <ImageView
@@ -15,28 +16,24 @@
         android:src="@drawable/result_line" />
 
     <RelativeLayout
-        android:id="@+id/imageViewResultCircleHolder"
+        android:id="@+id/relativeLayoutResultCircleHolder"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/space_xxsmall"
         android:layout_marginRight="@dimen/space_xxsmall"
-        android:layout_centerVertical="true"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:contentDescription="@null"
-            android:src="@drawable/result_circle_bg" />
+        android:background="@drawable/bg_score"
+        android:padding="@dimen/space_small">
 
         <TextView
             android:id="@+id/textViewResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="XX%"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/text_test_result" />
+            android:singleLine="true"
+            android:text="XXX%"
+            android:textColor="@color/text_test_result"
+            android:textSize="@dimen/text_size_xlarge" />
     </RelativeLayout>
 
 </RelativeLayout>

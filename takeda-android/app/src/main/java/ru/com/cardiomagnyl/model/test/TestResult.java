@@ -1,8 +1,13 @@
 package ru.com.cardiomagnyl.model.test;
 
+import android.util.Pair;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import ru.com.cardiomagnyl.model.base.BaseModel;
 
@@ -31,6 +36,10 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
         "createdAt"
 })
 public class TestResult extends BaseModel {
+    private static final ArrayList<Pair<String, Integer>> MAX_SCORE =
+            new ArrayList<>(Arrays.asList(
+                    new Pair<String, Integer>("female", 20),
+                    new Pair<String, Integer>("male", 47)));
 
     @JsonProperty("id")
     private String id;
@@ -372,7 +381,11 @@ public class TestResult extends BaseModel {
      */
     @JsonProperty("score")
     public int getScore() {
-        return score;
+        for (Pair<String, Integer> maxScore : MAX_SCORE)
+            if (maxScore.first.equals(sex)) return score * 100 / maxScore.second;
+
+        // TODO: maybe exception?
+        return 0;
     }
 
     /**
