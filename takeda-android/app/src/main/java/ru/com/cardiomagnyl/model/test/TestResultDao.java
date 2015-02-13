@@ -185,11 +185,6 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
                 Date newestDate = Tools.dateFromFullDate(newestResult.getCreatedAt());
                 newestResult = currentDate.after(newestDate) ? currentTestResult : newestResult;
             }
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.roll(Calendar.DAY_OF_YEAR, -Constants.TEST_PERIOD);
-            boolean period_ended = Tools.dateFromFullDate(newestResult.getCreatedAt()).after(calendar.getTime());
-            newestResult = period_ended || user.isDoctor() ? newestResult : null;
         }
         return newestResult;
     }

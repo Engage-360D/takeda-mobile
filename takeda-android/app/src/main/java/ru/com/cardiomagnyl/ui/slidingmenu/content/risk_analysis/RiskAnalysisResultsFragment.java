@@ -46,7 +46,12 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View parentView = inflater.inflate(R.layout.fragment_analysis_results, null);
-        initTestResultsFragment(parentView);
+
+        boolean isNotPassed = false;
+        Bundle bundle = this.getArguments();
+        if (bundle != null) isNotPassed = bundle.getBoolean(Constants.IS_NOT_PASSED);
+
+        initTestResultsFragment(parentView, isNotPassed);
         return parentView;
     }
 
@@ -55,27 +60,35 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         initTopBarBellCabinet(viewGroupTopBar, true, true);
     }
 
-    private void initTestResultsFragment(View view) {
+    private void initTestResultsFragment(View view, boolean isNotPassed) {
         TestResult testResult = AppState.getInsnatce().getTestResult();
         User user = AppState.getInsnatce().getUser();
         Token token = AppState.getInsnatce().getToken();
 
-        initButtons(view, testResult, user, token);
-        initScore(view, testResult);
-
         ScrollView scrollViewResults = (ScrollView) view.findViewById(R.id.scrollViewResults);
         TextView textViewError = (TextView) view.findViewById(R.id.textViewError);
 
-        if (testResult != null && testResult.getId() != null) {
-            scrollViewResults.setVisibility(View.VISIBLE);
-            textViewError.setVisibility(View.INVISIBLE);
+        scrollViewResults.setVisibility(isNotPassed ? View.INVISIBLE : View.VISIBLE);
+        textViewError.setVisibility(!isNotPassed ? View.INVISIBLE : View.VISIBLE);
+
+        if (testResult != null) {
+            SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+            slidingMenuActivity.unLockMenu();
+            updateMenu();
+
+            initTopBarBellCabinet(slidingMenuActivity.getLayoutHeader(), true, true);
         } else {
-            scrollViewResults.setVisibility(View.INVISIBLE);
-            textViewError.setVisibility(View.VISIBLE);
-            return;
+            initTopBarBellCabinet((ViewGroup) view.getParent(), false, false);
         }
 
-        updateMenu();
+        if (isNotPassed) {
+            initButtons(view, null, user, token);
+            initScore(view, null);
+            return;
+        } else {
+            initButtons(view, testResult, user, token);
+            initScore(view, testResult);
+        }
 
         View linearLayoutScoreNote = view.findViewById(R.id.linearLayoutScoreNote);
         View linearLayoutFullScreenAlert = view.findViewById(R.id.linearLayoutFullScreenAlert);
@@ -175,6 +188,12 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         View imageViewSendEmail = view.findViewById(R.id.imageViewSendEmail);
         View imageViewInfo = view.findViewById(R.id.imageViewInfo);
 
+        int visibility = testResult == null ? View.INVISIBLE : View.VISIBLE;
+        imageViewSendEmail.setVisibility(visibility);
+        imageViewInfo.setVisibility(visibility);
+
+        if (testResult == null) return;
+
         imageViewSendEmail.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,6 +212,8 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     }
 
     private void initScore(final View view, final TestResult testResult) {
+        if (testResult == null) return;
+
         view.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -202,6 +223,22 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
                         initScoreHelper(view, testResult);
                     }
                 });
+    }
+
+    private void initScoreHelper(View view, TestResult testResult) {
+        TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
+        View relativeLayoutScore = view.findViewById(R.id.relativeLayoutScore);
+        RelativeLayout imageViewResultCircleHolder = (RelativeLayout) view.findViewById(R.id.relativeLayoutResultCircleHolder);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageViewResultCircleHolder.getLayoutParams();
+
+        textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
+
+        int maxX = relativeLayoutScore.getWidth() - (imageViewResultCircleHolder.getWidth() + layoutParams.leftMargin + layoutParams.rightMargin);
+        int x = (maxX * testResult.getScore() / 100) + layoutParams.leftMargin;
+
+        RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(imageViewResultCircleHolder.getMeasuredWidth(), imageViewResultCircleHolder.getMeasuredWidth());
+        newLayoutParams.setMargins(x, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
+        imageViewResultCircleHolder.setLayoutParams(newLayoutParams);
     }
 
     private void tryToSend(final TestResult testResult, final User user, final Token token) {
@@ -243,22 +280,6 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
                     }
                 }
         );
-    }
-
-    private void initScoreHelper(View view, TestResult testResult) {
-        TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
-        View relativeLayoutScore = view.findViewById(R.id.relativeLayoutScore);
-        RelativeLayout imageViewResultCircleHolder = (RelativeLayout) view.findViewById(R.id.relativeLayoutResultCircleHolder);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageViewResultCircleHolder.getLayoutParams();
-
-        textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
-
-        int maxX = relativeLayoutScore.getWidth() - (imageViewResultCircleHolder.getWidth() + layoutParams.leftMargin + layoutParams.rightMargin);
-        int x = (maxX * testResult.getScore() / 100) + layoutParams.leftMargin;
-
-        RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(imageViewResultCircleHolder.getMeasuredWidth(), imageViewResultCircleHolder.getMeasuredWidth());
-        newLayoutParams.setMargins(x, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
-        imageViewResultCircleHolder.setLayoutParams(newLayoutParams);
     }
 
     private void initPeace(View pieceView, TestNote testNote) {

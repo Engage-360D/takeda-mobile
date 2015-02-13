@@ -3,7 +3,6 @@ package ru.com.cardiomagnyl.ui.slidingmenu.menu;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
@@ -13,6 +12,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.test.TestResult;
+import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.base.BaseSlidingFragmentActivity;
 
@@ -109,27 +109,35 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     }
 
     private void lockMenuIfneed() {
-        TestResult testResult = AppState.getInsnatce().getTestResult();
-
-        if (testResult != null && !TextUtils.isEmpty(testResult.getId())) {
-            unLockMenu();
-        } else {
+        if (mustPassTest()) {
             lockMenu();
+        } else {
+            unLockMenu();
         }
     }
 
     private void unlockItemsIfneed() {
-        TestResult testResult = AppState.getInsnatce().getTestResult();
-
-        if (testResult != null && !TextUtils.isEmpty(testResult.getId())) {
+        if (!mustPassTest()) {
             MenuItem.item_analysis_results.setItemIsEnabled(true);
             MenuItem.item_analysis_results.setItemIsVisible(true);
         }
     }
 
+    public ViewGroup getLayoutHeader() {
+        return (ViewGroup)findViewById(R.id.layoutHeader);
+    }
+
     public static int getFistItem() {
+        return mustPassTest() ? TEST_ITEM_POSITION : MAIN_ITEM_POSITION;
+    }
+
+    private static boolean mustPassTest() {
         TestResult testResult = AppState.getInsnatce().getTestResult();
-        return (testResult != null && !TextUtils.isEmpty(testResult.getId())) ? MAIN_ITEM_POSITION : TEST_ITEM_POSITION;
+        User user = AppState.getInsnatce().getUser();
+
+        boolean userMustPassTest = testResult == null || testResult.isAllowedNewTest();
+        boolean doctorMustPassTest = testResult == null && user.isDoctor();
+        return userMustPassTest || doctorMustPassTest;
     }
 
     private void initContentTopMenuButton() {

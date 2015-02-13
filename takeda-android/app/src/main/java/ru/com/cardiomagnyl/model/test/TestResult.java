@@ -8,8 +8,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
+import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.base.BaseModel;
+import ru.com.cardiomagnyl.util.Tools;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -426,6 +429,12 @@ public class TestResult extends BaseModel {
     @JsonProperty("createdAt")
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isAllowedNewTest() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.roll(Calendar.DAY_OF_YEAR, -Constants.TEST_PERIOD);
+        return Tools.dateFromFullDate(getCreatedAt()).before(calendar.getTime());
     }
 
 }

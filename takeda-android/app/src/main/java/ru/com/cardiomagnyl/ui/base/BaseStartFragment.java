@@ -114,11 +114,11 @@ public abstract class BaseStartFragment extends Fragment {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.hideProgressDialog();
 
-        responseError = (responseError == null || responseError.getError() == null) ?
-                new Response.Builder(new Error()).create() :
-                responseError;
-
         if (token == null && user == null && testResult == null) {
+            responseError = (responseError == null || responseError.getError() == null) ?
+                    new Response.Builder(new Error()).create() :
+                    responseError;
+
             switch (responseError.getError().getCode()) {
                 case Status.NO_DATA_ERROR:
                     Tools.showToast(getActivity(), R.string.error_user_not_found, Toast.LENGTH_LONG);

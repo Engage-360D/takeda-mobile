@@ -12,8 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import ru.com.cardiomagnyl.api.Status;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
+import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
@@ -119,17 +121,31 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.hideProgressDialog();
 
-        if (testResult != null) {
-            AppState.getInsnatce().setTestResult(testResult);
-            slidingMenuActivity.unLockMenu();
-        } else if (responseError != null) {
-            // TODO: show message according to error
-            Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+        boolean isNotPassed = false;
+        if (testResult == null) {
+            isNotPassed = true;
+
+            responseError = (responseError == null || responseError.getError() == null) ?
+                    new Response.Builder(new ru.com.cardiomagnyl.model.common.Error()).create() :
+                    responseError;
+
+            switch (responseError.getError().getCode()) {
+                case Status.CONFLICT_ERROR:
+                    Tools.showToast(getActivity(), R.string.error_tets_already_passed, Toast.LENGTH_LONG);
+                    break;
+                default:
+                    Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+            }
         } else {
-            Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+            AppState.getInsnatce().setTestResult(testResult);
         }
 
-        slidingMenuActivity.replaceContentOnTop(new RiskAnalysisResultsFragment(), false);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Constants.IS_NOT_PASSED, isNotPassed);
+        RiskAnalysisResultsFragment riskAnalysisResultsFragment = new RiskAnalysisResultsFragment();
+        riskAnalysisResultsFragment.setArguments(bundle);
+
+        slidingMenuActivity.replaceContentOnTop(riskAnalysisResultsFragment, false);
     }
 
     // the meat of switching the above fragment
