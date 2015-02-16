@@ -31,8 +31,6 @@
 
         <item name="android:seekBarStyle">@style/SeekBarCustomTheme</item>
 
-        <item name="android:buttonStyleToggle">@style/ToggleCustomTheme</item>
-
         <item name="android:listChoiceBackgroundIndicator">
             @drawable/customtheme_list_selector_holo_light
         </item>

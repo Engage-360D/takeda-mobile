@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        style="@style/LinearLayoutTestTop">
+
+        <TextView
+            android:id="@+id/textViewHeader"
+            style="@style/TextViewTestSmall"
+            android:text="@string/risk_analysis" />
+
+        <TextView
+            android:id="@+id/textViewSubHeader"
+            style="@style/TextViewTestLarge"
+            android:text="@string/patient_history" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layoutBottomInside"
+            layout="@layout/layout_bottom_inside_menu" />
+
+        <include
+            android:id="@+id/layoutBottomOutside"
+            layout="@layout/layout_bottom_outside_menu" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layoutBottom"
+        android:layout_below="@id/linearLayoutTop"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupDiabetes"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="@dimen/control_xxsmall"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNotDiabetes"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonDiabetes"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupDiabetes"
+                    android:text="@string/suffering_diabetes"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <LinearLayout
+                android:id="@+id/layoutDiabeticMedicines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    style="@style/LinearLayoutItemLarge"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/space_xsmall"
+                    android:paddingTop="@dimen/space_xsmall">
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupDiabeticMedicines"
+                        android:layout_width="@dimen/control_medium"
+                        android:layout_height="@dimen/control_xxsmall"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal">
+
+                        <ToggleButton
+                            android:id="@+id/toggleButtonNoDiabeticMedicines"
+                            style="@style/ToggleRadioButton"
+                            android:checked="false"
+                            android:textOff="@string/no"
+                            android:textOn="@string/no" />
+
+                        <ToggleButton
+                            android:id="@+id/toggleButtonDiabeticMedicines"
+                            style="@style/ToggleRadioButton"
+                            android:checked="false"
+                            android:textOff="@string/yes"
+                            android:textOn="@string/yes" />
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/radioGroupDiabeticMedicines"
+                        android:text="@string/diabetic_medicines"
+                        android:textColor="@color/text_main_38"
+                        android:textSize="@dimen/text_size_small" />
+                </RelativeLayout>
+
+                <View style="@style/divider_normal_1_3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutSugarProblems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    style="@style/LinearLayoutItemLarge"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/space_xsmall"
+                    android:paddingTop="@dimen/space_xsmall">
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupSugarProblems"
+                        android:layout_width="@dimen/control_medium"
+                        android:layout_height="@dimen/control_xxsmall"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal">
+
+                        <ToggleButton
+                            android:id="@+id/toggleButtonNoSugarProblems"
+                            style="@style/ToggleRadioButton"
+                            android:checked="false"
+                            android:textOff="@string/no"
+                            android:textOn="@string/no" />
+
+                        <ToggleButton
+                            android:id="@+id/toggleButtonSugarProblems"
+                            style="@style/ToggleRadioButton"
+                            android:checked="false"
+                            android:textOff="@string/yes"
+                            android:textOn="@string/yes" />
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/radioGroupSugarProblems"
+                        android:text="@string/sugar_problems"
+                        android:textColor="@color/text_main_38"
+                        android:textSize="@dimen/text_size_small" />
+                </RelativeLayout>
+
+                <View style="@style/divider_normal_1_3" />
+            </LinearLayout>
+
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <EditText
+                    android:id="@+id/editTextPressure"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/arterial_pressure_hint"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/editTextPressure"
+                    android:text="@string/arterial_pressure"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupHypertonicMedicines"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="@dimen/control_xxsmall"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNoHypertonicMedicines"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonHypertonicMedicines"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupHypertonicMedicines"
+                    android:text="@string/hypertonic_medicines"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <EditText
+                    android:id="@+id/editTextPhysicalActivity"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/physical_activity_hint"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/editTextPhysicalActivity"
+                    android:text="@string/physical_activity"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupInfarctionStroke"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="@dimen/control_xxsmall"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNoInfarctionStroke"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonInfarctionStroke"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupInfarctionStroke"
+                    android:text="@string/infarction_stroke"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

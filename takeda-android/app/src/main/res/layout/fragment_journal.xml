@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewTop"
+            android:text="@string/journal" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupCondition"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plate_small"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/toggleButtonConditionOn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selector_checkbox_bg"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/journal_new"
+                android:textColor="@drawable/selector_checkbox_text"
+                android:textSize="@dimen/text_size_small" />
+
+            <RadioButton
+                android:id="@+id/toggleButtonConditionOff"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/selector_checkbox_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/journal_filled"
+                android:textColor="@drawable/selector_checkbox_text"
+                android:textSize="@dimen/text_size_small" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/textViewBottom"
+        layout="@layout/layout_bottom_contraindications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textViewBottom"
+        android:layout_below="@id/linearLayoutTop"
+        android:layout_gravity="center_horizontal"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/item1"
+                layout="@layout/list_item_personal_journal_one_day" />
+
+            <include
+                android:id="@+id/item2"
+                layout="@layout/list_item_personal_journal_one_day" />
+
+            <include
+                android:id="@+id/item3"
+                layout="@layout/list_item_personal_journal_one_day" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

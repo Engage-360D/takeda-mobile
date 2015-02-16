@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <ru.com.cardiomagnil.widget.CustomSeekBar
+    <ru.com.cardiomagnyl.widget.CustomSeekBar
         android:id="@+id/customSeekBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -4,16 +4,16 @@
     android:layout_gravity="center_horizontal"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/ca_space_medium"
-    android:paddingRight="@dimen/ca_space_medium">
+    android:paddingLeft="@dimen/space_medium"
+    android:paddingRight="@dimen/space_medium">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ca_plate_medium"
+        android:layout_height="@dimen/plate_medium"
         android:gravity="center_vertical"
         android:text="@string/your_details"
-        android:textColor="@color/ca_text_main_41"
-        android:textSize="@dimen/ca_text_size_medium" />
+        android:textColor="@color/text_main_41"
+        android:textSize="@dimen/text_size_medium" />
 
     <EditText
         android:id="@+id/editTextFirstName"
@@ -24,7 +24,7 @@
         <requestFocus />
     </EditText>
 
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+    <View style="@style/gap_vertical_space_small" />
 
     <EditText
         android:id="@+id/editTextLastName"
@@ -32,16 +32,12 @@
         android:hint="@string/last_name"
         android:inputType="textPersonName" />
 
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
+    <View style="@style/gap_vertical_space_small" />
 
     <EditText
         android:id="@+id/editTextRegEmail"
         style="@style/EditText"
         android:hint="@string/registration_email"
         android:inputType="textEmailAddress" />
-
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
-
-    <include layout="@layout/ca_layout_vertical_gap_space_small" />
 
 </LinearLayout>

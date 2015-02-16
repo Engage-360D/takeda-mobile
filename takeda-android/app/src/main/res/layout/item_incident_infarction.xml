@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="4"
+    android:padding="@dimen/space_medium"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_attention_big_red" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/warning"
+            android:textColor="@color/text_main_37"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
+
+        <View style="@style/gap_vertical_space_xsmall" />
+
+        <TextView
+            android:id="@+id/textViewIncidentDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/infarction_occurred"
+            android:textColor="@color/text_main_37"
+            android:textSize="@dimen/text_size_medium" />
+
+    </LinearLayout>
+</LinearLayout>

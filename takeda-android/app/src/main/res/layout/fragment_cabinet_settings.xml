@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewTop"
+            android:text="@string/setting" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plate_large"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/application_settings"
+            android:textColor="@color/text_main_48"
+            android:textSize="@dimen/text_size_xlarge" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linearLayoutTop"
+        android:layout_gravity="center_horizontal"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View style="@style/divider_normal_1_5" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutConsolidatedReport"
+                style="@style/TextViewItem">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewItem"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:padding="0dp"
+                        android:text="@string/delete_all_reports" />
+
+                    <TextView
+                        style="@style/TextViewItem"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:padding="0dp"
+                        android:text="@string/must_be_password"
+                        android:textSize="@dimen/text_size_xsmall" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/selector_list_item_rr_ic" />
+            </LinearLayout>
+
+            <View style="@style/divider_normal_1_5" />
+
+            <View style="@style/gap_vertical_plate_small" />
+
+            <Button
+                android:id="@+id/buttonExit"
+                style="@style/button_main_short"
+                android:text="@string/exit" />
+
+            <View style="@style/gap_vertical_plate_small" />
+
+            <View style="@style/divider_normal_1_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/plate_medium"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/bg_main_unpressed"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/incident_occurred"
+                    android:textColor="@color/text_main_37"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <ImageView
+                    android:id="@+id/imageViewAddIncident"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/selector_button_plus" />
+            </LinearLayout>
+
+            <View style="@style/divider_normal_1_5" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutIncidentHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

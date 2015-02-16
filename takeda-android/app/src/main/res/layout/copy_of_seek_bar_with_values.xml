@@ -10,7 +10,7 @@
         android:gravity="center"
         android:text="33" />
 
-    <ru.com.cardiomagnil.widget.CustomSeekBar
+    <ru.com.cardiomagnyl.widget.CustomSeekBar
         android:id="@+id/customSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

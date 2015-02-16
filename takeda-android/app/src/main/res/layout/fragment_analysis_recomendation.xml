@@ -1,0 +1,171 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextViewTop"
+            android:text="@string/results_recomendations" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/textViewBottom"
+        layout="@layout/layout_bottom_contraindications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textViewBottom"
+        android:layout_below="@id/linearLayoutTop"
+        android:layout_gravity="center_horizontal"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewRecommendationAbout"
+                style="@style/TextViewMedium37MarginedMedium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <View
+                        style="@style/divider_normal_1_7"
+                        android:layout_marginLeft="@dimen/space_medium"
+                        android:layout_marginRight="@dimen/space_medium" />
+
+                    <TextView
+                        android:id="@+id/textViewRecommendationMain"
+                        android:layout_width="wrap_content"
+                        style="@style/TextViewMedium37MarginedXsmall" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageViewState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_medium"
+                    android:src="@drawable/ic_attention_big_red" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_normal_1_2" />
+
+            <TextView
+                android:id="@+id/textViewRecommendationInfo"
+                style="@style/TextViewMedium37MarginedMedium" />
+
+            <View style="@style/divider_normal_1_5" />
+
+            <TextView
+                android:id="@+id/textViewGeneral"
+                style="@style/TextViewItemDrawableRD"
+                android:text="@string/general" />
+
+            <View style="@style/divider_normal_1_5" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutGeneral"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewGeneralContent"
+                    style="@style/TextViewMedium37MarginedXsmall"
+                    android:text="@string/general" />
+
+                <View style="@style/divider_normal_1_5" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textViewImpact"
+                style="@style/TextViewItemDrawableRD"
+                android:text="@string/impact" />
+
+            <View style="@style/divider_normal_1_5" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutImpact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewImpactContent"
+                    style="@style/TextViewMedium37MarginedXsmall"
+                    android:text="@string/impact" />
+
+                <View style="@style/divider_normal_1_5" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewSymptoms"
+                style="@style/TextViewItemDrawableRD"
+                android:text="@string/symptoms" />
+
+            <View style="@style/divider_normal_1_5" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutSymptoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewSymptomsContent"
+                    style="@style/TextViewMedium37MarginedXsmall"
+                    android:text="@string/symptoms" />
+
+                <View style="@style/divider_normal_1_5" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewTreatment"
+                style="@style/TextViewItemDrawableRD"
+                android:text="@string/treatment" />
+
+            <View style="@style/divider_normal_1_5" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutTreatment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewTreatmentContent"
+                    style="@style/TextViewMedium37MarginedXsmall"
+                    android:text="@string/treatment" />
+
+                <View style="@style/divider_normal_1_5" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

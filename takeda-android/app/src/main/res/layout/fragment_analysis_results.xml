@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_test_result_good">
+
+    <include
+        android:id="@+id/layoutTopMenu"
+        layout="@layout/layout_top_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <ScrollView
+        android:id="@+id/scrollViewResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTopMenu"
+        android:paddingLeft="@dimen/space_medium"
+        android:paddingRight="@dimen/space_medium"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/relativeLayoutScore"
+                layout="@layout/layout_score" />
+
+            <include
+                android:id="@+id/linearLayoutScoreNote"
+                layout="@layout/layout_piece" />
+
+            <include
+                android:id="@+id/linearLayoutFullScreenAlert"
+                layout="@layout/layout_piece_large" />
+
+            <include
+                android:id="@+id/linearLayoutMainRecommendation"
+                layout="@layout/layout_piece" />
+
+            <View style="@style/gap_vertical_space_small" />
+
+            <View style="@style/divider_normal_1_6" />
+
+            <include
+                android:id="@+id/linearLayoutBannerChooseMedicalInstitution"
+                layout="@layout/layout_banner" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutBigWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/results_smoking" />
+
+                <View style="@style/divider_normal_1_6" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerSmoking"
+                    layout="@layout/layout_banner" />
+
+                <TextView
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/results_physical_activity" />
+
+                <View style="@style/divider_normal_1_6" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerPhysicalActivity"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerBMI"
+                    layout="@layout/layout_banner" />
+
+                <TextView
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/results_main_risks" />
+
+                <View style="@style/divider_normal_1_6" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerCholesterolLevel"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerArterialPressure"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerSugarProblems"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerPressureDrugs"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerCholesterolDrugs"
+                    layout="@layout/layout_banner" />
+
+                <TextView
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/results_diet" />
+
+                <View style="@style/divider_normal_1_6" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerExtraSalt"
+                    layout="@layout/layout_banner" />
+
+                <include
+                    android:id="@+id/linearLayoutBannerAdjustmentOfDiet"
+                    layout="@layout/layout_banner" />
+
+                <Button
+                    android:id="@+id/buttonСreateСalendar"
+                    style="@style/button_main_long"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="@dimen/space_medium"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:text="@string/create_calendar" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textViewError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/results_error"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_large"
+        android:visibility="invisible" />
+
+</RelativeLayout>

@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include
+        android:id="@+id/linearLayoutTop"
+        layout="@layout/layout_top_start" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textViewBottom"
+        android:layout_below="@id/linearLayoutTop"
+        android:layout_gravity="center_horizontal"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_small"
+                android:background="@drawable/rounded_edit_text"
+                android:gravity="top|left"
+                android:hint="@string/your_comment"
+                android:maxLines="5"
+                android:minLines="5"
+                android:padding="@dimen/space_xsmall"
+                android:textColor="@color/text_main_37"
+                android:textColorHint="@color/main_text_37_hint"
+                android:textSize="@dimen/text_size_medium" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupIncident"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioButtonInfarction"
+                    style="@style/checkbox_medium_37"
+                    android:text="@string/infarction" />
+
+                <View style="@style/divider_normal_1_3" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonApoplexy"
+                    style="@style/checkbox_medium_37"
+                    android:text="@string/apoplexy" />
+
+                <View style="@style/divider_normal_1_3" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonShunting"
+                    style="@style/checkbox_medium_37"
+                    android:text="@string/shunting" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutIncidentHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/space_medium" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

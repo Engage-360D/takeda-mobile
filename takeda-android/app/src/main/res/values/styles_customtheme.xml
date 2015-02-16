@@ -47,8 +47,4 @@
       <item name="android:thumb">@drawable/customtheme_scrubber_control_selector_holo_light</item>
   </style>
 
-  <style name="ToggleCustomTheme" parent="android:Widget.Holo.Light.Button.Toggle">
-      <item name="android:background">@drawable/customtheme_btn_toggle_holo_light</item>
-  </style>
-
 </resources>

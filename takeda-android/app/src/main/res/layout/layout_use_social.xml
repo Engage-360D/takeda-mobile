@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:gravity="center_vertical"
-    android:minHeight="@dimen/ca_plate_medium"
+    android:minHeight="@dimen/plate_medium"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/ca_space_medium"
-    android:paddingRight="@dimen/ca_space_medium">
+    android:paddingLeft="@dimen/space_medium"
+    android:paddingRight="@dimen/space_medium">
 
     <TextView
         android:layout_width="0dp"
@@ -15,8 +15,8 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:text="@string/use_social"
-        android:textColor="@color/ca_text_main_41"
-        android:textSize="@dimen/ca_text_size_medium" />
+        android:textColor="@color/text_main_41"
+        android:textSize="@dimen/text_size_medium" />
 
     <include layout="@layout/layout_socials" />
 

@@ -7,4 +7,4 @@
     android:clickable="true"
     android:ellipsize="marquee"
     android:singleLine="true"
-    android:textColor="@color/ca_selector_clickable_text_48" />
+    android:textColor="@color/selector_clickable_text_48" />

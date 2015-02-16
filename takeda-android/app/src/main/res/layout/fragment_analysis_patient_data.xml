@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTop"
+        style="@style/LinearLayoutTestTop">
+
+        <TextView
+            android:id="@+id/textViewHeader"
+            style="@style/TextViewTestSmall"
+            android:text="@string/risk_analysis" />
+
+        <TextView
+            android:id="@+id/textViewSubHeader"
+            style="@style/TextViewTestLarge"
+            android:text="@string/patient_data" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layoutBottomInside"
+            layout="@layout/layout_bottom_inside_menu" />
+
+        <include
+            android:id="@+id/layoutBottomOutside"
+            layout="@layout/layout_bottom_outside_menu" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layoutBottom"
+        android:layout_below="@id/linearLayoutTop"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checkedButton="@+id/radioButtonMale"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/data_gender_male"
+                        android:textColor="@color/text_main_38"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/data_gender_female"
+                        android:textColor="@color/text_main_38"
+                        android:textSize="@dimen/text_size_small" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupGender"
+                    android:text="@string/data_gender"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <EditText
+                    android:id="@+id/editTextAge"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical|right"
+                    android:inputType="date"
+                    android:textColor="@color/text_main_38" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/editTextAge"
+                    android:text="@string/data_age"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <EditText
+                    android:id="@+id/editTextHeigh"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/data_height_hint"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/editTextHeigh"
+                    android:text="@string/data_height"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <EditText
+                    android:id="@+id/editTextWeight"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/data_weight_hint"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/editTextWeight"
+                    android:text="@string/data_weight"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupSmoking"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="@dimen/control_xxsmall"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNotSmoking"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonSmoking"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupSmoking"
+                    android:text="@string/data_smoking"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout style="@style/LinearLayoutItemLarge">
+
+                <EditText
+                    android:id="@+id/editTextCholesterol"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/data_cholesterol_hint"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/editTextCholesterol"
+                    android:text="@string/data_cholesterol"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutCholesterolDrugs"
+                style="@style/LinearLayoutItemLarge"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/space_xsmall"
+                android:paddingTop="@dimen/space_xsmall">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupCholesterolDrugs"
+                    android:layout_width="@dimen/control_medium"
+                    android:layout_height="@dimen/control_xxsmall"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonNoCholesterolDrugs"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/no"
+                        android:textOn="@string/no" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButtonCholesterolDrugs"
+                        style="@style/ToggleRadioButton"
+                        android:checked="false"
+                        android:textOff="@string/yes"
+                        android:textOn="@string/yes" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/radioGroupCholesterolDrugs"
+                    android:text="@string/data_cholesterol_drugs"
+                    android:textColor="@color/text_main_38"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View style="@style/divider_normal_1_3" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,8 +1,145 @@
 apply plugin: 'com.android.application'
+apply plugin: 'testfairy'
 
 android {
+    def getVersionSuffix = { ->
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--short', 'HEAD'
+            standardOutput = stdout
+        }
+
+        return stdout.toString().trim()
+    }
+
+    def geGitComment = { ->
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'log', '-1', '--pretty=%s'
+            standardOutput = stdout
+        }
+
+        return stdout.toString().trim()
+    }
+
+    def getBuildTag = { ->
+        ext.env = System.getenv()
+        ext.buildTag = System.env.BUILD_TAG ?: "local"
+
+        return buildTag
+    }
+
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
+
+    defaultConfig {
+        applicationId "ru.com.cardiomagnyl.app"
+        minSdkVersion 14
+        targetSdkVersion 14
+        versionCode 7
+        versionName "1.06"
+    }
+
+    testfairyConfig {
+        apiKey "939309730414b80946d17946a2078eb5d65e1ca6"
+        video "wifi"
+        videoRate "0.5"
+        videoQuality "low"
+        maxDuration '30m'
+        metrics 'cpu,memory,network,phone-signal,logcat,gps,battery,mic'
+        testersGroups "Cardiomanil"
+        comment getBuildTag() + '-' + getVersionSuffix()
+    }
+
+    dexOptions {
+        preDexLibraries = false
+    }
+
+    signingConfigs {
+        production {
+            storeFile file("../keystore.jks")
+            storePassword "developer"
+            keyAlias "cardiomagnyl_release"
+            keyPassword "developer"
+        }
+        release {
+            storeFile file("../keystore.jks")
+            storePassword "developer"
+            keyAlias "cardiomagnyl_release"
+            keyPassword "developer"
+        }
+        debug {
+            storeFile file("../keystore.jks")
+            storePassword "developer"
+            keyAlias "cardiomagnyl_release"
+            keyPassword "developer"
+        }
+    }
+
+    buildTypes {
+        def classesDir = new File('app/src/main/assets')
+        classesDir.mkdirs()
+
+        production {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+            // versionNameSuffix is empty
+            //TODO: move into separate method
+            buildConfigField 'String', 'BUILD_INFO_FILE', '\"build_info_production.txt\"'
+            def file = new File('app/src/main/assets/build_info_production.txt')
+            file.write("Build info: " + getBuildTag() + "\nVersion: " + defaultConfig.versionName + "\nGit comment: " + geGitComment())
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+            versionNameSuffix "-release-" + getVersionSuffix()
+            //TODO: move into separate method
+            buildConfigField 'String', 'BUILD_INFO_FILE', '\"build_info_release.txt\"'
+            def file = new File('app/src/main/assets/build_info_release.txt')
+            file.write("Build info: " + getBuildTag() + "\nVersion: " + defaultConfig.versionName + versionNameSuffix + "\nGit comment: " + geGitComment())
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.debug
+            versionNameSuffix "-debug-" + getVersionSuffix()
+            //TODO: move into separate method
+            buildConfigField 'String', 'BUILD_INFO_FILE', '\"build_info_debug.txt\"'
+            def file = new File('app/src/main/assets/build_info_debug.txt')
+            file.write("Build info: " + getBuildTag() + "\nVersion: " + defaultConfig.versionName + versionNameSuffix + "\nGit comment: " + geGitComment())
+        }
+
+        //TODO: must be sent "aligned.apk" to testfairy
+        //added ".outputs[0]" - fixed "Could not find property 'zipAlign'"
+        android.applicationVariants.all { variant ->
+            if (variant.outputs[0].zipAlign) {
+                def oldFile = variant.outputs[0].outputFile;
+                def newFile = oldFile.name.replace("app-", "Cardiomanil-").replace(".apk", "-aligned.apk")
+                variant.outputs[0].outputFile = new File(oldFile.parent, newFile)
+            }
+
+            def oldFile = variant.outputs[0].packageApplication.outputFile;
+            def newFile = oldFile.name.replace("app-", "Cardiomanil-").replace("-unaligned.apk", ".apk")
+            variant.outputs[0].packageApplication.outputFile = new File(oldFile.parent, newFile)
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/dependencies.txt'
@@ -15,56 +152,19 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/DEPENDENCIES.txt'
     }
-    defaultConfig {
-        applicationId "ru.com.cardiomagnil.app"
-        minSdkVersion 14
-        targetSdkVersion 14
-        versionCode 7
-        versionName "1.06"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        defaultConfig {
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-    signingConfigs {
-        release {
-            storeFile file("../cardiomagnil.keystore")
-            storePassword "developer"
-            keyAlias "cardiomagnil_release"
-            keyPassword "developer"
-        }
-        debug {
-            storeFile file("../cardiomagnil.keystore")
-            storePassword "developer"
-            keyAlias "cardiomagnil_release"
-            keyPassword "developer"
-        }
-    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.google.android.gms:play-services:6.5.87'
     compile files('libs/libGoogleAnalyticsServices.jar')
     compile project(':libraries:slidingmenu')
+    compile 'com.google.android.gms:play-services-maps:6.+'
+    compile 'com.android.support:support-v4:21.0.+'
     compile 'com.github.johnkil.android-robototextview:robototextview:2.2.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'commons-codec:commons-codec:1.7'
     compile 'commons-collections:commons-collections:3.2.1'
     compile 'org.apache.commons:commons-lang3:3.1'
-    compile 'com.android.support:support-v4:21.0.3'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.3.3'
     compile 'com.fasterxml.jackson.core:jackson-core:2.3.3'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
