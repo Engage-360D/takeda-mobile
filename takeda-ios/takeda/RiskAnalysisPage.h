@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AnalizDataUserPage.h"
 #import "ResultRiskAnal.h"
+#import "CActionSheet.h"
 
 @interface RiskAnalysisPage : VControllerExt<UIPickerViewDelegate, UIPickerViewDataSource,AnalizDataUserPageDelegate>
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;

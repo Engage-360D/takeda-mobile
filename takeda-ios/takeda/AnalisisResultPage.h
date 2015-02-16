@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AnalisisResultPage : VControllerExt
-
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 @end

@@ -11,6 +11,8 @@
 @interface UIView (Ext)
 
 -(void)addSeparator;
--(void)addTopSeparator;
+-(void)addSeparatorColor:(UIColor*)color;
 
+-(void)addTopSeparator;
+-(void)addTopSeparatorColor:(UIColor*)color;
 @end

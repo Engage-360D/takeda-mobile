@@ -21,6 +21,8 @@
 -(void)setupAutosizeBySubviews;
 -(void)setupAutosizeWidthBySubviews;
 -(void)arrangeViewsVertically;
+-(void)arrangeViewsVerticallyWithInterval:(float)interval;
+-(void)arrangeViewsHorizontallyWithInterval:(float)interval;
 -(void)setupAutosizeBySubviewsWithBottomDistance:(CGFloat)bottomDistance;
 
 @end

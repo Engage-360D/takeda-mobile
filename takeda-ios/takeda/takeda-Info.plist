@@ -51,6 +51,10 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SegoeWP-Semilight.ttf</string>
+		<string>SegoeWP-Semibold.ttf</string>
+		<string>SegoeWP-Black.ttf</string>
+		<string>SegoeWP-Bold.ttf</string>
 		<string>ufonts.com_segoe_ui_light.ttf</string>
 		<string>SegoeWP.ttf</string>
 		<string>SegoeWP-Light.ttf</string>

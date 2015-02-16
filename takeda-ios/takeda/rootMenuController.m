@@ -17,7 +17,7 @@
 #import "PublicationPage.h"
 #import "ReportsPage.h"
 #import "MainPage.h"
-
+#import "ResultRiskAnal.h"
 #import "LeftMenu.h"
 
 
@@ -33,7 +33,7 @@
     ReportsPage *reportsPage;
     LeftMenu *leftMenu;
     MainPage *mainPage;
-
+    ResultRiskAnal *resultRiskAnal;
     NVSlideMenuController *slideMenuVC;
     
     UIViewController *riskAnalysis_vc;
@@ -50,10 +50,27 @@ static rootMenuController *sharedInst = NULL;
     return sharedInst;
 }
 
+-(BOOL)checkToNeedTest{
+    NSDate *lastResultDate = [GlobalData lastResultDate];
+    if ([[[NSDate date] dateBySubtractingMonths:1] isLaterThanDate:lastResultDate]&&![User checkForRole:tDoctor]){
+        // надо тест проходить
+        // [self showMessage:@"Вам необходимо пройти тест" title:@""];
+        return YES;
+    }
+    return NO;
+}
+
+-(id)currentMenuController{
+    if ([self checkToNeedTest]){
+        return [self riskAnalysis_vc];
+    } else {
+        return [self mainPage_vc];
+    }
+}
 
 -(NVSlideMenuController*)getMenuController{
     if (!slideMenuVC) {
-        slideMenuVC = [[NVSlideMenuController alloc] initWithMenuViewController:[self getLeftMenu] andContentViewController:[self mainPage_vc]];
+        slideMenuVC = [[NVSlideMenuController alloc] initWithMenuViewController:[self getLeftMenu] andContentViewController:[self currentMenuController]];
     }
     
     return slideMenuVC;
@@ -118,6 +135,13 @@ static rootMenuController *sharedInst = NULL;
     return analisisResultPage;
 }
 
+-(ResultRiskAnal*)getResultRiskAnal{
+    if (!resultRiskAnal) {
+        resultRiskAnal = [[ResultRiskAnal alloc] initWithNibName:@"ResultRiskAnal" bundle:nil];
+    }
+    return resultRiskAnal;
+}
+
 -(CalendarPage*)getCalendarPage{
     if (!calendarPage) {
         calendarPage = [[CalendarPage alloc] initWithNibName:@"CalendarPage" bundle:nil];
@@ -144,6 +168,23 @@ static rootMenuController *sharedInst = NULL;
         reportsPage = [[ReportsPage alloc] initWithNibName:@"ReportsPage" bundle:nil];
     }
     return reportsPage;
+}
+
+-(void)resetControllers{
+    riskAnalysisPage = nil;
+    searchInstitutionPage = nil;
+    recomendationPage = nil;
+    analisisResultPage = nil;
+    calendarPage = nil;
+    usefulKnowPage = nil;
+    publicationPage = nil;
+    reportsPage = nil;
+    leftMenu = nil;
+    mainPage = nil;
+    resultRiskAnal = nil;
+    slideMenuVC = nil;
+    riskAnalysis_vc = nil;
+    mainPage_vc = nil;
 }
 
 @end

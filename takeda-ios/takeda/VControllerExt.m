@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mainElement = self.view;
     self.navigationController.navigationBarHidden = NO;
     [self setNavigationPanel];
     [self setupData];
@@ -26,6 +27,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setNavImage];
+    [self autosetupTextFieldDelegates:self.view];
+
     self.navigationController.navigationBarHidden = NO;
 }
 
@@ -58,6 +61,7 @@
 }
 
 -(void)setup_interface{
+    [self drawBorders:self.bg_block];
     self.danger_text.numberOfLines = 0;
     self.danger_text.font = [UIFont fontWithName:@"SegoeWP" size:10];
     self.danger_text.textColor = RGB(55, 64, 76);
@@ -101,6 +105,7 @@
 
     
 }
+
 
 -(void)openLeftMenu{
     if ([self.slideMenuController isMenuOpen]) {
@@ -161,6 +166,27 @@
     return [[UIBarButtonItem alloc] initWithCustomView:leftButtonItem];
 }
 
+- (UIBarButtonItem*)menuBarBtnWithImageName:(NSString*)imageName selector:(SEL)aSelector forTarget:(id)target{
+    UIButton *menuButtonItem = [[UIButton alloc] initWithFrame:CGRectMake(0, 3, 30, 30)];
+    [menuButtonItem setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    menuButtonItem.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [menuButtonItem addTarget:target action:aSelector forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:menuButtonItem];
+    
+}
+
+- (UIBarButtonItem*)menuBarBtnWithTitle:(NSString*)titleString selector:(SEL)aSelector forTarget:(id)target{
+    UIButton *menuButtonItem = [[UIButton alloc] initWithFrame:CGRectMake(0, 3, 30, 30)];
+    [menuButtonItem setTitle:titleString forState:UIControlStateNormal];
+    [menuButtonItem.titleLabel setFont:[UIFont systemFontOfSize:17]];
+    menuButtonItem.titleLabel.textColor = [UIColor clearColor];
+    menuButtonItem.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [menuButtonItem addTarget:target action:aSelector forControlEvents:UIControlEventTouchUpInside];
+    [menuButtonItem setFrame:CGRectMake(menuButtonItem.frame.origin.x, menuButtonItem.frame.origin.y, [menuButtonItem sizeThatFits:CGSizeZero].width, menuButtonItem.frame.size.height)];
+    return [[UIBarButtonItem alloc] initWithCustomView:menuButtonItem];
+    
+}
+
 -(BOOL)isRootVC{
     return  self == [self.navigationController.viewControllers objectAtIndex: 0];
 }
@@ -169,5 +195,198 @@
     Personal *personal = [Personal new];
     [self.navigationController pushViewController:personal animated:YES];
 }
+
+#pragma mark keyb
+
+
+-(void)autosetupTextFieldDelegates:(UIView *)view {
+    NSArray *subviews = [view subviews];
+    if ([subviews count] == 0) return;
+    for (UIView *subview in subviews) {
+        if ([subview isKindOfClass:[UITextField class]]){
+            UITextField *f = (UITextField*)subview;
+            if (!f.delegate) f.delegate = self; // !!!! Original  - f.delegate = self;
+        } else if ([subview isKindOfClass:[UITextView class]]){
+            UITextView *f = (UITextView*)subview;
+            if (!f.delegate) f.delegate = self;
+        } else {
+            [self autosetupTextFieldDelegates:subview];
+        }
+    }}
+
+
+-(void)keybHided:(id)sender{
+    //  UIView *a = (UIView*)sender;
+    //  [a.superview removeGestureRecognizer:tapToHide];
+    [appDelegate.window removeGestureRecognizer:appDelegate.tapToHide];
+    
+}
+
+-(void)keybShowed:(id)sender{
+    appDelegate.tapToHide = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyb)];
+    //  UIView *a = (UIView*)sender;
+    //   [a.superview addGestureRecognizer:tapToHide];
+    [appDelegate.window addGestureRecognizer:appDelegate.tapToHide];
+    
+}
+
+
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+#pragma mark-
+
+///////////////////////////////////////////////////////////////// - Поднятие экрана при появлении клавиатуры
+
+CGFloat animatedDistance;
+static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
+static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
+static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
+static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
+static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
+
+-(void) textFieldDidBeginEditing:(UITextField *)textField
+{
+    Global.keybHolder = textField;
+    if ([self respondsToSelector:@selector(keybShowed:)]){
+        [self keybShowed:textField];
+    }
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+        CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+        CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
+        CGFloat numerator = midline - viewRect.origin.y - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
+        CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION) * viewRect.size.height;
+        CGFloat heightFraction = numerator / denominator;
+        
+        if (heightFraction < 0.0)
+        {
+            heightFraction = 0.0;
+        }
+        else if (heightFraction > 1.0)
+        {
+            heightFraction = 1.0;
+        }
+        
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        if (orientation == UIInterfaceOrientationPortrait)
+        {
+            animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
+        }
+        else
+        {
+            animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
+        }
+        
+        CGRect viewFrame = self.view.frame;
+        viewFrame.origin.y -= animatedDistance;
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+        
+        [self.view setFrame:viewFrame];
+        
+        [UIView commitAnimations];
+    }
+}
+
+-(void) textFieldDidEndEditing:(UITextField *)textField
+{
+    Global.keybHolder = nil;
+    if ([self respondsToSelector:@selector(keybHided:)]){
+        [self keybHided:textField];
+    }
+    if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone)
+    {
+        CGRect viewFrame = self.view.frame;
+        viewFrame.origin.y += animatedDistance;
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+        
+        [self.view setFrame:viewFrame];
+        
+        [UIView commitAnimations];
+    }
+}
+
+-(void) textViewDidBeginEditing:(UITextView *)textView
+{
+    Global.keybHolder = textView;
+    if ([self respondsToSelector:@selector(keybShowed:)]){
+        [self keybShowed:textView];
+    }
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGRect textViewRect = [self.view.window convertRect:textView.bounds fromView:textView];
+        CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+        CGFloat midline = textViewRect.origin.y + 0.5 * textViewRect.size.height;
+        CGFloat numerator = midline - viewRect.origin.y - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
+        CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION) * viewRect.size.height;
+        CGFloat heightFraction = numerator / denominator;
+        
+        if (heightFraction < 0.0)
+        {
+            heightFraction = 0.0;
+        }
+        else if (heightFraction > 1.0)
+        {
+            heightFraction = 1.0;
+        }
+        
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        if (orientation == UIInterfaceOrientationPortrait)
+        {
+            animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
+        }
+        else
+        {
+            animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
+        }
+        
+        CGRect viewFrame = self.view.frame;
+        viewFrame.origin.y -= animatedDistance;
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+        
+        [self.view setFrame:viewFrame];
+        
+        [UIView commitAnimations];
+    }
+}
+
+-(void) textViewDidEndEditing:(UITextView *)textView
+{
+    Global.keybHolder = nil;
+    if ([self respondsToSelector:@selector(keybHided:)]){
+        [self keybHided:textView];
+    }
+    
+    if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone)
+    {
+        CGRect viewFrame = self.view.frame;
+        viewFrame.origin.y += animatedDistance;
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+        
+        [self.view setFrame:viewFrame];
+        
+        [UIView commitAnimations];
+    }
+}
+
+
+//////////////////////////////////////////////////////////////// - Скрыть клавиатуру по нажатию кнопки
+
+
 
 @end

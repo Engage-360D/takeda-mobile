@@ -80,10 +80,11 @@ ForgetPage *forgetPage;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //[self.navigationItem setHidesBackButton:YES];
+    User.userData = [NSMutableDictionary new];
     [self.scrollView setup_autosize];
     self.navigationController.navigationBarHidden = NO;
     self.email_field.text = @"alexruden@rambler.ru";
-    self.pass_field.text = @"password";
+    self.pass_field.text = @"QsefPI4bFlAHw";
     self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
     
 }
@@ -91,6 +92,7 @@ ForgetPage *forgetPage;
 
 
 -(IBAction)openGeneralApp:(id)sender{
+    [[rootMenuController sharedInstance] resetControllers];
     UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
     [vc.navigationController setNavigationBarHidden:NO];
     [ApplicationDelegate setRootViewController:vc];
@@ -116,6 +118,21 @@ ForgetPage *forgetPage;
         forgetPage = [[ForgetPage alloc] initWithNibName:@"ForgetPage" bundle:nil];
     }
     [self.navigationController pushViewController:forgetPage animated:YES];
+}
+
+-(IBAction)changePass:(id)sender{
+    NSString *email;
+    if (User.user_login){
+        email = User.user_login;
+    } else {
+        email = self.email_field.text;
+    }
+    
+    [self showActivityIndicatorWithString:@"" inContainer:appDelegate.window];
+    [ServData resetUserPassword:email withCompletion:^(BOOL success, NSError* error){
+        [self removeActivityIdicator];
+        [self showMessage:@"На вашу почту было отправлено письмо с новым паролем" title:@"Сброс пароля"];
+    }];
 }
 
 
@@ -153,12 +170,13 @@ ForgetPage *forgetPage;
 
 
 -(IBAction)authUser:(id)sender{
-
+    User.userData = nil;
+    [User logoutUser];
     [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
             if (result) {
-                [User setCurrentUser:User.user_name];
+                [User setCurrentUser:User.user_login];
                 [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
-                    [User setCurrentUser:User.user_name];
+                    [User setCurrentUser:User.user_login];
                     if (result){
                         [self openGeneralApp:self];
                     } else {

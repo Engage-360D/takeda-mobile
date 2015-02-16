@@ -42,18 +42,10 @@
     self.tableView.tableFooterView = self.tableView.separ;
 }
 
-
-
-
-
 -(void)reloadData{
     [self reloadDataSource];
     [self.tableView reloadData];
 }
-
-
-
-
 
 #pragma mark - Table view data source
 

@@ -22,11 +22,13 @@ typedef NSUInteger MenuItem;
 
 @interface MainPage (){
     NSMutableArray *menu_data;
+    NSMutableDictionary *results_data;
 }
 
 @end
 
 @implementation MainPage
+@synthesize resultRiskAnal;
 
 - (void)viewDidLoad
 {
@@ -46,6 +48,8 @@ typedef NSUInteger MenuItem;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    [self initData];
+    [self showInfo];
     [self.tableView reloadData];
 }
 
@@ -58,6 +62,22 @@ typedef NSUInteger MenuItem;
     
 }
 
+-(void)initData{
+    NSMutableArray *allResults = [GlobalData resultAnalyses];
+    if (allResults.count>0){
+        results_data = [[GlobalData resultAnalyses] lastObject];
+    }
+}
+
+-(void)showInfo{
+    self.percentLabel.text = [NSString stringWithFormat:@"%.f%@",[results_data[@"score"] floatValue],@"%"];
+    NSDate *fromDate = [Global parseDateTime:results_data[@"createdAt"]];
+    if (!fromDate) fromDate = [[NSDate date] dateBySubtractingMonths:1];
+    NSDate *nowDate = [NSDate date];
+    
+    self.datePeriod.text = [NSString stringWithFormat:@"%@ - %@",[fromDate stringWithFormat:@"dd MMMM"], [nowDate stringWithFormat:@"dd MMMM"]];
+    self.todayLabel.text = [NSString stringWithFormat:@"Сегодня (%@)",[[NSDate date] stringWithFormat:@"EEEE"]];
+}
 
 #pragma mark - Table view data source
 
@@ -136,7 +156,7 @@ typedef NSUInteger MenuItem;
             break;
         }
         case myRecommendations:{
-            
+            [self openResultsAnal];
             break;
         }
         case mySuccess:{
@@ -162,9 +182,19 @@ typedef NSUInteger MenuItem;
     [self.navigationController pushViewController:_drugs animated:YES];
 }
 
+-(void)openResultsAnal{
+    if (!resultRiskAnal) {
+        resultRiskAnal = [ResultRiskAnal new];
+    }
+    resultRiskAnal.needUpdate = YES;
+    [self.navigationController pushViewController:resultRiskAnal animated:YES];
+
+}
+
 -(void)openSiteReport{
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kReportURL]];
 }
+
 
 
 @end

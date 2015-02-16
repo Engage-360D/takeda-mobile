@@ -98,4 +98,21 @@
     }
 }
 
+-(void)arrangeViewsVerticallyWithInterval:(float)interval{
+    float bottomPointY = 0;
+    for (UIView *view in self.subviews){
+        view.y = bottomPointY;
+        bottomPointY = view.bottom + ((view != self.subviews.lastObject)?interval:0);
+    }
+}
+
+
+-(void)arrangeViewsHorizontallyWithInterval:(float)interval{
+    float bottomPointX = 0;
+    for (UIView *view in self.subviews){
+        view.x = bottomPointX;
+        bottomPointX = view.right + ((view != self.subviews.lastObject)?interval:0);
+    }
+}
+
 @end

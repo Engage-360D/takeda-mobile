@@ -13,10 +13,15 @@
 @implementation UserData
 static UserData *objectInstance = nil;
 
-@synthesize access_token = access_token_;
+//@synthesize access_token = access_token_;
+//@synthesize user_id = user_id_;
+//@synthesize user_name = user_name_;
+
+//@synthesize access_token;
+//@synthesize user_id;
+//@synthesize user_login;
+
 @synthesize userData = userData_;
-@synthesize user_id = user_id_;
-@synthesize user_name = user_name_;
 
 +(UserData*)sharedObject{
     @synchronized(self){
@@ -27,29 +32,82 @@ static UserData *objectInstance = nil;
     }
 }
 
+-(void)setupUserDefaultsForUser:(NSString*)user_email{
+    
+
+    
+}
+
+
+
 -(BOOL)is_authorized{
-    if ([access_token_ isEqual:[NSNull null]] || !access_token_) {
+    if ([self.access_token isEqual:[NSNull null]] || !self.access_token) {
         return NO;
     }
     return YES;
 }
 
--(UserType)userType{
+-(NSArray*)userRoles{
     NSArray *roles = self.userData[@"roles"];
-    for (NSString *role in roles){
-        if ([role isEqualToString:@"ROLE_USER"]) return tUser;
-        if ([role isEqualToString:@"ROLE_DOCTOR"]) return tDoctor;
+    return roles;
+}
+
+-(BOOL)checkForRole:(UserType)role{
+    for (NSString *roleStr in self.userRoles ){
+        if (role == [self roleForStr:roleStr]){
+            return YES;
+        }
     }
-    return 0;
+    return NO;
 }
 
--(NSString*)getAccessToken{
-    return access_token_;
+-(NSMutableArray*)incidents{
+    if (!_incidents) {
+        _incidents = [UserDefaults valueForKey:@"incidents"];
+    }
+    if (!_incidents){
+        _incidents = [NSMutableArray new];
+        [self saveIncidents];
+    }
+    return _incidents;
 }
 
--(void)setAccessToken:(NSString*)token{
-    access_token_ = token;
+-(void)saveIncidents{
+    [UserDefaults setValue:_incidents forKey:@"incidents"];
 }
+
+-(NSString*)user_id{
+    return self.userData[@"id"];
+}
+
+-(void)setUser_id:(NSString *)the_user_id{
+    [self.userData setObject:the_user_id forKey:@"id"];
+}
+
+-(NSString*)user_login{
+    return self.userData[@"email"];
+}
+
+-(void)setUser_login:(NSString *)the_user_name{
+    [self.userData setObject:the_user_name forKey:@"email"];
+}
+
+-(NSString*)access_token{
+    return self.userData[@"access_token"];
+}
+
+//-(NSString*)getAccessToken{
+//    return self.userData[@"access_token"];
+//}
+
+-(void)setAccess_token:(NSString *)token{
+    [self.userData setObject:token forKey:@"access_token"];
+}
+
+//
+//-(void)setAccessToken:(NSString*)token{
+//    [self.userData setObject:token forKey:@"access_token"];
+//}
 
 -(NSMutableDictionary*)getUserData{
     return userData_;
@@ -60,54 +118,64 @@ static UserData *objectInstance = nil;
 }
 
 -(void)savePassword:(NSString*)pass{
-    [UserDefaults setObject:pass forKey:@"pass"];
+  //  [UserDefaults setObject:pass forKey:uKey(@"pass")];
 }
 -(void)saveUserName:(NSString*)username{
-    [UserDefaults setObject:username forKey:@"username"];
+    [UserDefaults setObject:username forKey:uKey(@"username")];
 }
 
--(void)saveAnalisRiskData:(NSData*)data{
-    [jsonInFile writeJsonToFile:data fileName:@"riskAnalis"];
-}
-
--(id)getLastSavedAnalisRiskData{
-    return [jsonInFile getDataFromFile:@"riskAnalis"];
-}
-
--(void)updateUser:(NSString*)login userInfo:(NSMutableDictionary*)userInfo accessToken:(NSString*)access_token{
-    self.user_id = userInfo[@"id"];
-    self.access_token = access_token;
-    self.userData = userInfo;
+-(void)updateUser:(NSString*)login userInfo:(NSMutableDictionary*)userInfo accessToken:(NSString*)accessToken{
+    NSString *AccessToken = [accessToken mutableCopy];
+//    self.userData = userInfo;
+//    self.access_token = AccessToken;
+    
    /// [jsonInFile createUser:login userInfo:userInfo accessToken:access_token];
     
-    [userInfo setObject:access_token forKey:@"access_token"];
+    [userInfo setObject:AccessToken forKey:@"access_token"];
     if (userInfo){
-        NSString *filePath = [NSString stringWithFormat:@"%@/%@", [Path UsersFolder],login];
-        //[userInfo writeToFile:filePath atomically:YES];
+        NSString *filePath = userSettingsFile;
         [userInfo saveTofile:filePath];
     }
 
 }
 
 -(NSMutableDictionary*)getUserInfo:(NSString*)login{
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@", [Path UsersFolder],login];
-    NSMutableDictionary *userInfo = [NSMutableDictionary readFromFile:filePath];// [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
+    NSString *filePath = userSettingsFile;
+    NSMutableDictionary *userInfo = [NSMutableDictionary readFromFile:filePath];
     return userInfo;
 }
 
 -(void)setCurrentUser:(NSString*)login{
-    self.user_name = login;
-    [UserDefaults setValue:login forKey:@"lastUser"];
+    if (login.length==0) {
+        return;
+    }
+    self.user_login = login;
+    [[NSUserDefaults standardUserDefaults] setValue:login forKey:@"lastUser"];
     NSMutableDictionary *usData = [self getUserInfo:login];
     if (usData){
         self.userData = usData;
-        if (self.userData[@"access_token"]) self.access_token = self.userData[@"access_token"];
-        if (self.userData[@"id"]) self.user_id = self.userData[@"id"];
+      //  if (self.access_token) [self.userData setObject:self.access_token forKey:@"access_token"];
+      //  if (self.userData[@"access_token"]) self.access_token = self.userData[@"access_token"];
+      //  if (self.userData[@"id"]) self.user_id = self.userData[@"id"];
     }
+    [[Synchronizer sharedInstance] startSynchronize];
+
+}
+
+-(void)logoutUser{
+    [self setupUserDefaultsForUser:nil];
+    [GlobalData clearFiles];
+    self.userData = nil;
 }
 
 -(NSString*)getLastUser{
-    return [UserDefaults valueForKey:@"lastUser"];
+    return [[NSUserDefaults standardUserDefaults] valueForKey:@"lastUser"];
+}
+
+-(UserType)roleForStr:(NSString*)roleStr{
+    if ([roleStr isEqualToString:@"ROLE_USER"]) return tUser;
+    if ([roleStr isEqualToString:@"ROLE_DOCTOR"]) return tDoctor;
+    return tUser;
 }
 
 @end

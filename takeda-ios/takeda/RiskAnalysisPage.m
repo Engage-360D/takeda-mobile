@@ -11,7 +11,7 @@
 #import "analizData.h"
 
 @interface RiskAnalysisPage (){
-    UIActionSheet *picker_cover;
+    CActionSheet *picker_cover;
     UIPickerView *picker_view;
     NSArray *pickerDataSource;
     UIDatePicker *date_picker;
@@ -261,7 +261,7 @@ int selectedIndex = 0;
     */
     
     NSString *sex = @"male";
-    if ([[[[UserData sharedObject] getUserData] objectForKey:@"sex"] boolValue]) {
+    if ([[[[UserData sharedObject] userData] objectForKey:@"sex"] boolValue]) {
         sex = @"female";
     }
     
@@ -289,7 +289,7 @@ int selectedIndex = 0;
     
     
     [ServData sendAnalysisToServer:params completion:^(BOOL success, NSError *error, id result) {
-        if (result) {
+        if (success) {
             [GlobalData saveResultAnalyses:result[@"data"]];
             
             if (!resultRiskAnalysis) {
@@ -298,7 +298,7 @@ int selectedIndex = 0;
             resultRiskAnalysis.needUpdate = YES;
             [self.navigationController pushViewController:resultRiskAnalysis animated:YES];
         }else{
-            [Helper fastAlert:@"Ошибка загрузки данных"];
+            [Helper fastAlert:@"Тест уже пройден"];
         }
     }];
     
@@ -391,13 +391,61 @@ int selectedIndex = 0;
 
 #pragma mark - UIPickerView
 
+//-(IBAction)showPicker{
+//    picker_cover = nil;
+//    picker_cover = [[UIActionSheet alloc] initWithTitle:nil
+//                                               delegate:nil
+//                                      cancelButtonTitle:@""
+//                                 destructiveButtonTitle:nil
+//                                      otherButtonTitles:nil];
+//    UIToolbar *toolbar = [[UIToolbar alloc] init];
+//    toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
+//    NSMutableArray *items = [[NSMutableArray alloc] init];
+//    
+//    UIBarButtonItem *button1 = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть" style:UIBarButtonItemStyleDone target:self action:@selector(closePicker)];
+//    
+//    UIBarButtonItem *button2 = [[UIBarButtonItem alloc] initWithTitle:@"Применить" style:UIBarButtonItemStyleDone target:self action:@selector(applyPicker:)];
+//    
+//    UIBarButtonItem *flexibleSpaceLeft = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//    
+//    [items addObject:button1];
+//    [items addObject:flexibleSpaceLeft];
+//    [items addObject:button2];
+//    [toolbar setItems:items animated:NO];
+//    
+//    float picker_width = ScreenWidth;
+//    picker_view = [[UIPickerView alloc] initWithFrame:CGRectMake(0,40,picker_width,210)];
+//    picker_view.delegate = self;
+//    picker_view.dataSource = self;
+//    picker_view.showsSelectionIndicator = YES;
+//    [picker_cover addSubview:toolbar];
+//    [picker_cover addSubview:picker_view];
+//    picker_cover.backgroundColor = [UIColor whiteColor];
+//    [picker_cover showInView:self.view.superview];
+//    [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
+//    picker_cover.tag = 1;
+//    selectedIndex = 0;
+//    
+//    float value = [[[[analizData sharedObject] dicRiskData] valueForKey:currentKey] floatValue];
+//    for (int i = 0; i<pickerDataSource.count; i++){
+//        if (value == [pickerDataSource[i] floatValue]){
+//            selectedIndex = i;
+//            break;
+//        }
+//    }
+//    
+//    picker_view.backgroundColor = [UIColor greenColor];
+//    [picker_view selectRow:selectedIndex inComponent:0 animated:NO];
+//    
+//
+//    
+//}
+
 -(IBAction)showPicker{
     picker_cover = nil;
-    picker_cover = [[UIActionSheet alloc] initWithTitle:nil
-                                               delegate:nil
-                                      cancelButtonTitle:@""
-                                 destructiveButtonTitle:nil
-                                      otherButtonTitles:nil];
+
+    picker_cover = [[CActionSheet alloc] initInView:self.view.superview];
+
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
     NSMutableArray *items = [[NSMutableArray alloc] init];
@@ -421,8 +469,8 @@ int selectedIndex = 0;
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:picker_view];
     picker_cover.backgroundColor = [UIColor whiteColor];
-    [picker_cover showInView:self.view.superview];
-    [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
+
+    //[picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 1;
     selectedIndex = 0;
     
@@ -433,21 +481,22 @@ int selectedIndex = 0;
             break;
         }
     }
-    
+
     [picker_view selectRow:selectedIndex inComponent:0 animated:NO];
     
-
+    [picker_cover show];
     
 }
 
+
 -(void)closePicker{
-    [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
+    [picker_cover dissmiss];
     [selectedPage reloadData];
 }
 
 
 -(void)applyPicker:(id)sender{
-    [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
+    [picker_cover dissmiss];
     if ((int)[picker_cover tag]==1) {
         [[[analizData sharedObject] dicRiskData] setObject:[pickerDataSource objectAtIndex:selectedIndex] forKey:currentKey];
     }else{
@@ -515,11 +564,7 @@ numberOfRowsInComponent:(NSInteger)component
 
 -(IBAction)showTimePicker{
     picker_cover = nil;
-    picker_cover = [[UIActionSheet alloc] initWithTitle:nil
-                                               delegate:nil
-                                      cancelButtonTitle:@""
-                                 destructiveButtonTitle:nil
-                                      otherButtonTitles:nil];
+    picker_cover = [[CActionSheet alloc] initInView:self.view.superview];
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
@@ -557,9 +602,8 @@ numberOfRowsInComponent:(NSInteger)component
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:date_picker];
     picker_cover.backgroundColor = [UIColor whiteColor];
-    [picker_cover showInView:self.view.superview];
-    [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 2;
+    [picker_cover show];
 }
 
 

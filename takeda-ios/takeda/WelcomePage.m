@@ -7,7 +7,6 @@
 //
 
 #import "WelcomePage.h"
-#import "AuthPage.h"
 
 @interface WelcomePage ()
 
@@ -19,7 +18,6 @@
 @synthesize welcome_text_3;
 
 
-AuthPage *authPage;
 bool is_loading;
 bool is_authorized;
 
@@ -28,8 +26,16 @@ bool is_authorized;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         is_authorized = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
     }
     return self;
+}
+
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+   // NSLog(@"before auth %i",(int)[UserDefaults integerForKey:@"lastResultDataId"]);
 }
 
 - (void)viewDidLoad
@@ -41,22 +47,53 @@ bool is_authorized;
     self.welcome_text_1.font = [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
     self.welcome_text_2.font = [UIFont fontWithName:@"SegoeUI-Light" size:12.0];
     self.welcome_text_3.font = [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
-    [self autologin];
     // Do any additional setup after loading the view from its nib.
+}
+
+
+- (void)networkChanged:(NSNotification *)notification
+{
+    NetworkStatus remoteHostStatus = [appDelegate.hostReachability currentReachabilityStatus];
+    if (remoteHostStatus == NotReachable) {
+        NSLog(@"not reachable");
+        [self autologin];
+    }
+    else if (remoteHostStatus == ReachableViaWiFi) {
+        NSLog(@"wifi");
+        [self autologin];
+    }
+    else if (remoteHostStatus == ReachableViaWWAN) {
+        NSLog(@"carrier");
+        [self autologin];
+    }
 }
 
 -(void)autologin{
     
     NSString *lastUser = [User getLastUser];
-   // lastUser = nil; //temp
+    NSMutableDictionary *usData = [User getUserInfo:lastUser];
+    User.userData = usData;
+
     if (lastUser){
         is_loading = YES;
-        // вытягиваем информацию о этом юзере
-        [User setCurrentUser:lastUser];
+        // получаем информацию о этом юзере
+       // [User setCurrentUser:lastUser];
         [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
-            [User setCurrentUser:lastUser];
-            is_loading = NO;
-            is_authorized = YES;
+            if (result){
+                [User setCurrentUser:lastUser];
+                is_loading = NO;
+                is_authorized = YES;
+            } else {
+                if (error.code == 500){
+                    // нет интернета
+                } else {
+                    // неверный токен
+                    User.userData = nil;
+                    is_loading = NO;
+                    is_authorized = NO;
+                  //  [appDelegate openAuthPage];
+                }
+            }
 //            UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
 //            [vc.navigationController setNavigationBarHidden:NO];
 //            [ApplicationDelegate setRootViewController:vc];
@@ -67,33 +104,7 @@ bool is_authorized;
     }
     
     
-    
-    
-//    
-//    if ([[UserData sharedObject] getUserName] && [[UserData sharedObject] getUserPassword]) {
-//        is_loading = YES;
-//        [ServData authUserWithLogin:[[UserData sharedObject] getUserName] password:[[UserData sharedObject] getUserPassword] completion:^(BOOL result, NSError *error) {
-//            
-//            if (result) {
-//                [ServData getUserDataWithCompletion:^(BOOL result, NSError *error) {
-//                    is_loading = NO;
-//                    if (result) {
-//                        UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
-//                        [vc.navigationController setNavigationBarHidden:NO];
-//                        [ApplicationDelegate setRootViewController:vc];
-//                        
-//                        
-//                    }else{
-//                        
-//                    }
-//                }];
-//            }else{
-//                is_loading = NO;
-//            }
-//        }];
-//    }else{
-//        is_loading = NO;
-//    }
+
 }
 
 
@@ -108,10 +119,7 @@ bool is_authorized;
         [vc.navigationController setNavigationBarHidden:NO];
         [ApplicationDelegate setRootViewController:vc];
     } else {
-        if (!authPage) {
-            authPage = [[AuthPage alloc] initWithNibName:@"AuthPage" bundle:nil];
-        }
-        [self.navigationController pushViewController:authPage animated:YES];
+        [appDelegate openAuthPage];
     }
     
 }

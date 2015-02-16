@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchInstitutionPage.h"
+#import "DietTest.h"
+#import "ResultRiskAnalDetail.h"
+#import "UsefulKnowPage.h"
 
 typedef enum {
     sOk = 1,
@@ -25,6 +29,13 @@ typedef enum {
 @property (nonatomic,retain) IBOutlet UIImageView *scoreCircle;
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 @property (nonatomic,retain) IBOutlet UIButton *profilacticCalendarBtn;
+@property (nonatomic,retain) IBOutlet UIButton *medSearchBtn;
+@property (nonatomic, strong) SearchInstitutionPage *searchInstitutionPage;
+@property (nonatomic, strong) DietTest *dietTest;
+@property (nonatomic, strong) ResultRiskAnalDetail *resultRiskAnalDetail;
+@property (nonatomic, strong) UsefulKnowPage *usefulKnowPage;
+
+@property (nonatomic, strong) NSMutableDictionary *results_data;
 
 @property BOOL needUpdate;
 
