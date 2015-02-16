@@ -29,11 +29,11 @@ public class CustomDialogs {
     }
 
     // FIXME: use instead toasts
-    public static void showErrorDialog(Context context, int errorStringId) {
-        showErrorDialog(context, context.getString(errorStringId));
+    public static void showAlertDialog(Context context, int errorStringId) {
+        showAlertDialog(context, context.getString(errorStringId));
     }
 
-    public static void showErrorDialog(Context context, String error) {
+    public static void showAlertDialog(Context context, String error) {
         CustomDialogLayout customDialogLayout = new CustomDialogLayout
                 .Builder(context)
                 .setBody(error)
@@ -48,4 +48,5 @@ public class CustomDialogs {
 
         alertDialog.show();
     }
+
 }

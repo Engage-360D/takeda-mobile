@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -46,26 +48,6 @@ public class Tools {
         }
 
         return jsonElement;
-    }
-
-    public static void showAlertDialog(final Activity activity, String message, final boolean fnish) {
-        try {
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            builder.setMessage(message)
-            /**/.setCancelable(false)
-            /**/.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    if (fnish) {
-                        activity.finish();
-                    }
-                }
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            ExceptionsHandler.getInstatce().handleException(CardiomagnylApplication.getAppContext(), e);
-        }
     }
 
     public static String formatShortDate(Date date) {
@@ -217,5 +199,15 @@ public class Tools {
         Toast toast = Toast.makeText(context, text, length);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+    public static View findViewInParents(View currentView, int seekingViewId) {
+        View viewParent =  (View)currentView.getParent();
+        if (viewParent != null) {
+            View seekingView =  viewParent.findViewById(seekingViewId);
+            return seekingView != null ? seekingView :findViewInParents(viewParent, seekingViewId);
+        } else {
+            return null;
+        }
     }
 }

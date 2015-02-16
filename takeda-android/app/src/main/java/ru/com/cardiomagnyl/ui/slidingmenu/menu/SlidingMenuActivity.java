@@ -1,5 +1,6 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.menu;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -57,11 +58,11 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     }
 
     private void initMenuOrBackButton(boolean buttonIsMenu) {
-        View contentTopRightMenu = findViewById(R.id.contentTopRightMenu);
-        View contentTopRightBack = findViewById(R.id.contentTopRightBack);
+        View contentTopLeftMenu = findViewById(R.id.contentTopLeftMenu);
+        View contentTopLeftBack = findViewById(R.id.contentTopLeftBack);
 
-        contentTopRightMenu.setVisibility(buttonIsMenu ? View.INVISIBLE : View.VISIBLE);
-        contentTopRightBack.setVisibility(buttonIsMenu ? View.VISIBLE : View.INVISIBLE);
+        contentTopLeftMenu.setVisibility(buttonIsMenu ? View.INVISIBLE : View.VISIBLE);
+        contentTopLeftBack.setVisibility(buttonIsMenu ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void initUI(Bundle savedInstanceState) {
@@ -200,5 +201,9 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
 
     public void onToggle(View view) {
         ((RadioGroup) view.getParent()).check(view.getId());
+    }
+
+    public static boolean check(Activity activity) {
+        return activity != null && activity instanceof SlidingMenuActivity;
     }
 }

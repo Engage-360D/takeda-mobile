@@ -230,7 +230,7 @@
         <item name="android:layout_marginTop">@dimen/space_large</item>
     </style>
 
-    <style name="checkbox_small_41">
+    <style name="checkbox_small_41" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@null</item>
@@ -245,12 +245,15 @@
 
     <style name="checkbox_medium_37" parent="@style/checkbox_small_41">
         <item name="android:minHeight">@dimen/plate_medium</item>
+        <item name="android:background">@drawable/selector_banner_bg</item>
         <item name="android:drawableLeft">@null</item>
         <item name="android:drawableRight">@drawable/selector_checkbox</item>
         <item name="android:textColor">@color/text_main_37</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
-        <item name="android:layout_marginLeft">@dimen/space_medium</item>
-        <item name="android:layout_marginRight">@dimen/space_medium</item>
+        <item name="android:paddingLeft">@dimen/space_medium</item>
+        <item name="android:paddingRight">@dimen/space_medium</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
     </style>
 
     <style name="RadioButtonTwoLines" parent="@android:style/Widget.CompoundButton.RadioButton">

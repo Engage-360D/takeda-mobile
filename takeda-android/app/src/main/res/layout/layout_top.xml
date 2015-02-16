@@ -11,35 +11,35 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/space_small_negative"
+        android:layout_marginLeft="@dimen/space_medium"
         android:layout_weight="1"
-        android:gravity="center_vertical|left"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/contentTopRightClickable"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="@dimen/space_medium"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
             android:clickable="true">
 
             <com.devspark.robototextview.widget.RobotoTextView
-                android:id="@+id/contentTopRightBack"
+                android:id="@+id/contentTopLeftBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_small_light_left"
                 android:text="@string/menu_back"
-                android:textColor="@color/white"
+                android:textColor="@color/selector_menu_item_text"
                 android:textSize="@dimen/text_size_small"
                 android:visibility="invisible"
                 app:typeface="roboto_medium" />
 
             <ImageView
-                android:id="@+id/contentTopRightMenu"
+                android:id="@+id/contentTopLeftMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
                 android:adjustViewBounds="true"
-                android:src="@drawable/selector_button_menu" />
+                android:src="@drawable/selector_button_menu"
+                android:visibility="invisible" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -54,6 +54,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/space_small_negative"
+        android:layout_marginRight="@dimen/space_medium"
         android:layout_weight="1"
         android:gravity="center_vertical|right"
         android:orientation="horizontal" />

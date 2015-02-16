@@ -24,7 +24,6 @@
         android:paddingRight="@dimen/space_medium">
 
         <TextView
-            android:id="@+id/textViewHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -33,7 +32,6 @@
             android:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/textViewSubHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"

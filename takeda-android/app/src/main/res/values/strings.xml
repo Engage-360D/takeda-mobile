@@ -105,6 +105,7 @@
     <!-- menu -->
     <!-- ==== -->
     <string name="menu_back">Назад</string>
+    <string name="menu_done">Готово</string>
     <string name="menu_item_main">Главная</string>
     <string name="menu_item_risk_analysis">Анализ риска</string>
     <string name="menu_item_add_pills">Добавить</string>
@@ -112,7 +113,7 @@
     <string name="menu_item_search_institutions">Поиск учреждений</string>
     <string name="menu_item_information">Информация</string>
     <string name="menu_item_settings">Настройки</string>
-    <string name="menu_item_recommendations">Рекомендаци</string>
+    <string name="menu_item_recommendations">Рекомендации</string>
     <string name="menu_item_analysis_results">Результаты анализа</string>
     <string name="menu_item_calendar">Календарь</string>
     <string name="menu_item_useful_to_know">Полезно знать</string>
@@ -182,9 +183,9 @@
     <string name="visit_doctor">Сходить к врачу</string>
     <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
 
-    <!-- ============================== -->
+    <!-- ================== -->
     <!-- fragment_add_pills -->
-    <!-- ============================== -->
+    <!-- ================== -->
     <string name="add">Добавить</string>
     <string name="pills_name">Название</string>
     <string name="number_of_pills">Количество</string>
@@ -193,6 +194,11 @@
     <string name="start_date_pills">Дата начала</string>
     <string name="end_date_pills">Дата завершения</string>
     <string name="condition">Состояние</string>
+
+    <!-- ========================= -->
+    <!-- fragment_cabinet_incident -->
+    <!-- ========================= -->
+    <string name="add_comment">Добавить комментарий</string>
 
     <!-- ============================ -->
     <!-- fragment_journal -->
@@ -218,9 +224,9 @@
     <string name="save">Сохранить</string>
     <string name="saved_successfully">Сохранено успешно</string>
 
-    <!-- ======================== -->
-    <!-- slidingmenu_cabinet_test -->
-    <!-- ======================== -->
+    <!-- ============ -->
+    <!-- cabinet_test -->
+    <!-- ============ -->
     <string name="recommendations">Рекомендации</string>
     <string name="additional_test">Дополнительный опрос\nпо корректировке диеты</string>
     <string name="cake_ice_cream">Торты/мороженое</string>
@@ -233,14 +239,15 @@
     <string name="try_to_limit">стараюсь\nограничивать</string>
     <string name="almost_never">почти\nне употребляю</string>
 
-    <!-- ============================ -->
-    <!-- slidingmenu_cabinet_settings -->
-    <!-- ============================ -->
+    <!-- ================ -->
+    <!-- cabinet_settings -->
+    <!-- ================ -->
     <string name="setting">Настройка</string>
     <string name="application_settings">Настройки приложения</string>
     <string name="delete_all_reports">Удалить все отчеты</string>
     <string name="must_be_password">Для операции необходимо пароль</string>
     <string name="exit">Выход</string>
+    <string name="exit_application">Выйти из приложения?</string>
     <string name="incident_occurred">У меня произошел инцидент</string>
     <string name="warning">Внимание!</string>
     <string name="infarction_occurred">вы перенесли Инфаркт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>

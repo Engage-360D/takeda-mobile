@@ -39,7 +39,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_start_login_or_restore, container, false);
-        initLoginOrRestoreFragment(view);
+        initFragment(view);
         return view;
     }
 
@@ -62,16 +62,16 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         }
     }
 
-    private void initLoginOrRestoreFragment(final View view) {
-        initLogin(view);
-        initRestore(view);
+    private void initFragment(final View view) {
+        initLoginFields(view);
+        initRestoreFields(view);
         initLoginRestoreSwitcher(view);
         initSocials(view);
         // TODO: remove after tests
         customizeIfDebug(view);
     }
 
-    private void initLogin(final View view) {
+    private void initLoginFields(final View view) {
         final EditText editTextEmailLogin = (EditText) view.findViewById(R.id.editTextEmailLogin);
         final EditText editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
         final Button buttonEnter = (Button) view.findViewById(R.id.buttonEnter);
@@ -125,7 +125,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         });
     }
 
-    private void initRestore(final View view) {
+    private void initRestoreFields(final View view) {
         final EditText editTextEmailRestore = (EditText) view.findViewById(R.id.editTextEmailRestore);
         final Button buttonRestore = (Button) view.findViewById(R.id.buttonRestore);
 

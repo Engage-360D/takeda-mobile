@@ -95,7 +95,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
 
         View linearLayoutScoreNote = view.findViewById(R.id.linearLayoutScoreNote);
         View linearLayoutFullScreenAlert = view.findViewById(R.id.linearLayoutFullScreenAlert);
-        View linearLayoutMainRecommendation = view.findViewById(R.id.linearLayoutScoreNote);
+        View linearLayoutMainRecommendation = view.findViewById(R.id.linearLayoutMainRecommendation);
 
         TestNote scoreNote = testResult.getRecommendations().getScoreNote();
         TestNote fullScreenAlert = testResult.getRecommendations().getFullScreenAlert();
@@ -293,6 +293,8 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             pieceView.setVisibility(View.GONE);
             return;
         }
+
+        pieceView.setVisibility(View.VISIBLE);
 
         setImageView(imageViewState, testNote.getState());
         setTextView(textViewText, testNote.getText());

@@ -26,12 +26,8 @@ public class RegistrationFragment extends BaseStartFragment {
 
     @Override
     public void initParent(Activity activity) {
-        TextView textViewHeader = (TextView) activity.findViewById(R.id.textViewHeader);
-
         ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) activity.findViewById(R.id.progressBarBottomOutsideStartWork);
         TextView textViewBottomOutsideAction = (TextView) activity.findViewById(R.id.textViewBottomOutsideAction);
-
-        textViewHeader.setText(activity.getString(R.string.header_registration));
 
         progressBarBottomOutsideStartWork.setMax(3);
         progressBarBottomOutsideStartWork.setProgress(2);
