@@ -12,7 +12,7 @@
 
 
 @interface RegistrationPage (){
-    UIActionSheet *picker_cover;
+    CActionSheet *picker_cover;
     NSMutableArray *regions_data;
     UIPickerView *region_picker;
     UIDatePicker *date_picker;
@@ -91,6 +91,7 @@ NSString *sentEmail;
 }
 
 -(void)initData{
+    regions_data = [GlobalData regionsList];
     [ServData loadRegionsWithCompletion:^(BOOL success, id result){
         if (success){
             regions_data = [GlobalData regionsList];
@@ -218,28 +219,29 @@ NSString *sentEmail;
 //            }
 //        }
 //        
-
+    
         [ServData registrationUserWithData:params completion:^(BOOL result, NSError *error, NSString* textError){
             if (result){
-            [ServData authUserWithLogin:email password:password completion:^(BOOL result, NSError *error) {
-                if (result) {
-                    [User setCurrentUser:User.user_name];
-                    [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
-                        [User setCurrentUser:User.user_name];
-                        if (result){
-                            NSLog(@"userData - %@",[[UserData sharedObject] getUserData]);
-                            UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
-                            [vc.navigationController setNavigationBarHidden:NO];
-                            [ApplicationDelegate setRootViewController:vc];
-                        } else {
-                            [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
-                        }
-                    }];
-                    
-                } else {
-                    [Helper fastAlert:@"Ошибка авторизации"];
-                }
-            }];
+                [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
+                    if (result) {
+                        [User setCurrentUser:User.user_login];
+                        [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
+                            [User setCurrentUser:User.user_login];
+                            if (result){
+                                UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
+                                [vc.navigationController setNavigationBarHidden:NO];
+                                [ApplicationDelegate setRootViewController:vc];
+                            } else {
+                                [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
+                            }
+                        }];
+                        
+                    } else {
+                        [Helper fastAlert:@"Ошибка авторизации"];
+                    }
+                }];
+
+                
             } else {
                 [Helper fastAlert:@"Ошибка регистрации"];
             }
@@ -319,11 +321,8 @@ NSString *sentEmail;
 
 -(IBAction)showPickerRegion:(id)sender{
     picker_cover = nil;
-    picker_cover = [[UIActionSheet alloc] initWithTitle:nil
-                                       delegate:nil
-                              cancelButtonTitle:@""
-                         destructiveButtonTitle:nil
-                              otherButtonTitles:nil];
+
+    picker_cover = [[CActionSheet alloc] initInView:self.view];
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
@@ -348,14 +347,13 @@ NSString *sentEmail;
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:region_picker];
     picker_cover.backgroundColor = [UIColor whiteColor];
-    [picker_cover showInView:self.view.superview];
-    [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 1;
     [region_picker selectRow:sel_index_region inComponent:0 animated:NO];
+    [picker_cover show];
 }
 
 -(void)closePicker{
-    [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
+    [picker_cover dissmiss];
 }
 
 
@@ -369,7 +367,7 @@ NSString *sentEmail;
             [self setDateBirthDay:birthdayDate];
         }
     }
-    [picker_cover dismissWithClickedButtonIndex:0 animated:YES];
+    [picker_cover dissmiss];
 }
 
 
@@ -417,12 +415,7 @@ numberOfRowsInComponent:(NSInteger)component
 
 -(IBAction)showTimePicker:(id)sender{
     picker_cover = nil;
-    picker_cover = [[UIActionSheet alloc] initWithTitle:nil
-                                               delegate:nil
-                                      cancelButtonTitle:@""
-                                 destructiveButtonTitle:nil
-                                      otherButtonTitles:nil];
-    
+    picker_cover = [[CActionSheet alloc] initInView:self.view];
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
     NSMutableArray *items = [[NSMutableArray alloc] init];
@@ -449,9 +442,9 @@ numberOfRowsInComponent:(NSInteger)component
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:date_picker];
     picker_cover.backgroundColor = [UIColor whiteColor];
-    [picker_cover showInView:self.view.superview];
     [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 2;
+    [picker_cover show];
 }
 
 

@@ -12,17 +12,18 @@
 @interface ResultRiskAnal (){
     
     NSMutableArray *results_banners_array;
-    NSMutableDictionary *results_data;
     NSMutableArray *allResults;
 }
 
 @end
 
 @implementation ResultRiskAnal
-
+@synthesize searchInstitutionPage;
+@synthesize dietTest;
+@synthesize results_data;
 
 -(NSDictionary*)hardCodedItems{
-    return @{@"additionalDietTest":@{@"state":@"question", @"action":[NSValue valueWithPointer:@selector(openAdditionalTest)],@"title":@"Дополнительная корректировка диеты", @"note":@"Пройти опрос"}};
+    return @{@"additionalDietTest":@{@"state":@"question", @"action":@"openAdditionalFoodTest",@"title":@"Дополнительная корректировка диеты", @"note":@"Пройти опрос"}};
 }
 
 -(NSArray*)results_banners_model{
@@ -56,6 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mainElement = self.tableView;
     [self setupInterface];
 }
 
@@ -66,6 +68,10 @@
 }
 
 -(void)setupInterface{
+    self.medSearchBtn.layer.borderColor = RGB(152, 198, 245).CGColor;
+    self.medSearchBtn.layer.borderWidth = 0.5f;
+    self.medSearchBtn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14];
+
     self.profilacticCalendarBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.profilacticCalendarBtn.layer.borderWidth = 1.0f;
     self.profilacticCalendarBtn.layer.cornerRadius = 4.0f;
@@ -82,9 +88,11 @@
 }
 
 -(void)initData{
-    allResults = [GlobalData resultAnalyses];
-    if (allResults.count>0){
-        results_data = [[GlobalData resultAnalyses] lastObject];
+    if (!results_data){
+        allResults = [GlobalData resultAnalyses];
+        if (allResults.count>0){
+            results_data = [[GlobalData resultAnalyses] lastObject];
+        }
     }
     
     results_banners_array = [NSMutableArray new];
@@ -131,11 +139,12 @@
     
     self.scoreLineContainer.y = self.mainRecomendation.bottom;
     self.scoreNoteText.y = self.scoreLineContainer.bottom;
-    [self.headerView setupAutosizeBySubviewsWithBottomDistance:20];
+    self.medSearchBtn.y = self.scoreNoteText.bottom+20;
+    
+    [self.headerView setupAutosizeBySubviewsWithBottomDistance:0];
 }
 
 -(void)showScoreLine{
-    [results_data setValue:@"12" forKey:@"score"];
     if ([results_data[@"score"] isEqual:[NSNull null]] ||
         !results_data[@"score"] ||
         [results_data[@"score"] isEqual:[NSNull null]] ||
@@ -297,8 +306,10 @@
     
     if (item[@"pageUrl"]){
         cell.backgroundColor = [self normCellColor];
+        cell.arrowRight.hidden = NO;
     } else {
         cell.backgroundColor = [self attentionCellColor];
+        cell.arrowRight.hidden = YES;
     }
     
     cell.backgroundColor = [self normCellColor];
@@ -313,9 +324,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSMutableDictionary *item = results_banners_array[indexPath.section][@"data"][indexPath.row];
+    NSMutableDictionary *item = results_banners_array[indexPath.section][@"keys"][indexPath.row];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    
+    
+    if (item[@"action"]){
+        SEL selMenu = NSSelectorFromString(item[@"action"]);
+        typedef void (*methodPtr)(id, SEL);
+        methodPtr command = (methodPtr)[self methodForSelector:selMenu];
+        if ([self respondsToSelector:selMenu]){
+            command(self, selMenu);
+        }
 
-//    
+    } else {
+        if (item[@"pageUrl"]){
+            [self openDetail:item];
+        }
+    }
+
+    
+//
 //    NSString *key = item[@"pageUrl"];
 //    NSDictionary *data_page = [self getDicPage:key];
 //    
@@ -339,14 +368,41 @@
 //    [self.navigationController pushViewController:detailResultRiskAnalysis animated:YES];
 }
 
+#pragma mark - Actions
 
+-(IBAction)shareAction:(id)sender{
+    [self showMessageWithTextInput:@"E-mail" msg:@"Отправить результат тестирования по почте" title:@"Share" btns:@[@"Отмена",@"Отправить"] params:nil result:^(int index, NSString *text){
+        [ServData shareTest:[results_data[@"id"] intValue] viaEmail:text completition:^(BOOL success, id result){
+            NSLog(@"%@",result);
+            [self showMessage:[NSString stringWithFormat:@"Результат теста \nотправлен на почту \n%@",text] title:@"Уведомление"];
+        }];
+    }];
+}
 
--(void)openAdditionalTest{
-    
+-(void)openDetail:(NSMutableDictionary*)info{
+    _resultRiskAnalDetail = [ResultRiskAnalDetail new];
+    _resultRiskAnalDetail.blockInfo = info;
+    [self.navigationController pushViewController:_resultRiskAnalDetail animated:YES];
+}
+
+-(IBAction)infoAction:(id)sender{
+    _usefulKnowPage = [UsefulKnowPage new];
+    [self.navigationController pushViewController:_usefulKnowPage animated:YES];
+}
+
+-(void)openAdditionalFoodTest{
+    dietTest = [DietTest new];
+    [self.navigationController pushViewController:dietTest animated:YES];
 }
 
 -(IBAction)openProfilacticCalendarAction:(id)sender{
     
 }
+
+-(IBAction)searchMedsAction:(id)sender{
+    searchInstitutionPage = [SearchInstitutionPage new];
+    [self.navigationController pushViewController:searchInstitutionPage animated:YES];
+}
+
 
 @end

@@ -191,6 +191,8 @@ static AllSingle *dot = nil;
 
 -(NSDate*) parseDateTime:(NSString *)dateString{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //    formatter.locale = [NSLocale currentLocale]; // Necessary?
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"];
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"];
     return [dateFormatter dateFromString:dateString];
 }
@@ -202,9 +204,7 @@ static AllSingle *dot = nil;
 }
 
 -(NSString*) strDateTime:(NSDate *)date{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"];
-    return [dateFormatter stringFromDate:date];
+    return [date stringWithFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"];
 }
 
 
@@ -222,6 +222,19 @@ static AllSingle *dot = nil;
     return [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1];
 }
 
+-(int)index:(id)tValue inArray:(NSArray*)array{
+    NSString *t1 = [NSString stringWithFormat:@"%@",tValue];
+
+    for (int i = 0; i<array.count; i++){
+        NSString *t2 = [NSString stringWithFormat:@"%@",array[i]];
+        if ([t1 isEqualToString:t2]) {
+            return i;
+        }
+    }
+    
+    return NSNotFound;
+}
+
 -(NSMutableDictionary*)values:(NSString*)values ForKeys:(NSString*)keys InArray:(NSArray*)array{
     NSMutableDictionary*dict = [NSMutableDictionary new];
     for (NSDictionary* arr_dict in array){
@@ -230,10 +243,26 @@ static AllSingle *dot = nil;
     return dict;
 }
 
--(NSMutableDictionary*)dictionaryWithValue:(NSString*)value ForKey:(NSString*)key InArray:(NSArray*)array{
+-(NSMutableDictionary*)dictionaryWithValue:(id)value ForKey:(NSString*)key InArray:(NSArray*)array{
+
     for (NSDictionary* arr_dict in array){
-        if ([arr_dict[key] isEqual:value]) return [self recursiveMutable:arr_dict];
+        
+        NSString *str1 = [NSString stringWithFormat:@"%@",arr_dict[key]];
+        NSString *str2 = [NSString stringWithFormat:@"%@",value];
+        BOOL eq = [str1 isEqualToString:str2];
+        if (eq) return [self recursiveMutable:arr_dict];
+        
+//
+//        if ([value isKindOfClass:[NSString class]]){
+//            if ([arr_dict[key] isEqualToString:value]) return [self recursiveMutable:arr_dict];
+//        } else if ([value isKindOfClass:[NSNumber class]]){
+//            if ([arr_dict[key] isEqualToNumber: value]) return [self recursiveMutable:arr_dict];
+//        } else {
+//            if ([arr_dict[key] isEqual:value]) return [self recursiveMutable:arr_dict];
+//        }
+        
     }
+    
     return nil;
 }
 

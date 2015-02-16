@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "StandartCombyCell.h"
 #import "Drugs.h"
+#import "ResultRiskAnal.h"
+
 
 @interface MainPage : VControllerExt
 
@@ -18,5 +20,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *datePeriod;
 @property (nonatomic, strong) IBOutlet UILabel *todayLabel;
 @property (nonatomic, strong) Drugs *drugs;
+@property (nonatomic, strong) ResultRiskAnal *resultRiskAnal;
 
 @end

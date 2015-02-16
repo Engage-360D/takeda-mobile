@@ -59,30 +59,41 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [self updateMenuData];
     }
     return self;
+}
+
+-(void)updateMenuData{
+    menuData = [Global recursiveMutable:
+                @[@{@"name" :@"Главная", @"enabled":@"YES"},
+                  @{@"name" :@"Анализ риска", @"enabled":@"YES"},
+                  @{@"name" :@"Поиск учреждений", @"enabled":@"YES"},
+                  @{@"name" :@"Рекомендации", @"enabled":@"NO"},
+                  @{@"name" :@"Результаты анализа", @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
+                  @{@"name" :@"Календарь", @"enabled":@"NO"},
+                  @{@"name" :@"Полезно знать", @"enabled":@"YES"},
+                  @{@"name" :@"Публикации", @"enabled":@"YES"},
+                  @{@"name" :@"Отчеты", @"enabled":@"YES"}
+                  ]];
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self updateMenuData];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [GlobalSettings sharedInstance].stateMenu = State_MainPage;
     last_stateMenu = State_MainPage;
-    
-        menuData =
-          @[@{@"name" :@"Главная", @"enabled":@"YES"},
-          @{@"name" :@"Анализ риска", @"enabled":@"YES"},
-          @{@"name" :@"Поиск учреждений", @"enabled":@"YES"},
-          @{@"name" :@"Рекомендации", @"enabled":@"NO"},
-          @{@"name" :@"Результаты анализа", @"enabled":@"YES"},
-          @{@"name" :@"Календарь", @"enabled":@"NO"},
-          @{@"name" :@"Полезно знать", @"enabled":@"YES"},
-          @{@"name" :@"Публикации", @"enabled":@"YES"},
-          @{@"name" :@"Отчеты", @"enabled":@"YES"}
-          ];
     }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self updateMenuData];
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Table view data source
 
@@ -156,8 +167,12 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    switch ((indexPath.row+1)) {
+    [self selectMenuIndex:indexPath.row+1];
+}
+
+
+-(void)selectMenuIndex:(int)index{
+    switch (index) {
         case State_MainPage:{
             [GlobalSettings sharedInstance].stateMenu = State_MainPage;
             
@@ -173,8 +188,21 @@
                 
             }
             break;}
-
+            
         case State_Risk_Analysis:{
+            
+            if (appDelegate.hostConnection == NotReachable) {
+                FastAlert(@"Ошибка", @"Нет соединения с интернетом");
+                return;
+            }
+            
+//            NSDate *lastResultDate = [GlobalData lastResultDate];
+//            if ([[[NSDate date] dateBySubtractingMonths:1] isEarlierThanDate:lastResultDate]&&User.userType != tDoctor){
+//                // рано еще тест проходить
+//                [self showMessage:@"Вы можете проходить тест только один раз в месяц" title:@"Отказ"];
+//                return;
+//            }
+            
             [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
             
             if ([self checkLastController]) {
@@ -184,8 +212,8 @@
                 
                 
                 /*if (!riskAnalysis_vc) {
-                    riskAnalysis_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getRiskAnalysisPage]];
-                }*/
+                 riskAnalysis_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getRiskAnalysisPage]];
+                 }*/
                 
                 [self.slideMenuController closeMenuBehindContentViewController:[[rootMenuController sharedInstance] riskAnalysis_vc] animated:YES completion:nil];
             }
@@ -226,11 +254,22 @@
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
             }else{
-                if (!analisisResult_vc) {
-                    analisisResult_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getAnalisisResultPage]];
+                if (![User checkForRole:tDoctor]){
+                    if (!resultRiskAnal) {
+                        resultRiskAnal = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getResultRiskAnal]];
+                    }
+                    last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
+                    ((ResultRiskAnal*)((UINavigationController*)resultRiskAnal).viewControllers.firstObject).isFromMenu = YES;
+                    [self.slideMenuController closeMenuBehindContentViewController:resultRiskAnal animated:YES completion:nil];
+                } else {
+                    if (!analisisResult_vc) {
+                        analisisResult_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getAnalisisResultPage]];
+                    }
+                    last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
+                    ((AnalisisResultPage*)((UINavigationController*)analisisResult_vc).viewControllers.firstObject).isFromMenu = YES;
+                    [self.slideMenuController closeMenuBehindContentViewController:analisisResult_vc animated:YES completion:nil];
                 }
-                last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
-                [self.slideMenuController closeMenuBehindContentViewController:analisisResult_vc animated:YES completion:nil];
+                
                 
             }
             break;}
@@ -293,11 +332,9 @@
         default:
             break;
     }
-    
-    
     [self.tableView reloadData];
+    
 }
-
 
 -(BOOL)checkLastController{
     if ([GlobalSettings sharedInstance].stateMenu==last_stateMenu) {

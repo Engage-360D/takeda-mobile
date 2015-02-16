@@ -7,16 +7,22 @@
 //
 
 #import "AppDelegate.h"
-#import "WelcomePage.h"
 #import "Odnoklassniki.h"
 #import "Path.h"
 
 @implementation AppDelegate
-WelcomePage *welcomePage;
-
+@synthesize hostReachability;
+@synthesize welcomePage;
+@synthesize authPage;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
+    NSString *remoteHostName = @"www.apple.com";
+    self.hostReachability = [Reachability reachabilityWithHostName:remoteHostName];
+    [self.hostReachability startNotifier];
+
     [Path checkDirectories];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [GMSServices provideAPIKey:@"AIzaSyCJbaqLyduDBLnzodgcq5WdD7ebS2tU2DM"];
@@ -25,7 +31,7 @@ WelcomePage *welcomePage;
     
     
     self.window.backgroundColor = [UIColor whiteColor];
-    // [self showAllFonts];
+    [self showAllFonts];
   // [self showFonts];
     [self.window makeKeyAndVisible];
     return YES;
@@ -35,6 +41,24 @@ WelcomePage *welcomePage;
 -(void)openWelcomePage{
     welcomePage = [[WelcomePage alloc] initWithNibName:@"WelcomePage" bundle:nil];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:welcomePage];
+}
+
+-(void)openAuthPage{
+    authPage = [AuthPage new];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:authPage];
+}
+
+- (void)networkChanged:(NSNotification *)notification
+{
+    NetworkStatus remoteHostStatus = [hostReachability currentReachabilityStatus];
+    if (remoteHostStatus == NotReachable) { NSLog(@"not reachable");}
+    else if (remoteHostStatus == ReachableViaWiFi) { NSLog(@"wifi"); }
+    else if (remoteHostStatus == ReachableViaWWAN) { NSLog(@"carrier"); }
+}
+
+-(NetworkStatus)hostConnection{
+    NetworkStatus remoteHostStatus = [hostReachability currentReachabilityStatus];
+    return remoteHostStatus;
 }
 
 

@@ -20,6 +20,7 @@
 @class ReportsPage;
 @class NVSlideMenuController;
 @class MainPage;
+@class ResultRiskAnal;
 
 @interface rootMenuController : NSObject
 +(rootMenuController*)sharedInstance;
@@ -34,6 +35,10 @@
 -(ReportsPage*)getReportsPage;
 -(NVSlideMenuController*)getMenuController;
 -(MainPage*)getMainPage;
+-(ResultRiskAnal*)getResultRiskAnal;
 
 -(UIViewController*)riskAnalysis_vc;
+
+-(void)resetControllers;
+
 @end

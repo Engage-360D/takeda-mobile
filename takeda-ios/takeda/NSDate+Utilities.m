@@ -85,7 +85,8 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
 - (NSString *) stringWithFormat: (NSString *) format
 {
     NSDateFormatter *formatter = [NSDateFormatter new];
-    formatter.locale = [NSLocale currentLocale]; // Necessary?
+//    formatter.locale = [NSLocale currentLocale]; // Necessary?
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"];
     formatter.dateFormat = format;
     return [formatter stringFromDate:self];
 }

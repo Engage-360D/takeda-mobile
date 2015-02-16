@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Synchronizer.h"
 
 @interface GlobalData : NSObject
 
@@ -21,6 +22,16 @@
 
 +(void)saveResultAnalyses:(NSMutableDictionary*)result;
 +(NSMutableArray*)resultAnalyses;
++(int)lastResultDataId;
++(void)writeLastResultDataId:(int)lId;
++(NSDate*)lastResultDate;
 
+-(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
+-(void)addIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
+-(void)deleteIncident:(NSMutableArray*)inc incident:(IncidentType)incType;
+-(void)deleteAllIncidents:(NSMutableArray*)inc;
++(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion;
+
++(void)clearFiles;
 
 @end

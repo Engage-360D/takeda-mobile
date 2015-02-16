@@ -10,4 +10,10 @@
 
 @interface UsefulKnowPage : VControllerExt
 
+@property (nonatomic, strong) IBOutletCollection(UIButton) NSMutableArray *btnsCollection;
+@property (nonatomic,retain) IBOutletCollection(UILabel) NSArray *blockLabels;
+
+@property (nonatomic, strong) IBOutlet UIButton *infInsInfo;
+@property (nonatomic, strong) IBOutlet UIButton *LifeStyle;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @end
