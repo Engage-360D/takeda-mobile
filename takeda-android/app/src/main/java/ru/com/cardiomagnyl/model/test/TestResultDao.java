@@ -177,7 +177,7 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
         return testResultList;
     }
 
-    public static TestResult getNewestResult(List<TestResult> testResultList, User user) {
+    public static TestResult getNewestResult(List<TestResult> testResultList) {
         TestResult newestResult = (testResultList == null || testResultList.isEmpty()) ? null : testResultList.get(0);
         if (newestResult != null) {
             for (TestResult currentTestResult : testResultList) {

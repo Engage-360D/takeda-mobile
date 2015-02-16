@@ -118,7 +118,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                 new CallbackOne<List<TestResult>>() {
                     @Override
                     public void execute(List<TestResult> testResultList) {
-                        finishInitialization(token, user, TestResultDao.getNewestResult(testResultList, user), null);
+                        finishInitialization(token, user, TestResultDao.getNewestResult(testResultList), null);
                     }
                 },
                 new CallbackOne<Response>() {

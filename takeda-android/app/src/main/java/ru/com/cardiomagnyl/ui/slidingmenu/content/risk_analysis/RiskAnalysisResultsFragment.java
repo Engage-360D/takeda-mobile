@@ -68,24 +68,27 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         ScrollView scrollViewResults = (ScrollView) view.findViewById(R.id.scrollViewResults);
         TextView textViewError = (TextView) view.findViewById(R.id.textViewError);
 
-        scrollViewResults.setVisibility(isNotPassed ? View.INVISIBLE : View.VISIBLE);
-        textViewError.setVisibility(!isNotPassed ? View.INVISIBLE : View.VISIBLE);
-
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         if (testResult != null) {
-            SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
             slidingMenuActivity.unLockMenu();
             updateMenu();
 
             initTopBarBellCabinet(slidingMenuActivity.getLayoutHeader(), true, true);
         } else {
-            initTopBarBellCabinet((ViewGroup) view.getParent(), false, false);
+            initTopBarBellCabinet(slidingMenuActivity.getLayoutHeader(), false, false);
         }
 
         if (isNotPassed) {
+            scrollViewResults.setVisibility(View.INVISIBLE);
+            textViewError.setVisibility(View.VISIBLE);
+
             initButtons(view, null, user, token);
             initScore(view, null);
             return;
         } else {
+            scrollViewResults.setVisibility(View.VISIBLE);
+            textViewError.setVisibility(View.INVISIBLE);
+
             initButtons(view, testResult, user, token);
             initScore(view, testResult);
         }

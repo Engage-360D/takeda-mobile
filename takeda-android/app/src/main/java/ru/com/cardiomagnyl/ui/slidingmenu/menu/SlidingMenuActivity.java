@@ -124,7 +124,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     }
 
     public ViewGroup getLayoutHeader() {
-        return (ViewGroup)findViewById(R.id.layoutHeader);
+        return (ViewGroup) findViewById(R.id.layoutHeader);
     }
 
     public static int getFistItem() {
@@ -132,11 +132,11 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     }
 
     private static boolean mustPassTest() {
-        TestResult testResult = AppState.getInsnatce().getTestResult();
-        User user = AppState.getInsnatce().getUser();
+        TestResult lastTestResult = AppState.getInsnatce().getTestResult();
+        User currentUser = AppState.getInsnatce().getUser();
 
-        boolean userMustPassTest = testResult == null || testResult.isAllowedNewTest();
-        boolean doctorMustPassTest = testResult == null && user.isDoctor();
+        boolean userMustPassTest = (lastTestResult == null || lastTestResult.isAllowedNewTest()) && !currentUser.isDoctor();
+        boolean doctorMustPassTest = lastTestResult == null && currentUser.isDoctor();
         return userMustPassTest || doctorMustPassTest;
     }
 
