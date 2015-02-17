@@ -34,4 +34,6 @@
 
 +(void)clearFiles;
 
++(id)cashedRequest:(NSString*)url;
++(void)casheRequest:(id)res fromUrl:(NSString*)url;
 @end

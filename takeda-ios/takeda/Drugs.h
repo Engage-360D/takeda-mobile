@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "StandartCombyCell.h"
+#import "AddPills.h"
 
 @interface Drugs : VControllerExt
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UILabel *bottomText;
 @property (nonatomic, strong) IBOutlet UIButton *goToDoctorBtn;
-
+@property (nonatomic, strong) AddPills *addPills;
 @end

@@ -14,6 +14,7 @@
 +(NSString*)JSONFolder;
 +(NSString*)JResultsFolder;
 +(NSString*)UsersFolder;
++(NSString*)CasheFolder;
 
 
 @end

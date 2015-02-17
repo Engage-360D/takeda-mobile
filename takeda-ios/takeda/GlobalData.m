@@ -11,6 +11,7 @@
 #define regionsListFile  @"regionsListFile"
 #define resultAnalysesFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"analize_results"]
 #define userSettingsFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"user"]
+#define cashFile(url) [NSString stringWithFormat:@"%@/%@", [Path CasheFolder],url]
 
 
 @implementation GlobalData
@@ -144,15 +145,22 @@ static GlobalData *objectInstance = nil;
         completion(success, result);
     }];
     
-    
 }
 
 +(id)cashedRequest:(NSString*)url{
-    return nil;
+    if (appDelegate.hostConnection != NotReachable) {
+        return nil;
+    }
+    NSString *fileName = cashFile([Global PathFromUrl:url]);
+    NSData *data = [[NSData alloc] initWithContentsOfFile:fileName];
+    return [Global recursiveMutable:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
 }
 
-+(void)casheRequest:(id)res{
-    
++(void)casheRequest:(id)res fromUrl:(NSString*)url{
+    NSString *fileName = cashFile([Global PathFromUrl:url]);
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:res];
+    [data writeToFile:fileName atomically:YES];
+
 }
 
 @end

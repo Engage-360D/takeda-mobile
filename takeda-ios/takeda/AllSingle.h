@@ -62,11 +62,13 @@ typedef void(^MyGlobalBlock)(void);
 - (NSMutableDictionary*)values:(NSString*)values ForKeys:(NSString*)keys InArray:(NSArray*)array;
 - (NSMutableDictionary*)dictionaryWithValue:(id)value ForKey:(NSString*)key InArray:(NSArray*)array;
 - (NSDate*) parseDate:(NSString *)dateString;
+- (NSDate*) parseTime:(NSString *)timeString;
 - (NSDate*) parseDateTime:(NSString *)dateString;
 - (NSString*) strDate:(NSDate *)date;
 - (NSString*) strDateTime:(NSDate *)date;
 - (void)callPhone:(NSString*)number;
 - (UIColor*) randomColor;
 - (void)removeSubviewsFrom:(UIView*)view;
+- (NSString*)PathFromUrl:(NSString*)url;
 
 @end

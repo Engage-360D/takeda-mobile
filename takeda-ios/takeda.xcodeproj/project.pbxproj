@@ -58,6 +58,10 @@
 		5B5CC2391A92497100BACFEF /* grayArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5CC2371A92497100BACFEF /* grayArrowDown@2x.png */; };
 		5B5CC23A1A92497100BACFEF /* grayArrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5CC2381A92497100BACFEF /* grayArrowUp@2x.png */; };
 		5B5CC23C1A92560200BACFEF /* attention_bigRed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5CC23B1A92560200BACFEF /* attention_bigRed@2x.png */; };
+		5B5CC2401A93283900BACFEF /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5CC23F1A93283900BACFEF /* NSString+MD5.m */; };
+		5B5CC2451A93420B00BACFEF /* AddPills.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5CC2431A93420B00BACFEF /* AddPills.m */; };
+		5B5CC2461A93420B00BACFEF /* AddPills.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B5CC2441A93420B00BACFEF /* AddPills.xib */; };
+		5B5CC2481A9394B400BACFEF /* addWhiteInCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5CC2471A9394B400BACFEF /* addWhiteInCircle@2x.png */; };
 		5B643F481A80E547000EC08C /* PropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B643F471A80E547000EC08C /* PropertyList.plist */; };
 		5B643F4D1A8112BB000EC08C /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B643F4B1A8112BB000EC08C /* UserInfo.m */; };
 		5B643F4E1A8112BB000EC08C /* UserInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B643F4C1A8112BB000EC08C /* UserInfo.xib */; };
@@ -356,6 +360,12 @@
 		5B5CC2371A92497100BACFEF /* grayArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrowDown@2x.png"; sourceTree = "<group>"; };
 		5B5CC2381A92497100BACFEF /* grayArrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrowUp@2x.png"; sourceTree = "<group>"; };
 		5B5CC23B1A92560200BACFEF /* attention_bigRed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "attention_bigRed@2x.png"; sourceTree = "<group>"; };
+		5B5CC23E1A93283900BACFEF /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		5B5CC23F1A93283900BACFEF /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		5B5CC2421A93420B00BACFEF /* AddPills.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPills.h; sourceTree = "<group>"; };
+		5B5CC2431A93420B00BACFEF /* AddPills.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPills.m; sourceTree = "<group>"; };
+		5B5CC2441A93420B00BACFEF /* AddPills.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPills.xib; sourceTree = "<group>"; };
+		5B5CC2471A9394B400BACFEF /* addWhiteInCircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addWhiteInCircle@2x.png"; sourceTree = "<group>"; };
 		5B643F471A80E547000EC08C /* PropertyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PropertyList.plist; sourceTree = "<group>"; };
 		5B643F4A1A8112BB000EC08C /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		5B643F4B1A8112BB000EC08C /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserInfo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -788,6 +798,16 @@
 			name = AddIncident;
 			sourceTree = "<group>";
 		};
+		5B5CC2411A9341F200BACFEF /* AddPills */ = {
+			isa = PBXGroup;
+			children = (
+				5B5CC2421A93420B00BACFEF /* AddPills.h */,
+				5B5CC2431A93420B00BACFEF /* AddPills.m */,
+				5B5CC2441A93420B00BACFEF /* AddPills.xib */,
+			);
+			name = AddPills;
+			sourceTree = "<group>";
+		};
 		5B643F491A811223000EC08C /* Pages */ = {
 			isa = PBXGroup;
 			children = (
@@ -893,6 +913,7 @@
 		5BA18DDE1A4DC6BC0090DD46 /* MainPage */ = {
 			isa = PBXGroup;
 			children = (
+				5B5CC2411A9341F200BACFEF /* AddPills */,
 				5B5CC2251A8E089400BACFEF /* AddIncident */,
 				5B8317681A768A4300A5EFDF /* DietTest */,
 				5B69F31E1A6FFC3E00643978 /* Drugs */,
@@ -1143,6 +1164,7 @@
 		B2B9C42D18EB5C460066F146 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5B5CC2471A9394B400BACFEF /* addWhiteInCircle@2x.png */,
 				5B5CC2371A92497100BACFEF /* grayArrowDown@2x.png */,
 				5B5CC2381A92497100BACFEF /* grayArrowUp@2x.png */,
 				5B5CC23B1A92560200BACFEF /* attention_bigRed@2x.png */,
@@ -1284,6 +1306,8 @@
 				B2AE3A4B18F0082600B7A75E /* NSTypeExtended.m */,
 				B2BAA9ED18ECBC670079D305 /* Helper.h */,
 				B2BAA9EE18ECBC670079D305 /* Helper.m */,
+				5B5CC23E1A93283900BACFEF /* NSString+MD5.h */,
+				5B5CC23F1A93283900BACFEF /* NSString+MD5.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -1655,6 +1679,7 @@
 				B2B9C46018EB733C0066F146 /* button_arrow_bg@2x.png in Resources */,
 				5B8317541A75442D00A5EFDF /* question_small.png in Resources */,
 				8DA6521218EE9B0C002A04D1 /* vk_logo@2x.png in Resources */,
+				5B5CC2481A9394B400BACFEF /* addWhiteInCircle@2x.png in Resources */,
 				B2B9C45A18EB73300066F146 /* pageIndicator_enable@2x.png in Resources */,
 				B2AD4F2E18F5FF8F006B56F5 /* danger_icon_red@2x.png in Resources */,
 				5B69F30D1A6ECF2800643978 /* LPUDetail.xib in Resources */,
@@ -1691,6 +1716,7 @@
 				5B8317501A75382000A5EFDF /* whiteArrowRight.png in Resources */,
 				5B1DB1101A6E61190099E35C /* StandartCombyCell.xib in Resources */,
 				B282C54718F1FC22009450B7 /* doc_tools_icon@2x.png in Resources */,
+				5B5CC2461A93420B00BACFEF /* AddPills.xib in Resources */,
 				B282C55018F203F3009450B7 /* result_separator_color.png in Resources */,
 				5B5CC23C1A92560200BACFEF /* attention_bigRed@2x.png in Resources */,
 				B2B5A83818EE029B00299CAF /* welcome_logo.png in Resources */,
@@ -1822,6 +1848,7 @@
 				B2AE3B0218F0300F00B7A75E /* OKRequest.m in Sources */,
 				B2D74D0318E4D68200B31E16 /* AnalisisResultPage.m in Sources */,
 				5B69F3291A7009BA00643978 /* BtnCheckBox.m in Sources */,
+				5B5CC2401A93283900BACFEF /* NSString+MD5.m in Sources */,
 				5B83173C1A7515C800A5EFDF /* ResultRiskAnal.m in Sources */,
 				B2AE3B0518F0300F00B7A75E /* OKTokenCache.m in Sources */,
 				B2B9C46518EB78F70066F146 /* analizRadioCell.m in Sources */,
@@ -1836,6 +1863,7 @@
 				B2D74D1C18E4D79C00B31E16 /* GlobalSettings.m in Sources */,
 				5B15F7D91A64299900E5E838 /* FMDatabaseAdditions.m in Sources */,
 				B2AE3B2818F031B200B7A75E /* SBJsonStreamWriterAccumulator.m in Sources */,
+				5B5CC2451A93420B00BACFEF /* AddPills.m in Sources */,
 				B2AE3B2518F031B200B7A75E /* SBJsonStreamParserAdapter.m in Sources */,
 				B2BAA9EF18ECBC670079D305 /* Helper.m in Sources */,
 				B2D74CE118E4D33000B31E16 /* LeftMenu.m in Sources */,

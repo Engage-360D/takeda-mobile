@@ -189,6 +189,13 @@ static AllSingle *dot = nil;
     return [dateFormatter dateFromString:dateString];
 }
 
+-(NSDate*) parseTime:(NSString *)timeString{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    return [dateFormatter dateFromString:timeString];
+}
+
+
 -(NSDate*) parseDateTime:(NSString *)dateString{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //    formatter.locale = [NSLocale currentLocale]; // Necessary?
@@ -479,6 +486,23 @@ static AllSingle *dot = nil;
     return [NSArray arrayWithArray:[array sortedArrayUsingDescriptors:sortDescriptors]];
 }
 
+-(UIView*)superSuperView:(UIView*)view{
+    UIView*supView;
+    while (view.superview!=nil) {
+        supView = [self superSuperView:view];
+    }
+    return view.superview;
+}
+
+-(NSString*)PathFromUrl:(NSString*)url{
+    return [url MD5String];
+}
+
+
+
+
+
+
 #pragma mark Base64
 -(NSString*)base64forData:(NSData*)theData {
     
@@ -512,13 +536,7 @@ static AllSingle *dot = nil;
     return [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding] ;
 }
 
--(UIView*)superSuperView:(UIView*)view{
-    UIView*supView;
-    while (view.superview!=nil) {
-        supView = [self superSuperView:view];
-    }
-    return view.superview;
-}
+
 
 - (NSData *)base64DataFromString: (NSString *)string
 {

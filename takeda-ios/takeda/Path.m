@@ -20,6 +20,7 @@
     [self createJSONFolder];
     [self createJResultsFolder];
     [self createUsersFolder];
+    [self createCasheFolder];
 }
 
 
@@ -54,6 +55,15 @@
         [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:path]];
     }
 }
+
++(void)createCasheFolder{
+    NSString*path = [LIBRARY stringByAppendingPathComponent:@"Private Documents/JSON/Cashe"];
+    if (![[self manager] fileExistsAtPath:path]) {
+        [[self manager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+        [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:path]];
+    }
+}
+
 
 +(void)createJResultsFolder{
     NSString*path = [LIBRARY stringByAppendingPathComponent:@"Private Documents/JSON/Results"];
@@ -104,6 +114,9 @@
     return [LIBRARY stringByAppendingPathComponent:@"Private Documents/USERS"];
 }
 
++(NSString*)CasheFolder{
+    return [LIBRARY stringByAppendingPathComponent:@"Private Documents/JSON/Cashe"];
+}
 
 
 

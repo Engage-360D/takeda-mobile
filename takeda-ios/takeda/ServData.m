@@ -249,6 +249,9 @@ static ServData *objectInstance = nil;
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion{
     NSString *urlstr = [NSString stringWithFormat:@"%@%@",kBaseServerURL,url];
     [self sendCommon:urlstr success:^(id res){
+        if (res!=nil){
+            [GlobalData casheRequest:res fromUrl:url];
+        }
         completion(YES, res);
     }];
     
@@ -263,6 +266,21 @@ static ServData *objectInstance = nil;
     
 }
 
++(void)addDrug:(NSDictionary*)analysisData completion:(void (^)(BOOL success, NSError* error, id result))completion{
+
+    NSString *url = [NSString stringWithFormat:
+                     @"%@%@",kServerURL,kAccountPills];
+    
+    //    NSLog(@"after = %@",[self setupNulls:analysisData]);
+    
+    [self sendCommonPOST:url body:[self preparedParams: analysisData] success:^(id result){
+        if (result[@"data"][@"id"]){
+            completion(YES,nil, result);
+        } else {
+            completion(NO,nil, result);
+        }
+    }];
+}
 
 #pragma mark - Common methods
 

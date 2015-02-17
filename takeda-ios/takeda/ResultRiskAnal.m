@@ -371,11 +371,14 @@
 #pragma mark - Actions
 
 -(IBAction)shareAction:(id)sender{
-    [self showMessageWithTextInput:@"E-mail" msg:@"Отправить результат тестирования по почте" title:@"Share" btns:@[@"Отмена",@"Отправить"] params:nil result:^(int index, NSString *text){
-        [ServData shareTest:[results_data[@"id"] intValue] viaEmail:text completition:^(BOOL success, id result){
-            NSLog(@"%@",result);
-            [self showMessage:[NSString stringWithFormat:@"Результат теста \nотправлен на почту \n%@",text] title:@"Уведомление"];
-        }];
+    [self showMessageWithTextInput:User.userData[@"email"] msg:@"Отправить результат тестирования по почте" title:@"Share" btns:@[@"Отмена",@"Отправить"] params:nil result:^(int index, NSString *text){
+        if (index == 1){
+            if (text.length == 0) { text = User.userData[@"email"];}
+            [ServData shareTest:[results_data[@"id"] intValue] viaEmail:text completition:^(BOOL success, id result){
+                NSLog(@"%@",result);
+                [self showMessage:[NSString stringWithFormat:@"Результат теста \nотправлен на почту \n%@",text] title:@"Уведомление"];
+            }];
+        }
     }];
 }
 
