@@ -220,7 +220,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                 mFragmentManager.popBackStackImmediate();
             }
 
-            initTopOnFragmentChanged(getCurrentFragment(), isBackStackEmpty());
+            initTopOnFragmentChanged(getCurrentFragment(), !isBackStackEmpty());
             if (withSwitch) {
                 showContentDelayed();
             }

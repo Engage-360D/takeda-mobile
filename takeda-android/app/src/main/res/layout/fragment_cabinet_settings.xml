@@ -40,6 +40,13 @@
 
             <View style="@style/divider_normal_1_5" />
 
+            <TextView
+                android:id="@+id/textViewPills"
+                style="@style/TextViewItemDrawableRR"
+                android:text="@string/pills" />
+
+            <View style="@style/divider_normal_1_5" />
+
             <LinearLayout
                 android:id="@+id/linearLayoutConsolidatedReport"
                 style="@style/TextViewItem">

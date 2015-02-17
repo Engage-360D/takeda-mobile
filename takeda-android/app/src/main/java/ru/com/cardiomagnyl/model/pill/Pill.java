@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -18,9 +19,10 @@ import com.j256.ormlite.field.DatabaseField;
         "sinceDate",
         "tillDate"
 })
+@DatabaseTable(tableName = "pill")
 public class Pill {
 
-    public enum Repeat {daily, everyTwoDays}
+    public enum Repeat {daily, everytwodays}
 
     @JsonProperty("name")
     private String name;

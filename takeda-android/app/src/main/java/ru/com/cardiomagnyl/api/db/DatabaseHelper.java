@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.model.base.BaseModel;
+import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.region.Region;
 import ru.com.cardiomagnyl.model.region.RegionDao;
 import ru.com.cardiomagnyl.model.role.Role;
@@ -53,6 +54,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Token.class);
             TableUtils.createTable(connectionSource, TestResultHolder.class);
             TableUtils.createTable(connectionSource, TestPage.class);
+            TableUtils.createTable(connectionSource, Pill.class);
         } catch (/*SQLException*/Exception e) {
             Log.e(CardiomagnylApplication.getInstance().getTag(), "error creating DB " + DATABASE_NAME);
             throw new RuntimeException(e);
@@ -70,6 +72,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Token.class, true);
             TableUtils.dropTable(connectionSource, TestResultHolder.class, true);
             TableUtils.dropTable(connectionSource, TestPage.class, true);
+            TableUtils.dropTable(connectionSource, Pill.class, true);
 
             onCreate(db, connectionSource);
         } catch (/*SQLException*/Exception e) {

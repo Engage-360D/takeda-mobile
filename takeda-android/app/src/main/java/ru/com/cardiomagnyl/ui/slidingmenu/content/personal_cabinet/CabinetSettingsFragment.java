@@ -6,10 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
@@ -33,9 +30,17 @@ public class CabinetSettingsFragment extends BaseItemFragment {
     }
 
     private void initFragment(View view) {
-        final LinearLayout linearLayoutConsolidatedReport = (LinearLayout) view.findViewById(R.id.linearLayoutConsolidatedReport);
-        final TextView textViewAddIncident = (TextView) view.findViewById(R.id.textViewAddIncident);
-        final Button buttonExit = (Button) view.findViewById(R.id.buttonExit);
+        final View textViewPills = view.findViewById(R.id.textViewPills);
+        final View linearLayoutConsolidatedReport = view.findViewById(R.id.linearLayoutConsolidatedReport);
+        final View textViewAddIncident = view.findViewById(R.id.textViewAddIncident);
+        final View buttonExit = view.findViewById(R.id.buttonExit);
+
+        textViewPills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryToSeuUpPills();
+            }
+        });
 
         linearLayoutConsolidatedReport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +62,16 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                 tryToAddIncident();
             }
         });
+    }
+
+    private void tryToSeuUpPills() {
+        if (!SlidingMenuActivity.check(getActivity())) {
+            return;
+        }
+
+        Fragment fragment = new CabinetIncidentFragment();
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.putContentOnTop(fragment, false);
     }
 
     private void tryToDeleteReports() {
