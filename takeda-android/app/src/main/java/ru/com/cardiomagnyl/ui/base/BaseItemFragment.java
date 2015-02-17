@@ -20,6 +20,16 @@ public abstract class BaseItemFragment extends Fragment {
 
     public abstract void initTopBar(ViewGroup viewGroupTopBar);
 
+    protected void initTopBarMenuBellCabinet(ViewGroup viewGroupTopBar, boolean isMenuEnabled, boolean isBellEnabled, boolean isCabinetEnabled) {
+        View contentTopLeftBack = viewGroupTopBar.findViewById(R.id.contentTopLeftBack);
+        View contentTopLeftMenu = viewGroupTopBar.findViewById(R.id.contentTopLeftMenu);
+
+        if (contentTopLeftBack != null) contentTopLeftBack.setEnabled(isMenuEnabled);
+        if (contentTopLeftMenu != null) contentTopLeftMenu.setEnabled(isMenuEnabled);
+
+        initTopBarBellCabinet(viewGroupTopBar, isBellEnabled, isCabinetEnabled);
+    }
+
     protected void initTopBarBellCabinet(ViewGroup viewGroupTopBar, boolean isBellEnabled, boolean isCabinetEnabled) {
         LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
         linearLayoutRightHolder.removeAllViews();

@@ -20,6 +20,7 @@ import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
 import ru.com.cardiomagnyl.model.test.TestSource;
+import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseRiskAnalysis;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
@@ -39,7 +40,8 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        initTopBarBellCabinet(viewGroupTopBar, false, false);
+        boolean userIsDoctor = AppState.getInsnatce().getUser().isDoctor();
+        initTopBarMenuBellCabinet(viewGroupTopBar, userIsDoctor, userIsDoctor, userIsDoctor);
     }
 
     private void initPatientDataFragment(View view) {

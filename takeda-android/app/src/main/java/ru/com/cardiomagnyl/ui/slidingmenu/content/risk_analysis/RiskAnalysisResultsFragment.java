@@ -57,7 +57,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        initTopBarBellCabinet(viewGroupTopBar, true, true);
+        initTopBarMenuBellCabinet(viewGroupTopBar, true, true, true);
     }
 
     private void initTestResultsFragment(View view, boolean isNotPassed) {
