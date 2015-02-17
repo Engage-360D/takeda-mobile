@@ -5,9 +5,8 @@
     android:layout_gravity="center_vertical|right"
     android:clickable="true"
     android:text="@string/menu_done"
-    android:textColor="@color/selector_menu_item_text"
+    android:textColor="@color/selector_header_text"
     android:textSize="@dimen/text_size_small"
     app:typeface="roboto_medium" />
-
 
     <!-- TODO check it: 22pt was changed to 16pt  -->

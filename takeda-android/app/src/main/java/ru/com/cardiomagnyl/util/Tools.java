@@ -1,9 +1,6 @@
 package ru.com.cardiomagnyl.util;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -12,7 +9,6 @@ import android.util.Base64;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -202,10 +198,10 @@ public class Tools {
     }
 
     public static View findViewInParents(View currentView, int seekingViewId) {
-        View viewParent =  (View)currentView.getParent();
+        View viewParent = (View) currentView.getParent();
         if (viewParent != null) {
-            View seekingView =  viewParent.findViewById(seekingViewId);
-            return seekingView != null ? seekingView :findViewInParents(viewParent, seekingViewId);
+            View seekingView = viewParent.findViewById(seekingViewId);
+            return seekingView != null ? seekingView : findViewInParents(viewParent, seekingViewId);
         } else {
             return null;
         }

@@ -200,7 +200,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         imageViewSendEmail.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                tryToSend(testResult, user, token);
+                tryToSendResult(testResult, user, token);
             }
         });
 
@@ -244,7 +244,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         imageViewResultCircleHolder.setLayoutParams(newLayoutParams);
     }
 
-    private void tryToSend(final TestResult testResult, final User user, final Token token) {
+    private void tryToSendResult(final TestResult testResult, final User user, final Token token) {
         CustomDialogs.showConfirmationDialog(
                 getActivity(),
                 String.format(getString(R.string.send_results), user.getEmail()),
@@ -386,7 +386,6 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
                         RiskAnalysisRecommendationFragment riskAnalysisRecommendationFragment = new RiskAnalysisRecommendationFragment();
                         riskAnalysisRecommendationFragment.setArguments(bundle);
 
-                        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
                         slidingMenuActivity.putContentOnTop(riskAnalysisRecommendationFragment, true);
                     }
                 },

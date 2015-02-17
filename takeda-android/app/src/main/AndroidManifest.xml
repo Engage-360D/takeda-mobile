@@ -51,11 +51,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity
-            android:name="ru.com.cardiomagnyl.ui.start.TestActivity"
-            android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
