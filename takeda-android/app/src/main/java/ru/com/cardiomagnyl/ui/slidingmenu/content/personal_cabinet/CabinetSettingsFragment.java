@@ -1,20 +1,20 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
+import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
+import ru.com.cardiomagnyl.widget.CustomDialogs;
 
 public class CabinetSettingsFragment extends BaseItemFragment {
 
@@ -30,34 +30,68 @@ public class CabinetSettingsFragment extends BaseItemFragment {
     }
 
     private void initFragment(View view) {
-        final ImageView imageViewAddIncident = (ImageView) view.findViewById(R.id.imageViewAddIncident);
-        final Button buttonExit = (Button) view.findViewById(R.id.buttonExit);
+        final View textViewPills = view.findViewById(R.id.textViewPills);
+        final View linearLayoutConsolidatedReport = view.findViewById(R.id.linearLayoutConsolidatedReport);
+        final View textViewAddIncident = view.findViewById(R.id.textViewAddIncident);
+        final View buttonExit = view.findViewById(R.id.buttonExit);
 
-        imageViewAddIncident.setOnClickListener(new View.OnClickListener() {
+        textViewPills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogIncident();
+                tryToSeuUpPills();
+            }
+        });
+
+        linearLayoutConsolidatedReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryToDeleteReports();
             }
         });
 
         buttonExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CardiomagnylApplication.getInstance().logout();
+                tryToExit();
+            }
+        });
+
+        textViewAddIncident.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryToAddIncident();
             }
         });
     }
 
-    private void showDialogIncident() {
-        if (getActivity() == null) return;
+    private void tryToSeuUpPills() {
+        if (!SlidingMenuActivity.check(getActivity())) {
+            return;
+        }
 
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View bodyView = inflater.inflate(R.layout.dialog_incident, null);
+        Fragment fragment = new CabinetIncidentFragment();
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.putContentOnTop(fragment, false);
+    }
 
+    private void tryToDeleteReports() {
         CustomDialogLayout customDialogLayout = new CustomDialogLayout
                 .Builder(getActivity())
-                .setBody(bodyView)
+                .setBody(R.layout.layout_enter_password)
                 .addButton(R.string.cancel, CustomDialogLayout.DialogStandardAction.dismiss)
+                .addButton(
+                        R.string.delete_all_reports,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                View editTextPassword = Tools.findViewInParents(view, R.id.editTextPassword);
+                                if (editTextPassword != null) {
+                                    String str = ((EditText) editTextPassword).getText().toString();
+
+                                    // TODO: check password for delete reports
+                                }
+                            }
+                        })
                 .create();
 
         AlertDialog alertDialog = new AlertDialog
@@ -66,53 +100,30 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                 .create();
         customDialogLayout.setParentDialog(alertDialog);
 
-        initDialogBody(alertDialog, bodyView);
-
         alertDialog.show();
     }
 
-    private void initDialogBody(final AlertDialog alertDialog, final View dialogBody) {
-        TextView textViewInfarction = (TextView) dialogBody.findViewById(R.id.textViewInfarction);
-        TextView textViewApoplexy = (TextView) dialogBody.findViewById(R.id.textViewApoplexy);
-        TextView textViewShunting = (TextView) dialogBody.findViewById(R.id.textViewShunting);
-
-        textViewInfarction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int layoutId = R.layout.item_incident_infarction;
-                onIncidentSelected(alertDialog, layoutId /*some other params*/);
-            }
-        });
-
-        textViewApoplexy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int layoutId = R.layout.item_incident_apoplexy;
-                onIncidentSelected(alertDialog, layoutId /*some other params*/);
-            }
-        });
-
-        textViewShunting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int layoutId = R.layout.item_incident_shunting;
-                onIncidentSelected(alertDialog, layoutId /*some other params*/);
-            }
-        });
+    private void tryToExit() {
+        CustomDialogs.showConfirmationDialog(
+                getActivity(),
+                getString(R.string.exit_application),
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CardiomagnylApplication.getInstance().logout();
+                    }
+                }
+        );
     }
 
-    private void onIncidentSelected(AlertDialog alertDialog, int layoutId /*some other params*/) {
-        if (getActivity() == null) return;
+    private void tryToAddIncident() {
+        if (!SlidingMenuActivity.check(getActivity())) {
+            return;
+        }
 
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View incidentView = inflater.inflate(layoutId, null);
-
-        LinearLayout linearLayoutIncidentHolder = (LinearLayout) getActivity().findViewById(R.id.linearLayoutIncidentHolder);
-        linearLayoutIncidentHolder.addView(incidentView);
-
-        alertDialog.dismiss();
-
-        // TODO: some other actions
+        Fragment fragment = new CabinetIncidentFragment();
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.putContentOnTop(fragment, false);
     }
 
 }

@@ -9,12 +9,10 @@
         style="@style/LinearLayoutTestTop">
 
         <TextView
-            android:id="@+id/textViewHeader"
             style="@style/TextViewTestSmall"
             android:text="@string/risk_analysis" />
 
         <TextView
-            android:id="@+id/textViewSubHeader"
             style="@style/TextViewTestLarge"
             android:text="@string/daily_ration" />
     </LinearLayout>

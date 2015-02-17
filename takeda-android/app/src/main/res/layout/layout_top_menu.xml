@@ -1,73 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/plate_medium"
-    android:background="@color/bg_header"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:weightSum="4">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contentTopRightClickable"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|left"
+    android:clickable="true">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal" />
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/contentTopLeftBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/selector_header_back_ic"
+        android:text="@string/menu_back"
+        android:textColor="@color/selector_header_text"
+        android:textSize="@dimen/text_size_small"
+        android:visibility="invisible"
+        app:typeface="roboto_medium" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutTopInsideContent"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/space_medium"
-        android:paddingRight="@dimen/space_medium">
+    <ImageView
+        android:id="@+id/contentTopLeftMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/selector_button_menu"
+        android:visibility="invisible" />
+</RelativeLayout>
 
-        <TextView
-            android:id="@+id/textViewHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/risk_analysis"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
-
-        <TextView
-            android:id="@+id/textViewSubHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/results"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical|right"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageViewSendEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/space_medium"
-            android:clickable="true"
-            android:contentDescription="@null"
-            android:src="@drawable/selector_button_mail" />
-
-        <ImageView
-            android:id="@+id/imageViewInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/space_medium"
-            android:clickable="true"
-            android:contentDescription="@null"
-            android:src="@drawable/selector_button_info" />
-    </LinearLayout>
-
-</LinearLayout>
-
-    <!-- TODO: color of the header was changed from #FFDC363D to #FFFF3341 -->
+    <!-- TODO check it: 22pt was changed to 16pt  -->

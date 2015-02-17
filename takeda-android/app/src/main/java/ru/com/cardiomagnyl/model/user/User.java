@@ -45,7 +45,7 @@ import ru.com.cardiomagnyl.model.role.Role;
 })
 @DatabaseTable(tableName = "user")
 public class User extends BaseModel {
-    public static enum Roles {role_doctor, role_user}
+    public static enum Roles {role_user, role_doctor, role_admin}
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.INTEGER, columnName = "id")
     @JsonProperty("id")

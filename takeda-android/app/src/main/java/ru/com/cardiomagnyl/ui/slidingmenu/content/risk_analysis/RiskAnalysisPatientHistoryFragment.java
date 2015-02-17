@@ -17,6 +17,7 @@ import android.widget.ToggleButton;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.test.TestSource;
+import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseRiskAnalysis;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Tools;
@@ -33,7 +34,8 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        initTopBarBellCabinet(viewGroupTopBar, false, false);
+        boolean userIsDoctor = AppState.getInsnatce().getUser().isDoctor();
+        initTopBarMenuBellCabinet(viewGroupTopBar, userIsDoctor, userIsDoctor, userIsDoctor);
     }
 
     private void initPatientDataFragment(View view) {

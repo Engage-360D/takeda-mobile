@@ -39,7 +39,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_start_login_or_restore, container, false);
-        initLoginOrRestoreFragment(view);
+        initFragment(view);
         return view;
     }
 
@@ -62,16 +62,16 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         }
     }
 
-    private void initLoginOrRestoreFragment(final View view) {
-        initLogin(view);
-        initRestore(view);
+    private void initFragment(final View view) {
+        initLoginFields(view);
+        initRestoreFields(view);
         initLoginRestoreSwitcher(view);
         initSocials(view);
         // TODO: remove after tests
         customizeIfDebug(view);
     }
 
-    private void initLogin(final View view) {
+    private void initLoginFields(final View view) {
         final EditText editTextEmailLogin = (EditText) view.findViewById(R.id.editTextEmailLogin);
         final EditText editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
         final Button buttonEnter = (Button) view.findViewById(R.id.buttonEnter);
@@ -111,7 +111,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonEnter.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startAuthorization();
+                startAuthorization(view);
             }
         });
 
@@ -125,7 +125,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         });
     }
 
-    private void initRestore(final View view) {
+    private void initRestoreFields(final View view) {
         final EditText editTextEmailRestore = (EditText) view.findViewById(R.id.editTextEmailRestore);
         final Button buttonRestore = (Button) view.findViewById(R.id.buttonRestore);
 
@@ -150,7 +150,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
             @Override
             public void onClick(View v) {
                 Email email = new Email();
-                email.setEmail(pickRestoreFields());
+                email.setEmail(pickRestoreFields(view));
                 startRestoring(email);
             }
         });
@@ -199,8 +199,8 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         }
     }
 
-    private void startAuthorization() {
-        LgnPwd lgnPwd = pickAuthorizationFields();
+    private void startAuthorization(final View view) {
+        LgnPwd lgnPwd = pickAuthorizationFields(view);
         // response handled in handleRegAuth
         startAuthorization(lgnPwd);
     }
@@ -228,23 +228,19 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         );
     }
 
-    private LgnPwd pickAuthorizationFields() {
+    private LgnPwd pickAuthorizationFields(final View view) {
         LgnPwd lgnPwd = new LgnPwd();
 
-        try {
-            EditText editTextEmailLogin = (EditText) getActivity().findViewById(R.id.editTextEmailLogin);
-            EditText editTextPassword = (EditText) getActivity().findViewById(R.id.editTextPassword);
+        EditText editTextEmailLogin = (EditText) view.findViewById(R.id.editTextEmailLogin);
+        EditText editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
 
-            lgnPwd.setEmail(editTextEmailLogin.getText().toString());
-            lgnPwd.setPlainPassword(editTextPassword.getText().toString());
-        } catch (Exception e) {
-            // do nothing
-        }
+        lgnPwd.setEmail(editTextEmailLogin.getText().toString());
+        lgnPwd.setPlainPassword(editTextPassword.getText().toString());
 
         return lgnPwd;
     }
 
-    private String pickRestoreFields() {
+    private String pickRestoreFields(final View view) {
         EditText editTextEmailRestore = (EditText) getActivity().findViewById(R.id.editTextEmailRestore);
         return editTextEmailRestore.getText().toString();
     }

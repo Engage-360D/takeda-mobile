@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
@@ -11,36 +10,12 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/space_small_negative"
+        android:layout_marginLeft="@dimen/space_medium"
         android:layout_weight="1"
-        android:gravity="center_vertical|left"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:id="@+id/contentTopRightClickable"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="@dimen/space_medium"
-            android:layout_height="wrap_content"
-            android:clickable="true">
+        <include layout="@layout/layout_top_menu" />
 
-            <com.devspark.robototextview.widget.RobotoTextView
-                android:id="@+id/contentTopRightBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_small_light_left"
-                android:text="@string/menu_back"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_small"
-                android:visibility="invisible"
-                app:typeface="roboto_medium" />
-
-            <ImageView
-                android:id="@+id/contentTopRightMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:adjustViewBounds="true"
-                android:src="@drawable/selector_button_menu" />
-        </RelativeLayout>
     </LinearLayout>
 
     <ImageView
@@ -54,6 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/space_small_negative"
+        android:layout_marginRight="@dimen/space_medium"
         android:layout_weight="1"
         android:gravity="center_vertical|right"
         android:orientation="horizontal" />

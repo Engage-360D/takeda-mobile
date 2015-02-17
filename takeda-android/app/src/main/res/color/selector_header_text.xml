@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Disabled -->
+    <item android:color="@color/text_header_disabled" android:state_enabled="false" />
+
+    <!-- Pressed -->
+    <item android:color="@color/text_header_pressed" android:state_enabled="true" android:state_pressed="true" />
+
+    <!-- Default -->
+    <item android:color="@color/text_header_unpressed" android:state_enabled="true" />
+</selector>

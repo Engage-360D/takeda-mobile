@@ -3,8 +3,8 @@ package ru.com.cardiomagnyl.application;
 public class Constants {
     public static int AGE_LIMIT = 21;
     public static int YEARS_RANGE = 50;
-    //    public static int TEST_PERIOD = 30;
-    public static int TEST_PERIOD = 0;
+    public static int TEST_PERIOD = 30;
+//    public static int TEST_PERIOD = 1;
 
     // bundle parcelable
     public static String TEST_PAGE = "test_page";
@@ -19,7 +19,7 @@ public class Constants {
     // new_user -> test
     //                  \
     //                    error -> test
-
+    // -------------------------------------
     //                      passed -> work
     //                    /
     // new_doctor -> test

@@ -214,16 +214,16 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
     public void makeContentStepBack(final boolean withSwitch) {
         try {
+            Utils.hideKeyboard(getCurrentFocus());
+
             if (!isBackStackEmpty()) {
                 mFragmentManager.popBackStackImmediate();
             }
 
-            initTopOnFragmentChanged(getCurrentFragment(), mFragmentManager.getBackStackEntryCount() > 2);
+            initTopOnFragmentChanged(getCurrentFragment(), !isBackStackEmpty());
             if (withSwitch) {
                 showContentDelayed();
             }
-
-            Utils.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }

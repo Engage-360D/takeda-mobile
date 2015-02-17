@@ -20,12 +20,22 @@ public abstract class BaseItemFragment extends Fragment {
 
     public abstract void initTopBar(ViewGroup viewGroupTopBar);
 
+    protected void initTopBarMenuBellCabinet(ViewGroup viewGroupTopBar, boolean isMenuEnabled, boolean isBellEnabled, boolean isCabinetEnabled) {
+        View contentTopLeftBack = viewGroupTopBar.findViewById(R.id.contentTopLeftBack);
+        View contentTopLeftMenu = viewGroupTopBar.findViewById(R.id.contentTopLeftMenu);
+
+        if (contentTopLeftBack != null) contentTopLeftBack.setEnabled(isMenuEnabled);
+        if (contentTopLeftMenu != null) contentTopLeftMenu.setEnabled(isMenuEnabled);
+
+        initTopBarBellCabinet(viewGroupTopBar, isBellEnabled, isCabinetEnabled);
+    }
+
     protected void initTopBarBellCabinet(ViewGroup viewGroupTopBar, boolean isBellEnabled, boolean isCabinetEnabled) {
         LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
         linearLayoutRightHolder.removeAllViews();
 
-        int spaceMedium = (int) viewGroupTopBar.getResources().getDimension(R.dimen.space_medium);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        int spaceMedium = (int) viewGroupTopBar.getResources().getDimension(R.dimen.space_medium);
         lp.setMargins(0, 0, spaceMedium, 0);
 
         ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
@@ -38,10 +48,11 @@ public abstract class BaseItemFragment extends Fragment {
             imageViewBell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // TODO: add action on click
                 }
             });
         } else {
-            imageViewBell.setOnClickListener(null);
+            imageViewBell.setClickable(false);
         }
 
         ImageView imageViewCabinet = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
@@ -63,6 +74,24 @@ public abstract class BaseItemFragment extends Fragment {
             });
         } else {
             imageViewCabinet.setClickable(false);
+        }
+    }
+
+    protected void initTopBarDone(ViewGroup viewGroupTopBar, View.OnClickListener onClickListener) {
+        LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
+        linearLayoutRightHolder.removeAllViews();
+
+        boolean isEnabled = onClickListener != null;
+
+        LayoutInflater layoutInflater = LayoutInflater.from(viewGroupTopBar.getContext());
+        View layoutTopDone = layoutInflater.inflate(R.layout.layout_top_done, null);
+        layoutTopDone.setEnabled(isEnabled);
+        linearLayoutRightHolder.addView(layoutTopDone);
+
+        if (isEnabled) {
+            layoutTopDone.setOnClickListener(onClickListener);
+        } else {
+            layoutTopDone.setClickable(false);
         }
     }
 

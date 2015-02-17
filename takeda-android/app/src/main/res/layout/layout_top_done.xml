@@ -1,0 +1,12 @@
+<com.devspark.robototextview.widget.RobotoTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|right"
+    android:clickable="true"
+    android:text="@string/menu_done"
+    android:textColor="@color/selector_header_text"
+    android:textSize="@dimen/text_size_small"
+    app:typeface="roboto_medium" />
+
+    <!-- TODO check it: 22pt was changed to 16pt  -->

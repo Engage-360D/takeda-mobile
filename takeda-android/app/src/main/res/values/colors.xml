@@ -71,6 +71,11 @@
     <color name="text_list_item_pressed">#FFFFFFFF</color>
     <color name="text_list_item_disabled">#7737404C</color>
 
+    <!-- text_header -->
+    <color name="text_header_unpressed">#FFFFFFFF</color>
+    <color name="text_header_pressed">#FF000000</color>
+    <color name="text_header_disabled">#FF000000</color>
+
     <!-- divider -->
     <color name="divider_1">#FFC3C5C9</color>
     <color name="divider_2">#FFDCDDE0</color>

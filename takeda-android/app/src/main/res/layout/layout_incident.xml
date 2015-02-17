@@ -35,7 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="@string/apoplexy_occurred"
             android:textColor="@color/text_main_37"
             android:textSize="@dimen/text_size_medium" />
 

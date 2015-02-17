@@ -6,7 +6,7 @@
 
     <include
         android:id="@+id/layoutTopMenu"
-        layout="@layout/layout_top_menu"
+        layout="@layout/layout_analysis_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
