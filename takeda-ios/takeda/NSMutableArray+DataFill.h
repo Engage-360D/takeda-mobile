@@ -13,4 +13,5 @@
 -(void)fillIntegerFrom:(int)start to:(int)finish step:(int)step;
 -(void)fillFloatFrom:(float)start to:(float)finish step:(float)step;
 
+-(NSDictionary *)groupByKey:(NSString *) key;
 @end

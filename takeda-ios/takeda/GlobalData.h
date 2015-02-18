@@ -31,6 +31,7 @@
 -(void)deleteIncident:(NSMutableArray*)inc incident:(IncidentType)incType;
 -(void)deleteAllIncidents:(NSMutableArray*)inc;
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion;
++(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion;
 
 +(void)clearFiles;
 

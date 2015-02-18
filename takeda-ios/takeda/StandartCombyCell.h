@@ -14,7 +14,10 @@ typedef enum {
     ctLeftCaptionRightCaption = 2,
     ctLeftCaptionRightArrow = 3,
     ctCaptionSubtitleRightArrow = 4,
-    ctCaptionSubtitleChecked = 5
+    ctCaptionSubtitleChecked = 5,
+    ctCaptionChecked = 6,
+    ctLeftCaptionRightBadgeArrow = 7,
+    ctLeftCaptionRightCaptionArrow = 8
 
 } CombyCellType;
 

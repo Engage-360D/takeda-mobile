@@ -257,6 +257,16 @@ static ServData *objectInstance = nil;
     
 }
 
++(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion{
+    
+    NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kAccountTimeline];
+    [self sendCommon:urlstr success:^(id res){
+        completion(YES, res);
+    }];
+    
+}
+
+
 +(void)shareTest:(int)testId viaEmail:(NSString*)email completition:(void (^)(BOOL success, id result))completion{
     NSString *urlstr = [NSString stringWithFormat:@"%@%@/%i/%@",kServerURL,kTestResults,testId,kTestResultShareEmail];
     NSDictionary *params = @{@"email":email};

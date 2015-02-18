@@ -42,18 +42,22 @@
 }
 
 -(void)drawBorders:(NSArray*)array{
-    float sepH = 0.5f;
     for (UIView *view in array) {
-        CALayer *TopBorder = [CALayer layer];
-        TopBorder.frame = CGRectMake(0.0f, 0.0f, view.frame.size.width, sepH);
-        TopBorder.backgroundColor = RGB(178, 178, 178).CGColor;
-        [view.layer addSublayer:TopBorder];
-        CALayer *BottomBorder = [CALayer layer];
-        BottomBorder.frame = CGRectMake(0.0f, view.frame.size.height-sepH, view.frame.size.width, sepH);
-        BottomBorder.backgroundColor = RGB(178, 178, 178).CGColor;
-        [view.layer addSublayer:BottomBorder];
+        [self drawBordersInView:view];
     }
 
+}
+
+-(void)drawBordersInView:(UIView*)view{
+    float sepH = 0.5f;
+    CALayer *TopBorder = [CALayer layer];
+    TopBorder.frame = CGRectMake(0.0f, 0.0f, view.frame.size.width, sepH);
+    TopBorder.backgroundColor = RGB(178, 178, 178).CGColor;
+    [view.layer addSublayer:TopBorder];
+    CALayer *BottomBorder = [CALayer layer];
+    BottomBorder.frame = CGRectMake(0.0f, view.frame.size.height-sepH, view.frame.size.width, sepH);
+    BottomBorder.backgroundColor = RGB(178, 178, 178).CGColor;
+    [view.layer addSublayer:BottomBorder];
 }
 
 -(void)setupData{

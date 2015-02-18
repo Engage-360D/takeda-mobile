@@ -17,9 +17,9 @@
 
 - (void)awakeFromNib {
     
-    caption.font = [UIFont fontWithName:@"SegoeWP" size:14];
+    caption.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
     subTitle.font = [UIFont fontWithName:@"SegoeWP-Light" size:10];
-    rightCaption.font = [UIFont fontWithName:@"SegoeWP" size:14];
+    rightCaption.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
     
     [checkBtn addTarget:self action:@selector(btnChecked:) forControlEvents:UIControlEventTouchDown];
 
@@ -66,6 +66,13 @@
 
             break;
         }
+        case ctLeftCaptionRightCaptionArrow:{
+            rightCaption.frame = CGRectMake(0, rightCaption.y, self.width - 40, rightCaption.height);
+            rightCaption.hidden = NO;
+            rightArrow.hidden = NO;
+            break;
+        }
+            
         case ctLeftCaptionRightArrow:{
             rightArrow.hidden = NO;
             break;
@@ -86,6 +93,18 @@
             break;
         }
         
+        case ctCaptionChecked:{
+            checkBtn.hidden = NO;
+            
+            break;
+        }
+
+        case ctLeftCaptionRightBadgeArrow:{
+            rightCaption.hidden = NO;
+            rightCaption.textColor = [UIColor redColor];
+            break;
+        }
+            
     }
 }
 

@@ -13,6 +13,8 @@
 @end
 
 @implementation CalendarPage
+@synthesize days;
+@synthesize tasks;
 @synthesize emptyRecords;
 @synthesize filledRecords;
 @synthesize fillEmptySwitch;
@@ -35,7 +37,24 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [self initData];
+}
+
+-(void)initData{
+    [GlobalData loadTimelineCompletition:^(BOOL success, id result){
+        tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
+        days = result[@"data"];
+        
+        for (NSMutableDictionary* day in days){
+            NSMutableArray *tasksNewArray = [NSMutableArray new];
+            for (NSString* taskId in day[@"links"][@"tasks"]){
+                [tasksNewArray addObject:tasks[taskId]];
+            }
+            [day[@"links"] setObject:tasksNewArray forKey:@"tasks"];
+        }
+        
+        [self.tableView reloadData];
+    }];
 }
 
 -(void)setupInterface{
@@ -71,40 +90,28 @@
 }
 
 
--(void)initData{
-
-}
 
 -(void)showInfo{
 
+}
+
+-(NSArray*)records{
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.links.tasks.isCompleted == %i",1];
+//    return [days filteredArrayUsingPredicate:predicate];
+//
+    return days;
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    switch (state) {
-        case dNew:
-            return emptyRecords.count;
-
-        case dFilled:
-            return filledRecords.count;
-
-    }
-    return 0;
+    return self.records.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (state) {
-        case dNew:
-            return [emptyRecords[section] count];
-            
-        case dFilled:
-            return [filledRecords[section] count];
-            
-    }
-    return 0;
+    return [self.records[section][@"links"][@"tasks"] count];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -113,13 +120,22 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0){
-        return 0;
-    } else {
-        return 75.f;
-    }
+    return 46;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    //2015-01-24"
+    NSDate *ddt = [Global parseDate:self.records[section][@"date"]];
+    UILabel *sectionTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 46)];
+    sectionTitle.font = [UIFont fontWithName:@"SegoeWP" size:14];
+    sectionTitle.textAlignment = NSTextAlignmentCenter;
+    sectionTitle.textColor = RGB(95, 95, 95);
+    sectionTitle.backgroundColor = RGB(243, 243, 243);
+    sectionTitle.text = [NSString stringWithFormat:@"%@ (%@)",[ddt isToday]?@"Сегодня":[ddt stringWithFormat:@"dd.MM.yyyy"],[ddt stringWithFormat:@"EEEE"]];
+    [self drawBordersInView:sectionTitle];
+    return sectionTitle;
+    
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -139,12 +155,32 @@
         }
     }
     
-    NSMutableDictionary *menu ;//= menu_data[indexPath.section][indexPath.row];
-    cell.cellType = [menu[@"type"] intValue];
-    cell.caption.text = menu[@"title"];
-    cell.subTitle.text = menu[@"subtitle"];
-    cell.rightCaption.text = menu[@"rightTitle"];
+  //  NSString *itemId = self.records[indexPath.section][@"links"][@"tasks"][indexPath.row];
+    NSMutableDictionary *item = self.records[indexPath.section][@"links"][@"tasks"][indexPath.row];
+    
+    cell.cellType = [self cellTypeForTask:item[@"type"]];
+    
+    SWITCH(item[@"type"]){
+        CASE(@"exercise"){
+          cell.caption.text = @"Физическая нагрузка";
+          cell.rightCaption.text = @"мин";
+            break;
+        }
+        CASE(@"diet"){
+            cell.caption.text = @"Вы соблюдаете диету?";
+            break;
+        }
+        CASE(@"pill"){
+            cell.caption.text = @"Принять таблетки";
+            break;
+        }
+        DEFAULT{
+            break;
+        }
+    }
+    
     cell.backgroundColor = [UIColor whiteColor];
+    if ([item[@"isCompleted"] boolValue]) cell.backgroundColor = [UIColor greenColor];
     
     return cell;
 }
@@ -191,7 +227,21 @@
     [self.tableView reloadData];
 }
 
+-(CombyCellType)cellTypeForTask:(NSString*)taskType{
+    NSDictionary *r = @{@"exercise":[NSNumber numberWithInt:ctLeftCaptionRightCaptionArrow],
+                        @"diet":[NSNumber numberWithInt:ctCaptionChecked],
+                        @"pill":[NSNumber numberWithInt:ctLeftCaptionRightBadgeArrow]};
+    return [r[taskType] intValue];
+}
 
 
+/*
+ ctSimpleRightCaption = 1,
+ ctLeftCaptionRightCaption = 2,
+ ctLeftCaptionRightArrow = 3,
+ ctCaptionSubtitleRightArrow = 4,
+ ctCaptionSubtitleChecked = 5
+
+ */
 
 @end

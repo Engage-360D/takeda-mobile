@@ -147,6 +147,18 @@ static GlobalData *objectInstance = nil;
     
 }
 
++(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion{
+
+    [ServData loadTimelineCompletition:^(BOOL success, id result){
+        completion(success, result);
+    }];
+    
+}
+
+
+
+
+
 +(id)cashedRequest:(NSString*)url{
     if (appDelegate.hostConnection != NotReachable) {
         return nil;

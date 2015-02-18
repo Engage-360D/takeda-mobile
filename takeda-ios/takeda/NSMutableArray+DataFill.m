@@ -24,4 +24,13 @@
     }
 }
 
+-(NSDictionary *)groupByKey:(NSString *) key {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    for (id obj in self) {
+        id keyValue = [obj valueForKey:key];
+        dictionary[keyValue] = obj;
+    }
+    return [dictionary copy];
+}
+
 @end

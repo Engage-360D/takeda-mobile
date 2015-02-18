@@ -22,6 +22,7 @@
 - (BOOL)isRootVC;
 
 -(void)drawBorders:(NSArray*)array;
+-(void)drawBordersInView:(UIView*)view;
 -(void)setNavigationPanel;
 -(void)backAction;
 -(void)openLeftMenu;
