@@ -24,10 +24,10 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
             TypeReference typeReference,
             Map<String, String> headers,
             byte[] body,
-            CallbackOne onBeforeExtract,
-            CallbackOneReturnable onOnAfterExtracted,
+            CallbackOne beforeExtracted,
+            CallbackOneReturnable afterExtracted,
             CallbackOne onStoreIntoDatabase) {
-        super(method, url, params, typeReference, onBeforeExtract, onOnAfterExtracted, onStoreIntoDatabase);
+        super(method, url, params, typeReference, beforeExtracted, afterExtracted, onStoreIntoDatabase);
         mHeaders = headers;
         mBody = body;
         mHttpDataLoader = new HttpDataLoader();
@@ -53,8 +53,8 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
         private Map<String, String> mBuilderParams = new HashMap<String, String>();
         private Map<String, String> mBuilderHeaders = new HashMap<String, String>();
         private byte[] mBuilderBody;
-        private CallbackOne mBuilderOnBeforeExtract;
-        private CallbackOneReturnable mBuilderOnAfterExtracted;
+        private CallbackOne mBuilderBeforeExtracted;
+        private CallbackOneReturnable mBuilderAfterExtracted;
         private CallbackOne mBuilderOnStoreIntoDatabase;
 
         public Builder(int builderMethod, String builderUrl, TypeReference builderTypeReference) {
@@ -93,13 +93,13 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
             return this;
         }
 
-        public Builder setOnBeforeExtract(CallbackOne onOnBeforeExtract) {
-            mBuilderOnBeforeExtract = onOnBeforeExtract;
+        public Builder setBeforeExtracted(CallbackOne beforeExtracted) {
+            mBuilderBeforeExtracted = beforeExtracted;
             return this;
         }
 
-        public Builder setOnAfterExtracted(CallbackOneReturnable onAfterExtracted) {
-            mBuilderOnAfterExtracted = onAfterExtracted;
+        public Builder setAfterExtracted(CallbackOneReturnable afterExtracted) {
+            mBuilderAfterExtracted = afterExtracted;
             return this;
         }
 
@@ -116,8 +116,8 @@ public class HttpRequestHolder extends BaseVolleyRequestHolder {
                     mBuildTypeReference,
                     mBuilderHeaders,
                     mBuilderBody,
-                    mBuilderOnBeforeExtract,
-                    mBuilderOnAfterExtracted,
+                    mBuilderBeforeExtracted,
+                    mBuilderAfterExtracted,
                     mBuilderOnStoreIntoDatabase);
         }
 

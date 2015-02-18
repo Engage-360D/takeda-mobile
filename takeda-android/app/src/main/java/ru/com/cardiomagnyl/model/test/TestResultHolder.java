@@ -13,6 +13,7 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
 
 @DatabaseTable(tableName = "test_result")
 public class TestResultHolder {
+
     private TestResult mTestResult;
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")

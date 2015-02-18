@@ -86,8 +86,8 @@ public class DbDataLoader extends BaseDataLoader {
                                                        final CallbackOne<Response> callbackOneOnError) {
         ThreadHelper.logThread("DbDataLoader->handleSuccessResponse");
 
-        if (dbRequestHolder.getOnAfterExtracted() != null) {
-            T_OUT resultOut = (T_OUT) dbRequestHolder.getOnAfterExtracted().execute(resultIn);
+        if (dbRequestHolder.getAfterExtracted() != null) {
+            T_OUT resultOut = (T_OUT) dbRequestHolder.getAfterExtracted().execute(resultIn);
             handleResult(resultOut, null, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
         } else {
             handleResult((T_OUT) resultIn, null, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);

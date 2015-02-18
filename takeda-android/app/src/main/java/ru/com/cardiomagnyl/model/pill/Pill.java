@@ -21,8 +21,7 @@ import com.j256.ormlite.table.DatabaseTable;
 })
 @DatabaseTable(tableName = "pill")
 public class Pill {
-
-    public enum Repeat {daily, everytwodays}
+    public enum Repeat {DAILY, EVERY_2_DAYS}
 
     @JsonProperty("name")
     private String name;

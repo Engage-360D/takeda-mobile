@@ -20,8 +20,8 @@ public abstract class BaseVolleyDataLoader extends BaseDataLoader {
                                                        final CallbackOne<Response> callbackOneOnError) {
         ThreadHelper.logThread("BaseVolleyDataLoader->handleSuccessResponse");
 
-        if (volleyRequestHolder.getOnBeforeExtracted() != null) {
-            volleyRequestHolder.getOnBeforeExtracted().execute(response);
+        if (volleyRequestHolder.getBeforeExtracted() != null) {
+            volleyRequestHolder.getBeforeExtracted().execute(response);
         }
 
         T_IN resultIn = (T_IN) BaseModel.stringToObject(((Object) response.getData()).toString(), volleyRequestHolder.getTypeReference());
@@ -29,8 +29,8 @@ public abstract class BaseVolleyDataLoader extends BaseDataLoader {
         if (resultIn == null) {
             handleErrorResponse(createInputDataError(), dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
         } else {
-            if (volleyRequestHolder.getOnAfterExtracted() != null) {
-                T_OUT resultOut = (T_OUT) volleyRequestHolder.getOnAfterExtracted().execute(resultIn);
+            if (volleyRequestHolder.getAfterExtracted() != null) {
+                T_OUT resultOut = (T_OUT) volleyRequestHolder.getAfterExtracted().execute(resultIn);
                 handleSuccessResponseHelper(resultOut, volleyRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
             } else {
                 handleSuccessResponseHelper((T_OUT) resultIn, volleyRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);

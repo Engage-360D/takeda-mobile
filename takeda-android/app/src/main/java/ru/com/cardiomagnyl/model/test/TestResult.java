@@ -39,6 +39,7 @@ import ru.com.cardiomagnyl.util.Tools;
         "createdAt"
 })
 public class TestResult extends BaseModel {
+
     private static final ArrayList<Pair<String, Integer>> MAX_SCORE =
             new ArrayList<>(Arrays.asList(
                     new Pair<String, Integer>("female", 20),

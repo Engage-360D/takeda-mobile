@@ -11,7 +11,6 @@ import com.j256.ormlite.support.ConnectionSource;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,13 +20,11 @@ import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.api.db.DbRequestHolder;
 import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
-import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Dummy;
 import ru.com.cardiomagnyl.model.common.Email;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.token.Token;
-import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.CallbackOneReturnable;
 import ru.com.cardiomagnyl.util.Tools;
@@ -43,7 +40,7 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
         TypeReference typeReference = new TypeReference<List<TestResult>>() {
         };
 
-        CallbackOneReturnable<List<TestResultHolder>, List<TestResult>> onOnAfterExtractDb = new CallbackOneReturnable<List<TestResultHolder>, List<TestResult>>() {
+        CallbackOneReturnable<List<TestResultHolder>, List<TestResult>> afterExtractedDb = new CallbackOneReturnable<List<TestResultHolder>, List<TestResult>>() {
             @Override
             public List<TestResult> execute(List<TestResultHolder> testResultHolderList) {
                 return extractResultHolderList(testResultHolderList);
@@ -68,7 +65,7 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
         DbRequestHolder dbRequestHolder =
                 new DbRequestHolder
                         .Builder(queryBuilder)
-                        .setOnAfterExtracted(onOnAfterExtractDb)
+                        .setAfterExtracted(afterExtractedDb)
                         .create();
 
         HttpRequestHolder httpRequestHolder =

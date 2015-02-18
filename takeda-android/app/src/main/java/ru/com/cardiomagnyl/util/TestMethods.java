@@ -13,6 +13,8 @@ import ru.com.cardiomagnyl.model.test.PageDao;
 import ru.com.cardiomagnyl.model.test.TestPage;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
+import ru.com.cardiomagnyl.model.timeline.Timeline;
+import ru.com.cardiomagnyl.model.timeline.TimelineDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.token.TokenDao;
 import ru.com.cardiomagnyl.model.user.User;
@@ -21,7 +23,8 @@ import ru.com.cardiomagnyl.model.user.UserDao;
 public class TestMethods {
 
     public static void testCurrentMethod() {
-        TestPageDaoGetByLink();
+        TimelineDaoGetAll();
+//        TestPageDaoGetByLink();
 //        TestResultDaoGetAll();
 //        UserDaoResetPassword();
 //        TestResultDaoSendTestSource();
@@ -30,6 +33,29 @@ public class TestMethods {
 //        TokenDaoGetByLgnPwd();
 //        UserRegister();
 //        RegionDaoGetAll();
+    }
+
+    public static void TimelineDaoGetAll() {
+        Token token = new Token();
+        token.setUserId("63");
+        token.setTokenId("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjQzNjcwOTgsInVzZXJuYW1lIjoieS5hbmRyZXlrbysxN0BnbWFpbC5jb20iLCJpYXQiOiIxNDI0MjgwNjk4In0.LcgyBqu6ey-ivFQyeh4BCD3rFxzeA5MyoA2sBhprcJhuAePA4OLFgZ61byCfH62j2zxm6QWo7WJAxH8CorohOxHOrnHjZfogwtSho3BmW-BwuAUO6M57aUxvmEdd9vYssQcfIQd95wU0l-XRIu16zNnb5pozrLa-5I6bXhhjTnfx95z-JH98-rXB6bK20JJVd8neKnhs6mC5aCJF8eNaEQn20JFPfc6fW94bE1rfRFvJP7traMI0tX7Ozhm7GxdPrRuH_KFwZJR06Uu25GSh0rMbUCvVS64b2GjwkA8l5XfP0O0GzTJlwXI2KupKyh12RQ7sWAhAGA09fvDp1y-Ea8gADeEDuV3TDb7y10V-CYKvnHr8AIAuqdgVH5jN_aaW3XHHsnxahZRCBk42Fk6KE_r0fxH387s8Q403B4quWYAzhAAjMG6pS_WLgtqoSjAbQHP3XhAWiziLQJkhq9hvWhyAi5USU_afqQlaQWmc5GDCNQjZVpQilTPnj4wOjqFgg32mWLGDZUVMfRXuqRjcbbSeS8fzwMUKkkKEe7mCxC-iGR83gateA9d10cAUluZ-_xvioMvmokCQ2dzUYv-buBwVVF4-LfrldBKMcXgA9mRtAtk1eHAVZEBItCu4z1TaGXP42amvOrv_uEFWVM9aABUChk5K8B-Srf5BKLSc24s");
+        TimelineDao.getAll(
+                token,
+                new CallbackOne<List<Timeline>>() {
+                    @Override
+                    public void execute(List<Timeline> timeline) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
     }
 
     public static void TestPageDaoGetByLink() {

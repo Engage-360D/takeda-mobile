@@ -21,9 +21,11 @@ import ru.com.cardiomagnyl.model.role.Role;
 import ru.com.cardiomagnyl.model.role.RoleDao;
 import ru.com.cardiomagnyl.model.role.UserRole;
 import ru.com.cardiomagnyl.model.role.UserRoleDao;
-import ru.com.cardiomagnyl.model.test.TestPage;
+import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.test.PageDao;
+import ru.com.cardiomagnyl.model.test.TestPage;
 import ru.com.cardiomagnyl.model.test.TestResultHolder;
+import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.token.TokenDao;
 import ru.com.cardiomagnyl.model.user.User;
@@ -55,6 +57,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, TestResultHolder.class);
             TableUtils.createTable(connectionSource, TestPage.class);
             TableUtils.createTable(connectionSource, Pill.class);
+            TableUtils.createTable(connectionSource, Timeline.class);
+            TableUtils.createTable(connectionSource, Task.class);
         } catch (/*SQLException*/Exception e) {
             Log.e(CardiomagnylApplication.getInstance().getTag(), "error creating DB " + DATABASE_NAME);
             throw new RuntimeException(e);
@@ -73,6 +77,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, TestResultHolder.class, true);
             TableUtils.dropTable(connectionSource, TestPage.class, true);
             TableUtils.dropTable(connectionSource, Pill.class, true);
+            TableUtils.dropTable(connectionSource, Timeline.class, true);
+            TableUtils.dropTable(connectionSource, Task.class, true);
 
             onCreate(db, connectionSource);
         } catch (/*SQLException*/Exception e) {

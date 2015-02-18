@@ -19,16 +19,16 @@ public class DbRequestHolder extends BaseRequestHolder {
 
     private final List<QueryBuilder> mQueryBuilder;
     private final QueryMethod mQueryMethod;
-    private final CallbackOneReturnable mOnAfterExtracted;
+    private final CallbackOneReturnable mAfterExtracted;
     private final DbDataLoader mDbDataLoader;
 
     private DbRequestHolder(
             List<QueryBuilder> queryBuilder,
             QueryMethod queryMethod,
-            CallbackOneReturnable onAfterExtracted) {
+            CallbackOneReturnable afterExtracted) {
         mQueryBuilder = queryBuilder;
         mQueryMethod = queryMethod;
-        mOnAfterExtracted = onAfterExtracted;
+        mAfterExtracted = afterExtracted;
         mDbDataLoader = new DbDataLoader();
     }
 
@@ -40,8 +40,8 @@ public class DbRequestHolder extends BaseRequestHolder {
         return mQueryMethod;
     }
 
-    public CallbackOneReturnable getOnAfterExtracted() {
-        return mOnAfterExtracted;
+    public CallbackOneReturnable getAfterExtracted() {
+        return mAfterExtracted;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class DbRequestHolder extends BaseRequestHolder {
     public static class Builder {
         private final List<QueryBuilder> mBuilderQueryBuilder = new ArrayList<QueryBuilder>();
         private QueryMethod mBuilderQueryMethod = QueryMethod.query;
-        private CallbackOneReturnable mBuilderOnAfterExtracted;
+        private CallbackOneReturnable mBuilderAfterExtracted;
 
         public Builder(QueryBuilder queryBuilder) {
             mBuilderQueryBuilder.add(queryBuilder);
@@ -68,8 +68,8 @@ public class DbRequestHolder extends BaseRequestHolder {
             return this;
         }
 
-        public Builder setOnAfterExtracted(CallbackOneReturnable onOnAfterExtracted) {
-            mBuilderOnAfterExtracted = onOnAfterExtracted;
+        public Builder setAfterExtracted(CallbackOneReturnable afterExtracted) {
+            mBuilderAfterExtracted = afterExtracted;
             return this;
         }
 
@@ -77,7 +77,7 @@ public class DbRequestHolder extends BaseRequestHolder {
             return new DbRequestHolder(
                     mBuilderQueryBuilder,
                     mBuilderQueryMethod,
-                    mBuilderOnAfterExtracted);
+                    mBuilderAfterExtracted);
         }
     }
 }
