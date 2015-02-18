@@ -7,7 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddPills.h"
+#import "Drugs.h"
+
+typedef enum {
+    dNew = 1,
+    dFilled = 2
+} DIndex;
+
 
 @interface CalendarPage : VControllerExt
+
+@property (nonatomic, strong) IBOutlet UISegmentedControl *fillEmptySwitch;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) NSMutableArray *emptyRecords;
+@property (nonatomic, strong) NSMutableArray *filledRecords;
+@property (nonatomic) DIndex state;
+@property (nonatomic, strong) AddPills *addPills;
+@property (nonatomic, strong) Drugs *drugs;
 
 @end

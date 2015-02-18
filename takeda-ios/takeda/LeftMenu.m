@@ -71,7 +71,7 @@
                   @{@"name" :@"Поиск учреждений", @"enabled":@"YES"},
                   @{@"name" :@"Рекомендации", @"enabled":@"NO"},
                   @{@"name" :@"Результаты анализа", @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
-                  @{@"name" :@"Календарь", @"enabled":@"NO"},
+                  @{@"name" :@"Календарь", @"enabled":@"YES"},
                   @{@"name" :@"Полезно знать", @"enabled":@"YES"},
                   @{@"name" :@"Публикации", @"enabled":@"YES"},
                   @{@"name" :@"Отчеты", @"enabled":@"YES"}

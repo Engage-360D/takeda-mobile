@@ -15,6 +15,7 @@
     #import <Foundation/Foundation.h>
     #import "NSNull+Safed.h"
     #import "CActionSheet.h"
+    #import "NSString+MD5.h"
     #import "UIView+Ext.h"
     #import "DejalActivityView.h"
     #import "NSMutableArray+DataFill.h"

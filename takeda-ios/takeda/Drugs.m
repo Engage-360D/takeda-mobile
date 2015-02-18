@@ -28,6 +28,9 @@
 
 -(void)setupInterface{
     [self.goToDoctorBtn setupStandartBordered];
+    self.navigationItem.rightBarButtonItems = nil;
+    self.navigationItem.rightBarButtonItem = [self menuBarBtnWithImageName:@"addWhiteInCircle" selector:@selector(addPillsAction) forTarget:self];
+
     self.bottomText.font = [UIFont fontWithName:@"SegoeWP-Light" size:12.0f];
 
     self.tableView.backgroundColor = RGB(243, 243, 243);
@@ -44,6 +47,11 @@
 
 -(IBAction)goToTheDoctorAction:(id)sender{
     
+}
+
+-(void)addPillsAction{
+    _addPills = [AddPills new];
+    [self.navigationController pushViewController:_addPills animated:YES];
 }
 
 #pragma mark - Table view data source
