@@ -36,7 +36,7 @@
     <string name="error_test_age">Возраст может иметь значение от 22.</string>
     <string name="error_test_growth">Рост может иметь значение от 30 до 300.</string>
     <string name="error_test_weight">Вес может иметь значение от 30 до 700.</string>
-    <string name="error_test_cholesterol_level">Уровень общего холестирина может иметь значение от 3 до 9.</string>
+    <string name="error_test_cholesterol_level">Уровень общего холестерина может иметь значение от 3 до 9.</string>
 
     <!-- ====== -->
     <!-- common -->

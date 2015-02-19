@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -26,7 +25,7 @@ import ru.com.cardiomagnyl.model.timeline.Timeline;
 @DatabaseTable(tableName = "task")
 public class Task extends BaseModel {
 
-    public enum Type {diet, exercise, pill}
+    public enum Type {diet, exercise, pill, /*next fields are fake*/ smoking, weight, pressure, cholesterol, undefined}
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     @JsonProperty("id")

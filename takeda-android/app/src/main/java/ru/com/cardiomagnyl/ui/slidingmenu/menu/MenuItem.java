@@ -2,7 +2,7 @@ package ru.com.cardiomagnyl.ui.slidingmenu.menu;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.InformationFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.JournalFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.journal.JournalFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.MainFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.PublicationsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.RecommendationsFragment;

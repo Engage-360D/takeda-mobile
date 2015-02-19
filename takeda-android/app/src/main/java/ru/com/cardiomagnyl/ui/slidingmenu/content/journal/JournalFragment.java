@@ -1,11 +1,14 @@
-package ru.com.cardiomagnyl.ui.slidingmenu.content;
+package ru.com.cardiomagnyl.ui.slidingmenu.content.journal;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +27,7 @@ import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
 public class JournalFragment extends BaseItemFragment {
+    private final List<Timeline> mAllTimeline = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal, null);
@@ -74,7 +78,7 @@ public class JournalFragment extends BaseItemFragment {
                         Map<String, Pill> pillsMap = Pill.listToMap(pillsList);
                         if (Timeline.checkPillsInTasks(timeline, pillsMap)) {
                             initFragmentFinish(fragmentView, timeline, pillsMap);
-                        }else {
+                        } else {
                             getPillHttp(fragmentView, token, timeline);
                         }
                     }
@@ -98,7 +102,7 @@ public class JournalFragment extends BaseItemFragment {
                         Map<String, Pill> pillsMap = Pill.listToMap(pillsList);
                         if (Timeline.checkPillsInTasks(timeline, pillsMap)) {
                             initFragmentFinish(fragmentView, timeline, pillsMap);
-                        }else {
+                        } else {
                             initFragmentFinish(fragmentView, timeline, null);
                         }
                     }
@@ -127,22 +131,32 @@ public class JournalFragment extends BaseItemFragment {
         } else {
             textViewMessage.setVisibility(View.GONE);
             fragmentContent.setVisibility(View.VISIBLE);
+            initFragmentFinishHelper(fragmentView, timeline, pillsMap);
         }
+    }
 
+    private void initFragmentFinishHelper(final View fragmentView, final List<Timeline> timeline, final Map<String, Pill> pillsMap) {
+        final ListView listViewTimeline = (ListView) fragmentView.findViewById(R.id.listViewTimeline);
+
+        mAllTimeline.clear();
+        mAllTimeline.addAll(timeline);
+
+        TimelineAdapter timelineAdapter = new TimelineAdapter(JournalFragment.this.getActivity(), timeline, pillsMap);
+        listViewTimeline.setAdapter(timelineAdapter);
     }
 
     private void initFragment(View view) {
-        View item1 = view.findViewById(R.id.item1);
-        View item2 = view.findViewById(R.id.item2);
-        View item3 = view.findViewById(R.id.item3);
+//        View item1 = view.findViewById(R.id.item1);
+//        View item2 = view.findViewById(R.id.item2);
+//        View item3 = view.findViewById(R.id.item3);
 
-        TextView textViewDate1 = (TextView) item1.findViewById(R.id.textViewDate);
-        TextView textViewDate2 = (TextView) item2.findViewById(R.id.textViewDate);
-        TextView textViewDate3 = (TextView) item3.findViewById(R.id.textViewDate);
+//        TextView textViewDate1 = (TextView) item1.findViewById(R.id.textViewDate);
+//        TextView textViewDate2 = (TextView) item2.findViewById(R.id.textViewDate);
+//        TextView textViewDate3 = (TextView) item3.findViewById(R.id.textViewDate);
 
-        textViewDate1.setText(Tools.getDayOfWeek(0));
-        textViewDate2.setText(Tools.getDayOfWeek(-1));
-        textViewDate3.setText(Tools.getDayOfWeek(-2));
+//        textViewDate1.setText(Tools.getDayOfWeek(0));
+//        textViewDate2.setText(Tools.getDayOfWeek(-1));
+//        textViewDate3.setText(Tools.getDayOfWeek(-2));
 
 
 //        View linearLayoutTime1 = view.findViewById(R.id.linearLayoutTime1);

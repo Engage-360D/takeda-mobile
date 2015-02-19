@@ -55,38 +55,19 @@
                 android:textSize="@dimen/text_size_small" />
         </RadioGroup>
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <ListView
+            android:id="@+id/listViewTimeline"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
-            android:scrollbarStyle="outsideOverlay">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include
-                    android:id="@+id/item1"
-                    layout="@layout/list_item_personal_journal_one_day" />
-
-                <include
-                    android:id="@+id/item2"
-                    layout="@layout/list_item_personal_journal_one_day" />
-
-                <include
-                    android:id="@+id/item3"
-                    layout="@layout/list_item_personal_journal_one_day" />
-
-            </LinearLayout>
-        </ScrollView>
+            android:divider="@null" />
 
     </LinearLayout>
 
     <include
         android:id="@+id/textViewMessage"
-        layout="@layout/layout_data_not_found" />
+        layout="@layout/layout_data_not_found"
+        android:visibility="gone" />
 
 </RelativeLayout>
