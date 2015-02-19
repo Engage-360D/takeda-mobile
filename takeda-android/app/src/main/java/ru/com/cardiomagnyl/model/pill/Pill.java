@@ -7,6 +7,10 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "id",
@@ -181,6 +185,15 @@ public class Pill {
     @JsonProperty("user")
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public static Map<String, Pill> listToMap(List<Pill> pillsList) {
+        if (pillsList == null) return null;
+
+        Map<String, Pill> pillsMap = new HashMap<>();
+        for (Pill pill : pillsList) pillsMap.put(pill.getId(), pill);
+
+        return pillsMap;
     }
 
 }

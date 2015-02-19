@@ -165,13 +165,13 @@ public class Task extends BaseModel {
         this.pill = pill;
     }
 
-    public static Map<String, Task> listToMap(List<Task> listTasks) {
-        if (listTasks == null) return null;
+    public static Map<String, Task> listToMap(List<Task> tasksList) {
+        if (tasksList == null) return null;
 
-        Map<String, Task> mapTasks = new HashMap<>();
-        for (Task task : listTasks) mapTasks.put(task.getId(), task);
+        Map<String, Task> tasksMap = new HashMap<>();
+        for (Task task : tasksList) tasksMap.put(task.getId(), task);
 
-        return mapTasks;
+        return tasksMap;
     }
 
 }

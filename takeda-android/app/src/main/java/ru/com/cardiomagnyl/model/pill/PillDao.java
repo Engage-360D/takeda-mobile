@@ -18,9 +18,6 @@ import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill_proxy.PillProxy;
-import ru.com.cardiomagnyl.model.region.Region;
-import ru.com.cardiomagnyl.model.timeline.Timeline;
-import ru.com.cardiomagnyl.model.timeline_proxy.TimelineMergedProxy;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.CallbackOneReturnable;
@@ -36,7 +33,7 @@ public class PillDao extends BaseDaoImpl<Pill, Integer> {
         TypeReference typeReference = new TypeReference<List<PillProxy>>() {
         };
 
-        CallbackOneReturnable<List<PillProxy>, List<Pill>> afterExtracted = new CallbackOneReturnable<List<PillProxy>, List<Pill>> () {
+        CallbackOneReturnable<List<PillProxy>, List<Pill>> afterExtracted = new CallbackOneReturnable<List<PillProxy>, List<Pill>>() {
             @Override
             public List<Pill> execute(List<PillProxy> pillsProxyList) {
                 return pillsProxyList != null ? PillProxy.extractAllPills(pillsProxyList) : null;
