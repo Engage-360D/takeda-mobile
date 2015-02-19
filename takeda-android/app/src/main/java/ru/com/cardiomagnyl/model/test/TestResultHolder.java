@@ -25,7 +25,7 @@ public class TestResultHolder {
     @DatabaseField(dataType = DataType.STRING, columnName = "json")
     private String mJson;
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "user_id")
+    @DatabaseField(dataType = DataType.STRING, columnName = "user")
     private String mUserId;
 
     public TestResultHolder(){}

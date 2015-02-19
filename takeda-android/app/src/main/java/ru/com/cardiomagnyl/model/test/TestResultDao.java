@@ -42,22 +42,22 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
 
         CallbackOneReturnable<List<TestResultHolder>, List<TestResult>> afterExtractedDb = new CallbackOneReturnable<List<TestResultHolder>, List<TestResult>>() {
             @Override
-            public List<TestResult> execute(List<TestResultHolder> testResultHolderList) {
-                return extractResultHolderList(testResultHolderList);
+            public List<TestResult> execute(List<TestResultHolder> testResultsHolderList) {
+                return extractResultHolderList(testResultsHolderList);
             }
         };
 
         CallbackOne<List<TestResult>> onStoreIntoDatabase = new CallbackOne<List<TestResult>>() {
             @Override
-            public void execute(List<TestResult> testResultList) {
-                storeIntoDatabase(testResultList, token.getUserId());
+            public void execute(List<TestResult> testResultsList) {
+                storeIntoDatabase(testResultsList, token.getUserId());
             }
         };
 
         RuntimeExceptionDao helperFactoryTestResultHolder = HelperFactory.getHelper().getRuntimeDataDao(TestResultHolder.class);
         QueryBuilder queryBuilder = helperFactoryTestResultHolder.queryBuilder();
         try {
-            queryBuilder.where().eq("user_id", token.getUserId());
+            queryBuilder.where().eq("user", token.getUserId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -153,31 +153,31 @@ public class TestResultDao extends BaseDaoImpl<TestResult, Integer> {
                 );
     }
 
-    public static void storeIntoDatabase(final List<TestResult> testResultList, final String userId) {
-        if (testResultList != null && !testResultList.isEmpty()) {
+    public static void storeIntoDatabase(final List<TestResult> testResultsList, final String userId) {
+        if (testResultsList != null && !testResultsList.isEmpty()) {
             RuntimeExceptionDao helperFactoryTestResultHolder = HelperFactory.getHelper().getRuntimeDataDao(TestResultHolder.class);
-            for (TestResult testResult : testResultList) {
+            for (TestResult testResult : testResultsList) {
                 TestResultHolder testResultHolder = new TestResultHolder(testResult, userId);
                 helperFactoryTestResultHolder.createOrUpdate(testResultHolder);
             }
         }
     }
 
-    private static List<TestResult> extractResultHolderList(List<TestResultHolder> testResultHolderList) {
-        if (testResultHolderList == null) return null;
+    private static List<TestResult> extractResultHolderList(List<TestResultHolder> testResultsHolderList) {
+        if (testResultsHolderList == null) return null;
 
         List testResultList = new ArrayList<TestResult>();
-        for (TestResultHolder testResultHolder : testResultHolderList) {
+        for (TestResultHolder testResultHolder : testResultsHolderList) {
             testResultList.add(testResultHolder.getTestResult());
         }
 
         return testResultList;
     }
 
-    public static TestResult getNewestResult(List<TestResult> testResultList) {
-        TestResult newestResult = (testResultList == null || testResultList.isEmpty()) ? null : testResultList.get(0);
+    public static TestResult getNewestResult(List<TestResult> testResultsList) {
+        TestResult newestResult = (testResultsList == null || testResultsList.isEmpty()) ? null : testResultsList.get(0);
         if (newestResult != null) {
-            for (TestResult currentTestResult : testResultList) {
+            for (TestResult currentTestResult : testResultsList) {
                 Date currentDate = Tools.dateFromFullDate(currentTestResult.getCreatedAt());
                 Date newestDate = Tools.dateFromFullDate(newestResult.getCreatedAt());
                 newestResult = currentDate.after(newestDate) ? currentTestResult : newestResult;

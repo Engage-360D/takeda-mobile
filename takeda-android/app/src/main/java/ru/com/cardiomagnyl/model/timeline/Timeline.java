@@ -33,7 +33,7 @@ public class Timeline extends BaseModel {
     @JsonDeserialize(as = ArrayList.class)
     private Collection<Task> tasks = new ArrayList<>();
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "user_id")
+    @DatabaseField(dataType = DataType.STRING, columnName = "user")
     private String userId;
 
     /**

@@ -1,11 +1,18 @@
-package ru.com.cardiomagnyl.model.pill;
+package ru.com.cardiomagnyl.model.pill_proxy;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.j256.ormlite.field.DataType;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ru.com.cardiomagnyl.model.base.BaseModel;
+import ru.com.cardiomagnyl.model.pill.Pill;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -15,45 +22,34 @@ import com.j256.ormlite.table.DatabaseTable;
         "time",
         "repeat",
         "sinceDate",
-        "tillDate"
+        "tillDate",
+        "links"
 })
-@DatabaseTable(tableName = "pill")
-public class Pill {
+public class PillProxy {
 
-    public enum Repeat {DAILY, EVERY_2_DAYS}
-
-    @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     @JsonProperty("id")
     private String id;
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "name")
     @JsonProperty("name")
     private String name;
 
-    @DatabaseField(dataType = DataType.INTEGER, columnName = "quantity")
     @JsonProperty("quantity")
     private int quantity;
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "time")
     @JsonProperty("time")
     private String time;
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "repeat")
     @JsonProperty("repeat")
     private String repeat;
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "since_date")
     @JsonProperty("sinceDate")
     private String sinceDate;
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "till_date")
     @JsonProperty("tillDate")
     private String tillDate;
 
-    // links
-    @DatabaseField(dataType = DataType.STRING, columnName = "user")
-    @JsonProperty("user")
-    private String user;
+    @JsonProperty("links")
+    private JsonNode links;
 
     /**
      * @return The name
@@ -168,19 +164,45 @@ public class Pill {
     }
 
     /**
-     * @return The region
+     * @return The links
      */
-    @JsonProperty("user")
-    public String getUser() {
-        return user;
+    @JsonProperty("links")
+    public JsonNode getLinks() {
+        return links;
     }
 
     /**
-     * @param user The region
+     * @param links The links
      */
-    @JsonProperty("user")
-    public void setUser(String user) {
-        this.user = user;
+    @JsonProperty("links")
+    public void setLinks(JsonNode links) {
+        this.links = links;
+    }
+
+    public static List<Pill> extractAllPills(List<PillProxy> pillProxy) {
+        if (pillProxy == null) return null;
+
+        List<Pill> allPills = new ArrayList<>();
+        for (PillProxy currentPillProxy : pillProxy) allPills.add(currentPillProxy.extractPill());
+
+        return allPills;
+    }
+
+    // FIXME: improve performance!!!
+    private Pill extractPill() {
+        ObjectNode objectNode = new ObjectMapper().valueToTree(this);
+        unPackLinks(objectNode);
+        Pill pill = (Pill) BaseModel.stringToObject(objectNode.toString(), new TypeReference<Pill>() {
+        });
+        return pill;
+    }
+
+    public static void unPackLinks(ObjectNode objectNodePacked) {
+        if (objectNodePacked != null) {
+            JsonNode jsonNode = objectNodePacked.get("links");
+            objectNodePacked.remove("links");
+            if (jsonNode != null) objectNodePacked.putAll((ObjectNode) jsonNode);
+        }
     }
 
 }

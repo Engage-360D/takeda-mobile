@@ -45,10 +45,10 @@ public class UserRoleDao extends BaseDaoImpl<UserRole, Integer> {
 
         QueryBuilder<UserRole, Integer> userRoleQb = userRoleDao.queryBuilder();
         // TODO: move to public final string
-        userRoleQb.selectColumns("role_id");
+        userRoleQb.selectColumns("role");
         SelectArg userSelectArg = new SelectArg();
         // TODO: move to public final string
-        userRoleQb.where().eq("user_id", userSelectArg);
+        userRoleQb.where().eq("user", userSelectArg);
 
         QueryBuilder<Role, Integer> roleQb = roleDao.queryBuilder();
         // TODO: move to public final string
@@ -65,10 +65,10 @@ public class UserRoleDao extends BaseDaoImpl<UserRole, Integer> {
 
         QueryBuilder<UserRole, Integer> userRoleQb = userRoleDao.queryBuilder();
         // TODO: move to public final string
-        userRoleQb.selectColumns("user_id");
+        userRoleQb.selectColumns("user");
         SelectArg roleSelectArg = new SelectArg();
         // TODO: move to public final string
-        userRoleQb.where().eq("role_id", roleSelectArg);
+        userRoleQb.where().eq("role", roleSelectArg);
 
         QueryBuilder<User, Integer> userQb = userDao.queryBuilder();
         // TODO: move to public final string
