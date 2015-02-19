@@ -22,6 +22,7 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
 })
 @DatabaseTable(tableName = "page")
 public class TestPage extends BaseModel implements Parcelable {
+
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     private String id;
 

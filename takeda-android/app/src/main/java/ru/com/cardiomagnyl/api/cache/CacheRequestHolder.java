@@ -18,10 +18,10 @@ public class CacheRequestHolder extends BaseVolleyRequestHolder {
             String url,
             TypeReference typeReference,
             Map<String, String> params,
-            CallbackOne onBeforeExtract,
-            CallbackOneReturnable onAfterExtracted,
+            CallbackOne beforeExtract,
+            CallbackOneReturnable afterExtracted,
             CallbackOne onStoreIntoDatabase) {
-        super(method, url, params, typeReference, onBeforeExtract, onAfterExtracted, onStoreIntoDatabase);
+        super(method, url, params, typeReference, beforeExtract, afterExtracted, onStoreIntoDatabase);
         mCacheDataLoader = new CacheDataLoader();
     }
 
@@ -35,8 +35,8 @@ public class CacheRequestHolder extends BaseVolleyRequestHolder {
         private final String mBuilderUrl;
         private final TypeReference mBuildTypeReference;
         private Map<String, String> mBuilderParams = new HashMap<String, String>();
-        private CallbackOne mBuilderOnBeforeExtract;
-        private CallbackOneReturnable mBuilderOnAfterExtracted;
+        private CallbackOne mBuilderBeforeExtracted;
+        private CallbackOneReturnable mBuilderAfterExtracted;
         private CallbackOne mBuilderOnStoreIntoDatabase;
 
         public Builder(int builderMethod, String builderUrl, TypeReference builderTypeReference) {
@@ -55,13 +55,13 @@ public class CacheRequestHolder extends BaseVolleyRequestHolder {
             return this;
         }
 
-        public Builder setOnBeforeExtract(CallbackOne onOnBeforeExtract) {
-            mBuilderOnBeforeExtract = onOnBeforeExtract;
+        public Builder setBeforeExtracted(CallbackOne beforeExtracted) {
+            mBuilderBeforeExtracted = beforeExtracted;
             return this;
         }
 
-        public Builder setOnAfterExtracted(CallbackOneReturnable onOnAfterExtracted) {
-            mBuilderOnAfterExtracted = onOnAfterExtracted;
+        public Builder setAfterExtracted(CallbackOneReturnable afterExtracted) {
+            mBuilderAfterExtracted = afterExtracted;
             return this;
         }
 
@@ -76,8 +76,8 @@ public class CacheRequestHolder extends BaseVolleyRequestHolder {
                     mBuilderUrl,
                     mBuildTypeReference,
                     mBuilderParams,
-                    mBuilderOnBeforeExtract,
-                    mBuilderOnAfterExtracted,
+                    mBuilderBeforeExtracted,
+                    mBuilderAfterExtracted,
                     mBuilderOnStoreIntoDatabase);
         }
     }

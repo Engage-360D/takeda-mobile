@@ -72,7 +72,7 @@ public class TokenDao extends BaseDaoImpl<Token, Integer> {
         TypeReference typeReference = new TypeReference<Token>() {
         };
 
-        CallbackOne<Response> onOnBeforeExtract = new CallbackOne<Response>() {
+        CallbackOne<Response> beforeExtracted = new CallbackOne<Response>() {
             @Override
             public void execute(Response response) {
                 Token.unPackLinks((ObjectNode) response.getData());
@@ -95,7 +95,7 @@ public class TokenDao extends BaseDaoImpl<Token, Integer> {
                         .Builder(Request.Method.POST, Url.TOKENS, typeReference)
                         .addHeaders(Url.POST_HEADERS)
                         .setBody(packedToken)
-                        .setOnBeforeExtract(onOnBeforeExtract)
+                        .setBeforeExtracted(beforeExtracted)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 

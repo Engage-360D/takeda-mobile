@@ -39,14 +39,14 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
         TypeReference typeReference = new TypeReference<User>() {
         };
 
-        CallbackOne<Response> onOnBeforeExtract = new CallbackOne<Response>() {
+        CallbackOne<Response> beforeExtracted = new CallbackOne<Response>() {
             @Override
             public void execute(Response response) {
                 User.unPackLinks((ObjectNode) response.getData());
             }
         };
 
-        CallbackOneReturnable<User, User> onOnAfterExtract = new CallbackOneReturnable<User, User>() {
+        CallbackOneReturnable<User, User> afterExtracted = new CallbackOneReturnable<User, User>() {
             @Override
             public User execute(User user) {
                 user.setIsDoctor(user.checkRole(User.Roles.role_doctor));
@@ -71,8 +71,8 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                         .Builder(Request.Method.POST, Url.USERS, typeReference)
                         .addHeaders(Url.POST_HEADERS)
                         .setBody(packedUser)
-                        .setOnBeforeExtract(onOnBeforeExtract)
-                        .setOnAfterExtracted(onOnAfterExtract)
+                        .setBeforeExtracted(beforeExtracted)
+                        .setAfterExtracted(afterExtracted)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
@@ -92,14 +92,14 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
         TypeReference typeReference = new TypeReference<User>() {
         };
 
-        CallbackOne<Response> onOnBeforeExtract = new CallbackOne<Response>() {
+        CallbackOne<Response> beforeExtracted = new CallbackOne<Response>() {
             @Override
             public void execute(Response response) {
                 User.unPackLinks((ObjectNode) response.getData());
             }
         };
 
-        CallbackOneReturnable<User, User> onOnAfterExtract = new CallbackOneReturnable<User, User>() {
+        CallbackOneReturnable<User, User> afterExtracted = new CallbackOneReturnable<User, User>() {
             @Override
             public User execute(User user) {
                 user.setIsDoctor(user.checkRole(User.Roles.role_doctor));
@@ -123,8 +123,8 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                         .Builder(Request.Method.PUT, String.format(Url.ACCOUNT_UPDATE, token.getTokenId()), typeReference)
                         .addHeaders(Url.POST_HEADERS)
                         .setBody(cleanedUser)
-                        .setOnBeforeExtract(onOnBeforeExtract)
-                        .setOnAfterExtracted(onOnAfterExtract)
+                        .setBeforeExtracted(beforeExtracted)
+                        .setAfterExtracted(afterExtracted)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
@@ -169,14 +169,14 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
         TypeReference typeReference = new TypeReference<User>() {
         };
 
-        CallbackOne<Response> onOnBeforeExtract = new CallbackOne<Response>() {
+        CallbackOne<Response> beforeExtracted = new CallbackOne<Response>() {
             @Override
             public void execute(Response response) {
                 User.unPackLinks((ObjectNode) response.getData());
             }
         };
 
-        CallbackOneReturnable<User, User> onOnAfterExtractDb = new CallbackOneReturnable<User, User>() {
+        CallbackOneReturnable<User, User> afterExtractedDb = new CallbackOneReturnable<User, User>() {
             @Override
             public User execute(User user) {
                 RuntimeExceptionDao helperFactoryUserRole = HelperFactory.getHelper().getRuntimeDataDao(UserRole.class);
@@ -192,7 +192,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
             }
         };
 
-        CallbackOneReturnable<User, User> onOnAfterExtractHttp = new CallbackOneReturnable<User, User>() {
+        CallbackOneReturnable<User, User> afterExtractedHttp = new CallbackOneReturnable<User, User>() {
             @Override
             public User execute(User user) {
                 user.setIsDoctor(user.checkRole(User.Roles.role_doctor));
@@ -219,7 +219,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                 new DbRequestHolder
                         .Builder(queryBuilder)
                         .setQueryMethod(DbRequestHolder.QueryMethod.queryForFirst)
-                        .setOnAfterExtracted(onOnAfterExtractDb)
+                        .setAfterExtracted(afterExtractedDb)
                         .create();
 
         HttpRequestHolder httpRequestHolder =
@@ -227,8 +227,8 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                         .Builder(Request.Method.GET, Url.ACCOUNT, typeReference)
                         .addHeaders(Url.GET_HEADERS)
                         .addParam("token", token.getTokenId())
-                        .setOnBeforeExtract(onOnBeforeExtract)
-                        .setOnAfterExtracted(onOnAfterExtractHttp)
+                        .setBeforeExtracted(beforeExtracted)
+                        .setAfterExtracted(afterExtractedHttp)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 

@@ -45,6 +45,7 @@ import ru.com.cardiomagnyl.model.role.Role;
 })
 @DatabaseTable(tableName = "user")
 public class User extends BaseModel {
+
     public static enum Roles {role_user, role_doctor, role_admin}
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.INTEGER, columnName = "id")
@@ -364,7 +365,6 @@ public class User extends BaseModel {
     public void setRoles(List<?> roles) {
         this.roles.clear();
         if (roles != null && !roles.isEmpty() && roles.get(0) instanceof String) {
-
             this.roles.addAll((List<String>) roles);
         } else if (roles != null && !roles.isEmpty() && roles.get(0) instanceof Role) {
             if (roles != null) for (Role role : (List<Role>) roles) this.roles.add(role.getName());
