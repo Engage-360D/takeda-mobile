@@ -22,19 +22,24 @@ static Synchronizer *sharedInst = NULL;
 
 -(void)startSynchronize{
     [self loadRiskAnalResults];
+    [self loadPills];
 }
 
 -(void)loadRiskAnalResults{
     int lastId = [GlobalData lastResultDataId];
     [ServData loadAnalysisFromServerWithLastId:lastId completion:^(BOOL success, NSError *error, id result) {
         if (success) {
-                [GlobalData saveResultAnalyses:result[@"data"]];
-        } else{
+            [GlobalData saveResultAnalyses:result[@"data"]];
+        } else {
         }
     }];
 
 }
 
-
+-(void)loadPills{
+    [GlobalData loadPillsCompletition:^(BOOL completition, id result){
+       
+    }];
+}
 
 @end

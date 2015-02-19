@@ -71,10 +71,11 @@ bool is_authorized;
 -(void)autologin{
     
     NSString *lastUser = [User getLastUser];
-    NSMutableDictionary *usData = [User getUserInfo:lastUser];
-    User.userData = usData;
 
     if (lastUser){
+        NSMutableDictionary *usData = [User getUserInfo:lastUser];
+        User.userData = usData;
+
         is_loading = YES;
         // получаем информацию о этом юзере
        // [User setCurrentUser:lastUser];

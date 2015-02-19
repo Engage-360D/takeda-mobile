@@ -12,6 +12,7 @@
 #define resultAnalysesFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"analize_results"]
 #define userSettingsFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"user"]
 #define cashFile(url) [NSString stringWithFormat:@"%@/%@", [Path CasheFolder],url]
+#define userPills [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"pills"]
 
 
 @implementation GlobalData
@@ -150,12 +151,39 @@ static GlobalData *objectInstance = nil;
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion{
 
     [ServData loadTimelineCompletition:^(BOOL success, id result){
+        
         completion(success, result);
     }];
     
 }
 
++(NSMutableArray*)pills{
+    NSMutableArray *arr = [NSMutableArray readFromFile:userPills];
+    return arr;
+}
 
++(NSMutableDictionary*)pillById:(int)pillId{
+    NSMutableArray *arr = [self pills];
+    NSMutableDictionary *pill = [Global dictionaryWithValue:[NSNumber numberWithInt:pillId] ForKey:@"id" InArray:arr];
+    return pill;
+}
+
++(NSMutableDictionary*)pillsDict{
+    NSMutableArray *arr = [self pills];
+    return [Global recursiveMutable: [arr groupByKey:@"id"]];
+}
+
+
++(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion{
+    [ServData loadPillsCompletition:^(BOOL success, id result){
+        if (success){
+            NSMutableArray *pills = result[@"data"];
+            [pills saveTofile:userPills];
+        }
+        completion(success, result);
+    }];
+    
+}
 
 
 

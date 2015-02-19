@@ -16,17 +16,19 @@ typedef enum {
 } DIndex;
 
 
-@interface CalendarPage : VControllerExt
+@interface CalendarPage : VControllerExt<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UISegmentedControl *fillEmptySwitch;
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, assign) UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UITableView *tableNewView;
+@property (nonatomic, strong) IBOutlet UITableView *tableFillView;
 
 @property (nonatomic) DIndex state;
 @property (nonatomic, strong) AddPills *addPills;
 @property (nonatomic, strong) Drugs *drugs;
 
 @property (nonatomic, strong) NSMutableArray *days;
-@property (nonatomic, strong) NSArray *records;
+@property (nonatomic, strong) NSMutableArray *records;
 
 @property (nonatomic, strong) NSMutableArray *emptyRecords;
 @property (nonatomic, strong) NSMutableArray *filledRecords;

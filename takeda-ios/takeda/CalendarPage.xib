@@ -8,7 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalendarPage">
             <connections>
                 <outlet property="fillEmptySwitch" destination="4D4-Kx-H6j" id="zWn-US-3DR"/>
-                <outlet property="tableView" destination="HB0-TU-UaG" id="0n2-BS-ywM"/>
+                <outlet property="tableFillView" destination="nvc-O8-Aii" id="xSp-Sf-OGc"/>
+                <outlet property="tableNewView" destination="HB0-TU-UaG" id="XdF-OL-EQX"/>
                 <outlet property="vcTitle" destination="lcM-aH-CPw" id="EFl-e8-9nv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -32,15 +33,17 @@
                     </subviews>
                     <color key="backgroundColor" red="0.83529411760000005" green="0.1176470588" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="HB0-TU-UaG">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="HB0-TU-UaG">
                     <rect key="frame" x="0.0" y="85" width="320" height="395"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.85098039219999999" green="0.87058823529999996" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="ZaY-sP-oum"/>
-                        <outlet property="delegate" destination="-1" id="hdT-na-USa"/>
-                    </connections>
+                </tableView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="nvc-O8-Aii">
+                    <rect key="frame" x="0.0" y="85" width="320" height="395"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="4D4-Kx-H6j">
                     <rect key="frame" x="12" y="50" width="296" height="29"/>
@@ -51,6 +54,9 @@
                         <segment title="Заполненные"/>
                     </segments>
                     <color key="tintColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="selectViewType:" destination="-1" eventType="valueChanged" id="h7f-m9-9gr"/>
+                    </connections>
                 </segmentedControl>
             </subviews>
             <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>

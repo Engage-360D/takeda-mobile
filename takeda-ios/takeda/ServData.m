@@ -220,11 +220,8 @@ static ServData *objectInstance = nil;
 
 
 +(void)sendAnalysisToServer:(NSDictionary*)analysisData completion:(void (^)(BOOL success, NSError* error, id result))completion{
-//    NSLog(@"before = %@",analysisData);
     NSString *url = [NSString stringWithFormat:
                      @"%@%@",kServerURL,kTestResults];
-    
-//    NSLog(@"after = %@",[self setupNulls:analysisData]);
     
     [self sendCommonPOST:url body:[self preparedParams: analysisData] success:^(id result){
         if (result[@"data"][@"id"]){
@@ -266,6 +263,15 @@ static ServData *objectInstance = nil;
     
 }
 
++(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion{
+    
+    NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kAccountPills];
+    [self sendCommon:urlstr success:^(id res){
+        completion(YES, res);
+    }];
+    
+}
+
 
 +(void)shareTest:(int)testId viaEmail:(NSString*)email completition:(void (^)(BOOL success, id result))completion{
     NSString *urlstr = [NSString stringWithFormat:@"%@%@/%i/%@",kServerURL,kTestResults,testId,kTestResultShareEmail];
@@ -281,9 +287,20 @@ static ServData *objectInstance = nil;
     NSString *url = [NSString stringWithFormat:
                      @"%@%@",kServerURL,kAccountPills];
     
-    //    NSLog(@"after = %@",[self setupNulls:analysisData]);
-    
     [self sendCommonPOST:url body:[self preparedParams: analysisData] success:^(id result){
+        if (result[@"data"][@"id"]){
+            completion(YES,nil, result);
+        } else {
+            completion(NO,nil, result);
+        }
+    }];
+}
+
++(void)updateTask:(NSString*)taskId params:(NSDictionary*)taskParams completion:(void (^)(BOOL success, NSError* error, id result))completion{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/%@",kServerURL,kAccountTasks, taskId];
+    
+    [self sendCommonPUT:url body:[self preparedParams: taskParams] success:^(id result){
         if (result[@"data"][@"id"]){
             completion(YES,nil, result);
         } else {
