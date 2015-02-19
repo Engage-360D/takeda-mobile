@@ -16,7 +16,7 @@ import java.util.List;
 public class TimelineLinksProxy {
 
     @JsonProperty("tasks")
-    private List<String> tasks = new ArrayList<String>();
+    private List<String> tasks = new ArrayList<>();
 
     /**
      * @return The tasks

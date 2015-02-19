@@ -15,7 +15,7 @@ import ru.com.cardiomagnyl.model.common.Response;
         "date",
         "tasks"
 })
-public class TimelineProxy extends BaseModel {
+public class TimelineRawProxy extends BaseModel {
 
     @JsonProperty("date")
     private String date;

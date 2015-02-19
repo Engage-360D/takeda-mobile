@@ -14,25 +14,26 @@ import java.util.Map;
 import ru.com.cardiomagnyl.model.base.BaseModel;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.task.Task;
+import ru.com.cardiomagnyl.model.task_proxy.TaskProxy;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "timeline_proxy",
-        "tasks"
+        "tasks_proxy"
 })
 public class TimelineMergedProxy extends BaseModel {
 
     @JsonProperty("timeline_proxy")
-    private List<TimelineProxy> timelineProxy = new ArrayList<TimelineProxy>();
-    @JsonProperty("tasks")
-    private List<Task> tasks = new ArrayList<Task>();
+    private List<TimelineRawProxy> timelineProxy = new ArrayList<TimelineRawProxy>();
+    @JsonProperty("tasks_proxy")
+    private List<TaskProxy> tasksProxy = new ArrayList<>();
 
     /**
      * @return The timelineProxy
      */
     @JsonProperty("timeline_proxy")
-    public List<TimelineProxy> getTimelineProxy() {
+    public List<TimelineRawProxy> getTimelineProxy() {
         return timelineProxy;
     }
 
@@ -40,47 +41,48 @@ public class TimelineMergedProxy extends BaseModel {
      * @param timelineProxy The timelineProxy
      */
     @JsonProperty("timeline_proxy")
-    public void setTimelineProxy(List<TimelineProxy> timelineProxy) {
+    public void setTimelineProxy(List<TimelineRawProxy> timelineProxy) {
         this.timelineProxy = timelineProxy;
     }
 
     /**
-     * @return The tasks
+     * @return The tasksProxy
      */
-    @JsonProperty("tasks")
-    public List<Task> getTasks() {
-        return tasks;
+    @JsonProperty("tasks_proxy")
+    public List<TaskProxy> getTasksProxy() {
+        return tasksProxy;
     }
 
     /**
-     * @param tasks The tasks
+     * @param tasksProxy The tasksProxy
      */
-    @JsonProperty("links")
-    public void setTask(List<Task> tasks) {
-        this.tasks = tasks;
+    @JsonProperty("tasks_proxy")
+    public void setTaskProxy(List<TaskProxy> tasksProxy) {
+        this.tasksProxy = tasksProxy;
     }
 
     public List<Timeline> extractAllTimeline() {
-        List<Timeline> extractedTimeline = new ArrayList<>();
+        List<Task> tasks = TaskProxy.extractAllTasks(tasksProxy);
         Map<String, Task> mapTasks = Task.listToMap(tasks);
 
-        for (TimelineProxy currentTimelineProxy : timelineProxy) {
-            Timeline timeline = extractTimeline(currentTimelineProxy, mapTasks);
+        List<Timeline> extractedTimeline = new ArrayList<>();
+        for (TimelineRawProxy currentTimelineRawProxy : timelineProxy) {
+            Timeline timeline = extractTimeline(currentTimelineRawProxy, mapTasks);
             extractedTimeline.add(timeline);
         }
 
         return extractedTimeline;
     }
 
-    public Timeline extractTimeline(TimelineProxy timelineProxy, Map<String, Task> mapTasks) {
+    private Timeline extractTimeline(TimelineRawProxy timelineRawProxy, Map<String, Task> mapTasks) {
         Timeline timeline = new Timeline();
 
         List<Task> tasks = new ArrayList<>();
-        for (String stringTask : timelineProxy.getTimelineProxyLinks().getTasks()) {
+        for (String stringTask : timelineRawProxy.getTimelineProxyLinks().getTasks()) {
             tasks.add(mapTasks.get(stringTask));
         }
         timeline.setTasks(tasks);
-        timeline.setDate(timelineProxy.getDate());
+        timeline.setDate(timelineRawProxy.getDate());
 
         return timeline;
     }
@@ -91,7 +93,7 @@ public class TimelineMergedProxy extends BaseModel {
 
         ObjectNode jsonNodeMergedData = JsonNodeFactory.instance.objectNode();
         jsonNodeMergedData.put("timeline_proxy", jsonNodeData);
-        jsonNodeMergedData.put("tasks", jsonNodeTasks);
+        jsonNodeMergedData.put("tasks_proxy", jsonNodeTasks);
 
         response.setData(jsonNodeMergedData);
     }
