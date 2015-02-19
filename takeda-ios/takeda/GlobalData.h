@@ -31,7 +31,11 @@
 -(void)deleteIncident:(NSMutableArray*)inc incident:(IncidentType)incType;
 -(void)deleteAllIncidents:(NSMutableArray*)inc;
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion;
-
++(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion;
++(NSMutableArray*)pills;
++(NSMutableDictionary*)pillById:(int)pillId;
++(NSMutableDictionary*)pillsDict;
++(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion;
 +(void)clearFiles;
 
 +(id)cashedRequest:(NSString*)url;

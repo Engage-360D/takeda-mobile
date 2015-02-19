@@ -29,6 +29,8 @@ typedef enum {
 @property (nonatomic, strong) NSArray *listArray;
 @property (nonatomic) int selectedIndex;
 @property (nonatomic) DPickerType pickerType;
+@property (nonatomic, strong) UIBarButtonItem *closeBtn;
+@property (nonatomic) UIBarButtonItem *applyBtn;
 
 -(id)initListWithArray:(NSArray*)list inView:(UIView*)the_view completition:(void (^)(BOOL apply, int index))ResultBlock;
 -(id)initDateinView:(UIView*)the_view completition:(void (^)(BOOL apply, NSDate *resultDate))ResultBlock;

@@ -17,6 +17,8 @@
 @synthesize date_picker;
 @synthesize listArray;
 @synthesize selectedIndex;
+@synthesize applyBtn;
+@synthesize closeBtn;
 
 //@property (nonatomic, strong) void (^simpleResBlock) (void);
 
@@ -130,8 +132,8 @@
         _toolbar.frame = CGRectMake(0, 0, ScreenWidth, 44);
         NSMutableArray *items = [[NSMutableArray alloc] init];
         
-        UIBarButtonItem *closeBtn = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть" style:UIBarButtonItemStyleDone target:self action:@selector(closePicker)];
-        UIBarButtonItem *applyBtn = [[UIBarButtonItem alloc] initWithTitle:@"Применить" style:UIBarButtonItemStyleDone target:self action:@selector(applyPicker)];
+        closeBtn = [[UIBarButtonItem alloc] initWithTitle:@"Закрыть" style:UIBarButtonItemStyleDone target:self action:@selector(closePicker)];
+        applyBtn = [[UIBarButtonItem alloc] initWithTitle:@"Применить" style:UIBarButtonItemStyleDone target:self action:@selector(applyPicker)];
         UIBarButtonItem *flexibleSpaceLeft = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         
         [items addObject:closeBtn];

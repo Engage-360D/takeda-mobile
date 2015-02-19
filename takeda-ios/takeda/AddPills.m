@@ -59,7 +59,6 @@
         return;
     }
     
-    [drug setObject:@{@"user":User.user_id} forKey:@"links"];
     [ServData addDrug:drug completion:^(BOOL success, NSError *error, id result){
         if (success){
             [self showMessage:@"Лекарство успешно добавлено" title:@"Успех"];
@@ -224,7 +223,7 @@
 */
 
 -(NSArray*)expArray{
-    return @[@{@"title":@"Ежедневно", @"name":@"daily"},@{@"title":@"Каждые два дня", @"name":@"everyTwoDays"}];
+    return @[@{@"title":@"Ежедневно", @"name":@"DAILY"},@{@"title":@"Каждые два дня", @"name":@"EVERY_2_DAYS"}];
 }
 
 
