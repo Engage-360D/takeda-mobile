@@ -16,7 +16,7 @@ import ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis.RiskAnalysisResu
 public enum MenuItem {
     item_main(MainFragment.class, R.string.menu_item_main, true, true),
     item_risk_analysis(RiskAnalysisPatientDataFragment.class, R.string.menu_item_risk_analysis, true, true),
-    item_journal(JournalFragment.class, R.string.menu_item_calendar, true, true),
+    item_journal(JournalFragment.class, R.string.menu_item_journal, true, true),
     item_search_institutions(SearchInstitutionsFragment.class, R.string.menu_item_search_institutions, true, true),
     item_information(InformationFragment.class, R.string.menu_item_information, true, true),
     item_settings(CabinetSettingsFragment.class, R.string.menu_item_settings, true, true),

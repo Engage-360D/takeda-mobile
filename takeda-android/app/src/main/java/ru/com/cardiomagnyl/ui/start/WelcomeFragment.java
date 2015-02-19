@@ -23,14 +23,14 @@ public class WelcomeFragment extends BaseStartFragment {
     public void initParent(Activity activity) {
         ProgressBar progressBarBottomOutsideStartWork = (ProgressBar) activity.findViewById(R.id.progressBarBottomOutsideStartWork);
         TextView textViewBottomOutsideAction = (TextView) activity.findViewById(R.id.textViewBottomOutsideAction);
-        View linearLayoutTop = activity.findViewById(R.id.linearLayoutTop);
-        View textViewBottom = activity.findViewById(R.id.textViewBottom);
+        View linearLayoutHeader = activity.findViewById(R.id.linearLayoutHeader);
+        View textViewFooter = activity.findViewById(R.id.textViewFooter);
 
         progressBarBottomOutsideStartWork.setMax(5);
         progressBarBottomOutsideStartWork.setProgress(1);
         textViewBottomOutsideAction.setText(activity.getString(R.string.three_minutes));
-        linearLayoutTop.setAlpha(0);
-        textViewBottom.setAlpha(0);
+        linearLayoutHeader.setAlpha(0);
+        textViewFooter.setAlpha(0);
     }
 
     @Override

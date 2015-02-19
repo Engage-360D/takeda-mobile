@@ -12,8 +12,10 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import ru.com.cardiomagnyl.model.base.BaseModel;
+import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.task.Task;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -81,6 +83,16 @@ public class Timeline extends BaseModel {
      */
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public static boolean checkPillsInTasks(final List<Timeline> timeline, final Map<String, Pill> pillsMap) {
+        for (Timeline currentTimeline : timeline) {
+            for (Task currentTask : currentTimeline.getTasks()) {
+                if (Task.Type.pill.name().equals(currentTask.getType()) && pillsMap.get(currentTask.getPill()) == null)
+                    return false;
+            }
+        }
+        return true;
     }
 
 }

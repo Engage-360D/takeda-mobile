@@ -23,13 +23,16 @@ import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.CallbackOneReturnable;
 
 public class PillDao extends BaseDaoImpl<Pill, Integer> {
+    public enum Source {http, database, http_database, database_http}
+
     public PillDao(ConnectionSource connectionSource, Class<Pill> dataClass) throws SQLException {
         super(connectionSource, dataClass);
     }
 
     public static void getAll(final Token token,
                               final CallbackOne<List<Pill>> onSuccess,
-                              final CallbackOne<Response> onFailure) {
+                              final CallbackOne<Response> onFailure,
+                              final Source source) {
         TypeReference typeReference = new TypeReference<List<PillProxy>>() {
         };
 
@@ -68,11 +71,32 @@ public class PillDao extends BaseDaoImpl<Pill, Integer> {
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
-        DataLoadSequence dataLoadSequence =
-                new DataLoadSequence
+        DataLoadSequence dataLoadSequence;
+        switch (source) {
+            case http:
+                dataLoadSequence = new DataLoadSequence
+                        .Builder(httpRequestHolder)
+                        .create();
+                break;
+            case database:
+                dataLoadSequence = new DataLoadSequence
+                        .Builder(dbRequestHolder)
+                        .create();
+                break;
+            case http_database:
+                dataLoadSequence = new DataLoadSequence
+                        .Builder(httpRequestHolder)
+                        .addRequestHolder(dbRequestHolder)
+                        .create();
+                break;
+            default:
+                // the same is for database_http
+                dataLoadSequence = new DataLoadSequence
                         .Builder(dbRequestHolder)
                         .addRequestHolder(httpRequestHolder)
                         .create();
+                break;
+        }
 
         DataLoadDispatcher
                 .getInstance()
