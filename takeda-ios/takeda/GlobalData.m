@@ -51,6 +51,20 @@ static GlobalData *objectInstance = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:resultAnalysesFile error:nil];
     [fileManager removeItemAtPath:userSettingsFile error:nil];
+    [self removeFilesFromDir:[Path JSONFolder]];
+    [self removeFilesFromDir:[Path CasheFolder]];
+
+}
+
++(void)removeFilesFromDir:(NSString*)directory{
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *error = nil;
+    for (NSString *file in [fm contentsOfDirectoryAtPath:directory error:&error]) {
+        BOOL success = [fm removeItemAtPath:[NSString stringWithFormat:@"%@%@", directory, file] error:&error];
+        if (!success || error) {
+            // it failed.
+        }
+    }
 }
 
 +(void)saveResultAnalyses:(id)result{

@@ -23,10 +23,13 @@ typedef enum {
 
 @property (nonatomic,retain) IBOutlet UILabel *mainRecomendation;
 @property (nonatomic,retain) IBOutlet UILabel *scoreNoteText;
-@property (nonatomic,retain) IBOutlet UIView *scoreLineContainer;
 @property (nonatomic,retain) IBOutlet UIView *headerView;
+
+@property (nonatomic,retain) IBOutlet UIView *scoreLineContainer;
 @property (nonatomic,retain) IBOutlet UILabel *scoreValue;
 @property (nonatomic,retain) IBOutlet UIImageView *scoreCircle;
+
+@property (nonatomic,retain) IBOutlet UIImageView *stateImage;
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 @property (nonatomic,retain) IBOutlet UIButton *profilacticCalendarBtn;
 @property (nonatomic,retain) IBOutlet UIButton *medSearchBtn;
@@ -38,5 +41,26 @@ typedef enum {
 @property (nonatomic, strong) NSMutableDictionary *results_data;
 
 @property BOOL needUpdate;
+
+
+
+@property (nonatomic,retain) IBOutlet UIImageView *stateImageRed;
+@property (nonatomic,retain) IBOutlet UILabel *mainRecomendationRed;
+@property (nonatomic,retain) IBOutlet UILabel *scoreNoteTextRed;
+@property (nonatomic,retain) IBOutlet UIView *headerViewRed;
+@property (nonatomic,retain) IBOutlet UIView *scoreLineContainerRed;
+@property (nonatomic,retain) IBOutlet UILabel *scoreValueRed;
+@property (nonatomic,retain) IBOutlet UIImageView *scoreCircleRed;
+@property (nonatomic,retain) IBOutlet UIButton *medSearchBtnRed;
+@property (nonatomic,retain) IBOutlet UIScrollView *scrollViewRed;
+
+
+
+
+@property (nonatomic,retain) IBOutlet UIView *containerAll;
+
+
+
+
 
 @end

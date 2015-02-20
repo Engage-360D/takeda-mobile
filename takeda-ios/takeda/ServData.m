@@ -75,7 +75,7 @@ static ServData *objectInstance = nil;
     
     NSDictionary *params = @{@"email":login,@"plainPassword":password};
 
-    [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result){
+    [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result, NSError *error){
         if (result[@"data"][@"id"]){
             User.userData = [NSMutableDictionary new];
             User.access_token = result[@"data"][@"id"];
@@ -102,7 +102,7 @@ static ServData *objectInstance = nil;
     NSString *url = [NSString stringWithFormat:
                      @"%@%@",kServerURL,kAccount];
     
-    [self sendCommon:url success:^(id res){
+    [self sendCommon:url success:^(id res, NSError *error){
         if (res[@"data"]){
             // success
             [User updateUser:res[@"data"][@"email"] userInfo:res[@"data"] accessToken:User.access_token];
@@ -125,7 +125,7 @@ static ServData *objectInstance = nil;
     
     NSDictionary *params = @{@"email":user_login};
     
-    [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result){
+    [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result, NSError *error){
         completion(YES,nil);
 
 //        if (result[@"data"][@"id"]){
@@ -141,7 +141,7 @@ static ServData *objectInstance = nil;
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kServerURL, kRegionsList];
     
-    [self sendCommon:url success:^(id result){
+    [self sendCommon:url success:^(id result, NSError *error){
         BOOL success = NO;
         if (result[@"data"]) {
             [GlobalData saveRegions:result[@"data"]];
@@ -161,7 +161,7 @@ static ServData *objectInstance = nil;
 {
 
     NSString *url = [NSString stringWithFormat:@"%@%@",kServerURL, kUsers];
-    [self sendCommonPOST:url body:[self preparedParams:params] success:^(id res){
+    [self sendCommonPOST:url body:[self preparedParams:params] success:^(id res, NSError *error){
         BOOL success = NO;
         NSString *textError;
         if ([res isKindOfClass:[NSDictionary class] ]) {
@@ -192,7 +192,7 @@ static ServData *objectInstance = nil;
 +(void)updateUser:(NSString*)user_id withData:(NSDictionary*)params completion:(void (^)(BOOL result, NSError* error, NSString* textError))completion
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kServerURL, kAccount];
-    [self sendCommonPUT:url body:[self preparedParams:params] success:^(id res){
+    [self sendCommonPUT:url body:[self preparedParams:params] success:^(id res, NSError *error){
         BOOL success = NO;
         NSString *textError;
         if ([res isKindOfClass:[NSDictionary class] ]) {
@@ -223,18 +223,18 @@ static ServData *objectInstance = nil;
     NSString *url = [NSString stringWithFormat:
                      @"%@%@",kServerURL,kTestResults];
     
-    [self sendCommonPOST:url body:[self preparedParams: analysisData] success:^(id result){
+    [self sendCommonPOST:url body:[self preparedParams: analysisData] success:^(id result, NSError *error){
         if (result[@"data"][@"id"]){
-            completion(YES,nil, result);
+            completion(YES,error, result);
         } else {
-            completion(NO,nil, result);
+            completion(NO,error, result);
         }
     }];
 }
 
 +(void)loadAnalysisFromServerWithLastId:(int)lastId completion:(void (^)(BOOL success, NSError* error, id result))completion{
     NSString *url = [NSString stringWithFormat:@"%@%@?sinceId=%i",kServerURL,kTestResults,lastId];
-    [self sendCommon:url success:^(id result){
+    [self sendCommon:url success:^(id result, NSError *error){
         if ([result[@"data"] isKindOfClass:[NSArray class]]&&[result[@"data"] count]>0){
             completion(YES,nil, result);
         } else {
@@ -244,12 +244,13 @@ static ServData *objectInstance = nil;
 }
 
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion{
-    NSString *urlstr = [NSString stringWithFormat:@"%@%@",kBaseServerURL,url];
-    [self sendCommon:urlstr success:^(id res){
-        if (res!=nil){
+    NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,url];
+    [self sendCommon:urlstr success:^(id res, NSError *error){
+        BOOL success = (res!=nil)&&(error.code==200);
+        if (success){
             [GlobalData casheRequest:res fromUrl:url];
         }
-        completion(YES, res);
+        completion(success, res);
     }];
     
 }
@@ -257,7 +258,7 @@ static ServData *objectInstance = nil;
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion{
     
     NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kAccountTimeline];
-    [self sendCommon:urlstr success:^(id res){
+    [self sendCommon:urlstr success:^(id res, NSError *error){
         completion(YES, res);
     }];
     
@@ -266,7 +267,7 @@ static ServData *objectInstance = nil;
 +(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion{
     
     NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kAccountPills];
-    [self sendCommon:urlstr success:^(id res){
+    [self sendCommon:urlstr success:^(id res, NSError *error){
         completion(YES, res);
     }];
     
@@ -276,7 +277,7 @@ static ServData *objectInstance = nil;
 +(void)shareTest:(int)testId viaEmail:(NSString*)email completition:(void (^)(BOOL success, id result))completion{
     NSString *urlstr = [NSString stringWithFormat:@"%@%@/%i/%@",kServerURL,kTestResults,testId,kTestResultShareEmail];
     NSDictionary *params = @{@"email":email};
-    [self sendCommonPOST:urlstr body:[self preparedParams: params] success:^(id result){
+    [self sendCommonPOST:urlstr body:[self preparedParams: params] success:^(id result, NSError *error){
             completion(YES, result);
     }];
     
@@ -287,7 +288,7 @@ static ServData *objectInstance = nil;
     NSString *url = [NSString stringWithFormat:
                      @"%@%@",kServerURL,kAccountPills];
     
-    [self sendCommonPOST:url body:[self preparedParams: analysisData] success:^(id result){
+    [self sendCommonPOST:url body:[self preparedParams: analysisData] success:^(id result, NSError *error){
         if (result[@"data"][@"id"]){
             completion(YES,nil, result);
         } else {
@@ -300,7 +301,7 @@ static ServData *objectInstance = nil;
     
     NSString *url = [NSString stringWithFormat:@"%@%@/%@",kServerURL,kAccountTasks, taskId];
     
-    [self sendCommonPUT:url body:[self preparedParams: taskParams] success:^(id result){
+    [self sendCommonPUT:url body:[self preparedParams: taskParams] success:^(id result, NSError *error){
         if (result[@"data"][@"id"]){
             completion(YES,nil, result);
         } else {
@@ -316,7 +317,7 @@ static ServData *objectInstance = nil;
 }
 
 
-+(void)sendCommonPOST:(NSString*)urlStr params:(NSString*)HTMLStr success:(void (^)(id))successIm{
++(void)sendCommonPOST:(NSString*)urlStr params:(NSString*)HTMLStr success:(void (^)(id result, NSError *error))successIm{
     if (User.access_token.length>0){
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
@@ -340,6 +341,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
+                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
                                id jsonResponse;
                                if (response){
                                    NSError *jsonParserError = nil;
@@ -350,12 +352,12 @@ static ServData *objectInstance = nil;
                                    NSLog(@"json= %@", jsonResponse);
                                    if (jsonParserError == nil) {
                                        jsonResponse = [Global recursiveMutable:jsonResponse];
-                                       call_completion_block(successIm, jsonResponse);
+                                       successIm (jsonResponse,error);
                                    } else {
                                        NSString *answStr = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                                        NSLog(@"%@",answStr);
                                        
-                                       call_completion_block(successIm, [NSMutableDictionary new]);
+                                       successIm (nil,error);
                                        
                                    }
                                }
@@ -366,7 +368,7 @@ static ServData *objectInstance = nil;
 }
 
 
-+(void)sendCommonDELETE:(NSString*)urlStr params:(NSString*)params success:(void (^)(id))successIm{
++(void)sendCommonDELETE:(NSString*)urlStr params:(NSString*)params success:(void (^)(id result, NSError *error))successIm{
     if (User.access_token.length>0){
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
@@ -388,6 +390,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
+                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
                                id jsonResponse;
                                if (response){
                                    
@@ -396,9 +399,9 @@ static ServData *objectInstance = nil;
                                    NSLog(@"json= %@", jsonResponse);
                                    if (jsonParserError == nil) {
                                        jsonResponse = [Global recursiveMutable:jsonResponse];
-                                       call_completion_block(successIm, jsonResponse);
+                                       successIm (jsonResponse,error);
                                    } else {
-                                       call_completion_block(successIm, [NSMutableDictionary new]);
+                                       successIm (nil,error);
                                        
                                    }
                                }
@@ -409,7 +412,7 @@ static ServData *objectInstance = nil;
 }
 
 
-+(void)sendCommonPOST:(NSString*)urlStr body:(NSData*)body success:(void (^)(id))successIm{
++(void)sendCommonPOST:(NSString*)urlStr body:(NSData*)body success:(void (^)(id result, NSError *error))successIm{
     if (User.access_token.length>0){
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
@@ -431,6 +434,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
+                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
                                id jsonResponse;
                                if (response){
                                    
@@ -439,11 +443,11 @@ static ServData *objectInstance = nil;
                                    NSLog(@"json= %@", jsonResponse);
                                    if (jsonParserError == nil) {
                                        jsonResponse = [Global recursiveMutable:jsonResponse];
-                                       call_completion_block(successIm, jsonResponse);
+                                       successIm (jsonResponse,error);
                                    } else {
                                        NSString *err = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                                        NSLog(@"err = %@",err);
-                                       call_completion_block(successIm, [NSMutableDictionary new]);
+                                       successIm (nil,error);
                                        
                                    }
                                }
@@ -453,7 +457,7 @@ static ServData *objectInstance = nil;
     
 }
 
-+(void)sendCommonPUT:(NSString*)urlStr body:(NSData*)body success:(void (^)(id))successIm{
++(void)sendCommonPUT:(NSString*)urlStr body:(NSData*)body success:(void (^)(id result, NSError *error))successIm{
     if (User.access_token.length>0){
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
@@ -476,6 +480,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
+                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
                                id jsonResponse;
                                if (response){
                                    
@@ -484,11 +489,11 @@ static ServData *objectInstance = nil;
                                    NSLog(@"json= %@", jsonResponse);
                                    if (jsonParserError == nil) {
                                        jsonResponse = [Global recursiveMutable:jsonResponse];
-                                       call_completion_block(successIm, jsonResponse);
+                                       successIm (jsonResponse,error);
                                    } else {
                                        NSString *err = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
                                        NSLog(@"err = %@",err);
-                                       call_completion_block(successIm, [NSMutableDictionary new]);
+                                       successIm (nil,error);
                                        
                                    }
                                }
@@ -500,7 +505,7 @@ static ServData *objectInstance = nil;
 
 
 
-+(void)sendCommon:(NSString*)urlStr success:(void (^)(id))successIm{
++(void)sendCommon:(NSString*)urlStr success:(void (^)(id result, NSError *error))successIm{
     if (User.access_token.length>0){
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
@@ -518,6 +523,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
+                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
                                id jsonResponse;
                                if (response){
                                    
@@ -527,9 +533,9 @@ static ServData *objectInstance = nil;
                                    if (jsonParserError == nil) {
                                        [self cleanJsonToObject:jsonResponse];
                                        jsonResponse = [Global recursiveMutable:jsonResponse];
-                                       call_completion_block(successIm, jsonResponse);
+                                       successIm (jsonResponse,error);
                                    } else {
-                                       call_completion_block(successIm, [NSMutableDictionary new]);
+                                       successIm (nil,error);
                                        
                                    }
                                }

@@ -289,6 +289,9 @@ int selectedIndex = 0;
     
     
     [ServData sendAnalysisToServer:params completion:^(BOOL success, NSError *error, id result) {
+        
+        
+        
         if (success) {
             [GlobalData saveResultAnalyses:result[@"data"]];
             
@@ -297,7 +300,15 @@ int selectedIndex = 0;
             }
             resultRiskAnalysis.needUpdate = YES;
             [self.navigationController pushViewController:resultRiskAnalysis animated:YES];
-        }else{
+        } else {
+            if ([result hasKey:@"errors"]){
+                
+                    
+                    
+            }
+            
+            
+            
             [Helper fastAlert:@"Тест уже пройден"];
         }
     }];

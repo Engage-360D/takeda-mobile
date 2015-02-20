@@ -30,11 +30,10 @@
 +(void)updateTask:(NSString*)taskId params:(NSDictionary*)taskParams completion:(void (^)(BOOL success, NSError* error, id result))completion;
 +(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion;
 
-+(void)sendCommonPOST:(NSString*)urlStr params:(NSString*)HTMLStr success:(void (^)(id))successIm;
-+(void)sendCommonDELETE:(NSString*)urlStr params:(NSString*)params success:(void (^)(id))successIm;
-+(void)sendCommonPOST:(NSString*)urlStr body:(NSData*)body success:(void (^)(id))successIm;
-+(void)sendCommon:(NSString*)urlStr success:(void (^)(id))successIm;
-+(void)sendCommonPUT:(NSString*)urlStr body:(NSData*)body success:(void (^)(id))successIm;
++(void)sendCommonPOST:(NSString*)urlStr params:(NSString*)HTMLStr success:(void (^)(id result, NSError *error))successIm;
++(void)sendCommonPOST:(NSString*)urlStr body:(NSData*)body success:(void (^)(id result, NSError *error))successIm;
++(void)sendCommon:(NSString*)urlStr success:(void (^)(id result, NSError *error))successIm;
++(void)sendCommonPUT:(NSString*)urlStr body:(NSData*)body success:(void (^)(id result, NSError *error))successIm;
 
 
 @end

@@ -57,7 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.mainElement = self.tableView;
+    self.mainElement = self.containerAll;
     [self setupInterface];
 }
 
@@ -68,6 +68,23 @@
 }
 
 -(void)setupInterface{
+    
+    self.medSearchBtnRed.layer.borderColor = RGB(53, 65, 71).CGColor;
+    self.medSearchBtnRed.layer.borderWidth = 1.0f;
+    self.medSearchBtnRed.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14];
+    self.medSearchBtnRed.clipsToBounds = YES;
+    self.medSearchBtnRed.layer.cornerRadius = 5.0f;
+    
+    self.mainRecomendationRed.textColor = [UIColor whiteColor];
+    self.mainRecomendationRed.font = [UIFont fontWithName:@"SegoeUI-Light" size:14];
+   
+    self.scoreNoteTextRed.font = [UIFont fontWithName:@"SegoeUI-Light" size:14];
+    self.scoreNoteTextRed.textColor = [UIColor whiteColor];
+    
+    self.scoreValueRed.font = [UIFont fontWithName:@"SegoeUI-Light" size:30];
+//////
+    
+    
     self.medSearchBtn.layer.borderColor = RGB(152, 198, 245).CGColor;
     self.medSearchBtn.layer.borderWidth = 0.5f;
     self.medSearchBtn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14];
@@ -102,6 +119,9 @@
         NSMutableArray *itemKeys = [NSMutableArray new];
         for (NSString *key in item[@"keys"]){
             if ([res_data_banners hasKey:key]&&[res_data_banners[key] isKindOfClass:[NSDictionary class]]){
+                [res_data_banners[key] setObject:key forKey:@"type"];
+                [res_data_banners[key] setObject:results_data[@"id"] forKey:@"testId"];
+
                 [itemKeys addObject:res_data_banners[key]];
             } else {
                 if ([[self hardCodedItems] hasKey:key]&&[[self hardCodedItems][key] isKindOfClass:[NSDictionary class]]){
@@ -115,13 +135,31 @@
 }
 
 -(void)showData{
-    [self showScoreLine];
-    [self showMainInfo];
-    [self.tableView reloadData];
-    self.tableView.tableHeaderView = self.headerView;
+    
+    if (results_data[@"recommendations"][@"fullScreenAlert"]==nil){
+        [self showScoreLine];
+        [self showMainInfo];
+        [self.tableView reloadData];
+        self.tableView.tableHeaderView = self.headerView;
+        self.tableView.hidden = NO;
+        self.scrollViewRed.hidden = YES;
+        self.containerAll.backgroundColor = self.headerView.backgroundColor;
+    } else {
+        [self showScoreLineRed];
+        [self showMainInfoRed];
+        self.tableView.hidden = YES;
+        self.scrollViewRed.hidden = NO;
+        self.containerAll.backgroundColor = self.scrollViewRed.backgroundColor;
+    }
+    
 }
 
+#pragma mark - normResults
+
 -(void)showMainInfo{
+    
+    self.stateImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"scoreNote"][@"state"]]];
+
     if ([results_data[@"recommendations"][@"mainRecommendation"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"mainRecommendation"][@"text"] length]>0){
         self.mainRecomendation.text = results_data[@"recommendations"][@"mainRecommendation"][@"text"];
     } else {
@@ -140,7 +178,8 @@
     self.scoreLineContainer.y = self.mainRecomendation.bottom;
     self.scoreNoteText.y = self.scoreLineContainer.bottom;
     self.medSearchBtn.y = self.scoreNoteText.bottom+20;
-    
+    self.stateImage.y = self.scoreNoteText.y;
+
     [self.headerView setupAutosizeBySubviewsWithBottomDistance:0];
 }
 
@@ -172,11 +211,81 @@
     }
     float posX = scoreLevel * work_len / maxValue;
     posX = posX + margin_l;
+    float percent = (100/maxValue)*scoreLevel;
     self.scoreCircle.frame = RectSetX(self.scoreCircle.frame, posX);
     self.scoreValue.center = self.scoreCircle.center;
     self.scoreValue.y = self.scoreCircle.y-3;
-    self.scoreValue.text = [NSString stringWithFormat:@"%.0f",scoreLevel];
+    self.scoreValue.text = [NSString stringWithFormat:@"%.0f",percent];
 }
+
+#pragma mark - redAlert results
+
+-(void)showMainInfoRed{
+    
+    self.stateImageRed.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"fullScreenAlert"][@"state"]]];
+    
+    if ([results_data[@"recommendations"][@"mainRecommendation"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"mainRecommendation"][@"text"] length]>0){
+        self.mainRecomendationRed.text = results_data[@"recommendations"][@"mainRecommendation"][@"text"];
+    } else {
+        self.mainRecomendationRed.text = @"";
+    }
+
+//    self.mainRecomendationRed.text = @"";
+    
+    if ([results_data[@"recommendations"][@"fullScreenAlert"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"fullScreenAlert"][@"text"] length]>0){
+        self.scoreNoteTextRed.text = results_data[@"recommendations"][@"fullScreenAlert"][@"text"];
+    } else {
+        self.scoreNoteTextRed.text = @"";
+    }
+    
+    self.mainRecomendationRed.height = [Global heightLabel:self.mainRecomendationRed];
+    self.scoreNoteTextRed.height = [Global heightLabel:self.scoreNoteTextRed];
+    
+    self.scoreLineContainerRed.y = self.mainRecomendationRed.bottom;
+    self.scoreNoteTextRed.y = self.scoreLineContainerRed.bottom;
+    self.medSearchBtnRed.y = self.scoreNoteTextRed.bottom+50;
+    self.stateImageRed.y = self.scoreNoteTextRed.y;
+    [self.headerViewRed setupAutosizeBySubviewsWithBottomDistance:60];
+    [self.scrollViewRed setup_autosizeWithBottomDistance:0];
+}
+
+-(void)showScoreLineRed{
+    if ([results_data[@"score"] isEqual:[NSNull null]] ||
+        !results_data[@"score"] ||
+        [results_data[@"score"] isEqual:[NSNull null]] ||
+        !results_data[@"score"]) {
+        self.scoreValueRed.hidden = YES;
+        self.scoreCircleRed.hidden = YES;
+    } else{
+        self.scoreValueRed.hidden = NO;
+        self.scoreCircleRed.hidden = NO;
+    }
+    float margin_l = 12.0;
+    float margin_r = 12.0;
+    float d = 51.0;
+    float work_len = 320 - margin_l - margin_r - d;
+    float scoreLevel = [results_data[@"score"] floatValue];
+    float maxValue = ([results_data[@"sex"] isEqualToString:@"male"]?47:20);
+    if (scoreLevel < 0) {
+        scoreLevel = 0;
+    }
+    if (maxValue<0) {
+        maxValue = 0;
+    }
+    if (scoreLevel>maxValue) {
+        scoreLevel = maxValue;
+    }
+    float posX = scoreLevel * work_len / maxValue;
+    posX = posX + margin_l;
+    float percent = (100/maxValue)*scoreLevel;
+    self.scoreCircleRed.frame = RectSetX(self.scoreCircleRed.frame, posX);
+    self.scoreValueRed.center = self.scoreCircleRed.center;
+    self.scoreValueRed.y = self.scoreCircleRed.y-3;
+    self.scoreValueRed.text = [NSString stringWithFormat:@"%.0f",percent];
+}
+
+
+
 
 #pragma mark - UITableView delegate&DataSource
 

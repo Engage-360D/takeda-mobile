@@ -44,23 +44,113 @@
 
 -(void)initData{
     [GlobalData loadTimelineCompletition:^(BOOL success, id result){
-        tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
-        days = result[@"data"];
         
-        if (![self makePillsSuccess]){
-            [GlobalData loadPillsCompletition:^(BOOL completition, id result){
-                if ([self makePillsSuccess]){
-                    [self filtrRecords];
-                    [self.tableView reloadData];
-                }
-            }];
+        if (success){
+            [self startData:result];
         } else {
-            [self filtrRecords];
-            [self.tableView reloadData];
+            
+            
+            
+            
+            
         }
         
     }];
 }
+
+
+-(void)startData:(NSMutableDictionary*)result{
+    tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
+    days = result[@"data"];
+    if (![self makePillsSuccess]){
+        [GlobalData loadPillsCompletition:^(BOOL completition, id result){
+            if ([self makePillsSuccess]){
+                [self filtrRecords];
+                [self.tableView reloadData];
+            }
+        }];
+    } else {
+        [self filtrRecords];
+        [self.tableView reloadData];
+    }
+
+}
+
+-(void)updateCashedTimeline{
+    
+}
+
+-(void)updateTask:(int)taskId{
+    
+}
+
+-(void)filtrRecords{
+    self.tableNewView.hidden = YES;
+    self.tableFillView.hidden = YES;
+    self.tableView.hidden = NO;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    records = [NSMutableArray new];
+    NSMutableArray *ddc = [Global recursiveMutable:[days mutableCopy]];
+    
+    switch (state) {
+        case dNew:{
+            for (NSMutableDictionary* day in ddc){
+                NSMutableDictionary *dayCopy = [NSMutableDictionary dictionaryWithDictionary:day];
+                NSMutableArray *tasksNewArray = [NSMutableArray new];
+                for (NSString* taskId in dayCopy[@"links"][@"tasks"]){
+                    if (!tasks[taskId][@"isCompleted"]){
+                        [tasksNewArray addObject:tasks[taskId]];
+                    }
+                }
+                if (tasksNewArray.count>0){
+                    [dayCopy[@"links"] setObject:tasksNewArray forKey:@"tasks"];
+                    [records addObject:dayCopy];
+                }
+            }
+            
+            break;
+        }
+        case dFilled:{
+            for (NSMutableDictionary* day in ddc){
+                NSMutableDictionary *dayCopy = [NSMutableDictionary dictionaryWithDictionary:day];
+                NSMutableArray *tasksNewArray = [NSMutableArray new];
+                for (NSString* taskId in dayCopy[@"links"][@"tasks"]){
+                    if (tasks[taskId][@"isCompleted"]){
+                        [tasksNewArray addObject:tasks[taskId]];
+                    }
+                }
+                if (tasksNewArray.count>0){
+                    [dayCopy[@"links"] setObject:tasksNewArray forKey:@"tasks"];
+                    [records addObject:dayCopy];
+                }
+            }
+            
+            break;
+        }
+    }
+    
+    
+}
+
+-(BOOL)makePillsSuccess{
+    NSMutableDictionary *pillsInfo = [GlobalData pillsDict];
+    BOOL success = YES;
+    for (NSMutableDictionary*task in tasks.allValues){
+        if ([task[@"type"] isEqualToString:@"pill"]){
+            int pillId = [task[@"links"][@"pill"] intValue];
+            if (pillsInfo[[NSString stringWithFormat:@"%i",pillId]]){
+                [task setObject:pillsInfo[[NSString stringWithFormat:@"%i",pillId]] forKey:@"pillInfo"];
+            } else {
+                success = NO;
+            }
+            
+        }
+    }
+    return success;
+}
+
 
 -(void)setupInterface{
     self.tableNewView.tableHeaderView = self.tableNewView.separ;
@@ -80,22 +170,6 @@
 
 }
 
--(BOOL)makePillsSuccess{
-    NSMutableDictionary *pillsInfo = [GlobalData pillsDict];
-    BOOL success = YES;
-    for (NSMutableDictionary*task in tasks.allValues){
-        if ([task[@"type"] isEqualToString:@"pill"]){
-            int pillId = [task[@"links"][@"pill"] intValue];
-            if (pillsInfo[[NSString stringWithFormat:@"%i",pillId]]){
-                [task setObject:pillsInfo[[NSString stringWithFormat:@"%i",pillId]] forKey:@"pillInfo"];
-            } else {
-                success = NO;
-            }
-            
-        }
-    }
-    return success;
-}
 
 -(void)addPillsAction{
     _addPills = [AddPills new];
@@ -143,55 +217,6 @@
 
 }
 
--(void)filtrRecords{
-    self.tableNewView.hidden = YES;
-    self.tableFillView.hidden = YES;
-    self.tableView.hidden = NO;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-
-    records = [NSMutableArray new];
-    NSMutableArray *ddc = [Global recursiveMutable:[days mutableCopy]];
-    
-    switch (state) {
-        case dNew:{
-            for (NSMutableDictionary* day in ddc){
-                NSMutableDictionary *dayCopy = [NSMutableDictionary dictionaryWithDictionary:day];
-                NSMutableArray *tasksNewArray = [NSMutableArray new];
-                for (NSString* taskId in dayCopy[@"links"][@"tasks"]){
-                    if (!tasks[taskId][@"isCompleted"]){
-                        [tasksNewArray addObject:tasks[taskId]];
-                    }
-                }
-                if (tasksNewArray.count>0){
-                    [dayCopy[@"links"] setObject:tasksNewArray forKey:@"tasks"];
-                    [records addObject:dayCopy];
-                }
-            }
-
-            break;
-        }
-        case dFilled:{
-            for (NSMutableDictionary* day in ddc){
-                NSMutableDictionary *dayCopy = [NSMutableDictionary dictionaryWithDictionary:day];
-                NSMutableArray *tasksNewArray = [NSMutableArray new];
-                for (NSString* taskId in dayCopy[@"links"][@"tasks"]){
-                    if (tasks[taskId][@"isCompleted"]){
-                        [tasksNewArray addObject:tasks[taskId]];
-                    }
-                }
-                if (tasksNewArray.count>0){
-                    [dayCopy[@"links"] setObject:tasksNewArray forKey:@"tasks"];
-                    [records addObject:dayCopy];
-                }
-            }
-            
-            break;
-        }
-    }
-
-    
-}
 
 
 #pragma mark - Table view data source
@@ -341,6 +366,11 @@
 
 -(void)selectItem:(NSIndexPath*)indexPath{
     if (state == dFilled) return;
+    if (appDelegate.hostConnection == NotReachable) {
+        [self showMessage:@"Отсутствует соединение с Интернетом" title:@"Ошибка"];
+        return;
+    }
+    
     NSMutableDictionary *item = self.records[indexPath.section][@"links"][@"tasks"][indexPath.row];
     
     SWITCH(item[@"type"]){
