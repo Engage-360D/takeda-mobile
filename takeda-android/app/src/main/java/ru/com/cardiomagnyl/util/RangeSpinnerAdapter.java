@@ -1,4 +1,4 @@
-package ru.com.cardiomagnyl.ui.slidingmenu.content;
+package ru.com.cardiomagnyl.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;

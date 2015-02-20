@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LinearLayoutItemLarge">
+
+    <RadioGroup
+        android:id="@+id/radioGroupFollowDiet"
+        android:layout_width="@dimen/control_medium"
+        android:layout_height="@dimen/control_xxsmall"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/toggleButtonNotFollowDiet"
+            style="@style/ToggleRadioButton"
+            android:checked="false"
+            android:textOff="@string/no"
+            android:textOn="@string/no" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonFollowDiet"
+            style="@style/ToggleRadioButton"
+            android:checked="false"
+            android:textOff="@string/yes"
+            android:textOn="@string/yes" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/radioGroupFollowDiet"
+        android:text="@string/follow_diet"
+        android:textColor="@color/text_main_38"
+        android:textSize="@dimen/text_size_small" />
+
+</RelativeLayout>

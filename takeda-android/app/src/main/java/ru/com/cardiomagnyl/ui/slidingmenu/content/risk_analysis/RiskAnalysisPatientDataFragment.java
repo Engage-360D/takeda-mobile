@@ -50,7 +50,7 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
         initTabs(view, 0);
 
         RadioGroup radioGroupCholesterolDrugs = (RadioGroup) view.findViewById(R.id.radioGroupCholesterolDrugs);
-        RadioGroup radioGroupSmoking = (RadioGroup) view.findViewById(R.id.radioGroupSmoking);
+        RadioGroup radioGroupSmoking = (RadioGroup) view.findViewById(R.id.radioGroupSmoke);
 //        final RelativeLayout relativeLayoutCholesterolDrugs = (RelativeLayout) view.findViewById(R.id.relativeLayoutCholesterolDrugs);
 //        SeekBarWithValues seekBarWithValuesCholesterol = (SeekBarWithValues) view.findViewById(R.id.seekBarWithValuesCholesterol);
         ImageView imageViewBottomInsideLeft = (ImageView) view.findViewById(R.id.imageViewBottomInsideLeft);
@@ -114,8 +114,8 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
         EditText editTextWeight = (EditText) parentView.findViewById(R.id.editTextWeight);
         EditText editTextCholesterol = (EditText) parentView.findViewById(R.id.editTextCholesterol);
         ToggleButton toggleButtonCholesterolDrugs = (ToggleButton) parentView.findViewById(R.id.toggleButtonCholesterolDrugs);
-        ToggleButton toggleButtonSmoking = (ToggleButton) parentView.findViewById(R.id.toggleButtonSmoking);
-        ToggleButton toggleButtonNotSmoking = (ToggleButton) parentView.findViewById(R.id.toggleButtonNotSmoking);
+        ToggleButton toggleButtonSmoking = (ToggleButton) parentView.findViewById(R.id.toggleButtonSmoke);
+        ToggleButton toggleButtonNotSmoking = (ToggleButton) parentView.findViewById(R.id.toggleButtonNotSmoke);
 
         String resultString = "";
 

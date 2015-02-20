@@ -202,18 +202,28 @@
     <string name="add_comment">Добавить комментарий</string>
     <string name="report_an_incident">Сообщить об инциденте?</string>
 
-    <!-- ============================ -->
+    <!-- ================ -->
     <!-- fragment_journal -->
-    <!-- ============================ -->
+    <!-- ================ -->
     <string name="journal">Дневник</string>
     <string name="journal_new">Новые</string>
     <string name="journal_filled">Заполненные</string>
     <string name="exercise_stress">Физическая нагрузка</string>
-    <string name="follow_diet">Вы соблюдаете диету?</string>
-    <string name="still_smoke">Еще курите?</string>
     <string name="enter_weight">Внесите вес</string>
     <string name="enter_pressure">Внесите давление</string>
     <string name="enter_cholesterol">Внесите холестерин</string>
+
+    <!-- === -->
+    <!-- ask -->
+    <!-- === -->
+    <string name="data_cholesterol">Уровень общего холестерина</string>
+    <string name="follow_diet">Вы соблюдаете диету?</string>
+    <string name="physical_activity">Физические нагрузки</string>
+    <string name="pills_taken">Вы приняли таблетки?</string>
+    <string name="arterial_pressure">Артериальное давление</string>
+    <string name="data_smoking">Курение</string>
+    <string name="still_smoke">Вы еще курите?</string>
+    <string name="data_weight">Вес</string>
 
     <!-- ===================== -->
     <!-- personal_cabinet_data -->
@@ -223,8 +233,6 @@
     <string name="personal_cabinet_my_data">Мои\nданные</string>
     <string name="personal_cabinet_my_setting">Мои\nнастройки</string>
     <string name="generate">Сгенерировать пароль и отправить на email</string>
-    <string name="save">Сохранить</string>
-    <string name="saved_successfully">Сохранено успешно</string>
 
     <!-- ============ -->
     <!-- cabinet_test -->
@@ -287,11 +295,8 @@
     <string name="data_age_hint">лет</string>
     <string name="data_height">Рост</string>
     <string name="data_height_hint">см</string>
-    <string name="data_weight">Вес</string>
     <string name="data_weight_hint">кг</string>
     <string name="data_cholesterol_drugs">Принимает ли препараты для снижения уровня холестерина в крови?</string>
-    <string name="data_smoking">Курение</string>
-    <string name="data_cholesterol">Уровень общего холестерина</string>
     <string name="data_cholesterol_hint">мг/дл</string>
 
     <!-- =============== -->
@@ -300,10 +305,8 @@
     <string name="suffering_diabetes">Страдаете ли вы диабетом?</string>
     <string name="sugar_problems">Отмечалось ли повышение уровня сахара в крови?</string>
     <string name="diabetic_medicines">Принимаете лекарства для лечения сахарного диабета?</string>
-    <string name="arterial_pressure">Артериальное давление</string>
     <string name="arterial_pressure_hint">мм</string>
     <string name="hypertonic_medicines">Принимаете ли препараты для понижения давления?</string>
-    <string name="physical_activity">Физические нагрузки</string>
     <string name="physical_activity_hint">мин/неделя</string>
     <string name="infarction_stroke">Был ли у вас инфаркт/инсульт?</string>
 
@@ -334,6 +337,8 @@
     <string name="today">Сегодня</string>
     <string name="on">Вкл</string>
     <string name="off">Выкл</string>
+    <string name="save">Сохранить</string>
+    <string name="saved_successfully">Сохранено успешно</string>
     <string name="cancel">Отменить</string>
     <string name="close">Закрыть</string>
     <string name="take_pills">Принять таблетки</string>

@@ -1,4 +1,4 @@
-package ru.com.cardiomagnyl.ui.slidingmenu.content;
+package ru.com.cardiomagnyl.ui.slidingmenu.content.pills;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.AddPillFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 
 public class TakingPillsFragment extends BaseItemFragment {

@@ -137,93 +137,15 @@
 
             <View style="@style/divider_normal_1_3" />
 
-            <RelativeLayout style="@style/LinearLayoutItemLarge">
-
-                <EditText
-                    android:id="@+id/editTextWeight"
-                    android:layout_width="@dimen/control_medium"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:ems="10"
-                    android:gravity="center_vertical|right"
-                    android:hint="@string/data_weight_hint"
-                    android:inputType="number" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/editTextWeight"
-                    android:text="@string/data_weight"
-                    android:textColor="@color/text_main_38"
-                    android:textSize="@dimen/text_size_small" />
-            </RelativeLayout>
+            <include layout="@layout/layout_ask_weight" />
 
             <View style="@style/divider_normal_1_3" />
 
-            <RelativeLayout style="@style/LinearLayoutItemLarge">
-
-                <RadioGroup
-                    android:id="@+id/radioGroupSmoking"
-                    android:layout_width="@dimen/control_medium"
-                    android:layout_height="@dimen/control_xxsmall"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal">
-
-                    <ToggleButton
-                        android:id="@+id/toggleButtonNotSmoking"
-                        style="@style/ToggleRadioButton"
-                        android:checked="false"
-                        android:textOff="@string/no"
-                        android:textOn="@string/no" />
-
-                    <ToggleButton
-                        android:id="@+id/toggleButtonSmoking"
-                        style="@style/ToggleRadioButton"
-                        android:checked="false"
-                        android:textOff="@string/yes"
-                        android:textOn="@string/yes" />
-                </RadioGroup>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/radioGroupSmoking"
-                    android:text="@string/data_smoking"
-                    android:textColor="@color/text_main_38"
-                    android:textSize="@dimen/text_size_small" />
-            </RelativeLayout>
+            <include layout="@layout/layout_ask_smoke" />
 
             <View style="@style/divider_normal_1_3" />
 
-            <RelativeLayout style="@style/LinearLayoutItemLarge">
-
-                <EditText
-                    android:id="@+id/editTextCholesterol"
-                    android:layout_width="@dimen/control_medium"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:ems="10"
-                    android:gravity="center_vertical|right"
-                    android:hint="@string/data_cholesterol_hint"
-                    android:inputType="number" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/editTextCholesterol"
-                    android:text="@string/data_cholesterol"
-                    android:textColor="@color/text_main_38"
-                    android:textSize="@dimen/text_size_small" />
-            </RelativeLayout>
+            <include layout="@layout/layout_ask_cholesterol" />
 
             <View style="@style/divider_normal_1_3" />
 

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import ru.com.cardiomagnyl.app.R;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.AddPillFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.AddPillFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 

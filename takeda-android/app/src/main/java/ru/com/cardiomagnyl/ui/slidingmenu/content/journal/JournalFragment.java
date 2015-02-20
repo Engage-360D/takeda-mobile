@@ -1,9 +1,11 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.journal;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 
@@ -25,6 +27,8 @@ import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.TimelineComparator;
+import ru.com.cardiomagnyl.util.Tools;
+import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
 public class JournalFragment extends BaseItemFragment {
@@ -152,7 +156,15 @@ public class JournalFragment extends BaseItemFragment {
         mCurrentTimelineList.addAll(mNewTimelineList);
         radioGroupTabs.check(R.id.radioButtonNew);
 
-        final TimelineAdapter timelineAdapter = new TimelineAdapter(JournalFragment.this.getActivity(), mCurrentTimelineList, pillsMap);
+        final View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Object tag = view.getTag();
+                if (tag != null || tag instanceof Task) showTaskDialog((Task) tag);
+            }
+        };
+
+        final TimelineAdapter timelineAdapter = new TimelineAdapter(JournalFragment.this.getActivity(), mCurrentTimelineList, pillsMap, onClickListener);
         listViewTimeline.setAdapter(timelineAdapter);
 
         radioGroupTabs.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -164,6 +176,63 @@ public class JournalFragment extends BaseItemFragment {
                 timelineAdapter.notifyDataSetInvalidated();
             }
         });
+    }
+
+
+    private void showTaskDialog(Task task) {
+        int dialogBody = -1;
+        switch (task.getEnumType()) {
+            case diet:
+                dialogBody = R.layout.layout_ask_diet;
+                break;
+            case exercise:
+                dialogBody = R.layout.layout_ask_physical_activity;
+                break;
+            case pill:
+                dialogBody = R.layout.layout_ask_pills;
+                break;
+            case smoking:
+                dialogBody = R.layout.layout_ask_still_smoke;
+                break;
+            case weight:
+                dialogBody = R.layout.layout_ask_weight;
+                break;
+            case pressure:
+                dialogBody = R.layout.layout_ask_pressure;
+                break;
+            case cholesterol:
+                dialogBody = R.layout.layout_ask_cholesterol;
+                break;
+        }
+
+        if (dialogBody < 0) return;
+
+        CustomDialogLayout customDialogLayout = new CustomDialogLayout
+                .Builder(getActivity())
+                .setBody(dialogBody)
+                .addButton(R.string.cancel, CustomDialogLayout.DialogStandardAction.dismiss)
+                .addButton(
+                        R.string.save,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+//                                View editTextPassword = Tools.findViewInParents(view, R.id.editTextPassword);
+//                                if (editTextPassword != null) {
+//                                    String str = ((EditText) editTextPassword).getText().toString();
+//
+//                                    // TODO: check password for delete reports
+//                                }
+                            }
+                        })
+                .create();
+
+        AlertDialog alertDialog = new AlertDialog
+                .Builder(getActivity())
+                .setView(customDialogLayout)
+                .create();
+        customDialogLayout.setParentDialog(alertDialog);
+
+        alertDialog.show();
     }
 
     private void separateTimeline() {

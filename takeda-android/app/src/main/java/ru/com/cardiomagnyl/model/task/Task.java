@@ -186,6 +186,16 @@ public class Task extends BaseModel {
         this.pill = pill;
     }
 
+    public Type getEnumType() {
+        Task.Type enumType = Task.Type.undefined;
+        try {
+            enumType = Task.Type.valueOf(type.toLowerCase());
+        } catch (Exception ex) {
+            // do nothing
+        }
+        return enumType;
+    }
+
     public static Map<String, Task> listToMap(List<Task> tasksList) {
         if (tasksList == null) return null;
 

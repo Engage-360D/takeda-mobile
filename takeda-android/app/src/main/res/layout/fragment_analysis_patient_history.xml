@@ -184,30 +184,7 @@
                 <View style="@style/divider_normal_1_3" />
             </LinearLayout>
 
-
-            <RelativeLayout style="@style/LinearLayoutItemLarge">
-
-                <EditText
-                    android:id="@+id/editTextPressure"
-                    android:layout_width="@dimen/control_medium"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:ems="10"
-                    android:gravity="center_vertical|right"
-                    android:hint="@string/arterial_pressure_hint"
-                    android:inputType="number" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/editTextPressure"
-                    android:text="@string/arterial_pressure"
-                    android:textColor="@color/text_main_38"
-                    android:textSize="@dimen/text_size_small" />
-            </RelativeLayout>
+            <include layout="@layout/layout_ask_pressure" />
 
             <View style="@style/divider_normal_1_3" />
 
@@ -249,29 +226,7 @@
 
             <View style="@style/divider_normal_1_3" />
 
-            <RelativeLayout style="@style/LinearLayoutItemLarge">
-
-                <EditText
-                    android:id="@+id/editTextPhysicalActivity"
-                    android:layout_width="@dimen/control_medium"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:ems="10"
-                    android:gravity="center_vertical|right"
-                    android:hint="@string/physical_activity_hint"
-                    android:inputType="number" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/editTextPhysicalActivity"
-                    android:text="@string/physical_activity"
-                    android:textColor="@color/text_main_38"
-                    android:textSize="@dimen/text_size_small" />
-            </RelativeLayout>
+            <include layout="@layout/layout_ask_physical_activity" />
 
             <View style="@style/divider_normal_1_3" />
 

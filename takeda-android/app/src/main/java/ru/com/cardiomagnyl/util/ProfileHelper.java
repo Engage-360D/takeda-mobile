@@ -32,7 +32,6 @@ import ru.com.cardiomagnyl.social.OkUser;
 import ru.com.cardiomagnyl.social.VkApi;
 import ru.com.cardiomagnyl.social.VkUser;
 import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.RangeSpinnerAdapter;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
 import ru.com.cardiomagnyl.ui.start.CustomAuthorizationListener;
 import ru.com.cardiomagnyl.ui.start.CustomOnDateSetListener;

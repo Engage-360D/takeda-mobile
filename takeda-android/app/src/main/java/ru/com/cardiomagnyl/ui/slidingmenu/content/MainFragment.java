@@ -14,6 +14,7 @@ import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.TakingPillsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Tools;
 

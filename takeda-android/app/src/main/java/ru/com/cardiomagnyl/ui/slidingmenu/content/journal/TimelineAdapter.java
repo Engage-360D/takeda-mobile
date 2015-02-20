@@ -22,11 +22,13 @@ public class TimelineAdapter extends BaseAdapter {
     private final Context mContext;
     private final List<Timeline> mTimeline;
     private final Map<String, Pill> mPpillsMap;
+    private final View.OnClickListener mOnClickListener;
 
-    public TimelineAdapter(Context context, List<Timeline> timeline, Map<String, Pill> pillsMap) {
+    public TimelineAdapter(Context context, List<Timeline> timeline, Map<String, Pill> pillsMap, View.OnClickListener onClickListener) {
         mContext = context;
         mTimeline = timeline;
         mPpillsMap = pillsMap;
+        mOnClickListener = onClickListener;
     }
 
     @Override
@@ -53,12 +55,12 @@ public class TimelineAdapter extends BaseAdapter {
         Date date = Tools.dateFromShortDate(mTimeline.get(position).getDate());
 
         textViewDate.setText(Tools.formatShortHintedDate(date));
-        setTasksHolder(linearLayoutTasksHolder, mTimeline.get(position));
+        initTasksHolder(linearLayoutTasksHolder, mTimeline.get(position));
 
         return view;
     }
 
-    private void setTasksHolder(ViewGroup viewGroup, Timeline timeline) {
+    private void initTasksHolder(ViewGroup viewGroup, Timeline timeline) {
         viewGroup.removeAllViews();
         for (Task task : timeline.getTasks()) {
             View taskView = getTaskView(task);
@@ -71,14 +73,17 @@ public class TimelineAdapter extends BaseAdapter {
 
         if (!task.getIsCompleted()) {
             taskView = View.inflate(mContext, R.layout.list_item_task_new, null);
-            taskView.setTag(task);
             initNewTaskView(taskView, task);
+            taskView.setTag(task);
+            taskView.setEnabled(true);
+            taskView.setOnClickListener(mOnClickListener);
         } else {
             taskView = View.inflate(mContext, R.layout.list_item_task_filled, null);
-            taskView.setTag(null);
-            taskView.setClickable(false);
-            taskView.setEnabled(false);
             initFilledTaskView(taskView, task);
+            taskView.setTag(null);
+            taskView.setEnabled(false);
+            taskView.setClickable(false);
+
         }
 
         return taskView;
@@ -88,16 +93,9 @@ public class TimelineAdapter extends BaseAdapter {
         TextView textViewTaskName = (TextView) parentView.findViewById(R.id.textViewTaskName);
         TextView textViewTaskSubname = (TextView) parentView.findViewById(R.id.textViewTaskSubname);
 
-        Task.Type type = Task.Type.undefined;
-        try {
-            type = Task.Type.valueOf(task.getType().toLowerCase());
-        } catch (Exception ex) {
-            // do nothing
-        }
-
         int taskNameText = -1;
         String taskSubnameText = "";
-        switch (type) {
+        switch (task.getEnumType()) {
             case diet:
                 taskNameText = R.string.follow_diet;
                 break;
@@ -138,18 +136,11 @@ public class TimelineAdapter extends BaseAdapter {
         TextView textViewTaskStatus = (TextView) parentView.findViewById(R.id.textViewTaskStatus);
         TextView textViewTaskSubstatus = (TextView) parentView.findViewById(R.id.textViewTaskSubstatus);
 
-        Task.Type type = Task.Type.undefined;
-        try {
-            type = Task.Type.valueOf(task.getType().toLowerCase());
-        } catch (Exception ex) {
-            // do nothing
-        }
-
         int taskNameText = -1;
         String taskSubnameText = "";
         int taskStatusText = -1;
         String taskSubstatusText = "";
-        switch (type) {
+        switch (task.getEnumType()) {
             case diet:
                 taskNameText = R.string.follow_diet;
                 taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
