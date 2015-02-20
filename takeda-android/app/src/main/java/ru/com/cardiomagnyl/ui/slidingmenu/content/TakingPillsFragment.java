@@ -29,7 +29,7 @@ public class TakingPillsFragment extends BaseItemFragment {
         imageViewBell.setImageResource(R.drawable.ic_button_bell_unpressed);
 
         ImageView imageViewPlus = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
-        imageViewPlus.setImageResource(R.drawable.ic_button_empty_plus_unpressed);
+        imageViewPlus.setImageResource(R.drawable.ic_button_add_pill_unpressed);
 
         int space_small = (int) viewGroupTopBar.getResources().getDimension(R.dimen.space_small);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -51,7 +51,7 @@ public class TakingPillsFragment extends BaseItemFragment {
             public void onClick(View v) {
                 if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
                     SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-                    Fragment fragment = new AddPillsFragment();
+                    Fragment fragment = new AddPillFragment();
                     slidingMenuActivity.putContentOnTop(fragment, false);
                 }
             }

@@ -80,13 +80,31 @@
     <style name="TextViewItem" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/plate_medium</item>
-        <item name="android:background">@drawable/selector_list_item_selectable_bg</item>
+        <item name="android:background">@color/bg_main_unpressed</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">@dimen/space_medium</item>
         <item name="android:paddingRight">@dimen/space_medium</item>
-        <item name="android:textColor">@color/selector_list_item_selectable_text</item>
+        <item name="android:textColor">@color/text_list_item_unpressed</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:clickable">true</item>
+    </style>
+
+    <style name="TextViewItemClickable" parent="@style/TextViewItem">
+        <item name="android:background">@drawable/selector_list_item_selectable_bg</item>
+        <item name="android:textColor">@color/selector_list_item_selectable_text</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="TextViewItemDrawableRR" parent="@style/TextViewItemClickable">
+        <item name="android:drawableRight">@drawable/selector_list_item_rr_ic</item>
+    </style>
+
+    <style name="TextViewItemDrawableRD" parent="@style/TextViewItemClickable">
+        <item name="android:layout_height">@dimen/plate_small</item>
+        <item name="android:background">@drawable/selector_list_item_bg</item>
+        <item name="android:textColor">@color/selector_list_item_text</item>
+        <item name="android:textSize">@dimen/text_size_xsmall</item>
+        <item name="android:drawableRight">@drawable/selector_list_item_rd_ic</item>
     </style>
 
     <style name="TextViewTestTab" parent="@android:style/Widget.TextView">
@@ -97,18 +115,6 @@
         <item name="android:layout_weight">1</item>
         <item name="android:textSize">@dimen/text_size_xsmall</item>
         <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="TextViewItemDrawableRR" parent="@style/TextViewItem">
-        <item name="android:drawableRight">@drawable/selector_list_item_rr_ic</item>
-    </style>
-
-    <style name="TextViewItemDrawableRD" parent="@style/TextViewItem">
-        <item name="android:layout_height">@dimen/plate_small</item>
-        <item name="android:background">@drawable/selector_list_item_bg</item>
-        <item name="android:textColor">@color/selector_list_item_text</item>
-        <item name="android:textSize">@dimen/text_size_xsmall</item>
-        <item name="android:drawableRight">@drawable/selector_list_item_rd_ic</item>
     </style>
 
     <style name="TextViewBanner" parent="@android:style/Widget.TextView">

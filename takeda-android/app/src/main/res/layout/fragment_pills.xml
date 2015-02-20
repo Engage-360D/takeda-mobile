@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/textViewHeader"
+        style="@style/TextViewTop"
+        android:text="@string/pills" />
+
+    <include
+        android:id="@+id/textViewFooter"
+        layout="@layout/layout_footer_contraindications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <LinearLayout
+        android:id="@+id/fragmentContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/textViewFooter"
+        android:layout_below="@id/textViewHeader"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/listViewPills"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:divider="@null" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/textViewMessage"
+        layout="@layout/layout_data_not_found"
+        android:visibility="gone" />
+
+</RelativeLayout>

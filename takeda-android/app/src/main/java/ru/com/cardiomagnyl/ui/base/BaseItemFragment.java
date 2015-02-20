@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.AddPillFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 
@@ -74,6 +75,53 @@ public abstract class BaseItemFragment extends Fragment {
             });
         } else {
             imageViewCabinet.setClickable(false);
+        }
+    }
+
+    protected void initTopBarBellAddPill(ViewGroup viewGroupTopBar, boolean isBellEnabled, boolean isAddPillEnabled) {
+        LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
+        linearLayoutRightHolder.removeAllViews();
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        int spaceMedium = (int) viewGroupTopBar.getResources().getDimension(R.dimen.space_medium);
+        lp.setMargins(0, 0, spaceMedium, 0);
+
+        ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
+        imageViewBell.setImageResource(R.drawable.selector_button_bell);
+        imageViewBell.setLayoutParams(lp);
+        imageViewBell.setEnabled(isBellEnabled);
+        linearLayoutRightHolder.addView(imageViewBell);
+
+        if (isBellEnabled) {
+            imageViewBell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: add action on click
+                }
+            });
+        } else {
+            imageViewBell.setClickable(false);
+        }
+
+        ImageView imageViewAddPill = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
+        imageViewAddPill.setImageResource(R.drawable.selector_button_add_pill);
+        imageViewAddPill.setLayoutParams(lp);
+        imageViewAddPill.setEnabled(isAddPillEnabled);
+        linearLayoutRightHolder.addView(imageViewAddPill);
+
+        if (isAddPillEnabled) {
+            imageViewAddPill.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
+                        Fragment fragment = new AddPillFragment();
+                        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+                        slidingMenuActivity.putContentOnTop(fragment, true);
+                    }
+                }
+            });
+        } else {
+            imageViewAddPill.setClickable(false);
         }
     }
 

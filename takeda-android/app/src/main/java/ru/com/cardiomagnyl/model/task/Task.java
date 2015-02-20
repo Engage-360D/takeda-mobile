@@ -43,6 +43,12 @@ public class Task extends BaseModel {
     @JsonProperty("isCompleted")
     private boolean isCompleted;
 
+    // special field for recognizing "third boolean status"
+    // in the field "is Completed" of the class TaskProxy
+    @DatabaseField(dataType = DataType.BOOLEAN, columnName = "is_completed_fully")
+    @JsonProperty("isCompletedFully")
+    private boolean isCompletedFully;
+
     @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "timeline")
     private Timeline timeline;
 
@@ -106,7 +112,7 @@ public class Task extends BaseModel {
      * @return The isCompleted
      */
     @JsonProperty("isCompleted")
-    public boolean isIsCompleted() {
+    public boolean getIsCompleted() {
         return isCompleted;
     }
 
@@ -116,6 +122,22 @@ public class Task extends BaseModel {
     @JsonProperty("isCompleted")
     public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
+    }
+
+    /**
+     * @return The isCompletedFully
+     */
+    @JsonProperty("isCompletedFully")
+    public boolean getIsCompletedFully() {
+        return isCompletedFully;
+    }
+
+    /**
+     * @param isCompletedFully The isCompletedFully
+     */
+    @JsonProperty("isCompletedFully")
+    public void setIsCompletedFully(boolean isCompletedFully) {
+        this.isCompletedFully = isCompletedFully;
     }
 
     /**

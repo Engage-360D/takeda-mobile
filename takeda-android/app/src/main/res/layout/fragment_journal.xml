@@ -24,13 +24,13 @@
         android:orientation="vertical">
 
         <RadioGroup
-            android:id="@+id/radioGroupCondition"
+            android:id="@+id/radioGroupTabs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/plate_small"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/toggleButtonConditionOn"
+                android:id="@+id/radioButtonNew"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -43,7 +43,7 @@
                 android:textSize="@dimen/text_size_small" />
 
             <RadioButton
-                android:id="@+id/toggleButtonConditionOff"
+                android:id="@+id/radioButtonFilled"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

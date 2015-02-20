@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +17,7 @@ import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.pill.PillDao;
+import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.timeline.TimelineDao;
 import ru.com.cardiomagnyl.model.token.Token;
@@ -24,11 +25,13 @@ import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.TimelineComparator;
-import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
 public class JournalFragment extends BaseItemFragment {
-    private final List<Timeline> mAllTimeline = new ArrayList<>();
+    private final List<Timeline> mFullTimelineList = new ArrayList<>();
+    private final List<Timeline> mNewTimelineList = new ArrayList<>();
+    private final List<Timeline> mFilledTimelineList = new ArrayList<>();
+    private final List<Timeline> mCurrentTimelineList = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal, null);
@@ -138,46 +141,58 @@ public class JournalFragment extends BaseItemFragment {
     }
 
     private void initFragmentFinishHelper(final View fragmentView, final List<Timeline> timeline, final Map<String, Pill> pillsMap) {
+        final RadioGroup radioGroupTabs = (RadioGroup) fragmentView.findViewById(R.id.radioGroupTabs);
         final ListView listViewTimeline = (ListView) fragmentView.findViewById(R.id.listViewTimeline);
 
-        mAllTimeline.clear();
-        mAllTimeline.addAll(timeline);
+        mFullTimelineList.clear();
+        mFullTimelineList.addAll(timeline);
+        separateTimeline();
 
-        TimelineAdapter timelineAdapter = new TimelineAdapter(JournalFragment.this.getActivity(), timeline, pillsMap);
+        mCurrentTimelineList.clear();
+        mCurrentTimelineList.addAll(mNewTimelineList);
+        radioGroupTabs.check(R.id.radioButtonNew);
+
+        final TimelineAdapter timelineAdapter = new TimelineAdapter(JournalFragment.this.getActivity(), mCurrentTimelineList, pillsMap);
         listViewTimeline.setAdapter(timelineAdapter);
+
+        radioGroupTabs.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                timelineAdapter.notifyDataSetChanged();
+                mCurrentTimelineList.clear();
+                mCurrentTimelineList.addAll(checkedId == R.id.radioButtonNew ? mNewTimelineList : mFilledTimelineList);
+                timelineAdapter.notifyDataSetInvalidated();
+            }
+        });
     }
 
-    private void initFragment(View view) {
-//        View item1 = view.findViewById(R.id.item1);
-//        View item2 = view.findViewById(R.id.item2);
-//        View item3 = view.findViewById(R.id.item3);
+    private void separateTimeline() {
+        mNewTimelineList.clear();
+        mFilledTimelineList.clear();
 
-//        TextView textViewDate1 = (TextView) item1.findViewById(R.id.textViewDate);
-//        TextView textViewDate2 = (TextView) item2.findViewById(R.id.textViewDate);
-//        TextView textViewDate3 = (TextView) item3.findViewById(R.id.textViewDate);
+        for (Timeline timeline : mFullTimelineList) {
+            List<Task> newTasks = new ArrayList<>();
+            List<Task> filledTasks = new ArrayList<>();
 
-//        textViewDate1.setText(Tools.getDayOfWeek(0));
-//        textViewDate2.setText(Tools.getDayOfWeek(-1));
-//        textViewDate3.setText(Tools.getDayOfWeek(-2));
+            for (Task task : timeline.getTasks()) {
+                if (!task.getIsCompleted()) newTasks.add(task);
+                else filledTasks.add(task);
+            }
 
+            if (!newTasks.isEmpty()) {
+                Timeline newTimeline = new Timeline();
+                newTimeline.setDate(timeline.getDate());
+                newTimeline.setTasks(newTasks);
+                mNewTimelineList.add(newTimeline);
+            }
 
-//        View linearLayoutTime1 = view.findViewById(R.id.linearLayoutTime1);
-//        View linearLayoutTime2 = view.findViewById(R.id.linearLayoutTime1);
-//        View linearLayoutTime3 = view.findViewById(R.id.linearLayoutTime1);
-//
-//        View.OnClickListener onClickListener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-//                    SlidingMenuActivity mainActivity = (SlidingMenuActivity) getActivity();
-//                    Fragment fragment = new AddPillsFragment();
-//                    mainActivity.switchContent(fragment);
-//                }
-//            }
-//        };
-//
-//        linearLayoutTime1.setOnClickListener(onClickListener);
-//        linearLayoutTime2.setOnClickListener(onClickListener);
-//        linearLayoutTime3.setOnClickListener(onClickListener);
+            if (!filledTasks.isEmpty()) {
+                Timeline filledTimeline = new Timeline();
+                filledTimeline.setDate(timeline.getDate());
+                filledTimeline.setTasks(filledTasks);
+                mFilledTimelineList.add(filledTimeline);
+            }
+        }
     }
+
 }

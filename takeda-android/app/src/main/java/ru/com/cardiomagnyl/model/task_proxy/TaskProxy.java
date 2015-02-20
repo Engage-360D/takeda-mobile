@@ -136,6 +136,7 @@ public class TaskProxy extends BaseModel {
         Task task = (Task) BaseModel.stringToObject(objectNode.toString(), new TypeReference<Task>() {
         });
         task.setIsCompleted(isCompleted != null);
+        task.setIsCompletedFully(isCompleted != null && isCompleted);
         return task;
     }
 

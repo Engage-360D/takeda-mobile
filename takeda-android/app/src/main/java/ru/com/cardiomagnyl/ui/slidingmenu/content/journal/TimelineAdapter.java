@@ -67,15 +67,24 @@ public class TimelineAdapter extends BaseAdapter {
     }
 
     private View getTaskView(final Task task) {
-        View taskView = View.inflate(mContext, R.layout.list_item_task, null);
+        View taskView;
 
-        taskView.setTag(task);
-        setTextTaskView(taskView, task);
+        if (!task.getIsCompleted()) {
+            taskView = View.inflate(mContext, R.layout.list_item_task_new, null);
+            taskView.setTag(task);
+            initNewTaskView(taskView, task);
+        } else {
+            taskView = View.inflate(mContext, R.layout.list_item_task_filled, null);
+            taskView.setTag(null);
+            taskView.setClickable(false);
+            taskView.setEnabled(false);
+            initFilledTaskView(taskView, task);
+        }
 
         return taskView;
     }
 
-    private void setTextTaskView(final View parentView, final Task task) {
+    private void initNewTaskView(final View parentView, final Task task) {
         TextView textViewTaskName = (TextView) parentView.findViewById(R.id.textViewTaskName);
         TextView textViewTaskSubname = (TextView) parentView.findViewById(R.id.textViewTaskSubname);
 
@@ -90,7 +99,7 @@ public class TimelineAdapter extends BaseAdapter {
         String taskSubnameText = "";
         switch (type) {
             case diet:
-                taskNameText = R.string.what_eaten;
+                taskNameText = R.string.follow_diet;
                 break;
             case exercise:
                 taskNameText = R.string.exercise_stress;
@@ -121,4 +130,69 @@ public class TimelineAdapter extends BaseAdapter {
             textViewTaskSubname.setText(taskSubnameText);
         }
     }
+
+    private void initFilledTaskView(final View parentView, final Task task) {
+        TextView textViewTaskName = (TextView) parentView.findViewById(R.id.textViewTaskName);
+        TextView textViewTaskSubname = (TextView) parentView.findViewById(R.id.textViewTaskSubname);
+
+        TextView textViewTaskStatus = (TextView) parentView.findViewById(R.id.textViewTaskStatus);
+        TextView textViewTaskSubstatus = (TextView) parentView.findViewById(R.id.textViewTaskSubstatus);
+
+        Task.Type type = Task.Type.undefined;
+        try {
+            type = Task.Type.valueOf(task.getType().toLowerCase());
+        } catch (Exception ex) {
+            // do nothing
+        }
+
+        int taskNameText = -1;
+        String taskSubnameText = "";
+        int taskStatusText = -1;
+        String taskSubstatusText = "";
+        switch (type) {
+            case diet:
+                taskNameText = R.string.follow_diet;
+                taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
+                break;
+            case exercise:
+                taskNameText = R.string.exercise_stress;
+                taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
+                taskSubstatusText = String.valueOf(task.getExerciseMins()) + " " + mContext.getString(R.string.min);
+                break;
+            case pill:
+                taskNameText = R.string.take_pills;
+                taskSubnameText = mPpillsMap.get(task.getPill()).getName();
+                taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
+                break;
+            case smoking:
+                taskNameText = R.string.still_smoke;
+                taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
+                break;
+            case weight:
+                taskNameText = R.string.enter_weight;
+                taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
+                break;
+            case pressure:
+                taskNameText = R.string.enter_pressure;
+                taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
+                break;
+            case cholesterol:
+                taskNameText = R.string.enter_cholesterol;
+                taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
+                break;
+        }
+
+        if (taskNameText < 0) {
+            parentView.setVisibility(View.GONE);
+        } else {
+            textViewTaskName.setText(taskNameText);
+            textViewTaskSubname.setVisibility(TextUtils.isEmpty(taskSubnameText) ? View.GONE : View.VISIBLE);
+            textViewTaskSubname.setText(taskSubnameText);
+
+            textViewTaskStatus.setText(taskStatusText);
+            textViewTaskSubstatus.setVisibility(TextUtils.isEmpty(taskSubstatusText) ? View.GONE : View.VISIBLE);
+            textViewTaskSubstatus.setText(taskSubstatusText);
+        }
+    }
+
 }

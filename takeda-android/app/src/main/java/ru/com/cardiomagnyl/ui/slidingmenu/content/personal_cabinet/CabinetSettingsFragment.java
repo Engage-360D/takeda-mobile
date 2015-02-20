@@ -11,6 +11,7 @@ import android.widget.EditText;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.PillsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
@@ -38,7 +39,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         textViewPills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tryToSeuUpPills();
+                tryToSetUpPills();
             }
         });
 
@@ -64,12 +65,12 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         });
     }
 
-    private void tryToSeuUpPills() {
+    private void tryToSetUpPills() {
         if (!SlidingMenuActivity.check(getActivity())) {
             return;
         }
 
-        Fragment fragment = new CabinetIncidentFragment();
+        Fragment fragment = new PillsFragment();
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.putContentOnTop(fragment, false);
     }
