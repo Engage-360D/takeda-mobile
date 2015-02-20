@@ -29,13 +29,13 @@ public class TokenDao extends BaseDaoImpl<Token, Integer> {
     public static void getByUserId(final String userId,
                                    final CallbackOne<Token> onSuccess,
                                    final CallbackOne<Response> onFailure) {
-        getByIdHelper("user_id", userId, onSuccess, onFailure);
+        getByIdHelper("user", userId, onSuccess, onFailure);
     }
 
     public static void getByTokenId(final String tokenId,
                                     final CallbackOne<Token> onSuccess,
                                     final CallbackOne<Response> onFailure) {
-        getByIdHelper("token_id", tokenId, onSuccess, onFailure);
+        getByIdHelper("token", tokenId, onSuccess, onFailure);
     }
 
     private static void getByIdHelper(final String idField,

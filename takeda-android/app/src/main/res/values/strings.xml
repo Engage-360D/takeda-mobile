@@ -36,7 +36,7 @@
     <string name="error_test_age">Возраст может иметь значение от 22.</string>
     <string name="error_test_growth">Рост может иметь значение от 30 до 300.</string>
     <string name="error_test_weight">Вес может иметь значение от 30 до 700.</string>
-    <string name="error_test_cholesterol_level">Уровень общего холестирина может иметь значение от 3 до 9.</string>
+    <string name="error_test_cholesterol_level">Уровень общего холестерина может иметь значение от 3 до 9.</string>
 
     <!-- ====== -->
     <!-- common -->
@@ -109,13 +109,12 @@
     <string name="menu_item_main">Главная</string>
     <string name="menu_item_risk_analysis">Анализ риска</string>
     <string name="menu_item_add_pills">Добавить</string>
-    <string name="menu_item_diary">Дневник</string>
+    <string name="menu_item_journal">Дневник</string>
     <string name="menu_item_search_institutions">Поиск учреждений</string>
     <string name="menu_item_information">Информация</string>
     <string name="menu_item_settings">Настройки</string>
     <string name="menu_item_recommendations">Рекомендации</string>
     <string name="menu_item_analysis_results">Результаты анализа</string>
-    <string name="menu_item_calendar">Календарь</string>
     <string name="menu_item_useful_to_know">Полезно знать</string>
     <string name="menu_item_publications">Публикации</string>
     <string name="menu_item_reports">Отчеты</string>
@@ -335,6 +334,7 @@
     <string name="cancel">Отменить</string>
     <string name="close">Закрыть</string>
     <string name="take_pills">Принять таблетки</string>
+    <string name="data_not_found">Данные не найдены...</string>
 
     <!-- === -->
     <!-- tmp -->

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/linearLayoutTop"
+        android:id="@+id/linearLayoutHeader"
         layout="@layout/layout_top" />
 
     <android.support.v4.view.ViewPager
@@ -16,8 +16,8 @@
         android:layout_weight="1" />
 
     <include
-        android:id="@+id/textViewBottom"
-        layout="@layout/layout_bottom_contraindications"
+        android:id="@+id/textViewFooter"
+        layout="@layout/layout_footer_contraindications"
         android:paddingLeft="@dimen/space_medium"
         android:paddingRight="@dimen/space_medium" />
 

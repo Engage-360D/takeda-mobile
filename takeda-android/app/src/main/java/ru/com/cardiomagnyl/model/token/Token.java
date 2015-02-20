@@ -20,12 +20,12 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
 @DatabaseTable(tableName = "token")
 public class Token extends BaseModel {
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "token_id")
+    @DatabaseField(dataType = DataType.STRING, columnName = "token")
     @JsonProperty("id")
     private String id;
 
     // links
-    @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "user_id")
+    @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "user")
     @JsonProperty("user")
     private String user;
 

@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/plate_large"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_main_48"
+        android:textSize="@dimen/text_size_xlarge" />
+
+    <View style="@style/divider_normal_1_5" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTasksHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+</LinearLayout>

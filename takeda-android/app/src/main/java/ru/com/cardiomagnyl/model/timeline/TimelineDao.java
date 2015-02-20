@@ -58,7 +58,7 @@ public class TimelineDao extends BaseDaoImpl<Timeline, Integer> {
         RuntimeExceptionDao helperFactoryTimeline = HelperFactory.getHelper().getRuntimeDataDao(Timeline.class);
         QueryBuilder queryBuilder = helperFactoryTimeline.queryBuilder();
         try {
-            queryBuilder.where().eq("user_id", token.getUserId());
+            queryBuilder.where().eq("user", token.getUserId());
         } catch (SQLException e) {
             e.printStackTrace();
         }

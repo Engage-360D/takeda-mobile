@@ -109,14 +109,14 @@ public class StartActivity extends BaseTrackedFragmentActivity {
     }
 
     private void customizeStartActivityAccordingCurrentFragment(CustomFragmentPagerAdapter customFragmentPagerAdapter, int position) {
-        View linearLayoutTop = findViewById(R.id.linearLayoutTop);
-        View textViewBottom = findViewById(R.id.textViewBottom);
+        View linearLayoutHeader = findViewById(R.id.linearLayoutHeader);
+        View textViewFooter = findViewById(R.id.textViewFooter);
         View linearLayoutProgress = findViewById(R.id.linearLayoutProgress);
 
         final BaseStartFragment currentFragment = (BaseStartFragment) customFragmentPagerAdapter.getItem(position);
 
-        animateTopAndBottom(linearLayoutTop, position != 0);
-        animateTopAndBottom(textViewBottom, position != 0);
+        animateTopAndBottom(linearLayoutHeader, position != 0);
+        animateTopAndBottom(textViewFooter, position != 0);
         fadeOut(currentFragment, linearLayoutProgress);
     }
 

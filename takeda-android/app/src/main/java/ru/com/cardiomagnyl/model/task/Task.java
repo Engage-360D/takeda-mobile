@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -26,7 +25,7 @@ import ru.com.cardiomagnyl.model.timeline.Timeline;
 @DatabaseTable(tableName = "task")
 public class Task extends BaseModel {
 
-    public enum Type {diet, exercise, pill}
+    public enum Type {diet, exercise, pill, /*next fields are fake*/ smoking, weight, pressure, cholesterol, undefined}
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     @JsonProperty("id")
@@ -165,13 +164,13 @@ public class Task extends BaseModel {
         this.pill = pill;
     }
 
-    public static Map<String, Task> listToMap(List<Task> listTasks) {
-        if (listTasks == null) return null;
+    public static Map<String, Task> listToMap(List<Task> tasksList) {
+        if (tasksList == null) return null;
 
-        Map<String, Task> mapTasks = new HashMap<>();
-        for (Task task : listTasks) mapTasks.put(task.getId(), task);
+        Map<String, Task> tasksMap = new HashMap<>();
+        for (Task task : tasksList) tasksMap.put(task.getId(), task);
 
-        return mapTasks;
+        return tasksMap;
     }
 
 }

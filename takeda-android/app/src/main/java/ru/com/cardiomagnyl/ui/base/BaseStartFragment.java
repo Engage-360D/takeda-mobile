@@ -96,8 +96,8 @@ public abstract class BaseStartFragment extends Fragment {
                 token,
                 new CallbackOne<List<TestResult>>() {
                     @Override
-                    public void execute(List<TestResult> testResultList) {
-                        TestResult newestTestResult = TestResultDao.getNewestResult(testResultList);
+                    public void execute(List<TestResult> testResultsList) {
+                        TestResult newestTestResult = TestResultDao.getNewestResult(testResultsList);
                         handleRegAuth(token, user, newestTestResult, null);
                     }
                 },

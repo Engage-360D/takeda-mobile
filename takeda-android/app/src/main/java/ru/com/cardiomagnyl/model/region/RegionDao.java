@@ -31,8 +31,8 @@ public class RegionDao extends BaseDaoImpl<Region, Integer> {
 
         CallbackOne<List<Region>> onStoreIntoDatabase = new CallbackOne<List<Region>>() {
             @Override
-            public void execute(List<Region> regionList) {
-                storeIntoDatabase(regionList);
+            public void execute(List<Region> regionsList) {
+                storeIntoDatabase(regionsList);
             }
         };
 
@@ -66,10 +66,10 @@ public class RegionDao extends BaseDaoImpl<Region, Integer> {
                 );
     }
 
-    public static void storeIntoDatabase(final List<Region> regionList) {
-        if (regionList != null && !regionList.isEmpty()) {
+    public static void storeIntoDatabase(final List<Region> regionsList) {
+        if (regionsList != null && !regionsList.isEmpty()) {
             RuntimeExceptionDao helperFactoryRegion = HelperFactory.getHelper().getRuntimeDataDao(Region.class);
-            for (Region region : regionList) {
+            for (Region region : regionsList) {
                 helperFactoryRegion.createOrUpdate(region);
             }
         }

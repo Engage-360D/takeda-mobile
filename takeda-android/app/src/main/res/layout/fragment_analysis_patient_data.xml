@@ -5,7 +5,7 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/linearLayoutTop"
+        android:id="@+id/linearLayoutHeader"
         style="@style/LinearLayoutTestTop">
 
         <TextView
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/layoutBottom"
-        android:layout_below="@id/linearLayoutTop"
+        android:layout_below="@id/linearLayoutHeader"
         android:scrollbarStyle="outsideOverlay">
 
         <LinearLayout

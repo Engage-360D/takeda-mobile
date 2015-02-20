@@ -3,16 +3,25 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutTop"
+    <TextView
+        android:id="@+id/textViewHeader"
+        style="@style/TextViewTop"
+        android:text="@string/journal" />
+
+    <include
+        android:id="@+id/textViewFooter"
+        layout="@layout/layout_footer_contraindications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true" />
 
-        <TextView
-            style="@style/TextViewTop"
-            android:text="@string/journal" />
+    <LinearLayout
+        android:id="@+id/fragmentContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/textViewFooter"
+        android:layout_below="@id/textViewHeader"
+        android:orientation="vertical">
 
         <RadioGroup
             android:id="@+id/radioGroupCondition"
@@ -46,42 +55,19 @@
                 android:textSize="@dimen/text_size_small" />
         </RadioGroup>
 
+        <ListView
+            android:id="@+id/listViewTimeline"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:divider="@null" />
+
     </LinearLayout>
 
     <include
-        android:id="@+id/textViewBottom"
-        layout="@layout/layout_bottom_contraindications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/textViewBottom"
-        android:layout_below="@id/linearLayoutTop"
-        android:layout_gravity="center_horizontal"
-        android:scrollbarStyle="outsideOverlay">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/item1"
-                layout="@layout/list_item_personal_journal_one_day" />
-
-            <include
-                android:id="@+id/item2"
-                layout="@layout/list_item_personal_journal_one_day" />
-
-            <include
-                android:id="@+id/item3"
-                layout="@layout/list_item_personal_journal_one_day" />
-
-        </LinearLayout>
-    </ScrollView>
+        android:id="@+id/textViewMessage"
+        layout="@layout/layout_data_not_found"
+        android:visibility="gone" />
 
 </RelativeLayout>

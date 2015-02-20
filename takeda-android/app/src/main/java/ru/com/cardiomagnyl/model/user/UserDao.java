@@ -183,7 +183,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                 QueryBuilder queryBuilder = helperFactoryUserRole.queryBuilder();
                 try {
                     user.setRoles(UserRoleDao.getRolesForUser(user));
-                    queryBuilder.where().eq("user_id", user.getId());
+                    queryBuilder.where().eq("user", user.getId());
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

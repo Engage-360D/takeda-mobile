@@ -4,7 +4,7 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/linearLayoutTop"
+        android:id="@+id/linearLayoutHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -26,7 +26,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/textViewBottom"
+        android:id="@+id/textViewFooter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -48,15 +48,15 @@
             style="@style/button_main_long"
             android:text="@string/visit_doctor" />
 
-        <include layout="@layout/layout_bottom_contraindications" />
+        <include layout="@layout/layout_footer_contraindications" />
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/textViewBottom"
-        android:layout_below="@id/linearLayoutTop"
+        android:layout_above="@id/textViewFooter"
+        android:layout_below="@id/linearLayoutHeader"
         android:layout_gravity="center_horizontal"
         android:scrollbarStyle="outsideOverlay">
 

@@ -4,15 +4,15 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/textViewTop"
+        android:id="@+id/textViewHeader"
         style="@style/TextViewTop"
         android:text="@string/header_registration" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/textViewBottom"
-        android:layout_below="@id/textViewTop"
+        android:layout_above="@id/textViewFooter"
+        android:layout_below="@id/textViewHeader"
         android:layout_gravity="center_horizontal"
         android:scrollbarStyle="outsideOverlay">
 

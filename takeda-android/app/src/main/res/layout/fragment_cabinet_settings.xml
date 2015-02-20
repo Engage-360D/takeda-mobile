@@ -4,7 +4,7 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/linearLayoutTop"
+        android:id="@+id/linearLayoutHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/linearLayoutTop"
+        android:layout_below="@id/linearLayoutHeader"
         android:layout_gravity="center_horizontal"
         android:scrollbarStyle="outsideOverlay">
 
