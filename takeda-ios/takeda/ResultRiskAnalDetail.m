@@ -49,19 +49,26 @@
 }
 
 -(void)initData{
-    NSString *url = blockInfo[@"pageUrl"];
-        [GlobalData resultAnalBlock:url completition:^(BOOL success, id result){
+    NSString *url = [NSString stringWithFormat:@"account/test-results/%@/pages/%@",blockInfo[@"testId"],blockInfo[@"type"]];
+    
+    [GlobalData resultAnalBlock:url completition:^(BOOL success, id result){
+        if (!success) {[self showMessage:@"Ошибка загрузки. Попробуйте позже" title:@"Ошибка" result:^{
+            [self backAction];
+        }];
+        } else {
             [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-                scrollView.alpha = 1.0f;
+                scrollView.alpha = success?1.0f:0.f;
             } completion:^(BOOL finished){
                 [_indicator stopAnimating];
             }];
             
             [self showInfo:result];
-        }];
+        }
+    }];
 }
 
 -(void)showInfo:(NSMutableDictionary*)result{
+    
     
     if (blockInfo[@"title"]&&[blockInfo[@"title"] isKindOfClass:[NSString class]]){
         self.vcSubTitle.text = blockInfo[@"title"];
