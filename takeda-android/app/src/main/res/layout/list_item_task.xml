@@ -1,14 +1,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewTaskName"
-        style="@style/TextViewItemDrawableRR"
-        android:text="@string/take_pills" />
+    <LinearLayout
+        style="@style/TextViewItem"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewTaskName"
+                style="@style/TextViewItem"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:padding="0dp"
+                android:text="@string/consolidated_report" />
+
+            <TextView
+                android:id="@+id/textViewTaskSubname"
+                style="@style/TextViewItem"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:padding="0dp"
+                android:text="@string/go_to_website"
+                android:textSize="@dimen/text_size_xsmall"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/selector_list_item_rr_ic" />
+
+    </LinearLayout>
 
     <View style="@style/divider_normal_1_5" />
 
 </LinearLayout>
+
+
+

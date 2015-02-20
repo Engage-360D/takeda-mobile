@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.test.TestResult;
@@ -55,7 +57,7 @@ public class MainFragment extends BaseItemFragment {
 
     private void initToday(final View view) {
         TextView textViewToday = (TextView) view.findViewById(R.id.textViewToday);
-        textViewToday.setText(Tools.getDayOfWeek(0));
+        textViewToday.setText(Tools.formatShortHintedDate(new Date()));
     }
 
     private void initTablets(final View view) {

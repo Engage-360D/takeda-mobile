@@ -26,7 +26,10 @@ import ru.com.cardiomagnyl.model.task.Task;
 @DatabaseTable(tableName = "timeline")
 public class Timeline extends BaseModel {
 
-    @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "date")
+    @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
+    private String id;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "date")
     @JsonProperty("date")
     private String date;
 
@@ -83,6 +86,7 @@ public class Timeline extends BaseModel {
      */
     public void setUserId(String userId) {
         this.userId = userId;
+        this.id = userId + "_" + date;
     }
 
     public static boolean checkPillsInTasks(final List<Timeline> timeline, final Map<String, Pill> pillsMap) {

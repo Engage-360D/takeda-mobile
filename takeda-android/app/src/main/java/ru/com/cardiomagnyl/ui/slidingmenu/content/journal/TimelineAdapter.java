@@ -1,12 +1,14 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.journal;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
+import ru.com.cardiomagnyl.util.Tools;
 
 public class TimelineAdapter extends BaseAdapter {
     private final Context mContext;
@@ -44,66 +47,78 @@ public class TimelineAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final View view = (convertView != null ? convertView : View.inflate(mContext, R.layout.list_item_timeline, null));
+        final TextView textViewDate = (TextView) view.findViewById(R.id.textViewDate);
         final LinearLayout linearLayoutTasksHolder = (LinearLayout) view.findViewById(R.id.linearLayoutTasksHolder);
 
-        linearLayoutTasksHolder.removeAllViews();
+        Date date = Tools.dateFromShortDate(mTimeline.get(position).getDate());
 
-        for (Task task : mTimeline.get(position).getTasks()) {
-            View taskView = getTaskView(task);
-            linearLayoutTasksHolder.addView(taskView);
-        }
+        textViewDate.setText(Tools.formatShortHintedDate(date));
+        setTasksHolder(linearLayoutTasksHolder, mTimeline.get(position));
 
         return view;
     }
 
+    private void setTasksHolder(ViewGroup viewGroup, Timeline timeline) {
+        viewGroup.removeAllViews();
+        for (Task task : timeline.getTasks()) {
+            View taskView = getTaskView(task);
+            viewGroup.addView(taskView);
+        }
+    }
+
     private View getTaskView(final Task task) {
         View taskView = View.inflate(mContext, R.layout.list_item_task, null);
-        TextView textViewTaskName = (TextView) taskView.findViewById(R.id.textViewTaskName);
 
         taskView.setTag(task);
-        setTextView(taskView, textViewTaskName, task.getType());
+        setTextTaskView(taskView, task);
 
         return taskView;
     }
 
-    private void setTextView(final View parentView, final TextView textView, final String taskType) {
-        Task.Type type = Task.Type.undefined;
+    private void setTextTaskView(final View parentView, final Task task) {
+        TextView textViewTaskName = (TextView) parentView.findViewById(R.id.textViewTaskName);
+        TextView textViewTaskSubname = (TextView) parentView.findViewById(R.id.textViewTaskSubname);
 
+        Task.Type type = Task.Type.undefined;
         try {
-            type = Task.Type.valueOf(taskType.toLowerCase());
+            type = Task.Type.valueOf(task.getType().toLowerCase());
         } catch (Exception ex) {
             // do nothing
         }
 
-        int taskText = -1;
+        int taskNameText = -1;
+        String taskSubnameText = "";
         switch (type) {
             case diet:
-                taskText = R.string.what_eaten;
+                taskNameText = R.string.what_eaten;
                 break;
             case exercise:
-                taskText = R.string.exercise_stress;
+                taskNameText = R.string.exercise_stress;
                 break;
             case pill:
-                taskText = R.string.take_pills;
+                taskNameText = R.string.take_pills;
+                taskSubnameText = mPpillsMap.get(task.getPill()).getName();
                 break;
             case smoking:
-                taskText = R.string.still_smoke;
+                taskNameText = R.string.still_smoke;
                 break;
             case weight:
-                taskText = R.string.enter_weight;
+                taskNameText = R.string.enter_weight;
                 break;
             case pressure:
-                taskText = R.string.enter_pressure;
+                taskNameText = R.string.enter_pressure;
                 break;
             case cholesterol:
-                taskText = R.string.enter_cholesterol;
+                taskNameText = R.string.enter_cholesterol;
                 break;
         }
 
-        if (taskText < 0) {
+        if (taskNameText < 0) {
             parentView.setVisibility(View.GONE);
         } else {
-            textView.setText(taskText);
+            textViewTaskName.setText(taskNameText);
+            textViewTaskSubname.setVisibility(TextUtils.isEmpty(taskSubnameText) ? View.GONE : View.VISIBLE);
+            textViewTaskSubname.setText(taskSubnameText);
         }
     }
 }

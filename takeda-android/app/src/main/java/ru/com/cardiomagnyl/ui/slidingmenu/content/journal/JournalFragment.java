@@ -23,6 +23,7 @@ import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
+import ru.com.cardiomagnyl.util.TimelineComparator;
 import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
@@ -57,6 +58,7 @@ public class JournalFragment extends BaseItemFragment {
                 new CallbackOne<List<Timeline>>() {
                     @Override
                     public void execute(List<Timeline> timeline) {
+                        Collections.sort(timeline, new TimelineComparator());
                         getPillDatabase(fragmentView, token, timeline);
                     }
                 },

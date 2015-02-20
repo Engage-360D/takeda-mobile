@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Pair;
 import android.view.Gravity;
@@ -48,17 +49,35 @@ public class Tools {
 
     public static String formatShortDate(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
+    }
 
-        String formatedDate = dateFormat.format(date);
-        formatedDate = Character.toUpperCase(formatedDate.charAt(0)) + formatedDate.substring(1);
+    public static Date dateFromShortDate(String dateString) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-        return formatedDate;
+    public static String formatShortHintedDate(Date date) {
+        if (DateUtils.isToday(date.getTime())) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(" (EEEE)");
+            String today = CardiomagnylApplication.getAppContext().getString(R.string.today);
+            return today + simpleDateFormat.format(date).toLowerCase();
+        } else {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy (EEEE)");
+            return simpleDateFormat.format(date).toLowerCase();
+        }
     }
 
     public static String formatFullDate(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-        String formatedDate = dateFormat.format(date);
-        return formatedDate;
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
     }
 
     public static Date dateFromFullDate(String dateString) {
@@ -117,19 +136,6 @@ public class Tools {
         calendar.add(Calendar.DAY_OF_MONTH, 4);
         String weekEnd = simpleDateFormat.format(calendar.getTime()).toLowerCase();
         return new Pair<>(weekStart, weekEnd);
-    }
-
-    public static String getDayOfWeek(int shiftRelativeToday) {
-        Calendar calendar = Calendar.getInstance();
-        if (shiftRelativeToday == 0) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(" (EEEE)");
-            String today = CardiomagnylApplication.getAppContext().getString(R.string.today);
-            return today + simpleDateFormat.format(calendar.getTime()).toLowerCase();
-        } else {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy (EEEE)");
-            calendar.add(Calendar.DAY_OF_MONTH, shiftRelativeToday);
-            return simpleDateFormat.format(calendar.getTime()).toLowerCase();
-        }
     }
 
     public static List<Integer> getRange(final Integer range) {
