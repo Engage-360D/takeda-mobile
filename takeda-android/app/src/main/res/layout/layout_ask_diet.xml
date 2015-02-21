@@ -9,19 +9,17 @@
         android:layout_centerVertical="true"
         android:orientation="horizontal">
 
-        <ToggleButton
-            android:id="@+id/toggleButtonNotFollowDiet"
-            style="@style/ToggleRadioButton"
+        <RadioButton
+            android:id="@+id/radioButtonNotFollowDiet"
+            style="@style/RadioButton"
             android:checked="false"
-            android:textOff="@string/no"
-            android:textOn="@string/no" />
+            android:text="@string/no" />
 
-        <ToggleButton
-            android:id="@+id/toggleButtonFollowDiet"
-            style="@style/ToggleRadioButton"
+        <RadioButton
+            android:id="@+id/radioButtonFollowDiet"
+            style="@style/RadioButton"
             android:checked="false"
-            android:textOff="@string/yes"
-            android:textOn="@string/yes" />
+            android:text="@string/yes" />
     </RadioGroup>
 
     <TextView

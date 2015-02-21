@@ -1,13 +1,23 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.journal;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,14 +30,17 @@ import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.pill.PillDao;
 import ru.com.cardiomagnyl.model.task.Task;
+import ru.com.cardiomagnyl.model.task.TaskDao;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.timeline.TimelineDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
+import ru.com.cardiomagnyl.util.Callback;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.TimelineComparator;
 import ru.com.cardiomagnyl.util.Tools;
+import ru.com.cardiomagnyl.util.Utils;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
@@ -150,7 +163,7 @@ public class JournalFragment extends BaseItemFragment {
 
         mFullTimelineList.clear();
         mFullTimelineList.addAll(timeline);
-        separateTimeline();
+        separateFullTimeline();
 
         mCurrentTimelineList.clear();
         mCurrentTimelineList.addAll(mNewTimelineList);
@@ -160,7 +173,8 @@ public class JournalFragment extends BaseItemFragment {
             @Override
             public void onClick(View view) {
                 Object tag = view.getTag();
-                if (tag != null || tag instanceof Task) showTaskDialog((Task) tag);
+                if (tag != null || tag instanceof Task)
+                    showTaskDialog(fragmentView, (Task) tag, pillsMap);
             }
         };
 
@@ -178,52 +192,133 @@ public class JournalFragment extends BaseItemFragment {
         });
     }
 
+    private void initDialogBody(final RadioGroup RadioGroup, final Button buttonSave) {
+        RadioGroup.setOnCheckedChangeListener(new android.widget.RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioGroup.setOnCheckedChangeListener(null);
+                buttonSave.setEnabled(true);
+            }
+        });
+    }
 
-    private void showTaskDialog(Task task) {
-        int dialogBody = -1;
+    private void tryToSave(final View dialogBodyView, final Task task, final Map<String, Pill> pillsMap) {
+        Token token = AppState.getInsnatce().getToken();
+
         switch (task.getEnumType()) {
             case diet:
-                dialogBody = R.layout.layout_ask_diet;
+                RadioButton radioButtonFollowDiet = (RadioButton) dialogBodyView.findViewById(R.id.radioButtonFollowDiet);
+                tryToSaveHelper(task, Task.createResult(Task.Type.diet, radioButtonFollowDiet.isChecked()), token);
                 break;
             case exercise:
-                dialogBody = R.layout.layout_ask_physical_activity;
+                EditText editTextPhysicalActivity = (EditText) dialogBodyView.findViewById(R.id.editTextPhysicalActivity);
+                tryToSaveHelper(task, Task.createResult(Task.Type.exercise, editTextPhysicalActivity.getText().toString()), token);
                 break;
             case pill:
-                dialogBody = R.layout.layout_ask_pills;
+                RadioButton radioButtonPillsTaken = (RadioButton) dialogBodyView.findViewById(R.id.radioButtonPillsTaken);
+                tryToSaveHelper(task, Task.createResult(Task.Type.pill, radioButtonPillsTaken.isChecked()), token);
                 break;
             case smoking:
-                dialogBody = R.layout.layout_ask_still_smoke;
+                RadioButton radioButtonSmoke = (RadioButton) dialogBodyView.findViewById(R.id.radioButtonSmoke);
+                tryToSaveHelper(task, Task.createResult(Task.Type.smoking, radioButtonSmoke.isChecked()), token);
                 break;
             case weight:
-                dialogBody = R.layout.layout_ask_weight;
+                EditText editTextWeight = (EditText) dialogBodyView.findViewById(R.id.editTextWeight);
+                tryToSaveHelper(task, Task.createResult(Task.Type.weight, editTextWeight.getText().toString()), token);
                 break;
             case pressure:
-                dialogBody = R.layout.layout_ask_pressure;
+                EditText editTextPressure = (EditText) dialogBodyView.findViewById(R.id.editTextPressure);
+                tryToSaveHelper(task, Task.createResult(Task.Type.pressure, editTextPressure.getText().toString()), token);
                 break;
             case cholesterol:
-                dialogBody = R.layout.layout_ask_cholesterol;
+                EditText editTextCholesterol = (EditText) dialogBodyView.findViewById(R.id.editTextCholesterol);
+                tryToSaveHelper(task, Task.createResult(Task.Type.cholesterol, editTextCholesterol.getText().toString()), token);
                 break;
         }
+    }
 
-        if (dialogBody < 0) return;
+    private void updateListView(Task updatedTask) {
+        Activity activity = JournalFragment.this.getActivity();
+        ListView listViewTimeline = (ListView) activity.findViewById(R.id.listViewTimeline);
+        RadioGroup radioGroupTabs = (RadioGroup) activity.findViewById(R.id.radioGroupTabs);
+        TimelineAdapter timelineAdapter = (TimelineAdapter) listViewTimeline.getAdapter();
+        timelineAdapter.notifyDataSetChanged();
+        udateFullTimelineList(updatedTask);
+        separateFullTimeline();
+        mCurrentTimelineList.clear();
+        mCurrentTimelineList.addAll(radioGroupTabs.getCheckedRadioButtonId() == R.id.radioButtonNew ? mNewTimelineList : mFilledTimelineList);
+        timelineAdapter.notifyDataSetInvalidated();
+    }
+
+    private void udateFullTimelineList(Task updatedTask) {
+        for (Timeline timeline : mFullTimelineList) {
+            List<Task> tasksList = timeline.getTasks();
+            for (int counter = 0; counter < tasksList.size(); ++counter) {
+                if (tasksList.get(counter).getId().equals(updatedTask.getId())) {
+                    tasksList.remove(counter);
+                    tasksList.add(counter, updatedTask);
+                    return;
+                }
+            }
+        }
+    }
+
+    private void tryToSaveHelper(final Task task, final ObjectNode taskResult, final Token token) {
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.showProgressDialog();
+
+        TaskDao.update(
+                task,
+                taskResult,
+                token,
+                new CallbackOne<Task>() {
+                    @Override
+                    public void execute(Task task) {
+                        slidingMenuActivity.hideProgressDialog();
+                        updateListView(task);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        slidingMenuActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                    }
+                }
+        );
+    }
+
+    private void showTaskDialog(final View fragmentView, final Task task, final Map<String, Pill> pillsMap) {
+        final Context context = fragmentView.getContext();
+
+        final Button buttonSave = createButtonSave(context);
+        final View dialogBodyView = createDialogBody(context, task, buttonSave);
+
+        if (dialogBodyView == null) return;
+
+        customizeDialogIfPills(context, dialogBodyView, task, pillsMap);
+
+        View.OnClickListener buttonSaveClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tryToSave(dialogBodyView, task, pillsMap);
+            }
+        };
+
+        final View dialogBodyViewHelper = dialogBodyView;
+        Callback onDismissListener = new Callback() {
+            @Override
+            public void execute() {
+                Utils.hideKeyboard(dialogBodyViewHelper);
+            }
+        };
 
         CustomDialogLayout customDialogLayout = new CustomDialogLayout
                 .Builder(getActivity())
-                .setBody(dialogBody)
+                .setBody(dialogBodyView)
                 .addButton(R.string.cancel, CustomDialogLayout.DialogStandardAction.dismiss)
-                .addButton(
-                        R.string.save,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-//                                View editTextPassword = Tools.findViewInParents(view, R.id.editTextPassword);
-//                                if (editTextPassword != null) {
-//                                    String str = ((EditText) editTextPassword).getText().toString();
-//
-//                                    // TODO: check password for delete reports
-//                                }
-                            }
-                        })
+                .addButton(buttonSave, buttonSaveClickListener)
+                .setOnDismissListener(onDismissListener)
                 .create();
 
         AlertDialog alertDialog = new AlertDialog
@@ -235,7 +330,87 @@ public class JournalFragment extends BaseItemFragment {
         alertDialog.show();
     }
 
-    private void separateTimeline() {
+    private void customizeDialogIfPills(Context context, View dialogBodyView, Task task, Map<String, Pill> pillsMap) {
+        if (task.getEnumType().equals(Task.Type.pill)) {
+            TextView textViewPillsTaken = (TextView) dialogBodyView.findViewById(R.id.textViewPillsTaken);
+            String taken = context.getString(R.string.taken, pillsMap.get(task.getPill()).getName());
+            textViewPillsTaken.setText(taken);
+        }
+    }
+
+    private Button createButtonSave(Context context) {
+        Button buttonSave = new Button(context);
+        buttonSave.setEnabled(false);
+        buttonSave.setText(R.string.save);
+        return buttonSave;
+    }
+
+    private View createDialogBody(Context context, Task task, Button buttonSave) {
+        View dialogBodyView = null;
+        switch (task.getEnumType()) {
+            case diet:
+                dialogBodyView = View.inflate(context, R.layout.layout_ask_diet, null);
+                RadioGroup radioGroupFollowDiet = (RadioGroup) dialogBodyView.findViewById(R.id.radioGroupFollowDiet);
+                initDialogBody(radioGroupFollowDiet, buttonSave);
+                break;
+            case exercise:
+                dialogBodyView = View.inflate(context, R.layout.layout_ask_physical_activity, null);
+                EditText editTextPhysicalActivity = (EditText) dialogBodyView.findViewById(R.id.editTextPhysicalActivity);
+                initDialogBody(editTextPhysicalActivity, buttonSave);
+                break;
+            case pill:
+                dialogBodyView = View.inflate(context, R.layout.layout_ask_pills_named, null);
+                RadioGroup radioGroupPillsTaken = (RadioGroup) dialogBodyView.findViewById(R.id.radioGroupPillsTaken);
+                initDialogBody(radioGroupPillsTaken, buttonSave);
+                break;
+            case smoking:
+                dialogBodyView = View.inflate(context, R.layout.layout_ask_still_smoke, null);
+                RadioGroup radioGroupSmoke = (RadioGroup) dialogBodyView.findViewById(R.id.radioGroupSmoke);
+                initDialogBody(radioGroupSmoke, buttonSave);
+                break;
+            case weight:
+                dialogBodyView = View.inflate(context, R.layout.layout_ask_weight, null);
+                EditText editTextWeight = (EditText) dialogBodyView.findViewById(R.id.editTextWeight);
+                initDialogBody(editTextWeight, buttonSave);
+                break;
+            case pressure:
+                dialogBodyView = View.inflate(context, R.layout.layout_ask_pressure, null);
+                EditText editTextPressure = (EditText) dialogBodyView.findViewById(R.id.editTextPressure);
+                initDialogBody(editTextPressure, buttonSave);
+                break;
+            case cholesterol:
+                dialogBodyView = View.inflate(context, R.layout.layout_ask_cholesterol, null);
+                EditText editTextCholesterol = (EditText) dialogBodyView.findViewById(R.id.editTextCholesterol);
+                initDialogBody(editTextCholesterol, buttonSave);
+                break;
+        }
+
+        if (dialogBodyView != null) {
+            int spaceMedium = (int) context.getResources().getDimension(R.dimen.space_medium);
+            dialogBodyView.setPadding(spaceMedium, spaceMedium, spaceMedium, spaceMedium);
+        }
+
+        return dialogBodyView;
+    }
+
+    private void initDialogBody(final EditText editText, final Button buttonSave) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                buttonSave.setEnabled(s.length() > 0);
+            }
+        });
+    }
+
+    private void separateFullTimeline() {
         mNewTimelineList.clear();
         mFilledTimelineList.clear();
 

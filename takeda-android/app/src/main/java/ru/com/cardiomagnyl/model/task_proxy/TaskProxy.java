@@ -130,7 +130,7 @@ public class TaskProxy extends BaseModel {
     }
 
     // FIXME: improve performance!!!
-    private Task extractTask() {
+    public Task extractTask() {
         ObjectNode objectNode = new ObjectMapper().valueToTree(this);
         unPackLinks(objectNode);
         Task task = (Task) BaseModel.stringToObject(objectNode.toString(), new TypeReference<Task>() {

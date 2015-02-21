@@ -17,6 +17,7 @@ public final class Url {
     public static final String ACCOUNT_TEST_SEND_EMAIL = API_ADDR + "account/test-results/%s/send-email?token=%s";
     public static final String ACCOUNT_PILLS = API_ADDR + "account/pills?token=%s";
     public static final String ACCOUNT_TIMELINE = API_ADDR + "account/timeline?token=%s";
+    public static final String ACCOUNT_TIMELINE_TASKS = API_ADDR + "account/timeline/tasks/%s?token=%s";
     // FIXME: remove "/api/v1/" from link returned by server
     public static final String ACCOUNT_TEST_PAGES = API_SCHEME + API_HOST + "%s?token=%s";
     public static final String TOKENS = API_ADDR + "tokens";
@@ -28,6 +29,11 @@ public final class Url {
     }};
 
     public static final HashMap<String, String> POST_HEADERS = new HashMap<String, String>() {{
+        put("Content-Type", "application/vnd.api+json");
+        put("Accept", "*/*");
+    }};
+
+    public static final HashMap<String, String> PUT_HEADERS = new HashMap<String, String>() {{
         put("Content-Type", "application/vnd.api+json");
         put("Accept", "*/*");
     }};

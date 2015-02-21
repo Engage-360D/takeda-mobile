@@ -218,7 +218,11 @@
     <!-- === -->
     <string name="data_cholesterol">Уровень общего холестерина</string>
     <string name="follow_diet">Вы соблюдаете диету?</string>
-    <string name="physical_activity">Физические нагрузки</string>
+    <string name="physical_activity">Физическая нагрузка</string>
+    <string name="physical_activities">Физические нагрузки</string>
+    <string name="physical_activity_hint">мин</string>
+    <string name="physical_activities_hint">мин/неделя</string>
+    <string name="taken">Вы приняли\n%s?</string>
     <string name="pills_taken">Вы приняли таблетки?</string>
     <string name="arterial_pressure">Артериальное давление</string>
     <string name="data_smoking">Курение</string>
@@ -307,7 +311,6 @@
     <string name="diabetic_medicines">Принимаете лекарства для лечения сахарного диабета?</string>
     <string name="arterial_pressure_hint">мм</string>
     <string name="hypertonic_medicines">Принимаете ли препараты для понижения давления?</string>
-    <string name="physical_activity_hint">мин/неделя</string>
     <string name="infarction_stroke">Был ли у вас инфаркт/инсульт?</string>
 
     <!-- ============ -->

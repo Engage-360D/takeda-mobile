@@ -1,5 +1,7 @@
 package ru.com.cardiomagnyl.util;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.util.List;
 
 import ru.com.cardiomagnyl.application.AppState;
@@ -11,6 +13,8 @@ import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.pill.PillDao;
 import ru.com.cardiomagnyl.model.region.Region;
 import ru.com.cardiomagnyl.model.region.RegionDao;
+import ru.com.cardiomagnyl.model.task.Task;
+import ru.com.cardiomagnyl.model.task.TaskDao;
 import ru.com.cardiomagnyl.model.test.PageDao;
 import ru.com.cardiomagnyl.model.test.TestPage;
 import ru.com.cardiomagnyl.model.test.TestResult;
@@ -25,7 +29,8 @@ import ru.com.cardiomagnyl.model.user.UserDao;
 public class TestMethods {
 
     public static void testCurrentMethod() {
-        PillDaoGetAll();
+        TaskDaoUpdate();
+//        PillDaoGetAll();
 //        TimelineDaoGetAll();
 //        TestPageDaoGetByLink();
 //        TestResultDaoGetAll();
@@ -36,6 +41,39 @@ public class TestMethods {
 //        TokenDaoGetByLgnPwd();
 //        UserRegister();
 //        RegionDaoGetAll();
+    }
+
+    public static void TaskDaoUpdate() {
+        Task task = new Task();
+//        task.setId("2015021204");
+//        task.setId("2015021205");
+        task.setId("2015021405");
+
+        ObjectNode nodeResult = Task.createResult(Task.Type.pill, true);
+
+        Token token = new Token();
+        token.setUserId("63");
+        token.setTokenId("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjQ2MjM4MzgsInVzZXJuYW1lIjoieS5hbmRyZXlrbysxN0BnbWFpbC5jb20iLCJpYXQiOiIxNDI0NTM3NDM4In0.UyUIkF_M766kyv2aiYEWHyCwfrK4klj6zPBefa_-Br6zwg67__m1cv8KbkNAvOJKsWFgx4nsKmgK1aCQs1UQzQ7ZTwa3CS6JWK9roFaC7nw3aLKGltTQPgaA6rDM9OBgUFQvX2_Xzv_fEG4xNxcpLm6vN1MNpXDhUhQYecfkyH5Z80FoUl5wAvWoYravekC64t1gVW_sHa56we-k6Vw1QYBLCR5KYH5kLhm8bwj7nt_oOqQlXs_Da_V4f0ELNoBaOa7sgmaLTerIf1UCINQueK0Yq-eqHrOvg9LGIcIdkwk-_PHiDTWMJPz4w17AP5roVtcw8zkFTUJnDI32CW58w00hcbMYIKSENNwxqkI0Miyqe5RDyltTN1OxANrNNEg9aiGn1ehBQ0jeacFaggJ9rWROWEoLW4zGP6EMQLoNdvQho7I5l5jRBShOyGgXOiGUREquU9Uvph_A9MFGUMCzxgcTmN2MKslX27qyAE0p35Dr3VZ6cVR7yQctVb7Z-FyoxOw2rdlv4rtXdC3_MwajnsJpJxeU4R1ohWzxEi_IcUzKYOfSSkg8EC9H6bx5jSVF_FfhxqOurvA7u20igqKV5Xb-M7bhRnJTYeth-fbbgzbOr8LK-5gaFPBktKB5G_6OYHKKibh8Er0mjQ93Qmd76HoeAXkwPhMUlmh7NldqCdg");
+
+        TaskDao.update(
+                task,
+                nodeResult,
+                token,
+                new CallbackOne<Task>() {
+                    @Override
+                    public void execute(Task task) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
     }
 
     public static void PillDaoGetAll() {

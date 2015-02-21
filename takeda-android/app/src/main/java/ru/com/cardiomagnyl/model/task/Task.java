@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -190,9 +192,7 @@ public class Task extends BaseModel {
         Task.Type enumType = Task.Type.undefined;
         try {
             enumType = Task.Type.valueOf(type.toLowerCase());
-        } catch (Exception ex) {
-            // do nothing
-        }
+        } catch (Exception ex) { /*do nothing */ }
         return enumType;
     }
 
@@ -203,6 +203,35 @@ public class Task extends BaseModel {
         for (Task task : tasksList) tasksMap.put(task.getId(), task);
 
         return tasksMap;
+    }
+
+    public static ObjectNode createResult(Type type, boolean value) {
+        ObjectNode nodeResult = JsonNodeFactory.instance.objectNode();
+        switch (type) {
+            case diet:
+            case pill:
+            case smoking:
+                nodeResult.put("isCompleted", value);
+        }
+        return nodeResult;
+    }
+
+    public static ObjectNode createResult(Type type, String value) {
+        ObjectNode nodeResult = JsonNodeFactory.instance.objectNode();
+        switch (type) {
+            case exercise:
+                nodeResult.put("exerciseMins", value);
+                break;
+            case weight:
+                break;
+            case pressure:
+                break;
+            case cholesterol:
+                break;
+            case undefined:
+                break;
+        }
+        return nodeResult;
     }
 
 }

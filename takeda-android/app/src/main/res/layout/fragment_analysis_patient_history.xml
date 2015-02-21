@@ -226,7 +226,7 @@
 
             <View style="@style/divider_normal_1_3" />
 
-            <include layout="@layout/layout_ask_physical_activity" />
+            <include layout="@layout/layout_ask_physical_activities" />
 
             <View style="@style/divider_normal_1_3" />
 

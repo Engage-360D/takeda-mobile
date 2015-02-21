@@ -15,38 +15,39 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.util.Callback;
 
 public class CustomDialogLayout extends FrameLayout {
     public enum DialogStandardAction {none, dismiss}
 
+    private final Callback mOnDismissListener;
     private Dialog mDialog;
 
     public CustomDialogLayout(Context context) {
         super(context);
+        mOnDismissListener = null;
         customDialogLayoutHelper(context, this, null, null);
     }
 
     public CustomDialogLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mOnDismissListener = null;
         customDialogLayoutHelper(context, this, null, null);
     }
 
     public CustomDialogLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mOnDismissListener = null;
         customDialogLayoutHelper(context, this, null, null);
     }
 
     private CustomDialogLayout(Context context,
                                View bodyView,
-                               ArrayList<Pair<CharSequence, Object>> buttonsProperties) {
+                               ArrayList<Pair<Object, Object>> buttonsProperties,
+                               Callback onDismissListener) {
         super(context);
-
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.layout_custom_dialog, null);
-        this.removeAllViews();
-        this.addView(view);
-
-        customDialogLayoutHelper(context, view, bodyView, buttonsProperties);
+        mOnDismissListener = onDismissListener;
+        customDialogLayoutHelper(context, createDialogView(context), bodyView, buttonsProperties);
     }
 
     public void setParentDialog(Dialog dialog) {
@@ -57,9 +58,17 @@ public class CustomDialogLayout extends FrameLayout {
         return mDialog;
     }
 
+    private View createDialogView(Context context) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.layout_custom_dialog, null);
+        this.removeAllViews();
+        this.addView(view);
+        return view;
+    }
+
     private void customDialogLayoutHelper(Context context, View view,
                                           View bodyView,
-                                          ArrayList<Pair<CharSequence, Object>> buttonsProperties) {
+                                          ArrayList<Pair<Object, Object>> buttonsProperties) {
         FrameLayout frameLayoutBodyHolder = (FrameLayout) view.findViewById(R.id.frameLayoutBodyHolder);
         LinearLayout linearLayoutButtonsHolder = (LinearLayout) view.findViewById(R.id.linearLayoutButtonsHolder);
 
@@ -67,42 +76,43 @@ public class CustomDialogLayout extends FrameLayout {
             frameLayoutBodyHolder.addView(bodyView);
         }
 
-        for (Pair<CharSequence, Object> pair : buttonsProperties) {
-            Button button = new Button(context);
+        for (Pair<Object, Object> pair : buttonsProperties) {
+            Button button;
 
-            button.setText(pair.first);
-            button.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1f));
-
-            if (pair.second instanceof DialogStandardAction) {
-                this.setOnClickListenerFirst(button, (DialogStandardAction) pair.second);
+            if (pair.first instanceof Button) {
+                button = (Button) pair.first;
             } else {
-                this.setOnClickListenerFirst(button, (View.OnClickListener) pair.second);
+                button = new Button(context);
+                button.setText((CharSequence) pair.first);
             }
 
+            if (pair.second instanceof DialogStandardAction) {
+                this.setOnClickListener(button, (DialogStandardAction) pair.second);
+            } else {
+                this.setOnClickListener(button, (View.OnClickListener) pair.second);
+            }
+
+            button.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1f));
             linearLayoutButtonsHolder.addView(button);
         }
 
         linearLayoutButtonsHolder.setWeightSum(buttonsProperties.size());
     }
 
-    private void setOnClickListenerFirst(Button button, final View.OnClickListener onClickListener) {
+    private void setOnClickListener(Button button, final View.OnClickListener onClickListener) {
         if (button != null) {
             View.OnClickListener onClickListenerInner = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mDialog != null) {
-                        mDialog.dismiss();
-                    }
-                    if (onClickListener != null) {
-                        onClickListener.onClick(v);
-                    }
+                    if (onClickListener != null) onClickListener.onClick(v);
+                    if (mDialog != null) onDismiss();
                 }
             };
             button.setOnClickListener(onClickListenerInner);
         }
     }
 
-    private void setOnClickListenerFirst(Button button, DialogStandardAction dialogStandardAction) {
+    private void setOnClickListener(Button button, DialogStandardAction dialogStandardAction) {
         if (button != null) {
             button.setOnClickListener(getOnStandartActionClickListener(dialogStandardAction));
         }
@@ -117,9 +127,7 @@ public class CustomDialogLayout extends FrameLayout {
                     case none:
                         break;
                     case dismiss:
-                        if (mDialog != null) {
-                            mDialog.dismiss();
-                        }
+                        if (mDialog != null) onDismiss();
                         break;
                 }
             }
@@ -128,10 +136,17 @@ public class CustomDialogLayout extends FrameLayout {
         return onClickListener;
     }
 
+    private void onDismiss() {
+        if (mOnDismissListener != null) mOnDismissListener.execute();
+        mDialog.dismiss();
+    }
+
     public static class Builder {
         private final Context mContext;
         private View mBodyView;
-        private ArrayList<Pair<CharSequence, Object>> mButtonsProperties = new ArrayList<Pair<CharSequence, Object>>();
+        // Pair: <CharSequence|Button, dialogStandardAction|View.OnClickListener>
+        private ArrayList<Pair<Object, Object>> mButtonsProperties = new ArrayList<>();
+        private Callback mOnDismissListener;
 
         public Builder(Context context) {
             mContext = context;
@@ -156,23 +171,36 @@ public class CustomDialogLayout extends FrameLayout {
         }
 
         public Builder addButton(int textId, DialogStandardAction dialogStandardAction) {
-            return setButtonFirstHelper(mContext.getText(textId), dialogStandardAction);
+            return setButtonHelper(mContext.getText(textId), dialogStandardAction);
         }
 
         public Builder addButton(CharSequence text, DialogStandardAction dialogStandardAction) {
-            return setButtonFirstHelper(text, dialogStandardAction);
+            return setButtonHelper(text, dialogStandardAction);
+        }
+
+        public Builder addButton(Button button, DialogStandardAction dialogStandardAction) {
+            return setButtonHelper(button, dialogStandardAction);
         }
 
         public Builder addButton(int textId, View.OnClickListener onClickListener) {
-            return setButtonFirstHelper(mContext.getText(textId), onClickListener);
+            return setButtonHelper(mContext.getText(textId), onClickListener);
         }
 
         public Builder addButton(CharSequence text, View.OnClickListener onClickListener) {
-            return setButtonFirstHelper(text, onClickListener);
+            return setButtonHelper(text, onClickListener);
         }
 
-        public Builder setButtonFirstHelper(CharSequence text, Object onClickListener) {
-            mButtonsProperties.add(new Pair(text, onClickListener));
+        public Builder addButton(Button button, View.OnClickListener onClickListener) {
+            return setButtonHelper(button, onClickListener);
+        }
+
+        public Builder setOnDismissListener(Callback onDismissListener) {
+            mOnDismissListener = onDismissListener;
+            return this;
+        }
+
+        public Builder setButtonHelper(Object buttonObject, Object onClickListener) {
+            mButtonsProperties.add(new Pair(buttonObject, onClickListener));
             return this;
         }
 
@@ -180,7 +208,8 @@ public class CustomDialogLayout extends FrameLayout {
             CustomDialogLayout customDialogLayout = new CustomDialogLayout(
                     mContext,
                     mBodyView,
-                    mButtonsProperties);
+                    mButtonsProperties,
+                    mOnDismissListener);
 
             return customDialogLayout;
         }

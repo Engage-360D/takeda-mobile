@@ -121,7 +121,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
                         .Builder(Request.Method.PUT, String.format(Url.ACCOUNT_UPDATE, token.getTokenId()), typeReference)
-                        .addHeaders(Url.POST_HEADERS)
+                        .addHeaders(Url.PUT_HEADERS)
                         .setBody(cleanedUser)
                         .setBeforeExtracted(beforeExtracted)
                         .setAfterExtracted(afterExtracted)

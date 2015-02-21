@@ -2,7 +2,7 @@
     style="@style/LinearLayoutItemLarge">
 
     <RadioGroup
-        android:id="@+id/radioGroupSmoke"
+        android:id="@+id/radioGroupPillsTaken"
         android:layout_width="@dimen/control_medium"
         android:layout_height="@dimen/control_xxsmall"
         android:layout_alignParentRight="true"
@@ -10,25 +10,25 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioButtonNotSmoke"
+            android:id="@+id/radioButtonPillsNotTaken"
             style="@style/RadioButton"
             android:checked="false"
             android:text="@string/no" />
 
         <RadioButton
-            android:id="@+id/radioButtonSmoke"
+            android:id="@+id/radioButtonPillsTaken"
             style="@style/RadioButton"
             android:checked="false"
             android:text="@string/yes" />
     </RadioGroup>
 
     <TextView
+        android:id="@+id/textViewPillsTaken"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/radioGroupSmoke"
-        android:text="@string/still_smoke"
+        android:layout_toLeftOf="@id/radioGroupPillsTaken"
         android:textColor="@color/text_main_38"
         android:textSize="@dimen/text_size_small" />
 
