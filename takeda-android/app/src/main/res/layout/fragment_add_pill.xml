@@ -37,160 +37,35 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/linearLayoutPillsName"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/bg_main_unpressed"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/space_medium"
-                android:paddingRight="@dimen/space_medium">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/pills_name"
-                    android:textColor="@color/text_main_37"
-                    android:textSize="@dimen/text_size_medium" />
-
-                <EditText
-                    android:id="@+id/editTextPillsName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:ems="10"
-                    android:gravity="center_vertical|right"
-                    android:textColor="@color/text_main_37"
-                    android:textColorHint="@color/main_text_37_hint" />
-
-            </LinearLayout>
+            <include layout="@layout/layout_pills_name" />
 
             <View style="@style/divider_normal_1_5" />
 
-            <LinearLayout
-                android:id="@+id/linearLayoutNumberOfPills"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/bg_main_unpressed"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/space_medium"
-                android:paddingRight="@dimen/space_medium">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/number_of_pills"
-                    android:textColor="@color/text_main_37"
-                    android:textSize="@dimen/text_size_medium" />
-
-                <EditText
-                    android:id="@+id/editTextPhysicalLoad"
-                    android:layout_width="@dimen/control_medium"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="center_vertical|right"
-                    android:textColor="@color/text_main_37"
-                    android:textColorHint="@color/main_text_37_hint" />
-
-            </LinearLayout>
+            <include layout="@layout/layout_pills_number" />
 
             <View style="@style/divider_normal_1_5" />
 
-            <TextView
-                android:id="@+id/textViewReceptionFrequency"
-                style="@style/TextViewItemDrawableRR"
-                android:text="@string/reception_frequency" />
+            <include layout="@layout/layout_pills_frequency" />
 
             <View style="@style/divider_normal_1_5" />
 
-            <TextView
-                android:id="@+id/textViewReceptionHours"
-                style="@style/TextViewItemDrawableRR"
-                android:text="@string/reception_hours" />
+            <include layout="@layout/layout_pills_hours" />
 
             <View style="@style/divider_normal_1_5" />
 
-            <TextView
-                android:id="@+id/textViewStartDatePills"
-                style="@style/TextViewItemDrawableRR"
-                android:text="@string/start_date_pills" />
+            <include layout="@layout/layout_pills_end_date" />
 
             <View style="@style/divider_normal_1_5" />
 
-            <TextView
-                android:id="@+id/textViewEndDatePills"
-                style="@style/TextViewItemDrawableRR"
-                android:text="@string/end_date_pills" />
+            <include layout="@layout/layout_pills_end_date" />
 
             <View style="@style/divider_normal_1_5" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/plate_xsmall"
-                android:background="@null" />
+            <View style="@style/gap_vertical_plate_xsmall" />
 
             <View style="@style/divider_normal_1_5" />
 
-            <LinearLayout
-                android:id="@+id/linearLayoutCondition"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/plate_medium"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/bg_main_unpressed"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/space_medium"
-                android:paddingRight="@dimen/space_medium">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/condition"
-                    android:textColor="@color/text_main_37"
-                    android:textSize="@dimen/text_size_medium" />
-
-                <RadioGroup
-                    android:id="@+id/radioGroupStillSmoke"
-                    android:layout_width="@dimen/control_medium"
-                    android:layout_height="@dimen/control_xxsmall"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/toggleButtonConditionOn"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_checkbox_bg"
-                        android:button="@null"
-                        android:checked="true"
-                        android:gravity="center"
-                        android:text="@string/on"
-                        android:textColor="@drawable/selector_checkbox_text"
-                        android:textSize="@dimen/text_size_small" />
-
-                    <RadioButton
-                        android:id="@+id/toggleButtonConditionOff"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_checkbox_bg"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="@string/off"
-                        android:textColor="@drawable/selector_checkbox_text"
-                        android:textSize="@dimen/text_size_small" />
-                </RadioGroup>
-            </LinearLayout>
+            <include layout="@layout/layout_pills_state" />
 
             <View style="@style/divider_normal_1_5" />
 

@@ -42,7 +42,7 @@ public class MainFragment extends BaseItemFragment {
         int index = 0;
         TestResult testResult = AppState.getInsnatce().getTestResult();
         if (testResult != null) {
-            index = testResult.getScore();
+            index = testResult.getScorePercents();
         }
 
         TextView textViewIndex = (TextView) view.findViewById(R.id.textViewIndex);

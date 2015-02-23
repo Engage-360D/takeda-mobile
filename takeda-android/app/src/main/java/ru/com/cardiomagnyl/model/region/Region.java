@@ -11,6 +11,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.model.base.BaseModel;
+import ru.com.cardiomagnyl.model.base.BaseModelHelper;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -18,7 +19,7 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
         "name"
 })
 @DatabaseTable(tableName = "region")
-public class Region extends BaseModel {
+public class Region extends BaseModel implements BaseModelHelper {
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.INTEGER, columnName = "id")
     @JsonProperty("id")

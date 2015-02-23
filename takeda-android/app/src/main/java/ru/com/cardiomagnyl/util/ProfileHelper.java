@@ -21,6 +21,7 @@ import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.application.Constants;
+import ru.com.cardiomagnyl.model.base.BaseModelHelper;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.region.Region;
 import ru.com.cardiomagnyl.model.region.RegionDao;
@@ -35,7 +36,7 @@ import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
 import ru.com.cardiomagnyl.ui.start.CustomAuthorizationListener;
 import ru.com.cardiomagnyl.ui.start.CustomOnDateSetListener;
-import ru.com.cardiomagnyl.ui.start.RegionsSpinnerAdapter;
+import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 import ru.com.cardiomagnyl.ui.start.RegistrationFragment;
 import ru.com.cardiomagnyl.ui.start.SignInWithSocialNetwork;
 
@@ -152,14 +153,14 @@ public final class ProfileHelper {
     }
 
     private static void initSpinnerRegion(final View view) {
-        List<Region> regionsList = new ArrayList<>();
+        List<BaseModelHelper> regionsList = new ArrayList<>();
         regionsList.add(Region.createNoRegion(view.getContext()));
 
-        RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(view.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, regionsList);
-        regionsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(view.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, regionsList);
+        customSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         final Spinner spinnerRegion = (Spinner) view.findViewById(R.id.spinnerRegion);
-        spinnerRegion.setAdapter(regionsSpinnerAdapter);
+        spinnerRegion.setAdapter(customSpinnerAdapter);
         spinnerRegion.setSelection(0);
 
         RegionDao.getAll(
@@ -179,15 +180,15 @@ public final class ProfileHelper {
     }
 
     private static void initSpinnerRegionHelper(Spinner spinnerRegion, List<Region> regionsList) {
-        RegionsSpinnerAdapter regionsSpinnerAdapter =  (RegionsSpinnerAdapter)spinnerRegion.getAdapter();
+        CustomSpinnerAdapter customSpinnerAdapter =  (CustomSpinnerAdapter)spinnerRegion.getAdapter();
 
-        regionsSpinnerAdapter.notifyDataSetInvalidated();
+        customSpinnerAdapter.notifyDataSetInvalidated();
         regionsList.add(Region.createNoRegion(spinnerRegion.getContext()));
-        regionsSpinnerAdapter.clear();
-        regionsSpinnerAdapter.addAll(regionsList);
-        spinnerRegion.setAdapter(regionsSpinnerAdapter);
-        spinnerRegion.setSelection(regionsSpinnerAdapter.getCount() - 1, true);
-        regionsSpinnerAdapter.notifyDataSetChanged();
+        customSpinnerAdapter.clear();
+        customSpinnerAdapter.addAll(regionsList);
+        spinnerRegion.setAdapter(customSpinnerAdapter);
+        spinnerRegion.setSelection(customSpinnerAdapter.getCount() - 1, true);
+        customSpinnerAdapter.notifyDataSetChanged();
     }
 
     private static void initSpinnerExperienceYears(final View spinner) {

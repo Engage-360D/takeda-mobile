@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/plate_medium"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/space_medium"
+    android:paddingRight="@dimen/space_medium">
+
+    <TextView
+        android:id="@+id/textViewPillsFrequency"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:text="@string/pills_frequency"
+        android:textColor="@color/text_main_41"
+        android:textSize="@dimen/text_size_medium" />
+
+    <Spinner
+        android:id="@+id/spinnerPillsFrequency"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+</LinearLayout>

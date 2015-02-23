@@ -42,8 +42,8 @@ public class TestResult extends BaseModel {
 
     private static final ArrayList<Pair<String, Integer>> MAX_SCORE =
             new ArrayList<>(Arrays.asList(
-                    new Pair<String, Integer>("female", 20),
-                    new Pair<String, Integer>("male", 47)));
+                    new Pair<>("female", 20),
+                    new Pair<>("male", 47)));
 
     @JsonProperty("id")
     private String id;
@@ -385,10 +385,14 @@ public class TestResult extends BaseModel {
      */
     @JsonProperty("score")
     public int getScore() {
+        return score;
+    }
+
+    public int getScorePercents() {
         for (Pair<String, Integer> maxScore : MAX_SCORE)
             if (maxScore.first.equals(sex)) return score * 100 / maxScore.second;
 
-        // TODO: maybe exception?
+        // TODO: maybe dend exception?
         return 0;
     }
 

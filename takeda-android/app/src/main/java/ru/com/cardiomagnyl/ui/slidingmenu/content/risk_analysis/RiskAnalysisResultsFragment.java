@@ -234,10 +234,10 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         RelativeLayout imageViewResultCircleHolder = (RelativeLayout) view.findViewById(R.id.relativeLayoutResultCircleHolder);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageViewResultCircleHolder.getLayoutParams();
 
-        textViewResult.setText(String.valueOf(testResult.getScore()) + "%");
+        textViewResult.setText(String.valueOf(testResult.getScorePercents()) + "%");
 
         int maxX = relativeLayoutScore.getWidth() - (imageViewResultCircleHolder.getWidth() + layoutParams.leftMargin + layoutParams.rightMargin);
-        int x = (maxX * testResult.getScore() / 100) + layoutParams.leftMargin;
+        int x = (maxX * testResult.getScorePercents() / 100) + layoutParams.leftMargin;
 
         RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(imageViewResultCircleHolder.getMeasuredWidth(), imageViewResultCircleHolder.getMeasuredWidth());
         newLayoutParams.setMargins(x, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
