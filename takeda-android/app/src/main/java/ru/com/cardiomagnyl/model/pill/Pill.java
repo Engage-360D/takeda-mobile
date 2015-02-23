@@ -24,8 +24,6 @@ import java.util.Map;
 @DatabaseTable(tableName = "pill")
 public class Pill {
 
-    public enum Repeat {DAILY, EVERY_2_DAYS}
-
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     @JsonProperty("id")
     private String id;

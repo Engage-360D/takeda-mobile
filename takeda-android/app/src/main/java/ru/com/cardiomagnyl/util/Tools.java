@@ -47,6 +47,12 @@ public class Tools {
         return jsonElement;
     }
 
+    public static String formatShortTime(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
+    }
+
     public static String formatShortDate(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = dateFormat.format(date);
@@ -100,6 +106,14 @@ public class Tools {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return (formatFullDate(calendar.getTime()));
+    }
+
+    public static Calendar resetCalendar(Calendar calendar) {
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 
     public static Calendar calendarFromShort(String shortDate) {

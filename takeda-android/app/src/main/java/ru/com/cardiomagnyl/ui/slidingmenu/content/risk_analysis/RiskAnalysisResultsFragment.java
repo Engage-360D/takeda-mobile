@@ -73,9 +73,9 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             slidingMenuActivity.unLockMenu();
             updateMenu();
 
-            initTopBarBellCabinet(slidingMenuActivity.getLayoutHeader(), true, true);
+            initTopBarBellCabinet(slidingMenuActivity.getHeaderLayout(), true, true);
         } else {
-            initTopBarBellCabinet(slidingMenuActivity.getLayoutHeader(), false, false);
+            initTopBarBellCabinet(slidingMenuActivity.getHeaderLayout(), false, false);
         }
 
         if (isNotPassed) {

@@ -28,6 +28,7 @@
         android:layout_weight="1"
         android:clickable="true"
         android:gravity="center_vertical"
+        android:text="@string/select_birth_date"
         android:textColor="@color/selector_clickable_text_48"
         android:textSize="@dimen/text_size_small" />
 </LinearLayout>

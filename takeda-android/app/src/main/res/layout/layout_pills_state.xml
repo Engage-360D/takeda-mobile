@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:text="@string/pills_condition"
+        android:text="@string/pill_condition"
         android:textColor="@color/text_main_37"
         android:textSize="@dimen/text_size_medium" />
 

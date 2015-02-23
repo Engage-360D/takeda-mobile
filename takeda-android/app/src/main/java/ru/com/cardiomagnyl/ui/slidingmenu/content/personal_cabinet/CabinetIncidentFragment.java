@@ -64,7 +64,7 @@ public class CabinetIncidentFragment extends BaseItemFragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 boolean checked = checkIncidentFields(editTextComment, radioGroupIncident);
-                initTopBarDone(slidingMenuActivity.getLayoutHeader(), checked ? mOnDoneClickListener : null);
+                initTopBarDone(slidingMenuActivity.getHeaderLayout(), checked ? mOnDoneClickListener : null);
             }
         });
 
@@ -72,7 +72,7 @@ public class CabinetIncidentFragment extends BaseItemFragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 boolean checked = checkIncidentFields(editTextComment, radioGroupIncident);
-                initTopBarDone(slidingMenuActivity.getLayoutHeader(), checked ? mOnDoneClickListener : null);
+                initTopBarDone(slidingMenuActivity.getHeaderLayout(), checked ? mOnDoneClickListener : null);
                 setIncidentDescription(view, checkedId);
             }
         });

@@ -35,10 +35,10 @@ import ru.com.cardiomagnyl.social.VkUser;
 import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
 import ru.com.cardiomagnyl.ui.start.CustomAuthorizationListener;
-import ru.com.cardiomagnyl.ui.start.CustomOnDateSetListener;
-import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
+import ru.com.cardiomagnyl.widget.CustomOnDateSetListener;
 import ru.com.cardiomagnyl.ui.start.RegistrationFragment;
 import ru.com.cardiomagnyl.ui.start.SignInWithSocialNetwork;
+import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 
 public final class ProfileHelper {
     private static final int[] mRequiredEditTextCommon = new int[]{
@@ -61,21 +61,21 @@ public final class ProfileHelper {
             R.id.editTextSpecializationInstitutionPhone
     };
 
-    public static void initRegistrationFragment(final View view, RegistrationFragment registrationFragment) {
-        intiRadioGroupDoctor(view);
-        initTextViewBirthDate(view);
-        initSpinnerRegion(view);
-        initSpinnerExperienceYears(view);
-        initSpinnerGraduationDate(view);
-        initSocials(view, registrationFragment);
+    public static void initRegistrationFragment(final View fragmentView, RegistrationFragment registrationFragment) {
+        intiRadioGroupDoctor(fragmentView);
+        initTextViewBirthDate(fragmentView);
+        initSpinnerRegion(fragmentView);
+        initSpinnerExperienceYears(fragmentView);
+        initSpinnerGraduationDate(fragmentView);
+        initSocials(fragmentView, registrationFragment);
     }
 
-    public static void initCabinetDataFargment(final View view, CabinetDataFragment cabinetDataFragment) {
-        initSpinnerExperienceYears(view);
-        initSpinnerGraduationDate(view);
+    public static void initCabinetDataFargment(final View fragmentView, CabinetDataFragment cabinetDataFragment) {
+        initSpinnerExperienceYears(fragmentView);
+        initSpinnerGraduationDate(fragmentView);
         // TODO: initSocials
-        // initSocials(view, registrationFragment);
-        fillFields(view);
+        // initSocials(fragmentView, registrationFragment);
+        fillFields(fragmentView);
     }
 
     private static void intiRadioGroupDoctor(final View view) {
@@ -103,8 +103,10 @@ public final class ProfileHelper {
 
     private static void initTextViewBirthDate(final View parentView) {
         final TextView textViewBirthDateValue = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
-        final CustomOnDateSetListener customOnDateSetListener = new CustomOnDateSetListener();
-        final Calendar calendar = Calendar.getInstance();
+
+        final Calendar calendar = Tools.resetCalendar(Calendar.getInstance());
+        final CustomOnDateSetListener customOnDateSetListener = new CustomOnDateSetListener(calendar);
+
         final DatePickerDialog dateDialog = new DatePickerDialog(
                 parentView.getContext(),
                 customOnDateSetListener,
@@ -180,7 +182,7 @@ public final class ProfileHelper {
     }
 
     private static void initSpinnerRegionHelper(Spinner spinnerRegion, List<Region> regionsList) {
-        CustomSpinnerAdapter customSpinnerAdapter =  (CustomSpinnerAdapter)spinnerRegion.getAdapter();
+        CustomSpinnerAdapter customSpinnerAdapter = (CustomSpinnerAdapter) spinnerRegion.getAdapter();
 
         customSpinnerAdapter.notifyDataSetInvalidated();
         regionsList.add(Region.createNoRegion(spinnerRegion.getContext()));

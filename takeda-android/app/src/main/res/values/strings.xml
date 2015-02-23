@@ -50,6 +50,7 @@
     <string name="complete_required_fields">Пожалуйста, заполните необходимые поля</string>
     <string name="press_back_twice">Для выхода из приложения нажмите \'Back\' дважды</string>
     <string name="information">Информация</string>
+    <string name="not_specified">Не указано</string>
 
     <!-- ====== -->
     <!-- errors -->
@@ -136,7 +137,6 @@
     <string name="last_name">Фамилия</string>
     <string name="registration_email">email</string>
     <string name="region">Регион</string>
-    <string name="no_region">Не указан</string>
     <string name="birth_date">Дата рождения</string>
     <string name="select_birth_date">Дата рождения</string>
     <string name="create_password">Создание пароля</string>
@@ -188,13 +188,15 @@
     <!-- fragment_add_pills -->
     <!-- ================== -->
     <string name="add">Добавить</string>
-    <string name="pills_name">Название</string>
-    <string name="pills_number">Количество</string>
-    <string name="pills_frequency">Частота приема</string>
-    <string name="pills_hours">Время приема</string>
-    <string name="pills_start_date">Дата начала</string>
-    <string name="pills_end_date">Дата завершения</string>
-    <string name="pills_condition">Состояние</string>
+    <string name="pill_name">Название</string>
+    <string name="pill_number">Количество</string>
+    <string name="pill_frequency">Частота приема</string>
+    <string name="pill_hours">Время приема</string>
+    <string name="pill_start_date">Дата начала</string>
+    <string name="pill_end_date">Дата завершения</string>
+    <string name="pill_condition">Состояние</string>
+    <string name="daily">Ежедневно</string>
+    <string name="every_2_days">Раз в два дня</string>
 
     <!-- ========================= -->
     <!-- fragment_cabinet_incident -->

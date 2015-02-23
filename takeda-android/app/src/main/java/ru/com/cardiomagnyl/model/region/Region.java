@@ -64,7 +64,7 @@ public class Region extends BaseModel implements BaseModelHelper {
     public static Region createNoRegion(Context context) {
         Region noRegion = new Region();
         noRegion.setId(-1);
-        noRegion.setName(context.getString(R.string.no_region));
+        noRegion.setName(context.getString(R.string.not_specified));
         return noRegion;
     }
 

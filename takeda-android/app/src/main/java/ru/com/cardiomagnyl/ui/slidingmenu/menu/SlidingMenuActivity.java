@@ -124,7 +124,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         }
     }
 
-    public ViewGroup getLayoutHeader() {
+    public ViewGroup getHeaderLayout() {
         return (ViewGroup) findViewById(R.id.layoutHeader);
     }
 
