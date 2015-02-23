@@ -1,4 +1,3 @@
-
 package ru.com.cardiomagnyl.model.task_proxy;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

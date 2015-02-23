@@ -252,13 +252,17 @@ public class JournalFragment extends BaseItemFragment {
 
     private void udateFullTimelineList(Task updatedTask) {
         for (Timeline timeline : mFullTimelineList) {
-            List<Task> tasksList = timeline.getTasks();
-            for (int counter = 0; counter < tasksList.size(); ++counter) {
-                if (tasksList.get(counter).getId().equals(updatedTask.getId())) {
-                    tasksList.remove(counter);
-                    tasksList.add(counter, updatedTask);
-                    return;
+            Task oldTask = null;
+            for (Task task : timeline.getTasks()) {
+                if (task.getId().equals(updatedTask.getId())) {
+                    oldTask = task;
+                    break;
                 }
+            }
+            if (oldTask != null) {
+                timeline.getTasks().remove(oldTask);
+                timeline.getTasks().add(updatedTask);
+                return;
             }
         }
     }

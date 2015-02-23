@@ -3,7 +3,6 @@ package ru.com.cardiomagnyl.model.task;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.field.DataType;
@@ -51,16 +50,13 @@ public class Task extends BaseModel {
     @JsonProperty("isCompletedFully")
     private boolean isCompletedFully;
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "timeline")
-    private Timeline timeline;
-
-    // links
     @DatabaseField(dataType = DataType.STRING, columnName = "pill")
     @JsonProperty("pill")
     private String pill;
 
-    @JsonProperty("links")
-    private JsonNode links;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "timeline")
+    private Timeline timeline;
+
 
     /**
      * @return The id
@@ -154,22 +150,6 @@ public class Task extends BaseModel {
      */
     public void setTimeline(Timeline timeline) {
         this.timeline = timeline;
-    }
-
-    /**
-     * @return The links
-     */
-    @JsonProperty("links")
-    public JsonNode getLinks() {
-        return links;
-    }
-
-    /**
-     * @param links The links
-     */
-    @JsonProperty("links")
-    public void setLinks(JsonNode links) {
-        this.links = links;
     }
 
     /**

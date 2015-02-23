@@ -42,8 +42,8 @@ public class TaskDao extends BaseDaoImpl<Task, Integer> {
 
         CallbackOne<Task> onStoreIntoDatabase = new CallbackOne<Task>() {
             @Override
-            public void execute(Task task) {
-                storeIntoDatabase(task);
+            public void execute(Task newTask) {
+                storeIntoDatabase(task, newTask);
             }
         };
 
@@ -67,10 +67,12 @@ public class TaskDao extends BaseDaoImpl<Task, Integer> {
                 );
     }
 
-    public static void storeIntoDatabase(final Task task) {
+    public static void storeIntoDatabase(final Task oldTask, final Task newtask) {
         final RuntimeExceptionDao helperFactoryTask = HelperFactory.getHelper().getRuntimeDataDao(Task.class);
 
-        helperFactoryTask.createOrUpdate(task);
+        newtask.setTimeline(oldTask.getTimeline());
+
+        helperFactoryTask.createOrUpdate(newtask);
     }
 
 }
