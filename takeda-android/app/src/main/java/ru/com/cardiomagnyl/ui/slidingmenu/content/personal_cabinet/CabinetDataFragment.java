@@ -92,7 +92,7 @@ public class CabinetDataFragment extends BaseItemFragment {
             public void onClick(View v) {
                 Email email = new Email();
                 email.setEmail(AppState.getInsnatce().getUser().getEmail());
-                startGeneration(email);
+                generatePassword(email);
             }
         });
 
@@ -103,7 +103,7 @@ public class CabinetDataFragment extends BaseItemFragment {
                 if (ProfileHelper.validateRegistrationFields(parentView)) {
                     User user = ProfileHelper.pickRegistrationFields(parentView);
                     Token token = AppState.getInsnatce().getToken();
-                    startUpdating(user, token);
+                    updateUser(user, token);
                 } else {
                     Tools.showToast(getActivity(), R.string.complete_required_fields, Toast.LENGTH_SHORT);
                 }
@@ -111,7 +111,7 @@ public class CabinetDataFragment extends BaseItemFragment {
         });
     }
 
-    private void startGeneration(Email email) {
+    private void generatePassword(Email email) {
         final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.showProgressDialog();
 
@@ -134,7 +134,7 @@ public class CabinetDataFragment extends BaseItemFragment {
         );
     }
 
-    protected void startUpdating(final User user, Token token) {
+    protected void updateUser(final User user, Token token) {
         final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.showProgressDialog();
 

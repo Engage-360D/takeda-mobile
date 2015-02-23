@@ -42,4 +42,11 @@ public enum PillFrequency implements BaseModelHelper {
         return frequenciesList;
     }
 
+    public static PillFrequency getById(int id) {
+        for (PillFrequency pillFrequency : PillFrequency.values()) {
+            if (pillFrequency.getId() == id) return pillFrequency;
+        }
+
+        return PillFrequency.undefined;
+    }
 }

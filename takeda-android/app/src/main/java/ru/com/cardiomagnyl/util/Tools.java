@@ -53,6 +53,12 @@ public class Tools {
         return formattedDate;
     }
 
+    public static String formatMediumTime(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
+    }
+
     public static String formatShortDate(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = dateFormat.format(date);

@@ -22,9 +22,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:singleLine="true"
-        android:textSize="@dimen/text_size_medium"
         android:gravity="center_vertical|right"
+        android:inputType="text"
+        android:singleLine="true"
         android:textColor="@color/text_main_37"
-        android:textColorHint="@color/main_text_37_hint" />
+        android:textColorHint="@color/main_text_37_hint"
+        android:textSize="@dimen/text_size_medium" />
 </LinearLayout>

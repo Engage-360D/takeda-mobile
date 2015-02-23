@@ -195,6 +195,7 @@
     <string name="pill_start_date">Дата начала</string>
     <string name="pill_end_date">Дата завершения</string>
     <string name="pill_condition">Состояние</string>
+    <string name="pill_created">Создано успешно</string>
     <string name="daily">Ежедневно</string>
     <string name="every_2_days">Раз в два дня</string>
 

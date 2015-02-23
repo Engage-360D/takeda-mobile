@@ -2,6 +2,8 @@ package ru.com.cardiomagnyl.model.pill;
 
 import com.android.volley.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -16,6 +18,7 @@ import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.api.db.DbRequestHolder;
 import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
+import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill_proxy.PillProxy;
 import ru.com.cardiomagnyl.model.token.Token;
@@ -102,6 +105,49 @@ public class PillDao extends BaseDaoImpl<Pill, Integer> {
                 .getInstance()
                 .receive(
                         dataLoadSequence,
+                        onSuccess,
+                        onFailure
+                );
+    }
+
+    public static void create(final Pill pill,
+                              final Token token,
+                              final CallbackOne<Pill> onSuccess,
+                              final CallbackOne<Response> onFailure) {
+        TypeReference typeReference = new TypeReference<PillProxy>() {
+        };
+
+        CallbackOneReturnable<PillProxy, Pill> afterExtracted = new CallbackOneReturnable<PillProxy, Pill>() {
+            @Override
+            public Pill execute(PillProxy pillsProxy) {
+                return pillsProxy.extractPill();
+            }
+        };
+
+        CallbackOne<Pill> onStoreIntoDatabase = new CallbackOne<Pill>() {
+            @Override
+            public void execute(Pill pill) {
+                RuntimeExceptionDao helperFactoryPill = HelperFactory.getHelper().getRuntimeDataDao(Pill.class);
+                helperFactoryPill.createOrUpdate(pill);
+            }
+        };
+
+        ObjectNode objectNode = new ObjectMapper().valueToTree(pill);
+        String wrappedPill = DataWrapper.wrap(objectNode).toString();
+
+        HttpRequestHolder httpRequestHolder =
+                new HttpRequestHolder
+                        .Builder(Request.Method.POST, String.format(Url.ACCOUNT_PILLS, token.getTokenId()), typeReference)
+                        .addHeaders(Url.POST_HEADERS)
+                        .setBody(wrappedPill)
+                        .setAfterExtracted(afterExtracted)
+                        .setOnStoreIntoDatabase(onStoreIntoDatabase)
+                        .create();
+
+        DataLoadDispatcher
+                .getInstance()
+                .receive(
+                        httpRequestHolder,
                         onSuccess,
                         onFailure
                 );
