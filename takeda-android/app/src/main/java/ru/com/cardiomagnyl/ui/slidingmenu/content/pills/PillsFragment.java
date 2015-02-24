@@ -50,7 +50,7 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
         swipeLayout.setRefreshing(false);
     }
 
-    public void initFragmentStart(final View fragmentView) {
+    private void initFragmentStart(final View fragmentView) {
         fragmentView.findViewById(R.id.fragmentContent).setVisibility(View.INVISIBLE);
         fragmentView.findViewById(R.id.textViewMessage).setVisibility(View.INVISIBLE);
 
@@ -60,7 +60,7 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
         getPillDatabase(fragmentView);
     }
 
-    public void getPillDatabase(final View fragmentView) {
+    private void getPillDatabase(final View fragmentView) {
         final Token token = AppState.getInsnatce().getToken();
         PillDao.getAll(
                 token,
@@ -80,7 +80,7 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
         );
     }
 
-    public void getPillHttp(final View fragmentView) {
+    private void getPillHttp(final View fragmentView) {
         final Token token = AppState.getInsnatce().getToken();
         PillDao.getAll(
                 token,
@@ -110,7 +110,6 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
         if (pillsList == null || pillsList.isEmpty()) {
             fragmentContent.setVisibility(View.GONE);
             textViewMessage.setVisibility(View.VISIBLE);
-            CustomDialogs.showAlertDialog(slidingMenuActivity, R.string.data_not_found);
         } else {
             textViewMessage.setVisibility(View.GONE);
             fragmentContent.setVisibility(View.VISIBLE);

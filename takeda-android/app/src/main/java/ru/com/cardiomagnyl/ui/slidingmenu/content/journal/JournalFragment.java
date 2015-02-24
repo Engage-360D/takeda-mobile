@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -42,9 +43,8 @@ import ru.com.cardiomagnyl.util.TimelineComparator;
 import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.util.Utils;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
-import ru.com.cardiomagnyl.widget.CustomDialogs;
 
-public class JournalFragment extends BaseItemFragment {
+public class JournalFragment extends BaseItemFragment implements SwipeRefreshLayout.OnRefreshListener {
     private final List<Timeline> mFullTimelineList = new ArrayList<>();
     private final List<Timeline> mNewTimelineList = new ArrayList<>();
     private final List<Timeline> mFilledTimelineList = new ArrayList<>();
@@ -61,25 +61,41 @@ public class JournalFragment extends BaseItemFragment {
         initTopBarMenuBellCabinet(viewGroupTopBar, true, true, true);
     }
 
-    public void initFragmentStart(final View fragmentView) {
+    @Override
+    public void onRefresh() {
+        View fragmentView = getView();
+
         fragmentView.findViewById(R.id.fragmentContent).setVisibility(View.INVISIBLE);
         fragmentView.findViewById(R.id.textViewMessage).setVisibility(View.INVISIBLE);
 
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.showProgressDialog();
 
-        Token token = AppState.getInsnatce().getToken();
-        getTimeline(fragmentView, token);
+        getTimeline(fragmentView);
+
+        SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swipeRefreshLayoutTimeline);
+        swipeLayout.setRefreshing(false);
     }
 
-    public void getTimeline(final View fragmentView, final Token token) {
+    private void initFragmentStart(final View fragmentView) {
+        fragmentView.findViewById(R.id.fragmentContent).setVisibility(View.INVISIBLE);
+        fragmentView.findViewById(R.id.textViewMessage).setVisibility(View.INVISIBLE);
+
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.showProgressDialog();
+
+        getTimeline(fragmentView);
+    }
+
+    private void getTimeline(final View fragmentView) {
+        Token token = AppState.getInsnatce().getToken();
         TimelineDao.getAll(
                 token,
                 new CallbackOne<List<Timeline>>() {
                     @Override
                     public void execute(List<Timeline> timeline) {
                         Collections.sort(timeline, new TimelineComparator());
-                        getPillDatabase(fragmentView, token, timeline);
+                        getPillDatabase(fragmentView, timeline);
                     }
                 },
                 new CallbackOne<Response>() {
@@ -91,31 +107,8 @@ public class JournalFragment extends BaseItemFragment {
         );
     }
 
-    public void getPillDatabase(final View fragmentView, final Token token, final List<Timeline> timeline) {
-        PillDao.getAll(
-                token,
-                new CallbackOne<List<Pill>>() {
-                    @Override
-                    public void execute(List<Pill> pillsList) {
-                        Map<String, Pill> pillsMap = Pill.listToMap(pillsList);
-                        if (Timeline.checkPillsInTasks(timeline, pillsMap)) {
-                            initFragmentFinish(fragmentView, timeline, pillsMap);
-                        } else {
-                            getPillHttp(fragmentView, token, timeline);
-                        }
-                    }
-                },
-                new CallbackOne<Response>() {
-                    @Override
-                    public void execute(Response responseError) {
-                        getPillHttp(fragmentView, token, timeline);
-                    }
-                },
-                PillDao.Source.database
-        );
-    }
-
-    public void getPillHttp(final View fragmentView, final Token token, final List<Timeline> timeline) {
+    private void getPillDatabase(final View fragmentView, final List<Timeline> timeline) {
+        Token token = AppState.getInsnatce().getToken();
         PillDao.getAll(
                 token,
                 new CallbackOne<List<Pill>>() {
@@ -135,7 +128,7 @@ public class JournalFragment extends BaseItemFragment {
                         initFragmentFinish(fragmentView, timeline, null);
                     }
                 },
-                PillDao.Source.http
+                PillDao.Source.database
         );
     }
 
@@ -146,10 +139,11 @@ public class JournalFragment extends BaseItemFragment {
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.hideProgressDialog();
 
+        if (pillsMap == null) ((TextView) textViewMessage).setText(R.string.refresh_pills);
+
         if (timeline == null || timeline.isEmpty() || pillsMap == null) {
             fragmentContent.setVisibility(View.GONE);
             textViewMessage.setVisibility(View.VISIBLE);
-            CustomDialogs.showAlertDialog(slidingMenuActivity, R.string.data_not_found);
         } else {
             textViewMessage.setVisibility(View.GONE);
             fragmentContent.setVisibility(View.VISIBLE);
@@ -159,6 +153,7 @@ public class JournalFragment extends BaseItemFragment {
 
     private void initFragmentFinishHelper(final View fragmentView, final List<Timeline> timeline, final Map<String, Pill> pillsMap) {
         final RadioGroup radioGroupTabs = (RadioGroup) fragmentView.findViewById(R.id.radioGroupTabs);
+        final SwipeRefreshLayout swipeRefreshLayoutTimeline = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swipeRefreshLayoutTimeline);
         final ListView listViewTimeline = (ListView) fragmentView.findViewById(R.id.listViewTimeline);
 
         mFullTimelineList.clear();
@@ -168,6 +163,8 @@ public class JournalFragment extends BaseItemFragment {
         mCurrentTimelineList.clear();
         mCurrentTimelineList.addAll(mNewTimelineList);
         radioGroupTabs.check(R.id.radioButtonNew);
+
+        swipeRefreshLayoutTimeline.setOnRefreshListener(this);
 
         final View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
