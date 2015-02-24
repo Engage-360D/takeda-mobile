@@ -57,7 +57,6 @@ public class Task extends BaseModel {
     @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "timeline")
     private Timeline timeline;
 
-
     /**
      * @return The id
      */

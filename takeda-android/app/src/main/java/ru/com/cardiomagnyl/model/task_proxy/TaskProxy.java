@@ -3,10 +3,6 @@ package ru.com.cardiomagnyl.model.task_proxy;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,23 +125,19 @@ public class TaskProxy extends BaseModel {
         return allTasks;
     }
 
-    // FIXME: improve performance!!!
     public Task extractTask() {
-        ObjectNode objectNode = new ObjectMapper().valueToTree(this);
-        unPackLinks(objectNode);
-        Task task = (Task) BaseModel.stringToObject(objectNode.toString(), new TypeReference<Task>() {
-        });
+        Task task = new Task();
+
+        task.setId(this.id);
+        task.setType(this.type);
+        task.setExerciseMins(this.exerciseMins);
         task.setIsCompleted(isCompleted != null);
         task.setIsCompletedFully(isCompleted != null && isCompleted);
-        return task;
-    }
-
-    public static void unPackLinks(ObjectNode objectNodePacked) {
-        if (objectNodePacked != null) {
-            JsonNode jsonNode = objectNodePacked.get("links");
-            objectNodePacked.remove("links");
-            if (jsonNode != null) objectNodePacked.putAll((ObjectNode) jsonNode);
+        if (links != null) {
+            task.setPill(this.links.getPills());
         }
+
+        return task;
     }
 
 }
