@@ -177,16 +177,12 @@
     <string name="consolidated_report">Сводный отчет</string>
     <string name="go_to_website">Переход на сайт</string>
 
-    <!-- ================================= -->
-    <!-- fragment_taking_pills -->
-    <!-- ================================= -->
+    <!-- =============== -->
+    <!-- fragments_pills -->
+    <!-- =============== -->
     <string name="pills">Таблетки</string>
     <string name="visit_doctor">Сходить к врачу</string>
     <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
-
-    <!-- ================== -->
-    <!-- fragment_add_pills -->
-    <!-- ================== -->
     <string name="add">Добавить</string>
     <string name="pill_name">Название</string>
     <string name="pill_number">Количество</string>
@@ -198,6 +194,7 @@
     <string name="pill_created">Создано успешно</string>
     <string name="daily">Ежедневно</string>
     <string name="every_2_days">Раз в два дня</string>
+    <string name="delete_pill">Удалить таблетку</string>
 
     <!-- ========================= -->
     <!-- fragment_cabinet_incident -->

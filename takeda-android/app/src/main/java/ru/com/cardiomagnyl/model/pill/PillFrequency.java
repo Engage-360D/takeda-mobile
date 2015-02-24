@@ -49,4 +49,5 @@ public enum PillFrequency implements BaseModelHelper {
 
         return PillFrequency.undefined;
     }
+
 }

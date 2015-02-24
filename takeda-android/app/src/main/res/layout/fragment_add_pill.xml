@@ -75,6 +75,11 @@
                 style="@style/divider_normal_1_5"
                 android:visibility="invisible" />
 
+            <Button
+                android:id="@+id/buttonDeletePill"
+                style="@style/button_main_long"
+                android:text="@string/delete_pill" />
+
         </LinearLayout>
     </ScrollView>
 

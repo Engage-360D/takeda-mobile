@@ -1,5 +1,8 @@
 package ru.com.cardiomagnyl.model.pill;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -10,6 +13,8 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import ru.com.cardiomagnyl.model.base.BaseModel;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -22,7 +27,7 @@ import java.util.Map;
         "tillDate"
 })
 @DatabaseTable(tableName = "pill")
-public class Pill {
+public class Pill extends BaseModel implements Parcelable {
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     @JsonProperty("id")
@@ -193,5 +198,60 @@ public class Pill {
 
         return pillsMap;
     }
+
+    public PillFrequency getEnumFrequency() {
+        PillFrequency enumFrequency = PillFrequency.undefined;
+        try {
+            enumFrequency = PillFrequency.valueOf(repeat.toLowerCase());
+        } catch (Exception ex) { /*do nothing */ }
+        return enumFrequency;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    // implements Parcelable
+    ///////////////////////////////////////////////////////////////////////
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeInt(this.quantity);
+        dest.writeString(this.time);
+        dest.writeString(this.repeat);
+        dest.writeString(this.sinceDate);
+        dest.writeString(this.tillDate);
+        dest.writeString(this.user);
+    }
+
+    public Pill() {
+    }
+
+    private Pill(Parcel in) {
+        this.id = in.readString();
+        this.name = in.readString();
+        this.quantity = in.readInt();
+        this.time = in.readString();
+        this.repeat = in.readString();
+        this.sinceDate = in.readString();
+        this.tillDate = in.readString();
+        this.user = in.readString();
+    }
+
+    public static final Parcelable.Creator<Pill> CREATOR = new Parcelable.Creator<Pill>() {
+        public Pill createFromParcel(Parcel source) {
+            return new Pill(source);
+        }
+
+        public Pill[] newArray(int size) {
+            return new Pill[size];
+        }
+    };
+
+    ///////////////////////////////////////////////////////////////////////
 
 }

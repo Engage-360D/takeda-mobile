@@ -25,7 +25,7 @@ import ru.com.cardiomagnyl.model.pill.Pill;
         "tillDate",
         "links"
 })
-public class PillProxy {
+public class PillProxy extends BaseModel {
 
     @JsonProperty("id")
     private String id;

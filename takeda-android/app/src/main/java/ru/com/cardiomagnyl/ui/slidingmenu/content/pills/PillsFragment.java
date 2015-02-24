@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
+import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.pill.PillDao;
@@ -103,6 +105,24 @@ public class PillsFragment extends BaseItemFragment {
 
         final PillsAdapter pillsAdapter = new PillsAdapter(PillsFragment.this.getActivity(), pillsList);
         listViewPills.setAdapter(pillsAdapter);
+
+        listViewPills.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showPillDetails(pillsList.get(position));
+            }
+        });
+    }
+
+    private void showPillDetails(final Pill pill) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.PILL, pill);
+
+        PillDetailsFragment pillDetailsFragment = new PillDetailsFragment();
+        pillDetailsFragment.setArguments(bundle);
+
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.putContentOnTop(pillDetailsFragment, true);
     }
 
 }

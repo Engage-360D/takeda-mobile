@@ -8,12 +8,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.com.cardiomagnyl.model.base.BaseModel;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
 @JsonPropertyOrder({
         "tasks"
 })
-public class TimelineLinksProxy {
+public class TimelineLinksProxy extends BaseModel {
 
     @JsonProperty("tasks")
     private List<String> tasks = new ArrayList<>();
