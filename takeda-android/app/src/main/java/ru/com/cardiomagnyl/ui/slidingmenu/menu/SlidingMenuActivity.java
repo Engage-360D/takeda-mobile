@@ -183,6 +183,9 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
+//
+//            View view = new View(this);
+//            mProgressDialog.set .setProgressDrawable(view.getBackground());
         }
 
         if (!mProgressDialog.isShowing()) {

@@ -8,6 +8,7 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -21,6 +22,9 @@ import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill_proxy.PillProxy;
+import ru.com.cardiomagnyl.model.task.Task;
+import ru.com.cardiomagnyl.model.task.TaskDao;
+import ru.com.cardiomagnyl.model.timeline.TimelineDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.CallbackOneReturnable;
@@ -127,8 +131,7 @@ public class PillDao extends BaseDaoImpl<Pill, Integer> {
         CallbackOne<Pill> onStoreIntoDatabase = new CallbackOne<Pill>() {
             @Override
             public void execute(Pill pill) {
-                RuntimeExceptionDao helperFactoryPill = HelperFactory.getHelper().getRuntimeDataDao(Pill.class);
-                helperFactoryPill.createOrUpdate(pill);
+                storeIntoDatabase(pill);
             }
         };
 
@@ -153,12 +156,37 @@ public class PillDao extends BaseDaoImpl<Pill, Integer> {
                 );
     }
 
+    public static void storeIntoDatabase(final Pill pill) {
+        if (pill != null) {
+            // must to clean tables "task" and "timeline"
+            TaskDao.clearTable();
+            TimelineDao.clearTable();
+
+            RuntimeExceptionDao helperFactoryPill = HelperFactory.getHelper().getRuntimeDataDao(Pill.class);
+            helperFactoryPill.createOrUpdate(pill);
+        }
+    }
+
     public static void storeIntoDatabase(final List<Pill> pillsList) {
         if (pillsList != null && !pillsList.isEmpty()) {
+            // must to clean tables "pill", "task" and "timeline"
+            clearTable();
+            TaskDao.clearTable();
+            TimelineDao.clearTable();
+
             RuntimeExceptionDao helperFactoryPill = HelperFactory.getHelper().getRuntimeDataDao(Pill.class);
             for (Pill pill : pillsList) {
                 helperFactoryPill.createOrUpdate(pill);
             }
+        }
+    }
+
+    public static void clearTable(){
+        RuntimeExceptionDao helperFactoryPill = HelperFactory.getHelper().getRuntimeDataDao(Pill.class);
+        try {
+            TableUtils.clearTable(helperFactoryPill.getConnectionSource(), Pill.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

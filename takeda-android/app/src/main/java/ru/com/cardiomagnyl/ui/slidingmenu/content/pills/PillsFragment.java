@@ -1,6 +1,7 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.pills;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
-public class PillsFragment extends BaseItemFragment {
+public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayout.OnRefreshListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pills, null);
         initFragmentStart(view);
@@ -33,6 +34,22 @@ public class PillsFragment extends BaseItemFragment {
         initTopBarBellAddPill(viewGroupTopBar, true, true);
     }
 
+    @Override
+    public void onRefresh() {
+        View fragmentView = getView();
+
+        fragmentView.findViewById(R.id.fragmentContent).setVisibility(View.INVISIBLE);
+        fragmentView.findViewById(R.id.textViewMessage).setVisibility(View.INVISIBLE);
+
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.showProgressDialog();
+
+        getPillHttp(fragmentView);
+
+        SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.fragmentContent);
+        swipeLayout.setRefreshing(false);
+    }
+
     public void initFragmentStart(final View fragmentView) {
         fragmentView.findViewById(R.id.fragmentContent).setVisibility(View.INVISIBLE);
         fragmentView.findViewById(R.id.textViewMessage).setVisibility(View.INVISIBLE);
@@ -40,11 +57,11 @@ public class PillsFragment extends BaseItemFragment {
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.showProgressDialog();
 
-        Token token = AppState.getInsnatce().getToken();
-        getPillDatabase(fragmentView, token);
+        getPillDatabase(fragmentView);
     }
 
-    public void getPillDatabase(final View fragmentView, final Token token) {
+    public void getPillDatabase(final View fragmentView) {
+        final Token token = AppState.getInsnatce().getToken();
         PillDao.getAll(
                 token,
                 new CallbackOne<List<Pill>>() {
@@ -56,14 +73,15 @@ public class PillsFragment extends BaseItemFragment {
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        getPillHttp(fragmentView, token);
+                        getPillHttp(fragmentView);
                     }
                 },
                 PillDao.Source.database
         );
     }
 
-    public void getPillHttp(final View fragmentView, final Token token) {
+    public void getPillHttp(final View fragmentView) {
+        final Token token = AppState.getInsnatce().getToken();
         PillDao.getAll(
                 token,
                 new CallbackOne<List<Pill>>() {
@@ -101,7 +119,10 @@ public class PillsFragment extends BaseItemFragment {
     }
 
     private void initFragmentFinishHelper(final View fragmentView, final List<Pill> pillsList) {
+        final SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.fragmentContent);
         final ListView listViewPills = (ListView) fragmentView.findViewById(R.id.listViewPills);
+
+        swipeLayout.setOnRefreshListener(this);
 
         final PillsAdapter pillsAdapter = new PillsAdapter(PillsFragment.this.getActivity(), pillsList);
         listViewPills.setAdapter(pillsAdapter);

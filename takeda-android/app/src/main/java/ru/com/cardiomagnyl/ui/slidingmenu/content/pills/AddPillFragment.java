@@ -288,11 +288,6 @@ public class AddPillFragment extends BaseItemFragment {
                     public void execute(Pill newPill) {
                         slidingMenuActivity.hideProgressDialog();
                         Tools.showToast(getActivity(), R.string.pill_created, Toast.LENGTH_LONG);
-
-                        // must to clean tables "task" and "timeline"
-                        TaskDao.clearTable();
-                        TimelineDao.clearTable();
-
                         slidingMenuActivity.makeContentStepBack(true);
                     }
                 },
