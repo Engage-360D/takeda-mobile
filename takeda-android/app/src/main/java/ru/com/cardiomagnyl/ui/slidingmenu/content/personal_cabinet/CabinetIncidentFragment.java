@@ -40,7 +40,7 @@ public class CabinetIncidentFragment extends BaseItemFragment {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        initTopBarDone(viewGroupTopBar, null);
+        initTopBarDone(viewGroupTopBar, mOnDoneClickListener, false);
     }
 
     private void initFragment(final View view) {
@@ -63,22 +63,29 @@ public class CabinetIncidentFragment extends BaseItemFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                boolean checked = checkIncidentFields(editTextComment, radioGroupIncident);
-                initTopBarDone(slidingMenuActivity.getHeaderLayout(), checked ? mOnDoneClickListener : null);
+                setEnabledButtonDone(validateIncidentFields(editTextComment, radioGroupIncident));
             }
         });
 
         radioGroupIncident.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                boolean checked = checkIncidentFields(editTextComment, radioGroupIncident);
-                initTopBarDone(slidingMenuActivity.getHeaderLayout(), checked ? mOnDoneClickListener : null);
+                boolean validated = validateIncidentFields(editTextComment, radioGroupIncident);
+                setEnabledButtonDone(validated);
+                setEnabledButtonDone(validated);
                 setIncidentDescription(view, checkedId);
             }
         });
     }
 
-    private boolean checkIncidentFields(EditText editTextComment, RadioGroup radioGroupIncident) {
+    private void setEnabledButtonDone(boolean enabled) {
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        ViewGroup layoutHeader = slidingMenuActivity.getHeaderLayout();
+        View view = layoutHeader.findViewById(R.id.textViewDone);
+        view.setEnabled(enabled);
+    }
+
+    private boolean validateIncidentFields(EditText editTextComment, RadioGroup radioGroupIncident) {
         return editTextComment.getText().length() != 0 && radioGroupIncident.getCheckedRadioButtonId() >= 0;
     }
 

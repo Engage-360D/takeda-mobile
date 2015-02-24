@@ -40,7 +40,7 @@ import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 public class AddPillFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_pill, null);
+        View view = inflater.inflate(R.layout.fragment_pill_details, null);
         initFragment(view);
         return view;
     }
@@ -65,7 +65,7 @@ public class AddPillFragment extends BaseItemFragment {
                         Token token = AppState.getInsnatce().getToken();
                         createPill(newPill, token);
                     }
-                });
+                }, false);
     }
 
     private void initFragment(final View fragmentView) {
@@ -73,7 +73,6 @@ public class AddPillFragment extends BaseItemFragment {
         initSpinnerFrequency(fragmentView);
         initTimePicker(fragmentView);
         initDatePicker(fragmentView);
-
     }
 
     private void initEditText(final View fragmentView) {

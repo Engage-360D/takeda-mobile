@@ -27,5 +27,5 @@
         android:singleLine="true"
         android:textColor="@color/text_main_37"
         android:textColorHint="@color/main_text_37_hint"
-        android:textSize="@dimen/text_size_medium" />
+        android:textSize="@dimen/text_size_small" />
 </LinearLayout>

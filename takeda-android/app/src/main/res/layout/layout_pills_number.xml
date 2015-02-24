@@ -19,12 +19,13 @@
 
     <EditText
         android:id="@+id/editTextPillNumber"
-        android:layout_width="@dimen/control_medium"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical|right"
+        android:layout_weight="1"
+        android:gravity="center_vertical|left"
         android:inputType="number"
         android:singleLine="true"
         android:textColor="@color/text_main_37"
         android:textColorHint="@color/main_text_37_hint"
-        android:textSize="@dimen/text_size_medium" />
+        android:textSize="@dimen/text_size_small" />
 </LinearLayout>
