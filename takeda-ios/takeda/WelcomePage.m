@@ -20,12 +20,13 @@
 
 bool is_loading;
 bool is_authorized;
-
+BOOL taked;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         is_authorized = NO;
+        taked = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
     }
     return self;
@@ -53,6 +54,8 @@ bool is_authorized;
 
 - (void)networkChanged:(NSNotification *)notification
 {
+    if (taked) return;
+    taked = YES;
     NetworkStatus remoteHostStatus = [appDelegate.hostReachability currentReachabilityStatus];
     if (remoteHostStatus == NotReachable) {
         NSLog(@"not reachable");
@@ -86,7 +89,8 @@ bool is_authorized;
                 is_authorized = YES;
             } else {
                 if (error.code == 500){
-                    // нет интернета
+                    is_loading = NO;
+                    is_authorized = YES;
                 } else {
                     // неверный токен
                     User.userData = nil;

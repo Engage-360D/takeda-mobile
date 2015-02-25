@@ -22,6 +22,7 @@
 @property (nonatomic,retain) IBOutletCollection(UIButton) NSArray *fontButtons;
 
 @property (nonatomic,retain) IBOutlet PLTextField *name_field;
+@property (nonatomic,retain) IBOutlet PLTextField *lastname_field;
 @property (nonatomic,retain) IBOutlet PLTextField *email_field;
 @property (nonatomic,retain) IBOutlet PLTextField *pass_field;
 
@@ -35,10 +36,10 @@
 @property (nonatomic,retain) IBOutlet UIButton *btn_birthday;
 @property (nonatomic,retain) IBOutlet UILabel *danger_text;
 
-
-
 @property (nonatomic,retain) IBOutlet UIImageView *user_is_doctor_img;
 @property (nonatomic,retain) IBOutlet UIImageView *user_is_agree_personal_data_img;
 @property (nonatomic,retain) IBOutlet UIImageView *user_is_agree_email_subscribe_data_img;
 @property (nonatomic,retain) IBOutlet UIImageView *user_is_agree_information_is_recomemd_style_img;
+
+
 @end

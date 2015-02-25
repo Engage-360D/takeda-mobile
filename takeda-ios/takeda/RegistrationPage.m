@@ -71,6 +71,15 @@ NSString *graduation = @"";
 NSString *sentPassword;
 NSString *sentEmail;
 
+NSString *vkId;
+NSString *vkToken;
+
+NSString *fbId;
+NSString *fbToken;
+
+NSString *okId;
+NSString *okToken;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -171,7 +180,8 @@ NSString *sentEmail;
 
     if (![self checkFields]) {return;}
         
-        NSString *name = self.name_field.text;
+        NSString *firstname = self.name_field.text;
+        NSString *lastname = self.lastname_field.text;
         NSString *email = self.email_field.text;
         NSString *password = self.pass_field.text;
         NSString *region = self.btn_region.titleLabel.text;
@@ -179,9 +189,10 @@ NSString *sentEmail;
         password = pass_field.text;
         birthday = [Global strDateTime:birthdayDate];
         //birthday = [birthdayDate stringWithFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    NSDictionary *params = @{          @"email": email,
-                                           @"firstname": name,
-                                           @"lastname" : @"",
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:
+                                         @{@"email": email,
+                                           @"firstname": firstname,
+                                           @"lastname" : lastname,
                                            @"birthday":birthday,
                                            @"specializationExperienceYears" : [NSNull null],
                                            @"specializationGraduationDate" : [NSNull null],
@@ -193,9 +204,14 @@ NSString *sentEmail;
                                            @"isDoctor" : [NSNumber numberWithBool:self.user_is_doctor],
                                            @"isSubscribed" : [NSNumber numberWithBool:self.user_is_agree_email_subscribe_data],
                                            @"links": @{@"region":region
-                                    }};
-        
-        
+                                        }}];
+    
+    if (vkId) [params setObject:vkId forKey:@"vkontakteId"];
+    if (vkToken) [params setObject:vkToken forKey:@"vkontakteToken"];
+    if (fbId) [params setObject:fbId forKey:@"facebookId"];
+    if (fbToken) [params setObject:fbToken forKey:@"facebookToken"];
+
+    
 //        {
 //            "data" : {
 //                "email" : "a.b@c.d",
@@ -372,6 +388,7 @@ NSString *sentEmail;
 
 
 -(void)setDateBirthDay:(NSDate*)myDate{
+    birthdayDate = myDate;
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd MMMM yyyy"];
     NSString *prettyVersion = [dateFormat stringFromDate:myDate];
@@ -542,25 +559,44 @@ numberOfRowsInComponent:(NSInteger)component
 }
 
 -(void)setUserDataFromFB:(NSDictionary*)userData{
-    if ([userData hasKey:@"name"] ) {
-        if ([[userData objectForKey:@"name"] length]>0) {
-            self.name_field.text = [userData objectForKey:@"name"];
+    
+    
+    if ([userData hasKey:@"first_name"] ) {
+        if ([[userData objectForKey:@"first_name"] length]>0) {
+            if (self.name_field.text.length==0){
+                self.name_field.text = [userData objectForKey:@"first_name"];
+            }
         }
     }
+    
+    if ([userData hasKey:@"last_name"] ) {
+        if ([[userData objectForKey:@"last_name"] length]>0) {
+            if (self.lastname_field.text.length==0){
+                self.lastname_field.text = [userData objectForKey:@"last_name"];
+            }
+        }
+    }
+    
     if ([userData hasKey:@"email"] ) {
         if ([[userData objectForKey:@"email"] length]>0) {
-            self.email_field.text = [userData objectForKey:@"email"];
+            if (self.email_field.text.length==0){
+                self.email_field.text = [userData objectForKey:@"email"];
+            }
         }
-        
     }
     
     if ([userData hasKey:@"birthday"] ) {
         if ([[userData objectForKey:@"birthday"] length]>0) {
-            [self setUserDateBirthDay:[userData objectForKey:@"birthday"]];
+            if (!birthdayDate){
+                [self setUserDateBirthDay:[userData objectForKey:@"birthday"]];
+            }
         }
-        
     }
+    
+    fbId = [userData objectForKey:@"id"];
+    fbToken = FBSession.activeSession.accessTokenData.accessToken;
 
+    
 }
 
 
@@ -620,20 +656,22 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info{
     HideNetworkActivityIndicator();
-    NSString *name = @"";
+    
     if ([info hasKey:@"first_name"] ) {
         if ([[info objectForKey:@"first_name"] length]>0) {
-            name = [NSString stringWithFormat:@"%@",[info objectForKey:@"first_name"]];
+            if (self.name_field.text.length==0){
+                self.name_field.text = [NSString stringWithFormat:@"%@",[info objectForKey:@"first_name"]];
+            }
         }
     }
     
     if ([info hasKey:@"last_name"] ) {
         if ([[info objectForKey:@"last_name"] length]>0) {
-            name = [NSString stringWithFormat:@"%@ %@",name,[info objectForKey:@"last_name"]];
+            if (self.lastname_field.text.length==0){
+                self.lastname_field.text = [NSString stringWithFormat:@"%@",[info objectForKey:@"last_name"]];
+            }
         }
     }
-    self.name_field.text = name;
-    
     
     if ([info hasKey:@"bdate"] ) {
         if ([[info objectForKey:@"bdate"] length]>0) {
@@ -642,19 +680,21 @@ numberOfRowsInComponent:(NSInteger)component
             NSDate *dateFromString = [[NSDate alloc] init];
             dateFromString = [dateFormatter dateFromString:[info objectForKey:@"bdate"]];
             if (dateFromString) {
-                
-                [self setDateBirthDay:dateFromString];
-            }else{
-                [self setUserDateBirthDay:[info objectForKey:@"bdate"]];
+                if (!birthdayDate){
+                    [self setDateBirthDay:dateFromString];
+                }
             }
-            
         }
     }
     
     if ([info hasKey:@"country"] ) {
-        [_vkontakte getCountryByID:[info objectForKey:@"country"]];
+      //  [_vkontakte getCountryByID:[info objectForKey:@"country"]];
         
     }
+    
+    vkId = [UserDefaults objectForKey:@"VKUserID"];
+    vkToken = [UserDefaults objectForKey:@"VKAccessTokenKey"];
+
     NSLog(@"%@", info);
 }
 

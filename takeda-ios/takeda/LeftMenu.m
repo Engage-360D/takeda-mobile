@@ -34,7 +34,7 @@
     UIViewController *publication_vc;
     UIViewController *reportsPage_vc;
     UIViewController *mainPage_vc;
-
+    BOOL needTest;
     /*
      RiskAnalysisPage *riskAnalysis_vc;
      SearchInstitutionPage *searchInstitution_vc;
@@ -65,9 +65,10 @@
 }
 
 -(void)updateMenuData{
+    needTest = [[rootMenuController sharedInstance] checkToNeedTest];
     menuData = [Global recursiveMutable:
                 @[@{@"name" :@"Главная", @"enabled":@"YES"},
-                  @{@"name" :@"Анализ риска", @"enabled":@"YES"},
+                  @{@"name" :@"Анализ риска", @"enabled":needTest?@"YES":@"NO"},
                   @{@"name" :@"Поиск учреждений", @"enabled":@"YES"},
                   @{@"name" :@"Рекомендации", @"enabled":@"NO"},
                   @{@"name" :@"Результаты анализа", @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
@@ -84,7 +85,7 @@
     [super viewDidLoad];
     [self updateMenuData];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [GlobalSettings sharedInstance].stateMenu = State_MainPage;
+   // [GlobalSettings sharedInstance].stateMenu = State_MainPage;
     last_stateMenu = State_MainPage;
     }
 
@@ -126,7 +127,6 @@
         }
     }
    
-    cell.name_group.textColor = [UIColor whiteColor]; ///RGB(60.0, 184.0, 120.0);
     cell.name_group.text = [[menuData objectAtIndex:indexPath.row] objectForKey:@"name"];
     [cell.name_group setFont:[UIFont fontWithName:@"Helvetica-Light" size:18]];
     
@@ -137,18 +137,7 @@
         cell.top_separator.hidden = YES;
     }
     
-    if ([GlobalSettings sharedInstance].stateMenu == indexPath.row+1) {
-        cell.name_group.textColor = RGB(150, 190, 190);
-    }else{
-        cell.name_group.textColor = [UIColor whiteColor];
-    }
     
-    if ([[[menuData objectAtIndex:indexPath.row] objectForKey:@"enabled"] boolValue]) {
-        cell.userInteractionEnabled = YES;
-    }else{
-        cell.userInteractionEnabled = NO;
-        cell.name_group.textColor = RGB(95, 95, 95);
-    }
     
     cell.backgroundColor = [UIColor clearColor];
     
@@ -157,7 +146,24 @@
     selectedView.backgroundColor = [UIColor clearColor];
     cell.selectedBackgroundView = selectedView;
     
+    BOOL enabled;
     
+    if (needTest){
+        enabled = NO;
+    } else {
+        enabled = [[[menuData objectAtIndex:indexPath.row] objectForKey:@"enabled"] boolValue];
+    }
+    
+    if (enabled) {
+        cell.name_group.textColor = [UIColor whiteColor];
+    } else{
+        cell.name_group.textColor = RGB(95, 95, 95);
+    }
+
+    if ([GlobalSettings sharedInstance].stateMenu == indexPath.row+1) {
+        cell.name_group.textColor = RGB(150, 190, 190);
+    }
+    cell.disabled = !enabled;
     return cell;
 }
 
@@ -166,10 +172,69 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self selectMenuIndex:indexPath.row+1];
+- (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    BOOL enabled = !((menu_cell*)[table cellForRowAtIndexPath:indexPath]).disabled;
+    if (enabled){
+        [self selectMenuIndex:indexPath.row+1];
+    } else {
+        [self showErrorForCellIndex:indexPath.row+1];
+    }
 }
 
+-(void)showErrorForCellIndex:(int)index{
+    switch (index) {
+        case State_MainPage:{
+            break;
+        }
+            
+        case State_Risk_Analysis:{
+            if (![[rootMenuController sharedInstance] checkToNeedTest]){
+                [self showMessage:@"Вы можете проходить тест только один раз в месяц" title:@"Отказ"];
+            }
+
+            if (appDelegate.hostConnection == NotReachable) {
+                FastAlert(@"Ошибка", @"Нет соединения с интернетом");
+            }
+            
+            break;
+        }
+        case State_Search_Institution:{
+            break;
+        }
+            
+        case State_Recomendation:{
+            break;
+        }
+            
+        case State_Analysis_Result:{
+            if ([[GlobalData resultAnalyses] count]==0){
+                FastAlert(@"Ошибка", @"У вас еще нет результатов анализа");
+            }
+            break;
+        }
+            
+        case State_Calendar:{
+            break;
+        }
+            
+        case State_Useful_Know:{
+            break;
+        }
+            
+        case State_Publication:{
+            break;
+        }
+            
+        case State_Reports:{
+            break;
+        }
+            
+        default:
+            break;
+    }
+    [self.tableView reloadData];
+
+}
 
 -(void)selectMenuIndex:(int)index{
     switch (index) {
@@ -178,7 +243,7 @@
             
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
-            }else{
+            } else{
                 if (!mainPage_vc) {
                     mainPage_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getMainPage]];
                 }
@@ -196,12 +261,13 @@
                 return;
             }
             
-//            NSDate *lastResultDate = [GlobalData lastResultDate];
-//            if ([[[NSDate date] dateBySubtractingMonths:1] isEarlierThanDate:lastResultDate]&&User.userType != tDoctor){
-//                // рано еще тест проходить
-//                [self showMessage:@"Вы можете проходить тест только один раз в месяц" title:@"Отказ"];
-//                return;
-//            }
+            if (![[rootMenuController sharedInstance] checkToNeedTest]){
+                // рано еще тест проходить
+                [self showMessage:@"Вы можете проходить тест только один раз в месяц" title:@"Отказ"];
+                return;
+
+            }
+            
             
             [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
             
@@ -209,11 +275,6 @@
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
             }else{
                 last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
-                
-                
-                /*if (!riskAnalysis_vc) {
-                 riskAnalysis_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getRiskAnalysisPage]];
-                 }*/
                 
                 [self.slideMenuController closeMenuBehindContentViewController:[[rootMenuController sharedInstance] riskAnalysis_vc] animated:YES completion:nil];
             }

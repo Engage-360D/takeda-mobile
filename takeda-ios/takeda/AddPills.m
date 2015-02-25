@@ -27,11 +27,29 @@
     [super viewWillAppear:animated];
     if (!drug) drug = [NSMutableDictionary new];
     [self showInfo];
+    
+    for (UIButton *btn in self.incBtns){
+        btn.userInteractionEnabled = !self.readOnly;
+    }
+    
+    for (PLTextField *tf in self.textFields){
+        tf.userInteractionEnabled = !self.readOnly;
+    }
+
+    for (UIImageView *iv in self.arrows){
+        iv.hidden = self.readOnly;
+    }
+    
+    self.navigationItem.rightBarButtonItems = nil;
+    
+    if (!self.readOnly){
+        self.navigationItem.rightBarButtonItem = [self menuBarBtnWithTitle:@"Готово" selector:@selector(save) forTarget:self];
+
+    }
+    
 }
 
 -(void)setupInterface{
-    self.navigationItem.rightBarButtonItems = nil;
-    self.navigationItem.rightBarButtonItem = [self menuBarBtnWithTitle:@"Готово" selector:@selector(save) forTarget:self];
 
     for (UIButton *btn in self.incBtns){
         btn.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
@@ -68,7 +86,11 @@
     }];
 }
 
+
 -(void)showInfo{
+    
+
+    
     filled = YES;
     
     if (drug[@"name"]){
@@ -85,8 +107,8 @@
         _quantityLabel.text = @"";
     }
     
-    if ([[Global dictionaryWithValue:drug[@"repeat"] ForKey:@"name" InArray:[self expArray]][@"title"] length]>0){
-        _repeatLabel.text = [Global dictionaryWithValue:drug[@"repeat"] ForKey:@"name" InArray:[self expArray]][@"title"];
+    if ([[Global dictionaryWithValue:drug[@"repeat"] ForKey:@"name" InArray:[AddPills expArray]][@"title"] length]>0){
+        _repeatLabel.text = [Global dictionaryWithValue:drug[@"repeat"] ForKey:@"name" InArray:[AddPills expArray]][@"title"];
     } else {
         filled = NO;
         _repeatLabel.text = @"";
@@ -138,13 +160,13 @@
 
 -(IBAction)setupRepeat:(UIButton*)sender{
 
-    DPicker *exPicker = [[DPicker alloc] initListWithArray:[[self expArray] valueForKey:@"title"] inView:self.view completition:^(BOOL apply, int index){
+    DPicker *exPicker = [[DPicker alloc] initListWithArray:[[AddPills expArray] valueForKey:@"title"] inView:self.view completition:^(BOOL apply, int index){
         if (apply){
-            [drug setObject:[self expArray][index][@"name"] forKey:@"repeat"];
+            [drug setObject:[AddPills expArray][index][@"name"] forKey:@"repeat"];
             [self showInfo];
         }
     }];
-    [exPicker preselectValue: [Global dictionaryWithValue:drug[@"repeat"] ForKey:@"name" InArray:[self expArray]][@"title"]];
+    [exPicker preselectValue: [Global dictionaryWithValue:drug[@"repeat"] ForKey:@"name" InArray:[AddPills expArray]][@"title"]];
     [exPicker show];
 
 }
@@ -222,7 +244,7 @@
 
 */
 
--(NSArray*)expArray{
++(NSArray*)expArray{
     return @[@{@"title":@"Ежедневно", @"name":@"DAILY"},@{@"title":@"Каждые два дня", @"name":@"EVERY_2_DAYS"}];
 }
 

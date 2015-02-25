@@ -32,6 +32,7 @@
 -(UIImageView*)separatorLine;
 -(UIBarButtonItem*)menuButton;
 -(UIBarButtonItem*)personalButton;
+-(UIBarButtonItem*)highlightedPersonalButton;
 -(UIBarButtonItem*)alarmButton;
 -(UIBarButtonItem*)backBtn;
 

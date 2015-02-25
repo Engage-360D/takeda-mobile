@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AddPills.h"
 #import "Drugs.h"
+#import "EGORefreshTableHeaderView.h"
 
 typedef enum {
     dNew = 1,
@@ -16,7 +17,7 @@ typedef enum {
 } DIndex;
 
 
-@interface CalendarPage : VControllerExt<UITableViewDataSource, UITableViewDelegate>
+@interface CalendarPage : VControllerExt<UITableViewDataSource, UITableViewDelegate, EGORefreshTableHeaderDelegate>
 
 @property (nonatomic, strong) IBOutlet UISegmentedControl *fillEmptySwitch;
 @property (nonatomic, assign) UITableView *tableView;
@@ -33,6 +34,7 @@ typedef enum {
 @property (nonatomic, strong) NSMutableArray *emptyRecords;
 @property (nonatomic, strong) NSMutableArray *filledRecords;
 @property (nonatomic, strong) NSMutableDictionary *tasks;
+@property (nonatomic, strong) EGORefreshTableHeaderView *refreshHeaderView;
 
 
 @end

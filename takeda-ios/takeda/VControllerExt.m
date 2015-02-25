@@ -145,13 +145,28 @@
     UIImage *peopleImageSel = [UIImage imageNamed:@"peopleIconSel"];
     UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [bButton setImage:peopleImage forState:UIControlStateNormal];
-    [bButton setImage:peopleImageSel forState:UIControlStateDisabled];
+    [bButton setImage:peopleImageSel forState:UIControlStateSelected];
+    
 
     bButton.frame = CGRectMake(0.0,0.0,peopleImage.size.width+10,peopleImage.size.height);
     bButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
     [bButton addTarget:self action:@selector(showPersonal) forControlEvents:UIControlEventTouchUpInside];
     return [[UIBarButtonItem alloc] initWithCustomView:bButton];
 }
+
+-(UIBarButtonItem*)highlightedPersonalButton{
+    UIImage *peopleImage = [UIImage imageNamed:@"people_icon"];
+    UIImage *peopleImageSel = [UIImage imageNamed:@"peopleIconSel"];
+    UIButton *bButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [bButton setImage:peopleImageSel forState:UIControlStateNormal];
+    [bButton setImage:peopleImageSel forState:UIControlStateDisabled];
+    
+    bButton.frame = CGRectMake(0.0,0.0,peopleImage.size.width+10,peopleImage.size.height);
+    bButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
+    [bButton addTarget:self action:@selector(showPersonal) forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:bButton];
+}
+
 
 -(UIBarButtonItem*)alarmButton{
     UIImage *alarmImage = [UIImage imageNamed:@"alarm_icon"];

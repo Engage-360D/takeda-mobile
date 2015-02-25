@@ -12,6 +12,7 @@
                 <outlet property="btn_register" destination="bd8-d2-iSg" id="eJv-7r-5kt"/>
                 <outlet property="danger_text" destination="h7V-bF-evm" id="JBD-QK-kYs"/>
                 <outlet property="email_field" destination="ffq-S1-oja" id="OU9-bp-xk8"/>
+                <outlet property="lastname_field" destination="hJE-ug-l0q" id="4gM-5a-R8o"/>
                 <outlet property="name_field" destination="QFb-iB-hqi" id="yC7-R7-HA1"/>
                 <outlet property="pass_field" destination="YJp-hD-lkh" id="s3W-4r-NJc"/>
                 <outlet property="scrollView" destination="O3Z-9W-9Ye" id="Rip-FK-wfh"/>
@@ -40,6 +41,7 @@
                 <outletCollection property="fontButtons" destination="aLd-Yq-9g8" id="cgs-2b-Gdp"/>
                 <outletCollection property="fontButtons" destination="lbC-Zf-SMI" id="Vbg-kJ-Wnb"/>
                 <outletCollection property="blockLabels" destination="8RG-BE-Qpn" id="lqX-Jr-GQQ"/>
+                <outletCollection property="bg_block" destination="9Vq-FU-hRy" id="rQe-yG-mND"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -67,7 +69,7 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="O3Z-9W-9Ye">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="713"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="741"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="Qvo-2s-EWD">
@@ -146,7 +148,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" id="mLy-Y9-dZM">
-                    <rect key="frame" x="0.0" y="293" width="320" height="38"/>
+                    <rect key="frame" x="0.0" y="330" width="320" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" id="YJp-hD-lkh" customClass="PLTextField">
@@ -162,7 +164,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="WJp-MP-Rlz">
-                    <rect key="frame" x="0.0" y="182" width="320" height="38"/>
+                    <rect key="frame" x="0.0" y="219" width="320" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail" minimumFontSize="17" id="ffq-S1-oja" customClass="PLTextField">
@@ -194,7 +196,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="F8Q-Tg-xkt">
-                    <rect key="frame" x="0.0" y="219" width="320" height="38"/>
+                    <rect key="frame" x="0.0" y="256" width="320" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4oc-AJ-GWV">
@@ -210,15 +212,15 @@
                                 <action selector="showPickerRegion:" destination="-1" eventType="touchUpInside" id="TA7-NO-P40"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" id="InV-eV-P2C">
+                            <rect key="frame" x="292" y="11" width="8" height="15"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" id="InV-eV-P2C">
-                    <rect key="frame" x="292" y="230" width="8" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <view contentMode="scaleToFill" id="0WH-zB-QgJ">
-                    <rect key="frame" x="0.0" y="256" width="320" height="38"/>
+                    <rect key="frame" x="0.0" y="293" width="320" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fOA-x0-gzT">
@@ -242,14 +244,14 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Подтверждение" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lj6-Be-Toy">
-                    <rect key="frame" x="85" y="346" width="150" height="33"/>
+                    <rect key="frame" x="85" y="386" width="150" height="33"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" id="ipJ-WB-RSs">
-                    <rect key="frame" x="0.0" y="390" width="320" height="59"/>
+                    <rect key="frame" x="0.0" y="427" width="320" height="59"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="xee-me-Ytg">
@@ -273,7 +275,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="RLB-si-4MW">
-                    <rect key="frame" x="0.0" y="448" width="320" height="59"/>
+                    <rect key="frame" x="0.0" y="485" width="320" height="59"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="aLd-Yq-9g8">
@@ -297,7 +299,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="xBt-Wo-C1x">
-                    <rect key="frame" x="0.0" y="506" width="320" height="76"/>
+                    <rect key="frame" x="0.0" y="543" width="320" height="76"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" id="lbC-Zf-SMI">
@@ -321,7 +323,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bd8-d2-iSg">
-                    <rect key="frame" x="13" y="602" width="294" height="44"/>
+                    <rect key="frame" x="13" y="639" width="294" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="Зарегистрироваться">
@@ -333,15 +335,32 @@
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имеются противопоказания  необходимо ознакомиться с инструкцией по применению" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h7V-bF-evm">
-                    <rect key="frame" x="8" y="671" width="304" height="42"/>
+                    <rect key="frame" x="8" y="708" width="304" height="42"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                     <color key="textColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" id="9Vq-FU-hRy">
+                    <rect key="frame" x="0.0" y="182" width="320" height="38"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Фамилия" minimumFontSize="17" id="hJE-ug-l0q" customClass="PLTextField">
+                            <rect key="frame" x="20" y="4" width="280" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="WYp-7r-XYf"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="1205" y="425.5"/>
         </scrollView>
     </objects>
     <resources>

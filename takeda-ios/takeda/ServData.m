@@ -6,7 +6,10 @@
 //  Copyright (c) 2015 organization. All rights reserved.
 //
 
+
 #import "ServData.h"
+
+#define kErrDomain @"myDomain"
 
 @implementation ServData
 
@@ -97,7 +100,10 @@ static ServData *objectInstance = nil;
 
 +(void)getUserIdData:(NSString*)user_id withCompletion:(void (^)(BOOL result, NSError* error))completion
 {
-    if (appDelegate.hostConnection == NotReachable) completion(NO,[NSError errorWithDomain:nil code:500 userInfo:nil]);
+    if (appDelegate.hostConnection == NotReachable) {
+        completion(NO,[NSError errorWithDomain:kErrDomain code:500 userInfo:nil]);
+        return;
+    }
     
     NSString *url = [NSString stringWithFormat:
                      @"%@%@",kServerURL,kAccount];
@@ -118,7 +124,10 @@ static ServData *objectInstance = nil;
 
 +(void)resetUserPassword:(NSString*)user_login withCompletion:(void (^)(BOOL result, NSError* error))completion
 {
-    if (appDelegate.hostConnection == NotReachable) completion(NO,[NSError errorWithDomain:nil code:500 userInfo:nil]);
+    if (appDelegate.hostConnection == NotReachable){
+        completion(NO,[NSError errorWithDomain:kErrDomain code:500 userInfo:nil]);
+        return;
+    }
     
     NSString *url = [NSString stringWithFormat:
                      @"%@%@",kServerURL,kAccountResetPass];
@@ -246,7 +255,7 @@ static ServData *objectInstance = nil;
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion{
     NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,url];
     [self sendCommon:urlstr success:^(id res, NSError *error){
-        BOOL success = (res!=nil)&&(error.code==200);
+        BOOL success = (res!=nil)&&([error answerOk]);
         if (success){
             [GlobalData casheRequest:res fromUrl:url];
         }
@@ -259,7 +268,12 @@ static ServData *objectInstance = nil;
     
     NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kAccountTimeline];
     [self sendCommon:urlstr success:^(id res, NSError *error){
-        completion(YES, res);
+        if (res!=nil&&[error answerOk]){
+            completion(YES, res);
+        } else {
+            completion(NO, res);
+        }
+        
     }];
     
 }
@@ -268,7 +282,11 @@ static ServData *objectInstance = nil;
     
     NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kAccountPills];
     [self sendCommon:urlstr success:^(id res, NSError *error){
-        completion(YES, res);
+        if (res!=nil&&[error answerOk]){
+            completion(YES, res);
+        } else {
+            completion(NO, res);
+        }
     }];
     
 }
@@ -318,6 +336,12 @@ static ServData *objectInstance = nil;
 
 
 +(void)sendCommonPOST:(NSString*)urlStr params:(NSString*)HTMLStr success:(void (^)(id result, NSError *error))successIm{
+    
+    if (appDelegate.hostConnection == NotReachable) {
+        successIm(nil,[NSError errorWithDomain:kErrDomain code:500 userInfo:nil]);
+        return;
+    }
+
     if (User.access_token.length>0){
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
@@ -341,7 +365,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
-                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
+                               if (!error) error = [[NSError alloc] initWithDomain:kErrDomain code:((NSHTTPURLResponse*)res).statusCode userInfo:@{}];
                                id jsonResponse;
                                if (response){
                                    NSError *jsonParserError = nil;
@@ -373,6 +397,12 @@ static ServData *objectInstance = nil;
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
 
+    if (appDelegate.hostConnection == NotReachable) {
+        successIm(nil,[NSError errorWithDomain:kErrDomain code:500 userInfo:nil]);
+        return;
+    }
+
+    
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     NSData* HTTPBody = [params dataUsingEncoding:NSUTF8StringEncoding];
@@ -390,7 +420,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
-                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
+                               if (!error) error = [[NSError alloc] initWithDomain:kErrDomain code:((NSHTTPURLResponse*)res).statusCode userInfo:@{}];
                                id jsonResponse;
                                if (response){
                                    
@@ -416,6 +446,12 @@ static ServData *objectInstance = nil;
     if (User.access_token.length>0){
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
+    
+    if (appDelegate.hostConnection == NotReachable) {
+        successIm(nil,[NSError errorWithDomain:kErrDomain code:500 userInfo:nil]);
+        return;
+    }
+
 
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
@@ -434,7 +470,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
-                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
+                               if (!error) error = [[NSError alloc] initWithDomain:kErrDomain code:((NSHTTPURLResponse*)res).statusCode userInfo:@{}];
                                id jsonResponse;
                                if (response){
                                    
@@ -462,6 +498,12 @@ static ServData *objectInstance = nil;
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
     
+    if (appDelegate.hostConnection == NotReachable) {
+        successIm(nil,[NSError errorWithDomain:kErrDomain code:500 userInfo:nil]);
+        return;
+    }
+
+    
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     
@@ -480,7 +522,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
-                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
+                               if (!error) error = [[NSError alloc] initWithDomain:kErrDomain code:((NSHTTPURLResponse*)res).statusCode userInfo:@{}];
                                id jsonResponse;
                                if (response){
                                    
@@ -510,6 +552,12 @@ static ServData *objectInstance = nil;
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
 
+    if (appDelegate.hostConnection == NotReachable) {
+        successIm(nil,[NSError errorWithDomain:kErrDomain code:500 userInfo:nil]);
+        return;
+    }
+
+    
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSMutableURLRequest *urlRequest=[NSMutableURLRequest requestWithURL:url
                                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -523,7 +571,7 @@ static ServData *objectInstance = nil;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse * res,
                                                NSData * response, NSError * error){
-                               if (!error) error = [[NSError alloc] initWithDomain:NSURLErrorKey code:((NSHTTPURLResponse*)res).statusCode userInfo:nil];
+                               if (!error) error = [[NSError alloc] initWithDomain:kErrDomain code:((NSHTTPURLResponse*)res).statusCode userInfo:@{}];
                                id jsonResponse;
                                if (response){
                                    

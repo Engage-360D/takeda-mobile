@@ -61,7 +61,7 @@ extern NSString * const vkRedirectUrl;
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info;
 - (void)vkontakteDidFinishGettinCountry:(NSDictionary *)responce;
-
 - (void)vkontakteDidFinishPostingToWall:(NSDictionary *)responce;
+
 
 @end

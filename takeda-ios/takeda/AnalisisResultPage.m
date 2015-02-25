@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupInterface];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

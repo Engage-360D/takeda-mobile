@@ -55,6 +55,12 @@ int selectedIndex = 0;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (![User checkForRole:tDoctor]){
+        for (UIBarButtonItem *b in self.navigationItem.rightBarButtonItems){
+            b.enabled = NO;
+        }
+        self.navigationItem.leftBarButtonItem.enabled = NO;
+    }
 }
 
 

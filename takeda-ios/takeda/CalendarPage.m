@@ -8,7 +8,10 @@
 
 #import "CalendarPage.h"
 
-@interface CalendarPage ()
+@interface CalendarPage (){
+    BOOL reloading;
+    BOOL pullTorefreshVisible;
+}
 
 @end
 
@@ -20,6 +23,7 @@
 @synthesize fillEmptySwitch;
 @synthesize state;
 @synthesize records;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,42 +50,45 @@
     [GlobalData loadTimelineCompletition:^(BOOL success, id result){
         
         if (success){
-            [self startData:result];
+            tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
+            days = result[@"data"];
+            
+            [GlobalData casheTimelineTasks:tasks];
+            [GlobalData casheTimeline:days];
+
+            [self startData];
         } else {
+            tasks = [GlobalData cashedTimelineTasks];
+            days = [GlobalData cashedTimeline];
             
-            
-            
-            
-            
+            [self startData];
         }
         
     }];
 }
 
 
--(void)startData:(NSMutableDictionary*)result{
-    tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
-    days = result[@"data"];
+-(void)startData{
     if (![self makePillsSuccess]){
         [GlobalData loadPillsCompletition:^(BOOL completition, id result){
             if ([self makePillsSuccess]){
                 [self filtrRecords];
+                [self doneLoadingTableViewData];
                 [self.tableView reloadData];
             }
         }];
     } else {
         [self filtrRecords];
+        [self doneLoadingTableViewData];
         [self.tableView reloadData];
     }
-
 }
 
--(void)updateCashedTimeline{
-    
-}
 
--(void)updateTask:(int)taskId{
-    
+-(void)updateTask:(NSMutableDictionary*)task{
+    NSMutableDictionary *d = [GlobalData cashedTimelineTasks];
+    [d setObject:task forKey:task[@"id"]];
+    [GlobalData casheTimelineTasks:d];
 }
 
 -(void)filtrRecords{
@@ -131,6 +138,10 @@
         }
     }
     
+    records = [Global recursiveMutable:[records sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                return [obj2[@"date"] compare:obj1[@"date"]];
+               }]];
+
     
 }
 
@@ -153,6 +164,17 @@
 
 
 -(void)setupInterface{
+    if (_refreshHeaderView == nil) {
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.height, self.tableView.width, self.tableView.height)];
+        view.delegate = self;
+        [self.tableView addSubview:view];
+        _refreshHeaderView = view;
+    }
+    
+    //  update the last update date
+    [_refreshHeaderView refreshLastUpdatedDate];
+
+    
     self.tableNewView.tableHeaderView = self.tableNewView.separ;
     self.tableFillView.tableHeaderView = self.tableNewView.separ;
 
@@ -278,7 +300,11 @@
   //  NSString *itemId = self.records[indexPath.section][@"links"][@"tasks"][indexPath.row];
     NSMutableDictionary *item = self.records[indexPath.section][@"links"][@"tasks"][indexPath.row];
     
-    cell.cellType = [self cellTypeForTask:item[@"type"]];
+    if (item[@"isCompleted"]){
+        cell.cellType = [self cellTypeForTask:item[@"type"]];
+    } else {
+        cell.cellType = ctLeftCaptionRightArrow;
+    }
     
     SWITCH(item[@"type"]){
         CASE(@"exercise"){
@@ -364,6 +390,58 @@
  //   [self.tableView reloadData];
 }
 
+- (void)reloadTableViewDataSource{
+    //  should be calling your tableviews data source model to reload
+    //  put here just for demo
+    [self initData];
+    reloading = YES;
+}
+
+- (void)doneLoadingTableViewData{
+    //  model should call this when its done loading
+    reloading = NO;
+    [_refreshHeaderView performSelector:@selector(egoRefreshScrollViewDataSourceDidFinishedLoading:) withObject:self.tableView afterDelay:0.3f];
+//    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    
+}
+
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    [self reloadTableViewDataSource];
+ //   [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
+    
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+    pullTorefreshVisible = YES;
+    return reloading; // should return if data source model is reloading
+    
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    pullTorefreshVisible = NO;
+    
+    return [NSDate date]; // should return date data source was last changed
+    
+}
+
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+#pragma mark -
+
+
 -(void)selectItem:(NSIndexPath*)indexPath{
     if (state == dFilled) return;
     if (appDelegate.hostConnection == NotReachable) {
@@ -411,6 +489,8 @@
                         int minutes = [result[@"data"][@"exerciseMins"] intValue];
                         [tasks[task[@"id"]] setObject:[NSNumber numberWithBool:isCompleted] forKey:@"isCompleted"];
                         [tasks[task[@"id"]] setObject:[NSNumber numberWithInt:minutes] forKey:@"exerciseMins"];
+                        
+                        [self updateTask:result[@"data"]];
                         [self filtrRecords];
                         [self.tableView reloadData];
                     }
@@ -435,6 +515,9 @@
                 if (success){
                     BOOL isCompleted = [result[@"data"][@"isCompleted"] boolValue];
                     [tasks[task[@"id"]] setObject:[NSNumber numberWithBool:isCompleted] forKey:@"isCompleted"];
+
+                    [self updateTask:result[@"data"]];
+
                     [self filtrRecords];
                     [self.tableView reloadData];
                 }
@@ -459,6 +542,8 @@
                 if (success){
                     BOOL isCompleted = [result[@"data"][@"isCompleted"] boolValue];
                     [tasks[task[@"id"]] setObject:[NSNumber numberWithBool:isCompleted] forKey:@"isCompleted"];
+                    [self updateTask:result[@"data"]];
+
                     [self filtrRecords];
                     [self.tableView reloadData];
                 }

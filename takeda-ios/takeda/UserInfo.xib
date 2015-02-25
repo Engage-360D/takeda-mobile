@@ -35,7 +35,6 @@
                 <outletCollection property="bg_block" destination="jgo-40-XVe" id="YIj-1i-qka"/>
                 <outletCollection property="bg_block" destination="Vqc-Gw-epp" id="k1W-Ic-NTD"/>
                 <outletCollection property="bg_block" destination="ofl-WQ-LbP" id="Q27-rO-nUk"/>
-                <outletCollection property="bg_block" destination="fB0-sA-dXT" id="7az-UG-hWT"/>
                 <outletCollection property="bg_block" destination="NcC-bn-Xlq" id="TDw-z8-ZXA"/>
                 <outletCollection property="blockLabels" destination="PVi-B9-urE" id="PK5-gN-ftQ"/>
                 <outletCollection property="fontButtons" destination="mDC-0b-fZi" id="AXF-Ce-lH6"/>
@@ -45,7 +44,6 @@
                 <outletCollection property="textFields" destination="VgX-es-y2W" id="DTj-rR-g33"/>
                 <outletCollection property="textFields" destination="aKq-Fv-q1u" id="JZH-GY-6ii"/>
                 <outletCollection property="textFields" destination="Ttl-PB-6Tb" id="cNd-l2-apX"/>
-                <outletCollection property="fontButtons" destination="pmf-dG-Qch" id="tzi-w5-HFC"/>
                 <outletCollection property="textFields" destination="Anh-17-9mQ" id="dei-s3-QXq"/>
                 <outletCollection property="bg_block" destination="6uG-Me-a9b" id="I0y-Lg-CyE"/>
                 <outletCollection property="bg_block" destination="6gp-fE-chc" id="Q2o-Cn-mzJ"/>
@@ -60,6 +58,8 @@
                 <outletCollection property="bg_block" destination="er8-rL-ieC" id="AqV-5n-oFn"/>
                 <outletCollection property="fontButtons" destination="XHY-37-NXj" id="AJx-EE-V6X"/>
                 <outletCollection property="bg_block" destination="WO7-gA-e1f" id="eh5-Il-GjA"/>
+                <outletCollection property="bg_block" destination="fB0-sA-dXT" id="7az-UG-hWT"/>
+                <outletCollection property="fontButtons" destination="pmf-dG-Qch" id="tzi-w5-HFC"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -202,39 +202,15 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" id="fB0-sA-dXT">
-                            <rect key="frame" x="0.0" y="268" width="320" height="50"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pmf-dG-Qch">
-                                    <rect key="frame" x="0.0" y="10" width="320" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Получать рассылку">
-                                        <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="spamSwitch:" destination="-1" eventType="touchUpInside" id="TIg-kd-Wcs"/>
-                                    </connections>
-                                </button>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unchecked_item.png" highlightedImage="checked_item.png" id="t5U-9I-7uU">
-                                    <rect key="frame" x="282" y="13" width="24" height="24"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        </view>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дополнительная информация" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PVi-B9-urE">
-                            <rect key="frame" x="8" y="332" width="304" height="33"/>
+                            <rect key="frame" x="8" y="283" width="304" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" id="NcC-bn-Xlq">
-                            <rect key="frame" x="0.0" y="370" width="320" height="38"/>
+                            <rect key="frame" x="0.0" y="321" width="320" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tPh-db-6tV">
@@ -258,7 +234,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="0fO-Pg-GJ2">
-                            <rect key="frame" x="0.0" y="444" width="320" height="243"/>
+                            <rect key="frame" x="0.0" y="395" width="320" height="243"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="6uG-Me-a9b">
@@ -392,7 +368,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="WO7-gA-e1f">
-                            <rect key="frame" x="0.0" y="407" width="320" height="38"/>
+                            <rect key="frame" x="0.0" y="358" width="320" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XHY-37-NXj">
@@ -419,8 +395,33 @@
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="795" y="660"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="795" y="761.5"/>
+        </view>
+        <view contentMode="scaleToFill" id="fB0-sA-dXT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pmf-dG-Qch">
+                    <rect key="frame" x="0.0" y="10" width="320" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Получать рассылку">
+                        <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="spamSwitch:" destination="-1" eventType="touchUpInside" id="TIg-kd-Wcs"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unchecked_item.png" highlightedImage="checked_item.png" id="t5U-9I-7uU">
+                    <rect key="frame" x="282" y="13" width="24" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
