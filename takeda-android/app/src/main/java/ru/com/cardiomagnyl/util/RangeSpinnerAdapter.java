@@ -32,7 +32,7 @@ public class RangeSpinnerAdapter extends ArrayAdapter<Integer> implements Spinne
 
         Integer range = getItem(position);
         if (range == null) {
-            ((TextView) convertView).setText(mContext.getString(R.string.no_region));
+            ((TextView) convertView).setText(mContext.getString(R.string.not_specified));
             parent.setTag(null);
         }else {
             ((TextView) convertView).setText(String.valueOf(range));
@@ -50,7 +50,7 @@ public class RangeSpinnerAdapter extends ArrayAdapter<Integer> implements Spinne
 
         Integer range = getItem(position);
         if (range == null) {
-            ((TextView) convertView).setText(mContext.getString(R.string.no_region));
+            ((TextView) convertView).setText(mContext.getString(R.string.not_specified));
         }else {
             ((TextView) convertView).setText(String.valueOf(range));
         }

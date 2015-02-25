@@ -12,7 +12,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import ru.com.cardiomagnyl.model.base.BaseModel;
 
 @DatabaseTable(tableName = "test_result")
-public class TestResultHolder {
+public class TestResultHolder extends BaseModel {
 
     private TestResult mTestResult;
 
@@ -28,7 +28,8 @@ public class TestResultHolder {
     @DatabaseField(dataType = DataType.STRING, columnName = "user")
     private String mUserId;
 
-    public TestResultHolder(){}
+    public TestResultHolder() {
+    }
 
     public TestResultHolder(TestResult testResult, String userId) {
         mTestResult = testResult;

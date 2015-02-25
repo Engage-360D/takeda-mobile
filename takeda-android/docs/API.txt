@@ -1,130 +1,784 @@
-http://cardiomagnyl.iengage.ru/api/users
-
-Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-
-{"confirmInformation":true,"confirmPersonalization":true,"confirmSubscription":true,"firstname":"xxx","birthday":"xxxx-xx-xx","email":"x.xxxxxxxo@xxxxx.xxx","region":"xxxxxxx","plainPassword":{"first":"x","second":"x"},"doctor":false}
-
-{"id":8,"username":"x.xxxxxxxx@xxxxx.xxx","email":"x.xxxxxxxx@xxxxx.xxx","enabled":false,"lastLogin":"xxxx-xx-xxxxx:xx:xx+xxxx","firstname":"xxxxx","lastname":null,"facebookId":null,"facebookAccessToken":null,"doctor":false,"birthday":"xxxx-xx-xxxxx:xx:xx+xxxx","region":"???????","registration":"xxxx-xx-xxxxx:xx:xx+xxxx","specialization":null,"experience":null,"address":null,"phone":null,"institution":null,"graduation":null,"testResults":[],"confirmInformation":true,"confirmPersonalization":true,"confirmSubscription":true,"vkontakteId":null,"vkontakteAccessToken":null}
-
 ======================================================================================
+method:
+post
+-------
 
-http://cardiomagnyl.iengage.ru/oauth/v2/token
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/users
+--------
 
-client_id=3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4&client_secret=6bhq30w1jrc4wwoc00ks400scgkwws8g8skwkc84g0kkwgkc0k&grant_type=password&username=y.andreyko%40gmail.com&password=a
+headers:
+Content-Type: application/vnd.api+json
+--------
 
-{"error":"invalid_client","error_description":"The client credentials are invalid"}
-
-======================================================================================
-
+data:
 {
-	"bmi" : 27.8,
-	"scoreValue" : 1,
-	"recommendations" : {
-		"scoreDescription" : {
-			"state" : "ok",
-			"text" : "Категория низкого риска развития смертельных сердечно-сосудистых заболеваний в ближайшие 10 лет"
-		},
-		"dangerAlert" : null,
-		"mainRecommendation" : {
-			"text" : "Обратитесь к врачу для консультации о необходимости приема препаратов ацетилсалициловой кислоты для снижения риска тромбозов.\n"
-		},
-		"institutionsUrl" : false,
-		"banners" : {
-			"smoking" : {
-				"pageUrl" : null,
-				"state" : "ok",
-				"title" : "Курение",
-				"aberration" : null,
-				"note" : "Все хорошо"
-			},
-			"arterialPressure" : {
-				"pageUrl" : "/test-results/4/arterialPressure",
-				"state" : "bell",
-				"title" : "Систолическое давление",
-				"aberration" : "среднее отклонение",
-				"note" : "Необходимо улучшение"
-			},
-			"extraSalt" : {
-				"pageUrl" : null,
-				"state" : "ok",
-				"title" : "Потребление соли",
-				"aberration" : null,
-				"note" : "Все хорошо"
-			},
-			"cholesterolLevel" : {
-				"pageUrl" : "/test-results/4/cholesterolLevel",
-				"state" : "bell",
-				"title" : "Уровень холестирина",
-				"aberration" : "среднее отклонение",
-				"note" : "Необходимо улучшение"
-			},
-			"physicalActivity" : {
-				"pageUrl" : null,
-				"state" : "ok",
-				"title" : "Физическая активность",
-				"aberration" : "близко к норме",
-				"note" : "Все хорошо"
-			},
-			"bmi" : {
-				"pageUrl" : "/test-results/4/bmi",
-				"state" : "bell",
-				"title" : "Вес",
-				"aberration" : "среднее отклонение",
-				"note" : "Необходимо улучшение"
-			},
-			"sugarProblems" : null,
-			"arterialPressureDrugs" : null,
-			"cholesterolDrugs" : null
-		},
-		"pages" : {
-			"smoking" : null,
-			"arterialPressure" : {
-				"urlText" : "Давление",
-				"title" : "Ваше давление  - 140",
-				"subtitle" : "Нормой является значение до 139",
-				"institutionsUrl" : false,
-				"text" : "У вас повышено артериальное давление – это опасный фактор риска развития сердечно-сосудистых осложнений, таких как инфаркт миокарда и инсульт.\n\nОбратитесь к врачу для решения вопроса о назначении вам лекарственных препаратов, снижающих артериальное давление."
-			},
-			"extraSalt" : null,
-			"cholesterolLevel" : {
-				"urlText" : "Холестерин",
-				"title" : "Ваш уровень холестерина - 6 ммоль/л",
-				"subtitle" : "Нормой является значение до 4,9 ммоль/л",
-				"institutionsUrl" : false,
-				"text" : "У вас повышен уровень холестерина (более 4,9 ммоль/л) - это фактор риска сердечно-сосудистых заболеваний. Соблюдайте диету с ограничением животных жиров (кроме рыбы) и трансжиров.\n\nЗамените большую часть животных жиров растительными маслами, увеличьте количество овощей и фруктов.\n\nЖивотные жиры способствуют атеросклерозу сосудов, приводящему к инфаркту и инсульту, а растительные жиры (кроме кокосового и пальмового масла) и рыбий жир противодействуют атеросклерозу."
-			},
-			"physicalActivity" : null,
-			"bmi" : {
-				"urlText" : "Вес",
-				"title" : "У вас высокий индекс массы тела - 27.8 кг/м2",
-				"subtitle" : "Нормой является значение менее 25 кг/м2",
-				"institutionsUrl" : false,
-				"text" : "Ваш индекс массы тела превышает 25 кг/м2 – это избыточный вес. Избыточный вес тела является фактором повышенного риска болезней сердца и сосудов.\n\nСнижение веса возможно за счет уменьшения калорийности питания и увеличения физической активности. Существуют медикаментозные препараты разного механизма действия, но они имеют нежелательные побочные явления и должны применяться только под строгим контролем врача."
-			}
-		}
-	},
-	"id" : 4,
-	"sex" : "male",
-	"birthday" : "1982-12-12T00:00:00+0300",
-	"growth" : 180,
-	"weight" : 90,
-	"smoking" : false,
-	"cholesterolLevel" : 6,
-	"cholesterolDrugs" : false,
-	"diabetes" : false,
-	"sugarProblems" : false,
-	"sugarDrugs" : false,
-	"arterialPressure" : 140,
-	"arterialPressureDrugs" : false,
-	"physicalActivity" : 200,
-	"heartAttackOrStroke" : false,
-	"extraSalt" : false,
-	"acetylsalicylicDrugs" : false,
-	"createdAt" : "2014-12-12T14:08:25+0300"
+    "data" : {
+        "email" : "a.b@c.d",
+        "firstname" : "XXXX",
+        "lastname" : "XXXX",
+        "birthday" : "XXX-XX-XXT00:00:00+0000",
+        "specializationExperienceYears" : null,
+        "specializationGraduationDate" : null,
+        "specializationInstitutionAddress" : null,
+        "specializationInstitutionName" : null,
+        "specializationInstitutionPhone" : null,
+        "specializationName" : null,
+        "plainPassword" : "xxxx",
+        "isDoctor" : false,
+        "isSubscribed" : true,
+        "links" : {
+            "region" : ""
+        }
+    }
 }
+-----
 
+response:
+{
+    "links" : {
+        "users.region" : {
+            "href" : "\/api\/v1\/regions\/{users.region}",
+            "type" : "regions"
+        }
+    },
+    "data" : {
+        "id" : "25",
+        "email" : "a.b@c.d",
+        "firstname" : "XXXX",
+        "lastname" : "XXXX",
+        "birthday" : "XXXX-XX-XXT00:00:00+00:00",
+        "vkontakteId" : null,
+        "facebookId" : null,
+        "specializationExperienceYears" : null,
+        "specializationGraduationDate" : null,
+        "specializationInstitutionAddress" : null,
+        "specializationInstitutionName" : null,
+        "specializationInstitutionPhone" : null,
+        "specializationName" : null,
+        "roles" : ["ROLE_USER"],
+        "isEnabled" : false,
+        "links" : {
+            "region" : null
+        }
+    }
+}
+---------
 ======================================================================================
+method:
+get
+-------
 
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/regions
+--------
+
+headers:
+null
+--------
+
+data:
+null
+-----
+
+response:
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "Москва"
+    },
+    {
+      "id": "2",
+      "name": "Санкт-Петербург"
+    }
+  ]
+}
+---------
 ======================================================================================
+method:
+post
+-------
 
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/tokens
+--------
+
+headers:
+Content-Type: application/vnd.api+json
+--------
+
+data:
+{
+  "data": {
+    "email": "a.b@c.d",
+    "plainPassword": "xxxx"
+  }
+}
+-----
+
+response:
+{
+  "links": {
+    "tokens.user": {
+      "href": "https://cardiomagnyl.ru/api/v1/users/{tokens.user}",
+      "type": "users"
+    }
+  },
+  "data": {
+    "id": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0",
+    "links": {
+      "user": "24"
+    }
+  },
+  "linked": {
+    "users": [
+      {
+        "id": "25",
+        "email": "a.b@c.d",
+        "firstname": "XXXX",
+        "lastname": "XXXX",
+        "birthday" : "XXXX-XX-XXT00:00:00+00:00",
+        "vkontakteId": null,
+        "facebookId": null,
+        "specializationExperienceYears": 0,
+        "specializationGraduationDate": null,
+        "specializationInstitutionAddress": "",
+        "specializationInstitutionName": "",
+        "specializationInstitutionPhone": "",
+        "specializationName": "",
+        "roles": [
+          "ROLE_USER"
+        ],
+        "isEnabled": false,
+        "links": {
+          "region": "2"
+        }
+      }
+    ]
+  }
+}
+---------
+======================================================================================
+method:
+post
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
+--------
+
+headers:
+Content-Type: application/vnd.api+json
+--------
+
+data:
+{
+    "data": {
+        "sex": "male",
+        "birthday": "1960-01-01T00:00:00+0000",
+        "growth": 180,
+        "weight": 140,
+        "isSmoker": true,
+        "cholesterolLevel": 5,
+        "isCholesterolDrugsConsumer": true,
+        "hasDiabetes": false,
+        "hadSugarProblems": true,
+        "isSugarDrugsConsumer": true,
+        "arterialPressure": 160,
+        "isArterialPressureDrugsConsumer": true,
+        "physicalActivityMinutes": 80,
+        "hadHeartAttackOrStroke": false,
+        "isAddingExtraSalt": true,
+        "isAcetylsalicylicDrugsConsumer": true
+    }
+}
+-----
+
+response:
+{
+  "data": {
+    "id": "19",
+    "sex": "male",
+    "birthday": "1960-01-01T00:00:00+0000",
+    "growth": 180,
+    "weight": 140,
+    "isSmoker": true,
+    "cholesterolLevel": 5,
+    "isCholesterolDrugsConsumer": true,
+    "hasDiabetes": false,
+    "hadSugarProblems": true,
+    "isSugarDrugsConsumer": true,
+    "arterialPressure": 160,
+    "isArterialPressureDrugsConsumer": true,
+    "physicalActivityMinutes": 80,
+    "hadHeartAttackOrStroke": false,
+    "isAddingExtraSalt": true,
+    "isAcetylsalicylicDrugsConsumer": true,
+    "bmi": 43.2,
+    "score": 9,
+    "recommendations": {
+      "scoreNote": {
+        "state": "bell",
+        "text": "Категория среднего риска развития смертельных сердечно-сосудистых заболеваний в ближайшие 10 лет"
+      },
+      "fullScreenAlert": null,
+      "mainRecommendation": {
+        "text": "Прием препаратов ацетилсалициловой кислоты является фактором риска развития язвенной болезни желудка.\nОбратите внимание на специализированные препараты, снижающие этот риск, например, кардиомагнил."
+      },
+      "placesLinkShouldBeVisible": true,
+      "banners": {
+        "isSmoker": {
+          "pageUrl": "/test-results/19/isSmoker",
+          "state": "attention",
+          "title": "Курение",
+          "subtitle": "",
+          "note": "Фактор риска"
+        },
+        "arterialPressure": {
+          "pageUrl": "/test-results/19/arterialPressure",
+          "state": "attention",
+          "title": "Систолическое давление",
+          "subtitle": "большое отклонение",
+          "note": "Фактор риска"
+        },
+        "isAddingExtraSalt": {
+          "pageUrl": "/test-results/19/isAddingExtraSalt",
+          "state": "attention",
+          "title": "Потребление соли",
+          "subtitle": "",
+          "note": "Необходимо улучшение"
+        },
+        "cholesterolLevel": {
+          "pageUrl": "/test-results/19/cholesterolLevel",
+          "state": "bell",
+          "title": "Уровень холестирина",
+          "subtitle": "среднее отклонение",
+          "note": "Необходимо улучшение"
+        },
+        "physicalActivityMinutes": {
+          "pageUrl": "/test-results/19/physicalActivityMinutes",
+          "state": "attention",
+          "title": "Физическая активность",
+          "subtitle": "большое отклонение",
+          "note": "Необходимо улучшение"
+        },
+        "bmi": {
+          "pageUrl": "/test-results/19/bmi",
+          "state": "attention",
+          "title": "Вес",
+          "subtitle": "большое отклонение",
+          "note": "Необходимо улучшение"
+        },
+        "hadSugarProblems": {
+          "pageUrl": null,
+          "state": "doctor",
+          "title": "",
+          "subtitle": "",
+          "note": "У вас отмечается повышение уровня сахара в крови. Вам необходимо обратиться к врачу."
+        },
+        "isArterialPressureDrugsConsumer": null,
+        "isCholesterolDrugsConsumer": null
+      }
+    }
+  }
+}
+---------
+======================================================================================
+method:
+get
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
+--------
+
+headers:
+null
+--------
+
+data:
+null
+-----
+
+response:
+{
+  "links": {
+    "users.region": {
+      "href": "http://cardiomagnyl.dev.iengage.ru'/regions/{users.region}",
+      "type": "regions"
+    }
+  },
+  "data": {
+    "id": "45",
+    "email": "y.andreyko+3@gmail.com",
+    "firstname": "abc",
+    "lastname": "a",
+    "birthday": "1982-01-28T00:00:00+0300",
+    "vkontakteId": null,
+    "facebookId": null,
+    "specializationExperienceYears": 5,
+    "specializationGraduationDate": null,
+    "specializationInstitutionAddress": "zxc",
+    "specializationInstitutionName": "Asd",
+    "specializationInstitutionPhone": "123",
+    "specializationName": "Qwe",
+    "roles": [
+      "ROLE_DOCTOR",
+      "ROLE_USER"
+    ],
+    "isEnabled": false,
+    "links": {
+      "region": "1"
+    }
+  }
+}
+---------
+======================================================================================
+method:
+post
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/reset-password
+--------
+
+headers:
+Content-Type: application/vnd.api+json
+--------
+
+data:
+{
+    "data": {
+        "email": "a.b@c.d"
+    }
+}
+-----
+
+response:
+{
+  "data": []
+}
+---------
+======================================================================================
+method:
+get
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
+--------
+
+headers:
+null
+--------
+
+data:
+null
+-----
+
+response:
+{
+  "data": [
+    {
+      "id": "19",
+      "sex": "male",
+      "birthday": "1960-01-01T00:00:00+0300",
+      "growth": 180,
+      "weight": 140,
+      "isSmoker": true,
+      "cholesterolLevel": 5,
+      "isCholesterolDrugsConsumer": true,
+      "hasDiabetes": false,
+      "hadSugarProblems": true,
+      "isSugarDrugsConsumer": true,
+      "arterialPressure": 160,
+      "isArterialPressureDrugsConsumer": true,
+      "physicalActivityMinutes": 80,
+      "hadHeartAttackOrStroke": false,
+      "isAddingExtraSalt": true,
+      "isAcetylsalicylicDrugsConsumer": true,
+      "bmi": 43.2,
+      "score": 9,
+      "recommendations": {
+        "scoreNote": {
+          "state": "bell",
+          "text": "Категория среднего риска развития смертельных сердечно-сосудистых заболеваний в ближайшие 10 лет"
+        },
+        "fullScreenAlert": null,
+        "mainRecommendation": {
+          "text": "Прием препаратов ацетилсалициловой кислоты является фактором риска развития язвенной болезни желудка.\nОбратите внимание на специализированные препараты, снижающие этот риск, например, кардиомагнил."
+        },
+        "placesLinkShouldBeVisible": true,
+        "banners": {
+          "isSmoker": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/isSmoker",
+            "state": "attention",
+            "title": "Курение",
+            "subtitle": "",
+            "note": "Фактор риска"
+          },
+          "arterialPressure": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/arterialPressure",
+            "state": "attention",
+            "title": "Систолическое давление",
+            "subtitle": "большое отклонение",
+            "note": "Фактор риска"
+          },
+          "isAddingExtraSalt": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/isAddingExtraSalt",
+            "state": "attention",
+            "title": "Потребление соли",
+            "subtitle": "",
+            "note": "Необходимо улучшение"
+          },
+          "cholesterolLevel": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/cholesterolLevel",
+            "state": "bell",
+            "title": "Уровень холестирина",
+            "subtitle": "среднее отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "physicalActivityMinutes": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/physicalActivityMinutes",
+            "state": "attention",
+            "title": "Физическая активность",
+            "subtitle": "большое отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "bmi": {
+            "pageUrl": "/api/v1/account/test-results/19/pages/bmi",
+            "state": "attention",
+            "title": "Вес",
+            "subtitle": "большое отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "hadSugarProblems": {
+            "pageUrl": null,
+            "state": "doctor",
+            "title": "",
+            "subtitle": "",
+            "note": "У вас отмечается повышение уровня сахара в крови. Вам необходимо обратиться к врачу."
+          },
+          "isArterialPressureDrugsConsumer": null,
+          "isCholesterolDrugsConsumer": null
+        }
+      },
+      "createdAt": "2015-01-29T17:13:04+0300"
+    },
+    {
+      "id": "21",
+      "sex": "male",
+      "birthday": "1960-01-01T00:00:00+0300",
+      "growth": 180,
+      "weight": 140,
+      "isSmoker": true,
+      "cholesterolLevel": 5,
+      "isCholesterolDrugsConsumer": true,
+      "hasDiabetes": false,
+      "hadSugarProblems": true,
+      "isSugarDrugsConsumer": true,
+      "arterialPressure": 160,
+      "isArterialPressureDrugsConsumer": true,
+      "physicalActivityMinutes": 80,
+      "hadHeartAttackOrStroke": false,
+      "isAddingExtraSalt": true,
+      "isAcetylsalicylicDrugsConsumer": true,
+      "bmi": 43.2,
+      "score": 9,
+      "recommendations": {
+        "scoreNote": {
+          "state": "bell",
+          "text": "Категория среднего риска развития смертельных сердечно-сосудистых заболеваний в ближайшие 10 лет"
+        },
+        "fullScreenAlert": null,
+        "mainRecommendation": {
+          "text": "Прием препаратов ацетилсалициловой кислоты является фактором риска развития язвенной болезни желудка.\nОбратите внимание на специализированные препараты, снижающие этот риск, например, кардиомагнил."
+        },
+        "placesLinkShouldBeVisible": true,
+        "banners": {
+          "isSmoker": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/isSmoker",
+            "state": "attention",
+            "title": "Курение",
+            "subtitle": "",
+            "note": "Фактор риска"
+          },
+          "arterialPressure": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/arterialPressure",
+            "state": "attention",
+            "title": "Систолическое давление",
+            "subtitle": "большое отклонение",
+            "note": "Фактор риска"
+          },
+          "isAddingExtraSalt": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/isAddingExtraSalt",
+            "state": "attention",
+            "title": "Потребление соли",
+            "subtitle": "",
+            "note": "Необходимо улучшение"
+          },
+          "cholesterolLevel": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/cholesterolLevel",
+            "state": "bell",
+            "title": "Уровень холестирина",
+            "subtitle": "среднее отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "physicalActivityMinutes": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/physicalActivityMinutes",
+            "state": "attention",
+            "title": "Физическая активность",
+            "subtitle": "большое отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "bmi": {
+            "pageUrl": "/api/v1/account/test-results/21/pages/bmi",
+            "state": "attention",
+            "title": "Вес",
+            "subtitle": "большое отклонение",
+            "note": "Необходимо улучшение"
+          },
+          "hadSugarProblems": {
+            "pageUrl": null,
+            "state": "doctor",
+            "title": "",
+            "subtitle": "",
+            "note": "У вас отмечается повышение уровня сахара в крови. Вам необходимо обратиться к врачу."
+          },
+          "isArterialPressureDrugsConsumer": null,
+          "isCholesterolDrugsConsumer": null
+        }
+      },
+      "createdAt": "2015-01-30T17:20:35+0300"
+    }
+  ]
+}
+---------
+======================================================================================
+method:
+post
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results/19/send-email?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
+--------
+
+headers:
+Content-Type: application/vnd.api+json
+--------
+
+data:
+{
+    "data": {
+        "email": "a.b@c.d"
+    }
+}
+-----
+
+response:
+{
+  "data": []
+}
+---------
+======================================================================================
+method:
+get
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results/00/pages/physicalActivityMinutes
+--------
+
+headers:
+null
+--------
+
+data:
+null
+-----
+
+response:
+{
+	"state" : "attention",
+	"title" : "У вас недостаточно физической активности 80 минут в неделю",
+	"subtitle" : "Нормой является значение от 150 минут в неделю",
+	"text" : "Физическая активность является средством сохранения здоровья сердца и сосудов.\n\nЖелательно предпочесть аэробную динамическую нагрузку 5 раз в неделю от 30 мин. до 2 ч. в день.\nНагрузка  рекомендуется такая, чтобы частота пульса достигла 65-70% от максимальной частоты пульса для данного возраста.\n\nМаксимальная частота пульса рассчитывается по формуле: 220 минус возраст в годах.\n\nБольным с заболеваниями сердца и сосудов режим нагрузок подбирается врачом индивидуально в соответствии с результатами электрокардиографического теста с физической нагрузкой.\n"
+}
+---------
+======================================================================================
+method:
+post
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/pills?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
+--------
+
+headers:
+Content-Type: application/vnd.api+json
+--------
+
+data:
+{
+    "data": {
+        "name": "Кардиомагнил",
+        "quantity": 2,
+        "time": "12:00:00",
+        "repeat": "daily",
+        "sinceDate": "2015-01-01T00:00:00+0000",
+        "tillDate": "2016-01-01T00:00:00+0000",
+        "links": {
+            "user": "63"
+        }
+    }
+}
+-----
+
+response:
+{
+  "data": {
+    "id": "2",
+    "name": "Кардиомагнил",
+    "quantity": 2,
+    "repeat": "daily",
+    "time": "12:00:00",
+    "sinceDate": "2015-01-01T00:00:00+0000",
+    "tillDate": "2016-01-01T00:00:00+0000",
+    "links": {
+      "user": "63"
+    }
+  }
+}
+---------
+======================================================================================
+method:
+get
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/pills?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
+--------
+
+headers:
+null
+--------
+
+data:
+null
+-----
+
+response:
+{
+  "data": [
+    {
+      "id": "2",
+      "name": "Кардиомагнил",
+      "quantity": 2,
+      "repeat": "daily",
+      "time": "12:00:00",
+      "sinceDate": "2015-01-01T00:00:00+0300",
+      "tillDate": "2016-01-01T00:00:00+0300",
+      "links": {
+        "user": "63"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Магникардиол",
+      "quantity": 2,
+      "repeat": "daily",
+      "time": "12:00:00",
+      "sinceDate": "2015-01-01T00:00:00+0300",
+      "tillDate": "2016-01-01T00:00:00+0300",
+      "links": {
+        "user": "63"
+      }
+    }
+  ]
+}
+---------
+======================================================================================
+method:
+put
+-------
+
+request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/timeline/tasks/2015021205?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
+--------
+
+headers:
+Content-Type: application/vnd.api+json
+--------
+
+data:
+ {
+ 	"data" : {
+ 		"isCompleted" : true
+ 	}
+ }
+-----
+
+response:
+{
+	"data" : {
+		"id" : "2015021205",
+		"type" : "pill",
+		"isCompleted" : true,
+		"links" : {
+			"pill" : "3"
+		}
+	}
+}
+---------
+======================================================================================
+method:
+-------
+
+request:
+--------
+
+headers:
+--------
+
+data:
+-----
+
+response:
+---------
+======================================================================================
+method:
+-------
+
+request:
+--------
+
+headers:
+--------
+
+data:
+-----
+
+response:
+---------
+======================================================================================
+GET
+200 OK
+
+POST
+200 OK
+201 Created
+400 Bad Request
+
+GET, POST, PUT, DELETE
+401 Unauthorized
+403 Forbidden
+404 Not Found
+405 Method Not Allowed
+5xx Server Error
+
+другие вряд ли будут
+======================================================================================
+Вопросы:
+Зачем http://cardiomagnyl.dev.iengage.ru/api/v1/tokens возвращает "links", "linked", почему поле токена - "id"?
 ======================================================================================

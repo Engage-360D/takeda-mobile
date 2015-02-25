@@ -1,4 +1,4 @@
-package ru.com.cardiomagnyl.ui.start;
+package ru.com.cardiomagnyl.widget;
 
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;
@@ -9,14 +9,9 @@ public class CustomOnDateSetListener implements DatePickerDialog.OnDateSetListen
     private final Calendar mCalendar;
     private final int mCurrentYear;
 
-    public CustomOnDateSetListener() {
-        mCalendar = Calendar.getInstance();
-        mCurrentYear = mCalendar.get(Calendar.YEAR);
-
-        mCalendar.set(Calendar.HOUR, 0);
-        mCalendar.set(Calendar.MINUTE, 0);
-        mCalendar.set(Calendar.SECOND, 0);
-        mCalendar.set(Calendar.MILLISECOND, 0);
+    public CustomOnDateSetListener(Calendar calndar) {
+        mCalendar = calndar;
+        mCurrentYear = Calendar.getInstance().get(Calendar.YEAR);
     }
 
     @Override

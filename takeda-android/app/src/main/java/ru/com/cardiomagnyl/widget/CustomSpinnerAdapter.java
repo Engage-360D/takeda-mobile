@@ -1,4 +1,4 @@
-package ru.com.cardiomagnyl.ui.start;
+package ru.com.cardiomagnyl.widget;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.com.cardiomagnyl.model.region.Region;
+import ru.com.cardiomagnyl.model.base.BaseModelHelper;
 
-public class RegionsSpinnerAdapter extends ArrayAdapter<Region> implements SpinnerAdapter {
+public class CustomSpinnerAdapter extends ArrayAdapter<BaseModelHelper> implements SpinnerAdapter {
     private final int mTextViewResourceId;
     private final int mDropDownTextViewResourceId;
 
-    public RegionsSpinnerAdapter(Context context, int textViewResourceId, int dropDownTextViewResourceId, List<Region> regionsList) {
-        super(context, textViewResourceId, regionsList);
+    public CustomSpinnerAdapter(Context context, int textViewResourceId, int dropDownTextViewResourceId, List<BaseModelHelper> itemsList) {
+        super(context, textViewResourceId, itemsList);
         mTextViewResourceId = textViewResourceId;
         mDropDownTextViewResourceId = dropDownTextViewResourceId;
     }
@@ -28,13 +28,13 @@ public class RegionsSpinnerAdapter extends ArrayAdapter<Region> implements Spinn
             convertView = LayoutInflater.from(getContext()).inflate(mTextViewResourceId, null);
         }
 
-        Region regionItem = getItem(position);
-        ((TextView) convertView).setText(regionItem.getName());
+        BaseModelHelper item = getItem(position);
+        ((TextView) convertView).setText(item.getName());
 
         if (position == getCount() - 1) {
             parent.setTag(null);
         } else {
-            parent.setTag(regionItem.getId());
+            parent.setTag(item.getId());
         }
 
         return convertView;
@@ -46,8 +46,8 @@ public class RegionsSpinnerAdapter extends ArrayAdapter<Region> implements Spinn
             convertView = LayoutInflater.from(getContext()).inflate(mDropDownTextViewResourceId, null);
         }
 
-        Region regionItem = getItem(position);
-        ((TextView) convertView).setText(regionItem.getName());
+        BaseModelHelper item = getItem(position);
+        ((TextView) convertView).setText(item.getName());
 
         return convertView;
     }

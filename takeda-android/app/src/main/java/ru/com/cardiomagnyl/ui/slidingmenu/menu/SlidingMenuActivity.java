@@ -124,7 +124,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         }
     }
 
-    public ViewGroup getLayoutHeader() {
+    public ViewGroup getHeaderLayout() {
         return (ViewGroup) findViewById(R.id.layoutHeader);
     }
 
@@ -183,6 +183,9 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
+//
+//            View view = new View(this);
+//            mProgressDialog.set .setProgressDrawable(view.getBackground());
         }
 
         if (!mProgressDialog.isShowing()) {

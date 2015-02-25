@@ -6,6 +6,7 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -105,6 +106,15 @@ public class TimelineDao extends BaseDaoImpl<Timeline, Integer> {
                     helperFactoryTask.createOrUpdate(currentTask);
                 }
             }
+        }
+    }
+
+    public static void clearTable(){
+        RuntimeExceptionDao helperFactoryTimeline = HelperFactory.getHelper().getRuntimeDataDao(Timeline.class);
+        try {
+            TableUtils.clearTable(helperFactoryTimeline.getConnectionSource(), Timeline.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

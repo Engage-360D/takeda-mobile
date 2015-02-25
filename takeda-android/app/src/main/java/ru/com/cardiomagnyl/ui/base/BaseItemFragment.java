@@ -92,16 +92,13 @@ public abstract class BaseItemFragment extends Fragment {
         imageViewBell.setEnabled(isBellEnabled);
         linearLayoutRightHolder.addView(imageViewBell);
 
-        if (isBellEnabled) {
-            imageViewBell.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO: add action on click
-                }
-            });
-        } else {
-            imageViewBell.setClickable(false);
-        }
+        imageViewBell.setEnabled(isBellEnabled);
+        imageViewBell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: add action on click
+            }
+        });
 
         ImageView imageViewAddPill = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
         imageViewAddPill.setImageResource(R.drawable.selector_button_add_pill);
@@ -109,23 +106,21 @@ public abstract class BaseItemFragment extends Fragment {
         imageViewAddPill.setEnabled(isAddPillEnabled);
         linearLayoutRightHolder.addView(imageViewAddPill);
 
-        if (isAddPillEnabled) {
-            imageViewAddPill.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-                        Fragment fragment = new AddPillFragment();
-                        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-                        slidingMenuActivity.putContentOnTop(fragment, true);
-                    }
+        imageViewAddPill.setEnabled(isAddPillEnabled);
+        imageViewAddPill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
+                    Fragment fragment = new AddPillFragment();
+                    SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+                    slidingMenuActivity.putContentOnTop(fragment, true);
                 }
-            });
-        } else {
-            imageViewAddPill.setClickable(false);
-        }
+            }
+        });
+
     }
 
-    protected void initTopBarDone(ViewGroup viewGroupTopBar, View.OnClickListener onClickListener) {
+    protected void initTopBarDone(ViewGroup viewGroupTopBar, View.OnClickListener onClickListener, boolean isDoneEnabled ) {
         LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
         linearLayoutRightHolder.removeAllViews();
 
@@ -136,11 +131,8 @@ public abstract class BaseItemFragment extends Fragment {
         layoutTopDone.setEnabled(isEnabled);
         linearLayoutRightHolder.addView(layoutTopDone);
 
-        if (isEnabled) {
-            layoutTopDone.setOnClickListener(onClickListener);
-        } else {
-            layoutTopDone.setClickable(false);
-        }
+        layoutTopDone.setEnabled(isDoneEnabled);
+        layoutTopDone.setOnClickListener(onClickListener);
     }
 
 }

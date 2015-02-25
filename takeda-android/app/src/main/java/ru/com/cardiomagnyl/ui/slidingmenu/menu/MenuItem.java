@@ -26,41 +26,41 @@ public enum MenuItem {
     item_publications(PublicationsFragment.class, R.string.menu_item_publications, true, true),
     item_reports(ReportsFragment.class, R.string.menu_item_reports, true, true);
 
-    private final Class mItemClass;
-    private final int mItemName;
-    private boolean mIsItemVisible;
-    private boolean mIsItemEnabled;
+    private final Class itemClass;
+    private final int itemName;
+    private boolean isItemVisible;
+    private boolean isItemEnabled;
 
     private enum ItemState {normal, selected, disabled, invisible}
 
     MenuItem(Class itemClass, int itemName, boolean isItemVisible, boolean isItemEnabled) {
-        this.mItemClass = itemClass;
-        this.mItemName = itemName;
-        this.mIsItemVisible = isItemVisible;
-        this.mIsItemEnabled = isItemEnabled;
+        this.itemClass = itemClass;
+        this.itemName = itemName;
+        this.isItemVisible = isItemVisible;
+        this.isItemEnabled = isItemEnabled;
     }
 
     public Class getItemClass() {
-        return this.mItemClass;
+        return this.itemClass;
     }
 
     public int getItemName() {
-        return this.mItemName;
+        return this.itemName;
     }
 
     public void setItemIsVisible(boolean isItemVisible) {
-        this.mIsItemVisible = isItemVisible;
+        this.isItemVisible = isItemVisible;
     }
 
     public boolean isItemVisible() {
-        return this.mIsItemVisible;
+        return this.isItemVisible;
     }
 
     public void setItemIsEnabled(boolean isItemEnabled) {
-        this.mIsItemEnabled = isItemEnabled;
+        this.isItemEnabled = isItemEnabled;
     }
 
     public boolean isItemEnabled() {
-        return this.mIsItemEnabled;
+        return this.isItemEnabled;
     }
 }

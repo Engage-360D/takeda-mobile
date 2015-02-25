@@ -15,13 +15,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/fragmentContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/textViewFooter"
-        android:layout_below="@id/textViewHeader"
-        android:orientation="vertical">
+        android:layout_below="@id/textViewHeader">
 
         <ListView
             android:id="@+id/listViewPills"
@@ -31,7 +30,7 @@
             android:layout_weight="1"
             android:divider="@null" />
 
-    </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <include
         android:id="@+id/textViewMessage"

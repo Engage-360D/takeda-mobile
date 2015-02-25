@@ -61,8 +61,8 @@ public class Timeline extends BaseModel {
      * @return The tasks
      */
     @JsonProperty("tasks")
-    public List<Task> getTasks() {
-        return new ArrayList<>(tasks);
+    public Collection<Task> getTasks() {
+        return tasks;
     }
 
     /**

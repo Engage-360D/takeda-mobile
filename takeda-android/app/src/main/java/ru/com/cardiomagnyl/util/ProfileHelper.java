@@ -21,6 +21,7 @@ import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.application.Constants;
+import ru.com.cardiomagnyl.model.base.BaseModelHelper;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.region.Region;
 import ru.com.cardiomagnyl.model.region.RegionDao;
@@ -34,10 +35,10 @@ import ru.com.cardiomagnyl.social.VkUser;
 import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
 import ru.com.cardiomagnyl.ui.start.CustomAuthorizationListener;
-import ru.com.cardiomagnyl.ui.start.CustomOnDateSetListener;
-import ru.com.cardiomagnyl.ui.start.RegionsSpinnerAdapter;
+import ru.com.cardiomagnyl.widget.CustomOnDateSetListener;
 import ru.com.cardiomagnyl.ui.start.RegistrationFragment;
 import ru.com.cardiomagnyl.ui.start.SignInWithSocialNetwork;
+import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 
 public final class ProfileHelper {
     private static final int[] mRequiredEditTextCommon = new int[]{
@@ -60,21 +61,21 @@ public final class ProfileHelper {
             R.id.editTextSpecializationInstitutionPhone
     };
 
-    public static void initRegistrationFragment(final View view, RegistrationFragment registrationFragment) {
-        intiRadioGroupDoctor(view);
-        initTextViewBirthDate(view);
-        initSpinnerRegion(view);
-        initSpinnerExperienceYears(view);
-        initSpinnerGraduationDate(view);
-        initSocials(view, registrationFragment);
+    public static void initRegistrationFragment(final View fragmentView, RegistrationFragment registrationFragment) {
+        intiRadioGroupDoctor(fragmentView);
+        initTextViewBirthDate(fragmentView);
+        initSpinnerRegion(fragmentView);
+        initSpinnerExperienceYears(fragmentView);
+        initSpinnerGraduationDate(fragmentView);
+        initSocials(fragmentView, registrationFragment);
     }
 
-    public static void initCabinetDataFargment(final View view, CabinetDataFragment cabinetDataFragment) {
-        initSpinnerExperienceYears(view);
-        initSpinnerGraduationDate(view);
+    public static void initCabinetDataFargment(final View fragmentView, CabinetDataFragment cabinetDataFragment) {
+        initSpinnerExperienceYears(fragmentView);
+        initSpinnerGraduationDate(fragmentView);
         // TODO: initSocials
-        // initSocials(view, registrationFragment);
-        fillFields(view);
+        // initSocials(fragmentView, registrationFragment);
+        fillFields(fragmentView);
     }
 
     private static void intiRadioGroupDoctor(final View view) {
@@ -102,8 +103,10 @@ public final class ProfileHelper {
 
     private static void initTextViewBirthDate(final View parentView) {
         final TextView textViewBirthDateValue = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
-        final CustomOnDateSetListener customOnDateSetListener = new CustomOnDateSetListener();
-        final Calendar calendar = Calendar.getInstance();
+
+        final Calendar calendar = Tools.resetCalendar(Calendar.getInstance());
+        final CustomOnDateSetListener customOnDateSetListener = new CustomOnDateSetListener(calendar);
+
         final DatePickerDialog dateDialog = new DatePickerDialog(
                 parentView.getContext(),
                 customOnDateSetListener,
@@ -152,14 +155,14 @@ public final class ProfileHelper {
     }
 
     private static void initSpinnerRegion(final View view) {
-        List<Region> regionsList = new ArrayList<>();
+        List<BaseModelHelper> regionsList = new ArrayList<>();
         regionsList.add(Region.createNoRegion(view.getContext()));
 
-        RegionsSpinnerAdapter regionsSpinnerAdapter = new RegionsSpinnerAdapter(view.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, regionsList);
-        regionsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(view.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, regionsList);
+        customSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         final Spinner spinnerRegion = (Spinner) view.findViewById(R.id.spinnerRegion);
-        spinnerRegion.setAdapter(regionsSpinnerAdapter);
+        spinnerRegion.setAdapter(customSpinnerAdapter);
         spinnerRegion.setSelection(0);
 
         RegionDao.getAll(
@@ -179,15 +182,15 @@ public final class ProfileHelper {
     }
 
     private static void initSpinnerRegionHelper(Spinner spinnerRegion, List<Region> regionsList) {
-        RegionsSpinnerAdapter regionsSpinnerAdapter =  (RegionsSpinnerAdapter)spinnerRegion.getAdapter();
+        CustomSpinnerAdapter customSpinnerAdapter = (CustomSpinnerAdapter) spinnerRegion.getAdapter();
 
-        regionsSpinnerAdapter.notifyDataSetInvalidated();
+        customSpinnerAdapter.notifyDataSetInvalidated();
         regionsList.add(Region.createNoRegion(spinnerRegion.getContext()));
-        regionsSpinnerAdapter.clear();
-        regionsSpinnerAdapter.addAll(regionsList);
-        spinnerRegion.setAdapter(regionsSpinnerAdapter);
-        spinnerRegion.setSelection(regionsSpinnerAdapter.getCount() - 1, true);
-        regionsSpinnerAdapter.notifyDataSetChanged();
+        customSpinnerAdapter.clear();
+        customSpinnerAdapter.addAll(regionsList);
+        spinnerRegion.setAdapter(customSpinnerAdapter);
+        spinnerRegion.setSelection(customSpinnerAdapter.getCount() - 1, true);
+        customSpinnerAdapter.notifyDataSetChanged();
     }
 
     private static void initSpinnerExperienceYears(final View spinner) {

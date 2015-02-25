@@ -25,7 +25,7 @@ import ru.com.cardiomagnyl.model.pill.Pill;
         "tillDate",
         "links"
 })
-public class PillProxy {
+public class PillProxy extends BaseModel {
 
     @JsonProperty("id")
     private String id;
@@ -189,7 +189,7 @@ public class PillProxy {
     }
 
     // FIXME: improve performance!!!
-    private Pill extractPill() {
+    public Pill extractPill() {
         ObjectNode objectNode = new ObjectMapper().valueToTree(this);
         unPackLinks(objectNode);
         Pill pill = (Pill) BaseModel.stringToObject(objectNode.toString(), new TypeReference<Pill>() {

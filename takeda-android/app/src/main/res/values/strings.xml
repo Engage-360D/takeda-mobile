@@ -50,6 +50,7 @@
     <string name="complete_required_fields">Пожалуйста, заполните необходимые поля</string>
     <string name="press_back_twice">Для выхода из приложения нажмите \'Back\' дважды</string>
     <string name="information">Информация</string>
+    <string name="not_specified">Не указано</string>
 
     <!-- ====== -->
     <!-- errors -->
@@ -136,7 +137,6 @@
     <string name="last_name">Фамилия</string>
     <string name="registration_email">email</string>
     <string name="region">Регион</string>
-    <string name="no_region">Не указан</string>
     <string name="birth_date">Дата рождения</string>
     <string name="select_birth_date">Дата рождения</string>
     <string name="create_password">Создание пароля</string>
@@ -177,24 +177,24 @@
     <string name="consolidated_report">Сводный отчет</string>
     <string name="go_to_website">Переход на сайт</string>
 
-    <!-- ================================= -->
-    <!-- fragment_taking_pills -->
-    <!-- ================================= -->
+    <!-- =============== -->
+    <!-- fragments_pills -->
+    <!-- =============== -->
     <string name="pills">Таблетки</string>
     <string name="visit_doctor">Сходить к врачу</string>
     <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
-
-    <!-- ================== -->
-    <!-- fragment_add_pills -->
-    <!-- ================== -->
     <string name="add">Добавить</string>
-    <string name="pills_name">Название</string>
-    <string name="number_of_pills">Количество</string>
-    <string name="reception_frequency">Частота приема</string>
-    <string name="reception_hours">Время приема</string>
-    <string name="start_date_pills">Дата начала</string>
-    <string name="end_date_pills">Дата завершения</string>
-    <string name="condition">Состояние</string>
+    <string name="pill_name">Название</string>
+    <string name="pill_number">Количество</string>
+    <string name="pill_frequency">Частота приема</string>
+    <string name="pill_hours">Время приема</string>
+    <string name="pill_start_date">Дата начала</string>
+    <string name="pill_end_date">Дата завершения</string>
+    <string name="pill_condition">Состояние</string>
+    <string name="pill_created">Создано успешно</string>
+    <string name="daily">Ежедневно</string>
+    <string name="every_2_days">Раз в два дня</string>
+    <string name="delete_pill">Удалить таблетку</string>
 
     <!-- ========================= -->
     <!-- fragment_cabinet_incident -->
@@ -212,6 +212,7 @@
     <string name="enter_weight">Внесите вес</string>
     <string name="enter_pressure">Внесите давление</string>
     <string name="enter_cholesterol">Внесите холестерин</string>
+    <string name="refresh_pills">Пожалуйста, обновите список принимаемых таблеток</string>
 
     <!-- === -->
     <!-- ask -->

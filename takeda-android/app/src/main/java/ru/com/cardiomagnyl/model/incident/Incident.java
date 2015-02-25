@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import ru.com.cardiomagnyl.model.base.BaseModel;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "name",
         "comment"
 })
-public class Incident {
+public class Incident extends BaseModel {
     public enum Name {infarction, apoplexy, shunting}
 
     @JsonProperty("name")

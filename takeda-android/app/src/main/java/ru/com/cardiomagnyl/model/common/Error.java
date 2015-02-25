@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import ru.com.cardiomagnyl.model.base.BaseModel;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "code",
         "message"
 })
-public class Error {
+public class Error extends BaseModel {
 
     @JsonProperty("code")
     private int code;

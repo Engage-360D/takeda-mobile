@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
@@ -42,8 +43,8 @@ public class TaskDao extends BaseDaoImpl<Task, Integer> {
 
         CallbackOne<Task> onStoreIntoDatabase = new CallbackOne<Task>() {
             @Override
-            public void execute(Task task) {
-                storeIntoDatabase(task);
+            public void execute(Task newTask) {
+                storeIntoDatabase(task, newTask);
             }
         };
 
@@ -67,10 +68,21 @@ public class TaskDao extends BaseDaoImpl<Task, Integer> {
                 );
     }
 
-    public static void storeIntoDatabase(final Task task) {
+    public static void storeIntoDatabase(final Task oldTask, final Task newtask) {
         final RuntimeExceptionDao helperFactoryTask = HelperFactory.getHelper().getRuntimeDataDao(Task.class);
 
-        helperFactoryTask.createOrUpdate(task);
+        newtask.setTimeline(oldTask.getTimeline());
+
+        helperFactoryTask.createOrUpdate(newtask);
+    }
+
+    public static void clearTable(){
+        RuntimeExceptionDao helperFactoryTask = HelperFactory.getHelper().getRuntimeDataDao(Task.class);
+        try {
+            TableUtils.clearTable(helperFactoryTask.getConnectionSource(), Task.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

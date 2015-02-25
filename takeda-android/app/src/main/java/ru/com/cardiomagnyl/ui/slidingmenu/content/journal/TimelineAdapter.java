@@ -83,7 +83,6 @@ public class TimelineAdapter extends BaseAdapter {
             taskView.setTag(null);
             taskView.setEnabled(false);
             taskView.setClickable(false);
-
         }
 
         return taskView;

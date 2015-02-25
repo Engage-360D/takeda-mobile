@@ -8,6 +8,7 @@ public class Constants {
 
     // bundle parcelable
     public static String TEST_PAGE = "test_page";
+    public static String PILL = "pill";
     // bundle string
     public static String PAGE_TITLE = "title";
     // bundle boolean
