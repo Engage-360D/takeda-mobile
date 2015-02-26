@@ -1,5 +1,8 @@
 package ru.com.cardiomagnyl.model.timeline;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -24,7 +27,7 @@ import ru.com.cardiomagnyl.model.task.Task;
         "tasks"
 })
 @DatabaseTable(tableName = "timeline")
-public class Timeline extends BaseModel {
+public class Timeline extends BaseModel implements Parcelable {
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     private String id;
@@ -40,6 +43,9 @@ public class Timeline extends BaseModel {
 
     @DatabaseField(dataType = DataType.STRING, columnName = "user")
     private String userId;
+
+    public Timeline() {
+    }
 
     /**
      * @return The date
@@ -99,4 +105,41 @@ public class Timeline extends BaseModel {
         return true;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    // implements Parcelable
+    ///////////////////////////////////////////////////////////////////////
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.date);
+        dest.writeList(new ArrayList<Task>(this.tasks));
+        dest.writeString(this.userId);
+    }
+
+    private Timeline(Parcel in) {
+        this.id = in.readString();
+        this.date = in.readString();
+        List<Task> tasks = new ArrayList<Task>();
+        in.readList(tasks, getClass().getClassLoader());
+        this.setTasks(tasks);
+        this.userId = in.readString();
+    }
+
+    public static final Parcelable.Creator<Timeline> CREATOR = new Parcelable.Creator<Timeline>() {
+        public Timeline createFromParcel(Parcel source) {
+            return new Timeline(source);
+        }
+
+        public Timeline[] newArray(int size) {
+            return new Timeline[size];
+        }
+    };
+
+    ///////////////////////////////////////////////////////////////////////
 }

@@ -60,7 +60,7 @@ public class TimelineAdapter extends BaseAdapter {
         return view;
     }
 
-    private void initTasksHolder(ViewGroup viewGroup, Timeline timeline) {
+    public void initTasksHolder(ViewGroup viewGroup, Timeline timeline) {
         viewGroup.removeAllViews();
         for (Task task : timeline.getTasks()) {
             View taskView = getTaskView(task);
@@ -103,7 +103,8 @@ public class TimelineAdapter extends BaseAdapter {
                 break;
             case pill:
                 taskNameText = R.string.take_pills;
-                taskSubnameText = mPpillsMap.get(task.getPill()).getName();
+                boolean pillIsOk = mPpillsMap != null && mPpillsMap.get(task.getPill()) != null;
+                taskSubnameText = pillIsOk ? mPpillsMap.get(task.getPill()).getName() : parentView.getContext().getString(R.string.refresh_pills);
                 break;
             case smoking:
                 taskNameText = R.string.still_smoke;
@@ -151,7 +152,8 @@ public class TimelineAdapter extends BaseAdapter {
                 break;
             case pill:
                 taskNameText = R.string.take_pills;
-                taskSubnameText = mPpillsMap.get(task.getPill()).getName();
+                boolean pillIsOk = mPpillsMap != null && mPpillsMap.get(task.getPill()) != null;
+                taskSubnameText = pillIsOk ? mPpillsMap.get(task.getPill()).getName() : parentView.getContext().getString(R.string.refresh_pills);
                 taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
                 break;
             case smoking:

@@ -215,7 +215,7 @@
     <string name="enter_weight">Внесите вес</string>
     <string name="enter_pressure">Внесите давление</string>
     <string name="enter_cholesterol">Внесите холестерин</string>
-    <string name="refresh_pills">Пожалуйста, обновите список принимаемых таблеток</string>
+    <string name="refresh_pills">Пожалуйста, обновите список таблеток</string>
 
     <!-- === -->
     <!-- ask -->
