@@ -122,7 +122,24 @@ public class Tools {
         return calendar;
     }
 
-    public static Calendar calendarFromShort(String shortDate) {
+    public static Calendar calendarFromMediumTime(String mediumTime) {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+
+        try {
+            date = dateFormat.parse(mediumTime);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        calendar.setTime(date);
+
+        return calendar;
+    }
+
+    public static Calendar calendarFromShortDate(String shortDate) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         Calendar calendar = Calendar.getInstance();
@@ -130,6 +147,23 @@ public class Tools {
 
         try {
             date = dateFormat.parse(shortDate);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        calendar.setTime(date);
+
+        return calendar;
+    }
+
+    public static Calendar calendarFromLongDate(String longDate) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+
+        try {
+            date = dateFormat.parse(longDate);
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }

@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import ru.com.cardiomagnyl.app.R;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.AddPillFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.PillFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 
 public abstract class BaseItemFragment extends Fragment {
@@ -111,13 +111,12 @@ public abstract class BaseItemFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-                    Fragment fragment = new AddPillFragment();
+                    Fragment fragment = new PillFragment();
                     SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
                     slidingMenuActivity.putContentOnTop(fragment, true);
                 }
             }
         });
-
     }
 
     protected void initTopBarDone(ViewGroup viewGroupTopBar, View.OnClickListener onClickListener, boolean isDoneEnabled ) {

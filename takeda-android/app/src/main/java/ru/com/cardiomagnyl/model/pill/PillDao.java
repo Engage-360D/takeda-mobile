@@ -11,6 +11,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import ru.com.cardiomagnyl.api.DataLoadDispatcher;
@@ -20,9 +21,9 @@ import ru.com.cardiomagnyl.api.db.DbRequestHolder;
 import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
+import ru.com.cardiomagnyl.model.common.Dummy;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill_proxy.PillProxy;
-import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.task.TaskDao;
 import ru.com.cardiomagnyl.model.timeline.TimelineDao;
 import ru.com.cardiomagnyl.model.token.Token;
@@ -118,6 +119,35 @@ public class PillDao extends BaseDaoImpl<Pill, Integer> {
                               final Token token,
                               final CallbackOne<Pill> onSuccess,
                               final CallbackOne<Response> onFailure) {
+        createAndUpdateHelper(
+                pill,
+                onSuccess,
+                onFailure,
+                Request.Method.POST,
+                String.format(Url.ACCOUNT_PILLS, token.getTokenId()),
+                Url.POST_HEADERS);
+    }
+
+    public static void update(final Pill pill,
+                              final Token token,
+                              final CallbackOne<Pill> onSuccess,
+                              final CallbackOne<Response> onFailure) {
+        createAndUpdateHelper(
+                pill,
+                onSuccess,
+                onFailure,
+                Request.Method.PUT,
+                String.format(Url.ACCOUNT_PILLS_ID, pill.getId(), token.getTokenId()),
+                Url.PUT_HEADERS);
+    }
+
+    private static void createAndUpdateHelper(final Pill pill,
+                                              final CallbackOne<Pill> onSuccess,
+                                              final CallbackOne<Response> onFailure,
+                                              final int method,
+                                              final String url,
+                                              final HashMap<String, String> headers
+    ) {
         TypeReference typeReference = new TypeReference<PillProxy>() {
         };
 
@@ -136,14 +166,45 @@ public class PillDao extends BaseDaoImpl<Pill, Integer> {
         };
 
         ObjectNode objectNode = new ObjectMapper().valueToTree(pill);
+        if (method == Request.Method.PUT) Pill.cleanForUpdate(objectNode);
         String wrappedPill = DataWrapper.wrap(objectNode).toString();
 
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
-                        .Builder(Request.Method.POST, String.format(Url.ACCOUNT_PILLS, token.getTokenId()), typeReference)
-                        .addHeaders(Url.POST_HEADERS)
+                        .Builder(method, url, typeReference)
+                        .addHeaders(headers)
                         .setBody(wrappedPill)
                         .setAfterExtracted(afterExtracted)
+                        .setOnStoreIntoDatabase(onStoreIntoDatabase)
+                        .create();
+
+        DataLoadDispatcher
+                .getInstance()
+                .receive(
+                        httpRequestHolder,
+                        onSuccess,
+                        onFailure
+                );
+    }
+
+    public static void delete(final Pill pill,
+                              final Token token,
+                              final CallbackOne<Dummy> onSuccess,
+                              final CallbackOne<Response> onFailure) {
+        TypeReference typeReference = new TypeReference<Dummy>() {
+        };
+
+        CallbackOne<Dummy> onStoreIntoDatabase = new CallbackOne<Dummy>() {
+            @Override
+            public void execute(Dummy dummy) {
+                deleteFromDatabase(pill);
+            }
+        };
+
+        HttpRequestHolder httpRequestHolder =
+                new HttpRequestHolder
+                        .Builder(Request.Method.DELETE, String.format(Url.ACCOUNT_PILLS, pill.getId(), token.getTokenId()), typeReference)
+                        .addHeaders(Url.DELETE_HEADERS)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
@@ -181,7 +242,18 @@ public class PillDao extends BaseDaoImpl<Pill, Integer> {
         }
     }
 
-    public static void clearTable(){
+    public static void deleteFromDatabase(final Pill pill) {
+        if (pill != null) {
+            // must to clean tables "task" and "timeline"
+            TaskDao.clearTable();
+            TimelineDao.clearTable();
+
+            RuntimeExceptionDao helperFactoryPill = HelperFactory.getHelper().getRuntimeDataDao(Pill.class);
+            helperFactoryPill.delete(pill);
+        }
+    }
+
+    public static void clearTable() {
         RuntimeExceptionDao helperFactoryPill = HelperFactory.getHelper().getRuntimeDataDao(Pill.class);
         try {
             TableUtils.clearTable(helperFactoryPill.getConnectionSource(), Pill.class);

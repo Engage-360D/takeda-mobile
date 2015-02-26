@@ -6,10 +6,13 @@ import android.os.Parcelable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -205,6 +208,17 @@ public class Pill extends BaseModel implements Parcelable {
             enumFrequency = PillFrequency.valueOf(repeat.toLowerCase());
         } catch (Exception ex) { /*do nothing */ }
         return enumFrequency;
+    }
+
+    public static void cleanForUpdate(ObjectNode objectNodeUncleaned) {
+        JsonNode jsonNodeRepeat = objectNodeUncleaned.get("repeat");
+        String repeat = jsonNodeRepeat.asText().toUpperCase();
+
+        objectNodeUncleaned.remove(Arrays
+                .asList("id",
+                        "repeat",
+                        "links"));
+        objectNodeUncleaned.put("repeat", repeat);
     }
 
     ///////////////////////////////////////////////////////////////////////

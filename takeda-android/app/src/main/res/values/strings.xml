@@ -177,13 +177,14 @@
     <string name="consolidated_report">Сводный отчет</string>
     <string name="go_to_website">Переход на сайт</string>
 
-    <!-- =============== -->
-    <!-- fragments_pills -->
-    <!-- =============== -->
+    <!-- ============= -->
+    <!-- fragment_pill -->
+    <!-- ============= -->
     <string name="pills">Таблетки</string>
     <string name="visit_doctor">Сходить к врачу</string>
     <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
     <string name="add">Добавить</string>
+    <string name="detail">Подробно</string>
     <string name="pill_name">Название</string>
     <string name="pill_number">Количество</string>
     <string name="pill_frequency">Частота приема</string>
@@ -192,9 +193,11 @@
     <string name="pill_end_date">Дата завершения</string>
     <string name="pill_condition">Состояние</string>
     <string name="pill_created">Создано успешно</string>
+    <string name="pill_updated">Обновлено успешно</string>
+    <string name="pill_deleted">Удалено успешно</string>
     <string name="daily">Ежедневно</string>
     <string name="every_2_days">Раз в два дня</string>
-    <string name="delete_pill">Удалить таблетку</string>
+    <string name="delete_pill">Удалить %s?</string>
 
     <!-- ========================= -->
     <!-- fragment_cabinet_incident -->
@@ -345,6 +348,8 @@
     <string name="saved_successfully">Сохранено успешно</string>
     <string name="cancel">Отменить</string>
     <string name="close">Закрыть</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
     <string name="take_pills">Принять таблетки</string>
     <string name="data_not_found">Данные не найдены...</string>
 
