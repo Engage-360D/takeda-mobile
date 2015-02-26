@@ -52,7 +52,7 @@ static rootMenuController *sharedInst = NULL;
 
 -(BOOL)checkToNeedTest{
     NSDate *lastResultDate = [GlobalData lastResultDate];
-    if ([[[NSDate date] dateBySubtractingMonths:1] isLaterThanDate:lastResultDate]&&![User checkForRole:tDoctor]){
+    if (([[[NSDate date] dateBySubtractingMonths:1] isLaterThanDate:lastResultDate]||lastResultDate == nil)&&![User checkForRole:tDoctor]){
         // надо тест проходить
         // [self showMessage:@"Вам необходимо пройти тест" title:@""];
         return YES;
@@ -62,8 +62,10 @@ static rootMenuController *sharedInst = NULL;
 
 -(id)currentMenuController{
     if ([self checkToNeedTest]){
+        [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
         return [self riskAnalysis_vc];
     } else {
+        [GlobalSettings sharedInstance].stateMenu = State_MainPage;
         return [self mainPage_vc];
     }
 }

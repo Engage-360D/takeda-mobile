@@ -136,7 +136,13 @@
 
 -(void)showData{
     
-    if (results_data[@"recommendations"][@"fullScreenAlert"]==nil){
+    if (results_data[@"recommendations"][@"fullScreenAlert"]!=nil&&[results_data[@"recommendations"][@"fullScreenAlert"]isKindOfClass:[NSDictionary class]]){
+        [self showScoreLineRed];
+        [self showMainInfoRed];
+        self.tableView.hidden = YES;
+        self.scrollViewRed.hidden = NO;
+        self.containerAll.backgroundColor = self.scrollViewRed.backgroundColor;
+    } else {
         [self showScoreLine];
         [self showMainInfo];
         [self.tableView reloadData];
@@ -144,12 +150,7 @@
         self.tableView.hidden = NO;
         self.scrollViewRed.hidden = YES;
         self.containerAll.backgroundColor = self.headerView.backgroundColor;
-    } else {
-        [self showScoreLineRed];
-        [self showMainInfoRed];
-        self.tableView.hidden = YES;
-        self.scrollViewRed.hidden = NO;
-        self.containerAll.backgroundColor = self.scrollViewRed.backgroundColor;
+
     }
     
 }

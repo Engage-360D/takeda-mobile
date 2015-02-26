@@ -31,7 +31,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    UIBarButtonItem *mS = [self personalButton];
+    UIBarButtonItem *mS = [self highlightedPersonalButton];
     mS.enabled = NO;
     self.navigationItem.rightBarButtonItems = @[mS,[self alarmButton]];
     

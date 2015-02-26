@@ -13,6 +13,8 @@
 #define userSettingsFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"user"]
 #define cashFile(url) [NSString stringWithFormat:@"%@/%@", [Path CasheFolder],url]
 #define userPills [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"pills"]
+#define userTimelineTasksFile [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"timelineTasks"]
+#define userTimelineFile [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"timeline"]
 
 
 @implementation GlobalData
@@ -51,6 +53,10 @@ static GlobalData *objectInstance = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:resultAnalysesFile error:nil];
     [fileManager removeItemAtPath:userSettingsFile error:nil];
+    [fileManager removeItemAtPath:userTimelineTasksFile error:nil];
+    [fileManager removeItemAtPath:userTimelineFile error:nil];
+    [fileManager removeItemAtPath:userPills error:nil];
+
     [self removeFilesFromDir:[Path JSONFolder]];
     [self removeFilesFromDir:[Path CasheFolder]];
 
@@ -215,6 +221,22 @@ static GlobalData *objectInstance = nil;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:res];
     [data writeToFile:fileName atomically:YES];
 
+}
+
++(void)casheTimelineTasks:(NSMutableDictionary*)tasks{
+    [tasks saveTofile:userTimelineTasksFile];
+}
+
++(NSMutableDictionary*)cashedTimelineTasks{
+    return [NSMutableDictionary readFromFile:userTimelineTasksFile];
+}
+
++(void)casheTimeline:(NSMutableArray*)tasks{
+    [tasks saveTofile:userTimelineFile];
+}
+
++(NSMutableArray*)cashedTimeline{
+    return [NSMutableArray readFromFile:userTimelineFile];
 }
 
 @end

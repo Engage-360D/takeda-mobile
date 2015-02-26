@@ -39,8 +39,6 @@
     tL.text = @"Для операции необходим пароль";
     
     [_deleteAllResults addSubview:tL];
-    _deleteAllResults.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
-    [_deleteAllResults setTitleColor:RGB(54, 65, 71) forState:UIControlStateNormal];
     _logoutBtn.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:17.0];
     [_logoutBtn setTitleColor:RGB(54, 65, 71) forState:UIControlStateNormal];
     _logoutBtn.contentEdgeInsets = UIEdgeInsetsMake(-3, 0, 0, 0);
@@ -54,6 +52,13 @@
     for (UILabel *lb in self.blockLabels){
         lb.font = [UIFont fontWithName:@"SegoeWP" size:14];
     }
+    
+    for (UIButton *b in self.blockBtns){
+       b.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
+        [b setTitleColor:RGB(54, 65, 71) forState:UIControlStateNormal];
+    }
+
+    
     [self drawBorders:self.bg_block];
 
 }
@@ -76,6 +81,12 @@
     [appDelegate openAuthPage];
 
 }
+
+-(IBAction)goToDrugs:(id)sender{
+    _drugsList = [DrugsList new];
+    [self.navigationController pushViewController:_drugsList animated:YES];
+}
+
 
 -(IBAction)delAllResutsAction:(id)sender{
     [self showMessageWithTextInput:@"" msg:@"Введите пароль" title:@"Удаление всех отчетов" btns:@[@"Отменить",@"Удалить"] params:@{@"secured":@YES} result:^(int index, NSString *text){

@@ -419,7 +419,11 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
     
     if ([parsedDictionary objectForKey:@"response"])
     {
-        parsedDictionary = [array objectAtIndex:0];
+        if (array.count>0){
+            parsedDictionary = [array objectAtIndex:0];
+        } else {
+            return;
+        }
         parsedDictionary = [NSMutableDictionary dictionaryWithDictionary:parsedDictionary];
         
         if ([self.delegate respondsToSelector:@selector(vkontakteDidFinishGettinCountry:)])

@@ -21,6 +21,7 @@ typedef enum {
 @property (nonatomic,retain) IBOutletCollection(UIButton) NSArray *incBtns;
 @property (nonatomic,retain) IBOutletCollection(PLTextField) NSArray *textFields;
 @property (nonatomic,retain) IBOutletCollection(UILabel) NSArray *labels;
+@property (nonatomic,retain) IBOutletCollection(UIImageView) NSArray *arrows;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet PLTextField *drugName;
@@ -33,7 +34,7 @@ typedef enum {
 @property (nonatomic) ActionType actionType;
 
 @property (nonatomic, strong) NSMutableDictionary *drug;
-
-
+@property (nonatomic) BOOL readOnly;
++(NSArray*)expArray;
 
 @end

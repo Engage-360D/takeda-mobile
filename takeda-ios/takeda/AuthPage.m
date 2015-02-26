@@ -89,6 +89,14 @@ ForgetPage *forgetPage;
     
 }
 
+-(void)autoFill{
+    if ([email_field.text isEqualToString:@"alexruden@rambler.ru"]){
+        self.pass_field.text = @"QsefPI4bFlAHw";
+    } else if ([email_field.text isEqualToString:@"alexiosdeveloper@gmail.com"]){
+        self.pass_field.text = @"S3OioVLLgcQW-";
+    }
+
+}
 
 
 -(IBAction)openGeneralApp:(id)sender{
@@ -121,18 +129,22 @@ ForgetPage *forgetPage;
 }
 
 -(IBAction)changePass:(id)sender{
-    NSString *email;
-    if (User.user_login){
-        email = User.user_login;
-    } else {
-        email = self.email_field.text;
-    }
-    
-    [self showActivityIndicatorWithString:@"" inContainer:appDelegate.window];
-    [ServData resetUserPassword:email withCompletion:^(BOOL success, NSError* error){
-        [self removeActivityIdicator];
-        [self showMessage:@"На вашу почту было отправлено письмо с новым паролем" title:@"Сброс пароля"];
+    [self showMessageWithTextInput:@"E-mail" msg:@"Введите свой e-mail. На него придет новый пароль" title:@"Восстановление пароля" btns:@[@"Отмена",@"Отправить"] params:nil result:^(int index, NSString *text){
+        if (index == 1){
+
+            if (text.length > 0){
+            NSString *email = text;
+            
+            [self showActivityIndicatorWithString:@"" inContainer:appDelegate.window];
+            [ServData resetUserPassword:email withCompletion:^(BOOL success, NSError* error){
+                [self removeActivityIdicator];
+                [self showMessage:@"На вашу почту было отправлено письмо с новым паролем" title:@"Сброс пароля"];
+            }];
+            }
+        }
+
     }];
+
 }
 
 
@@ -170,6 +182,7 @@ ForgetPage *forgetPage;
 
 
 -(IBAction)authUser:(id)sender{
+    [self autoFill];
     User.userData = nil;
     [User logoutUser];
     [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {

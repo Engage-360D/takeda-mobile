@@ -37,4 +37,11 @@
                                 expDate:(NSDate *)expDate;
 - (void)authorizationDidFailedWithError:(NSError *)error;
 - (void)authorizationDidCanceled;
+
+//@property (nonatomic, strong) NSString *accessToken;
+//@property (nonatomic, strong) NSDate *expirationDate;
+//@property (nonatomic, strong) NSString *userId;
+
+
+
 @end

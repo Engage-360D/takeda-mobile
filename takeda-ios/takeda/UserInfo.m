@@ -82,18 +82,14 @@
     
     usedSocials = [NSMutableArray new];
     
-//    User.userData[@"vkontakteId"]= @"1";
-//    User.userData[@"facebookId"]= @"1";
-//    User.userData[@"odnoklassnikiId"]= @"1";
-    
-    if (User.userData[@"vkontakteId"]){
+    if (User.userData[@"vkontakteId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"vkontakteId"]] length]>0){
         [usedSocials addObject:@{@"id":User.userData[@"vkontakteId"],@"type":[NSNumber numberWithInt:sVK]}];
     }
-    if (User.userData[@"facebookId"]){
+    if (User.userData[@"facebookId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"facebookId"]] length]){
         [usedSocials addObject:@{@"id":User.userData[@"facebookId"],@"type":[NSNumber numberWithInt:sFB]}];
     }
     
-    if (User.userData[@"odnoklassnikiId"]){
+    if (User.userData[@"odnoklassnikiId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"odnoklassnikiId"]] length]){
         [usedSocials addObject:@{@"id":User.userData[@"odnoklassnikiId"],@"type":[NSNumber numberWithInt:sOK]}];
     }
     
@@ -122,7 +118,8 @@
     NSString *instPhone = self.phone_field.text;
     NSString *specialization = self.spec_field.text;
 
-    NSDictionary *params = @{          @"email": email,
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:
+                                    @{ @"email": email,
                                        @"firstname": name,
                                        @"lastname" : lastName,
                                        @"birthday":[Global strDateTime: _birthdayDate],
@@ -131,10 +128,20 @@
                                        @"specializationInstitutionAddress" : instAddress.length>0?instAddress:[NSNull null],
                                        @"specializationInstitutionName" : instName.length>0?instName:[NSNull null],
                                        @"specializationInstitutionPhone" : instPhone.length>0?instPhone:[NSNull null],
-                                       @"specializationName" : specialization.length>0?specialization:[NSNull null]
+                                       @"specializationName" : specialization.length>0?specialization:[NSNull null],
                                     //   @"isSubscribed" : [NSNumber numberWithBool:_receiveSpam],
-                                    //   @"links": @{@"region":[NSString stringWithFormat:@"%i", _region]}
-                                       };
+                                       @"links": @{@"region":[NSString stringWithFormat:@"%i", _region]}
+                                       }];
+    if (User.userData[@"vkontakteId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"vkontakteId"]] length]>0){
+        [params setObject:User.userData[@"vkontakteId"] forKey:@"vkontakteId"];
+    }
+    if (User.userData[@"facebookId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"facebookId"]] length]){
+        [params setObject:User.userData[@"facebookId"] forKey:@"facebookId"];
+    }
+    if (User.userData[@"odnoklassnikiId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"odnoklassnikiId"]] length]){
+        [params setObject:User.userData[@"odnoklassnikiId"] forKey:@"odnoklassnikiId"];
+    }
+
     [ServData updateUser:User.user_id withData:params completion:^(BOOL result, NSError *error, NSString* textError){
         if (result){
             [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
@@ -272,15 +279,15 @@
     
     switch (socServ) {
         case sVK:{
-            img = [UIImage imageNamed:@"vk_logo"];
+            img = [UIImage imageNamed:@"vk_logo_dark"];
             break;
         }
         case sFB:{
-            img = [UIImage imageNamed:@"fb_logo"];
+            img = [UIImage imageNamed:@"fb_logo_dark"];
             break;
         }
         case sOK:{
-            img = [UIImage imageNamed:@"ok_logo"];
+            img = [UIImage imageNamed:@"ok_logo_dark"];
             break;
         }
     }
@@ -290,8 +297,73 @@
     return btn;
 }
 
+-(NSString*)nameSocial:(SocialServices)socType{
+    switch (socType) {
+            
+        case sVK:{
+            return @"ВКонтакте";
+            break;
+        }
+        case sFB:{
+            return @"Фейсбук";
+            break;
+        }
+        case sOK:{
+            return @"Одноклассники";
+            break;
+        }
+    }
+
+}
+
 -(IBAction)spamSwitch:(id)sender{
     self.receiveSpam = !self.receiveSpam;
+}
+
+-(IBAction)addedSocialAction:(UIButton*)sender{
+    SocialServices socType = sender.tag;
+    
+    [self showMessage:@"Выберите действие" title:[self nameSocial:socType] btns:@[@"Отмена",@"Удалить"] result:^(int result){
+        NSString *socKey;
+        
+        switch (socType) {
+                
+            case sVK:{
+                socKey = @"vkontakteId";
+                break;
+            }
+            case sFB:{
+                socKey = @"facebookId";
+                break;
+            }
+            case sOK:{
+                socKey = @"odnoklassnikiId";
+                break;
+            }
+        }
+
+        
+        switch (result) {
+                
+            case 0:{
+
+                break;
+            }
+            case 1:{
+                [User.userData setObject:@"" forKey:socKey];
+                // удалить соцсеть
+                
+                [self showInfo];
+                break;
+            }
+            case 2:{
+                
+                break;
+            }
+        }
+    }];
+    
+
 }
 
 @end

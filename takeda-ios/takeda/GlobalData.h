@@ -37,6 +37,10 @@
 +(NSMutableDictionary*)pillsDict;
 +(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion;
 +(void)clearFiles;
++(void)casheTimelineTasks:(NSMutableDictionary*)tasks;
++(NSMutableDictionary*)cashedTimelineTasks;
++(void)casheTimeline:(NSMutableArray*)tasks;
++(NSMutableArray*)cashedTimeline;
 
 +(id)cashedRequest:(NSString*)url;
 +(void)casheRequest:(id)res fromUrl:(NSString*)url;

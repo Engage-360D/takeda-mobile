@@ -15,4 +15,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *bottomText;
 @property (nonatomic, strong) IBOutlet UIButton *goToDoctorBtn;
 @property (nonatomic, strong) AddPills *addPills;
+
 @end
