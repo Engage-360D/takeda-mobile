@@ -49,17 +49,27 @@ typedef NSUInteger MenuItem;
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     [self initData];
-    [self showInfo];
-    [self.tableView reloadData];
+    [self showData];
 }
 
 -(void)setupInterface{
     self.tableView.backgroundColor = RGB(243, 243, 243);
+    self.medSearchBtnRed.layer.borderColor = RGB(53, 65, 71).CGColor;
+    self.medSearchBtnRed.layer.borderWidth = 1.0f;
+    self.medSearchBtnRed.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14];
+    self.medSearchBtnRed.clipsToBounds = YES;
+    self.medSearchBtnRed.layer.cornerRadius = 5.0f;
+    
+    self.mainRecomendationRed.textColor = [UIColor whiteColor];
+    self.mainRecomendationRed.font = [UIFont fontWithName:@"SegoeUI-Light" size:15];
+    
+    self.scoreNoteTextRed.font = [UIFont fontWithName:@"SegoeUI-Light" size:14];
+    self.scoreNoteTextRed.textColor = [UIColor whiteColor];
+    
     _percentLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:50];
     _indexCaptionLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:12];
     _datePeriod.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
     _todayLabel.font = [UIFont fontWithName:@"SegoeWP" size:14];
-    
 }
 
 -(void)initData{
@@ -69,7 +79,8 @@ typedef NSUInteger MenuItem;
     }
 }
 
--(void)showInfo{
+-(void)showNormInfo{
+    
     self.percentLabel.text = [NSString stringWithFormat:@"%.f%@",[results_data[@"score"] floatValue],@"%"];
     NSDate *fromDate = [Global parseDateTime:results_data[@"createdAt"]];
     if (!fromDate) fromDate = [[NSDate date] dateBySubtractingMonths:1];
@@ -78,6 +89,20 @@ typedef NSUInteger MenuItem;
     self.datePeriod.text = [NSString stringWithFormat:@"%@ - %@",[fromDate stringWithFormat:@"dd MMMM"], [nowDate stringWithFormat:@"dd MMMM"]];
     self.todayLabel.text = [NSString stringWithFormat:@"Сегодня (%@)",[[NSDate date] stringWithFormat:@"EEEE"]];
 }
+
+-(void)showData{
+    if (results_data[@"recommendations"][@"fullScreenAlert"]!=nil&&[results_data[@"recommendations"][@"fullScreenAlert"]isKindOfClass:[NSDictionary class]]){
+        [self showMainInfoRed];
+        self.tableView.hidden = YES;
+        self.scrollViewRed.hidden = NO;
+    } else {
+        [self showNormInfo];
+        [self.tableView reloadData];
+        self.tableView.hidden = NO;
+        self.scrollViewRed.hidden = YES;
+    }
+}
+
 
 #pragma mark - Table view data source
 
@@ -174,6 +199,43 @@ typedef NSUInteger MenuItem;
     
     [self.tableView reloadData];
 }
+
+#pragma mark RED -
+-(void)showMainInfoRed{
+    
+    self.stateImageRed.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"fullScreenAlert"][@"state"]]];
+    
+    if ([results_data[@"recommendations"][@"mainRecommendation"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"mainRecommendation"][@"text"] length]>0){
+        self.mainRecomendationRed.text = results_data[@"recommendations"][@"mainRecommendation"][@"text"];
+    } else {
+        self.mainRecomendationRed.text = @"";
+    }
+    
+    //    self.mainRecomendationRed.text = @"";
+    
+    if ([results_data[@"recommendations"][@"fullScreenAlert"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"fullScreenAlert"][@"text"] length]>0){
+        self.scoreNoteTextRed.text = results_data[@"recommendations"][@"fullScreenAlert"][@"text"];
+    } else {
+        self.scoreNoteTextRed.text = @"";
+    }
+    
+    self.medSearchBtnRed.hidden = ![results_data[@"recommendations"][@"placesLinkShouldBeVisible"] boolValue];
+    
+    self.mainRecomendationRed.height = [Global heightLabel:self.mainRecomendationRed];
+    self.scoreNoteTextRed.height = [Global heightLabel:self.scoreNoteTextRed];
+    
+    self.separ1.y = self.mainRecomendationRed.bottom+15;
+    self.scoreNoteTextRed.y = self.mainRecomendationRed.bottom+30;
+    self.medSearchBtnRed.y = self.scoreNoteTextRed.bottom+50;
+    self.stateImageRed.y = self.scoreNoteTextRed.y;
+    self.separ2.y = self.scoreNoteTextRed.bottom+15;
+    [self.headerViewRed setupAutosizeBySubviewsWithBottomDistance:60];
+    [self.scrollViewRed setup_autosizeWithBottomDistance:0];
+}
+
+#pragma mark -
+
+
 
 -(void)goToDrugs{
     if (!_drugs){

@@ -942,14 +942,6 @@
 			name = DrugsList;
 			sourceTree = "<group>";
 		};
-		5B8B47251A9E0AD500D8EE93 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				B2D74CC518E4C6EB00B31E16 /* Feature */,
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		5B8B47261A9E0ADD00D8EE93 /* PullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,7 +1213,7 @@
 				5B83175E1A76366100A5EFDF /* Reachability.h */,
 				5B83175F1A76366100A5EFDF /* Reachability.m */,
 				B2B8BE0718E20CA400F52B52 /* Images.xcassets */,
-				5B8B47251A9E0AD500D8EE93 /* New Group */,
+				B2D74CC518E4C6EB00B31E16 /* Feature */,
 				B2D74CC618E4C6F300B31E16 /* Expand */,
 				B2B0B54618F47A77005C04F2 /* Models */,
 				B2D74CC418E4C6C500B31E16 /* Clases */,
@@ -1368,9 +1360,9 @@
 			isa = PBXGroup;
 			children = (
 				5B5CC22B1A8E270B00BACFEF /* UITextView+Placeholder.h */,
+				5B5CC22C1A8E270B00BACFEF /* UITextView+Placeholder.m */,
 				5B8B47181A9B318500D8EE93 /* NSError+NSError.h */,
 				5B8B47191A9B318500D8EE93 /* NSError+NSError.m */,
-				5B5CC22C1A8E270B00BACFEF /* UITextView+Placeholder.m */,
 				5B8317331A75060800A5EFDF /* NSArray+Filed.h */,
 				5B8317341A75060800A5EFDF /* NSArray+Filed.m */,
 				5B5CC22E1A8E54C000BACFEF /* NSMutableArray+DataFill.h */,

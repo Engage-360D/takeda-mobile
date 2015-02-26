@@ -24,6 +24,8 @@
                 <outlet property="scoreValue" destination="LYf-mY-Ddf" id="AKU-kI-16T"/>
                 <outlet property="scoreValueRed" destination="QxG-K5-fVZ" id="ZvN-B5-HwC"/>
                 <outlet property="scrollViewRed" destination="Htg-M7-2gf" id="tbO-H5-WtT"/>
+                <outlet property="separ1" destination="O6A-ue-4WG" id="aH2-h6-ush"/>
+                <outlet property="separ2" destination="Ko5-m7-hZt" id="JDx-Zr-ogu"/>
                 <outlet property="stateImage" destination="0VS-Hq-UTV" id="iJY-W5-A7y"/>
                 <outlet property="stateImageRed" destination="zCk-ss-CFb" id="mDS-Nz-lGp"/>
                 <outlet property="tableView" destination="7gL-VT-uPN" id="Ktw-6A-RkU"/>
@@ -197,6 +199,16 @@
                                                 <action selector="infoAction:" destination="-1" eventType="touchUpInside" id="Arf-4Z-dxi"/>
                                             </connections>
                                         </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="O6A-ue-4WG">
+                                            <rect key="frame" x="36" y="80" width="248" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.97254901959999995" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Ko5-m7-hZt">
+                                            <rect key="frame" x="36" y="250" width="248" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.97254901959999995" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5eQ-B9-PQd">
                                             <rect key="frame" x="221" y="9" width="45" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

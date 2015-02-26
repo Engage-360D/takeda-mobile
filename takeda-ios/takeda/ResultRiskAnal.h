@@ -53,6 +53,8 @@ typedef enum {
 @property (nonatomic,retain) IBOutlet UIImageView *scoreCircleRed;
 @property (nonatomic,retain) IBOutlet UIButton *medSearchBtnRed;
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollViewRed;
+@property (nonatomic,retain) IBOutlet UIImageView *separ1;
+@property (nonatomic,retain) IBOutlet UIImageView *separ2;
 
 
 

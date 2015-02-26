@@ -76,24 +76,24 @@
         self.vcSubTitle.text = @"";
     }
     
-    stateIcon.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_bigRed",result[@"state"]]];
+    stateIcon.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_bigRed",result[@"data"][@"state"]]];
 //    stateIcon.image = [UIImage imageNamed:@"dangerRedIcon"]; // temp
     
     
-    if (result[@"title"]&&[result[@"title"] isKindOfClass:[NSString class]]){
-        subtitle.text = result[@"title"];
+    if (result[@"data"][@"title"]&&[result[@"data"][@"title"] isKindOfClass:[NSString class]]){
+        subtitle.text = result[@"data"][@"title"];
     } else {
         subtitle.text = @"";
     }
     
-    if (result[@"subtitle"]&&[result[@"subtitle"] isKindOfClass:[NSString class]]){
-        note.text = result[@"subtitle"];
+    if (result[@"data"][@"subtitle"]&&[result[@"data"][@"subtitle"] isKindOfClass:[NSString class]]){
+        note.text = result[@"data"][@"subtitle"];
     } else {
         note.text = @"";
     }
     
-    if (result[@"text"]&&[result[@"text"] isKindOfClass:[NSString class]]){
-        bannerInfo.text = result[@"text"];
+    if (result[@"data"][@"text"]&&[result[@"data"][@"text"] isKindOfClass:[NSString class]]){
+        bannerInfo.text = result[@"data"][@"text"];
     } else {
         bannerInfo.text = @"";
     }

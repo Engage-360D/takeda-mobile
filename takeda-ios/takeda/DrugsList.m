@@ -95,6 +95,7 @@
     _addPills = [AddPills new];
     _addPills.drug = drug;
     _addPills.readOnly = YES;
+    _addPills.preview = YES;
     [self.navigationController pushViewController:_addPills animated:YES];
 }
 

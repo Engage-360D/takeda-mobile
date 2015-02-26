@@ -85,8 +85,17 @@ BOOL taked;
         [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
             if (result){
                 [User setCurrentUser:lastUser];
-                is_loading = NO;
-                is_authorized = YES;
+
+                [User synchronizeUser:User.user_login completition:^(BOOL synchrSuccess, id synchrResult){
+
+                    if (result){
+                        is_loading = NO;
+                        is_authorized = YES;
+                    } else {
+                        [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
+                    }
+                }];
+
             } else {
                 if (error.code == 500){
                     is_loading = NO;
@@ -128,7 +137,6 @@ BOOL taked;
     }
     
 }
-
 
 
 

@@ -10,6 +10,7 @@
 
 @interface AddPills (){
     BOOL filled;
+    NSMutableDictionary *tempDrug;
 }
 
 @end
@@ -26,6 +27,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (!drug) drug = [NSMutableDictionary new];
+    [self updateInterface];
+}
+
+-(void)updateInterface{
     [self showInfo];
     
     for (UIButton *btn in self.incBtns){
@@ -35,17 +40,22 @@
     for (PLTextField *tf in self.textFields){
         tf.userInteractionEnabled = !self.readOnly;
     }
-
+    
     for (UIImageView *iv in self.arrows){
         iv.hidden = self.readOnly;
     }
+    
+    self.deleteBtn.hidden = !(self.preview&&!self.readOnly);
+    self.editBtn.hidden = !(self.preview&&self.readOnly);
     
     self.navigationItem.rightBarButtonItems = nil;
     
     if (!self.readOnly){
         self.navigationItem.rightBarButtonItem = [self menuBarBtnWithTitle:@"Готово" selector:@selector(save) forTarget:self];
-
     }
+}
+
+-(void)cleanFields{
     
 }
 
@@ -66,24 +76,81 @@
         tf.textColor = RGB(54, 65, 71);
     }
     
+    for (UIButton *btn in self.actBtns){
+        btn.layer.borderColor = RGB(53, 65, 71).CGColor;
+        btn.layer.borderWidth = 1.0f;
+        btn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14];
+        btn.clipsToBounds = YES;
+        btn.layer.cornerRadius = 5.0f;
+    }
     
     [self.scrollView setup_autosize];
 }
 
 -(void)save{
-
-    if (!filled){
+        if (!filled){
         [self showMessage:@"Заполните все поля" title:@"Ошибка"];
         return;
+        }
+    if (self.preview){
+        [self updateDrug];
+    } else {
+        [self addDrug];
+  
     }
+
+}
+
+-(void)addDrug{
     
     [ServData addDrug:drug completion:^(BOOL success, NSError *error, id result){
         if (success){
             [self showMessage:@"Лекарство успешно добавлено" title:@"Успех"];
+            self.readOnly = YES;
+            self.preview = YES;
+            [self updateInterface];
         } else {
             [self showMessage:@"Не получилось добавить лекарство" title:@"Ошибка"];
         }
     }];
+
+}
+
+-(void)updateDrug{
+    if ([tempDrug isEqualToDictionary:drug]) {
+        self.readOnly = YES;
+        self.preview = YES;
+        [self updateInterface];
+        return;
+    }
+    [ServData updateDrug:drug completion:^(BOOL success, NSError *error, id result){
+        if (success){
+            [self showMessage:@"Лекарство успешно изменено" title:@"Успех"];
+            self.readOnly = YES;
+            self.preview = YES;
+            [self updateInterface];
+
+        } else {
+            [self showMessage:@"Не получилось изменить лекарство" title:@"Ошибка"];
+        }
+    }];
+
+}
+
+-(void)deleteDrug{
+    [self showActivityIndicatorWithString:@""];
+    [ServData deleteDrug:drug completion:^(BOOL success, NSError *error, id result){
+        [self removeActivityIdicator];
+        if (success){
+            [self showMessage:@"Лекарство успешно удалено" title:@"Успех" result:^{
+                [self backAction];
+            }];
+
+        } else {
+            [self showMessage:@"Не получилось удалить лекарство" title:@"Ошибка"];
+        }
+    }];
+
 }
 
 
@@ -157,7 +224,6 @@
     [exPicker show];
 }
 
-
 -(IBAction)setupRepeat:(UIButton*)sender{
 
     DPicker *exPicker = [[DPicker alloc] initListWithArray:[[AddPills expArray] valueForKey:@"title"] inView:self.view completition:^(BOOL apply, int index){
@@ -210,7 +276,18 @@
 }
 
 -(IBAction)deleteDrug:(UIButton*)sender{
+    [self showMessage:@"Удалить препарат" title:@"Вопрос" btns:@[@"Отмена", @"Удалить"] result:^(int res){
+        if (res == 1){
+            [self deleteDrug];
+        }
+    }];
+}
+
+-(IBAction)editAction:(UIButton*)sender{
+    self.readOnly = NO;
+    tempDrug = [Global recursiveMutable:[drug mutableCopy]];
     
+    [self updateInterface];
 }
 
 /*

@@ -158,14 +158,26 @@ static UserData *objectInstance = nil;
       //  if (self.userData[@"access_token"]) self.access_token = self.userData[@"access_token"];
       //  if (self.userData[@"id"]) self.user_id = self.userData[@"id"];
     }
-    [[Synchronizer sharedInstance] startSynchronize];
+}
 
+-(void)synchronizeUser:(NSString*)login completition:(void (^)(BOOL success, id result))completion{
+    if (login.length==0) {
+        completion(NO,nil);
+        return;
+    }
+    [[Synchronizer sharedInstance] startSynchronizeCompletition:^(BOOL successSynchr, id resultSynchr){
+        if (completion!=nil){
+            completion(successSynchr, nil);
+        }
+    }];
+    
 }
 
 -(void)logoutUser{
     [self setupUserDefaultsForUser:nil];
     [GlobalData clearFiles];
     self.userData = nil;
+  //  [NSUserDefaults resetStandardUserDefaults];
 }
 
 -(NSString*)getLastUser{

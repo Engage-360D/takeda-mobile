@@ -97,6 +97,8 @@
     self.tableView.hidden = NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [_refreshHeaderView removeFromSuperview];
+
     
     records = [NSMutableArray new];
     NSMutableArray *ddc = [Global recursiveMutable:[days mutableCopy]];
@@ -141,7 +143,8 @@
     records = [Global recursiveMutable:[records sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                 return [obj2[@"date"] compare:obj1[@"date"]];
                }]];
-
+    [self.tableView addSubview:_refreshHeaderView];
+    [_refreshHeaderView refreshLastUpdatedDate];
     
 }
 
@@ -167,7 +170,6 @@
     if (_refreshHeaderView == nil) {
         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.height, self.tableView.width, self.tableView.height)];
         view.delegate = self;
-        [self.tableView addSubview:view];
         _refreshHeaderView = view;
     }
     

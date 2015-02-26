@@ -15,7 +15,19 @@
 
 
 
-@interface AuthPage ()
+@interface AuthPage (){
+    NSString *vkId;
+    NSString *vkToken;
+    
+    NSString *fbId;
+    NSString *fbToken;
+    
+    NSString *okId;
+    NSString *okToken;
+}
+
+@property (strong, nonatomic) FBRequestConnection *requestConnection;
+@property(nonatomic, retain) Odnoklassniki *odnoklasniki_api;
 
 @end
 
@@ -187,21 +199,276 @@ ForgetPage *forgetPage;
     [User logoutUser];
     [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
             if (result) {
-                [User setCurrentUser:User.user_login];
-                [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
-                    [User setCurrentUser:User.user_login];
-                    if (result){
-                        [self openGeneralApp:self];
-                    } else {
-                        [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
-                    }
-                }];
-
+                [self setupUser];
             } else {
                 [Helper fastAlert:@"Ошибка авторизации"];
             }
         }];
 }
+
+-(void)setupUser{
+    [User setCurrentUser:User.user_login];
+    [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
+        [User setCurrentUser:User.user_login];
+        [self showActivityIndicatorWithString:@"Синхронизация"];
+        [User synchronizeUser:User.user_login completition:^(BOOL synchrSuccess, id synchrResult){
+            [self removeActivityIdicator];
+            if (result){
+                [self openGeneralApp:self];
+            } else {
+                [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
+            }
+        }];
+    }];
+}
+
+-(void)authUserBySocial:(NSString*)social user:(NSString*)userId token:(NSString*)token{
+    User.userData = nil;
+    [User logoutUser];
+    [ServData authUserWithSocial:social user:userId token:token completion:^(BOOL result, NSError *error) {
+        if (result) {
+            [self setupUser];
+        } else {
+            [Helper fastAlert:@"Ошибка авторизации"];
+        }
+    }];
+}
+
+#pragma mark - Social Networks
+
+
+#pragma mark - FACEBOOK
+
+-(IBAction)loginWithFb:(id)sender{
+    ShowNetworkActivityIndicator();
+    if (FBSession.activeSession.isOpen) {
+        // login is integrated with the send button -- so if open, we send
+        [self authorizeByFB];
+    } else {
+        NSArray *permissions = [[NSArray alloc] initWithObjects:
+                                @"email", @"read_stream", @"user_about_me", @"user_birthday",
+                                nil];
+        [FBSession openActiveSessionWithReadPermissions:permissions
+                                           allowLoginUI:YES
+                                      completionHandler:^(FBSession *session,
+                                                          FBSessionState status,
+                                                          NSError *error) {
+                                          // if login fails for any reason, we alert
+                                          if (error) {
+                                              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                              message:error.localizedDescription
+                                                                                             delegate:nil
+                                                                                    cancelButtonTitle:@"OK"
+                                                                                    otherButtonTitles:nil];
+                                              [alert show];
+                                          } else if (FB_ISSESSIONOPENWITHSTATE(status)) {
+                                              [self authorizeByFB];
+                                          }
+                                      }];
+    }
+}
+
+
+-(void)authorizeByFB{
+    fbToken = FBSession.activeSession.accessTokenData.accessToken;
+    [self authUserBySocial:kFacebook user:nil token:fbToken];
+}
+
+//- (void)sendRequests {
+//    NSArray *fbids = @[@"me"];
+//    FBRequestConnection *newConnection = [[FBRequestConnection alloc] init];
+//    for (NSString *fbid in fbids) {
+//        FBRequestHandler handler =
+//        ^(FBRequestConnection *connection, id result, NSError *error) {
+//            // output the results of the request
+//            [self requestCompleted:connection forFbID:fbid result:result error:error];
+//        };
+//        FBRequest *request = [[FBRequest alloc] initWithSession:FBSession.activeSession
+//                                                      graphPath:fbid];
+//        [newConnection addRequest:request completionHandler:handler];
+//    }
+//    [self.requestConnection cancel];
+//    
+//    self.requestConnection = newConnection;
+//    [newConnection start];
+//}
+//
+//// Report any results.  Invoked once for each request we make.
+//- (void)requestCompleted:(FBRequestConnection *)connection
+//                 forFbID:fbID
+//                  result:(id)result
+//                   error:(NSError *)error {
+//    HideNetworkActivityIndicator();
+//    // not the completion we were looking for...
+//    if (self.requestConnection &&
+//        connection != self.requestConnection) {
+//        return;
+//    }
+//    
+//    // clean this up, for posterity
+//    self.requestConnection = nil;
+//    
+//    NSString *text;
+//    if (error) {
+//        text = error.localizedDescription;
+//    } else {
+//        NSDictionary *dictionary = (NSDictionary *)result;
+//        [self setUserDataFromFB:dictionary];
+//        text = (NSString *)[dictionary objectForKey:@"name"];
+//    }
+//    /*
+//     NSLog(@"%@",[NSString stringWithFormat:@"%@: %@\r\n",[fbID stringByTrimmingCharactersInSet:
+//     [NSCharacterSet whitespaceAndNewlineCharacterSet]],
+//     text]);*/
+//}
+//
+//- (void)viewDidUnload {
+//    [self.requestConnection cancel];
+//    self.requestConnection = nil;
+//}
+//
+//-(void)setUserDataFromFB:(NSDictionary*)userData{
+//    
+//    
+//    fbId = [userData objectForKey:@"id"];
+//    fbToken = FBSession.activeSession.accessTokenData.accessToken;
+//    
+//    
+//}
+//
+
+
+
+
+
+
+
+#pragma mark -
+#pragma mark - VK
+
+- (IBAction)loginWithVK:(id)sender
+{
+    ShowNetworkActivityIndicator();
+    _vkontakte = [Vkontakte sharedInstance];
+    _vkontakte.delegate = self;
+    if (![_vkontakte isAuthorized])
+    {
+        [_vkontakte authenticate];
+    }
+    else
+    {
+        // получаем токен и авторизируемся через него
+        [self authorizeByVK];
+    }
+}
+
+-(void)authorizeByVK{
+    vkId = [UserDefaults objectForKey:@"VKUserID"];
+    vkToken = [UserDefaults objectForKey:@"VKAccessTokenKey"];
+    [self authUserBySocial:kVK user:vkId token:vkToken];
+}
+
+#pragma mark - VkontakteDelegate
+
+- (void)vkontakteDidFailedWithError:(NSError *)error{
+    HideNetworkActivityIndicator();
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showVkontakteAuthController:(UIViewController *)controller{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        controller.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
+    controller.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)vkontakteAuthControllerDidCancelled{
+    HideNetworkActivityIndicator();
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self authorizeByVK];
+}
+
+- (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte{
+    HideNetworkActivityIndicator();
+    [UserDefaults removeObjectForKey:@"VKUserID"];
+    [UserDefaults removeObjectForKey:@"VKAccessTokenKey"];
+}
+
+#pragma mark -
+
+
+
+#pragma mark - OdnokloasnikiMethods
+-(IBAction)loginWithOK:(id)sender{
+    [self showMessage:@"Авторизация через Однокласники временно отключена" title:@"Уведомление"];
+    return;
+    
+    ShowNetworkActivityIndicator();
+    if (!self.odnoklasniki_api) {
+        self.odnoklasniki_api = [[Odnoklassniki alloc] initWithAppId:Odnkl_appID andAppSecret:Odnkl_appSecret andAppKey:Odnkl_appKey andDelegate:self];
+    }
+    
+    self.odnoklasniki_api.delegate = self;
+    if(self.odnoklasniki_api.isSessionValid){
+        [self okDidLogin];
+    }else{
+        [self.odnoklasniki_api authorize:[NSArray arrayWithObjects:@"VALUABLE ACCESS", @"SET STATUS", nil]];
+    }
+    
+    
+    
+}
+
+/*** Odnoklassniki Delegate methods ***/
+-(void)okDidLogin {
+    OKRequest *userInfoRequest = [Odnoklassniki requestWithMethodName:@"users.getCurrentUser"
+                                                            andParams:nil
+                                                        andHttpMethod:@"GET"
+                                                          andDelegate:self];
+    [userInfoRequest load];
+}
+
+-(void)okDidNotLogin:(BOOL)canceled {
+    HideNetworkActivityIndicator();
+    //NSLog(@"%@",[NSString stringWithFormat:@"Did not login! Odnoklasniki  Canceled = %@", canceled ? @"YES" : @"NO"]);
+}
+
+-(void)okDidNotLoginWithError:(NSError *)error {
+    HideNetworkActivityIndicator();
+    //NSLog(@"Odnoklasniki login error = %@", error.userInfo);
+}
+
+-(void)okDidExtendToken:(NSString *)accessToken {
+    [self okDidLogin];
+}
+
+-(void)okDidNotExtendToken:(NSError *)error {
+    HideNetworkActivityIndicator();
+    //NSLog(@"Error: Odnoklasniki did not extend token!!");
+}
+
+-(void)okDidLogout {
+}
+
+/*** Request delegate ***/
+-(void)request:(OKRequest *)request didLoad:(id)result {
+    HideNetworkActivityIndicator();
+}
+
+-(void)request:(OKRequest *)request didFailWithError:(NSError *)error {
+    HideNetworkActivityIndicator();
+    //	NSLog(@"Request failed with error = %@", error);
+}
+
+#pragma mark -
+
+
 
 
 @end

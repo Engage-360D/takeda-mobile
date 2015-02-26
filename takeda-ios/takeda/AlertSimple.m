@@ -35,6 +35,9 @@
                 alertViewTextInputWithButtons.alertViewStyle = UIAlertViewStylePlainTextInput;
             }
         }
+        if ([key isEqualToString:@"text"]){
+            alertTextField.text = params[key];
+        }
     }
     
     
