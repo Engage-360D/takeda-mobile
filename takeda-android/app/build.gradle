@@ -41,13 +41,13 @@ android {
     }
 
     testfairyConfig {
-        apiKey "939309730414b80946d17946a2078eb5d65e1ca6"
-        video "wifi"
-        videoRate "0.5"
-        videoQuality "low"
+        apiKey '939309730414b80946d17946a2078eb5d65e1ca6'
+        video 'wifi'
+        videoRate '0.5'
+        videoQuality 'low'
         maxDuration '30m'
         metrics 'cpu,memory,network,phone-signal,logcat,gps,battery,mic'
-        testersGroups "Cardiomanil"
+        testersGroups 'Cardiomagnil'
         comment getBuildTag() + '-' + getVersionSuffix()
     }
 

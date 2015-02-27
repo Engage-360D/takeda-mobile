@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.AddPillFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 
 public class TakingPillsFragment extends BaseItemFragment {
@@ -52,7 +51,7 @@ public class TakingPillsFragment extends BaseItemFragment {
             public void onClick(View v) {
                 if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
                     SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-                    Fragment fragment = new AddPillFragment();
+                    Fragment fragment = new PillFragment();
                     slidingMenuActivity.putContentOnTop(fragment, false);
                 }
             }

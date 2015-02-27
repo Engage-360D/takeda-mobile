@@ -453,7 +453,6 @@ public final class ProfileHelper {
         TextView editTextPasswordSecond = (TextView) parentView.findViewById(R.id.editTextPasswordSecond);
         Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
 
-
         RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
         View layoutSpecializationDetails = parentView.findViewById(R.id.layoutSpecializationDetailsl);
         EditText editTextSpecializationName = (EditText) parentView.findViewById(R.id.editTextSpecializationName);

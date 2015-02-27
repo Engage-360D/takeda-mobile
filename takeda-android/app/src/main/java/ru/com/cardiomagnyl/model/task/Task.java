@@ -199,7 +199,7 @@ public class Task extends BaseModel {
         ObjectNode nodeResult = JsonNodeFactory.instance.objectNode();
         switch (type) {
             case exercise:
-                nodeResult.put("exerciseMins", value);
+                nodeResult.put("exerciseMins", Integer.valueOf(value));
                 break;
             case weight:
                 break;

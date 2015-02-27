@@ -20,7 +20,6 @@ import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
-import ru.com.cardiomagnyl.widget.CustomDialogs;
 
 public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayout.OnRefreshListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -138,11 +137,11 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.PILL, pill);
 
-        PillDetailsFragment pillDetailsFragment = new PillDetailsFragment();
-        pillDetailsFragment.setArguments(bundle);
+        PillFragment pillFragment = new PillFragment();
+        pillFragment.setArguments(bundle);
 
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-        slidingMenuActivity.putContentOnTop(pillDetailsFragment, true);
+        slidingMenuActivity.putContentOnTop(pillFragment, true);
     }
 
 }

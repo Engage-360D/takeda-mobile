@@ -11,8 +11,9 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textViewHeader"
             style="@style/TextViewTop"
-            android:text="@string/add" />
+            android:text="@string/detail" />
 
     </LinearLayout>
 
@@ -74,6 +75,18 @@
             <View
                 style="@style/divider_normal_1_5"
                 android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/buttonEdit"
+                style="@style/button_main_long"
+                android:text="@string/edit"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/buttonDelete"
+                style="@style/button_main_long"
+                android:text="@string/delete"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

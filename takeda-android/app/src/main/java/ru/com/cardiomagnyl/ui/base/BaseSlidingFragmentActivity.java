@@ -12,6 +12,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnyl.app.R;
@@ -155,8 +156,9 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
     // --------------------------------------------------------------------\/
     public void putContentOnTop(final Fragment newTopFragment, final boolean withSwitch) {
         try {
-            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             String tag = newTopFragment.getTag() == null ? getTimestampTag() : newTopFragment.getTag();
+
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, newTopFragment, tag);
             fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();
@@ -174,9 +176,13 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
     public void replaceContentOnTop(final Fragment newTopFragment, final boolean withSwitch) {
         try {
+            int backStackEntryCount = mFragmentManager.getBackStackEntryCount();
+            FragmentManager.BackStackEntry backStackEntry = mFragmentManager.getBackStackEntryAt(backStackEntryCount - 1);
+            Fragment fragment = mFragmentManager.findFragmentByTag(backStackEntry.getName());
+            String tag = fragment.getTag();
+
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentManager.popBackStack();
-            String tag = newTopFragment.getTag() == null ? getTimestampTag() : newTopFragment.getTag();
+            fragmentTransaction.remove(fragment);
             fragmentTransaction.replace(R.id.content_frame, newTopFragment, tag);
             fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();
@@ -194,9 +200,10 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
     public void replaceAllContent(final Fragment newTopFragment, final boolean withSwitch) {
         try {
-            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             String tag = newTopFragment.getTag() == null ? getTimestampTag() : newTopFragment.getTag();
+
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, newTopFragment, tag);
             fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();

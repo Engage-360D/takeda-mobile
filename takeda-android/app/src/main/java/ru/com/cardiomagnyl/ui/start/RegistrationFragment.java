@@ -50,7 +50,7 @@ public class RegistrationFragment extends BaseStartFragment {
 
         if (!user.getBirthday().isEmpty()) {
             textViewBirthDate.setText(user.getBirthday());
-            textViewBirthDate.setTag(Tools.calendarFromShort(user.getBirthday()));
+            textViewBirthDate.setTag(Tools.calendarFromShortDate(user.getBirthday()));
         }
     }
 
