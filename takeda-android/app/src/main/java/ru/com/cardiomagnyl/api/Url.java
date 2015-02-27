@@ -19,8 +19,7 @@ public final class Url {
     public static final String ACCOUNT_PILLS_ID = API_ADDR + "account/pills/%s?token=%s";
     public static final String ACCOUNT_TIMELINE = API_ADDR + "account/timeline?token=%s";
     public static final String ACCOUNT_TIMELINE_TASKS = API_ADDR + "account/timeline/tasks/%s?token=%s";
-    // FIXME: remove "/api/v1/" from link returned by server
-    public static final String ACCOUNT_TEST_PAGES = API_SCHEME + API_HOST + "%s?token=%s";
+    public static final String ACCOUNT_TEST_RECOMMENDATIONS = API_ADDR + "account/test-results/%s/pages/%s?token=%s";
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
 

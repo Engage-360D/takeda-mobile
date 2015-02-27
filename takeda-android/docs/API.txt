@@ -733,33 +733,162 @@ response:
 ---------
 ======================================================================================
 method:
+get
 -------
 
 request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results/36/diet-questions?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
 --------
 
 headers:
+null
 --------
 
 data:
+null
 -----
 
 response:
+{
+  "data": [
+    {
+      "id": "1",
+      "question": "Мучные кондитерские изделия",
+      "links": {
+        "answers": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "question": "Торты, мороженое",
+      "links": {
+        "answers": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "3",
+      "question": "Колбаса, бекон, свиные ребра, хот-доги, субпродукты (печень)",
+      "links": {
+        "answers": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "4",
+      "question": "Жирный сыр, сливки, желток яиц, цельное молоко и йогурты",
+      "links": {
+        "answers": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "5",
+      "question": "Сливочное масло, маргарин, пальмовое кокосове масло, сало, соусы с яичным желтком (майонез)",
+      "links": {
+        "answers": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "6",
+      "question": "Кокос",
+      "links": {
+        "answers": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "7",
+      "question": "Любая пища, приготовленная во фритюре",
+      "links": {
+        "answers": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    }
+  ],
+  "links": {
+    "answers": [
+      {
+        "id": "1",
+        "answer": "Почти не употребляю",
+        "weight": 1
+      },
+      {
+        "id": "2",
+        "answer": "Стараюсь ограничивать",
+        "weight": 2
+      },
+      {
+        "id": "3",
+        "answer": "Ем каждый день",
+        "weight": 3
+      }
+    ]
+  }
+}
 ---------
 ======================================================================================
 method:
+get
 -------
 
 request:
+http://cardiomagnyl.dev.iengage.ru/api/v1/account/test-results/36/diet-recommendations?answers[1]=1&answers[2]=2&answers[3]=3&answers[4]=1&answers[5]=2&answers[6]=3&answers[7]=1&token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjE0ODc3MjYsInVzZXJuYW1lIjoiZXRoampmZF9fQGhnLmNvbSIsImlhdCI6IjE0MjE0MDEzMjYifQ.ocQ59hxGZ2fyMWBYU5IY1DBuMr2nqSzug12Qw8MLppDPJV_j5uhOV-UefIv9vd3K692TeIX0PdZt1SuuWKl2UeQ7nBr-VBT6x7BQ_mHeaUSrE45_x5eP6kkDQVH15FmfPsKJdLHFeuGugACOrt16AM92FKujpiW3b4f50F3M5fAjA_sQqEbDGz4yfFYtR-RM6hNGSTpLpeW9IG50h8O18WRralt72wC6A2o9uh7dW6ynUM9QyMQMipKnTC8aTBwX_66ytD-6DS78DwF74__wo2J0D4vNIBeGKP16MpQoY7cRR0q9xGa6XvVf0x9CS88zlNHgEw7nzI541-5u2WY8PqoemDhNBfASDIewVCBc1bwqJ7uRnJvOXgMnQO0-nARndQRmFaJTINGF-oEESbS2sGr0pIMa4jnGTYVtiDTElHOsMDP_GdBnX-c3nx4dfw61JaDW7v5Y57cSvluoZBExRffaXkagr6hAMdhK0-1EIynI11Y6YGWkDNJhyG1XDocADNqxAPAC6kFnnPxMi8ygqbxBG7EXn6Zy2tWz6mnXNfxh5GPG_cB7B4_i2LFQ3s-KmCfzEqoCnSpEmvbFFGkdcq1a_jUbiWDfd4BJ35CXb207LidQBT6WGNZK4NcfditKAxXblFheo8Cgn5p6WBrKChISjW6bLaQxKY6-b78ptG0
 --------
 
 headers:
+null
 --------
 
 data:
+null
 -----
 
 response:
+{
+  "data": {
+    "messages": [
+      "Здоровое питание способствует снижению уровня основных факторов риска сердечно-сосудистых заболеваний, связанных с атеросклерозом. Потребление жира при нормальном весе должно соответствовать для мужчин 75-90 г, для женщин - 50-65 г в сутки. Насыщенные жиры (животные, твердые растительные жиры) могут составлять 1/3 потребляемых жиров, остальные 2/3 жиров должны быть ненасыщенными, жидкими жирами. Это растительные масла (подсолнечное, оливковое, льняное) и жир рыбы. Ограничение потребления животных жиров ведет к снижению потребления содержащегося в них холестерина."
+    ],
+    "red": [
+      {
+        "title": "Колбасные и мясные продукты",
+        "note": "Постная и жирная рыба. Птица без кожи."
+      }
+    ],
+    "blue": [
+      {
+        "text": "Сахароза, мед, фруктоза, шоколад, конфеты."
+      },
+      {
+        "text": "Растительные масла, мягкие маргарины, заправки к салатам, майонез."
+      }
+    ]
+  }
+}
 ---------
 ======================================================================================
 GET
@@ -776,9 +905,3 @@ GET, POST, PUT, DELETE
 404 Not Found
 405 Method Not Allowed
 5xx Server Error
-
-другие вряд ли будут
-======================================================================================
-Вопросы:
-Зачем http://cardiomagnyl.dev.iengage.ru/api/v1/tokens возвращает "links", "linked", почему поле токена - "id"?
-======================================================================================

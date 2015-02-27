@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <ru.com.cardiomagnyl.widget.CustomSwipeRefreshLayout
         android:id="@+id/fragmentContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:divider="@null" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </ru.com.cardiomagnyl.widget.CustomSwipeRefreshLayout>
 
     <include
         android:id="@+id/textViewMessage"

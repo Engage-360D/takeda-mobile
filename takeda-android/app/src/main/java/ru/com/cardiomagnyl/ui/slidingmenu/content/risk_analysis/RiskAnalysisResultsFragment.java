@@ -229,10 +229,10 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     }
 
     private void initScoreHelper(View view, TestResult testResult) {
-        TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
-        View relativeLayoutScore = view.findViewById(R.id.relativeLayoutScore);
-        RelativeLayout imageViewResultCircleHolder = (RelativeLayout) view.findViewById(R.id.relativeLayoutResultCircleHolder);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageViewResultCircleHolder.getLayoutParams();
+        final TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
+        final View relativeLayoutScore = view.findViewById(R.id.relativeLayoutScore);
+        final RelativeLayout imageViewResultCircleHolder = (RelativeLayout) view.findViewById(R.id.relativeLayoutResultCircleHolder);
+        final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageViewResultCircleHolder.getLayoutParams();
 
         textViewResult.setText(String.valueOf(testResult.getScorePercents()) + "%");
 
@@ -242,6 +242,17 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(imageViewResultCircleHolder.getMeasuredWidth(), imageViewResultCircleHolder.getMeasuredWidth());
         newLayoutParams.setMargins(x, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
         imageViewResultCircleHolder.setLayoutParams(newLayoutParams);
+
+        // necessary for eliminate visual resizing
+        imageViewResultCircleHolder.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        // unregister listener (this is important)
+                        imageViewResultCircleHolder.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        relativeLayoutScore.setVisibility(View.VISIBLE);
+                    }
+                });
     }
 
     private void tryToSendResult(final TestResult testResult, final User user, final Token token) {
