@@ -424,12 +424,14 @@ public final class ProfileHelper {
             newUser.setBirthday(Tools.formatFullDate(((Calendar) textViewBirthDateValue.getTag()).getTime()));
             newUser.setPlainPassword(editTextPasswordFirst.getText().toString());
 
-            newUser.setSpecializationName(editTextSpecializationName.getText().toString());
-            newUser.setSpecializationInstitutionName(editTextSpecializationInstitutionName.getText().toString());
-            newUser.setSpecializationInstitutionAddress(editTextSpecializationInstitutionAddress.getText().toString());
-            newUser.setSpecializationInstitutionPhone(editTextSpecializationInstitutionPhone.getText().toString());
-            newUser.setSpecializationExperienceYears((Integer) spinnerExperienceYears.getTag());
-            newUser.setSpecializationGraduationDate(Tools.yearToDate((Integer) spinnerGraduationDate.getTag()));
+            if (radioButtonDoctor.isChecked()) {
+                newUser.setSpecializationName(editTextSpecializationName.getText().toString());
+                newUser.setSpecializationInstitutionName(editTextSpecializationInstitutionName.getText().toString());
+                newUser.setSpecializationInstitutionAddress(editTextSpecializationInstitutionAddress.getText().toString());
+                newUser.setSpecializationInstitutionPhone(editTextSpecializationInstitutionPhone.getText().toString());
+                newUser.setSpecializationExperienceYears((Integer) spinnerExperienceYears.getTag());
+                newUser.setSpecializationGraduationDate(Tools.yearToDate((Integer) spinnerGraduationDate.getTag()));
+            }
 
             newUser.setIsSubscribed(checkBoxAgreeToReceive.isChecked());
         } catch (Exception e) {

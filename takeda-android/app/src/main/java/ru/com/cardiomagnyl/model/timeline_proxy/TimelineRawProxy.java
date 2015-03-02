@@ -50,7 +50,7 @@ public class TimelineRawProxy extends BaseModel {
      * @param links The links
      */
     @JsonProperty("links")
-    public void setTimelineProxyLinks(TimelineLinksProxy links) {
+    public void setTimelineLinksProxy(TimelineLinksProxy links) {
         this.links = links;
     }
 

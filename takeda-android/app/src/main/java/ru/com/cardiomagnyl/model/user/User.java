@@ -77,6 +77,7 @@ public class User extends BaseModel {
     private int facebookId;
 
     @DatabaseField(dataType = DataType.INTEGER, columnName = "specialization_experience_years")
+    @JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
     @JsonProperty("specializationExperienceYears")
     private int specializationExperienceYears;
 
@@ -86,18 +87,22 @@ public class User extends BaseModel {
     private String specializationGraduationDate = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_institution_address")
+    @JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
     @JsonProperty("specializationInstitutionAddress")
     private String specializationInstitutionAddress = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_institution_name")
+    @JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
     @JsonProperty("specializationInstitutionName")
     private String specializationInstitutionName = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_institution_phone")
+    @JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
     @JsonProperty("specializationInstitutionPhone")
     private String specializationInstitutionPhone = null;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "specialization_name")
+    @JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
     @JsonProperty("specializationName")
     private String specializationName = null;
 

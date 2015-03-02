@@ -54,7 +54,7 @@ public class Task extends BaseModel {
     @JsonProperty("pill")
     private String pill;
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "timeline")
+    @DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true, columnName = "timeline")
     private Timeline timeline;
 
     /**

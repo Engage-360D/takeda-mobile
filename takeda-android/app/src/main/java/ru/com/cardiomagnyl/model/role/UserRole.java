@@ -13,10 +13,10 @@ public class UserRole extends BaseModel {
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     private String id;
 
-    @DatabaseField(foreign = true, columnName = "user")
+    @DatabaseField(canBeNull = false, foreign = true, columnName = "user")
     private User user;
 
-    @DatabaseField(foreign = true, columnName = "role")
+    @DatabaseField(canBeNull = false, foreign = true, columnName = "role")
     private Role role;
 
     public UserRole() {

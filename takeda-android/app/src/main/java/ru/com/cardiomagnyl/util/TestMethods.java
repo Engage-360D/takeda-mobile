@@ -19,6 +19,8 @@ import ru.com.cardiomagnyl.model.test.PageDao;
 import ru.com.cardiomagnyl.model.test.TestPage;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
+import ru.com.cardiomagnyl.model.test_diet.TestDiet;
+import ru.com.cardiomagnyl.model.test_diet.TestDietDao;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.timeline.TimelineDao;
 import ru.com.cardiomagnyl.model.token.Token;
@@ -29,7 +31,8 @@ import ru.com.cardiomagnyl.model.user.UserDao;
 public class TestMethods {
 
     public static void testCurrentMethod() {
-        TaskDaoUpdate();
+        TestDietDaoGetByTesftId();
+//        TaskDaoUpdate();
 //        PillDaoGetAll();
 //        TimelineDaoGetAll();
 //        TestPageDaoGetByLink();
@@ -41,6 +44,30 @@ public class TestMethods {
 //        TokenDaoGetByLgnPwd();
 //        UserRegister();
 //        RegionDaoGetAll();
+    }
+
+    public static void TestDietDaoGetByTesftId() {
+        Token token = new Token();
+        token.setUserId("63");
+        token.setTokenId("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjUzMTMzNDQsInVzZXJuYW1lIjoieS5hbmRyZXlrbysxN0BnbWFpbC5jb20iLCJpYXQiOiIxNDI1MjI2OTQ0In0.mK59xlnELWsRNHOB_xS--GCbSr152PH8Lo9zAQLC1bGqO0TjRb_fpRweQyckqZ8pr-jgpUJAzcemUQTq6HLDeGpx95ok7cMVQkvLOzwy1RIiyMIhCOFU-5nrrwwSQim8bAdhyZhu6nh5D7DC5byNRc8eLHgK5YpZpfGQvb0BtjONqUB5ZgDduOLKjSmMF_2TTsIwAXdIwDQ8LyqKNNraaI3k2V2JqOT7IXRhfbG3Ycr4a0k-qTjmnNvIR1ReV_iR3kNdzW1Q4SLfZ0V8Do5bNgs99Hukc3HhyJYku4qJL3AvfIIRDTcR4oUzG1sontks4EGG3JqlYMb0LVqa8RoawjAHDvKJwOTjNpWgVnvUQdq9QL34PicWTxZugzjV0U2gE9YIjU2LQ_Sq5t5fOC1_hWLZabXOkPKXTXZ7tWod0oFavTCJvM0o96NEDqsETOiMUOHO6R1XrY_0Zh1wK_XRzlEH8uvo0KdzZzXMGaAGKQY2PrF9e525xgoy5j-iEP8W69_qoBcnW-nBJAm6-Qu3mQW_2G533X_MHchzNTpjWAEtPc2L5ML10OvFFceLVYcnn8Thwhe_OrdB19Ks4ebA6rdTyLG7XlzC8y3MNyNXRaE3H7MVVkCQa72fW02WCQ_XKFBEBhXpQJyipB7YdzhP0Y8t18vCy29cxx8pJb8L3d4");
+        TestDietDao.getByTestId(
+                "36",
+                token,
+                new CallbackOne<List<TestDiet>>() {
+                    @Override
+                    public void execute(List<TestDiet> testDietList) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
     }
 
     public static void TaskDaoUpdate() {
