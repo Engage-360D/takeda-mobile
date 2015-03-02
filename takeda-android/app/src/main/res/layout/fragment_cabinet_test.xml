@@ -24,6 +24,7 @@
         android:layout_alignParentBottom="true" />
 
     <ScrollView
+        android:id="@+id/fragmentContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/textViewFooter"
@@ -47,53 +48,14 @@
                 android:layout_marginLeft="@dimen/space_medium"
                 android:layout_marginRight="@dimen/space_medium" />
 
-            <TextView
-                style="@style/TextViewMedium37MarginedMedium"
-                android:layout_marginBottom="@dimen/space_small"
-                android:text="@string/cake_ice_cream" />
-
-            <include layout="@layout/layout_radiogroup_test" />
-
-            <View style="@style/gap_vertical_space_small" />
-
-            <TextView
-                style="@style/TextViewMedium37MarginedMedium"
-                android:layout_marginBottom="@dimen/space_small"
-                android:text="@string/fat_cheese" />
-
-            <include layout="@layout/layout_radiogroup_test" />
-
-            <View style="@style/gap_vertical_space_small" />
-
-            <TextView
-                style="@style/TextViewMedium37MarginedMedium"
-                android:layout_marginBottom="@dimen/space_small"
-                android:text="@string/butter_margarine" />
-
-            <include layout="@layout/layout_radiogroup_test" />
-
-            <View style="@style/gap_vertical_space_small" />
-
-            <TextView
-                style="@style/TextViewMedium37MarginedMedium"
-                android:layout_marginBottom="@dimen/space_small"
-                android:text="@string/coconut" />
-
-            <include layout="@layout/layout_radiogroup_test" />
-
-            <View style="@style/gap_vertical_space_small" />
-
-            <TextView
-                style="@style/TextViewMedium37MarginedMedium"
-                android:layout_marginBottom="@dimen/space_small"
-                android:text="@string/fried_food" />
-
-            <include layout="@layout/layout_radiogroup_test" />
-
-            <View style="@style/gap_vertical_space_small" />
+            <LinearLayout
+                android:id="@+id/linearLayoutContentHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
             <Button
-                android:id="@+id/ButtonGetRecommendations"
+                android:id="@+id/buttonGetRecommendations"
                 style="@style/button_main_very_long"
                 android:text="@string/get_recommendations" />
 
@@ -101,5 +63,10 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <include
+        android:id="@+id/textViewMessage"
+        layout="@layout/layout_data_not_found"
+        android:visibility="gone" />
 
 </RelativeLayout>

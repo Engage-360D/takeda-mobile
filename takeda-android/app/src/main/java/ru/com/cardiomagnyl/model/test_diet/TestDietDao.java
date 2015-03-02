@@ -28,10 +28,10 @@ public class TestDietDao extends BaseDaoImpl<TestDiet, Integer> {
         super(connectionSource, dataClass);
     }
 
-    public static void getByTestId(final String testId,
-                                   final Token token,
-                                   final CallbackOne<List<TestDiet>> onSuccess,
-                                   final CallbackOne<Response> onFailure) {
+    public static void getTestDietByTestId(final String testId,
+                                           final Token token,
+                                           final CallbackOne<List<TestDiet>> onSuccess,
+                                           final CallbackOne<Response> onFailure) {
         TypeReference typeReference = new TypeReference<TestDietMergedProxy>() {
         };
 

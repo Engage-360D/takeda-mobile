@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/radioGroupCondition"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/plate_small"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <RadioButton
-        android:id="@+id/radioButtonRecomendations"
-        style="@style/RadioButtonTwoLines"
-        android:text="@string/every_day" />
+    <TextView
+        android:id="@+id/textViewHeader"
+        style="@style/TextViewMedium37MarginedMedium"
+        android:layout_marginBottom="@dimen/space_small" />
 
-    <RadioButton
-        android:id="@+id/radioButtonData"
-        style="@style/RadioButtonTwoLines"
-        android:text="@string/try_to_limit" />
+    <RadioGroup
+        android:id="@+id/radioGroupCondition"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/plate_small"
+        android:orientation="horizontal" />
 
-    <RadioButton
-        android:id="@+id/radioButtonSetting"
-        style="@style/RadioButtonTwoLines"
-        android:text="@string/almost_never" />
-</RadioGroup>
+    <!--    <LinearLayout
+            android:id="@+id/radioGroupCondition"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plate_small"
+            android:orientation="horizontal" />-->
+
+    <View style="@style/gap_vertical_space_small" />
+</LinearLayout>

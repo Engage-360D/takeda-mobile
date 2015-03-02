@@ -26,6 +26,7 @@ import ru.com.cardiomagnyl.model.test.PageDao;
 import ru.com.cardiomagnyl.model.test.TestPage;
 import ru.com.cardiomagnyl.model.test.TestResultHolder;
 import ru.com.cardiomagnyl.model.test_diet.TestDiet;
+import ru.com.cardiomagnyl.model.test_diet.TestDietResultHolder;
 import ru.com.cardiomagnyl.model.test_diet_answer.TestDietAnswer;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.token.Token;
@@ -38,7 +39,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "cardiomagnyl.sqlite";
 
     //с каждым увеличением версии, при нахождении в устройстве БД с предыдущей версией будет выполнен метод onUpgrade();
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     //ссылки на DAO соответсвующие сущностям, хранимым в БД
     //используется для сущностей, которые не имеют своего DAO-класса
@@ -63,6 +64,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Task.class);
             TableUtils.createTable(connectionSource, TestDiet.class);
             TableUtils.createTable(connectionSource, TestDietAnswer.class);
+            TableUtils.createTable(connectionSource, TestDietResultHolder.class);
         } catch (/*SQLException*/Exception e) {
             Log.e(CardiomagnylApplication.getInstance().getTag(), "error creating DB " + DATABASE_NAME);
             throw new RuntimeException(e);
@@ -85,6 +87,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Task.class, true);
             TableUtils.dropTable(connectionSource, TestDiet.class, true);
             TableUtils.dropTable(connectionSource, TestDietAnswer.class, true);
+            TableUtils.dropTable(connectionSource, TestDietResultHolder.class, true);
 
             onCreate(db, connectionSource);
         } catch (/*SQLException*/Exception e) {

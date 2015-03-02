@@ -40,7 +40,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         super.onCreate(savedInstanceState);
 
         // Both setBehindContentView must be called in onCreate in addition to setContentView.
-        setContentView(R.layout.slidingmenu_menu_container);
+        setContentView(R.layout.slidingmenu_content_container);
         if (findViewById(R.id.menu_frame) == null) {
             setBehindContentView(getLayoutInflater().inflate(R.layout.slidingmenu_menu_frame, null));
         }

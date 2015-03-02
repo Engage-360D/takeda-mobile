@@ -11,6 +11,7 @@ public class Constants {
     public static String PILL = "pill";
     // bundle string
     public static String PAGE_TITLE = "title";
+    public static String TEST_RESULT_ID = "test_result_id";
     // bundle boolean
     public static String IS_NOT_PASSED = "is_not_passed";
 

@@ -24,6 +24,7 @@ public class MainFragment extends BaseTimeLineFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, null);
+        initIndex(view);
         initFragmentStart(view);
         return view;
     }
@@ -31,7 +32,6 @@ public class MainFragment extends BaseTimeLineFragment {
     @Override
     protected void initFragmentFinishHelper(final View fragmentView) {
         initSwipeRefreshLayout(fragmentView);
-        initIndex(fragmentView);
         initWeekDateRange(fragmentView);
         initToday(fragmentView);
         initTimeLine(fragmentView);

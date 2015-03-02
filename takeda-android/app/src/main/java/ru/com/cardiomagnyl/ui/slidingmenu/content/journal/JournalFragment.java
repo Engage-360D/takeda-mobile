@@ -9,13 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 
-import java.util.List;
-import java.util.Map;
-
 import ru.com.cardiomagnyl.app.R;
-import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.task.Task;
-import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.ui.base.BaseTimeLineFragment;
 
 public class JournalFragment extends BaseTimeLineFragment {
