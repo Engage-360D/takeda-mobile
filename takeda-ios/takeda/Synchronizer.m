@@ -8,10 +8,12 @@
 
 #import "Synchronizer.h"
 
-@implementation Synchronizer
+@implementation Synchronizer{
+    NSMutableArray *tasks;
+    int completedJobsCount;
+}
 
 static Synchronizer *sharedInst = NULL;
-
 
 +(Synchronizer*)sharedInstance{
     if (!sharedInst || sharedInst == NULL) {
@@ -20,10 +22,24 @@ static Synchronizer *sharedInst = NULL;
     return sharedInst;
 }
 
--(void)startSynchronize{
-    [self loadRiskAnalResults];
-    [self loadPills];
+-(void)startSynchronizeCompletition:(void (^)(BOOL success, id result))completion{
+    self.resultBlock = completion;
+//    [self loadRiskAnalResults];
+//    [self loadPills];
+    tasks = [NSMutableArray arrayWithObjects:[NSValue valueWithPointer:@selector(loadRiskAnalResults)],[NSValue valueWithPointer:@selector(loadPills)], nil];
+    [self startTasksMachine];
 }
+
+-(void)startTasksMachine{
+    completedJobsCount = 0;
+    for (int i = 0; i<tasks.count; i++){
+        SEL selector = [tasks[i] pointerValue];
+        IMP imp = [self methodForSelector:selector];
+        void (*func)(id, SEL) = (void *)imp;
+        func(self, selector);
+    }
+}
+
 
 -(void)loadRiskAnalResults{
     int lastId = [GlobalData lastResultDataId];
@@ -32,14 +48,27 @@ static Synchronizer *sharedInst = NULL;
             [GlobalData saveResultAnalyses:result[@"data"]];
         } else {
         }
+        [self finishJob];
     }];
 
 }
 
 -(void)loadPills{
     [GlobalData loadPillsCompletition:^(BOOL completition, id result){
-       
+        [self finishJob];
     }];
+}
+
+-(void)finishJob{
+    completedJobsCount++;
+    if (completedJobsCount == tasks.count){
+        completedJobsCount = 0;
+        [self finishSynchronize];
+    }
+}
+
+-(void)finishSynchronize{
+    self.resultBlock(YES,nil);
 }
 
 @end

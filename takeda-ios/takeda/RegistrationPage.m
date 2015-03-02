@@ -51,10 +51,6 @@
 
 int sel_index_region = 0;
 
-#warning SET OK keys !!!
-static NSString * Odnkl_appID = @"181911552";
-static NSString * Odnkl_appSecret = @"D8B73BB1C3297CC1C6358650";
-static NSString * Odnkl_appKey = @"CBABMINLABABABABA";
 
 
 
@@ -469,7 +465,7 @@ numberOfRowsInComponent:(NSInteger)component
 
 
 
-#pragma mark - Socil Networks
+#pragma mark - Social Networks
 
 
 #pragma mark - FACEBOOK
@@ -713,6 +709,9 @@ numberOfRowsInComponent:(NSInteger)component
 
 #pragma mark - OdnokloasnikiMethods
 -(IBAction)loginWithOK:(id)sender{
+    [self showMessage:@"Регистрация через Однокласники временно отключена" title:@"Уведомление"];
+    return;
+
     ShowNetworkActivityIndicator();
     if (!self.odnoklasniki_api) {
         self.odnoklasniki_api = [[Odnoklassniki alloc] initWithAppId:Odnkl_appID andAppSecret:Odnkl_appSecret andAppKey:Odnkl_appKey andDelegate:self];

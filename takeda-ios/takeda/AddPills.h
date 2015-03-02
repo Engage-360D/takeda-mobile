@@ -19,6 +19,7 @@ typedef enum {
 @interface AddPills : VControllerExt
 
 @property (nonatomic,retain) IBOutletCollection(UIButton) NSArray *incBtns;
+@property (nonatomic,retain) IBOutletCollection(UIButton) NSArray *actBtns;
 @property (nonatomic,retain) IBOutletCollection(PLTextField) NSArray *textFields;
 @property (nonatomic,retain) IBOutletCollection(UILabel) NSArray *labels;
 @property (nonatomic,retain) IBOutletCollection(UIImageView) NSArray *arrows;
@@ -30,11 +31,15 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UILabel *sinceDateLabel;
 @property (nonatomic, strong) IBOutlet UILabel *tillDateLabel;
 @property (nonatomic, strong) IBOutlet UILabel *quantityLabel;
+@property (nonatomic, strong) IBOutlet UIButton *editBtn;
+@property (nonatomic, strong) IBOutlet UIButton *deleteBtn;
 
 @property (nonatomic) ActionType actionType;
 
 @property (nonatomic, strong) NSMutableDictionary *drug;
 @property (nonatomic) BOOL readOnly;
+@property (nonatomic) BOOL preview;
+
 +(NSArray*)expArray;
 
 @end

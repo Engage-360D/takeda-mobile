@@ -12,7 +12,8 @@
 
 +(Synchronizer*)sharedInstance;
 
--(void)startSynchronize;
+@property (nonatomic, strong) void (^resultBlock) (BOOL success, id result);
 
+-(void)startSynchronizeCompletition:(void (^)(BOOL success, id result))completion;
 
 @end

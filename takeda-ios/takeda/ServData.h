@@ -12,10 +12,8 @@
 
 +(ServData*)sharedObject;
 
-+(void)authUserWithLogin:(NSString*)login
-                password:(NSString*)password
-              completion:(void (^)(BOOL result, NSError* error))completion;
-
++(void)authUserWithLogin:(NSString*)login password:(NSString*)password completion:(void (^)(BOOL result, NSError* error))completion;
++(void)authUserWithSocial:(NSString*)social user:(NSString*)user_id token:(NSString*)token completion:(void (^)(BOOL result, NSError* error))completion;
 +(void)getUserIdData:(NSString*)user_id withCompletion:(void (^)(BOOL result, NSError* error))completion;
 +(void)resetUserPassword:(NSString*)user_login withCompletion:(void (^)(BOOL result, NSError* error))completion;
 +(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error, NSString* textError))completion;
@@ -26,6 +24,8 @@
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion;
 +(void)shareTest:(int)testId viaEmail:(NSString*)email completition:(void (^)(BOOL success, id result))completion;
 +(void)addDrug:(NSDictionary*)analysisData completion:(void (^)(BOOL success, NSError* error, id result))completion;
++(void)updateDrug:(NSMutableDictionary*)drugData completion:(void (^)(BOOL success, NSError* error, id result))completion;
++(void)deleteDrug:(NSMutableDictionary*)drugData completion:(void (^)(BOOL success, NSError* error, id result))completion;
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion;
 +(void)updateTask:(NSString*)taskId params:(NSDictionary*)taskParams completion:(void (^)(BOOL success, NSError* error, id result))completion;
 +(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion;

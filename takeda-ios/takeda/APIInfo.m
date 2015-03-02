@@ -8,6 +8,9 @@
 
 #define kServerURL [NSString stringWithFormat:@"%@/api/v1/",kBaseServerURL]
 #define kTokens @"tokens"   // получить токен пользователя (исп. для авторизации)
+#define kFacebook @"facebook"
+#define kVK @"vk"
+
 #define kUsers @"users"
 #define kAccount @"account" // Пользователи. POST - создать пользователя, GET - получить пользователей, /id - информация о пользователе.
 #define kRegionsList @"regions" // получить список регионов.
@@ -21,3 +24,8 @@
 
 #define client_id @"3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4"
 #define client_secret @"6bhq30w1jrc4wwoc00ks400scgkwws8g8skwkc84g0kkwgkc0k"
+
+#warning SET OK keys !!!
+#define  Odnkl_appID @"181911552"
+#define  Odnkl_appSecret @"D8B73BB1C3297CC1C6358650"
+#define  Odnkl_appKey @"CBABMINLABABABABA"

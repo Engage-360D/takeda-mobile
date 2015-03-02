@@ -31,7 +31,7 @@
     
     
     self.window.backgroundColor = [UIColor whiteColor];
-    [self showAllFonts];
+  //  [self showAllFonts];
   // [self showFonts];
     [self.window makeKeyAndVisible];
     return YES;

@@ -8,7 +8,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddPills">
             <connections>
                 <outlet property="danger_text" destination="GEQ-Fd-AKo" id="zZU-V4-8QG"/>
+                <outlet property="deleteBtn" destination="pNL-8g-5uM" id="r4p-X2-r9n"/>
                 <outlet property="drugName" destination="Zhr-me-95s" id="yeH-R4-TT0"/>
+                <outlet property="editBtn" destination="UEz-5V-32H" id="yti-qV-cca"/>
                 <outlet property="quantityLabel" destination="PlE-oz-I7p" id="ba6-Rb-Q6Q"/>
                 <outlet property="repeatLabel" destination="VIo-fC-32a" id="DQI-aH-klo"/>
                 <outlet property="scrollView" destination="51c-Wn-YBB" id="Dcu-y9-pQ4"/>
@@ -22,7 +24,6 @@
                 <outletCollection property="bg_block" destination="y1M-8V-zDU" id="Edy-af-M9Z"/>
                 <outletCollection property="bg_block" destination="yKw-z6-4kp" id="BA0-iv-qg8"/>
                 <outletCollection property="bg_block" destination="rK9-Tr-Sn6" id="L8w-UB-4md"/>
-                <outletCollection property="bg_block" destination="uGs-JA-B4R" id="ae7-ct-k5R"/>
                 <outletCollection property="textFields" destination="Zhr-me-95s" id="nRm-oi-Mem"/>
                 <outletCollection property="incBtns" destination="mFH-k1-mLb" id="s0p-ED-Gfi"/>
                 <outletCollection property="incBtns" destination="6kt-hH-wkb" id="ET6-BR-keX"/>
@@ -32,7 +33,6 @@
                 <outletCollection property="labels" destination="4XB-Pb-7Oq" id="WpI-eR-qig"/>
                 <outletCollection property="labels" destination="6O9-OF-lke" id="ddh-zR-fxU"/>
                 <outletCollection property="labels" destination="tvu-au-hCp" id="hbd-bR-J83"/>
-                <outletCollection property="labels" destination="7gZ-T2-Nkt" id="ttK-DP-7pa"/>
                 <outletCollection property="incBtns" destination="Neq-vN-u3A" id="Yx0-hF-xoN"/>
                 <outletCollection property="bg_block" destination="i87-Oc-cz1" id="57m-n1-CMl"/>
                 <outletCollection property="labels" destination="PlE-oz-I7p" id="fMY-03-5F7"/>
@@ -41,6 +41,8 @@
                 <outletCollection property="arrows" destination="cKY-pb-1XE" id="Htt-3F-RdJ"/>
                 <outletCollection property="arrows" destination="LeX-PW-MvW" id="rBd-a0-wta"/>
                 <outletCollection property="arrows" destination="dv7-xS-4pq" id="OSV-id-I9Y"/>
+                <outletCollection property="actBtns" destination="UEz-5V-32H" id="Nog-xy-rYA"/>
+                <outletCollection property="actBtns" destination="pNL-8g-5uM" id="s4i-2d-2fJ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -206,22 +208,8 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" id="uGs-JA-B4R">
-                            <rect key="frame" x="2" y="359" width="320" height="38"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Состояние" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7gZ-T2-Nkt">
-                                    <rect key="frame" x="15" y="4" width="173" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        </view>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имеются противопоказания  необходимо ознакомиться с инструкцией по применению" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GEQ-Fd-AKo">
-                            <rect key="frame" x="0.0" y="400" width="320" height="68"/>
+                            <rect key="frame" x="0.0" y="418" width="320" height="68"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                             <color key="textColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
@@ -258,6 +246,32 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pNL-8g-5uM">
+                            <rect key="frame" x="33" y="341" width="254" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Удалить">
+                                <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="deleteDrug:" destination="-1" eventType="touchUpInside" id="2by-Uk-zpE"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UEz-5V-32H">
+                            <rect key="frame" x="33" y="341" width="254" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Редактировать">
+                                <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="editAction:" destination="-1" eventType="touchUpInside" id="PFz-gZ-hiO"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                 </scrollView>

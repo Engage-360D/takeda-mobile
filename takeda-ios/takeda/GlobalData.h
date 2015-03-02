@@ -15,11 +15,8 @@
 @property (nonatomic, strong) FMDatabase *database;
 
 +(NSMutableArray*)regionsList;
-
 +(void)loadRegionsList:(void (^)(BOOL success, id result))completion;
-
 +(void)saveRegions:(NSMutableArray*)regions;
-
 +(void)saveResultAnalyses:(NSMutableDictionary*)result;
 +(NSMutableArray*)resultAnalyses;
 +(int)lastResultDataId;
@@ -35,6 +32,8 @@
 +(NSMutableArray*)pills;
 +(NSMutableDictionary*)pillById:(int)pillId;
 +(NSMutableDictionary*)pillsDict;
++(void)updatePill:(NSMutableDictionary*)pill;
++(void)deletePill:(NSMutableDictionary*)pill;
 +(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion;
 +(void)clearFiles;
 +(void)casheTimelineTasks:(NSMutableDictionary*)tasks;

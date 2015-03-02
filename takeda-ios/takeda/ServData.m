@@ -68,6 +68,48 @@ static ServData *objectInstance = nil;
 
 #pragma mark - Network requests
 
++(void)authUserWithSocial:(NSString*)social user:(NSString*)user_id token:(NSString*)token
+              completion:(void (^)(BOOL result, NSError* error))completion
+{
+    
+    NSString *url = [NSString stringWithFormat:
+                     @"%@%@/%@",kServerURL,kTokens,social];
+    
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    if (token.length>0) [params setObject:token forKey:@"access_token"];
+    if (user_id.length>0) [params setObject:user_id forKey:@"user_id"];
+    
+    [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result, NSError *error){
+        if (result[@"data"][@"id"]){
+            if ([result[@"linked"][@"users"] isKindOfClass:[NSArray class]]&&[result[@"linked"][@"users"] count]>0){
+                NSString *login = result[@"linked"][@"users"][0][@"email"];
+                User.userData = [NSMutableDictionary new];
+                User.access_token = result[@"data"][@"id"];
+                User.user_id = result[@"data"][@"links"][@"user"];
+                User.user_login = login;
+                // success
+                
+                NSMutableDictionary *usData = [User getUserInfo:login];
+                if (usData){
+                    [User updateUser:login userInfo:usData accessToken:result[@"data"][@"id"]];
+                }
+                
+                completion(YES,nil);
+
+                
+            } else {
+                completion(NO,nil);
+            }
+            
+            
+        } else {
+            completion(NO,nil);
+        }
+    }];
+}
+
+
+
 +(void)authUserWithLogin:(NSString*)login
                 password:(NSString*)password
               completion:(void (^)(BOOL result, NSError* error))completion
@@ -301,12 +343,12 @@ static ServData *objectInstance = nil;
     
 }
 
-+(void)addDrug:(NSDictionary*)analysisData completion:(void (^)(BOOL success, NSError* error, id result))completion{
++(void)addDrug:(NSDictionary*)drugData completion:(void (^)(BOOL success, NSError* error, id result))completion{
 
     NSString *url = [NSString stringWithFormat:
                      @"%@%@",kServerURL,kAccountPills];
     
-    [self sendCommonPOST:url body:[self preparedParams: analysisData] success:^(id result, NSError *error){
+    [self sendCommonPOST:url body:[self preparedParams: drugData] success:^(id result, NSError *error){
         if (result[@"data"][@"id"]){
             completion(YES,nil, result);
         } else {
@@ -314,6 +356,42 @@ static ServData *objectInstance = nil;
         }
     }];
 }
+
++(void)updateDrug:(NSMutableDictionary*)drugData completion:(void (^)(BOOL success, NSError* error, id result))completion{
+    
+    NSString *url = [NSString stringWithFormat:
+                     @"%@%@/%@",kServerURL,kAccountPills,drugData[@"id"]];
+    
+    NSMutableDictionary *dict = [Global recursiveMutable:[drugData mutableCopy]];
+    [dict removeObjectForKey:@"id"];
+    [dict removeObjectForKey:@"links"];
+
+    [self sendCommonPUT:url body:[self preparedParams: dict] success:^(id result, NSError *error){
+        if (result[@"data"][@"id"]){
+            [GlobalData updatePill:result[@"data"]];
+            completion(YES,nil, result);
+        } else {
+            completion(NO,nil, result);
+        }
+    }];
+}
+
++(void)deleteDrug:(NSMutableDictionary*)drugData completion:(void (^)(BOOL success, NSError* error, id result))completion{
+    
+    NSString *url = [NSString stringWithFormat:
+                     @"%@%@/%@",kServerURL,kAccountPills,drugData[@"id"]];
+    
+    [self sendCommonDELETE:url params:@"" success:^(id result, NSError *error) {
+        if ([error answerOk]){
+            [GlobalData deletePill:drugData];
+            completion(YES,nil, result);
+        } else {
+            completion(NO,nil, result);
+        }
+    }];
+}
+
+
 
 +(void)updateTask:(NSString*)taskId params:(NSDictionary*)taskParams completion:(void (^)(BOOL success, NSError* error, id result))completion{
     

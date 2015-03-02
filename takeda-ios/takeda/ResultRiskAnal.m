@@ -239,13 +239,16 @@
         self.scoreNoteTextRed.text = @"";
     }
     
+    self.medSearchBtnRed.hidden = ![results_data[@"recommendations"][@"placesLinkShouldBeVisible"] boolValue];
     self.mainRecomendationRed.height = [Global heightLabel:self.mainRecomendationRed];
     self.scoreNoteTextRed.height = [Global heightLabel:self.scoreNoteTextRed];
     
-    self.scoreLineContainerRed.y = self.mainRecomendationRed.bottom;
+    self.scoreLineContainerRed.y = self.mainRecomendationRed.bottom+20;
     self.scoreNoteTextRed.y = self.scoreLineContainerRed.bottom;
     self.medSearchBtnRed.y = self.scoreNoteTextRed.bottom+50;
     self.stateImageRed.y = self.scoreNoteTextRed.y;
+    self.separ1.y = self.mainRecomendationRed.bottom+15;
+    self.separ2.y = self.scoreNoteTextRed.bottom+15;
     [self.headerViewRed setupAutosizeBySubviewsWithBottomDistance:60];
     [self.scrollViewRed setup_autosizeWithBottomDistance:0];
 }
@@ -481,7 +484,7 @@
 #pragma mark - Actions
 
 -(IBAction)shareAction:(id)sender{
-    [self showMessageWithTextInput:User.userData[@"email"] msg:@"Отправить результат тестирования по почте" title:@"Share" btns:@[@"Отмена",@"Отправить"] params:nil result:^(int index, NSString *text){
+    [self showMessageWithTextInput:@"E-mail" msg:@"Отправить результат тестирования по почте" title:@"Share" btns:@[@"Отмена",@"Отправить"] params:@{@"text":User.userData[@"email"]} result:^(int index, NSString *text){
         if (index == 1){
             if (text.length == 0) { text = User.userData[@"email"];}
             [ServData shareTest:[results_data[@"id"] intValue] viaEmail:text completition:^(BOOL success, id result){

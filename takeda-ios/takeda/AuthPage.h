@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "PLTextField.h"
+#import "Vkontakte.h"
+#import "Odnoklassniki.h"
 
 
-@interface AuthPage : VControllerExt
+@interface AuthPage : VControllerExt <VkontakteDelegate,OKSessionDelegate, OKRequestDelegate>{
+    Vkontakte *_vkontakte;
+}
+
 @property (nonatomic,retain) IBOutletCollection(UIView) NSArray *bg_block;
 @property (nonatomic,retain) IBOutlet PLTextField *email_field;
 @property (nonatomic,retain) IBOutlet PLTextField *pass_field;

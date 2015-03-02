@@ -193,6 +193,18 @@ static GlobalData *objectInstance = nil;
     return [Global recursiveMutable: [arr groupByKey:@"id"]];
 }
 
++(void)updatePill:(NSMutableDictionary*)pill{
+    NSMutableDictionary *pills = [self pillsDict];
+    [pills setObject:pill forKey:pill[@"id"]];
+    [pills.allKeys saveTofile:userPills];
+}
+
++(void)deletePill:(NSMutableDictionary*)pill{
+    NSMutableDictionary *pills = [self pillsDict];
+    [pills removeObjectForKey:pill[@"id"]];
+    [pills.allKeys saveTofile:userPills];
+}
+
 
 +(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion{
     [ServData loadPillsCompletition:^(BOOL success, id result){

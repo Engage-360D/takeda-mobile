@@ -47,6 +47,7 @@
 -(void)updateUser:(NSString*)login userInfo:(NSMutableDictionary*)userInfo accessToken:(NSString*)access_token;
 -(NSMutableDictionary*)getUserInfo:(NSString*)login;
 -(void)setCurrentUser:(NSString*)login;
+-(void)synchronizeUser:(NSString*)login completition:(void (^)(BOOL success, id result))completion;
 -(NSString*)getLastUser;
 -(void)logoutUser;
 -(void)saveIncidents;
