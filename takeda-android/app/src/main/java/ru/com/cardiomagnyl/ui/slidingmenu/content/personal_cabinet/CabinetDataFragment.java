@@ -61,7 +61,7 @@ public class CabinetDataFragment extends BaseItemFragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-                        Fragment fragment = new CabinetTestFragment();
+                        Fragment fragment = new CabinetTestResultsFragment();
                         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
                         slidingMenuActivity.replaceAllContent(fragment, false);
                     }

@@ -35,7 +35,7 @@ import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.InformationFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.SearchInstitutionsFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.MenuItem;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
@@ -368,15 +368,10 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             slidingMenuActivity.replaceAllContent(searchInstitutionsFragment, false);
             slidingMenuActivity.selectCurrentItem(searchInstitutionsFragment);
         } else if (Url.BANNER_PASS_POLL.equals(bannerData.getPageUrl())) {
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.TEST_RESULT_ID, testResultId);
-
-            BaseItemFragment cabinetTestFragment = new CabinetTestFragment();
-            cabinetTestFragment.setArguments(bundle);
-
-            slidingMenuActivity.replaceAllContent(cabinetTestFragment, false);
+            BaseItemFragment fragment = new CabinetTestResultsFragment();
+            slidingMenuActivity.replaceAllContent(fragment, false);
             //FIXME: change if need
-            // slidingMenuActivity.selectCurrentItem(cabinetTestFragment);
+            // slidingMenuActivity.selectCurrentItem(fragment);
             slidingMenuActivity.unselectCurrentItem();
         }
     }
