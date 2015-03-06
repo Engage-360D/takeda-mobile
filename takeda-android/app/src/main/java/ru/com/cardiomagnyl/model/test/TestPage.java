@@ -119,9 +119,9 @@ public class TestPage extends BaseModel implements Parcelable {
         return extractIdAndName.first + "_" + extractIdAndName.second;
     }
 
-    private static Pair<String, String> extractIdAndName(String link) {
+    public static Pair<String, String> extractIdAndName(String link) {
         String[] separated = link.split("/");
-        String testId = separated[separated.length - 3];
+        String testId = separated[separated.length - 2];
         String recomendationName = separated[separated.length - 1];
 
         return new Pair(testId, recomendationName);

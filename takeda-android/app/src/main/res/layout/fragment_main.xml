@@ -64,12 +64,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <ru.com.cardiomagnyl.widget.CustomSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayoutTimeline"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@id/textViewFooter"
-        android:layout_below="@id/linearLayoutHeader"
-        android:layout_height="match_parent">
+        android:layout_below="@id/linearLayoutHeader">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -151,6 +151,6 @@
             </LinearLayout>
         </ScrollView>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </ru.com.cardiomagnyl.widget.CustomSwipeRefreshLayout>
 
 </RelativeLayout>

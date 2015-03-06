@@ -1,5 +1,7 @@
 package ru.com.cardiomagnyl.model.test;
 
+import android.util.Pair;
+
 import com.android.volley.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.j256.ormlite.dao.BaseDaoImpl;
@@ -52,9 +54,10 @@ public class PageDao extends BaseDaoImpl<TestPage, Integer> {
                         .setQueryMethod(DbRequestHolder.QueryMethod.queryForFirst)
                         .create();
 
+        Pair<String, String> extractedIdAndName = TestPage.extractIdAndName(link);
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
-                        .Builder(Request.Method.GET, String.format(Url.ACCOUNT_TEST_PAGES, link, token.getTokenId()), typeReference)
+                        .Builder(Request.Method.GET, String.format(Url.ACCOUNT_TEST_RECOMMENDATIONS, extractedIdAndName.first, extractedIdAndName.second, token.getTokenId()), typeReference)
                         .addHeaders(Url.GET_HEADERS)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();

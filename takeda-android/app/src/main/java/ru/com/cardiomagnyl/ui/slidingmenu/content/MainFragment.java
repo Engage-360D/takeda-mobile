@@ -1,8 +1,6 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -11,20 +9,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
-import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.test.TestResult;
-import ru.com.cardiomagnyl.model.timeline.Timeline;
-import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.base.BaseTimeLineFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.journal.TimelineAdapter;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.TakingPillsFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Tools;
 
 public class MainFragment extends BaseTimeLineFragment {
@@ -33,6 +24,7 @@ public class MainFragment extends BaseTimeLineFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, null);
+        initIndex(view);
         initFragmentStart(view);
         return view;
     }
@@ -40,7 +32,6 @@ public class MainFragment extends BaseTimeLineFragment {
     @Override
     protected void initFragmentFinishHelper(final View fragmentView) {
         initSwipeRefreshLayout(fragmentView);
-        initIndex(fragmentView);
         initWeekDateRange(fragmentView);
         initToday(fragmentView);
         initTimeLine(fragmentView);

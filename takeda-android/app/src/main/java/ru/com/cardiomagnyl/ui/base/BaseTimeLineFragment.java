@@ -69,6 +69,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.showProgressDialog();
 
+        TimelineDao.clearTable();
         getTimeline(fragmentView);
 
         SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swipeRefreshLayoutTimeline);
@@ -152,8 +153,10 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
     }
 
     private void initFragmentFinishSubHelper(final View fragmentView, final List<Timeline> timeline, final Map<String, Pill> pillsMap) {
-        mPillsMap.clear();
-        mPillsMap.putAll(pillsMap);
+        if (pillsMap != null && !pillsMap.isEmpty()) {
+            mPillsMap.clear();
+            mPillsMap.putAll(pillsMap);
+        }
 
         mFullTimelineList.clear();
         mFullTimelineList.addAll(timeline);

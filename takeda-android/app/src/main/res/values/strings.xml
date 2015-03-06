@@ -247,15 +247,9 @@
     <!-- ============ -->
     <string name="recommendations">Рекомендации</string>
     <string name="additional_test">Дополнительный опрос\nпо корректировке диеты</string>
-    <string name="cake_ice_cream">Торты/мороженое</string>
-    <string name="fat_cheese">Жирный сыр/сливки/желток яиц/цельное молоко/йогурты</string>
-    <string name="butter_margarine">Сливочное масло/маргарин/пальмовое кокосовое масло/сало/соусы с яичным желтком (майонез)</string>
-    <string name="coconut">Кокос</string>
-    <string name="fried_food">Любая пища, приготовления во фритюре</string>
     <string name="get_recommendations">Получить рекомендации по диете</string>
-    <string name="every_day">ем\nкаждый день</string>
-    <string name="try_to_limit">стараюсь\nограничивать</string>
-    <string name="almost_never">почти\nне употребляю</string>
+    <string name="should_prefer">Следует предпочесть</string>
+    <string name="eat_sparingly">Следует употреблять умеренно</string>
 
     <!-- ================ -->
     <!-- cabinet_settings -->
@@ -327,7 +321,6 @@
     <!-- results -->
     <!-- ======= -->
     <string name="choose_medical_institution">Подобрать мед. учереждение по близости</string>
-    <string name="create_calendar">Составить календарь профилактики</string>
     <string name="adjustment_of_diet">Дополнительная корректировка диеты</string>
     <string name="pass_poll">Пройти опрос</string>
     <string name="send_results">Отослать результаты на email %s?</string>

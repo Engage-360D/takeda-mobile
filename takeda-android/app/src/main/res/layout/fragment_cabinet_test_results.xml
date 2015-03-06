@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewHeader"
+        style="@style/TextViewTop"
+        android:text="@string/recommendations" />
+
+    <ScrollView
+        android:id="@+id/fragmentContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewHeader"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View style="@style/gap_vertical_space_small" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutPiecesHolder"
+                android:layout_width="match_parent"
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutRedHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium"
+                android:background="@color/bg_header"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/should_prefer" />
+
+                <View style="@style/divider_normal_1_6" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutBlueHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium"
+                android:orientation="vertical"
+                android:background="@color/bg_test_result_good">
+
+                <TextView
+                    style="@style/TextViewBannerHeader"
+                    android:text="@string/eat_sparingly" />
+
+                <View style="@style/divider_normal_1_6" />
+            </LinearLayout>
+
+            <View style="@style/gap_vertical_space_small" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/textViewMessage"
+        layout="@layout/layout_data_not_found"
+        android:visibility="gone" />
+
+</RelativeLayout>

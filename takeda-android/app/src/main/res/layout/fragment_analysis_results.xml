@@ -27,7 +27,8 @@
 
             <include
                 android:id="@+id/relativeLayoutScore"
-                layout="@layout/layout_score" />
+                layout="@layout/layout_score"
+                android:visibility="invisible" />
 
             <include
                 android:id="@+id/linearLayoutScoreNote"
@@ -118,14 +119,6 @@
                 <include
                     android:id="@+id/linearLayoutBannerAdjustmentOfDiet"
                     layout="@layout/layout_banner" />
-
-                <Button
-                    android:id="@+id/buttonСreateСalendar"
-                    style="@style/button_main_long"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="@dimen/space_medium"
-                    android:layout_marginTop="@dimen/space_medium"
-                    android:text="@string/create_calendar" />
 
             </LinearLayout>
         </LinearLayout>

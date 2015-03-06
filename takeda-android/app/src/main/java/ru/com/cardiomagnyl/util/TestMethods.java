@@ -19,6 +19,10 @@ import ru.com.cardiomagnyl.model.test.PageDao;
 import ru.com.cardiomagnyl.model.test.TestPage;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
+import ru.com.cardiomagnyl.model.test_diet.TestDiet;
+import ru.com.cardiomagnyl.model.test_diet.TestDietDao;
+import ru.com.cardiomagnyl.model.test_diet.TestDietResult;
+import ru.com.cardiomagnyl.model.test_diet.TestDietResultDao;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.timeline.TimelineDao;
 import ru.com.cardiomagnyl.model.token.Token;
@@ -29,7 +33,10 @@ import ru.com.cardiomagnyl.model.user.UserDao;
 public class TestMethods {
 
     public static void testCurrentMethod() {
-        TaskDaoUpdate();
+        TestDietResultDaogetByTestId();
+//        TestDietResultDaoSendTestDietSource();
+//        TestDietDaoGetByTesftId();
+//        TaskDaoUpdate();
 //        PillDaoGetAll();
 //        TimelineDaoGetAll();
 //        TestPageDaoGetByLink();
@@ -41,6 +48,80 @@ public class TestMethods {
 //        TokenDaoGetByLgnPwd();
 //        UserRegister();
 //        RegionDaoGetAll();
+    }
+
+    public static void TestDietResultDaogetByTestId() {
+        String testId = "36";
+
+        TestDietResultDao.getByTestId(
+                testId,
+                new CallbackOne<TestDietResult>() {
+                    @Override
+                    public void execute(TestDietResult testDietResult) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
+    }
+
+    public static void TestDietResultDaoSendTestDietSource() {
+        String testDietSource = "answers[1]=1&answers[2]=2&answers[3]=3&answers[4]=1&answers[5]=2&answers[6]=3&answers[7]=1&";
+        String testId = "36";
+
+        Token token = new Token();
+        token.setUserId("63");
+        token.setTokenId("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjU0MTY2MjEsInVzZXJuYW1lIjoieS5hbmRyZXlrbysxN0BnbWFpbC5jb20iLCJpYXQiOiIxNDI1MzMwMjIxIn0.Uu2yPIDviHtYCgewBAl13OYBS5bbBIVNFSvWkHlt48bbA-YHiDGRGhU9rCBx28RJc7CGJ37s1IF2u4S7UunCvRaCgqVto2NkBuVlRCqbkvoP_pLYEjnCGbNLu473oq4mny6Xs98cz0CEqze6qeeChExcIHLKGcqkjrjm5zBa_MqLy_-UiwlWdKyXLo8FJUy5fGinopx4XmoFzmgahVEOoUmqn70kc1YKu4gs8aT6tf498T-YBsZG95s5vfRO3dVURK6x-GWaN2996yXF4_Af3wymD986zMPrkX5XsbHM-3Mzo66uZm-4UmT25sTSHsFoQ2sfWmY5BgsoOldaSyKjw_uHVMQ4eZIWjIXLRsR-6bTSRUHU2DTzGQMmIzHzVFtk2-JPackd2fr-TazVluaCk9ZvXfPNeXGNy6Gr7IwLAsaES7m16eED9mkF_mHf0_ujX9jlxXnc5e1s35wwAVaHOLgJdgIzoL--D65A7F7kAPJQ58OIrbG7hmbVrwHC2U7ExRK2sTcZysAmgXHtQPWhA-aKaT0HttzpNdbzQ_pqOEiv42CCNcawlN8xaJgFfLlKbrYDzid4-CMZI9s6H-5qxsCRuI6H8koduHxO2HrKqPjIoIBsF79cN4nF3OEp63icTjtWfNZP-ybOue51I5DfawdIggoTozzuelLhfnCZvfo");
+        TestDietResultDao.sendTestDietSource(
+                testDietSource,
+                testId,
+                token,
+                new CallbackOne<TestDietResult>() {
+                    @Override
+                    public void execute(TestDietResult testDietResult) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
+    }
+
+    public static void TestDietDaoGetByTesftId() {
+        Token token = new Token();
+        token.setUserId("63");
+        token.setTokenId("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE0MjUzMTMzNDQsInVzZXJuYW1lIjoieS5hbmRyZXlrbysxN0BnbWFpbC5jb20iLCJpYXQiOiIxNDI1MjI2OTQ0In0.mK59xlnELWsRNHOB_xS--GCbSr152PH8Lo9zAQLC1bGqO0TjRb_fpRweQyckqZ8pr-jgpUJAzcemUQTq6HLDeGpx95ok7cMVQkvLOzwy1RIiyMIhCOFU-5nrrwwSQim8bAdhyZhu6nh5D7DC5byNRc8eLHgK5YpZpfGQvb0BtjONqUB5ZgDduOLKjSmMF_2TTsIwAXdIwDQ8LyqKNNraaI3k2V2JqOT7IXRhfbG3Ycr4a0k-qTjmnNvIR1ReV_iR3kNdzW1Q4SLfZ0V8Do5bNgs99Hukc3HhyJYku4qJL3AvfIIRDTcR4oUzG1sontks4EGG3JqlYMb0LVqa8RoawjAHDvKJwOTjNpWgVnvUQdq9QL34PicWTxZugzjV0U2gE9YIjU2LQ_Sq5t5fOC1_hWLZabXOkPKXTXZ7tWod0oFavTCJvM0o96NEDqsETOiMUOHO6R1XrY_0Zh1wK_XRzlEH8uvo0KdzZzXMGaAGKQY2PrF9e525xgoy5j-iEP8W69_qoBcnW-nBJAm6-Qu3mQW_2G533X_MHchzNTpjWAEtPc2L5ML10OvFFceLVYcnn8Thwhe_OrdB19Ks4ebA6rdTyLG7XlzC8y3MNyNXRaE3H7MVVkCQa72fW02WCQ_XKFBEBhXpQJyipB7YdzhP0Y8t18vCy29cxx8pJb8L3d4");
+        TestDietDao.getTestDietByTestId(
+                "36",
+                token,
+                new CallbackOne<List<TestDiet>>() {
+                    @Override
+                    public void execute(List<TestDiet> testDietList) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
     }
 
     public static void TaskDaoUpdate() {

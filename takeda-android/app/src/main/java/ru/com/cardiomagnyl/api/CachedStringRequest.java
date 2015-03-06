@@ -1,6 +1,7 @@
 package ru.com.cardiomagnyl.api;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -31,6 +32,7 @@ public class CachedStringRequest extends StringRequest {
         mBody = body;
 
         setShouldCache(true);
+        setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
     }
 
     private String findAndRemoveContentType(Map<String, String> headers) {

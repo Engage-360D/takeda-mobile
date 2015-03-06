@@ -35,7 +35,7 @@ import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.InformationFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.SearchInstitutionsFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.MenuItem;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
@@ -129,17 +129,17 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         View linearLayoutBannerExtraSalt = view.findViewById(R.id.linearLayoutBannerExtraSalt);
         View linearLayoutBannerAdjustmentOfDiet = view.findViewById(R.id.linearLayoutBannerAdjustmentOfDiet);
 
-        initBanner(linearLayoutBannerSmoking, banners.getIsSmoker());
-        initBanner(linearLayoutBannerPhysicalActivity, banners.getPhysicalActivityMinutes());
-        initBanner(linearLayoutBannerBMI, banners.getBmi());
-        initBanner(linearLayoutBannerCholesterolLevel, banners.getCholesterolLevel());
-        initBanner(linearLayoutBannerArterialPressure, banners.getArterialPressure());
-        initBanner(linearLayoutBannerSugarProblems, banners.getHadSugarProblems());
-        initBanner(linearLayoutBannerPressureDrugs, banners.getIsArterialPressureDrugsConsumer());
-        initBanner(linearLayoutBannerCholesterolDrugs, banners.getIsCholesterolDrugsConsumer());
-        initBanner(linearLayoutBannerExtraSalt, banners.getIsAddingExtraSalt());
-        initBanner(linearLayoutBannerChooseMedicalInstitution, bannerChooseMedicalInstitution);
-        initBanner(linearLayoutBannerAdjustmentOfDiet, bannerAdjustmentOfDiet);
+        initBanner(linearLayoutBannerSmoking, banners.getIsSmoker(), testResult.getId());
+        initBanner(linearLayoutBannerPhysicalActivity, banners.getPhysicalActivityMinutes(), testResult.getId());
+        initBanner(linearLayoutBannerBMI, banners.getBmi(), testResult.getId());
+        initBanner(linearLayoutBannerCholesterolLevel, banners.getCholesterolLevel(), testResult.getId());
+        initBanner(linearLayoutBannerArterialPressure, banners.getArterialPressure(), testResult.getId());
+        initBanner(linearLayoutBannerSugarProblems, banners.getHadSugarProblems(), testResult.getId());
+        initBanner(linearLayoutBannerPressureDrugs, banners.getIsArterialPressureDrugsConsumer(), testResult.getId());
+        initBanner(linearLayoutBannerCholesterolDrugs, banners.getIsCholesterolDrugsConsumer(), testResult.getId());
+        initBanner(linearLayoutBannerExtraSalt, banners.getIsAddingExtraSalt(), testResult.getId());
+        initBanner(linearLayoutBannerChooseMedicalInstitution, bannerChooseMedicalInstitution, testResult.getId());
+        initBanner(linearLayoutBannerAdjustmentOfDiet, bannerAdjustmentOfDiet, testResult.getId());
     }
 
     private TestBanner createBannerChooseMedicalInstitution(TestResult testResult) {
@@ -175,7 +175,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         layoutTopMenu.setBackgroundColor(getResources().getColor(R.color.bg_header_result_bad));
         textViewResult.setTextColor(getResources().getColor(R.color.bg_test_result_bad));
         imageViewState.setImageResource(R.drawable.ic_attention_big_white);
-        initBanner(linearLayoutBannerChooseMedicalInstitution, bannerChooseMedicalInstitution);
+        initBanner(linearLayoutBannerChooseMedicalInstitution, bannerChooseMedicalInstitution, testResult.getId());
         linearLayoutBigWrapper.setVisibility(View.GONE);
     }
 
@@ -229,10 +229,10 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     }
 
     private void initScoreHelper(View view, TestResult testResult) {
-        TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
-        View relativeLayoutScore = view.findViewById(R.id.relativeLayoutScore);
-        RelativeLayout imageViewResultCircleHolder = (RelativeLayout) view.findViewById(R.id.relativeLayoutResultCircleHolder);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageViewResultCircleHolder.getLayoutParams();
+        final TextView textViewResult = (TextView) view.findViewById(R.id.textViewResult);
+        final View relativeLayoutScore = view.findViewById(R.id.relativeLayoutScore);
+        final RelativeLayout imageViewResultCircleHolder = (RelativeLayout) view.findViewById(R.id.relativeLayoutResultCircleHolder);
+        final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageViewResultCircleHolder.getLayoutParams();
 
         textViewResult.setText(String.valueOf(testResult.getScorePercents()) + "%");
 
@@ -242,6 +242,17 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         RelativeLayout.LayoutParams newLayoutParams = new RelativeLayout.LayoutParams(imageViewResultCircleHolder.getMeasuredWidth(), imageViewResultCircleHolder.getMeasuredWidth());
         newLayoutParams.setMargins(x, layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
         imageViewResultCircleHolder.setLayoutParams(newLayoutParams);
+
+        // necessary for eliminate visual resizing
+        imageViewResultCircleHolder.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        // unregister listener (this is important)
+                        imageViewResultCircleHolder.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        relativeLayoutScore.setVisibility(View.VISIBLE);
+                    }
+                });
     }
 
     private void tryToSendResult(final TestResult testResult, final User user, final Token token) {
@@ -300,7 +311,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         setTextView(textViewText, testNote.getText());
     }
 
-    private void initBanner(View bannerView, TestBanner bannerData) {
+    private void initBanner(View bannerView, TestBanner bannerData, String testResultId) {
         ImageView imageViewState = (ImageView) bannerView.findViewById(R.id.imageViewState);
         TextView textViewTitle = (TextView) bannerView.findViewById(R.id.textViewTitle);
         TextView textViewSubtitle = (TextView) bannerView.findViewById(R.id.textViewSubtitle);
@@ -315,14 +326,14 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             return;
         }
 
-        setClickable(bannerView, bannerData);
+        setClickable(bannerView, bannerData, testResultId);
         setImageView(imageViewState, bannerData.getState());
         setTextView(textViewTitle, bannerData.getTitle());
         setTextView(textViewSubtitle, bannerData.getSubtitle());
         setTextView(textViewNote, bannerData.getNote());
     }
 
-    private void setClickable(final View bannerView, final TestBanner bannerData) {
+    private void setClickable(final View bannerView, final TestBanner bannerData, final String testResultId) {
         ImageView imageViewRight = (ImageView) bannerView.findViewById(R.id.imageViewRight);
 
         if (TextUtils.isEmpty(bannerData.getPageUrl())) {
@@ -335,16 +346,16 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
                 @Override
                 public void onClick(View v) {
                     if (bannerData.getPageUrl().startsWith(Url.LOCAL)) {
-                        showLocalPage(bannerData);
+                        showLocalPage(bannerData, testResultId);
                     } else {
-                        showRemotePage(bannerData);
+                        showRemotePage(bannerData, testResultId);
                     }
                 }
             });
         }
     }
 
-    private void showLocalPage(final TestBanner bannerData) {
+    private void showLocalPage(final TestBanner bannerData, String testResultId) {
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         if (Url.BANNER_CHOOSE_MEDICAL_INSTITUTION.equals(bannerData.getPageUrl())) {
             // attempt to fix slow initialization of SupportMapFragment ("dirty hack")
@@ -357,15 +368,15 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             slidingMenuActivity.replaceAllContent(searchInstitutionsFragment, false);
             slidingMenuActivity.selectCurrentItem(searchInstitutionsFragment);
         } else if (Url.BANNER_PASS_POLL.equals(bannerData.getPageUrl())) {
-            BaseItemFragment cabinetTestFragment = new CabinetTestFragment();
-            slidingMenuActivity.replaceAllContent(cabinetTestFragment, false);
+            BaseItemFragment fragment = new CabinetTestResultsFragment();
+            slidingMenuActivity.replaceAllContent(fragment, false);
             //FIXME: change if need
-            // slidingMenuActivity.selectCurrentItem(cabinetTestFragment);
+            // slidingMenuActivity.selectCurrentItem(fragment);
             slidingMenuActivity.unselectCurrentItem();
         }
     }
 
-    private void showRemotePage(final TestBanner bannerData) {
+    private void showRemotePage(final TestBanner bannerData, String testResultId) {
         final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.showProgressDialog();
 

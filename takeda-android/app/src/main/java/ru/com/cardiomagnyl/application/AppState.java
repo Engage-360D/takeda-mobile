@@ -67,9 +67,4 @@ public class AppState {
         mTestResult = testResult;
     }
 
-    public void setTestResult(String testResult) {
-        TypeReference typeReference = new TypeReference<TestResult>() {
-        };
-        mTestResult = (TestResult) BaseModel.stringToObject(testResult, typeReference);
-    }
 }
