@@ -200,13 +200,21 @@ static ServData *objectInstance = nil;
         } else {
             
         }
-        completion(success, nil);
+        completion(success, error);
 
     }];
     
 }
 
++(void)sendIncident:(NSString*)incident comment:(NSString*)comment completion:(void (^)(BOOL success, NSError* error, id result))completion{
+    NSString *url = [NSString stringWithFormat:@"%@%@",kServerURL, kAccountIncidents];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{incident:[NSNumber numberWithBool:YES]}];
+    
+    [self sendCommonPOST:url body:[self preparedParams:params] success:^(id res, NSError *errorr){
+        completion([errorr answerOk], errorr, res);
+    }];
 
+}
 
 +(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error, NSString* textError))completion
 {
@@ -220,21 +228,21 @@ static ServData *objectInstance = nil;
 //                    User.user_id = res[@"data"][@"links"][@"user"];
 //                    User.user_login = res[@"data"][@"email"];
                 success = YES;
-                completion(success, nil, textError);
+                completion(success, error, textError);
             } else {
 //                if (response.statusCode == 500) {
 //                    textError = @"Пользователь с текущим email-адрессом был ранее зарегистрирован";
 //                }else{
 //                    err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"Ошибка при регистрации": resp}];
 //                }
-                completion(success, nil, textError);
+                completion(success, error, textError);
             }
         } else {
 //            if (!resp) {
 //                resp = @"Ошибка регистрации";
 //            }
 //            err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"error": resp}];
-            completion(success, nil, textError);
+            completion(success, error, textError);
         }
     }];
 }
@@ -249,26 +257,51 @@ static ServData *objectInstance = nil;
         if ([res isKindOfClass:[NSDictionary class] ]) {
             if (res[@"data"][@"id"]){
                 success = YES;
-                completion(success, nil, textError);
+                completion(success, error, textError);
             } else {
                 //                if (response.statusCode == 500) {
                 //                    textError = @"Пользователь с текущим email-адрессом был ранее зарегистрирован";
                 //                }else{
                 //                    err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"Ошибка при регистрации": resp}];
                 //                }
-                completion(success, nil, textError);
+                completion(success, error, textError);
             }
         } else {
             //            if (!resp) {
             //                resp = @"Ошибка регистрации";
             //            }
             //            err = [NSError errorWithDomain:@"com.takeda" code:1 userInfo:@{@"error": resp}];
-            completion(success, nil, textError);
+            completion(success, error, textError);
         }
     }];
 }
 
++(void)loadDietQuestions:(int)testId completion:(void (^)(NSError* error, id result))completion{
+    NSString *url = [NSString stringWithFormat:@"%@%@/%i/%@",kServerURL,kTestResults,testId,kTestResultDietQuestions];
+    
+    [self sendCommon:url success:^(id result, NSError *error){
+        if (result[@"data"]){
+            completion(error, result);
+        } else {
+            completion(error, result);
+        }
+    }];
+}
 
++(void)sendToServerDietResultsDiet:(int)testId testData:(NSDictionary*)testData completion:(void (^)(BOOL success, NSError* error, id result))completion{
+    NSMutableString *url = [NSMutableString stringWithFormat:@"%@%@/%i/%@?token=%@&",kServerURL,kTestResults,testId,kTestResultDietRecommendations, User.access_token];
+    [url appendString:[Global dictToStr:testData]];
+    
+    [self sendCommon:url success:^(id result, NSError *error) {
+        if (result[@"data"]){
+            completion(YES,error, result);
+        } else {
+            completion(NO,error, result);
+        }
+
+    }];
+    
+}
 
 +(void)sendAnalysisToServer:(NSDictionary*)analysisData completion:(void (^)(BOOL success, NSError* error, id result))completion{
     NSString *url = [NSString stringWithFormat:
@@ -338,7 +371,7 @@ static ServData *objectInstance = nil;
     NSString *urlstr = [NSString stringWithFormat:@"%@%@/%i/%@",kServerURL,kTestResults,testId,kTestResultShareEmail];
     NSDictionary *params = @{@"email":email};
     [self sendCommonPOST:urlstr body:[self preparedParams: params] success:^(id result, NSError *error){
-            completion(YES, result);
+            completion([error answerOk], result);
     }];
     
 }
@@ -626,7 +659,7 @@ static ServData *objectInstance = nil;
 
 
 +(void)sendCommon:(NSString*)urlStr success:(void (^)(id result, NSError *error))successIm{
-    if (User.access_token.length>0){
+    if (User.access_token.length>0&&[urlStr rangeOfString:User.access_token].location == NSNotFound){
         urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
     }
 

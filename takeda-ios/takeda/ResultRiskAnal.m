@@ -20,6 +20,7 @@
 @implementation ResultRiskAnal
 @synthesize searchInstitutionPage;
 @synthesize dietTest;
+@synthesize dietTestResults;
 @synthesize results_data;
 
 -(NSDictionary*)hardCodedItems{
@@ -63,11 +64,16 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (self.isAppearFromBack){
+        [self removeController:dietTestResults];
+        [self removeController:dietTest];
+    }
     [self initData];
     [self showData];
 }
 
 -(void)setupInterface{
+    
     
     self.medSearchBtnRed.layer.borderColor = RGB(53, 65, 71).CGColor;
     self.medSearchBtnRed.layer.borderWidth = 1.0f;
@@ -135,7 +141,13 @@
 }
 
 -(void)showData{
-    
+    if (self.disableBack){
+        self.navigationItem.leftBarButtonItem = [self menuButton];
+    } else {
+        self.navigationItem.leftBarButtonItem = [self backBtn];
+    }
+    self.infoBtn.enabled = !User.userBlocked;
+
     if (results_data[@"recommendations"][@"fullScreenAlert"]!=nil&&[results_data[@"recommendations"][@"fullScreenAlert"]isKindOfClass:[NSDictionary class]]){
         [self showScoreLineRed];
         [self showMainInfoRed];
@@ -417,7 +429,7 @@
 //        }
 //    }
     
-    if (item[@"pageUrl"]){
+    if ([Global isNotNull:item[@"pageUrl"]]){
         cell.backgroundColor = [self normCellColor];
         cell.arrowRight.hidden = NO;
     } else {
@@ -451,34 +463,11 @@
         }
 
     } else {
-        if (item[@"pageUrl"]){
+        if ([Global isNotNull:item[@"pageUrl"]]){
             [self openDetail:item];
         }
     }
 
-    
-//
-//    NSString *key = item[@"pageUrl"];
-//    NSDictionary *data_page = [self getDicPage:key];
-//    
-//    if (!data_page || [data_page isEqual:[NSNull null]]) {
-//        [Helper fastAlert:@"Нет данных"];
-//        return;
-//    }
-//    
-//    NSDictionary *data_banner = nil;
-//    if (key && ![key isEqual:[NSNull null]]) {
-//        data_banner = [self getDicBanner:key];
-//    }
-//    
-//    if (!detailResultRiskAnalysis) {
-//        detailResultRiskAnalysis = [[DetailResultRiskAnalysis alloc] initWithNibName:@"DetailResultRiskAnalysis" bundle:nil];
-//    }
-//    
-//    detailResultRiskAnalysis.data_page = data_page;
-//    detailResultRiskAnalysis.data_banner = data_banner;
-//    
-//    [self.navigationController pushViewController:detailResultRiskAnalysis animated:YES];
 }
 
 #pragma mark - Actions
@@ -489,7 +478,11 @@
             if (text.length == 0) { text = User.userData[@"email"];}
             [ServData shareTest:[results_data[@"id"] intValue] viaEmail:text completition:^(BOOL success, id result){
                 NSLog(@"%@",result);
-                [self showMessage:[NSString stringWithFormat:@"Результат теста \nотправлен на почту \n%@",text] title:@"Уведомление"];
+                if (success){
+                     [self showMessage:[NSString stringWithFormat:@"Результат теста \nотправлен на почту \n%@",text] title:@"Уведомление"];
+                } else {
+                    [self showMessage:@"Ошибка отправки" title:@"Ошибка"];
+                }
             }];
         }
     }];
@@ -507,8 +500,35 @@
 }
 
 -(void)openAdditionalFoodTest{
+    int testId = [results_data[@"id"] intValue];
+    if ([GlobalData resultDietForTestId:testId]!=nil&&!self.isAppearFromBack){
+        NSMutableDictionary* result = [GlobalData resultDietForTestId:testId];
+        [self goToResult:result];
+    } else {
+        [self goToTest];
+    }
+}
+
+-(void)goToTest{
+    [self removeController:dietTestResults];
     dietTest = [DietTest new];
+    int testId = [results_data[@"id"] intValue];
+    dietTest.testId = testId;
     [self.navigationController pushViewController:dietTest animated:YES];
+
+}
+
+-(void)goToResult:(NSMutableDictionary*)result{
+    [self removeController:dietTest];
+    dietTestResults = [DietTestResults new];
+    dietTestResults.result = result;
+    [self.navigationController pushViewController:dietTestResults animated:YES];
+}
+
+-(void)removeController:(id)contr{
+    NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray: self.navigationController.viewControllers];
+    [allViewControllers removeObjectIdenticalTo: contr];
+    self.navigationController.viewControllers = allViewControllers;
 }
 
 -(IBAction)openProfilacticCalendarAction:(id)sender{

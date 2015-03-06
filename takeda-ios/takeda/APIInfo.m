@@ -20,6 +20,9 @@
 #define kAccountPills @"account/pills" // Таблетки. POST - Добавить таблетку. GET - получить таблетки.
 #define kAccountTimeline @"account/timeline" // Таймлайн. Он же Дневник. GET.
 #define kAccountTasks @"account/timeline/tasks" // Задачи с таймлайна. PUT - обновить, GET - посмотреть по id.
+#define kAccountIncidents @"account/incidents" // Добавить инцидент. POST.
+#define kTestResultDietQuestions @"diet-questions" // получить вопросы для теста по питанию. GET.
+#define kTestResultDietRecommendations @"diet-recommendations" // получить результаты теста по питанию. GET.
 
 
 #define client_id @"3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4"

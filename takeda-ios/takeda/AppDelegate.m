@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "TestFairy.h"
 #import "Odnoklassniki.h"
 #import "Path.h"
 
@@ -20,6 +21,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
     NSString *remoteHostName = @"www.apple.com";
+    [TestFairy begin:@"0a5b866d28f84bb9bbea5a2948683e8e0be28546"];
     self.hostReachability = [Reachability reachabilityWithHostName:remoteHostName];
     [self.hostReachability startNotifier];
 
@@ -58,13 +60,17 @@
 
 -(NetworkStatus)hostConnection{
     NetworkStatus remoteHostStatus = [hostReachability currentReachabilityStatus];
+    if (remoteHostStatus == NotReachable){
+        [self.hostReachability stopNotifier];
+        [self.hostReachability startNotifier];
+    }
     return remoteHostStatus;
 }
 
 
 -(void)showAllFonts{
 
-    NSArray *fontFamilies = [UIFont familyNames];
+    NSArray *fontFamilies = [UIFont familyNames];   
     
     for (int i = 0; i < [fontFamilies count]; i++)
     {

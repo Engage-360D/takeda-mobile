@@ -23,6 +23,8 @@
 }
 +(UserData*)sharedObject;
 
+@property (nonatomic) BOOL userBlocked;
+
 @property (nonatomic, strong) NSString *user_id;
 @property (nonatomic, strong) NSString *user_login;
 @property (nonatomic, strong) NSString *access_token;
@@ -36,6 +38,7 @@
 -(void)setupUserDefaultsForUser:(NSString*)user_email;
 
 -(BOOL)is_authorized;
+-(BOOL)checkToNeedTest;
 
 //-(NSDictionary*)getUserData;
 //-(void)setUserData:(NSMutableDictionary*)userData;

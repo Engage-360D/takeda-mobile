@@ -17,8 +17,11 @@
 +(void)getUserIdData:(NSString*)user_id withCompletion:(void (^)(BOOL result, NSError* error))completion;
 +(void)resetUserPassword:(NSString*)user_login withCompletion:(void (^)(BOOL result, NSError* error))completion;
 +(void)registrationUserWithData:(NSDictionary*)params  completion:(void (^)(BOOL result, NSError* error, NSString* textError))completion;
++(void)sendIncident:(NSString*)incident comment:(NSString*)comment completion:(void (^)(BOOL success, NSError* error, id result))completion;
 +(void)updateUser:(NSString*)user_id withData:(NSDictionary*)params completion:(void (^)(BOOL result, NSError* error, NSString* textError))completion;
 +(void)loadRegionsWithCompletion:(void (^)(BOOL result, NSError* error))completion;
++(void)loadDietQuestions:(int)testId completion:(void (^)(NSError* error, id result))completion;
++(void)sendToServerDietResultsDiet:(int)testId testData:(NSDictionary*)testData completion:(void (^)(BOOL success, NSError* error, id result))completion;
 +(void)sendAnalysisToServer:(NSDictionary*)analysisData completion:(void (^)(BOOL success, NSError* error, id result))completion;
 +(void)loadAnalysisFromServerWithLastId:(int)lastId completion:(void (^)(BOOL success, NSError* error, id result))completion;
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion;

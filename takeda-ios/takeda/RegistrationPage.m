@@ -131,6 +131,12 @@ NSString *okToken;
     self.name_field.placeholderColor = RGB(53, 65, 71);
     self.name_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
     self.name_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
+
+    self.lastname_field.placeholderColor = RGB(53, 65, 71);
+    self.lastname_field.placeholderFont = [UIFont fontWithName:@"SegoeWP" size:14.0];
+    self.lastname_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
+
+    
     self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
     
     self.btn_register.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:17.0];
@@ -174,7 +180,10 @@ NSString *okToken;
 
 -(IBAction)registerUser:(id)sender{
 
-    if (![self checkFields]) {return;}
+    if (![self checkFields]) {
+        [self showMessage:@"Заполните все поля" title:@"Уведомление"];
+        return;
+    }
         
         NSString *firstname = self.name_field.text;
         NSString *lastname = self.lastname_field.text;
@@ -231,15 +240,22 @@ NSString *okToken;
 //            }
 //        }
 //        
-    
+    [self showActivityIndicatorWithString:@""];
         [ServData registrationUserWithData:params completion:^(BOOL result, NSError *error, NSString* textError){
+            [self removeActivityIdicator];
             if (result){
+                User.userData = nil;
+                [User logoutUser];
+                [self showActivityIndicatorWithString:@""];
                 [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
+                    [self removeActivityIdicator];
+
                     if (result) {
                         [User setCurrentUser:User.user_login];
                         [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
                             [User setCurrentUser:User.user_login];
                             if (result){
+                                [[rootMenuController sharedInstance] resetControllers];
                                 UIViewController *vc = [[rootMenuController sharedInstance] getMenuController];
                                 [vc.navigationController setNavigationBarHidden:NO];
                                 [ApplicationDelegate setRootViewController:vc];
@@ -255,7 +271,12 @@ NSString *okToken;
 
                 
             } else {
-                [Helper fastAlert:@"Ошибка регистрации"];
+                if (error.code==409){
+                    [Helper fastAlert:@"Пользователь уже существует"];
+                } else {
+                    [Helper fastAlert:@"Ошибка регистрации"];
+                }
+                
             }
             
         }];

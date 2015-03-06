@@ -521,4 +521,20 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
     return endOfMonth;
 }
 
++(NSDate*)latestDate:(NSDate *)date1 date2:(NSDate*)date2{
+    if ([date1 isLaterThanDate:date2]){
+        return date1;
+    } else {
+        return date2;
+    }
+}
+
++(NSDate*)earlierDate:(NSDate *)date1 date2:(NSDate*)date2{
+    if ([date1 isLaterThanDate:date2]){
+        return date2;
+    } else {
+        return date1;
+    }
+}
+
 @end

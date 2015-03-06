@@ -10,7 +10,7 @@
 #import "buttonWithID.h"
 
 typedef enum {
-    ctSimpleRightCaption = 1,
+    ctSimpleLeftCaption = 1,
     ctLeftCaptionRightCaption = 2,
     ctLeftCaptionRightArrow = 3,
     ctCaptionSubtitleRightArrow = 4,

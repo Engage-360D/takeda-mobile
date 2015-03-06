@@ -150,7 +150,16 @@ static AllSingle *dot = nil;
     return url;
 }
 
--(NSString*)dictToStr:(NSMutableDictionary*)dict{
+-(BOOL)isNotNull:(id)value{
+        if (value == nil) return NO;
+        if (value == NULL) return NO;
+        if ([value isKindOfClass:[NSString class]]&&[(NSString*)value isEqualToString:@"<null>"]) return NO;
+        if ([value isKindOfClass:[NSNull class]]) return NO;
+        if ([value isEqual:[NSNull null]]) return NO;
+        return YES;
+}
+
+-(NSString*)dictToStr:(NSDictionary*)dict{
     NSMutableString *str = [NSMutableString new];
     for (NSString *key in dict){
         [str appendFormat:@"%@=%@&",key, dict[key]];

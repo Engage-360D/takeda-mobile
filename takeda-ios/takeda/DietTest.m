@@ -7,6 +7,7 @@
 //
 
 #import "DietTest.h"
+#import "ResultRiskAnal.h"
 
 @interface DietTest (){
     NSMutableArray *test_data;
@@ -15,6 +16,7 @@
 @end
 
 @implementation DietTest
+@synthesize testId;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,12 +42,31 @@
 }
 
 -(void)initData{
-    test_data = [Global recursiveMutable: @[@{@"key":@"cakes", @"title":@"Торты/мороженое",@"state":@"2"},
-                                            @{@"key":@"milk", @"title":@"Жирный сыр/сливки/желток яиц/цельное молоко/йогурты",@"state":@"2"},
-                                            @{@"key":@"fat", @"title":@"Сливочное масло/маргарин/пальмовое кокосовое масло/сало/соусы с яичным желтком (майонез)",@"state":@"2"},
-                                            @{@"key":@"cocos", @"title":@"Кокос",@"state":@"2"},
-                                            @{@"key":@"fritur", @"title":@"Любая пища, приготовления во фритюре",@"state":@"2"}
-                                            ]];
+    
+    
+    [ServData loadDietQuestions:testId completion:^(NSError *error, id result) {
+        if ([error answerOk]){
+            NSMutableDictionary *variants = [Global recursiveMutable:[result[@"links"][@"answers"] groupByKey:@"id"]];
+            NSMutableArray *questions = [Global recursiveMutable:result[@"data"]];
+            
+            for (NSMutableDictionary *quest in questions){
+                NSMutableArray *answers = quest[@"links"][@"answers"];
+                NSMutableArray *new_answers = [NSMutableArray new];
+                for (id key in answers){
+                    [new_answers addObject:variants[key]];
+                }
+                [quest setObject:new_answers forKey:@"answers"];
+            }
+            
+
+            test_data = questions;
+            [self.tableView reloadData];
+
+        } else {
+            
+        }
+    }];
+    
 }
 
 #pragma mark - Table view data source
@@ -57,7 +78,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSMutableDictionary *item = test_data[indexPath.row];
-    float tH = [Global text:item[@"title"] sizeWithFont:[self cellTitleFont] constrainedToSize:CGSizeMake(tableView.width - 30, CGFLOAT_MAX)].height;
+    float tH = [Global text:item[@"question"] sizeWithFont:[self cellTitleFont] constrainedToSize:CGSizeMake(tableView.width - 30, CGFLOAT_MAX)].height;
     return tH + 80;
 }
 
@@ -74,17 +95,31 @@
             if([currentObject isKindOfClass:[DietTestTableCell class]])
             {
                 cell = (DietTestTableCell *)currentObject;
+                [cell.segment addTarget:self action:@selector(selectIndex:) forControlEvents:UIControlEventValueChanged];
                 break;
             }
         }
     }
+        NSMutableDictionary *item = test_data[indexPath.row];
+
+    NSMutableArray*segments = item[@"answers"];
+    [cell.segment removeAllSegments];
+    for (NSMutableDictionary *answer in segments){
+        [cell.segment insertSegmentWithTitle:answer[@"answer"] atIndex:cell.segment.numberOfSegments animated:NO];
+    }
+    if ([Global isNotNull:item[@"state"]]){
+        cell.segment.selectedSegmentIndex = [item[@"state"] intValue]-1;
+    } else {
+        cell.segment.selectedSegmentIndex = UISegmentedControlNoSegment;
+    }
+    [cell updateSegmentLabel];
+
     
-    NSMutableDictionary *item = test_data[indexPath.row];
-    cell.title.text = item[@"title"];
+    cell.title.text = item[@"question"];
     cell.title.font = [self cellTitleFont];
-    cell.segment.selectedSegmentIndex = [item[@"state"] intValue];
-    cell.title.height = [Global text:item[@"title"] sizeWithFont:[self cellTitleFont] constrainedToSize:CGSizeMake(tableView.width - 30, CGFLOAT_MAX)].height;
+    cell.title.height = [Global text:item[@"question"] sizeWithFont:[self cellTitleFont] constrainedToSize:CGSizeMake(tableView.width - 30, CGFLOAT_MAX)].height;
     cell.segment.y = cell.title.bottom+10;
+    cell.segment.tag = indexPath.row;
     cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
@@ -98,11 +133,41 @@
 #pragma mark -
 
 -(void)selectIndex:(UISegmentedControl*)sControl{
-    
+    NSMutableDictionary *item = test_data[sControl.tag];
+    [item setObject:[NSNumber numberWithInt:sControl.selectedSegmentIndex+1] forKey:@"state"];
 }
 
+
 -(IBAction)getRecommendationAction:(id)sender{
+    BOOL allFields = YES;
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    for (NSMutableDictionary *quest in test_data){
+        if ([Global isNotNull:quest[@"state"]]){
+            [params setObject:quest[@"state"] forKey:[NSString stringWithFormat:@"answers[%@]",quest[@"id"]]];
+        } else {
+            allFields = NO;
+        }
+    }
+    if (!allFields){
+        [self showMessage:@"Заполните все поля" title:@"Уведомление"];
+        return;
+    }
     
+    [ServData sendToServerDietResultsDiet:testId testData:params completion:^(BOOL success, NSError *error, id result) {
+        if (success){
+            [GlobalData saveResultDiet:result[@"data"] testId:testId];
+            [self goToResult:result[@"data"]];
+        }
+    }];
+}
+
+-(void)goToResult:(NSMutableDictionary*)result{
+    
+    [(ResultRiskAnal*)self.parentVC goToResult:result];
+    
+//    _dietTestResults = [DietTestResults new];
+//    _dietTestResults.result = result;
+//   [self.navigationController pushViewController:_dietTestResults animated:YES];
 }
 
 -(UIFont*)cellTitleFont{

@@ -95,18 +95,21 @@ ForgetPage *forgetPage;
     User.userData = [NSMutableDictionary new];
     [self.scrollView setup_autosize];
     self.navigationController.navigationBarHidden = NO;
-    self.email_field.text = @"alexruden@rambler.ru";
-    self.pass_field.text = @"QsefPI4bFlAHw";
+//        self.email_field.text = @"alexiosdeveloper@gmail.com";
+//        self.pass_field.text = @"S3OioVLLgcQW-";
+
+    self.email_field.text = @"alexruden+1@rambler.ru";
+    self.pass_field.text = @"q";
     self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
     
 }
 
 -(void)autoFill{
-    if ([email_field.text isEqualToString:@"alexruden@rambler.ru"]){
-        self.pass_field.text = @"QsefPI4bFlAHw";
-    } else if ([email_field.text isEqualToString:@"alexiosdeveloper@gmail.com"]){
-        self.pass_field.text = @"S3OioVLLgcQW-";
-    }
+//    if ([email_field.text isEqualToString:@"alexruden@rambler.ru"]){
+//        self.pass_field.text = @"QsefPI4bFlAHw";
+//    } else if ([email_field.text isEqualToString:@"alexiosdeveloper@gmail.com"]){
+//        self.pass_field.text = @"S3OioVLLgcQW-";
+//    }
 
 }
 
@@ -194,11 +197,13 @@ ForgetPage *forgetPage;
 
 
 -(IBAction)authUser:(id)sender{
+    [self showActivityIndicatorWithString:@"Авторизация"];
     [self autoFill];
     User.userData = nil;
     [User logoutUser];
     [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
-            if (result) {
+        [self removeActivityIdicator];
+        if (result) {
                 [self setupUser];
             } else {
                 [Helper fastAlert:@"Ошибка авторизации"];
@@ -223,9 +228,11 @@ ForgetPage *forgetPage;
 }
 
 -(void)authUserBySocial:(NSString*)social user:(NSString*)userId token:(NSString*)token{
+    [self showActivityIndicatorWithString:@"Авторизация"];
     User.userData = nil;
     [User logoutUser];
     [ServData authUserWithSocial:social user:userId token:token completion:^(BOOL result, NSError *error) {
+        [self removeActivityIdicator];
         if (result) {
             [self setupUser];
         } else {

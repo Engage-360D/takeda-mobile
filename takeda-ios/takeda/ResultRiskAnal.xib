@@ -10,6 +10,7 @@
                 <outlet property="containerAll" destination="nR7-n6-eJc" id="7CG-Tg-8Q4"/>
                 <outlet property="headerView" destination="Bqq-BT-ShT" id="pea-wc-XPe"/>
                 <outlet property="headerViewRed" destination="npK-Fk-cs7" id="Ykp-U7-tFO"/>
+                <outlet property="infoBtn" destination="T1e-o8-url" id="R4Z-GI-9Si"/>
                 <outlet property="mainRecomendation" destination="mff-N5-A0P" id="1Cr-JL-Bdm"/>
                 <outlet property="mainRecomendationRed" destination="cX5-4A-wSt" id="wrQ-qE-fcy"/>
                 <outlet property="medSearchBtn" destination="MWA-pN-Jmd" id="cbH-5O-EID"/>

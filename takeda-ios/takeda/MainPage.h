@@ -10,9 +10,11 @@
 #import "StandartCombyCell.h"
 #import "Drugs.h"
 #import "ResultRiskAnal.h"
+#import "EGORefreshTableHeaderView.h"
 
 
-@interface MainPage : VControllerExt
+
+@interface MainPage : VControllerExt<EGORefreshTableHeaderDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UILabel *percentLabel;
@@ -29,9 +31,18 @@
 @property (nonatomic,retain) IBOutlet UILabel *mainRecomendationRed;
 @property (nonatomic,retain) IBOutlet UILabel *scoreNoteTextRed;
 @property (nonatomic,retain) IBOutlet UIView *headerViewRed;
-
+@property (nonatomic,retain) IBOutlet UIView *normHeader;
 @property (nonatomic,retain) IBOutlet UIButton *medSearchBtnRed;
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollViewRed;
+
+@property (nonatomic, strong) NSMutableArray *days;
+@property (nonatomic, strong) NSMutableArray *records;
+//
+//@property (nonatomic, strong) NSMutableArray *emptyRecords;
+//@property (nonatomic, strong) NSMutableArray *filledRecords;
+@property (nonatomic, strong) NSMutableDictionary *tasks;
+@property (nonatomic,retain) IBOutlet UIActivityIndicatorView *indLoading;
+@property (nonatomic, strong) EGORefreshTableHeaderView *refreshHeaderView;
 
 
 @end

@@ -88,6 +88,8 @@
 - (NSDate *) startOfMonth;
 - (NSDate *) endOfMonth;
 
++ (NSDate*)latestDate:(NSDate *)date1 date2:(NSDate*)date2;
++ (NSDate*)earlierDate:(NSDate *)date1 date2:(NSDate*)date2;
 
 // Retrieving intervals
 - (NSInteger) minutesAfterDate: (NSDate *) aDate;

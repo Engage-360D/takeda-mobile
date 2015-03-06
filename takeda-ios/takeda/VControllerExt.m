@@ -26,14 +26,26 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (!self.parentVC){
+        NSArray *controllers = self.navigationController.viewControllers;
+        if (controllers.count>1){
+            self.parentVC = controllers[controllers.count-2];
+        } else if (controllers.count==1){
+            self.parentVC = controllers[0];
+        } else {
+            self.parentVC = nil;
+        }
+    }
+    
     [self setNavImage];
     [self autosetupTextFieldDelegates:self.view];
-
+    
     self.navigationController.navigationBarHidden = NO;
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     self.isFromMenu = NO;
+    self.isAppearFromBack = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,8 +111,13 @@
     view.backgroundColor = [UIColor clearColor];
     self.navigationItem.titleView = view;
     
+    UIBarButtonItem *btn1 = [self personalButton];
+    UIBarButtonItem *btn2 = [self alarmButton];
 
-    self.navigationItem.rightBarButtonItems = @[[self personalButton],[self alarmButton]];
+    // btn1.enabled = !(User.userBlocked);
+    btn2.enabled = !(User.userBlocked);
+
+    self.navigationItem.rightBarButtonItems = @[btn1,btn2];
     if (self.isRootVC){
         self.navigationItem.leftBarButtonItem = [self menuButton];
     } else {
@@ -121,7 +138,14 @@
 
 -(void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
+    NSArray *controllers = self.navigationController.viewControllers;
+    if (controllers.count>1){
+        if ([controllers[controllers.count-2] isKindOfClass:[VControllerExt class]]&&[controllers[controllers.count-2] respondsToSelector:@selector(setIsAppearFromBack:)]){
+            [(VControllerExt*)controllers[controllers.count-2] setIsAppearFromBack:YES];
+        }
+    }
 }
+
 
 -(UIImageView*)separatorLine{
     UIImageView *sp = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0.5f)];

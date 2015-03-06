@@ -35,6 +35,7 @@
     UIViewController *reportsPage_vc;
     UIViewController *mainPage_vc;
     BOOL needTest;
+    BOOL userIsBlocked;
     /*
      RiskAnalysisPage *riskAnalysis_vc;
      SearchInstitutionPage *searchInstitution_vc;
@@ -65,17 +66,18 @@
 }
 
 -(void)updateMenuData{
-    needTest = [[rootMenuController sharedInstance] checkToNeedTest];
+    needTest = [User checkToNeedTest];
+    userIsBlocked = User.userBlocked;
     menuData = [Global recursiveMutable:
                 @[@{@"name" :@"Главная", @"enabled":@"YES"},
-                  @{@"name" :@"Анализ риска", @"enabled":needTest?@"YES":@"NO"},
+                  @{@"name" :@"Анализ риска", @"enabled":(!userIsBlocked&&needTest)||[User checkForRole:tDoctor]?@"YES":@"NO"},
                   @{@"name" :@"Поиск учреждений", @"enabled":@"YES"},
-                  @{@"name" :@"Рекомендации", @"enabled":@"NO"},
+                  @{@"name" :@"Рекомендации", @"enabled":userIsBlocked?@"NO":@"NO"},
                   @{@"name" :@"Результаты анализа", @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
-                  @{@"name" :@"Календарь", @"enabled":@"YES"},
-                  @{@"name" :@"Полезно знать", @"enabled":@"YES"},
-                  @{@"name" :@"Публикации", @"enabled":@"YES"},
-                  @{@"name" :@"Отчеты", @"enabled":@"YES"}
+                  @{@"name" :@"Календарь", @"enabled":userIsBlocked?@"NO":@"YES"},
+                  @{@"name" :@"Полезно знать", @"enabled":userIsBlocked?@"NO":@"YES"},
+                  @{@"name" :@"Публикации", @"enabled":userIsBlocked?@"NO":@"YES"},
+                  @{@"name" :@"Отчеты", @"enabled":userIsBlocked?@"NO":@"YES"}
                   ]];
 
 }
@@ -148,7 +150,7 @@
     
     BOOL enabled;
     
-    if (needTest){
+    if (needTest&&!userIsBlocked){
         enabled = NO;
     } else {
         enabled = [[[menuData objectAtIndex:indexPath.row] objectForKey:@"enabled"] boolValue];
@@ -188,7 +190,7 @@
         }
             
         case State_Risk_Analysis:{
-            if (![[rootMenuController sharedInstance] checkToNeedTest]){
+            if (!needTest&&![User checkForRole:tDoctor]){
                 [self showMessage:@"Вы можете проходить тест только один раз в месяц" title:@"Отказ"];
             }
 
@@ -261,7 +263,7 @@
                 return;
             }
             
-            if (![[rootMenuController sharedInstance] checkToNeedTest]){
+            if (!needTest&&![User checkForRole:tDoctor]){
                 // рано еще тест проходить
                 [self showMessage:@"Вы можете проходить тест только один раз в месяц" title:@"Отказ"];
                 return;

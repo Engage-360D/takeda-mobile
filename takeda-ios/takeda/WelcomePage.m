@@ -77,15 +77,21 @@ BOOL taked;
 
     if (lastUser){
         NSMutableDictionary *usData = [User getUserInfo:lastUser];
+        if (!usData){
+            is_loading = NO;
+            is_authorized = NO;
+            return;
+        }
         User.userData = usData;
-
         is_loading = YES;
         // получаем информацию о этом юзере
        // [User setCurrentUser:lastUser];
+        NSLog(@"Да, есть юзер - %@", usData);
+        NSLog(@"получаем информацию по пользователю...");
         [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
             if (result){
                 [User setCurrentUser:lastUser];
-
+                NSLog(@"Информацию по пользователю получили, начинаем синхронизацию");
                 [User synchronizeUser:User.user_login completition:^(BOOL synchrSuccess, id synchrResult){
 
                     if (result){
