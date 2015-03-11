@@ -15,6 +15,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *deleteAllResults;
 @property (nonatomic, strong) IBOutlet UIButton *logoutBtn;
 @property (nonatomic, strong) IBOutlet UIButton *addIncident;
+@property (nonatomic, strong) IBOutlet UIButton *tabletsBtn;
 @property (nonatomic, strong) IBOutlet UIView *incidentsContainer;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,retain) IBOutletCollection(UILabel) NSArray *blockLabels;

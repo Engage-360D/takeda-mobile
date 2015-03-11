@@ -18,6 +18,7 @@
 @property (nonatomic,retain) IBOutlet UIView *titleContainer;
 @property (nonatomic,retain) IBOutlet UIView *mainElement;
 @property(nonatomic) BOOL isFromMenu;
+@property(nonatomic) BOOL isAppearFromBack;
 @property (nonatomic,assign) VControllerExt *parentVC;
 - (BOOL)isRootVC;
 

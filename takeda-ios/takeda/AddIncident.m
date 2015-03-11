@@ -21,9 +21,9 @@ int incident;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    alerts = @{[NSNumber numberWithInt:inInfarct]:@{@"text":@"Вы перенесли Инфракт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               [NSNumber numberWithInt:inInsult]:@{@"text":@"Вы перенесли Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               [NSNumber numberWithInt:inCoronar]:@{@"text":@"Вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
+    alerts = @{[NSNumber numberWithInt:inInsultInfarct]:@{@"text":@"Вы перенесли Инфракт/Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               [NSNumber numberWithInt:inCoronar]:@{@"text":@"Вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               [NSNumber numberWithInt:inDiabet]:@{@"text":@"Вы перенесли Диабет и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
 
     [self setupInterface];
 }
@@ -74,10 +74,20 @@ int incident;
 }
 
 -(void)save{
-    [GData setIncidentTo:localIncidents incident:incident comment:_addComment.text];
-    User.incidents = [[Global recursiveMutable:localIncidents] mutableCopy];
-    [User saveIncidents];
-    [self backAction];
+    [ServData sendIncident:[[GlobalData incidents] objectForKey:[NSNumber numberWithInt:incident]] comment:(_addComment.text) completion:^(BOOL success, NSError *error, id res){
+        if (success){
+            [GData setIncidentTo:localIncidents incident:incident comment:_addComment.text];
+            User.incidents = [[Global recursiveMutable:localIncidents] mutableCopy];
+            [User saveIncidents];
+            [self showMessage:@"Инцидент успешно добавлен" title:@"Успех" result:^{
+                [self backAction];
+            }];
+        } else {
+            [self showMessage:@"Не удалось добавить инцидент" title:@"Ошибка"];
+        }
+    }];
 }
+
+
 
 @end

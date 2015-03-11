@@ -159,6 +159,7 @@ NSMutableDictionary * dic_data;
     
     float delta = 0.5;
     NSMutableArray *array = [[NSMutableArray alloc] init];
+    [array addObject:@"-"];
     for (float i = 3.0; i < 9.5; i=i+delta ) {
         [array addObject:[NSString stringWithFormat:@"%.1f",i]];
     }

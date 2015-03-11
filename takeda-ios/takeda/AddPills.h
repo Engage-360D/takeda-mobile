@@ -31,6 +31,8 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UILabel *sinceDateLabel;
 @property (nonatomic, strong) IBOutlet UILabel *tillDateLabel;
 @property (nonatomic, strong) IBOutlet UILabel *quantityLabel;
+@property (nonatomic, strong) IBOutlet UIButton *editDateBegin;
+@property (nonatomic, strong) IBOutlet UIButton *editDateEnd;
 @property (nonatomic, strong) IBOutlet UIButton *editBtn;
 @property (nonatomic, strong) IBOutlet UIButton *deleteBtn;
 

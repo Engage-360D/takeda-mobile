@@ -18,17 +18,12 @@ typedef enum {
 } SocialServices;
 
 typedef enum {
-    inInsult = 1,
-    inInfarct = 2,
-    inCoronar = 3
+    inInsultInfarct = 1,
+    inCoronar = 2,
+    inDiabet = 3
 } IncidentType;
 
-
-
-#define iInsult @"insult"
-#define iInfarct @"infarct"
-#define iCoronar @"coronar"
-
-#define iIncidentComment @"incidentComment"
-
-
+typedef enum {
+    dNew = 1,
+    dFilled = 2
+} DIndex;

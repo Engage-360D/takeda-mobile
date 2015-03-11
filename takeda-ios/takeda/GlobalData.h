@@ -22,11 +22,14 @@
 +(int)lastResultDataId;
 +(void)writeLastResultDataId:(int)lId;
 +(NSDate*)lastResultDate;
++(void)saveResultDiet:(NSMutableDictionary*)result testId:(int)testId;
++(NSMutableDictionary*)resultDietForTestId:(int)testId;
 
 -(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
 -(void)addIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
 -(void)deleteIncident:(NSMutableArray*)inc incident:(IncidentType)incType;
 -(void)deleteAllIncidents:(NSMutableArray*)inc;
++(NSDictionary*)incidents;
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion;
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion;
 +(NSMutableArray*)pills;

@@ -13,4 +13,6 @@
 @property (nonatomic, strong) IBOutlet UISegmentedControl *segment;
 @property (nonatomic, strong) IBOutlet UILabel *title;
 
+-(void)updateSegmentLabel;
+
 @end

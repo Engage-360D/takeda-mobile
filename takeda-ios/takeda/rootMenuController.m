@@ -50,18 +50,9 @@ static rootMenuController *sharedInst = NULL;
     return sharedInst;
 }
 
--(BOOL)checkToNeedTest{
-    NSDate *lastResultDate = [GlobalData lastResultDate];
-    if (([[[NSDate date] dateBySubtractingMonths:1] isLaterThanDate:lastResultDate]||lastResultDate == nil)&&![User checkForRole:tDoctor]){
-        // надо тест проходить
-        // [self showMessage:@"Вам необходимо пройти тест" title:@""];
-        return YES;
-    }
-    return NO;
-}
 
 -(id)currentMenuController{
-    if ([self checkToNeedTest]){
+    if ([User checkToNeedTest]&&![User userBlocked]){
         [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
         return [self riskAnalysis_vc];
     } else {

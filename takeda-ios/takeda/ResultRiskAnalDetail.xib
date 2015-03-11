@@ -32,8 +32,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="FXL-DY-qbS">
-                    <rect key="frame" x="142" y="221" width="37" height="37"/>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="FXL-DY-qbS">
+                    <rect key="frame" x="151" y="229" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </activityIndicatorView>
                 <view contentMode="scaleToFill" id="Mgo-On-UUG">

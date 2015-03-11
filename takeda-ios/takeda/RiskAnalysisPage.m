@@ -192,9 +192,9 @@ int selectedIndex = 0;
     if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"weight"] isEqualToString:@"-"]) {
         return NO;
     }
-    if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"] isEqualToString:@"-"]) {
-        return NO;
-    }
+//    if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"] isEqualToString:@"-"]) {
+//        return NO;
+//    }
     return YES;
 }
 
@@ -278,7 +278,7 @@ int selectedIndex = 0;
                              @"growth":[NSNumber numberWithInt:[[[[analizData sharedObject] dicRiskData] objectForKey:@"growth"] intValue]],
                              @"weight":[NSNumber numberWithInt:[[[[analizData sharedObject] dicRiskData] objectForKey:@"weight"] intValue]],
                              @"isSmoker":[NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"smoke"] boolValue]],
-                             @"cholesterolLevel":[NSNumber numberWithFloat:[[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"]floatValue]],
+                             @"cholesterolLevel":[[[analizData sharedObject] dicRiskData][@"cholesterol"] isEqualToString:@"-"]?@"-":[NSNumber numberWithFloat:[[[[analizData sharedObject] dicRiskData] objectForKey:@"cholesterol"]floatValue]],
                              @"isCholesterolDrugsConsumer":[[[analizData sharedObject] dicRiskData] objectForKey:@"drags_cholesterol"],
                              @"hasDiabetes": [NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"diabet"] boolValue]],
                              @"hadSugarProblems":[[[analizData sharedObject] dicRiskData] objectForKey:@"higher_suger_blood"],
@@ -293,10 +293,11 @@ int selectedIndex = 0;
     
     
     
-    
+    [self showActivityIndicatorWithString:@""];
+
     [ServData sendAnalysisToServer:params completion:^(BOOL success, NSError *error, id result) {
         
-        
+        [self removeActivityIdicator];
         
         if (success) {
             [GlobalData saveResultAnalyses:result[@"data"]];
@@ -304,18 +305,17 @@ int selectedIndex = 0;
             if (!resultRiskAnalysis) {
                 resultRiskAnalysis = [ResultRiskAnal new];
             }
+            resultRiskAnalysis.disableBack = YES;
             resultRiskAnalysis.needUpdate = YES;
             [self.navigationController pushViewController:resultRiskAnalysis animated:YES];
         } else {
-            if ([result hasKey:@"errors"]){
-                
-                    
-                    
+
+            if (error.code==409){
+                [self showMessage:@"Вы уже прошли тест. Прохождение теста возможно только один раз в месяц" title:@"Ошибка"];
+            } else {
+                [self showMessage:@"Ошибка прохождения теста. Внимательно заполните все поля" title:@"Ошибка"];
             }
             
-            
-            
-            [Helper fastAlert:@"Тест уже пройден"];
         }
     }];
     
@@ -564,7 +564,11 @@ numberOfRowsInComponent:(NSInteger)component
              titleForRow:(NSInteger)row
             forComponent:(NSInteger)component
 {
-    return [pickerDataSource objectAtIndex:row];
+    NSString *title = [pickerDataSource objectAtIndex:row];
+    if ([title isEqualToString:@"-"]){
+        return @"Не установлено";
+    }
+    return title;
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row

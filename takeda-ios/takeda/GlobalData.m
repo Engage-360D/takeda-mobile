@@ -10,6 +10,7 @@
 #define filePath(fileName) [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],fileName]
 #define regionsListFile  @"regionsListFile"
 #define resultAnalysesFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"analize_results"]
+#define resultDietFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"diet_results"]
 #define userSettingsFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"user"]
 #define cashFile(url) [NSString stringWithFormat:@"%@/%@", [Path CasheFolder],url]
 #define userPills [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"pills"]
@@ -95,8 +96,14 @@ static GlobalData *objectInstance = nil;
         }
     }
     
+//    [arr sortUsingComparator: ^(id obj1, id obj2) {
+//        return [obj1[@"id"]intValue]>[obj2[@"id"]intValue];
+//    }];
+//    
     [arr sortUsingComparator: ^(id obj1, id obj2) {
-        return [obj1[@"id"]intValue]>[obj2[@"id"]intValue];
+        NSNumber *numb1 = [NSNumber numberWithInteger:[obj1[@"id"] integerValue]];
+        NSNumber *numb2 = [NSNumber numberWithInteger:[obj2[@"id"] integerValue]];
+        return [numb1 compare:numb2];
     }];
 
     
@@ -138,6 +145,23 @@ static GlobalData *objectInstance = nil;
     return nil;
 }
 
+
++(void)saveResultDiet:(NSMutableDictionary*)result testId:(int)testId{
+    NSMutableDictionary *dietResults = [NSMutableDictionary readFromFile:resultDietFile];
+    if (dietResults==nil) dietResults = [NSMutableDictionary new];
+    if (result!=nil){
+        [dietResults setObject:result forKey:[NSNumber numberWithInt:testId]];
+    }
+    [dietResults saveTofile:resultDietFile];
+}
+
++(NSMutableDictionary*)resultDietForTestId:(int)testId{
+    NSMutableDictionary *dietResults = [NSMutableDictionary readFromFile:resultDietFile];
+    if (dietResults==nil) return nil;
+    return [dietResults objectForKey:[NSNumber numberWithInt:testId]];
+}
+
+
 -(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment{
     [self deleteAllIncidents:inc];
     [self addIncidentTo:inc incident:incType comment:comment];
@@ -153,6 +177,10 @@ static GlobalData *objectInstance = nil;
 
 -(void)deleteAllIncidents:(NSMutableArray*)inc{
     [inc removeAllObjects];
+}
+
++(NSDictionary*)incidents{
+    return @{[NSNumber numberWithInt:inInsultInfarct]:@"hadHeartAttackOrStroke", [NSNumber numberWithInt:inCoronar]:@"hadBypassSurgery", [NSNumber numberWithInt:inDiabet]:@"hasDiabetes"};
 }
 
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion{

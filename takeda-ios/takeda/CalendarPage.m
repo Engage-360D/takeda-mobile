@@ -48,8 +48,9 @@
 
 -(void)initData{
     [GlobalData loadTimelineCompletition:^(BOOL success, id result){
-        
+
         if (success){
+            NSLog(@"Получили данные");
             tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
             days = result[@"data"];
             
@@ -58,6 +59,7 @@
 
             [self startData];
         } else {
+            NSLog(@"Ошибка получения данных");
             tasks = [GlobalData cashedTimelineTasks];
             days = [GlobalData cashedTimeline];
             
@@ -73,15 +75,17 @@
         [GlobalData loadPillsCompletition:^(BOOL completition, id result){
             if ([self makePillsSuccess]){
                 [self filtrRecords];
-                [self doneLoadingTableViewData];
+//                [self doneLoadingTableViewData];
                 [self.tableView reloadData];
             }
         }];
     } else {
         [self filtrRecords];
-        [self doneLoadingTableViewData];
+//        [self doneLoadingTableViewData];
         [self.tableView reloadData];
     }
+    [self doneLoadingTableViewData];
+
 }
 
 
@@ -395,14 +399,15 @@
 - (void)reloadTableViewDataSource{
     //  should be calling your tableviews data source model to reload
     //  put here just for demo
-    [self initData];
     reloading = YES;
+    [self initData];
 }
 
 - (void)doneLoadingTableViewData{
     //  model should call this when its done loading
     reloading = NO;
     [_refreshHeaderView performSelector:@selector(egoRefreshScrollViewDataSourceDidFinishedLoading:) withObject:self.tableView afterDelay:0.3f];
+
 //    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
     
 }
@@ -566,7 +571,7 @@
 
 
 -(CombyCellType)cellTypeForTask:(NSString*)taskType{
-    NSDictionary *r = @{@"exercise":[NSNumber numberWithInt:ctLeftCaptionRightCaptionArrow],
+    NSDictionary *r = @{@"exercise":[NSNumber numberWithInt:ctLeftCaptionRightCaption],
                         @"diet":[NSNumber numberWithInt:ctCaptionChecked],
                         @"pill":[NSNumber numberWithInt:ctCaptionChecked]};
     return [r[taskType] intValue];

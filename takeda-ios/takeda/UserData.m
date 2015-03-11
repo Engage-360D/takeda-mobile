@@ -38,6 +38,31 @@ static UserData *objectInstance = nil;
     
 }
 
+-(BOOL)userBlocked{
+    if ([self checkForRole:tDoctor]) return NO;
+    if ([self incidents].count>0) return YES;
+    
+    NSMutableArray *allResults = [GlobalData resultAnalyses];
+    if (allResults.count>0){
+        NSMutableDictionary *results_data;
+        results_data = [allResults lastObject];
+        if (results_data[@"recommendations"][@"fullScreenAlert"]!=nil&&[results_data[@"recommendations"][@"fullScreenAlert"]isKindOfClass:[NSDictionary class]]){
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+-(BOOL)checkToNeedTest{
+    NSDate *lastResultDate = [GlobalData lastResultDate];
+    if (([[[NSDate date] dateBySubtractingMonths:1] isLaterThanDate:lastResultDate]||lastResultDate == nil)&&![User checkForRole:tDoctor]){
+        // надо тест проходить
+        // [self showMessage:@"Вам необходимо пройти тест" title:@""];
+        return YES;
+    }
+    return NO;
+}
 
 
 -(BOOL)is_authorized{
@@ -62,6 +87,7 @@ static UserData *objectInstance = nil;
 }
 
 -(NSMutableArray*)incidents{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSMutableArray new] forKey:@"incidents"];
     if (!_incidents) {
         _incidents = [UserDefaults valueForKey:@"incidents"];
     }

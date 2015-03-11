@@ -11,6 +11,8 @@
 #import "DietTest.h"
 #import "ResultRiskAnalDetail.h"
 #import "UsefulKnowPage.h"
+#import "DietTestResults.h"
+
 
 typedef enum {
     sOk = 1,
@@ -33,16 +35,16 @@ typedef enum {
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 @property (nonatomic,retain) IBOutlet UIButton *profilacticCalendarBtn;
 @property (nonatomic,retain) IBOutlet UIButton *medSearchBtn;
+@property (nonatomic,retain) IBOutlet UIButton *infoBtn;
 @property (nonatomic, strong) SearchInstitutionPage *searchInstitutionPage;
-@property (nonatomic, strong) DietTest *dietTest;
 @property (nonatomic, strong) ResultRiskAnalDetail *resultRiskAnalDetail;
 @property (nonatomic, strong) UsefulKnowPage *usefulKnowPage;
-
+@property (nonatomic, strong) DietTest *dietTest;
+@property (nonatomic, strong) DietTestResults *dietTestResults;
 @property (nonatomic, strong) NSMutableDictionary *results_data;
 
 @property BOOL needUpdate;
-
-
+@property BOOL disableBack;
 
 @property (nonatomic,retain) IBOutlet UIImageView *stateImageRed;
 @property (nonatomic,retain) IBOutlet UILabel *mainRecomendationRed;
@@ -55,13 +57,10 @@ typedef enum {
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollViewRed;
 @property (nonatomic,retain) IBOutlet UIImageView *separ1;
 @property (nonatomic,retain) IBOutlet UIImageView *separ2;
-
-
-
-
 @property (nonatomic,retain) IBOutlet UIView *containerAll;
 
-
+-(void)goToTest;
+-(void)goToResult:(NSMutableDictionary*)result;
 
 
 

@@ -11,6 +11,11 @@
 @implementation DietTestTableCell
 
 - (void)awakeFromNib {
+    [self updateSegmentLabel];
+    
+}
+
+-(void)updateSegmentLabel{
     self.segment.height = 50;
     
     for (id segment in [self.segment subviews]) {
@@ -26,7 +31,6 @@
         }
     }
 
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

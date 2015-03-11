@@ -45,6 +45,11 @@
         iv.hidden = self.readOnly;
     }
     
+    
+    self.editDateBegin.enabled = !(self.editing||self.readOnly);
+    
+    NSLog(@"editing = %i, readonly = %i, btn.enabled = %i",self.editing, self.readOnly, self.editDateBegin.enabled);
+    
     self.deleteBtn.hidden = !(self.preview&&!self.readOnly);
     self.editBtn.hidden = !(self.preview&&self.readOnly);
     
@@ -270,8 +275,8 @@
             [self showInfo];
         }
     }];
-    exPicker.date_picker.minimumDate = [Global parseDateTime:drug[@"sinceDate"]];
-    [exPicker preselectValue:[Global parseDateTime:drug[@"tillDate"]]];
+    exPicker.date_picker.minimumDate = self.editing?[NSDate latestDate:[NSDate date] date2:[Global parseDateTime:drug[@"sinceDate"]]]:[Global parseDateTime:drug[@"sinceDate"]];
+    [exPicker preselectValue: self.editing?[NSDate latestDate:[NSDate date] date2:[Global parseDateTime:drug[@"tillDate"]]]:[Global parseDateTime:drug[@"tillDate"]]];
     [exPicker show];
 }
 
@@ -285,6 +290,7 @@
 
 -(IBAction)editAction:(UIButton*)sender{
     self.readOnly = NO;
+    self.editing = YES;
     tempDrug = [Global recursiveMutable:[drug mutableCopy]];
     
     [self updateInterface];

@@ -57,7 +57,7 @@
     checkBtn.hidden = YES;
     
     switch (cellType) {
-        case ctSimpleRightCaption:{
+        case ctSimpleLeftCaption:{
             
             break;
         }

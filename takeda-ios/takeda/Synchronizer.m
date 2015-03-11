@@ -9,11 +9,13 @@
 #import "Synchronizer.h"
 
 @implementation Synchronizer{
-    NSMutableArray *tasks;
-    int completedJobsCount;
+
 }
 
 static Synchronizer *sharedInst = NULL;
+
+@synthesize completedJobsCount;
+@synthesize tasks;
 
 +(Synchronizer*)sharedInstance{
     if (!sharedInst || sharedInst == NULL) {
@@ -42,8 +44,10 @@ static Synchronizer *sharedInst = NULL;
 
 
 -(void)loadRiskAnalResults{
+    NSLog(@"start loadRisk anal");
     int lastId = [GlobalData lastResultDataId];
     [ServData loadAnalysisFromServerWithLastId:lastId completion:^(BOOL success, NSError *error, id result) {
+        NSLog(@"finish loadRisk anal");
         if (success) {
             [GlobalData saveResultAnalyses:result[@"data"]];
         } else {
@@ -54,13 +58,16 @@ static Synchronizer *sharedInst = NULL;
 }
 
 -(void)loadPills{
+    NSLog(@"start pills");
     [GlobalData loadPillsCompletition:^(BOOL completition, id result){
+        NSLog(@"finish pills");
         [self finishJob];
     }];
 }
 
 -(void)finishJob{
     completedJobsCount++;
+    NSLog(@"compl jobs count = %i",completedJobsCount);
     if (completedJobsCount == tasks.count){
         completedJobsCount = 0;
         [self finishSynchronize];
@@ -68,6 +75,7 @@ static Synchronizer *sharedInst = NULL;
 }
 
 -(void)finishSynchronize{
+    NSLog(@"finish");
     self.resultBlock(YES,nil);
 }
 

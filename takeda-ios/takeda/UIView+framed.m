@@ -50,6 +50,11 @@
     return self.x+self.width;
 }
 
+-(CGPoint)middleCenter{
+    return CGPointMake(self.width/2, self.height/2);
+}
+
+
 -(void)removeSubviews{
     for (UIView *a in self.subviews){
         [a removeFromSuperview];

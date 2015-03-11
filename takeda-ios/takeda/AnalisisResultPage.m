@@ -51,6 +51,10 @@
 
 -(void)initData{
     results = [GlobalData resultAnalyses];
+    results = [Global recursiveMutable:[results sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj2[@"createdAt"] compare:obj1[@"createdAt"]];
+    }]];
+
     [self.tableView reloadData];
 }
 

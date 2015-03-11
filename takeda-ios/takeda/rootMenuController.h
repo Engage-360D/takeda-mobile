@@ -38,7 +38,6 @@
 -(ResultRiskAnal*)getResultRiskAnal;
 
 -(UIViewController*)riskAnalysis_vc;
--(BOOL)checkToNeedTest;
 -(void)resetControllers;
 
 @end

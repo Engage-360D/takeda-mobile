@@ -132,17 +132,19 @@
                                     //   @"isSubscribed" : [NSNumber numberWithBool:_receiveSpam],
                                        @"links": @{@"region":[NSString stringWithFormat:@"%i", _region]}
                                        }];
-    if (User.userData[@"vkontakteId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"vkontakteId"]] length]>0){
-        [params setObject:User.userData[@"vkontakteId"] forKey:@"vkontakteId"];
-    }
-    if (User.userData[@"facebookId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"facebookId"]] length]){
-        [params setObject:User.userData[@"facebookId"] forKey:@"facebookId"];
-    }
-    if (User.userData[@"odnoklassnikiId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"odnoklassnikiId"]] length]){
-        [params setObject:User.userData[@"odnoklassnikiId"] forKey:@"odnoklassnikiId"];
-    }
-
+//    if (User.userData[@"vkontakteId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"vkontakteId"]] length]>0){
+//        [params setObject:User.userData[@"vkontakteId"] forKey:@"vkontakteId"];
+//    }
+//    if (User.userData[@"facebookId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"facebookId"]] length]){
+//        [params setObject:User.userData[@"facebookId"] forKey:@"facebookId"];
+//    }
+//    if (User.userData[@"odnoklassnikiId"]&&[[NSString stringWithFormat:@"%@",User.userData[@"odnoklassnikiId"]] length]){
+//        [params setObject:User.userData[@"odnoklassnikiId"] forKey:@"odnoklassnikiId"];
+//    }
+//
+    [self showActivityIndicatorWithString:@"Сохранение"];
     [ServData updateUser:User.user_id withData:params completion:^(BOOL result, NSError *error, NSString* textError){
+        [self removeActivityIdicator];
         if (result){
             [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
                 [User setCurrentUser:User.user_login];

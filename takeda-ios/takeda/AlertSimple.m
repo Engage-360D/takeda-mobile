@@ -101,6 +101,21 @@
     
 }
 
+- (void)willPresentAlertView:(UIAlertView *)alertView
+{   if (alertViewTextInputWithButtons.alertViewStyle == UIAlertViewStylePlainTextInput){
+    UITextField * alertTextField = [alertViewTextInputWithButtons textFieldAtIndex:0];
+    alertTextField.enabled = NO;
+    [alertTextField resignFirstResponder];
+    }
+}
 
+-(void)didPresentAlertView:(UIAlertView *)alertView{
+    if (alertViewTextInputWithButtons.alertViewStyle == UIAlertViewStylePlainTextInput){
+        UITextField * alertTextField = [alertViewTextInputWithButtons textFieldAtIndex:0];
+        alertTextField.enabled = YES;
+        [alertTextField resignFirstResponder];
+
+    }
+}
 
 @end

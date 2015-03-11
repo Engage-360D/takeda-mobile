@@ -11,12 +11,6 @@
 #import "Drugs.h"
 #import "EGORefreshTableHeaderView.h"
 
-typedef enum {
-    dNew = 1,
-    dFilled = 2
-} DIndex;
-
-
 @interface CalendarPage : VControllerExt<UITableViewDataSource, UITableViewDelegate, EGORefreshTableHeaderDelegate>
 
 @property (nonatomic, strong) IBOutlet UISegmentedControl *fillEmptySwitch;

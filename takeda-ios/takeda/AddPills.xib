@@ -11,6 +11,8 @@
                 <outlet property="deleteBtn" destination="pNL-8g-5uM" id="r4p-X2-r9n"/>
                 <outlet property="drugName" destination="Zhr-me-95s" id="yeH-R4-TT0"/>
                 <outlet property="editBtn" destination="UEz-5V-32H" id="yti-qV-cca"/>
+                <outlet property="editDateBegin" destination="eUy-Ez-7Za" id="I68-Mh-ZRa"/>
+                <outlet property="editDateEnd" destination="57V-Xf-g0E" id="ld6-p6-g4s"/>
                 <outlet property="quantityLabel" destination="PlE-oz-I7p" id="ba6-Rb-Q6Q"/>
                 <outlet property="repeatLabel" destination="VIo-fC-32a" id="DQI-aH-klo"/>
                 <outlet property="scrollView" destination="51c-Wn-YBB" id="Dcu-y9-pQ4"/>
@@ -209,7 +211,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имеются противопоказания  необходимо ознакомиться с инструкцией по применению" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GEQ-Fd-AKo">
-                            <rect key="frame" x="0.0" y="418" width="320" height="68"/>
+                            <rect key="frame" x="0.0" y="396" width="320" height="68"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                             <color key="textColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>

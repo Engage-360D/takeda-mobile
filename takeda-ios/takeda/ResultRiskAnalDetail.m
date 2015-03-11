@@ -108,6 +108,8 @@
     bannerInfoContainer.y = MAX(note.bottom, stateIcon.bottom);
     [bannerInfoContainer setupAutosizeBySubviews];
     [self showHideCommonInfo:nil];
+    bannerInfo.editable = NO;
+    note.editable = NO;
     [scrollView setup_autosize];
     
 }

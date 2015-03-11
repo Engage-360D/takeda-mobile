@@ -16,6 +16,7 @@
 @property (nonatomic) CGFloat y;
 @property (nonatomic, readonly) CGFloat bottom;
 @property (nonatomic, readonly) CGFloat right;
+@property (nonatomic, readonly) CGPoint middleCenter;
 
 -(void)removeSubviews;
 -(void)setupAutosizeBySubviews;

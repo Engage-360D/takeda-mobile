@@ -12,6 +12,9 @@
 
 +(Synchronizer*)sharedInstance;
 
+@property (nonatomic, strong) NSMutableArray *tasks;
+@property (nonatomic) int completedJobsCount;
+
 @property (nonatomic, strong) void (^resultBlock) (BOOL success, id result);
 
 -(void)startSynchronizeCompletition:(void (^)(BOOL success, id result))completion;

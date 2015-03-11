@@ -12,15 +12,16 @@
                 <outlet property="incidentsContainer" destination="zpn-dJ-5uv" id="OKd-b5-Egt"/>
                 <outlet property="logoutBtn" destination="wSV-cp-q3t" id="vGK-y4-oiz"/>
                 <outlet property="scrollView" destination="Evl-Ix-ITT" id="z3f-c3-Byl"/>
+                <outlet property="tabletsBtn" destination="yEq-dK-nrk" id="z58-Or-nxE"/>
                 <outlet property="titleContainer" destination="BCN-9v-ToW" id="i0d-vy-mSS"/>
                 <outlet property="vcTitle" destination="5Pp-iQ-sbr" id="sgP-bp-c6G"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="blockLabels" destination="j60-ds-rAH" id="UdE-fH-vCa"/>
                 <outletCollection property="bg_block" destination="Wc0-Uv-JYo" id="ohd-CQ-zLl"/>
-                <outletCollection property="bg_block" destination="eGw-SF-iw4" id="GNB-UY-6Yh"/>
                 <outletCollection property="bg_block" destination="BbB-Xw-HWe" id="2x1-2Q-mRT"/>
                 <outletCollection property="blockBtns" destination="yEq-dK-nrk" id="AQY-BP-T8T"/>
                 <outletCollection property="blockBtns" destination="NbW-yA-BqZ" id="4w8-kh-ORt"/>
+                <outletCollection property="bg_block" destination="DeT-aY-vqX" id="i80-a4-3cz"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -90,26 +91,6 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" id="eGw-SF-iw4">
-                            <rect key="frame" x="0.0" y="261" width="320" height="38"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DeT-aY-vqX">
-                                    <rect key="frame" x="0.0" y="7" width="320" height="23"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <inset key="imageEdgeInsets" minX="280" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="У меня произошел инцидент" image="addGray.png">
-                                        <color key="titleColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="addIncidentAction:" destination="-1" eventType="touchUpInside" id="weI-hz-g4z"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        </view>
                         <view contentMode="scaleToFill" id="zpn-dJ-5uv">
                             <rect key="frame" x="0.0" y="299" width="320" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -139,6 +120,19 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DeT-aY-vqX">
+                            <rect key="frame" x="0.0" y="261" width="320" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <inset key="imageEdgeInsets" minX="280" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="У меня произошел инцидент" image="addGray.png">
+                                <color key="titleColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="addIncidentAction:" destination="-1" eventType="touchUpInside" id="weI-hz-g4z"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                 </scrollView>

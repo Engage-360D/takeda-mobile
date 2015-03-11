@@ -17,9 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    alerts = @{[NSNumber numberWithInt:inInfarct]:@{@"text":@"Вы перенесли Инфракт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               [NSNumber numberWithInt:inInsult]:@{@"text":@"Вы перенесли Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               [NSNumber numberWithInt:inCoronar]:@{@"text":@"Вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
+    alerts = @{[NSNumber numberWithInt:inInsultInfarct]:@{@"text":@"Вы перенесли Инфракт/Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               [NSNumber numberWithInt:inCoronar]:@{@"text":@"Вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               [NSNumber numberWithInt:inDiabet]:@{@"text":@"Вы перенесли Диабет и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
     
     
     [self setupInterface];
@@ -73,6 +73,10 @@
     
     [self.incidentsContainer setupAutosizeBySubviews];
     [self.scrollView setup_autosize];
+    _tabletsBtn.enabled = !User.userBlocked;
+    _deleteAllResults.enabled = !User.userBlocked;
+    _addIncident.enabled = !User.userBlocked;
+    _addIncident.hidden = [User checkForRole:tDoctor];
     
 }
 
