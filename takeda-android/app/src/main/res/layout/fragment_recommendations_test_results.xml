@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textViewHeader"
@@ -26,19 +26,19 @@
             <LinearLayout
                 android:id="@+id/linearLayoutPiecesHolder"
                 android:layout_width="match_parent"
-                android:paddingLeft="@dimen/space_medium"
-                android:paddingRight="@dimen/space_medium"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutRedHolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/space_medium"
-                android:paddingRight="@dimen/space_medium"
                 android:background="@color/bg_header"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium">
 
                 <TextView
                     style="@style/TextViewBannerHeader"
@@ -52,10 +52,10 @@
                 android:id="@+id/linearLayoutBlueHolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/space_medium"
-                android:paddingRight="@dimen/space_medium"
+                android:background="@color/bg_test_result_good"
                 android:orientation="vertical"
-                android:background="@color/bg_test_result_good">
+                android:paddingLeft="@dimen/space_medium"
+                android:paddingRight="@dimen/space_medium">
 
                 <TextView
                     style="@style/TextViewBannerHeader"
@@ -64,7 +64,11 @@
                 <View style="@style/divider_normal_1_6" />
             </LinearLayout>
 
-            <View style="@style/gap_vertical_space_small" />
+
+            <Button
+                android:id="@+id/buttonTestAgain"
+                style="@style/button_main_very_long"
+                android:text="@string/pass_test_again" />
 
         </LinearLayout>
     </ScrollView>

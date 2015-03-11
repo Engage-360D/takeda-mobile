@@ -17,6 +17,8 @@ import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
+import ru.com.cardiomagnyl.model.test_diet.TestDietResult;
+import ru.com.cardiomagnyl.model.test_diet.TestDietResultDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.token.TokenDao;
 import ru.com.cardiomagnyl.model.user.User;
@@ -72,7 +74,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
 
         if (TextUtils.isEmpty(tokenId)) {
             Response responseError = new Response.Builder(new ru.com.cardiomagnyl.model.common.Error()).create();
-            finishInitialization(null, null, null, responseError);
+            finishInitialization(null, null, null, null, responseError);
             return;
         }
 
@@ -87,7 +89,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(null, null, null, responseError);
+                        finishInitialization(null, null, null, null, responseError);
                     }
                 }
         );
@@ -105,7 +107,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(token, null, null, responseError);
+                        finishInitialization(token, null, null, null, responseError);
                     }
                 },
                 false
@@ -118,32 +120,53 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                 new CallbackOne<List<TestResult>>() {
                     @Override
                     public void execute(List<TestResult> testResultsList) {
-                        finishInitialization(token, user, TestResultDao.getNewestResult(testResultsList), null);
+                        TestResult testResult = TestResultDao.getNewestResult(testResultsList);
+                        if (testResult == null) finishInitialization(token, user, null, null, null);
+                        else getDietTestResult(token, user, testResult);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(token, user, null, responseError);
+                        finishInitialization(token, user, null, null, responseError);
                     }
                 }
         );
     }
 
-    private void finishInitialization(Token token, User user, TestResult testResult, Response responseError) {
+    public void getDietTestResult(final Token token, final User user, final TestResult testResult) {
+        TestDietResultDao.getByTestId(
+                testResult.getId(),
+                new CallbackOne<TestDietResult>() {
+                    @Override
+                    public void execute(TestDietResult testDietResult) {
+                        finishInitialization(token, user, testResult, testDietResult, null);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        finishInitialization(token, user, testResult, null, responseError);
+                    }
+                }
+        );
+    }
+
+    private void finishInitialization(Token token, User user, TestResult testResult, final TestDietResult testDietResult, Response responseError) {
         mIsLogined = (token != null && user != null);
         if (!mIsLogined) {
-            initAppState(null, null, null);
+            initAppState(null, null, null, null);
         } else {
-            initAppState(token, user, testResult);
+            initAppState(token, user, testResult, testDietResult);
         }
         mInitializationFinished = true;
     }
 
-    private void initAppState(Token token, User user, TestResult testResult) {
+    private void initAppState(final Token token, final User user, final TestResult testResult, final TestDietResult testDietResult) {
         AppState.getInsnatce().setToken(token);
         AppState.getInsnatce().setUser(user);
         AppState.getInsnatce().setTestResult(testResult);
+        AppState.getInsnatce().setTestDietResult(testDietResult);
     }
 
     private void tryToStartStartActivity() {

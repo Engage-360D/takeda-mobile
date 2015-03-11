@@ -20,6 +20,7 @@ import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.model.user.UserDao;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.recommendations.RecommendationsTestResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.ProfileHelper;
@@ -53,30 +54,17 @@ public class CabinetDataFragment extends BaseItemFragment {
     }
 
     private void initTabs(final View view) {
-        RadioButton radioButtonRecommendations = (RadioButton) view.findViewById(R.id.radioButtonRecomendations);
         RadioButton radioButtonSetting = (RadioButton) view.findViewById(R.id.radioButtonSetting);
 
-        radioButtonRecommendations.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-                        Fragment fragment = new CabinetTestResultsFragment();
-                        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-                        slidingMenuActivity.replaceAllContent(fragment, false);
-                    }
-                }
-            }
-        });
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
 
         radioButtonSetting.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-                        Fragment fragment = new CabinetSettingsFragment();
-                        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-                        slidingMenuActivity.replaceAllContent(fragment, false);
+                        CabinetSettingsFragment cabinetSettingsFragment = new CabinetSettingsFragment();
+                        slidingMenuActivity.replaceAllContent(cabinetSettingsFragment, false);
                     }
                 }
             }
@@ -95,7 +83,6 @@ public class CabinetDataFragment extends BaseItemFragment {
                 generatePassword(email);
             }
         });
-
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,4 +145,5 @@ public class CabinetDataFragment extends BaseItemFragment {
                 }
         );
     }
+
 }

@@ -157,13 +157,13 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     private void initLoginRestoreSwitcher(final View view) {
-        LinearLayout linearLayoutPerformLogin = (LinearLayout) view.findViewById(R.id.linearLayoutPerformLogin);
-        LinearLayout linearLayoutPerformRestore = (LinearLayout) view.findViewById(R.id.linearLayoutPerformRestore);
+        View textViewPerformLogin = view.findViewById(R.id.textViewPerformLogin);
+        View textViewPerformRestore = view.findViewById(R.id.textViewPerformRestore);
 
         final LinearLayout linearLayoutLogin = (LinearLayout) view.findViewById(R.id.linearLayoutLogin);
         final LinearLayout linearLayoutRestore = (LinearLayout) view.findViewById(R.id.linearLayoutRestore);
 
-        linearLayoutPerformLogin.setOnClickListener(new OnClickListener() {
+        textViewPerformLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.hideKeyboard(getActivity());
@@ -172,7 +172,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
             }
         });
 
-        linearLayoutPerformRestore.setOnClickListener(new OnClickListener() {
+        textViewPerformRestore.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.hideKeyboard(getActivity());

@@ -1,10 +1,11 @@
-package ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet;
+package ru.com.cardiomagnyl.ui.slidingmenu.content.recommendations;
 
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,10 +22,10 @@ import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 
-public class CabinetTestResultsFragment extends BaseItemFragment {
+public class RecommendationsTestResultsFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cabinet_test_results, null);
+        View view = inflater.inflate(R.layout.fragment_recommendations_test_results, null);
         initFragmentStart(view);
         return view;
     }
@@ -45,22 +46,23 @@ public class CabinetTestResultsFragment extends BaseItemFragment {
     }
 
     public void getDietTestResult(final View fragmentView) {
-        String testResultId = AppState.getInsnatce().getTestResult().getId();
-        TestDietResultDao.getByTestId(
-                testResultId,
-                new CallbackOne<TestDietResult>() {
-                    @Override
-                    public void execute(TestDietResult testDietResult) {
-                        initFragmentFinish(fragmentView, testDietResult);
+        if (AppState.getInsnatce().getTestResult() == null) initFragmentFinish(fragmentView, null);
+        else
+            TestDietResultDao.getByTestId(
+                    AppState.getInsnatce().getTestResult().getId(),
+                    new CallbackOne<TestDietResult>() {
+                        @Override
+                        public void execute(TestDietResult testDietResult) {
+                            initFragmentFinish(fragmentView, testDietResult);
+                        }
+                    },
+                    new CallbackOne<Response>() {
+                        @Override
+                        public void execute(Response responseError) {
+                            initFragmentFinish(fragmentView, null);
+                        }
                     }
-                },
-                new CallbackOne<Response>() {
-                    @Override
-                    public void execute(Response responseError) {
-                        initFragmentFinish(fragmentView, null);
-                    }
-                }
-        );
+            );
     }
 
     private void initFragmentFinish(final View fragmentView, final TestDietResult testDietResult) {
@@ -74,7 +76,7 @@ public class CabinetTestResultsFragment extends BaseItemFragment {
             fragmentContent.setVisibility(View.GONE);
             textViewMessage.setVisibility(View.VISIBLE);
 
-            slidingMenuActivity.replaceContentOnTop(new CabinetTestFragment(), false);
+            slidingMenuActivity.replaceContentOnTop(new RecommendationsTestFragment(), false);
         } else {
             textViewMessage.setVisibility(View.GONE);
             fragmentContent.setVisibility(View.VISIBLE);
@@ -86,6 +88,7 @@ public class CabinetTestResultsFragment extends BaseItemFragment {
         initPiecesHolder(fragmentView, testDietResult);
         initRedHolder(fragmentView, testDietResult);
         initBlueHolder(fragmentView, testDietResult);
+        initButtonTestAgain(fragmentView);
     }
 
     private void initPiecesHolder(final View fragmentView, final TestDietResult testDietResult) {
@@ -151,6 +154,17 @@ public class CabinetTestResultsFragment extends BaseItemFragment {
 
             linearLayoutBlueHolder.addView(layoutBanner);
         }
+    }
+
+    private void initButtonTestAgain(final View fragmentView) {
+        Button buttonTestAgain = (Button) fragmentView.findViewById(R.id.buttonTestAgain);
+        buttonTestAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+                slidingMenuActivity.replaceContentOnTop(new RecommendationsTestFragment(), false);
+            }
+        });
     }
 
     // similar method is in RiskAnalysisResultsFragment

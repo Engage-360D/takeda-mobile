@@ -8,7 +8,7 @@ import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.model.base.BaseModelHelper;
 
-public enum PillFrequency implements BaseModelHelper {
+public enum PillFrequency implements BaseModelHelper<Integer> {
     daily(1, R.string.daily),
     every_2_days(2, R.string.every_2_days),
     undefined(0, R.string.not_specified);
@@ -22,12 +22,12 @@ public enum PillFrequency implements BaseModelHelper {
     }
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) { /* do nothing*/ }
+    public void setId(Integer id) { /*does nothing*/ }
 
     @Override
     public String getName() {
@@ -35,7 +35,7 @@ public enum PillFrequency implements BaseModelHelper {
     }
 
     @Override
-    public void setName(String name) { /* do nothing*/ }
+    public void setName(String name) { /*does nothing*/ }
 
     public static List<BaseModelHelper> getFrequenciesList() {
         List<BaseModelHelper> frequenciesList = new ArrayList<BaseModelHelper>(Arrays.asList(daily, every_2_days, undefined));

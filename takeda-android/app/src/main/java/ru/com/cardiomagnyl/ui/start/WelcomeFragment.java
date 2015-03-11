@@ -34,7 +34,5 @@ public class WelcomeFragment extends BaseStartFragment {
     }
 
     @Override
-    public void initFieldsFromSocial(User socialUser) {
-        // do nothing
-    }
+    public void initFieldsFromSocial(User socialUser) { /*does nothing*/ }
 }

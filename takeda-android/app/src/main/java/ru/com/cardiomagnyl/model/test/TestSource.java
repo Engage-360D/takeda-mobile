@@ -1,5 +1,8 @@
 package ru.com.cardiomagnyl.model.test;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -25,7 +28,7 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
         "isAddingExtraSalt",
         "isAcetylsalicylicDrugsConsumer"
 })
-public class TestSource extends BaseModel {
+public class TestSource extends BaseModel implements Parcelable {
 
     public enum RESULT_GROUPS {
         all, first, second, third
@@ -351,4 +354,67 @@ public class TestSource extends BaseModel {
 
         return result;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    // implements Parcelable
+    ///////////////////////////////////////////////////////////////////////
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.sex);
+        dest.writeString(this.birthday);
+        dest.writeValue(this.growth);
+        dest.writeValue(this.weight);
+        dest.writeValue(this.isSmoker);
+        dest.writeValue(this.cholesterolLevel);
+        dest.writeValue(this.isCholesterolDrugsConsumer);
+        dest.writeValue(this.hasDiabetes);
+        dest.writeValue(this.hadSugarProblems);
+        dest.writeValue(this.isSugarDrugsConsumer);
+        dest.writeValue(this.arterialPressure);
+        dest.writeValue(this.isArterialPressureDrugsConsumer);
+        dest.writeValue(this.physicalActivityMinutes);
+        dest.writeValue(this.hadHeartAttackOrStroke);
+        dest.writeValue(this.isAddingExtraSalt);
+        dest.writeValue(this.isAcetylsalicylicDrugsConsumer);
+    }
+
+    public TestSource() {
+    }
+
+    private TestSource(Parcel in) {
+        this.sex = in.readString();
+        this.birthday = in.readString();
+        this.growth = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.weight = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.isSmoker = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.cholesterolLevel = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.isCholesterolDrugsConsumer = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.hasDiabetes = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.hadSugarProblems = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.isSugarDrugsConsumer = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.arterialPressure = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.isArterialPressureDrugsConsumer = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.physicalActivityMinutes = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.hadHeartAttackOrStroke = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.isAddingExtraSalt = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.isAcetylsalicylicDrugsConsumer = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<TestSource> CREATOR = new Parcelable.Creator<TestSource>() {
+        public TestSource createFromParcel(Parcel source) {
+            return new TestSource(source);
+        }
+
+        public TestSource[] newArray(int size) {
+            return new TestSource[size];
+        }
+    };
+
+    ///////////////////////////////////////////////////////////////////////
 }

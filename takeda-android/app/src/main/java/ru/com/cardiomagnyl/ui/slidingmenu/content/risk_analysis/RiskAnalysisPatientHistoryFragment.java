@@ -16,8 +16,8 @@ import android.widget.ToggleButton;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
+import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.test.TestSource;
-import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseRiskAnalysis;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Tools;
@@ -28,7 +28,7 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_analysis_patient_history, null);
-        initPatientDataFragment(parentView);
+        initFragment(parentView);
         return parentView;
     }
 
@@ -38,7 +38,7 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
         initTopBarMenuBellCabinet(viewGroupTopBar, userIsDoctor, userIsDoctor, userIsDoctor);
     }
 
-    private void initPatientDataFragment(View view) {
+    private void initFragment(View view) {
         initTabs(view, 1);
 
         RadioGroup radioGroupDiabetes = (RadioGroup) view.findViewById(R.id.radioGroupDiabetes);
@@ -93,17 +93,18 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
         textViewBottomInsideAction.setText(this.getString(R.string.step_three_daily_ration));
         imageViewBottomInsideRight.setVisibility(View.VISIBLE);
 
+        Bundle bundle = getArguments();
+        final TestSource testSource = bundle.getParcelable(Constants.TEST_SOURCE);
         layoutBottomInside.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                trySwitchNextFragment();
+                trySwitchNextFragment(testSource);
             }
         });
     }
 
-    private void trySwitchNextFragment() {
-        TestSource testSource = AppState.getInsnatce().getTestSource();
+    private void trySwitchNextFragment(TestSource testSource) {
         String resultString = pickTestIncomingFields(testSource);
 
         if (!resultString.isEmpty()) {
@@ -112,7 +113,11 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
         }
 
         if (testSource.validate(TestSource.RESULT_GROUPS.second)) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Constants.TEST_SOURCE, testSource);
+
             Fragment dailyRationFragment = new RiskAnalysisDailyRationFragment();
+            dailyRationFragment.setArguments(bundle);
             switchFragment(dailyRationFragment);
         } else {
             Tools.showToast(getActivity(), R.string.complete_all_fields, Toast.LENGTH_SHORT);
@@ -159,9 +164,7 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
                 testSource.setPhysicalActivityMinutes(physicalActivity);
                 testSource.setHadHeartAttackOrStroke(HeartAttackOrStroke);
             }
-        } catch (Exception e) {
-            // do nothing
-        }
+        } catch (Exception e) { /*does nothing*/ }
 
         return resultString;
     }

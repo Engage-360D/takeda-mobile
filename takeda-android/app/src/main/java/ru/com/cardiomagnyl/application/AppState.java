@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import ru.com.cardiomagnyl.model.base.BaseModel;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestSource;
+import ru.com.cardiomagnyl.model.test_diet.TestDietResult;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.user.User;
 
@@ -32,8 +33,8 @@ public class AppState {
 
     private Token mToken;
     private User mUser;
-    private TestSource mTestSource;
     private TestResult mTestResult;
+    private TestDietResult mTestDietResult;
 
     public Token getToken() {
         return mToken;
@@ -51,20 +52,20 @@ public class AppState {
         mUser = user;
     }
 
-    public TestSource getTestSource() {
-        return mTestSource;
-    }
-
-    public void setTestSource(TestSource testSource) {
-        mTestSource = testSource;
-    }
-
     public TestResult getTestResult() {
         return mTestResult;
     }
 
     public void setTestResult(TestResult testResult) {
         mTestResult = testResult;
+    }
+
+    public TestDietResult getTestDietResult() {
+        return mTestDietResult;
+    }
+
+    public void setTestDietResult(TestDietResult testDietResult) {
+        mTestDietResult = testDietResult;
     }
 
 }

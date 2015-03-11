@@ -9,8 +9,10 @@ public class Constants {
     // bundle parcelable
     public static String TEST_PAGE = "test_page";
     public static String PILL = "pill";
+    public static String TEST_SOURCE = "test_source";
     // bundle string
     public static String PAGE_TITLE = "title";
+    public static String INSTITUTION_ID = "institution_id";
     // bundle boolean
     public static String IS_NOT_PASSED = "is_not_passed";
 

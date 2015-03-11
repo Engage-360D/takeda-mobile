@@ -2,6 +2,7 @@ package ru.com.cardiomagnyl.ui.base;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import ru.com.cardiomagnyl.model.common.LgnPwd;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
+import ru.com.cardiomagnyl.model.test_diet.TestDietResult;
+import ru.com.cardiomagnyl.model.test_diet.TestDietResultDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.token.TokenDao;
 import ru.com.cardiomagnyl.model.user.User;
@@ -42,7 +45,7 @@ public abstract class BaseStartFragment extends Fragment {
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        handleRegAuth(null, null, null, responseError);
+                        handleRegAuth(null, null, null, null, responseError);
                     }
                 }
         );
@@ -63,7 +66,7 @@ public abstract class BaseStartFragment extends Fragment {
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        handleRegAuth(null, null, null, responseError);
+                        handleRegAuth(null, null, null, null, responseError);
                     }
                 }
         );
@@ -84,7 +87,7 @@ public abstract class BaseStartFragment extends Fragment {
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        handleRegAuth(null, null, null, responseError);
+                        handleRegAuth(null, null, null, null, responseError);
                     }
                 },
                 false
@@ -97,24 +100,43 @@ public abstract class BaseStartFragment extends Fragment {
                 new CallbackOne<List<TestResult>>() {
                     @Override
                     public void execute(List<TestResult> testResultsList) {
-                        TestResult newestTestResult = TestResultDao.getNewestResult(testResultsList);
-                        handleRegAuth(token, user, newestTestResult, null);
+                        TestResult testResult = TestResultDao.getNewestResult(testResultsList);
+                        if (testResult == null) handleRegAuth(token, user, null, null, null);
+                        else getDietTestResult(token, user, testResult);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        handleRegAuth(null, null, null, responseError);
+                        handleRegAuth(null, null, null, null, responseError);
                     }
                 }
         );
     }
 
-    private void handleRegAuth(Token token, User user, TestResult testResult, Response responseError) {
+    public void getDietTestResult(final Token token, final User user, final TestResult testResult) {
+        TestDietResultDao.getByTestId(
+                testResult.getId(),
+                new CallbackOne<TestDietResult>() {
+                    @Override
+                    public void execute(TestDietResult testDietResult) {
+                        handleRegAuth(token, user, testResult, testDietResult, null);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        initAppState(token, user, testResult, null);
+                    }
+                }
+        );
+    }
+
+    private void handleRegAuth(Token token, User user, TestResult testResult, final TestDietResult testDietResult, Response responseError) {
         StartActivity startActivity = (StartActivity) getActivity();
         startActivity.hideProgressDialog();
 
-        if (token == null && user == null && testResult == null) {
+        if (token == null && user == null) {
             responseError = (responseError == null || responseError.getError() == null) ?
                     new Response.Builder(new Error()).create() :
                     responseError;
@@ -130,19 +152,20 @@ public abstract class BaseStartFragment extends Fragment {
                     Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
             }
 
-            initAppState(null, null, null);
+            initAppState(null, null, null, null);
         } else {
-            initAppState(token, user, testResult);
+            initAppState(token, user, testResult, testDietResult);
             ((StartActivity) getActivity()).startSlidingMenu();
         }
     }
 
-    private void initAppState(Token token, User user, TestResult testResult) {
+    private void initAppState(final Token token, final User user, final TestResult testResult, final TestDietResult testDietResult) {
         String tokenId = token == null ? null : token.getTokenId();
         AppSharedPreferences.put(AppSharedPreferences.Preference.tokenId, tokenId);
         AppState.getInsnatce().setToken(token);
         AppState.getInsnatce().setUser(user);
         AppState.getInsnatce().setTestResult(testResult);
+        AppState.getInsnatce().setTestDietResult(testDietResult);
     }
 
     public abstract void initFieldsFromSocial(ru.com.cardiomagnyl.social.User socialUser);

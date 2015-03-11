@@ -82,7 +82,7 @@ public class CustomDialogLayout extends FrameLayout {
             if (pair.first instanceof Button) {
                 button = (Button) pair.first;
             } else {
-                button = new Button(context);
+                button = (Button) view.inflate(view.getContext(), R.layout.layout_button_main, null);
                 button.setText((CharSequence) pair.first);
             }
 
@@ -92,7 +92,12 @@ public class CustomDialogLayout extends FrameLayout {
                 this.setOnClickListener(button, (View.OnClickListener) pair.second);
             }
 
-            button.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1f));
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1f);
+            if (linearLayoutButtonsHolder.getChildCount() > 0) {
+                int spaceMedium = (int) view.getResources().getDimension(R.dimen.space_medium);
+                layoutParams.setMargins(spaceMedium, 0, 0, 0);
+            }
+            button.setLayoutParams(layoutParams);
             linearLayoutButtonsHolder.addView(button);
         }
 

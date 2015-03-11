@@ -171,4 +171,5 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.7'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.google.maps.android:android-maps-utils:0.3+'
 }

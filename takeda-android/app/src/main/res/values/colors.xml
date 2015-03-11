@@ -44,6 +44,7 @@
     <!-- text_hint -->
     <color name="main_text_37_hint">#7737404C</color>
     <color name="text_main_38_hint">#7738404C</color>
+    <color name="text_main_41_hint">#77414141</color>
     <color name="text_main_48_hint">#77485662</color>
 
     <!-- text_button -->

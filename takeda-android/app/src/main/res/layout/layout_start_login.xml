@@ -57,26 +57,16 @@
                 android:textSize="@dimen/text_size_xlarge" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayoutPerformRestore"
+        <TextView
+            android:id="@+id/textViewPerformRestore"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/plate_medium"
             android:layout_gravity="right"
-            android:gravity="right|center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/forgot_password"
-                android:textColor="@color/selector_clickable_text_38"
-                android:textSize="@dimen/text_size_small" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_small_dark_right" />
-        </LinearLayout>
+            android:drawableRight="@drawable/ic_small_dark_right"
+            android:gravity="right|center_vertical"
+            android:text="@string/forgot_password"
+            android:textColor="@color/selector_clickable_text_38"
+            android:textSize="@dimen/text_size_small" />
 
         <Button
             android:id="@+id/buttonEnter"

@@ -39,6 +39,7 @@ import ru.com.cardiomagnyl.widget.CustomOnDateSetListener;
 import ru.com.cardiomagnyl.ui.start.RegistrationFragment;
 import ru.com.cardiomagnyl.ui.start.SignInWithSocialNetwork;
 import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
+import ru.com.cardiomagnyl.widget.CustomRangeSpinnerAdapter;
 
 public final class ProfileHelper {
     private static final int[] mRequiredEditTextCommon = new int[]{
@@ -197,30 +198,30 @@ public final class ProfileHelper {
         List<Integer> range = Tools.getRange(Constants.YEARS_RANGE);
         range.add(0, null);
 
-        RangeSpinnerAdapter rangeSpinnerAdapter = new RangeSpinnerAdapter(
+        CustomRangeSpinnerAdapter customRangeSpinnerAdapter = new CustomRangeSpinnerAdapter(
                 spinner.getContext(),
                 R.layout.custom_spinner_item,
                 R.layout.spinner_item_dropdown,
                 range);
-        rangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        customRangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinnerExperienceYears = (Spinner) spinner.findViewById(R.id.spinnerExperienceYears);
-        spinnerExperienceYears.setAdapter(rangeSpinnerAdapter);
+        spinnerExperienceYears.setAdapter(customRangeSpinnerAdapter);
     }
 
     private static void initSpinnerGraduationDate(final View spinner) {
         List<Integer> yearsRange = Tools.getYearsRange(Constants.YEARS_RANGE);
         yearsRange.add(0, null);
 
-        RangeSpinnerAdapter rangeSpinnerAdapter = new RangeSpinnerAdapter(
+        CustomRangeSpinnerAdapter customRangeSpinnerAdapter = new CustomRangeSpinnerAdapter(
                 spinner.getContext(),
                 R.layout.custom_spinner_item,
                 R.layout.spinner_item_dropdown,
                 yearsRange);
-        rangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        customRangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinnerGraduationDate = (Spinner) spinner.findViewById(R.id.spinnerGraduationDate);
-        spinnerGraduationDate.setAdapter(rangeSpinnerAdapter);
+        spinnerGraduationDate.setAdapter(customRangeSpinnerAdapter);
     }
 
     private static void initSocials(final View parentView, BaseStartFragment parentFragment) {

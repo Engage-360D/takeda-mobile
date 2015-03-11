@@ -9,10 +9,14 @@ import ru.com.cardiomagnyl.model.common.Dummy;
 import ru.com.cardiomagnyl.model.common.Email;
 import ru.com.cardiomagnyl.model.common.LgnPwd;
 import ru.com.cardiomagnyl.model.common.Response;
+import ru.com.cardiomagnyl.model.institution.Institution;
+import ru.com.cardiomagnyl.model.institution.InstitutionDao;
 import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.pill.PillDao;
 import ru.com.cardiomagnyl.model.region.Region;
 import ru.com.cardiomagnyl.model.region.RegionDao;
+import ru.com.cardiomagnyl.model.specialization.Specialization;
+import ru.com.cardiomagnyl.model.specialization.SpecializationDao;
 import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.task.TaskDao;
 import ru.com.cardiomagnyl.model.test.PageDao;
@@ -27,13 +31,18 @@ import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.timeline.TimelineDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.token.TokenDao;
+import ru.com.cardiomagnyl.model.town.Town;
+import ru.com.cardiomagnyl.model.town.TownDao;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.model.user.UserDao;
 
 public class TestMethods {
 
     public static void testCurrentMethod() {
-        TestDietResultDaogetByTestId();
+        InstitutionDaoGetByTownAndSpec();
+//        SpecializationDaoGetAll();
+//        TownDaoGetAll();
+//        TestDietResultDaogetByTestId();
 //        TestDietResultDaoSendTestDietSource();
 //        TestDietDaoGetByTesftId();
 //        TaskDaoUpdate();
@@ -48,6 +57,65 @@ public class TestMethods {
 //        TokenDaoGetByLgnPwd();
 //        UserRegister();
 //        RegionDaoGetAll();
+    }
+
+    public static void InstitutionDaoGetByTownAndSpec() {
+        InstitutionDao.getByTownAndSpec(
+                "Москва",
+                "Кардиология",
+                new CallbackOne<List<Institution>>() {
+                    @Override
+                    public void execute(List<Institution> InstitutionsList) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
+    }
+
+    public static void SpecializationDaoGetAll() {
+        SpecializationDao.getAll(
+                new CallbackOne<List<Specialization>>() {
+                    @Override
+                    public void execute(List<Specialization> specializationsList) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
+    }
+
+    public static void TownDaoGetAll() {
+        TownDao.getAll(
+                new CallbackOne<List<Town>>() {
+                    @Override
+                    public void execute(List<Town> townsList) {
+                        int t = 1;
+                        t++;
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 1;
+                        t++;
+                    }
+                }
+        );
     }
 
     public static void TestDietResultDaogetByTestId() {

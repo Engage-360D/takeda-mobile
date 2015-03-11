@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.model.base.BaseModel;
+import ru.com.cardiomagnyl.model.institution.Institution;
 import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.region.Region;
 import ru.com.cardiomagnyl.model.region.RegionDao;
@@ -21,6 +22,7 @@ import ru.com.cardiomagnyl.model.role.Role;
 import ru.com.cardiomagnyl.model.role.RoleDao;
 import ru.com.cardiomagnyl.model.role.UserRole;
 import ru.com.cardiomagnyl.model.role.UserRoleDao;
+import ru.com.cardiomagnyl.model.specialization.Specialization;
 import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.test.PageDao;
 import ru.com.cardiomagnyl.model.test.TestPage;
@@ -31,6 +33,7 @@ import ru.com.cardiomagnyl.model.test_diet_answer.TestDietAnswer;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.token.TokenDao;
+import ru.com.cardiomagnyl.model.town.Town;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.model.user.UserDao;
 
@@ -65,6 +68,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, TestDiet.class);
             TableUtils.createTable(connectionSource, TestDietAnswer.class);
             TableUtils.createTable(connectionSource, TestDietResultHolder.class);
+            TableUtils.createTable(connectionSource, Town.class);
+            TableUtils.createTable(connectionSource, Specialization.class);
+            TableUtils.createTable(connectionSource, Institution.class);
         } catch (/*SQLException*/Exception e) {
             Log.e(CardiomagnylApplication.getInstance().getTag(), "error creating DB " + DATABASE_NAME);
             throw new RuntimeException(e);
@@ -88,6 +94,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, TestDiet.class, true);
             TableUtils.dropTable(connectionSource, TestDietAnswer.class, true);
             TableUtils.dropTable(connectionSource, TestDietResultHolder.class, true);
+            TableUtils.dropTable(connectionSource, Town.class, true);
+            TableUtils.dropTable(connectionSource, Specialization.class, true);
+            TableUtils.dropTable(connectionSource, Institution.class, true);
 
             onCreate(db, connectionSource);
         } catch (/*SQLException*/Exception e) {

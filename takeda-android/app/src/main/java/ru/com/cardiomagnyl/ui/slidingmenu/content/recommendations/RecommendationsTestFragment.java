@@ -1,4 +1,4 @@
-package ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet;
+package ru.com.cardiomagnyl.ui.slidingmenu.content.recommendations;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,10 +31,10 @@ import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
-public class CabinetTestFragment extends BaseItemFragment {
+public class RecommendationsTestFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cabinet_test, null);
+        View view = inflater.inflate(R.layout.fragment_recommendations_test, null);
         initFragmentStart(view);
         return view;
     }
@@ -154,18 +154,38 @@ public class CabinetTestFragment extends BaseItemFragment {
                 new CallbackOne<TestDietResult>() {
                     @Override
                     public void execute(TestDietResult testDietResult) {
-                        slidingMenuActivity.hideProgressDialog();
-                        slidingMenuActivity.replaceContentOnTop(new CabinetTestResultsFragment(), false);
+                        handleTestResult(testDietResult, null);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        slidingMenuActivity.hideProgressDialog();
-                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                        handleTestResult(null, responseError);
                     }
                 }
         );
+    }
+
+    private void handleTestResult(TestDietResult testDietResult, Response responseError) {
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.hideProgressDialog();
+
+        if (testDietResult == null) {
+            responseError = (responseError == null || responseError.getError() == null) ?
+                    new Response.Builder(new ru.com.cardiomagnyl.model.common.Error()).create() :
+                    responseError;
+
+            switch (responseError.getError().getCode()) {
+                default:
+                    Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+            }
+        } else {
+            AppState.getInsnatce().setTestDietResult(testDietResult);
+            slidingMenuActivity.replaceContentOnTop(new RecommendationsTestResultsFragment(), false);
+        }
+
+        // set up menu items according to testResult
+        slidingMenuActivity.refreshMenuItems();
     }
 
     private String getAnswers(final View fragmentView) {

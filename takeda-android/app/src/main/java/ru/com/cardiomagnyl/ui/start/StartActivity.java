@@ -89,14 +89,10 @@ public class StartActivity extends BaseTrackedFragmentActivity {
         pager.setOnPageChangeListener(new OnPageChangeListener() {
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-                // do nothing
-            }
+            public void onPageScrollStateChanged(int state) { /*does nothing*/ }
 
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                // do nothing
-            }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { /*does nothing*/ }
 
             @Override
             public void onPageSelected(int position) {
