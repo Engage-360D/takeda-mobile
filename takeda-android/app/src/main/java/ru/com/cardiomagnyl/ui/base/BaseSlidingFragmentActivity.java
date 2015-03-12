@@ -12,7 +12,6 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnyl.app.R;
@@ -126,7 +125,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
     }
 
     public void unLockMenu() {
-        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         // https://github.com/jfeinstein10/SlidingMenu/issues/344
         // "Cannot interact with menu's view when enable TOUCHMODE_FULLSCREEN #344"
         getSlidingMenu().setTouchModeBehind(SlidingMenu.TOUCHMODE_MARGIN);

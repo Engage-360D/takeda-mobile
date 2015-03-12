@@ -1,5 +1,8 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.institution;
 
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +23,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterManager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -44,9 +48,12 @@ import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 
 public class InstitutionsSearchFragment extends BaseItemFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener, SwipeRefreshLayout.OnRefreshListener {
-    List<Institution> mInstitutionsList = new ArrayList<>();
+    private GoogleMap mGoogleMap;
+    private List<Institution> mInstitutionsList = new ArrayList<>();
     private ClusterManager<Institution> mClusterManager;
     private View mFragmentView;
+
+    private static int ONE_POINT_ZOOM = 15;
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
@@ -86,7 +93,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
 //
 //        getPillHttp(fragmentView);
 //
-        SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.fragmentContent);
+        SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.customSwipeRefreshLayout);
         swipeLayout.setRefreshing(false);
     }
 
@@ -209,7 +216,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         listViewInstitutions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String institutionId = ((Institution)institutionsAdapter.getItem(position)).getId();
+                String institutionId = ((Institution) institutionsAdapter.getItem(position)).getId();
                 showInstitutionDetailsFragment(institutionId);
             }
         });
@@ -278,6 +285,24 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
 
         mClusterManager.clearItems();
         mClusterManager.addItems(institutionsList);
+        mClusterManager.cluster();
+
+        if (institutionsList.isEmpty()) {
+            Tools.showToast(fragmentView.getContext(), R.string.data_not_found, Toast.LENGTH_LONG);
+        } else if (institutionsList.size() == 1) {
+            LatLng latLng = new LatLng(institutionsList.get(0).getLat(), institutionsList.get(0).getLng());
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ONE_POINT_ZOOM);
+            mGoogleMap.animateCamera(cameraUpdate);
+        } else {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (Institution institution : institutionsList) {
+                builder.include(institution.getPosition());
+            }
+            LatLngBounds bounds = builder.build();
+            int spaceMedium = (int) fragmentView.getResources().getDimension(R.dimen.space_medium);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, spaceMedium);
+            mGoogleMap.moveCamera(cameraUpdate);
+        }
     }
 
     private void setContentVisiblity(View parentView, boolean isMapVisible, boolean isListVisible) {
@@ -327,6 +352,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         mClusterManager.setRenderer(new CustomClusterRenderer(getActivity(), googleMap, mClusterManager));
 
         // Gets to GoogleMap from the MapView and does initialization stuff
+        mGoogleMap = googleMap;
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.setMyLocationEnabled(true);
         googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getActivity()));
@@ -342,7 +368,11 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         }
 
         // Updates the location and zoom of the MapView
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(55.751667, 37.617778), 10);
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+        String provider = locationManager.getBestProvider(new Criteria(), true);
+        Location currentLocation = locationManager.getLastKnownLocation(provider);
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), ONE_POINT_ZOOM);
         googleMap.animateCamera(cameraUpdate);
     }
 

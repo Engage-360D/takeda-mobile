@@ -1,7 +1,5 @@
 package ru.com.cardiomagnyl.model.institution;
 
-import android.text.TextUtils;
-
 import com.android.volley.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.j256.ormlite.dao.BaseDaoImpl;
@@ -44,8 +42,9 @@ public class InstitutionDao extends BaseDaoImpl<Institution, Integer> {
         RuntimeExceptionDao helperFactoryInstitution = HelperFactory.getHelper().getRuntimeDataDao(Institution.class);
         QueryBuilder queryBuilder = helperFactoryInstitution.queryBuilder();
         try {
-            if (!TextUtils.isEmpty(town)) queryBuilder.where().eq("parsed_town", town);
-            if (!TextUtils.isEmpty(spec)) queryBuilder.where().eq("specialization", spec);
+//            if (!TextUtils.isEmpty(town)) queryBuilder.where().eq("parsed_town", town);
+//            if (!TextUtils.isEmpty(spec)) queryBuilder.where().eq("specialization", spec);
+            queryBuilder.where().eq("parsed_town", town).and().eq("specialization", spec);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,8 +77,8 @@ public class InstitutionDao extends BaseDaoImpl<Institution, Integer> {
     }
 
     public static void getById(final String institutionId,
-                                final CallbackOne<Institution> onSuccess,
-                                final CallbackOne<Response> onFailure) {
+                               final CallbackOne<Institution> onSuccess,
+                               final CallbackOne<Response> onFailure) {
         RuntimeExceptionDao helperFactoryInstitutionDao = HelperFactory.getHelper().getRuntimeDataDao(Institution.class);
         QueryBuilder queryBuilder = helperFactoryInstitutionDao.queryBuilder();
         try {

@@ -70,10 +70,6 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     }
 
     private void initMenu(Bundle savedInstanceState) {
-        // check if the content frame contains the menu frame
-        getSlidingMenu().setSlidingEnabled(true);
-        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-
         // set the Above View Fragment
         Fragment fragment = getCurrentFragment();
         if (fragment == null) {
@@ -103,6 +99,8 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         slidingMenu.setBehindScrollScale(0.25f);
         slidingMenu.setFadeDegree(0.25f);
         slidingMenu.onFinishTemporaryDetach();
+        slidingMenu.setSlidingEnabled(true);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 
         refreshMenuItems();
     }
