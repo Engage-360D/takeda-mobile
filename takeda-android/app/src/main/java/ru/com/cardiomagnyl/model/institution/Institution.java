@@ -20,14 +20,14 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
         "name",
         "specialization",
         "address",
-        "googleAddress",
-        "region",
+//        "googleAddress",
+//        "region",
         "parsedTown",
-        "parsedStreet",
-        "parsedHouse",
-        "parsedCorpus",
-        "parsedBuilding",
-        "parsedRegion",
+//        "parsedStreet",
+//        "parsedHouse",
+//        "parsedCorpus",
+//        "parsedBuilding",
+//        "parsedRegion",
         "lat",
         "lng",
         "priority"
@@ -55,38 +55,38 @@ public class Institution extends BaseModel implements Parcelable, ClusterItem {
     @DatabaseField(dataType = DataType.STRING, columnName = "address")
     @JsonProperty("address")
     private String address;
-
-    @DatabaseField(dataType = DataType.STRING, columnName = "google_address")
-    @JsonProperty("googleAddress")
-    private String googleAddress;
-
-    @DatabaseField(dataType = DataType.STRING, columnName = "region")
-    @JsonProperty("region")
-    private String region;
+//
+//    @DatabaseField(dataType = DataType.STRING, columnName = "google_address")
+//    @JsonProperty("googleAddress")
+//    private String googleAddress;
+//
+//    @DatabaseField(dataType = DataType.STRING, columnName = "region")
+//    @JsonProperty("region")
+//    private String region;
 
     @DatabaseField(dataType = DataType.STRING, columnName = "parsed_town")
     @JsonProperty("parsedTown")
     private String parsedTown;
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_street")
-    @JsonProperty("parsedStreet")
-    private String parsedStreet;
-
-    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_house")
-    @JsonProperty("parsedHouse")
-    private String parsedHouse;
-
-    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_corpus")
-    @JsonProperty("parsedCorpus")
-    private String parsedCorpus;
-
-    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_building")
-    @JsonProperty("parsedBuilding")
-    private String parsedBuilding;
-
-    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_region")
-    @JsonProperty("parsedRegion")
-    private String parsedRegion;
+//    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_street")
+//    @JsonProperty("parsedStreet")
+//    private String parsedStreet;
+//
+//    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_house")
+//    @JsonProperty("parsedHouse")
+//    private String parsedHouse;
+//
+//    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_corpus")
+//    @JsonProperty("parsedCorpus")
+//    private String parsedCorpus;
+//
+//    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_building")
+//    @JsonProperty("parsedBuilding")
+//    private String parsedBuilding;
+//
+//    @DatabaseField(dataType = DataType.STRING, columnName = "parsed_region")
+//    @JsonProperty("parsedRegion")
+//    private String parsedRegion;
 
     @DatabaseField(dataType = DataType.DOUBLE, columnName = "lat")
     @JsonProperty("lat")
@@ -164,37 +164,37 @@ public class Institution extends BaseModel implements Parcelable, ClusterItem {
         this.address = address;
     }
 
-    /**
-     * @return The googleAddress
-     */
-    @JsonProperty("googleAddress")
-    public String getGoogleAddress() {
-        return googleAddress;
-    }
-
-    /**
-     * @param googleAddress The googleAddress
-     */
-    @JsonProperty("googleAddress")
-    public void setGoogleAddress(String googleAddress) {
-        this.googleAddress = googleAddress;
-    }
-
-    /**
-     * @return The region
-     */
-    @JsonProperty("region")
-    public String getRegion() {
-        return region;
-    }
-
-    /**
-     * @param region The region
-     */
-    @JsonProperty("region")
-    public void setRegion(String region) {
-        this.region = region;
-    }
+//    /**
+//     * @return The googleAddress
+//     */
+//    @JsonProperty("googleAddress")
+//    public String getGoogleAddress() {
+//        return googleAddress;
+//    }
+//
+//    /**
+//     * @param googleAddress The googleAddress
+//     */
+//    @JsonProperty("googleAddress")
+//    public void setGoogleAddress(String googleAddress) {
+//        this.googleAddress = googleAddress;
+//    }
+//
+//    /**
+//     * @return The region
+//     */
+//    @JsonProperty("region")
+//    public String getRegion() {
+//        return region;
+//    }
+//
+//    /**
+//     * @param region The region
+//     */
+//    @JsonProperty("region")
+//    public void setRegion(String region) {
+//        this.region = region;
+//    }
 
     /**
      * @return The parsedTown
@@ -212,85 +212,85 @@ public class Institution extends BaseModel implements Parcelable, ClusterItem {
         this.parsedTown = parsedTown;
     }
 
-    /**
-     * @return The parsedStreet
-     */
-    @JsonProperty("parsedStreet")
-    public String getParsedStreet() {
-        return parsedStreet;
-    }
-
-    /**
-     * @param parsedStreet The parsedStreet
-     */
-    @JsonProperty("parsedStreet")
-    public void setParsedStreet(String parsedStreet) {
-        this.parsedStreet = parsedStreet;
-    }
-
-    /**
-     * @return The parsedHouse
-     */
-    @JsonProperty("parsedHouse")
-    public String getParsedHouse() {
-        return parsedHouse;
-    }
-
-    /**
-     * @param parsedHouse The parsedHouse
-     */
-    @JsonProperty("parsedHouse")
-    public void setParsedHouse(String parsedHouse) {
-        this.parsedHouse = parsedHouse;
-    }
-
-    /**
-     * @return The parsedCorpus
-     */
-    @JsonProperty("parsedCorpus")
-    public String getParsedCorpus() {
-        return parsedCorpus;
-    }
-
-    /**
-     * @param parsedCorpus The parsedCorpus
-     */
-    @JsonProperty("parsedCorpus")
-    public void setParsedCorpus(String parsedCorpus) {
-        this.parsedCorpus = parsedCorpus;
-    }
-
-    /**
-     * @return The parsedBuilding
-     */
-    @JsonProperty("parsedBuilding")
-    public String getParsedBuilding() {
-        return parsedBuilding;
-    }
-
-    /**
-     * @param parsedBuilding The parsedBuilding
-     */
-    @JsonProperty("parsedBuilding")
-    public void setParsedBuilding(String parsedBuilding) {
-        this.parsedBuilding = parsedBuilding;
-    }
-
-    /**
-     * @return The parsedRegion
-     */
-    @JsonProperty("parsedRegion")
-    public String getParsedRegion() {
-        return parsedRegion;
-    }
-
-    /**
-     * @param parsedRegion The parsedRegion
-     */
-    @JsonProperty("parsedRegion")
-    public void setParsedRegion(String parsedRegion) {
-        this.parsedRegion = parsedRegion;
-    }
+//    /**
+//     * @return The parsedStreet
+//     */
+//    @JsonProperty("parsedStreet")
+//    public String getParsedStreet() {
+//        return parsedStreet;
+//    }
+//
+//    /**
+//     * @param parsedStreet The parsedStreet
+//     */
+//    @JsonProperty("parsedStreet")
+//    public void setParsedStreet(String parsedStreet) {
+//        this.parsedStreet = parsedStreet;
+//    }
+//
+//    /**
+//     * @return The parsedHouse
+//     */
+//    @JsonProperty("parsedHouse")
+//    public String getParsedHouse() {
+//        return parsedHouse;
+//    }
+//
+//    /**
+//     * @param parsedHouse The parsedHouse
+//     */
+//    @JsonProperty("parsedHouse")
+//    public void setParsedHouse(String parsedHouse) {
+//        this.parsedHouse = parsedHouse;
+//    }
+//
+//    /**
+//     * @return The parsedCorpus
+//     */
+//    @JsonProperty("parsedCorpus")
+//    public String getParsedCorpus() {
+//        return parsedCorpus;
+//    }
+//
+//    /**
+//     * @param parsedCorpus The parsedCorpus
+//     */
+//    @JsonProperty("parsedCorpus")
+//    public void setParsedCorpus(String parsedCorpus) {
+//        this.parsedCorpus = parsedCorpus;
+//    }
+//
+//    /**
+//     * @return The parsedBuilding
+//     */
+//    @JsonProperty("parsedBuilding")
+//    public String getParsedBuilding() {
+//        return parsedBuilding;
+//    }
+//
+//    /**
+//     * @param parsedBuilding The parsedBuilding
+//     */
+//    @JsonProperty("parsedBuilding")
+//    public void setParsedBuilding(String parsedBuilding) {
+//        this.parsedBuilding = parsedBuilding;
+//    }
+//
+//    /**
+//     * @return The parsedRegion
+//     */
+//    @JsonProperty("parsedRegion")
+//    public String getParsedRegion() {
+//        return parsedRegion;
+//    }
+//
+//    /**
+//     * @param parsedRegion The parsedRegion
+//     */
+//    @JsonProperty("parsedRegion")
+//    public void setParsedRegion(String parsedRegion) {
+//        this.parsedRegion = parsedRegion;
+//    }
 
     /**
      * @return The lat
@@ -355,14 +355,14 @@ public class Institution extends BaseModel implements Parcelable, ClusterItem {
         dest.writeString(this.name);
         dest.writeString(this.specialization);
         dest.writeString(this.address);
-        dest.writeString(this.googleAddress);
-        dest.writeString(this.region);
-        dest.writeString(this.parsedTown);
-        dest.writeString(this.parsedStreet);
-        dest.writeString(this.parsedHouse);
-        dest.writeString(this.parsedCorpus);
-        dest.writeString(this.parsedBuilding);
-        dest.writeString(this.parsedRegion);
+//        dest.writeString(this.googleAddress);
+//        dest.writeString(this.region);
+//        dest.writeString(this.parsedTown);
+//        dest.writeString(this.parsedStreet);
+//        dest.writeString(this.parsedHouse);
+//        dest.writeString(this.parsedCorpus);
+//        dest.writeString(this.parsedBuilding);
+//        dest.writeString(this.parsedRegion);
         dest.writeDouble(this.lat);
         dest.writeDouble(this.lng);
         dest.writeInt(this.priority);
@@ -376,14 +376,14 @@ public class Institution extends BaseModel implements Parcelable, ClusterItem {
         this.name = in.readString();
         this.specialization = in.readString();
         this.address = in.readString();
-        this.googleAddress = in.readString();
-        this.region = in.readString();
-        this.parsedTown = in.readString();
-        this.parsedStreet = in.readString();
-        this.parsedHouse = in.readString();
-        this.parsedCorpus = in.readString();
-        this.parsedBuilding = in.readString();
-        this.parsedRegion = in.readString();
+//        this.googleAddress = in.readString();
+//        this.region = in.readString();
+//        this.parsedTown = in.readString();
+//        this.parsedStreet = in.readString();
+//        this.parsedHouse = in.readString();
+//        this.parsedCorpus = in.readString();
+//        this.parsedBuilding = in.readString();
+//        this.parsedRegion = in.readString();
         this.lat = in.readDouble();
         this.lng = in.readDouble();
         this.priority = in.readInt();

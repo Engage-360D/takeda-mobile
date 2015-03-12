@@ -1,4 +1,4 @@
-package ru.com.cardiomagnyl.ui.slidingmenu.content.pills;
+package ru.com.cardiomagnyl.ui.slidingmenu.content.institution;
 
 import android.content.Context;
 import android.view.View;
@@ -6,28 +6,30 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.Marker;
+
 import java.util.List;
 
 import ru.com.cardiomagnyl.app.R;
-import ru.com.cardiomagnyl.model.pill.Pill;
+import ru.com.cardiomagnyl.model.institution.Institution;
 
-public class PillsAdapter extends BaseAdapter {
+public class InstitutionsAdapter extends BaseAdapter {
     private final Context mContext;
-    private final List<Pill> mPillsList;
+    private final List<Institution> mInstitutionList;
 
-    public PillsAdapter(Context context, List<Pill> pillsList) {
+    public InstitutionsAdapter(Context context, List<Institution> institutionsList) {
         mContext = context;
-        mPillsList = pillsList;
+        mInstitutionList = institutionsList;
     }
 
     @Override
     public int getCount() {
-        return mPillsList.size();
+        return mInstitutionList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mPillsList.get(position);
+        return mInstitutionList.get(position);
     }
 
     @Override
@@ -42,8 +44,8 @@ public class PillsAdapter extends BaseAdapter {
         final TextView textViewName = (TextView) view.findViewById(R.id.textViewName);
         final TextView textViewSubname = (TextView) view.findViewById(R.id.textViewSubname);
 
-        textViewName.setText(mPillsList.get(position).getName());
-        textViewSubname.setText(String.valueOf(mPillsList.get(position).getQuantity()) + mContext.getString(R.string.pcs));
+        textViewName.setText(mInstitutionList.get(position).getName());
+        textViewSubname.setText(mInstitutionList.get(position).getAddress());
 
         return view;
     }

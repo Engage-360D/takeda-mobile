@@ -1,6 +1,8 @@
 package ru.com.cardiomagnyl.model.specialization;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,7 +20,7 @@ import ru.com.cardiomagnyl.model.base.BaseModelHelper;
         "id"
 })
 @DatabaseTable(tableName = "specialization")
-public class Specialization extends BaseModel implements BaseModelHelper<String> {
+public class Specialization extends BaseModel implements BaseModelHelper<String>, Parcelable {
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     @JsonProperty("id")
@@ -61,5 +63,38 @@ public class Specialization extends BaseModel implements BaseModelHelper<String>
         noSpecialization.setName(context.getString(R.string.select_specialization));
         return noSpecialization;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    // implements Parcelable
+    ///////////////////////////////////////////////////////////////////////
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+    }
+
+    public Specialization() {
+    }
+
+    private Specialization(Parcel in) {
+        this.id = in.readString();
+    }
+
+    public static final Parcelable.Creator<Specialization> CREATOR = new Parcelable.Creator<Specialization>() {
+        public Specialization createFromParcel(Parcel source) {
+            return new Specialization(source);
+        }
+
+        public Specialization[] newArray(int size) {
+            return new Specialization[size];
+        }
+    };
+
+    ///////////////////////////////////////////////////////////////////////
 
 }

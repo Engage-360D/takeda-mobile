@@ -20,7 +20,7 @@ public class CustomClusterRenderer extends DefaultClusterRenderer<Institution> {
     @Override
     protected void onBeforeClusterItemRendered(Institution institution, MarkerOptions markerOptions) {
         markerOptions
-                .title(institution.getName())
+                .title(institution.getName() + "\n" + institution.getAddress())
                 .snippet(institution.getId()) /*hack*/
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_ic));
 

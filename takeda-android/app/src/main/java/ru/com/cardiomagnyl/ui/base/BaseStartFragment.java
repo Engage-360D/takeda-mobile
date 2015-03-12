@@ -126,7 +126,7 @@ public abstract class BaseStartFragment extends Fragment {
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        initAppState(token, user, testResult, null);
+                        handleRegAuth(token, user, testResult, null, responseError);
                     }
                 }
         );

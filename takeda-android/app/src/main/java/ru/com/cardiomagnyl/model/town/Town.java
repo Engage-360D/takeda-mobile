@@ -1,6 +1,8 @@
 package ru.com.cardiomagnyl.model.town;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,7 +20,7 @@ import ru.com.cardiomagnyl.model.base.BaseModelHelper;
         "id"
 })
 @DatabaseTable(tableName = "town")
-public class Town extends BaseModel implements BaseModelHelper<String> {
+public class Town extends BaseModel implements BaseModelHelper<String>, Parcelable {
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     @JsonProperty("id")
@@ -61,5 +63,38 @@ public class Town extends BaseModel implements BaseModelHelper<String> {
         noTown.setName(context.getString(R.string.select_town));
         return noTown;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    // implements Parcelable
+    ///////////////////////////////////////////////////////////////////////
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+    }
+
+    public Town() {
+    }
+
+    private Town(Parcel in) {
+        this.id = in.readString();
+    }
+
+    public static final Parcelable.Creator<Town> CREATOR = new Parcelable.Creator<Town>() {
+        public Town createFromParcel(Parcel source) {
+            return new Town(source);
+        }
+
+        public Town[] newArray(int size) {
+            return new Town[size];
+        }
+    };
+
+    ///////////////////////////////////////////////////////////////////////
 
 }

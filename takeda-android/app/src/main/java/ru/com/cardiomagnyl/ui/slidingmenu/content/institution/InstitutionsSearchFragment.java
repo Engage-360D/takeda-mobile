@@ -2,11 +2,14 @@ package ru.com.cardiomagnyl.ui.slidingmenu.content.institution;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,8 +21,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.maps.android.clustering.Cluster;
-import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -42,11 +43,10 @@ import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 
-public class InstitutionsSearchFragment extends BaseItemFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
-    private GoogleMap mMap;
-//    private final ArrayList<Marker> mMarkers = new ArrayList();
-
+public class InstitutionsSearchFragment extends BaseItemFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener, SwipeRefreshLayout.OnRefreshListener {
+    List<Institution> mInstitutionsList = new ArrayList<>();
     private ClusterManager<Institution> mClusterManager;
+    private View mFragmentView;
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
@@ -55,19 +55,43 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_institutions_search, null);
-        preInitFragment(view);
-        return view;
+        if (mFragmentView != null) {
+            ViewGroup parent = (ViewGroup) mFragmentView.getParent();
+            parent.removeView(mFragmentView);
+            return mFragmentView;
+        }
+
+        mFragmentView = inflater.inflate(R.layout.fragment_institutions_search, null);
+        preInitFragment(mFragmentView);
+        return mFragmentView;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        setIsMapVisible(getView(), true);
+        setContentVisiblity(getView(), true, false);
         initMap(googleMap);
     }
 
+    @Override
+    public void onRefresh() {
+        // FIXME: implement body
+
+        View fragmentView = getView();
+//
+//        fragmentView.findViewById(R.id.fragmentContent).setVisibility(View.INVISIBLE);
+//        fragmentView.findViewById(R.id.textViewMessage).setVisibility(View.INVISIBLE);
+//
+//        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+//        slidingMenuActivity.showProgressDialog();
+//
+//        getPillHttp(fragmentView);
+//
+        SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.fragmentContent);
+        swipeLayout.setRefreshing(false);
+    }
+
     private void preInitFragment(final View fragmentView) {
-        setIsMapVisible(fragmentView, false);
+        setContentVisiblity(fragmentView, false, false);
 
         // attempt to fix slow initialization of SupportMapFragment ("dirty hack")
         final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
@@ -76,6 +100,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
                 @Override
                 public void onClosed() {
                     slidingMenuActivity.getSlidingMenu().setOnClosedListener(null);
+                    initInstitutionsList(fragmentView);
                     initFragmentStart(fragmentView);
                     initMapFragment();
                 }
@@ -149,20 +174,53 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
     private void initFragmentFinishHelper(final View fragmentView, final List<Town> townsList, final List<Specialization> specializationsList) {
         Spinner spinnerTown = (Spinner) fragmentView.findViewById(R.id.spinnerTown);
         Spinner spinnerSpecialization = (Spinner) fragmentView.findViewById(R.id.spinnerSpecialization);
+        RadioGroup radioGroupCondition = (RadioGroup) fragmentView.findViewById(R.id.radioGroupCondition);
 
         townsList.add(Town.createNoTown(fragmentView.getContext()));
         specializationsList.add(Specialization.createNoSpecialization(fragmentView.getContext()));
 
-        initSpinner(fragmentView, spinnerTown, new ArrayList<BaseModelHelper>(townsList));
-        initSpinner(fragmentView, spinnerSpecialization, new ArrayList<BaseModelHelper>(specializationsList));
+        initSpinner(fragmentView, spinnerTown, new ArrayList<BaseModelHelper>(townsList), townsList.size() - 1);
+        initSpinner(fragmentView, spinnerSpecialization, new ArrayList<BaseModelHelper>(specializationsList), specializationsList.size() - 1);
+
+        radioGroupCondition.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioButtonMap:
+                        setContentVisiblity(fragmentView, true, false);
+                        break;
+                    case R.id.radioButtonList:
+                        setContentVisiblity(fragmentView, false, true);
+                        break;
+                }
+            }
+        });
     }
 
-    private void initSpinner(final View fragmentView, final Spinner spinner, final List<BaseModelHelper> itemsList) {
+    private void initInstitutionsList(final View fragmentView) {
+        final ListView listViewInstitutions = (ListView) fragmentView.findViewById(R.id.listViewInstitutions);
+        final SwipeRefreshLayout customSwipeRefreshLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.customSwipeRefreshLayout);
+
+        customSwipeRefreshLayout.setOnRefreshListener(this);
+
+        final InstitutionsAdapter institutionsAdapter = new InstitutionsAdapter(InstitutionsSearchFragment.this.getActivity(), mInstitutionsList);
+        listViewInstitutions.setAdapter(institutionsAdapter);
+
+        listViewInstitutions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String institutionId = ((Institution)institutionsAdapter.getItem(position)).getId();
+                showInstitutionDetailsFragment(institutionId);
+            }
+        });
+    }
+
+    private void initSpinner(final View fragmentView, final Spinner spinner, final List<BaseModelHelper> itemsList, int selection) {
         CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(spinner.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, itemsList);
         customSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(customSpinnerAdapter);
-        spinner.setSelection(customSpinnerAdapter.getCount() - 1, true);
+        spinner.setSelection(selection, true);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -197,7 +255,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
                     @Override
                     public void execute(List<Institution> InstitutionsList) {
                         slidingMenuActivity.hideProgressDialog();
-                        showInstitutions(fragmentView, InstitutionsList);
+                        updateInstitutions(fragmentView, InstitutionsList);
                     }
                 },
                 new CallbackOne<Response>() {
@@ -210,17 +268,26 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         );
     }
 
-    private void showInstitutions(final View fragmentView, final List<Institution> institutionsList) {
+    private void updateInstitutions(final View fragmentView, final List<Institution> institutionsList) {
+        final ListView listViewInstitutions = (ListView) fragmentView.findViewById(R.id.listViewInstitutions);
+        InstitutionsAdapter institutionsAdapter = (InstitutionsAdapter) listViewInstitutions.getAdapter();
+        institutionsAdapter.notifyDataSetChanged();
+        mInstitutionsList.clear();
+        mInstitutionsList.addAll(institutionsList);
+        institutionsAdapter.notifyDataSetInvalidated();
+
         mClusterManager.clearItems();
         mClusterManager.addItems(institutionsList);
     }
 
-    private void setIsMapVisible(View parentView, boolean isMapVisible) {
+    private void setContentVisiblity(View parentView, boolean isMapVisible, boolean isListVisible) {
         View frameLayoutMapHolder = parentView.findViewById(R.id.frameLayoutMapHolder);
-        View textViewLoadingMap = parentView.findViewById(R.id.textViewLoadingMap);
+        View viewLoadingMap = parentView.findViewById(R.id.viewLoadingMap);
+        View customSwipeRefreshLayout = parentView.findViewById(R.id.customSwipeRefreshLayout);
 
-        frameLayoutMapHolder.setVisibility(isMapVisible ? View.VISIBLE : View.INVISIBLE);
-        textViewLoadingMap.setVisibility(isMapVisible ? View.INVISIBLE : View.VISIBLE);
+        frameLayoutMapHolder.setVisibility(isMapVisible ? View.VISIBLE : View.GONE);
+        viewLoadingMap.setVisibility(isMapVisible || isListVisible ? View.GONE : View.VISIBLE);
+        customSwipeRefreshLayout.setVisibility(isListVisible ? View.VISIBLE : View.GONE);
     }
 
     private void initMapFragment() {
@@ -241,7 +308,10 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
     @Override
     public void onInfoWindowClick(Marker marker) {
         String institutionId = marker.getSnippet();
+        showInstitutionDetailsFragment(institutionId);
+    }
 
+    private void showInstitutionDetailsFragment(String institutionId) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.INSTITUTION_ID, institutionId);
 
@@ -257,13 +327,12 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         mClusterManager.setRenderer(new CustomClusterRenderer(getActivity(), googleMap, mClusterManager));
 
         // Gets to GoogleMap from the MapView and does initialization stuff
-        mMap = googleMap;
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.setMyLocationEnabled(true);
-        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getActivity()));
-        mMap.setOnMarkerClickListener(this);
-        mMap.setOnInfoWindowClickListener(this);
-        mMap.setOnCameraChangeListener(mClusterManager);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        googleMap.setMyLocationEnabled(true);
+        googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getActivity()));
+        googleMap.setOnMarkerClickListener(this);
+        googleMap.setOnInfoWindowClickListener(this);
+        googleMap.setOnCameraChangeListener(mClusterManager);
 
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         try {
@@ -274,7 +343,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
 
         // Updates the location and zoom of the MapView
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(55.751667, 37.617778), 10);
-        mMap.animateCamera(cameraUpdate);
+        googleMap.animateCamera(cameraUpdate);
     }
 
 }

@@ -1,7 +1,6 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.model.user.UserDao;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.recommendations.RecommendationsTestResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.ProfileHelper;

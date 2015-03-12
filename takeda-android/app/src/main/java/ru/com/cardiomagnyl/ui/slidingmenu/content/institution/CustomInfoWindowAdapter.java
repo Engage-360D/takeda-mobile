@@ -1,12 +1,7 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.institution;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,8 +9,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
 import ru.com.cardiomagnyl.app.R;
-import ru.com.cardiomagnyl.application.Constants;
-import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private final View mWindow;
@@ -41,7 +34,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     private void render(final Marker marker, final View view) {
         TextView textViewTitle = (TextView) view.findViewById(R.id.textViewTitle);
-        textViewTitle.setText(marker.getTitle());
+        textViewTitle.setText(marker.getTitle().split("\n")[0]);
     }
 
 }
