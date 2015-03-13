@@ -21,11 +21,6 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radioButtonRecomendations"
-                style="@style/RadioButtonTwoLines"
-                android:text="@string/personal_cabinet_my_recomendations" />
-
-            <RadioButton
                 android:id="@+id/radioButtonData"
                 style="@style/RadioButtonTwoLines"
                 android:checked="true"

@@ -171,7 +171,7 @@ public class Task extends BaseModel {
         Task.Type enumType = Task.Type.undefined;
         try {
             enumType = Task.Type.valueOf(type.toLowerCase());
-        } catch (Exception ex) { /*do nothing */ }
+        } catch (Exception ex) { /*does nothing*/ }
         return enumType;
     }
 

@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/plate_medium"
+        android:gravity="center_vertical"
+        android:text="@string/send_results"
+        android:textColor="@color/text_main_41"
+        android:textSize="@dimen/text_size_medium" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/plate_medium"
+        android:gravity="center_horizontal"
+        android:hint="@string/registration_email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/text_main_41"
+        android:textColorHint="@color/text_main_41_hint"
+        android:textSize="@dimen/text_size_medium" />
+
+</LinearLayout>
+
+

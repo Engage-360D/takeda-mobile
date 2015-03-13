@@ -206,7 +206,7 @@ public class Pill extends BaseModel implements Parcelable {
         PillFrequency enumFrequency = PillFrequency.undefined;
         try {
             enumFrequency = PillFrequency.valueOf(repeat.toLowerCase());
-        } catch (Exception ex) { /*do nothing */ }
+        } catch (Exception ex) { /*does nothing*/ }
         return enumFrequency;
     }
 

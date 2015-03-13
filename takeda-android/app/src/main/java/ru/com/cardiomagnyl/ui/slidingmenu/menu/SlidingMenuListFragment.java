@@ -19,7 +19,7 @@ public class SlidingMenuListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.slidingmenu_list_fragment, null);
-        initViewTreeObserver(view);
+        initFragment(view);
         return view;
     }
 
@@ -40,21 +40,32 @@ public class SlidingMenuListFragment extends ListFragment {
         outState.putInt("selected_item", mPreviousSelectedItemPosition);
     }
 
+    private void initFragment(final View fragmentView) {
+        initMenuItems();
+        initViewTreeObserver(fragmentView);
+    }
+
+    private void initMenuItems() {
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.refreshMenuItems();
+    }
+
     private void onRestoreInstanceState(Bundle savedInstanceState) {
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         if (savedInstanceState != null) {
-            mPreviousSelectedItemPosition = savedInstanceState.getInt("selected_item", SlidingMenuActivity.getFistItem());
+            mPreviousSelectedItemPosition = savedInstanceState.getInt("selected_item", slidingMenuActivity.getFistItem());
         } else {
-            mPreviousSelectedItemPosition = SlidingMenuActivity.getFistItem();
+            mPreviousSelectedItemPosition = slidingMenuActivity.getFistItem();
         }
     }
 
-    private void initViewTreeObserver(final View view) {
-        view.getViewTreeObserver().addOnGlobalLayoutListener(
+    private void initViewTreeObserver(final View fragmentView) {
+        fragmentView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
                         // unregister listener (this is important)
-                        view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        fragmentView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                         setSelectedItem(mPreviousSelectedItemPosition);
                     }
                 });
@@ -106,7 +117,8 @@ public class SlidingMenuListFragment extends ListFragment {
     }
 
     public void refreshMenuItems() {
-        mMenuItemsAdapter.notifyDataSetChanged();
+        if (mMenuItemsAdapter != null)
+            mMenuItemsAdapter.notifyDataSetChanged();
     }
 
     public View getViewByPosition(int pos, ListView listView) {

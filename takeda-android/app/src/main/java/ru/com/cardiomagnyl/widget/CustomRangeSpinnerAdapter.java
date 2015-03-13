@@ -1,4 +1,4 @@
-package ru.com.cardiomagnyl.util;
+package ru.com.cardiomagnyl.widget;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,12 +12,12 @@ import java.util.List;
 
 import ru.com.cardiomagnyl.app.R;
 
-public class RangeSpinnerAdapter extends ArrayAdapter<Integer> implements SpinnerAdapter {
+public class CustomRangeSpinnerAdapter extends ArrayAdapter<Integer> implements SpinnerAdapter {
     private final  Context mContext;
     private final int mTextViewResourceId;
     private final int mDropDownTextViewResourceId;
 
-    public RangeSpinnerAdapter(Context context, int textViewResourceId, int dropDownTextViewResourceId, List<Integer> range) {
+    public CustomRangeSpinnerAdapter(Context context, int textViewResourceId, int dropDownTextViewResourceId, List<Integer> range) {
         super(context, textViewResourceId, range);
         mContext = context;
         mTextViewResourceId = textViewResourceId;

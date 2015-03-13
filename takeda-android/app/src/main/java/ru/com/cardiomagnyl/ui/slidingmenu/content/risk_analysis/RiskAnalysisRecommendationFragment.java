@@ -69,9 +69,7 @@ public class RiskAnalysisRecommendationFragment extends Fragment {
 
         try {
             state = TestResult.STATES.valueOf(stateString.toLowerCase());
-        } catch (Exception ex) {
-            // do nothing
-        }
+        } catch (Exception ex) { /*does nothing*/ }
 
         switch (state) {
             case ask:

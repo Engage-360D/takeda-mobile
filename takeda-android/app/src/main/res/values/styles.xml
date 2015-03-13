@@ -214,8 +214,8 @@
     <!-- ======= -->
     <!-- buttons -->
     <!-- ======= -->
-    <style name="button_main_short">
-        <item name="android:layout_width">@dimen/control_medium</item>
+    <style name="button_main">
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/plate_medium</item>
         <item name="android:background">@drawable/selector_button_main</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
@@ -223,12 +223,15 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
-    <style name="button_main_long" parent="@style/button_main_short">
+    <style name="button_main_short" parent="@style/button_main">
+        <item name="android:layout_width">@dimen/control_medium</item>
+    </style>
+
+    <style name="button_main_long" parent="@style/button_main">
         <item name="android:layout_width">@dimen/control_xlarge</item>
     </style>
 
-    <style name="button_main_very_long" parent="@style/button_main_short">
-        <item name="android:layout_width">match_parent</item>
+    <style name="button_main_very_long" parent="@style/button_main">
         <item name="android:layout_marginBottom">@dimen/space_large</item>
         <item name="android:layout_marginLeft">@dimen/space_medium</item>
         <item name="android:layout_marginRight">@dimen/space_medium</item>

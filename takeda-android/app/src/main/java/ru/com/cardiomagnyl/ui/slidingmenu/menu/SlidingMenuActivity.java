@@ -27,7 +27,6 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
             MenuItem.item_main,
             MenuItem.item_risk_analysis,
             MenuItem.item_search_institutions,
-            MenuItem.item_recommendations,
             MenuItem.item_analysis_results,
             MenuItem.item_journal,
             MenuItem.item_useful_to_know,
@@ -71,10 +70,6 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     }
 
     private void initMenu(Bundle savedInstanceState) {
-        // check if the content frame contains the menu frame
-        getSlidingMenu().setSlidingEnabled(true);
-        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-
         // set the Above View Fragment
         Fragment fragment = getCurrentFragment();
         if (fragment == null) {
@@ -104,35 +99,45 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         slidingMenu.setBehindScrollScale(0.25f);
         slidingMenu.setFadeDegree(0.25f);
         slidingMenu.onFinishTemporaryDetach();
+        slidingMenu.setSlidingEnabled(true);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 
-        lockMenuIfneed();
-        unlockItemsIfneed();
+        refreshMenuItems();
     }
 
-    private void lockMenuIfneed() {
+    public void refreshMenuItems() {
+        User currentUser = AppState.getInsnatce().getUser();
+
         if (mustPassTest()) {
             lockMenu();
+            MenuItem.item_risk_analysis.setItemIsVisible(true);
+            MenuItem.item_risk_analysis.setItemIsEnabled(true);
         } else {
             unLockMenu();
+            MenuItem.item_risk_analysis.setItemIsVisible(true);
+            MenuItem.item_risk_analysis.setItemIsEnabled(false);
         }
-    }
 
-    private void unlockItemsIfneed() {
-        if (!mustPassTest()) {
-            MenuItem.item_analysis_results.setItemIsEnabled(true);
+        if (AppState.getInsnatce().getTestResult() != null) {
             MenuItem.item_analysis_results.setItemIsVisible(true);
+            MenuItem.item_analysis_results.setItemIsEnabled(true);
+        } else {
+            MenuItem.item_analysis_results.setItemIsVisible(true);
+            MenuItem.item_analysis_results.setItemIsEnabled(false);
         }
+
+        mSlidingMenuListFragment.refreshMenuItems();
     }
 
     public ViewGroup getHeaderLayout() {
         return (ViewGroup) findViewById(R.id.layoutHeader);
     }
 
-    public static int getFistItem() {
+    public int getFistItem() {
         return mustPassTest() ? TEST_ITEM_POSITION : MAIN_ITEM_POSITION;
     }
 
-    private static boolean mustPassTest() {
+    private boolean mustPassTest() {
         TestResult lastTestResult = AppState.getInsnatce().getTestResult();
         User currentUser = AppState.getInsnatce().getUser();
 
@@ -174,10 +179,6 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
                 break;
             }
         }
-    }
-
-    public void refreshMenuItems() {
-        mSlidingMenuListFragment.refreshMenuItems();
     }
 
     public void showProgressDialog() {

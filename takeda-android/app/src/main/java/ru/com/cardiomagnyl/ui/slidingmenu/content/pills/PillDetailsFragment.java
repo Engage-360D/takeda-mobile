@@ -39,11 +39,11 @@ import ru.com.cardiomagnyl.widget.CustomOnDateSetListener;
 import ru.com.cardiomagnyl.widget.CustomOnTimeSetListener;
 import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 
-public class PillFragment extends BaseItemFragment {
+public class PillDetailsFragment extends BaseItemFragment {
     private ViewGroup mViewGroupTopBar;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pill, null);
+        View view = inflater.inflate(R.layout.fragment_pill_details, null);
         initFragment(view);
         return view;
     }
@@ -99,7 +99,7 @@ public class PillFragment extends BaseItemFragment {
 //                            Tools.showToast(getActivity(), R.string.complete_required_fields, Toast.LENGTH_SHORT);
 //                        }
 
-        Pill newPill = pickPillFields(PillFragment.this.getView());
+        Pill newPill = pickPillFields(PillDetailsFragment.this.getView());
         createPill(fragmentView, newPill);
     }
 
@@ -113,7 +113,7 @@ public class PillFragment extends BaseItemFragment {
 //                            Tools.showToast(getActivity(), R.string.complete_required_fields, Toast.LENGTH_SHORT);
 //                        }
 
-        Pill newPill = pickPillFields(PillFragment.this.getView());
+        Pill newPill = pickPillFields(PillDetailsFragment.this.getView());
         newPill.setId(pill.getId());
         updatePill(fragmentView, newPill);
     }
@@ -266,7 +266,7 @@ public class PillFragment extends BaseItemFragment {
         } else {
             int counter;
             for (counter = 0; counter < frequenciesList.size() - 1; ++counter) {
-                PillFrequency currentPillFrequency = PillFrequency.getById(frequenciesList.get(counter).getId());
+                PillFrequency currentPillFrequency = PillFrequency.getById((Integer)frequenciesList.get(counter).getId());
                 if (currentPillFrequency.equals(pillFrequency))
                     break;
             }

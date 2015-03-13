@@ -39,26 +39,16 @@
             </EditText>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayoutPerformLogin"
+        <TextView
+            android:id="@+id/textViewPerformLogin"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/plate_medium"
             android:layout_gravity="left"
-            android:gravity="right|center_vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_small_dark_left" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/entry"
-                android:textColor="@color/selector_clickable_text_38"
-                android:textSize="@dimen/text_size_small" />
-        </LinearLayout>
+            android:drawableLeft="@drawable/ic_small_dark_left"
+            android:gravity="right|center_vertical"
+            android:text="@string/entry"
+            android:textColor="@color/selector_clickable_text_38"
+            android:textSize="@dimen/text_size_small" />
 
         <Button
             android:id="@+id/buttonRestore"

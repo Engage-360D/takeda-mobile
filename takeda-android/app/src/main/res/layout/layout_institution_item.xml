@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/plate_medium"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/space_medium"
+        android:paddingRight="@dimen/space_medium">
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_main_41"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/textViewValue"
+            style="?android:attr/spinnerItemStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/selector_clickable_text_48"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+    <View style="@style/divider_normal_1_5" />
+</LinearLayout>

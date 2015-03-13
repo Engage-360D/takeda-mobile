@@ -27,28 +27,12 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
 
         TextView titleTextView = (TextView) convertView.findViewById(R.id.textViewTitle);
         titleTextView.setText(mContext.getString(menuItem.getItemName()));
+        titleTextView.setEnabled(menuItem.isItemEnabled());
 
-        boolean isResultItem = menuItem.equals(MenuItem.item_analysis_results);
-        boolean resultNotEmpty = AppState.getInsnatce().getTestResult() != null && AppState.getInsnatce().getTestResult().getId() != null;
-
-        boolean isAnalysisItem = menuItem.equals(MenuItem.item_risk_analysis);
-        boolean isDoctor = AppState.getInsnatce().getUser().isDoctor();
-
-        boolean isVisible = menuItem.isItemVisible();
-        boolean isClickable = menuItem.isItemEnabled();
-
-        if (isResultItem && resultNotEmpty) {
-            isClickable = isVisible = true;
-        } else if (isAnalysisItem) {
-            isVisible = true;
-            isClickable = isDoctor;
-        }
-
-        convertView.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-        convertView.setEnabled(isClickable);
-        titleTextView.setEnabled(isClickable);
+        convertView.setVisibility(menuItem.isItemVisible() ? View.VISIBLE : View.GONE);
+        convertView.setEnabled(menuItem.isItemEnabled());
         // TODO: Why !isClickable?
-        convertView.setClickable(!isClickable);
+        convertView.setClickable(!menuItem.isItemEnabled());
 
         return convertView;
     }

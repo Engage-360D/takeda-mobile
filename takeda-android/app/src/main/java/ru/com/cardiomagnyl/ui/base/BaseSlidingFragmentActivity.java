@@ -12,7 +12,6 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnyl.app.R;
@@ -126,7 +125,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
     }
 
     public void unLockMenu() {
-        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         // https://github.com/jfeinstein10/SlidingMenu/issues/344
         // "Cannot interact with menu's view when enable TOUCHMODE_FULLSCREEN #344"
         getSlidingMenu().setTouchModeBehind(SlidingMenu.TOUCHMODE_MARGIN);
@@ -184,7 +183,6 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             fragmentTransaction.remove(fragment);
             fragmentTransaction.replace(R.id.content_frame, newTopFragment, tag);
-            fragmentTransaction.addToBackStack(tag);
             fragmentTransaction.commit();
 
             initTopOnFragmentChanged(newTopFragment, !isBackStackEmpty());
@@ -200,8 +198,22 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
     public void replaceAllContent(final Fragment newTopFragment, final boolean withSwitch) {
         try {
-            mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             String tag = newTopFragment.getTag() == null ? getTimestampTag() : newTopFragment.getTag();
+
+            // blocking of fragment creation on popBackStack
+            if (mFragmentManager.getBackStackEntryCount() > 0) {
+                for (int counter = 0; counter < mFragmentManager.getBackStackEntryCount(); ++counter) {
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
+                    Fragment fragment = mFragmentManager.findFragmentByTag(mFragmentManager.getBackStackEntryAt(counter).getName());
+                    fragmentTransaction.remove(fragment);
+                    Fragment newFragment = new Fragment();
+                    fragmentTransaction.replace(R.id.content_frame, newFragment, fragment.getTag());
+
+                    fragmentTransaction.commit();
+                }
+                mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
 
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, newTopFragment, tag);
@@ -263,4 +275,5 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
             }
         }, CONTENT_DELAY);
     }
+
 }

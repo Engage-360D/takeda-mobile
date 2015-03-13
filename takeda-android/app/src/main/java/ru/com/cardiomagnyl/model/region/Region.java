@@ -19,7 +19,7 @@ import ru.com.cardiomagnyl.model.base.BaseModelHelper;
         "name"
 })
 @DatabaseTable(tableName = "region")
-public class Region extends BaseModel implements BaseModelHelper {
+public class Region extends BaseModel implements BaseModelHelper<Integer> {
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.INTEGER, columnName = "id")
     @JsonProperty("id")
@@ -33,7 +33,7 @@ public class Region extends BaseModel implements BaseModelHelper {
      * @return The id
      */
     @JsonProperty("id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class Region extends BaseModel implements BaseModelHelper {
      * @param id The id
      */
     @JsonProperty("id")
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

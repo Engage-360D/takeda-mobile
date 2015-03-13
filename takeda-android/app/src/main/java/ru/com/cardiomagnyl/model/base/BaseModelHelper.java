@@ -1,12 +1,13 @@
 package ru.com.cardiomagnyl.model.base;
 
-public interface BaseModelHelper {
+public interface BaseModelHelper<T> {
 
-    public int getId() ;
+    public T getId();
 
-    public void setId(int id) ;
+    public void setId(T id);
 
-    public String getName() ;
+    public String getName();
 
-    public void setName(String name) ;
+    public void setName(String name);
+
 }

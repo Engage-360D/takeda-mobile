@@ -51,7 +51,7 @@ public class TakingPillsFragment extends BaseItemFragment {
             public void onClick(View v) {
                 if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
                     SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-                    Fragment fragment = new PillFragment();
+                    Fragment fragment = new PillDetailsFragment();
                     slidingMenuActivity.putContentOnTop(fragment, false);
                 }
             }

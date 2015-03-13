@@ -99,8 +99,11 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
         }
 
         if (testSource.validate(TestSource.RESULT_GROUPS.first)) {
-            AppState.getInsnatce().setTestSource(testSource);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Constants.TEST_SOURCE, testSource);
+
             Fragment patientHistoryFragment = new RiskAnalysisPatientHistoryFragment();
+            patientHistoryFragment.setArguments(bundle);
             switchFragment(patientHistoryFragment);
         } else {
             Tools.showToast(getActivity(), R.string.complete_all_fields, Toast.LENGTH_SHORT);
@@ -154,9 +157,7 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
             testSource.setCholesterolLevel(cholesterolLevel);
             testSource.setIsCholesterolDrugsConsumer(cholesterolDrugs);
             testSource.setIsSmoker(smoking);
-        } catch (Exception e) {
-            // do nothing
-        }
+        } catch (Exception e) { /*does nothing*/ }
 
         return resultString;
     }

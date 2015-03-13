@@ -23,9 +23,11 @@ public final class Url {
     public static final String ACCOUNT_TEST_RESULTS_DIET_QUESTIONS = API_ADDR + "account/test-results/%s/diet-questions?token=%s";
     public static final String ACCOUNT_TEST_RESULTS_DIET_RECOMMENDATIONS = API_ADDR + "account/test-results/%s/diet-recommendations?%s&token=%s";
     public static final String ACCOUNT_TEST_RESULTS_DIET_ANSWERS = "answers[%s]=%s&";
-
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
+    public static final String INSTITUTION_PARSED_TOWNS = API_ADDR + "institution-parsed-towns";
+    public static final String INSTITUTION_SPECIALIZATIONS = API_ADDR + "institution-specializations";
+    public static final String INSTITUTIONS = API_ADDR + "institutions?parsedTown=%s&specialization=%s";
 
     public static final HashMap<String, String> GET_HEADERS = new HashMap<String, String>() {{
         put("Content-Type", "application/vnd.api+json");

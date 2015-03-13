@@ -137,11 +137,11 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.PILL, pill);
 
-        PillFragment pillFragment = new PillFragment();
-        pillFragment.setArguments(bundle);
+        PillDetailsFragment pillDetailsFragment = new PillDetailsFragment();
+        pillDetailsFragment.setArguments(bundle);
 
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-        slidingMenuActivity.putContentOnTop(pillFragment, true);
+        slidingMenuActivity.putContentOnTop(pillDetailsFragment, true);
     }
 
 }

@@ -1,12 +1,17 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -34,13 +39,12 @@ import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.InformationFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.SearchInstitutionsFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetTestResultsFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.menu.MenuItem;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.institution.InstitutionsSearchFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.recommendations.RecommendationsTestResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
-import ru.com.cardiomagnyl.widget.CustomDialogs;
+import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 
 public class RiskAnalysisResultsFragment extends BaseItemFragment {
     @Override
@@ -57,7 +61,12 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        initTopBarMenuBellCabinet(viewGroupTopBar, true, true, true);
+        TestResult testResult = AppState.getInsnatce().getTestResult();
+        if (testResult != null) {
+            initTopBarMenuBellCabinet(viewGroupTopBar, true, true, true);
+        } else {
+            initTopBarMenuBellCabinet(viewGroupTopBar, false, false, false);
+        }
     }
 
     private void initTestResultsFragment(View view, boolean isNotPassed) {
@@ -67,16 +76,6 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
 
         ScrollView scrollViewResults = (ScrollView) view.findViewById(R.id.scrollViewResults);
         TextView textViewError = (TextView) view.findViewById(R.id.textViewError);
-
-        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-        if (testResult != null) {
-            slidingMenuActivity.unLockMenu();
-            updateMenu();
-
-            initTopBarBellCabinet(slidingMenuActivity.getHeaderLayout(), true, true);
-        } else {
-            initTopBarBellCabinet(slidingMenuActivity.getHeaderLayout(), false, false);
-        }
 
         if (isNotPassed) {
             scrollViewResults.setVisibility(View.INVISIBLE);
@@ -179,14 +178,6 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         linearLayoutBigWrapper.setVisibility(View.GONE);
     }
 
-    private void updateMenu() {
-        MenuItem.item_analysis_results.setItemIsEnabled(true);
-        MenuItem.item_analysis_results.setItemIsVisible(true);
-        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-        slidingMenuActivity.refreshMenuItems();
-        slidingMenuActivity.selectCurrentItem(this);
-    }
-
     private void initButtons(final View view, final TestResult testResult, final User user, final Token token) {
         View imageViewSendEmail = view.findViewById(R.id.imageViewSendEmail);
         View imageViewInfo = view.findViewById(R.id.imageViewInfo);
@@ -256,16 +247,53 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     }
 
     private void tryToSendResult(final TestResult testResult, final User user, final Token token) {
-        CustomDialogs.showConfirmationDialog(
-                getActivity(),
-                String.format(getString(R.string.send_results), user.getEmail()),
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sendByEmail(testResult, user, token);
-                    }
+        View body = getActivity().getLayoutInflater().inflate(R.layout.layout_dialog_send_by_email, null);
+
+        final Button buttonYes = (Button) body.inflate(body.getContext(), R.layout.layout_button_main, null);
+        buttonYes.setText(R.string.yes);
+        buttonYes.setEnabled(!user.isDoctor());
+
+        OnClickListener onClickListenerYes = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendByEmail(testResult, user, token);
+            }
+        };
+
+        if (!user.isDoctor()) {
+            EditText editTextEmail = (EditText) body.findViewById(R.id.editTextEmail);
+            editTextEmail.setText(user.getEmail());
+
+            editTextEmail.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
-        );
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    buttonYes.setEnabled(s.length() > 0 && Tools.isValidEmail(s.toString()));
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
+        }
+
+        CustomDialogLayout customDialogLayout = new CustomDialogLayout
+                .Builder(getActivity())
+                .setBody(body)
+                .addButton(R.string.no, CustomDialogLayout.DialogStandardAction.dismiss)
+                .addButton(buttonYes, onClickListenerYes)
+                .create();
+
+        AlertDialog alertDialog = new AlertDialog
+                .Builder(getActivity())
+                .setView(customDialogLayout)
+                .create();
+        customDialogLayout.setParentDialog(alertDialog);
+
+        alertDialog.show();
     }
 
     private void sendByEmail(final TestResult testResult, final User user, final Token token) {
@@ -364,15 +392,13 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             View layout_loading_map = layoutInflater.inflate(R.layout.layout_loading_map, null);
             ((ViewGroup) getView()).addView(layout_loading_map);
 
-            BaseItemFragment searchInstitutionsFragment = new SearchInstitutionsFragment();
+            BaseItemFragment searchInstitutionsFragment = new InstitutionsSearchFragment();
             slidingMenuActivity.replaceAllContent(searchInstitutionsFragment, false);
             slidingMenuActivity.selectCurrentItem(searchInstitutionsFragment);
         } else if (Url.BANNER_PASS_POLL.equals(bannerData.getPageUrl())) {
-            BaseItemFragment fragment = new CabinetTestResultsFragment();
+            BaseItemFragment fragment = new RecommendationsTestResultsFragment();
             slidingMenuActivity.replaceAllContent(fragment, false);
-            //FIXME: change if need
-            // slidingMenuActivity.selectCurrentItem(fragment);
-            slidingMenuActivity.unselectCurrentItem();
+            slidingMenuActivity.selectCurrentItem(fragment);
         }
     }
 
@@ -416,9 +442,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
 
         try {
             state = STATES.valueOf(stateString.toLowerCase());
-        } catch (Exception ex) {
-            // do nothing
-        }
+        } catch (Exception ex) { /*does nothing*/ }
 
         switch (state) {
             case ask:

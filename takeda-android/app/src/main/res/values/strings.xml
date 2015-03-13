@@ -116,8 +116,7 @@
     <string name="menu_item_search_institutions">Поиск учреждений</string>
     <string name="menu_item_information">Информация</string>
     <string name="menu_item_settings">Настройки</string>
-    <string name="menu_item_recommendations">Рекомендации</string>
-    <string name="menu_item_analysis_results">Результаты анализа</string>
+    <string name="menu_item_analysis_results">Рекомендации</string>
     <string name="menu_item_useful_to_know">Полезно знать</string>
     <string name="menu_item_publications">Публикации</string>
     <string name="menu_item_reports">Отчеты</string>
@@ -158,12 +157,6 @@
     <string name="must_be_selected">Необходимо выбрать</string>
     <string name="can_not_be_empty">Не может быть пустым</string>
     <string name="must_match">Должны совпадать</string>
-    <string name="specialization_name_">Специализация в лечебном учреждении</string>
-    <string name="specialization_institution_name_">Название лечебного учреждения</string>
-    <string name="specialization_institution_address_">Адрес лечебного учреждения</string>
-    <string name="specialization_institution_phone_">Телефон лечебного учреждения</string>
-    <string name="specialization_graduation_date_">Дата окончания учебного заведения</string>
-    <string name="specialization_experience_years_">Опыт работы (лет)</string>
 
     <!-- ========================= -->
     <!-- fragment_main -->
@@ -248,6 +241,7 @@
     <string name="recommendations">Рекомендации</string>
     <string name="additional_test">Дополнительный опрос\nпо корректировке диеты</string>
     <string name="get_recommendations">Получить рекомендации по диете</string>
+    <string name="pass_test_again">Пройти тест еще раз</string>
     <string name="should_prefer">Следует предпочесть</string>
     <string name="eat_sparingly">Следует употреблять умеренно</string>
 
@@ -262,17 +256,24 @@
     <string name="exit_application">Выйти из приложения?</string>
     <string name="incident_occurred">У меня произошел инцидент</string>
 
-    <!-- ======================================== -->
-    <!-- fragment_search_institutions -->
-    <!-- ======================================== -->
+    <!-- ===================== -->
+    <!-- institution_fragments -->
+    <!-- ===================== -->
     <string name="institutions">Учреждения</string>
     <string name="institutions_map">Карта</string>
     <string name="institutions_list">Список</string>
     <string name="loading_map">Загрузка карты...</string>
+    <string name="phone">Телефон:</string>
+    <string name="registry">Регистратура:</string>
+    <string name="cardiovascular_department">Отделение лечения сердечно-сосудистых заболеваний:</string>
+    <string name="expert">Специалист:</string>
+    <string name="opening_hours">Часы работы:</string>
+    <string name="best_institution">Лучшее учреждение для лечения сердечно-сосудистых заболеваний</string>
+    <string name="more_details">Подробнее</string>
 
-    <!-- ================================ -->
+    <!-- ==================== -->
     <!-- fragment_information -->
-    <!-- ================================ -->
+    <!-- ==================== -->
     <string name="first_aid">Первая помощь</string>
     <string name="recognize_infarction_apoplexy">Как распознать инфаркт-инсульт</string>
     <string name="lifestyle">Образ жизни</string>
@@ -317,13 +318,19 @@
     <string name="salt">Досаливаете ли вы пищу?</string>
     <string name="aspirin">Принимаете ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?</string>
 
+    <!-- ============ -->
+    <!-- institutions -->
+    <!-- ============ -->
+    <string name="select_town">Выберите город</string>
+    <string name="select_specialization">Выберите специализацию</string>
+
     <!-- ======= -->
     <!-- results -->
     <!-- ======= -->
     <string name="choose_medical_institution">Подобрать мед. учереждение по близости</string>
     <string name="adjustment_of_diet">Дополнительная корректировка диеты</string>
     <string name="pass_poll">Пройти опрос</string>
-    <string name="send_results">Отослать результаты на email %s?</string>
+    <string name="send_results">Отослать результаты на email?</string>
     <string name="results_sent_successfully">Результаты отосланы успешно.\nПроверьте почту.</string>
 
     <!-- ====== -->
@@ -345,6 +352,7 @@
     <string name="delete">Удалить</string>
     <string name="take_pills">Принять таблетки</string>
     <string name="data_not_found">Данные не найдены...</string>
+    <string name="no_data">нет данных</string>
 
     <!-- === -->
     <!-- tmp -->

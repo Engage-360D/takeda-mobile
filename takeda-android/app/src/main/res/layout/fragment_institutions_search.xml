@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/textViewHeader"
+        style="@style/TextViewTop"
+        android:layout_alignParentTop="true"
+        android:text="@string/institutions" />
+
+    <LinearLayout
+        android:id="@+id/fragmentContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textViewHeader"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <RadioGroup
+            android:id="@+id/radioGroupCondition"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plate_small"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonMap"
+                style="@style/RadioButtonTwoLines"
+                android:checked="true"
+                android:text="@string/institutions_map" />
+
+            <RadioButton
+                android:id="@+id/radioButtonList"
+                style="@style/RadioButtonTwoLines"
+                android:text="@string/institutions_list" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/frameLayoutMapHolder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible" />
+
+            <ru.com.cardiomagnyl.widget.CustomSwipeRefreshLayout
+                android:id="@+id/customSwipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <ListView
+                    android:id="@+id/listViewInstitutions"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:divider="@null" />
+
+            </ru.com.cardiomagnyl.widget.CustomSwipeRefreshLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayoutFooter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plate_medium"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerTown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/spinnerSpecialization"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/viewLoadingMap"
+        layout="@layout/layout_loading_map"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/textViewMessage"
+        layout="@layout/layout_data_not_found"
+        android:visibility="gone" />
+
+</RelativeLayout>

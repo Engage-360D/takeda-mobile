@@ -1,7 +1,6 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +19,6 @@ import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
 import ru.com.cardiomagnyl.model.test.TestSource;
-import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseRiskAnalysis;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
@@ -32,9 +30,7 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_analysis_daily_ration, null);
-
-        initPatientDataFragment(parentView);
-
+        initFragment(parentView);
         return parentView;
     }
 
@@ -44,7 +40,7 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
         initTopBarMenuBellCabinet(viewGroupTopBar, userIsDoctor, userIsDoctor, userIsDoctor);
     }
 
-    private void initPatientDataFragment(View view) {
+    private void initFragment(View view) {
         initTabs(view, 2);
 
         RadioGroup radioGroupExtraSalt = (RadioGroup) view.findViewById(R.id.radioGroupExtraSalt);
@@ -60,17 +56,17 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
         textViewBottomInsideAction.setText(this.getString(R.string.get_results));
         imageViewBottomInsideRight.setVisibility(View.VISIBLE);
 
+        Bundle bundle = getArguments();
+        final TestSource testSource = bundle.getParcelable(Constants.TEST_SOURCE);
         layoutBottomInside.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View arg0) {
-                tryGetResults();
+                tryGetResults(testSource);
             }
         });
     }
 
-    private void tryGetResults() {
-        TestSource testSource = AppState.getInsnatce().getTestSource();
+    private void tryGetResults(TestSource testSource) {
         pickTestIncomingFields(testSource);
 
         if (testSource.validate(TestSource.RESULT_GROUPS.third)) {
@@ -92,9 +88,7 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
 
             testSource.setIsAddingExtraSalt(extraSalt);
             testSource.setIsAcetylsalicylicDrugsConsumer(aspirin);
-        } catch (Exception e) {
-            // do nothing
-        }
+        } catch (Exception e) { /*does nothing*/ }
     }
 
     private void tryGetTestResultHelper(TestSource testSource) {
@@ -123,10 +117,7 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.hideProgressDialog();
 
-        boolean isNotPassed = false;
         if (testResult == null) {
-            isNotPassed = true;
-
             responseError = (responseError == null || responseError.getError() == null) ?
                     new Response.Builder(new ru.com.cardiomagnyl.model.common.Error()).create() :
                     responseError;
@@ -142,22 +133,15 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
             AppState.getInsnatce().setTestResult(testResult);
         }
 
+        // set up menu items according to testResult
+        slidingMenuActivity.refreshMenuItems();
+
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Constants.IS_NOT_PASSED, isNotPassed);
+        bundle.putBoolean(Constants.IS_NOT_PASSED, testResult == null);
         RiskAnalysisResultsFragment riskAnalysisResultsFragment = new RiskAnalysisResultsFragment();
         riskAnalysisResultsFragment.setArguments(bundle);
 
         slidingMenuActivity.replaceContentOnTop(riskAnalysisResultsFragment, false);
     }
 
-    // the meat of switching the above fragment
-    private void switchFragment(Fragment fragment) {
-        if (getActivity() == null)
-            return;
-
-        if (getActivity() instanceof SlidingMenuActivity) {
-            SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-            slidingMenuActivity.replaceContentOnTop(fragment, false);
-        }
-    }
 }

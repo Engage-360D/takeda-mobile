@@ -37,13 +37,13 @@ public class PillsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final View view = (convertView != null ? convertView : View.inflate(mContext, R.layout.list_item_pill, null));
+        final View view = (convertView != null ? convertView : View.inflate(mContext, R.layout.list_item_two_lines, null));
 
-        final TextView textViewPillName = (TextView) view.findViewById(R.id.textViewPillName);
-        final TextView textViewPillSubname = (TextView) view.findViewById(R.id.textViewPillSubname);
+        final TextView textViewName = (TextView) view.findViewById(R.id.textViewName);
+        final TextView textViewSubname = (TextView) view.findViewById(R.id.textViewSubname);
 
-        textViewPillName.setText(mPillsList.get(position).getName());
-        textViewPillSubname.setText(String.valueOf(mPillsList.get(position).getQuantity()) + mContext.getString(R.string.pcs));
+        textViewName.setText(mPillsList.get(position).getName());
+        textViewSubname.setText(String.valueOf(mPillsList.get(position).getQuantity()) + mContext.getString(R.string.pcs));
 
         return view;
     }
