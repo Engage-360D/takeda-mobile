@@ -1,5 +1,7 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Pair;
@@ -10,12 +12,17 @@ import android.widget.TextView;
 
 import java.util.Date;
 
+import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.test.TestResult;
+import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.base.BaseTimeLineFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.journal.JournalFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.journal.TimelineAdapter;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis.RiskAnalysisResultsFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Tools;
 
 public class MainFragment extends BaseTimeLineFragment {
@@ -35,6 +42,7 @@ public class MainFragment extends BaseTimeLineFragment {
         initWeekDateRange(fragmentView);
         initToday(fragmentView);
         initTimeLine(fragmentView);
+        initTabButtons(fragmentView);
     }
 
     @Override
@@ -83,6 +91,39 @@ public class MainFragment extends BaseTimeLineFragment {
 
         ViewGroup fragmentContent = (ViewGroup) fragmentView.findViewById(R.id.fragmentContent);
         mTimelineAdapter.initTasksHolder(fragmentContent, mFullTimelineList.get(0));
+    }
+
+    private void initTabButtons(final View fragmentView) {
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        View textViewMyRecommendations = fragmentView.findViewById(R.id.textViewMyRecommendations);
+        View textViewMySuccess = fragmentView.findViewById(R.id.textViewMySuccess);
+        View linearLayoutConsolidatedReport = fragmentView.findViewById(R.id.linearLayoutConsolidatedReport);
+
+        textViewMyRecommendations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseItemFragment riskAnalysisResultsFragment = new RiskAnalysisResultsFragment();
+                slidingMenuActivity.replaceAllContent(riskAnalysisResultsFragment, true);
+                slidingMenuActivity.selectCurrentItem(riskAnalysisResultsFragment);
+            }
+        });
+
+        textViewMySuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseItemFragment journalFragment = new JournalFragment();
+                slidingMenuActivity.replaceAllContent(journalFragment, true);
+                slidingMenuActivity.selectCurrentItem(journalFragment);
+            }
+        });
+
+        linearLayoutConsolidatedReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Url.ACCOUNT_REPORTS));
+                startActivity(browserIntent);
+            }
+        });
     }
 
 }

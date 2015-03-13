@@ -27,6 +27,8 @@
 
         <item name="android:dropDownSpinnerStyle">@style/SpinnerCustomTheme</item>
 
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewCustomTheme</item>
+
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarCustomTheme</item>
 
         <item name="android:seekBarStyle">@style/SeekBarCustomTheme</item>

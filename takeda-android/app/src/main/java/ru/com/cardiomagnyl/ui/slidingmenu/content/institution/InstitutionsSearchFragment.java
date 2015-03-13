@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -45,6 +47,7 @@ import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
+import ru.com.cardiomagnyl.util.Utils;
 import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 
 public class InstitutionsSearchFragment extends BaseItemFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener, SwipeRefreshLayout.OnRefreshListener {
@@ -53,7 +56,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
     private ClusterManager<Institution> mClusterManager;
     private View mFragmentView;
 
-    private static int ONE_POINT_ZOOM = 15;
+    private static int ONE_POINT_ZOOM = 14;
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
@@ -179,14 +182,14 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
     }
 
     private void initFragmentFinishHelper(final View fragmentView, final List<Town> townsList, final List<Specialization> specializationsList) {
-        Spinner spinnerTown = (Spinner) fragmentView.findViewById(R.id.spinnerTown);
+        AutoCompleteTextView autoCompleteTextViewTown = (AutoCompleteTextView) fragmentView.findViewById(R.id.autoCompleteTextViewTown);
         Spinner spinnerSpecialization = (Spinner) fragmentView.findViewById(R.id.spinnerSpecialization);
         RadioGroup radioGroupCondition = (RadioGroup) fragmentView.findViewById(R.id.radioGroupCondition);
 
         townsList.add(Town.createNoTown(fragmentView.getContext()));
         specializationsList.add(Specialization.createNoSpecialization(fragmentView.getContext()));
 
-        initSpinner(fragmentView, spinnerTown, new ArrayList<BaseModelHelper>(townsList), townsList.size() - 1);
+        initAutoCompleteTextView(fragmentView, autoCompleteTextViewTown, new ArrayList<BaseModelHelper>(townsList));
         initSpinner(fragmentView, spinnerSpecialization, new ArrayList<BaseModelHelper>(specializationsList), specializationsList.size() - 1);
 
         radioGroupCondition.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -222,8 +225,21 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         });
     }
 
+    private void initAutoCompleteTextView(final View fragmentView, final AutoCompleteTextView autoCompleteTextView, final List<BaseModelHelper> itemsList) {
+        final CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(fragmentView.getContext(), R.layout.spinner_item_dropdown, itemsList);
+        autoCompleteTextView.setAdapter(customArrayAdapter);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Utils.hideKeyboard(autoCompleteTextView);
+                autoCompleteTextView.setTag(customArrayAdapter.getItem(position).getName());
+                tryToGetInstitutions(fragmentView);
+            }
+        });
+    }
+
     private void initSpinner(final View fragmentView, final Spinner spinner, final List<BaseModelHelper> itemsList, int selection) {
-        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(spinner.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, itemsList);
+        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(fragmentView.getContext(), R.layout.custom_spinner_item, R.layout.spinner_item_dropdown, itemsList);
         customSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(customSpinnerAdapter);
@@ -241,11 +257,11 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
     }
 
     private void tryToGetInstitutions(final View fragmentView) {
-        Spinner spinnerTown = (Spinner) fragmentView.findViewById(R.id.spinnerTown);
+        AutoCompleteTextView autoCompleteTextViewTown = (AutoCompleteTextView) fragmentView.findViewById(R.id.autoCompleteTextViewTown);
         Spinner spinnerSpecialization = (Spinner) fragmentView.findViewById(R.id.spinnerSpecialization);
 
-        if (spinnerTown.getTag() != null && spinnerSpecialization.getTag() != null) {
-            String town = (String) spinnerTown.getTag();
+        if (autoCompleteTextViewTown.getTag() != null && spinnerSpecialization.getTag() != null) {
+            String town = (String) autoCompleteTextViewTown.getTag();
             String specialization = (String) spinnerSpecialization.getTag();
             getInstitutions(fragmentView, town, specialization);
         }
@@ -278,10 +294,10 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
     private void updateInstitutions(final View fragmentView, final List<Institution> institutionsList) {
         final ListView listViewInstitutions = (ListView) fragmentView.findViewById(R.id.listViewInstitutions);
         InstitutionsAdapter institutionsAdapter = (InstitutionsAdapter) listViewInstitutions.getAdapter();
-        institutionsAdapter.notifyDataSetChanged();
+        institutionsAdapter.notifyDataSetInvalidated();
         mInstitutionsList.clear();
         mInstitutionsList.addAll(institutionsList);
-        institutionsAdapter.notifyDataSetInvalidated();
+        institutionsAdapter.notifyDataSetChanged();
 
         mClusterManager.clearItems();
         mClusterManager.addItems(institutionsList);
@@ -372,8 +388,10 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         String provider = locationManager.getBestProvider(new Criteria(), true);
         Location currentLocation = locationManager.getLastKnownLocation(provider);
 
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), ONE_POINT_ZOOM);
-        googleMap.animateCamera(cameraUpdate);
+        if (currentLocation != null) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), ONE_POINT_ZOOM);
+            googleMap.animateCamera(cameraUpdate);
+        }
     }
 
 }

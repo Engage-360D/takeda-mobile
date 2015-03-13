@@ -35,32 +35,13 @@ public class RiskAnalysisRecommendationFragment extends Fragment {
         TextView textViewRecommendationMain = (TextView) view.findViewById(R.id.textViewRecommendationMain);
         ImageView imageViewState = (ImageView) view.findViewById(R.id.imageViewState);
         TextView textViewRecommendationInfo = (TextView) view.findViewById(R.id.textViewRecommendationInfo);
-
-        TextView textViewGeneral = (TextView) view.findViewById(R.id.textViewGeneral);
-        LinearLayout linearLayoutGeneral = (LinearLayout) view.findViewById(R.id.linearLayoutGeneral);
         TextView textViewGeneralContent = (TextView) view.findViewById(R.id.textViewGeneralContent);
-
-        TextView textViewImpact = (TextView) view.findViewById(R.id.textViewImpact);
-        LinearLayout linearLayoutImpact = (LinearLayout) view.findViewById(R.id.linearLayoutImpact);
-        TextView textViewImpactContent = (TextView) view.findViewById(R.id.textViewImpactContent);
-
-        TextView textViewSymptoms = (TextView) view.findViewById(R.id.textViewSymptoms);
-        LinearLayout linearLayoutSymptoms = (LinearLayout) view.findViewById(R.id.linearLayoutSymptoms);
-        TextView textViewSymptomsContent = (TextView) view.findViewById(R.id.textViewSymptomsContent);
-
-        TextView textViewTreatment = (TextView) view.findViewById(R.id.textViewTreatment);
-        LinearLayout linearLayoutTreatment = (LinearLayout) view.findViewById(R.id.linearLayoutTreatment);
-        TextView textViewTreatmentContent = (TextView) view.findViewById(R.id.textViewTreatmentContent);
 
         textViewRecommendationAbout.setText(pageTitle);
         setImageView(imageViewState, testPage.getState());
         textViewRecommendationMain.setText(testPage.getTitle() + "\n" + testPage.getSubtitle());
         textViewRecommendationInfo.setText(view.getContext().getString(R.string.information));
-
-        setInfoBlock(textViewGeneral, linearLayoutGeneral, textViewGeneralContent, testPage.getText());
-        setInfoBlock(textViewImpact, linearLayoutImpact, textViewImpactContent, "");
-        setInfoBlock(textViewSymptoms, linearLayoutSymptoms, textViewSymptomsContent, "");
-        setInfoBlock(textViewTreatment, linearLayoutTreatment, textViewTreatmentContent, "");
+        textViewGeneralContent.setText(testPage.getText());
     }
 
     private void setImageView(ImageView imageView, String stateString) {
@@ -101,22 +82,6 @@ public class RiskAnalysisRecommendationFragment extends Fragment {
             imageView.setVisibility(View.GONE);
         } else {
             imageView.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    private void setInfoBlock(final View clickable, final View contentLayout, final TextView contentTextView, final String contentString) {
-        contentLayout.setVisibility(View.GONE);
-        if (TextUtils.isEmpty(contentString)) {
-            clickable.setClickable(false);
-        } else {
-            contentTextView.setText(contentString);
-            clickable.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickable.setSelected(!view.isSelected());
-                    contentLayout.setVisibility(view.isSelected() ? View.VISIBLE : View.GONE);
-                }
-            });
         }
     }
 

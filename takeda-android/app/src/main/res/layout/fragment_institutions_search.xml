@@ -66,23 +66,26 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/linearLayoutFooter"
             android:layout_width="match_parent"
             android:layout_height="@dimen/plate_medium"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spinnerTown"
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextViewTown"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="@string/select_town"
+                android:textColor="@color/text_main_48"
+                android:textColorHint="@color/text_main_48_hint"
+                android:textSize="@dimen/text_size_medium" />
 
             <Spinner
                 android:id="@+id/spinnerSpecialization"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1" />
 
         </LinearLayout>

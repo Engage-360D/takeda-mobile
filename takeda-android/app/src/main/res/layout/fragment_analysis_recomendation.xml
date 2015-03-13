@@ -59,8 +59,8 @@
 
                     <TextView
                         android:id="@+id/textViewRecommendationMain"
-                        android:layout_width="wrap_content"
-                        style="@style/TextViewMedium37MarginedXsmall" />
+                        style="@style/TextViewMedium37MarginedXsmall"
+                        android:layout_width="wrap_content" />
                 </LinearLayout>
 
                 <ImageView
@@ -74,96 +74,24 @@
 
             <View style="@style/divider_normal_1_2" />
 
-            <TextView
-                android:id="@+id/textViewRecommendationInfo"
-                style="@style/TextViewMedium37MarginedMedium" />
-
-            <View style="@style/divider_normal_1_5" />
-
-            <TextView
-                android:id="@+id/textViewGeneral"
-                style="@style/TextViewItemDrawableRD"
-                android:text="@string/general" />
-
-            <View style="@style/divider_normal_1_5" />
-
             <LinearLayout
-                android:id="@+id/linearLayoutGeneral"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@color/bg_main_unpressed">
 
                 <TextView
-                    android:id="@+id/textViewGeneralContent"
-                    style="@style/TextViewMedium37MarginedXsmall"
-                    android:text="@string/general" />
+                    android:id="@+id/textViewRecommendationInfo"
+                    style="@style/TextViewMedium37MarginedMedium" />
 
-                <View style="@style/divider_normal_1_5" />
             </LinearLayout>
-
-
-            <TextView
-                android:id="@+id/textViewImpact"
-                style="@style/TextViewItemDrawableRD"
-                android:text="@string/impact" />
 
             <View style="@style/divider_normal_1_5" />
 
-            <LinearLayout
-                android:id="@+id/linearLayoutImpact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewImpactContent"
-                    style="@style/TextViewMedium37MarginedXsmall"
-                    android:text="@string/impact" />
-
-                <View style="@style/divider_normal_1_5" />
-            </LinearLayout>
-
             <TextView
-                android:id="@+id/textViewSymptoms"
-                style="@style/TextViewItemDrawableRD"
-                android:text="@string/symptoms" />
+                android:id="@+id/textViewGeneralContent"
+                style="@style/TextViewMedium37MarginedXsmall" />
 
             <View style="@style/divider_normal_1_5" />
-
-            <LinearLayout
-                android:id="@+id/linearLayoutSymptoms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewSymptomsContent"
-                    style="@style/TextViewMedium37MarginedXsmall"
-                    android:text="@string/symptoms" />
-
-                <View style="@style/divider_normal_1_5" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textViewTreatment"
-                style="@style/TextViewItemDrawableRD"
-                android:text="@string/treatment" />
-
-            <View style="@style/divider_normal_1_5" />
-
-            <LinearLayout
-                android:id="@+id/linearLayoutTreatment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewTreatmentContent"
-                    style="@style/TextViewMedium37MarginedXsmall"
-                    android:text="@string/treatment" />
-
-                <View style="@style/divider_normal_1_5" />
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

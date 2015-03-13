@@ -249,7 +249,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
     private void tryToSendResult(final TestResult testResult, final User user, final Token token) {
         View body = getActivity().getLayoutInflater().inflate(R.layout.layout_dialog_send_by_email, null);
 
-        final Button buttonYes = (Button) body.inflate(body.getContext(), R.layout.layout_button_main, null);
+        final Button buttonYes = (Button) View.inflate(body.getContext(), R.layout.layout_button_main, null);
         buttonYes.setText(R.string.yes);
         buttonYes.setEnabled(!user.isDoctor());
 

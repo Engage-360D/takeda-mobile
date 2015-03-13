@@ -51,4 +51,5 @@ public class CustomSpinnerAdapter extends ArrayAdapter<BaseModelHelper> implemen
 
         return convertView;
     }
+
 }
