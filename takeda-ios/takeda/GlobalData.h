@@ -22,13 +22,19 @@
 +(int)lastResultDataId;
 +(void)writeLastResultDataId:(int)lId;
 +(NSDate*)lastResultDate;
++(NSDate*)lastloadCitiesDate;
++(void)writeLastloadCitiesDate:(NSDate*)lId;
 +(void)saveResultDiet:(NSMutableDictionary*)result testId:(int)testId;
 +(NSMutableDictionary*)resultDietForTestId:(int)testId;
-
+-(void)loadCitiesList:(void (^)(BOOL success, id result))completion;
+-(void)loadSpecializationsList:(void (^)(BOOL success, id result))completion;
 -(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
 -(void)addIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
 -(void)deleteIncident:(NSMutableArray*)inc incident:(IncidentType)incType;
 -(void)deleteAllIncidents:(NSMutableArray*)inc;
+-(void)loadLPUSListForCity:(NSString*)city spec:(NSString*)spec copml:(void (^)(BOOL success, id result))completion;
+-(NSMutableArray*)citiesTerm:(NSString*)term;
+-(NSMutableArray*)specializationsTerm:(NSString*)term;
 +(NSDictionary*)incidents;
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion;
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion;

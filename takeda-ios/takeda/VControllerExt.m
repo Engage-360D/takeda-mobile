@@ -132,6 +132,7 @@
     if ([self.slideMenuController isMenuOpen]) {
         [self.slideMenuController closeMenuAnimated:YES completion:nil];
     }else{
+        [self hideKeyb];
         [self.slideMenuController openMenuAnimated:YES completion:nil];
     }
 }
@@ -266,14 +267,44 @@
 }
 
 -(void)keybShowed:(id)sender{
-    appDelegate.tapToHide = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyb)];
+    appDelegate.tapToHide = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeybTap:)];
+    appDelegate.tapToHide.delegate = self;
     //  UIView *a = (UIView*)sender;
     //   [a.superview addGestureRecognizer:tapToHide];
     [appDelegate.window addGestureRecognizer:appDelegate.tapToHide];
     
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if([touch.view isKindOfClass:[UITableViewCell class]]) {
+        return NO;
+    }
+    // UITableViewCellContentView => UITableViewCell
+    if([touch.view.superview isKindOfClass:[UITableViewCell class]]) {
+        return NO;
+    }
+    // UITableViewCellContentView => UITableViewCellScrollView => UITableViewCell
+    if([touch.view.superview.superview isKindOfClass:[UITableViewCell class]]) {
+        return NO;
+    }
+    return YES; // handle the touch
+}
 
+//
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+//    // test if our control subview is on-screen
+//    
+//    if ([touch.view isKindOfClass:[UITableView class]]&&[touch.view isKindOfClass:[UITableViewCell class]]){
+//        return NO;
+//    }
+//    
+//    return YES; // handle the touch
+//}
+
+
+-(void)hideKeybTap:(UITapGestureRecognizer*)sender{
+    [self hideKeyb];
+}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];

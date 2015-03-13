@@ -3,7 +3,7 @@
 // #define kBaseServerURL @"http://cardiomagnyl.iengage.ru"
 // #define kBaseServerURL @"http://cardiomagnyl.iengage.ru"
 
-#define kReportURL @"http://cardiomagnyl.dev.iengage.ru"
+#define kReportURL @"http://cardiomagnyl.dev.iengage.ru/account/reports"
 
 
 #define kServerURL [NSString stringWithFormat:@"%@/api/v1/",kBaseServerURL]
@@ -23,6 +23,10 @@
 #define kAccountIncidents @"account/incidents" // Добавить инцидент. POST.
 #define kTestResultDietQuestions @"diet-questions" // получить вопросы для теста по питанию. GET.
 #define kTestResultDietRecommendations @"diet-recommendations" // получить результаты теста по питанию. GET.
+
+#define kInstitutionTowns @"institution-parsed-towns" // Список городов для поиска. GET.
+#define kInstitutionSpecializations @"institution-specializations" // Список специальностей для поиска. GET.
+#define kInstitutionsList @"institutions" // Список ЛПУ с поиска. GET.
 
 
 #define client_id @"3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4"

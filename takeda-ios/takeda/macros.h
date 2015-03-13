@@ -90,3 +90,11 @@
 
 /// custom
 #define alertHeight 100
+
+#define noDisableVerticalScrollTag 836913
+#define noDisableHorizontalScrollTag 836914
+
+#define kKeybShowNotification @"KeybShowNotification"
+#define kKeybHideNotification @"KeybHideNotification"
+
+

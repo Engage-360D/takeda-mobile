@@ -11,6 +11,10 @@
                 <outlet property="listMapSwitch" destination="avx-Kw-4TW" id="GOI-Ty-mUg"/>
                 <outlet property="mapContainer" destination="mRj-qC-toc" id="d7S-lI-M5g"/>
                 <outlet property="mapView_" destination="5vI-ze-hlr" id="EeM-Hi-8x4"/>
+                <outlet property="searchBtn" destination="0Jx-Sw-6y7" id="Jm3-fi-qqp"/>
+                <outlet property="searchCity" destination="16U-wx-cE0" id="WSb-3J-A6B"/>
+                <outlet property="searchContainer" destination="PtZ-5c-bw2" id="YKc-6l-J7b"/>
+                <outlet property="searchSpec" destination="qFY-Vh-YW9" id="5kV-sM-h3g"/>
                 <outlet property="tableContainer" destination="iQ8-Wa-ycz" id="GLE-My-NVP"/>
                 <outlet property="tableView" destination="6JU-Cf-fpc" id="wB1-uC-sZT"/>
                 <outlet property="vcTitle" destination="Eui-eh-uUL" id="MMs-bI-aER"/>
@@ -59,19 +63,60 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="avx-Kw-4TW">
-                    <rect key="frame" x="16" y="53" width="288" height="29"/>
+                <view contentMode="scaleToFill" id="PtZ-5c-bw2">
+                    <rect key="frame" x="0.0" y="44" width="320" height="182"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <segments>
-                        <segment title="Карта"/>
-                        <segment title="Список"/>
-                    </segments>
-                    <color key="tintColor" red="0.20784313725490194" green="0.25490196078431371" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
-                    <connections>
-                        <action selector="selectViewType:" destination="-1" eventType="valueChanged" id="eXi-PY-FgS"/>
-                    </connections>
-                </segmentedControl>
+                    <subviews>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="avx-Kw-4TW">
+                            <rect key="frame" x="16" y="146" width="288" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <segments>
+                                <segment title="Карта"/>
+                                <segment title="Список"/>
+                            </segments>
+                            <color key="tintColor" red="0.20784313725490194" green="0.25490196078431371" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="selectViewType:" destination="-1" eventType="valueChanged" id="eXi-PY-FgS"/>
+                            </connections>
+                        </segmentedControl>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Выберите город" minimumFontSize="17" id="16U-wx-cE0" customClass="UITextFieldAutocompl">
+                            <rect key="frame" x="12" y="8" width="296" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.11411904563916479" green="0.1385300765790636" blue="0.15094259510869568" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Выберите специализацию" minimumFontSize="17" id="qFY-Vh-YW9" customClass="UITextFieldAutocompl">
+                            <rect key="frame" x="12" y="45" width="296" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.11411904563916479" green="0.1385300765790636" blue="0.15094259510869568" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="Ybf-05-oet"/>
+                            </connections>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0Jx-Sw-6y7">
+                            <rect key="frame" x="50" y="92" width="217" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Поиск">
+                                <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="searchData:" destination="-1" eventType="touchUpInside" id="3AO-Xe-pLa"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.66731319450000004" green="0.87334408969999999" blue="0.79113812770000003" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
                 <view contentMode="scaleToFill" id="buV-sQ-jir">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -83,14 +128,28 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QYW-FX-s2i">
+                            <rect key="frame" x="263" y="8" width="49" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="search_icon.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="showHideSearch:" destination="-1" eventType="touchUpInside" id="oRf-sL-UeC"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.83529411760000005" green="0.1176470588" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="search_icon.png" width="24" height="23"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

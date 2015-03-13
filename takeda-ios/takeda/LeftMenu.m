@@ -76,7 +76,7 @@
                   @{@"name" :@"Результаты анализа", @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
                   @{@"name" :@"Календарь", @"enabled":userIsBlocked?@"NO":@"YES"},
                   @{@"name" :@"Полезно знать", @"enabled":userIsBlocked?@"NO":@"YES"},
-                  @{@"name" :@"Публикации", @"enabled":userIsBlocked?@"NO":@"YES"},
+                 // @{@"name" :@"Публикации", @"enabled":userIsBlocked?@"NO":@"YES"},
                   @{@"name" :@"Отчеты", @"enabled":userIsBlocked?@"NO":@"YES"}
                   ]];
 

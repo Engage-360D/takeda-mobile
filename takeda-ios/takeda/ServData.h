@@ -32,6 +32,9 @@
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion;
 +(void)updateTask:(NSString*)taskId params:(NSDictionary*)taskParams completion:(void (^)(BOOL success, NSError* error, id result))completion;
 +(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion;
++(void)loadCitiesCompletition:(void (^)(BOOL success, id result))completion;
++(void)loadSpecializationsCompletition:(void (^)(BOOL success, id result))completion;
++(void)loadLPUsListForCity:(NSString*)city spec:(NSString*)spec copml:(void (^)(BOOL success, id result))completion;
 
 +(void)sendCommonPOST:(NSString*)urlStr params:(NSString*)HTMLStr success:(void (^)(id result, NSError *error))successIm;
 +(void)sendCommonPOST:(NSString*)urlStr body:(NSData*)body success:(void (^)(id result, NSError *error))successIm;
