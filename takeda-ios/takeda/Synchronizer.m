@@ -28,7 +28,7 @@ static Synchronizer *sharedInst = NULL;
     self.resultBlock = completion;
 //    [self loadRiskAnalResults];
 //    [self loadPills];
-    tasks = [NSMutableArray arrayWithObjects:[NSValue valueWithPointer:@selector(loadRiskAnalResults)],[NSValue valueWithPointer:@selector(loadPills)], nil];
+    tasks = [NSMutableArray arrayWithObjects:[NSValue valueWithPointer:@selector(loadRiskAnalResults)],[NSValue valueWithPointer:@selector(loadPills)], [NSValue valueWithPointer:@selector(loadCities)], [NSValue valueWithPointer:@selector(loadSpecializations)], nil];
     [self startTasksMachine];
 }
 
@@ -61,6 +61,22 @@ static Synchronizer *sharedInst = NULL;
     NSLog(@"start pills");
     [GlobalData loadPillsCompletition:^(BOOL completition, id result){
         NSLog(@"finish pills");
+        [self finishJob];
+    }];
+}
+
+
+-(void)loadCities{
+    //NSDate *lastCitiesUpdateDate = [GlobalData lastloadCitiesDate];
+    [GData loadCitiesList:^(BOOL success, id result){
+        NSLog(@"finish cities");
+        [self finishJob];
+    }];
+}
+
+-(void)loadSpecializations{
+    [GData loadSpecializationsList:^(BOOL success, id result){
+        NSLog(@"finish specializations");
         [self finishJob];
     }];
 }

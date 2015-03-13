@@ -353,6 +353,47 @@ static ServData *objectInstance = nil;
     
 }
 
++(void)loadCitiesCompletition:(void (^)(BOOL success, id result))completion{
+    
+    NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kInstitutionTowns];
+    [self sendCommon:urlstr success:^(id res, NSError *error){
+        if (res!=nil&&[error answerOk]){
+            completion(YES, res);
+        } else {
+            completion(NO, res);
+        }
+        
+    }];
+}
+
++(void)loadSpecializationsCompletition:(void (^)(BOOL success, id result))completion{
+    
+    NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kInstitutionSpecializations];
+    [self sendCommon:urlstr success:^(id res, NSError *error){
+        if (res!=nil&&[error answerOk]){
+            completion(YES, res);
+        } else {
+            completion(NO, res);
+        }
+        
+    }];
+}
+
++(void)loadLPUsListForCity:(NSString*)city spec:(NSString*)spec copml:(void (^)(BOOL success, id result))completion{
+    
+    NSMutableString *urlstr = [NSMutableString stringWithFormat:@"%@%@?parsedTown=%@&specialization=%@",kServerURL,kInstitutionsList,city, spec];
+    
+    [self sendCommon:urlstr success:^(id res, NSError *error){
+        if (res!=nil&&[error answerOk]){
+            completion(YES, res);
+        } else {
+            completion(NO, res);
+        }
+        
+    }];
+}
+
+
 +(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion{
     
     NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kAccountPills];
@@ -660,7 +701,7 @@ static ServData *objectInstance = nil;
 
 +(void)sendCommon:(NSString*)urlStr success:(void (^)(id result, NSError *error))successIm{
     if (User.access_token.length>0&&[urlStr rangeOfString:User.access_token].location == NSNotFound){
-        urlStr = [NSString stringWithFormat:@"%@?token=%@",urlStr,User.access_token];
+        urlStr = [NSString stringWithFormat:@"%@%@token=%@",urlStr,([urlStr rangeOfString:@"?"].location == NSNotFound)?@"?":@"&", User.access_token];
     }
 
     if (appDelegate.hostConnection == NotReachable) {

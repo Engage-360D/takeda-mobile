@@ -34,10 +34,45 @@ static GlobalData *objectInstance = nil;
 }
 
 -(void)openDB{
-    return; //temp
     database = [FMDatabase databaseWithPath:[Global pathToDB]];
     [database open];
 }
+
+-(NSMutableArray*)arrayFromFMRS:(FMResultSet*)rs{
+    NSMutableArray *array = [NSMutableArray new];
+    while ([rs next]) {
+        NSMutableDictionary *d = [NSMutableDictionary new];
+        for (NSString *key in [rs.resultDictionary allKeys]){
+            id object = [rs.resultDictionary objectForKey:key];
+            if ([object isKindOfClass:[NSNull class]]||object == nil||object == (id)[NSNull null]){
+                [rs.resultDictionary setValue:nil forKey:key];
+            } else {
+                [d setObject:object forKey:key];
+            }
+            
+        }
+        [array addObject:d];
+        
+    }
+    
+    return [Global recursiveMutable:array];
+}
+
+-(NSMutableDictionary*)dictionaryFromFMRS:(FMResultSet*)rs{
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    [rs next];
+    dict = [NSMutableDictionary dictionaryWithDictionary:rs.resultDictionary];
+    for (int i = 0; i<dict.allKeys.count; i++) {
+        NSString *currentKey = dict.allKeys[i];
+        id object = [rs.resultDictionary objectForKey:currentKey];
+        if ([object isKindOfClass:[NSNull class]]||object == nil||object == (id)[NSNull null]){
+            [dict removeObjectForKey:currentKey];
+            i--;
+        }
+    }
+    return [Global recursiveMutable:dict];
+}
+
 
 +(NSMutableArray*)regionsList{
     return [Global recursiveMutable: [[NSMutableArray alloc] initWithContentsOfFile:filePath(regionsListFile)]];
@@ -51,8 +86,10 @@ static GlobalData *objectInstance = nil;
 }
 
 +(void)clearFiles{
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:resultAnalysesFile error:nil];
+    [fileManager removeItemAtPath:resultDietFile error:nil];
     [fileManager removeItemAtPath:userSettingsFile error:nil];
     [fileManager removeItemAtPath:userTimelineTasksFile error:nil];
     [fileManager removeItemAtPath:userTimelineFile error:nil];
@@ -73,6 +110,8 @@ static GlobalData *objectInstance = nil;
         }
     }
 }
+
+
 
 +(void)saveResultAnalyses:(id)result{
     int lastId = 0;
@@ -132,6 +171,15 @@ static GlobalData *objectInstance = nil;
 +(void)writeLastResultDataId:(int)lId{
     [UserDefaults setInteger:lId forKey:uKey(@"lastResultDataId")];
 }
+
++(NSDate*)lastloadCitiesDate{
+    return (NSDate*)[UserDefaults valueForKey:@"lastloadCitiesDate"];
+}
+
++(void)writeLastloadCitiesDate:(NSDate*)lId{
+    [UserDefaults setObject:lId forKey:@"lastloadCitiesDate"];
+}
+
 
 +(NSDate*)lastResultDate{
     NSMutableDictionary *results_data;
@@ -203,6 +251,63 @@ static GlobalData *objectInstance = nil;
         completion(success, result);
     }];
     
+}
+
+-(void)loadCitiesList:(void (^)(BOOL success, id result))completion{
+    [ServData loadCitiesCompletition:^(BOOL success, id result){
+        NSArray *cities = result[@"data"];
+        [database executeUpdate:@"DELETE FROM cities"];
+        [database beginTransaction];
+        for (int i = 0; i<cities.count; i++){
+            [database executeUpdate:@"INSERT INTO cities VALUES (?)",[NSString stringWithFormat:@"%@",cities[i][@"id"]]];
+            if (i%100==0){
+                [database commit];
+                [database beginTransaction];
+            }
+        }
+        [database commit];
+        completion(success, result);
+    }];
+    
+}
+
+-(void)loadSpecializationsList:(void (^)(BOOL success, id result))completion{
+    [ServData loadSpecializationsCompletition:^(BOOL success, id result){
+        NSArray *spec = result[@"data"];
+        [database executeUpdate:@"DELETE FROM specs"];
+        [database beginTransaction];
+        for (int i = 0; i<spec.count; i++){
+            [database executeUpdate:@"INSERT INTO specs VALUES (?)",[NSString stringWithFormat:@"%@",spec[i][@"id"]]];
+            if (i%100==0){
+                [database commit];
+                [database beginTransaction];
+            }
+        }
+        [database commit];
+        completion(success, result);
+    }];
+    
+}
+
+-(void)loadLPUSListForCity:(NSString*)city spec:(NSString*)spec copml:(void (^)(BOOL success, id result))completion{
+    [ServData loadLPUsListForCity:city spec:spec copml:^(BOOL success, id result){
+        completion(success, result);
+    }];
+    
+}
+
+-(NSMutableArray*)citiesTerm:(NSString*)term{
+    int limit = 100;
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM cities WHERE UPPER(%@) LIKE UPPER('%@%@%@') limit %i",@"name", @"%", term,@"%",limit];
+    FMResultSet *rs = [database executeQuery:query];
+    return [self arrayFromFMRS:rs];
+}
+
+-(NSMutableArray*)specializationsTerm:(NSString*)term{
+    int limit = 100;
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM specs WHERE UPPER(%@) LIKE UPPER('%@%@%@') limit %i",@"name", @"%", term,@"%",limit];
+    FMResultSet *rs = [database executeQuery:query];
+    return [self arrayFromFMRS:rs];
 }
 
 +(NSMutableArray*)pills{

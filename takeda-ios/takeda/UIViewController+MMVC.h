@@ -18,5 +18,6 @@
 -(void)showActivityIndicatorWithString:(NSString*)string;
 -(void)showActivityIndicatorWithString:(NSString*)string inContainer:(UIView*)container;
 -(void)removeActivityIdicator;
+-(void)hideKeyb;
 
 @end

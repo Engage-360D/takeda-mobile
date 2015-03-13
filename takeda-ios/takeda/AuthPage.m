@@ -98,7 +98,7 @@ ForgetPage *forgetPage;
 //        self.email_field.text = @"alexiosdeveloper@gmail.com";
 //        self.pass_field.text = @"S3OioVLLgcQW-";
 
-    self.email_field.text = @"alexruden+1@rambler.ru";
+    self.email_field.text = @"alexruden+3@rambler.ru";
     self.pass_field.text = @"q";
     self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
     

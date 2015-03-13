@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VControllerExt : UIViewController
+@interface VControllerExt : UIViewController<UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate>
 @property (nonatomic,retain) IBOutletCollection(UILabel) NSArray *blockLabels;
 @property (nonatomic,retain) IBOutletCollection(UIView) NSArray *bg_block;
 @property (nonatomic, strong) IBOutletCollection(UIImageView) NSArray *separators_collection;

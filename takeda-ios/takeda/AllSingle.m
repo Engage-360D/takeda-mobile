@@ -58,13 +58,15 @@ static AllSingle *dot = nil;
 }
 
 - (NSString *)pathToDB {
-    NSString *dbName = @"takeda";
+    NSString *dbName = @"cardiomagnil";
     NSString *originalDBPath = [[NSBundle mainBundle] pathForResource:dbName ofType:@"sqlite"];
+   
     NSString *path = nil;
     
     NSString *dbNameDir = [LIBRARY stringByAppendingPathComponent:@"Private Documents/DataBase"]; //[NSString stringWithFormat:@"%@/Recipes", DOCUMENTS];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDir = NO;
+
     BOOL dirExists = [fileManager fileExistsAtPath:dbNameDir isDirectory:&isDir];
     NSString *dbPath = [NSString stringWithFormat:@"%@/%@.db", dbNameDir, dbName];
     if(dirExists && isDir) {
@@ -73,7 +75,7 @@ static AllSingle *dot = nil;
             NSError *error = nil;
             BOOL success = [fileManager copyItemAtPath:originalDBPath toPath:dbPath error:&error];
             if(!success) {
-                //       NSLog(@"error = %@", error);
+                 NSLog(@"error DB, blead = %@", error);
             } else {
                 path = dbPath;
             }
@@ -93,6 +95,9 @@ static AllSingle *dot = nil;
             path = dbPath;
         }
     }
+    
+    BOOL dbExists = [fileManager fileExistsAtPath:originalDBPath isDirectory:&isDir];
+    NSLog(@"DB EXIST = %i",dbExists);
     return path;
 }
 
