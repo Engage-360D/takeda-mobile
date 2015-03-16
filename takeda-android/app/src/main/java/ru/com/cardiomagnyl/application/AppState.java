@@ -68,4 +68,8 @@ public class AppState {
         mTestDietResult = testDietResult;
     }
 
+    public boolean isInitialized() {
+        return mToken != null && mUser != null;
+    }
+
 }

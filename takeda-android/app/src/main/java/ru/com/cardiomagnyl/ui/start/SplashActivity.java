@@ -110,7 +110,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                         finishInitialization(token, null, null, null, responseError);
                     }
                 },
-                false
+                UserDao.Source.web
         );
     }
 

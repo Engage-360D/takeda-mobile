@@ -15,6 +15,7 @@ import java.util.List;
 import ru.com.cardiomagnyl.api.DataLoadDispatcher;
 import ru.com.cardiomagnyl.api.DataLoadSequence;
 import ru.com.cardiomagnyl.api.Url;
+import ru.com.cardiomagnyl.api.base.BaseRequestHolder;
 import ru.com.cardiomagnyl.api.db.DbRequestHolder;
 import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
@@ -29,6 +30,8 @@ import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.CallbackOneReturnable;
 
 public class UserDao extends BaseDaoImpl<User, Integer> {
+    public enum Source {db, web}
+
     public UserDao(ConnectionSource connectionSource, Class<User> dataClass) throws SQLException {
         super(connectionSource, dataClass);
     }
@@ -165,7 +168,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
     public static void getByToken(final Token token,
                                   final CallbackOne<User> onSuccess,
                                   final CallbackOne<Response> onFailure,
-                                  final boolean forceHttp) {
+                                  final Source source) {
         TypeReference typeReference = new TypeReference<User>() {
         };
 
@@ -232,16 +235,19 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
-        DataLoadSequence dataLoadSequence =
-                new DataLoadSequence
-                        .Builder(forceHttp ? httpRequestHolder : dbRequestHolder)
-                        .addRequestHolder(forceHttp ? dbRequestHolder : httpRequestHolder)
-                        .create();
+        BaseRequestHolder requestHolder;
+        switch (source) {
+            case db:
+                requestHolder = dbRequestHolder;
+                break;
+            default:
+                requestHolder = httpRequestHolder;
+        }
 
         DataLoadDispatcher
                 .getInstance()
                 .receive(
-                        dataLoadSequence,
+                        requestHolder,
                         onSuccess,
                         onFailure
                 );

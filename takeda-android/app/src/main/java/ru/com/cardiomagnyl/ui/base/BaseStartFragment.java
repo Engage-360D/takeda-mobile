@@ -90,7 +90,7 @@ public abstract class BaseStartFragment extends Fragment {
                         handleRegAuth(null, null, null, null, responseError);
                     }
                 },
-                false
+                UserDao.Source.db
         );
     }
 

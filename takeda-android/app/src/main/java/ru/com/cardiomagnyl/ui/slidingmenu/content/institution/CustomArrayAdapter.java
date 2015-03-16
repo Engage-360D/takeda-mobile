@@ -82,4 +82,8 @@ public class CustomArrayAdapter extends ArrayAdapter<BaseModelHelper> implements
         };
     }
 
+    public List<BaseModelHelper> getItemsList() {
+        return mItemsAll;
+    }
+
 }

@@ -12,11 +12,36 @@ public class InformationFragment extends BaseItemFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_information, null);
+        initFragment(view);
         return view;
     }
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        // is empty by design
+        initTopBarMenuBellCabinet(viewGroupTopBar, true, true, true);
     }
+
+    private void initFragment(final View fragmentView) {
+        final View textViewInfarctionApoplexy = fragmentView.findViewById(R.id.textViewInfarctionApoplexy);
+        final View textViewLifestyle = fragmentView.findViewById(R.id.textViewLifestyle);
+        final View linearLayoutInfarctionApoplexy = fragmentView.findViewById(R.id.linearLayoutInfarctionApoplexy);
+        final View linearLayoutLifestyle = fragmentView.findViewById(R.id.linearLayoutLifestyle);
+
+        textViewInfarctionApoplexy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int visibility = linearLayoutInfarctionApoplexy.getVisibility();
+                linearLayoutInfarctionApoplexy.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE);
+            }
+        });
+
+        textViewLifestyle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int visibility = linearLayoutLifestyle.getVisibility();
+                linearLayoutLifestyle.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE);
+            }
+        });
+    }
+
 }

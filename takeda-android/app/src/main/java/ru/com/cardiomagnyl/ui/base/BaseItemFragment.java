@@ -37,7 +37,7 @@ public abstract class BaseItemFragment extends Fragment {
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int spaceMedium = (int) viewGroupTopBar.getResources().getDimension(R.dimen.space_medium);
-        lp.setMargins(0, 0, spaceMedium, 0);
+        lp.setMargins(spaceMedium, 0, 0, 0);
 
         ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
         imageViewBell.setImageResource(R.drawable.selector_button_bell);
@@ -84,7 +84,7 @@ public abstract class BaseItemFragment extends Fragment {
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int spaceMedium = (int) viewGroupTopBar.getResources().getDimension(R.dimen.space_medium);
-        lp.setMargins(0, 0, spaceMedium, 0);
+        lp.setMargins(spaceMedium, 0, 0, 0);
 
         ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
         imageViewBell.setImageResource(R.drawable.selector_button_bell);
@@ -119,7 +119,7 @@ public abstract class BaseItemFragment extends Fragment {
         });
     }
 
-    protected void initTopBarDone(ViewGroup viewGroupTopBar, View.OnClickListener onClickListener, boolean isDoneEnabled ) {
+    protected void initTopBarDone(ViewGroup viewGroupTopBar, View.OnClickListener onClickListener, boolean isDoneEnabled) {
         LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
         linearLayoutRightHolder.removeAllViews();
 

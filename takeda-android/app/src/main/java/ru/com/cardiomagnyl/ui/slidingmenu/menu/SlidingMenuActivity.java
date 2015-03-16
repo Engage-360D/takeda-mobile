@@ -2,6 +2,7 @@ package ru.com.cardiomagnyl.ui.slidingmenu.menu;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -16,6 +17,7 @@ import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.base.BaseSlidingFragmentActivity;
+import ru.com.cardiomagnyl.ui.start.SplashActivity;
 
 public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     private SlidingMenuListFragment mSlidingMenuListFragment;
@@ -37,6 +39,12 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!AppState.getInsnatce().isInitialized()) {
+            Intent intent = new Intent(this, SplashActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         // Both setBehindContentView must be called in onCreate in addition to setContentView.
         setContentView(R.layout.slidingmenu_content_container);

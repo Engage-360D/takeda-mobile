@@ -22,7 +22,6 @@
             android:text="@string/first_aid"
             android:textColor="@color/text_main_48"
             android:textSize="@dimen/text_size_xlarge" />
-
     </LinearLayout>
 
     <include
@@ -49,11 +48,29 @@
             <View style="@style/divider_normal_1_5" />
 
             <TextView
-                android:id="@+id/textViewSettingsEmail"
+                android:id="@+id/textViewInfarctionApoplexy"
                 style="@style/TextViewItemDrawableRR"
                 android:text="@string/recognize_infarction_apoplexy" />
 
             <View style="@style/divider_normal_1_5" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutInfarctionApoplexy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TextViewMedium38"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_medium"
+                    android:text="@string/infarction_apoplexy_recommendation" />
+
+                <View style="@style/divider_normal_1_5" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textViewLifestyle"
@@ -62,7 +79,23 @@
 
             <View style="@style/divider_normal_1_5" />
 
+            <LinearLayout
+                android:id="@+id/linearLayoutLifestyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TextViewMedium38"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_medium"
+                    android:text="@string/lifestyle_recommendation" />
+
+                <View style="@style/divider_normal_1_5" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>
