@@ -139,12 +139,16 @@
 
 -(void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
-    NSArray *controllers = self.navigationController.viewControllers;
-    if (controllers.count>1){
-        if ([controllers[controllers.count-2] isKindOfClass:[VControllerExt class]]&&[controllers[controllers.count-2] respondsToSelector:@selector(setIsAppearFromBack:)]){
-            [(VControllerExt*)controllers[controllers.count-2] setIsAppearFromBack:YES];
-        }
+    if (self.parentVC!=nil&&[self.parentVC respondsToSelector:@selector(setIsAppearFromBack:)]){
+        [(VControllerExt*)self.parentVC setIsAppearFromBack:YES];
     }
+    
+//    NSArray *controllers = self.navigationController.viewControllers;
+//    if (controllers.count>1){
+//        if ([controllers[controllers.count-2] isKindOfClass:[VControllerExt class]]&&[controllers[controllers.count-2] respondsToSelector:@selector(setIsAppearFromBack:)]){
+//            [(VControllerExt*)controllers[controllers.count-2] setIsAppearFromBack:YES];
+//        }
+//    }
 }
 
 

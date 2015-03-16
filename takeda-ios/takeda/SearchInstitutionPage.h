@@ -27,6 +27,8 @@
 @property (nonatomic, strong) IBOutlet UITextFieldAutocompl *searchCity;
 @property (nonatomic, strong) IBOutlet UITextFieldAutocompl *searchSpec;
 @property (nonatomic, strong) IBOutlet UIButton *searchBtn;
+@property (nonatomic, strong) IBOutlet UIButton *showHideSearchBtn;
+
 @property (nonatomic, strong) IBOutlet GMSMapView *mapView_;
 @property (nonatomic, strong) LPUDetail *lpuDetail;
 @end

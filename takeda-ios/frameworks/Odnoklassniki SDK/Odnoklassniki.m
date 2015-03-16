@@ -97,12 +97,6 @@
 }
 
 
-
-
-
-
-
-
 - (void)dealloc {
 	[self.session close];
 	[OKSession setActiveSession:nil];

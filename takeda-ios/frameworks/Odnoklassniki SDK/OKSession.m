@@ -9,7 +9,9 @@
 #import "OKTokenCache.h"
 
 NSString* const kLoginURL = @"http://www.odnoklassniki.ru/oauth/authorize";
-NSString* const kRedirectURL = @"odnoklassniki://";
+NSString* const kRedirectURL = @"ok1126090240://authorize";
+//NSString* const kRedirectURL = @"odnoklassniki://";
+
 NSString* const kAccessTokenURL = @"http://api.odnoklassniki.ru/oauth/token.do";
 NSString* const kAPIBaseURL = @"http://api.odnoklassniki.ru/api/";
 

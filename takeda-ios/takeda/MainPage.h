@@ -11,8 +11,8 @@
 #import "Drugs.h"
 #import "ResultRiskAnal.h"
 #import "EGORefreshTableHeaderView.h"
-
-
+#import "CalendarPage.h"
+#import "AnalisisResultPage.h"
 
 @interface MainPage : VControllerExt<EGORefreshTableHeaderDelegate>
 
@@ -23,6 +23,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *todayLabel;
 @property (nonatomic, strong) Drugs *drugs;
 @property (nonatomic, strong) ResultRiskAnal *resultRiskAnal;
+@property (nonatomic, strong) CalendarPage *calendarPage;
+@property (nonatomic, strong) AnalisisResultPage *analisisResultPage;
 
 @property (nonatomic,retain) IBOutlet UIImageView *stateImageRed;
 @property (nonatomic,retain) IBOutlet UIImageView *separ1;

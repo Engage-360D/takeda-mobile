@@ -3,6 +3,12 @@
 #import "GQuadItem.h"
 #import "GCluster.h"
 
+
+#define countMore100Color RGB(55,70,142)
+#define countMore10Color RGB(62,124,217)
+#define countLess10Color RGB(71,162,178)
+
+
 @implementation GDefaultClusterRenderer {
     GMSMapView *_map;
     NSMutableArray *_markerCache;
@@ -45,7 +51,7 @@
 
 - (UIImage*)generateClusterIconWithCount:(NSUInteger)count {
     
-    int diameter = 30;
+    int diameter = 40;
     float inset = 2;
     
     CGRect rect = CGRectMake(0, 0, diameter, diameter);
@@ -56,9 +62,9 @@
     // set stroking color and draw circle
     [[UIColor colorWithRed:1 green:1 blue:1 alpha:0.8] setStroke];
     
-    if (count > 100) [[UIColor orangeColor] setFill];
-    else if (count > 10) [[UIColor yellowColor] setFill];
-    else [[UIColor colorWithRed:0.0/255.0 green:100.0/255.0 blue:255.0/255.0 alpha:1] setFill];
+    if (count > 100) [countMore100Color setFill];
+    else if (count > 10) [countMore10Color setFill];
+    else [countLess10Color setFill];
 
     CGContextSetLineWidth(ctx, inset);
 
@@ -70,11 +76,11 @@
     CGContextFillEllipseInRect(ctx, circleRect);
     CGContextStrokeEllipseInRect(ctx, circleRect);
 
-    CTFontRef myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 12.0f, NULL);
+    CTFontRef myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 13.0f, NULL);
     
-    UIColor *fontColor;
-    if ((count < 100) && count > 10) fontColor = [UIColor blackColor];
-    else fontColor = [UIColor whiteColor];
+    UIColor *fontColor = [UIColor whiteColor];
+//    if ((count < 100) && count > 10) fontColor = [UIColor blackColor];
+//    else fontColor = [UIColor whiteColor];
     
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
             (__bridge id)myFont, (id)kCTFontAttributeName,
@@ -110,7 +116,7 @@
 
     CTLineRef line = CTLineCreateWithAttributedString(
             (__bridge CFAttributedStringRef)stringToDraw);
-    CGContextSetTextPosition(ctx, midWidth, 12);
+    CGContextSetTextPosition(ctx, midWidth, 15);
     CTLineDraw(line, ctx);
 
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
