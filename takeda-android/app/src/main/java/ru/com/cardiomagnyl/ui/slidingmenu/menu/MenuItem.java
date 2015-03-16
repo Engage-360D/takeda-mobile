@@ -9,7 +9,6 @@ import ru.com.cardiomagnyl.ui.slidingmenu.content.UsefulToKnowFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.institution.InstitutionsSearchFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.journal.JournalFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetSettingsFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.recommendations.RecommendationsTestResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis.RiskAnalysisPatientDataFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis.RiskAnalysisResultsFragment;
 
@@ -23,7 +22,7 @@ public enum MenuItem {
     item_analysis_results(RiskAnalysisResultsFragment.class, R.string.menu_item_analysis_results, true, true),
     item_useful_to_know(UsefulToKnowFragment.class, R.string.menu_item_useful_to_know, true, false),
     item_publications(PublicationsFragment.class, R.string.menu_item_publications, true, false),
-    item_reports(ReportsFragment.class, R.string.menu_item_reports, true, false);
+    item_reports(ReportsFragment.class, R.string.menu_item_reports, true, true);
 
     private final Class itemClass;
     private final int itemName;

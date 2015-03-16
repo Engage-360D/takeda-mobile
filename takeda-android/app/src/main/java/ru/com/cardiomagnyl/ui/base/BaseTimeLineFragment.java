@@ -317,7 +317,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
     }
 
     private Button createButtonSave(Context context) {
-        Button buttonSave = new Button(context);
+        Button buttonSave = (Button) View.inflate(context, R.layout.layout_button_main, null);
         buttonSave.setEnabled(false);
         buttonSave.setText(R.string.save);
         return buttonSave;

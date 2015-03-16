@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.ui.base.ExecutableFragment;
 
 public class SlidingMenuListFragment extends ListFragment {
     private MenuAdapter mMenuItemsAdapter;
@@ -98,20 +99,27 @@ public class SlidingMenuListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        if (getActivity() != null && getActivity() instanceof SlidingMenuActivity) {
-            SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
-            Fragment currentFragment = slidingMenuActivity.getCurrentFragment();
-            if (currentFragment != null && currentFragment.getClass().getName().equals(SlidingMenuActivity.MENU_ITEMS[position].getItemClass().getName())) {
-                slidingMenuActivity.getSlidingMenu().showContent();
-                return;
-            }
+        SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        Fragment currentFragment = slidingMenuActivity.getCurrentFragment();
+        if (currentFragment != null && currentFragment.getClass().getName().equals(SlidingMenuActivity.MENU_ITEMS[position].getItemClass().getName())) {
+            slidingMenuActivity.getSlidingMenu().showContent();
+            return;
         }
 
-        setSelectedItem(position);
-
-        String fragmentClassName = SlidingMenuActivity.MENU_ITEMS[position].getItemClass().getName();
+        Class itemClass = SlidingMenuActivity.MENU_ITEMS[position].getItemClass();
+        String fragmentClassName = itemClass.getName();
         Fragment newContent = Fragment.instantiate(this.getActivity(), fragmentClassName, null);
-        switchFragment(newContent);
+
+        if (newContent instanceof ExecutableFragment) {
+            if (((ExecutableFragment) newContent).isShowable()) {
+                setSelectedItem(position);
+                switchFragment(newContent);
+            }
+            ((ExecutableFragment) newContent).execute(slidingMenuActivity);
+        } else {
+            setSelectedItem(position);
+            switchFragment(newContent);
+        }
 
         super.onListItemClick(listView, view, position, id);
     }

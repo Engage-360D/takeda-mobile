@@ -29,6 +29,8 @@ public final class Url {
     public static final String INSTITUTION_SPECIALIZATIONS = API_ADDR + "institution-specializations";
     public static final String INSTITUTIONS = API_ADDR + "institutions?parsedTown=%s&specialization=%s";
 
+    public static final String ACCOUNT_REPORTS = "http://cardiomagnyl.ru/account/reports";
+
     public static final HashMap<String, String> GET_HEADERS = new HashMap<String, String>() {{
         put("Content-Type", "application/vnd.api+json");
         put("Accept", "*/*");

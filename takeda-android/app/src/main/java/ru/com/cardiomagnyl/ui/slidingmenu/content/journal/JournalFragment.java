@@ -26,12 +26,12 @@ public class JournalFragment extends BaseTimeLineFragment {
         ListView listViewTimeline = (ListView) activity.findViewById(R.id.listViewTimeline);
         RadioGroup radioGroupTabs = (RadioGroup) activity.findViewById(R.id.radioGroupTabs);
         TimelineAdapter timelineAdapter = (TimelineAdapter) listViewTimeline.getAdapter();
-        timelineAdapter.notifyDataSetChanged();
+        timelineAdapter.notifyDataSetInvalidated();
         udateFullTimelineList(updatedTask);
         separateFullTimeline();
         mCurrentTimelineList.clear();
         mCurrentTimelineList.addAll(radioGroupTabs.getCheckedRadioButtonId() == R.id.radioButtonNew ? mNewTimelineList : mFilledTimelineList);
-        timelineAdapter.notifyDataSetInvalidated();
+        timelineAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -39,10 +39,10 @@ public class JournalFragment extends BaseTimeLineFragment {
         ListView listViewTimeline = (ListView) fragmentView.findViewById(R.id.listViewTimeline);
         RadioGroup radioGroupTabs = (RadioGroup) fragmentView.findViewById(R.id.radioGroupTabs);
         TimelineAdapter timelineAdapter = (TimelineAdapter) listViewTimeline.getAdapter();
-        timelineAdapter.notifyDataSetChanged();
+        timelineAdapter.notifyDataSetInvalidated();
         mCurrentTimelineList.clear();
         mCurrentTimelineList.addAll(radioGroupTabs.getCheckedRadioButtonId() == R.id.radioButtonNew ? mNewTimelineList : mFilledTimelineList);
-        timelineAdapter.notifyDataSetInvalidated();
+        timelineAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -63,10 +63,10 @@ public class JournalFragment extends BaseTimeLineFragment {
         radioGroupTabs.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                timelineAdapter.notifyDataSetChanged();
+                timelineAdapter.notifyDataSetInvalidated();
                 mCurrentTimelineList.clear();
                 mCurrentTimelineList.addAll(checkedId == R.id.radioButtonNew ? mNewTimelineList : mFilledTimelineList);
-                timelineAdapter.notifyDataSetInvalidated();
+                timelineAdapter.notifyDataSetChanged();
             }
         });
     }

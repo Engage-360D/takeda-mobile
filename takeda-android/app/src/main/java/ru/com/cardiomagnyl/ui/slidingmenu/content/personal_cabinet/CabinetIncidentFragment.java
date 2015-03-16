@@ -86,7 +86,7 @@ public class CabinetIncidentFragment extends BaseItemFragment {
     }
 
     private boolean validateIncidentFields(EditText editTextComment, RadioGroup radioGroupIncident) {
-        return editTextComment.getText().length() != 0 && radioGroupIncident.getCheckedRadioButtonId() >= 0;
+        return /*editTextComment.getText().length() != 0 && */ radioGroupIncident.getCheckedRadioButtonId() >= 0;
     }
 
     private void setIncidentDescription(final View view, int checkedId) {
