@@ -169,6 +169,7 @@
     <string name="my_success">Мои успехи</string>
     <string name="consolidated_report">Сводный отчет</string>
     <string name="go_to_website">Переход на сайт</string>
+    <string name="choose_medical_institution">Подобрать мед. учереждение</string>
 
     <!-- ============= -->
     <!-- fragment_pill -->
@@ -288,10 +289,12 @@
     <!-- ========= -->
     <string name="infarction">Инфаркт</string>
     <string name="apoplexy">Инсульт</string>
+    <string name="infarction_or_apoplexy">Инфаркт или Инсульт</string>
+    <string name="incident">Инцидент</string>
     <string name="shunting">Коронарное шунтирование</string>
     <string name="your_comment">Ваш комментарий</string>
     <string name="warning">Внимание!</string>
-    <string name="incident_description">вы перенесли %s и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
+    <string name="incident_description">Вы перенесли %s и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
 
     <!-- ============ -->
     <!-- patient_data -->
@@ -326,7 +329,7 @@
     <!-- ======= -->
     <!-- results -->
     <!-- ======= -->
-    <string name="choose_medical_institution">Подобрать мед. учереждение по близости</string>
+    <string name="choose_nearest_medical_institution">Подобрать мед. учереждение по близости</string>
     <string name="adjustment_of_diet">Дополнительная корректировка диеты</string>
     <string name="pass_poll">Пройти опрос</string>
     <string name="send_results">Отослать результаты на email?</string>

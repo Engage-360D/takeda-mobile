@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.PillDetailsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
@@ -35,6 +36,8 @@ public abstract class BaseItemFragment extends Fragment {
         LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
         linearLayoutRightHolder.removeAllViews();
 
+        boolean noIncidents = AppState.getInsnatce().getIncidents().isEmpty();
+
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int spaceMedium = (int) viewGroupTopBar.getResources().getDimension(R.dimen.space_medium);
         lp.setMargins(spaceMedium, 0, 0, 0);
@@ -42,7 +45,7 @@ public abstract class BaseItemFragment extends Fragment {
         ImageView imageViewBell = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
         imageViewBell.setImageResource(R.drawable.selector_button_bell);
         imageViewBell.setLayoutParams(lp);
-        imageViewBell.setEnabled(isBellEnabled);
+        imageViewBell.setEnabled(isBellEnabled && noIncidents);
         linearLayoutRightHolder.addView(imageViewBell);
 
         if (isBellEnabled) {
@@ -59,7 +62,7 @@ public abstract class BaseItemFragment extends Fragment {
         ImageView imageViewCabinet = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
         imageViewCabinet.setImageResource(R.drawable.selector_button_cabinet);
         imageViewCabinet.setLayoutParams(lp);
-        imageViewCabinet.setEnabled(isCabinetEnabled);
+        imageViewCabinet.setEnabled(isCabinetEnabled && noIncidents);
         linearLayoutRightHolder.addView(imageViewCabinet);
 
         if (isCabinetEnabled) {
@@ -82,6 +85,8 @@ public abstract class BaseItemFragment extends Fragment {
         LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
         linearLayoutRightHolder.removeAllViews();
 
+        boolean noIncidents = AppState.getInsnatce().getIncidents().isEmpty();
+
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int spaceMedium = (int) viewGroupTopBar.getResources().getDimension(R.dimen.space_medium);
         lp.setMargins(spaceMedium, 0, 0, 0);
@@ -92,7 +97,7 @@ public abstract class BaseItemFragment extends Fragment {
         imageViewBell.setEnabled(isBellEnabled);
         linearLayoutRightHolder.addView(imageViewBell);
 
-        imageViewBell.setEnabled(isBellEnabled);
+        imageViewBell.setEnabled(isBellEnabled && noIncidents);
         imageViewBell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +108,7 @@ public abstract class BaseItemFragment extends Fragment {
         ImageView imageViewAddPill = new ImageView(viewGroupTopBar.getContext(), null, R.style.ImageViewTop);
         imageViewAddPill.setImageResource(R.drawable.selector_button_add_pill);
         imageViewAddPill.setLayoutParams(lp);
-        imageViewAddPill.setEnabled(isAddPillEnabled);
+        imageViewAddPill.setEnabled(isAddPillEnabled && noIncidents);
         linearLayoutRightHolder.addView(imageViewAddPill);
 
         imageViewAddPill.setEnabled(isAddPillEnabled);
@@ -123,6 +128,8 @@ public abstract class BaseItemFragment extends Fragment {
         LinearLayout linearLayoutRightHolder = (LinearLayout) viewGroupTopBar.findViewById(R.id.linearLayoutRightHolder);
         linearLayoutRightHolder.removeAllViews();
 
+        boolean noIncidents = AppState.getInsnatce().getIncidents().isEmpty();
+
         boolean isEnabled = onClickListener != null;
 
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroupTopBar.getContext());
@@ -130,7 +137,7 @@ public abstract class BaseItemFragment extends Fragment {
         layoutTopDone.setEnabled(isEnabled);
         linearLayoutRightHolder.addView(layoutTopDone);
 
-        layoutTopDone.setEnabled(isDoneEnabled);
+        layoutTopDone.setEnabled(isDoneEnabled && noIncidents);
         layoutTopDone.setOnClickListener(onClickListener);
     }
 

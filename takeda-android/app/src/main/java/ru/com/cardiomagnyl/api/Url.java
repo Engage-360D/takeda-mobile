@@ -23,6 +23,7 @@ public final class Url {
     public static final String ACCOUNT_TEST_RESULTS_DIET_QUESTIONS = API_ADDR + "account/test-results/%s/diet-questions?token=%s";
     public static final String ACCOUNT_TEST_RESULTS_DIET_RECOMMENDATIONS = API_ADDR + "account/test-results/%s/diet-recommendations?%s&token=%s";
     public static final String ACCOUNT_TEST_RESULTS_DIET_ANSWERS = "answers[%s]=%s&";
+    public static final String ACCOUNT_INCIDENTS = API_ADDR + "account/incidents?token=%s";
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
     public static final String INSTITUTION_PARSED_TOWNS = API_ADDR + "institution-parsed-towns";

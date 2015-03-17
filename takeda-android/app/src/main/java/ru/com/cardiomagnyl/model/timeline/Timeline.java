@@ -41,7 +41,7 @@ public class Timeline extends BaseModel implements Parcelable {
     @JsonDeserialize(as = ArrayList.class)
     private Collection<Task> tasks = new ArrayList<>();
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "user")
+    @DatabaseField(canBeNull = false, dataType = DataType.STRING, columnName = "user")
     private String userId;
 
     public Timeline() {

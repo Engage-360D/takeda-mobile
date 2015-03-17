@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
+import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.PillsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
@@ -35,6 +38,8 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         final View linearLayoutConsolidatedReport = view.findViewById(R.id.linearLayoutConsolidatedReport);
         final View textViewAddIncident = view.findViewById(R.id.textViewAddIncident);
         final View buttonExit = view.findViewById(R.id.buttonExit);
+        final View layoutIncidentDescription = view.findViewById(R.id.layoutIncidentDescription);
+        final TextView textViewIncidentDescription = (TextView) view.findViewById(R.id.textViewIncidentDescription);
 
         textViewPills.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +68,21 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                 tryToAddIncident();
             }
         });
+
+        Incidents incidents = AppState.getInsnatce().getIncidents();
+        if (!incidents.isEmpty()) {
+            String incident = "";
+            if (incidents.isHadBypassSurgery()) {
+                incident = getString(R.string.shunting);
+            } else if (incidents.isHadHeartAttackOrStroke()) {
+                incident = getString(R.string.infarction_or_apoplexy);
+            } else {
+                incident = getString(R.string.incident);
+            }
+
+            textViewIncidentDescription.setText(String.format(getString(R.string.incident_description), incident));
+            layoutIncidentDescription.setVisibility(View.VISIBLE);
+        }
     }
 
     private void tryToSetUpPills() {

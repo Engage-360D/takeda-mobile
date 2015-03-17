@@ -3,6 +3,7 @@ package ru.com.cardiomagnyl.application;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import ru.com.cardiomagnyl.model.base.BaseModel;
+import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestSource;
 import ru.com.cardiomagnyl.model.test_diet.TestDietResult;
@@ -33,6 +34,7 @@ public class AppState {
 
     private Token mToken;
     private User mUser;
+    private Incidents mIncidents;
     private TestResult mTestResult;
     private TestDietResult mTestDietResult;
 
@@ -52,6 +54,14 @@ public class AppState {
         mUser = user;
     }
 
+    public void setIncidents(Incidents incidents) {
+        mIncidents = incidents;
+    }
+
+    public Incidents getIncidents() {
+        return mIncidents;
+    }
+
     public TestResult getTestResult() {
         return mTestResult;
     }
@@ -69,7 +79,7 @@ public class AppState {
     }
 
     public boolean isInitialized() {
-        return mToken != null && mUser != null;
+        return mToken != null && mUser != null && mIncidents != null;
     }
 
 }
