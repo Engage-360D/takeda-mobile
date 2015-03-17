@@ -335,6 +335,11 @@
     <string name="send_results">Отослать результаты на email?</string>
     <string name="results_sent_successfully">Результаты отосланы успешно.\nПроверьте почту.</string>
 
+    <!-- ======================= -->
+    <!-- fragment_useful_to_know -->
+    <!-- ======================= -->
+    <string name="share">Поделиться:</string>
+
     <!-- ====== -->
     <!-- common -->
     <!-- ====== -->
@@ -355,15 +360,6 @@
     <string name="take_pills">Принять таблетки</string>
     <string name="data_not_found">Данные не найдены...</string>
     <string name="no_data">нет данных</string>
-
-    <!-- === -->
-    <!-- tmp -->
-    <!-- === -->
-    <string name="kruglenkaya_sinyaya">Кругленькая синяя</string>
-    <string name="kvadratnaya">Квадратная</string>
-    <string name="time_1">15:00 (2 штуки)</string>
-    <string name="time_2">16:00 (Раздробить 2 пачки)</string>
-    <string name="time_3">18:45 (2 штуки)</string>
 
     <!-- ============== -->
     <!-- response_codes -->
