@@ -21,6 +21,10 @@
     subTitle.font = [UIFont fontWithName:@"SegoeWP-Light" size:10];
     rightCaption.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
     
+    caption.clipsToBounds = YES;
+    subTitle.clipsToBounds = YES;
+    rightCaption.clipsToBounds = YES;
+
     [checkBtn addTarget:self action:@selector(btnChecked:) forControlEvents:UIControlEventTouchDown];
 
 //    UIView *selectedView = [UIView new];
@@ -49,7 +53,7 @@
 
 -(void)setupCellType:(CombyCellType)cellType{
     
-    caption.frame = CGRectMake(12, 8, self.width - 12, 21);
+    caption.frame = CGRectMake(12, 8, self.width - 25, 21);
     caption.hidden = NO;
     subTitle.hidden = YES;
     rightCaption.hidden = YES;
@@ -78,7 +82,7 @@
             break;
         }
         case ctCaptionSubtitleRightArrow:{
-            caption.frame = CGRectMake(12, 2, self.width - 12, 20);
+            caption.frame = CGRectMake(12, 2, self.width - 25, 20);
 
             subTitle.hidden = NO;
             rightArrow.hidden = NO;
@@ -86,7 +90,7 @@
             break;
         }
         case ctCaptionSubtitleChecked:{
-            caption.frame = CGRectMake(12, 2, self.width - 12, 20);
+            caption.frame = CGRectMake(12, 2, self.width - 25, 20);
 
             subTitle.hidden = NO;
             checkBtn.hidden = NO;

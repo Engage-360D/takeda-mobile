@@ -69,17 +69,16 @@
     needTest = [User checkToNeedTest];
     userIsBlocked = User.userBlocked;
     menuData = [Global recursiveMutable:
-                @[@{@"name" :@"Главная", @"enabled":@"YES"},
-                  @{@"name" :@"Анализ риска", @"enabled":(!userIsBlocked&&needTest)||[User checkForRole:tDoctor]?@"YES":@"NO"},
-                  @{@"name" :@"Поиск учреждений", @"enabled":@"YES"},
-                  @{@"name" :@"Рекомендации", @"enabled":userIsBlocked?@"NO":@"NO"},
-                  @{@"name" :@"Результаты анализа", @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
-                  @{@"name" :@"Календарь", @"enabled":userIsBlocked?@"NO":@"YES"},
-                  @{@"name" :@"Полезно знать", @"enabled":userIsBlocked?@"NO":@"YES"},
-                 // @{@"name" :@"Публикации", @"enabled":userIsBlocked?@"NO":@"YES"},
-                  @{@"name" :@"Отчеты", @"enabled":userIsBlocked?@"NO":@"YES"}
+                @[@{@"name" :@"Главная", @"item":[NSNumber numberWithInt:State_MainPage], @"enabled":@"YES"},
+                  @{@"name" :@"Анализ риска", @"item":[NSNumber numberWithInt:State_Risk_Analysis], @"enabled":(!userIsBlocked&&needTest)||[User checkForRole:tDoctor]?@"YES":@"NO"},
+                  @{@"name" :@"Поиск учреждений", @"item":[NSNumber numberWithInt:State_Search_Institution], @"enabled":@"YES"},
+                //  @{@"name" :@"Рекомендации", @"item":[NSNumber numberWithInt:State_Recomendation], @"enabled":userIsBlocked?@"NO":@"NO"},
+                  @{@"name" :@"Рекомендации", @"item":[NSNumber numberWithInt:State_Analysis_Result], @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
+                  @{@"name" :@"Дневник", @"item":[NSNumber numberWithInt:State_Calendar], @"enabled":userIsBlocked?@"NO":@"YES"},
+                  @{@"name" :@"Полезно знать", @"item":[NSNumber numberWithInt:State_Useful_Know], @"enabled":userIsBlocked?@"NO":@"YES"},
+                 // @{@"name" :@"Публикации", @"item":[NSNumber numberWithInt:State_Publication], @"enabled":userIsBlocked?@"NO":@"YES"},
+                  @{@"name" :@"Отчеты", @"item":[NSNumber numberWithInt:State_Reports], @"enabled":userIsBlocked?@"NO":@"YES"}
                   ]];
-
 }
 
 - (void)viewDidLoad
@@ -88,7 +87,7 @@
     [self updateMenuData];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
    // [GlobalSettings sharedInstance].stateMenu = State_MainPage;
-    last_stateMenu = State_MainPage;
+    last_stateMenu = [self indexOfItem:State_MainPage];
     }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -162,7 +161,7 @@
         cell.name_group.textColor = RGB(95, 95, 95);
     }
 
-    if ([GlobalSettings sharedInstance].stateMenu == indexPath.row+1) {
+    if ([GlobalSettings sharedInstance].stateMenu == indexPath.row) {
         cell.name_group.textColor = RGB(150, 190, 190);
     }
     cell.disabled = !enabled;
@@ -177,14 +176,14 @@
 - (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BOOL enabled = !((menu_cell*)[table cellForRowAtIndexPath:indexPath]).disabled;
     if (enabled){
-        [self selectMenuIndex:indexPath.row+1];
+        [self selectMenuIndex:indexPath.row];
     } else {
-        [self showErrorForCellIndex:indexPath.row+1];
+        [self showErrorForCellIndex:indexPath.row];
     }
 }
 
 -(void)showErrorForCellIndex:(int)index{
-    switch (index) {
+    switch ([menuData[index][@"item"] intValue]) {
         case State_MainPage:{
             break;
         }
@@ -239,9 +238,9 @@
 }
 
 -(void)selectMenuIndex:(int)index{
-    switch (index) {
+    switch ([menuData[index][@"item"] intValue]) {
         case State_MainPage:{
-            [GlobalSettings sharedInstance].stateMenu = State_MainPage;
+            [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_MainPage];
             
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
@@ -271,7 +270,7 @@
             }
             
             
-            [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
+            [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_Risk_Analysis];
             
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
@@ -282,7 +281,7 @@
             }
             break;}
         case State_Search_Institution:{
-            [GlobalSettings sharedInstance].stateMenu = State_Search_Institution;
+            [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_Search_Institution];
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
             }else{
@@ -298,7 +297,7 @@
             }
             break;}
         case State_Recomendation:{
-            [GlobalSettings sharedInstance].stateMenu = State_Recomendation;
+            [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_Recomendation];
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
             }else{
@@ -313,7 +312,7 @@
             
             break;}
         case State_Analysis_Result:{
-            [GlobalSettings sharedInstance].stateMenu = State_Analysis_Result;
+            [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_Analysis_Result];
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
             }else{
@@ -337,7 +336,7 @@
             }
             break;}
         case State_Calendar:{
-            [GlobalSettings sharedInstance].stateMenu = State_Calendar;
+            [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_Calendar];
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
             }else{
@@ -351,7 +350,7 @@
             }
             break;}
         case State_Useful_Know:{
-            [GlobalSettings sharedInstance].stateMenu = State_Useful_Know;
+            [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_Useful_Know];
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
             }else{
@@ -365,7 +364,7 @@
             }
             break;}
         case State_Publication:{
-            [GlobalSettings sharedInstance].stateMenu = State_Publication;
+            [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_Publication];
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
             }else{
@@ -379,25 +378,42 @@
             }
             break;}
         case State_Reports:{
-            [GlobalSettings sharedInstance].stateMenu = State_Reports;
-            if ([self checkLastController]) {
-                [self.slideMenuController closeMenuAnimated:YES completion:nil];
-            }else{
-                if (!reportsPage_vc) {
-                    reportsPage_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getReportsPage]];
-                }
-                
-                last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
-                [self.slideMenuController closeMenuBehindContentViewController:reportsPage_vc animated:YES completion:nil];
-                
-            }
-            break;}
+//            [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_Reports];
+            [self openSiteReport];
+//            if ([self checkLastController]) {
+//                [self.slideMenuController closeMenuAnimated:YES completion:nil];
+//            }else{
+//                if (!reportsPage_vc) {
+//                    reportsPage_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getReportsPage]];
+//                }
+//                
+//                last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
+//                [self.slideMenuController closeMenuBehindContentViewController:reportsPage_vc animated:YES completion:nil];
+//                
+//            }
+            
+            break;
+        }
         default:
             break;
     }
     [self.tableView reloadData];
     
 }
+
+-(int)indexOfItem:(int)itemName{
+    for (int i = 0; i<menuData.count; i++){
+        if ([menuData[i][@"item"] intValue]==itemName) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+-(void)openSiteReport{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kReportURL]];
+}
+
 
 -(BOOL)checkLastController{
     if ([GlobalSettings sharedInstance].stateMenu==last_stateMenu) {

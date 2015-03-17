@@ -53,10 +53,10 @@ static rootMenuController *sharedInst = NULL;
 
 -(id)currentMenuController{
     if ([User checkToNeedTest]&&![User userBlocked]){
-        [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
+       // [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
         return [self riskAnalysis_vc];
     } else {
-        [GlobalSettings sharedInstance].stateMenu = State_MainPage;
+       // [GlobalSettings sharedInstance].stateMenu = State_MainPage;
         return [self mainPage_vc];
     }
 }

@@ -26,10 +26,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string>ua.od.tairai</string>
+			<string>okurl</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ok181911552</string>
+				<string>ok1126090240</string>
 			</array>
 		</dict>
 		<dict>

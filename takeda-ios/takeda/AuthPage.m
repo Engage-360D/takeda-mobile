@@ -413,8 +413,6 @@ ForgetPage *forgetPage;
 
 #pragma mark - OdnokloasnikiMethods
 -(IBAction)loginWithOK:(id)sender{
-    [self showMessage:@"Авторизация через Однокласники временно отключена" title:@"Уведомление"];
-    return;
     
     ShowNetworkActivityIndicator();
     if (!self.odnoklasniki_api) {
@@ -431,6 +429,7 @@ ForgetPage *forgetPage;
     
     
 }
+
 
 /*** Odnoklassniki Delegate methods ***/
 -(void)okDidLogin {

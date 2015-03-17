@@ -20,8 +20,11 @@
 
 @interface SearchInstitutionPage (){
 //    GMSMapView *mapView_;
+    GMSCameraPosition *camera;
     GClusterManager *clusterManager_;
     NSMutableArray *lpuList;
+    NSMutableArray *gsmMarkersList;
+
     NSMutableDictionary *selectedCity;
     NSMutableDictionary *selectedSpec;
     BOOL searchShowed;
@@ -51,16 +54,32 @@
     [self setupInterface];
     [self drawMap];
     [self initData];
+    [self performSelector:@selector(scrollToMyLocation) withObject:nil afterDelay:1.0f];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.container.clipsToBounds = YES;
+    UIBarButtonItem *searchBtnItem = [self menuBarBtnWithImageName:@"search_icon" selector:@selector(showHideSearch:) forTarget:self];
+    UIBarButtonItem *filterBtnItem = [self menuBarBtnWithImageName:@"filterIcon.png" selector:@selector(showHideSearch:) forTarget:self];
+    self.navigationItem.rightBarButtonItems = @[filterBtnItem, searchBtnItem];
+    
+    
     [self selectView:self.listMapSwitch.selectedSegmentIndex];
     if (!self.isAppearFromBack){
         searchShowed = YES;
-        [self showHideSearch:nil];
+        [self showHideSearch:self.showHideSearchBtn];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
+-(void)scrollToMyLocation{
+    [mapView_ animateToLocation:mapView_.myLocation.coordinate];
+    [mapView_ animateToZoom:14.0f];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -78,7 +97,7 @@
     _searchBtn.layer.cornerRadius = 5.0f;
     
 //    searchContainer.backgroundColor = RGBA(53, 65, 71, 0.4);
-    searchContainer.backgroundColor = RGBA(255, 255, 255, 0.6);
+    searchContainer.backgroundColor = RGBA(255, 255, 255, 0.7);
 
 //    searchCity.backgroundColor = [UIColor colorWithWhite:0.6 alpha:0.4];
 //    searchSpec.backgroundColor = [UIColor colorWithWhite:0.6 alpha:0.4];
@@ -140,51 +159,6 @@
     selectedSpec = searchSpec.selectedItem;
 }
 
--(IBAction)showHideSearch:(UIButton*)sender{
-   
-//    CGFloat y;
-//    CGFloat h;
-//    
-//    if (searchShowed){
-//        _searchView.hidden = NO;
-//        y = _searchView.bottom;
-//    } else {
-//        y = 0;
-//    }
-//    
-//    h = self.view.height - y - (isKeyb?kKeyboardHeight:0);
-    float y = searchShowed?44:-95;
-    sender.userInteractionEnabled = NO;
-    [UIView animateWithDuration:0.3 animations:^{
-        searchContainer.y = y;
-    } completion:^(BOOL finished) {
-        sender.userInteractionEnabled = YES;
-        searchShowed = !searchShowed;
-    }];
-
-}
-
-
--(void)initData{
-    // name
-    // adres
-    // location
-    // category
-    // short description
-    
-    
-
-}
-
--(IBAction)searchData:(id)sender{
-    [GData loadLPUSListForCity:selectedCity[@"name"] spec:selectedSpec[@"name"] copml:^(BOOL success, id result){
-        lpuList = result[@"data"];
-        [self.tableView reloadData];
-        [self drawMarkers];
-    }];
-}
-
-
 -(IBAction)selectViewType:(UISegmentedControl*)sender{
     [self selectView:sender.selectedSegmentIndex];
 }
@@ -206,39 +180,122 @@
     }
 }
 
+
+
+-(IBAction)showHideSearch:(UIButton*)sender{
+   
+//    CGFloat y;
+//    CGFloat h;
+//    
+//    if (searchShowed){
+//        _searchView.hidden = NO;
+//        y = _searchView.bottom;
+//    } else {
+//        y = 0;
+//    }
+//    
+//    h = self.view.height - y - (isKeyb?kKeyboardHeight:0);
+    if (!searchShowed){
+        [self hideKeyb];
+    }
+    float sy = searchShowed?44:-95;
+    float ty = sy + 95;
+    float th = self.view.height - ty - 20;
+    CGRect tFrame = CGRectMake(self.tableView.x, ty, self.tableView.width, th);
+    sender.userInteractionEnabled = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        searchContainer.y = sy;
+        self.tableView.frame = tFrame;
+    } completion:^(BOOL finished) {
+        sender.userInteractionEnabled = YES;
+        searchShowed = !searchShowed;
+    }];
+
+}
+
+
+-(void)initData{
+    // name
+    // adres
+    // location
+    // category
+    // short description
+    
+    
+
+}
+
+-(IBAction)searchData:(id)sender{
+    if (selectedCity==nil){
+        [self showMessage:@"Выберите город" title:@"Ошибка"];
+        return;
+    }
+    if (selectedSpec==nil){
+        [self showMessage:@"Выберите специализацию" title:@"Ошибка"];
+        return;
+    }
+    
+    [self showHideSearch:self.showHideSearchBtn];
+    lpuList = [NSMutableArray new];
+    [self scrollCameraToSearchArea];
+
+    [self showActivityIndicatorWithString:@"Загрузка"];
+    [GData loadLPUSListForCity:selectedCity[@"name"] spec:selectedSpec[@"name"] copml:^(BOOL success, id result){
+        [self removeActivityIdicator];
+        lpuList = result[@"data"];
+        [self.tableView reloadData];
+        [self drawMarkers];
+        if (lpuList.count==0){
+            [self showMessage:@"По Вашему запросу ничего не найдено." title:@"Уведомление" result:^{
+                [self showHideSearch:self.showHideSearchBtn];
+            }];
+        }
+
+        [self scrollCameraToSearchArea];
+
+    }];
+}
+
+-(void)scrollCameraToSearchArea{
+    if (lpuList.count == 0){
+        return;
+    }
+    
+    CLLocationCoordinate2D firstLocation = ((GMSMarker *)gsmMarkersList.firstObject).position;
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:firstLocation coordinate:firstLocation];
+    
+    for (GMSMarker *marker in gsmMarkersList) {
+        bounds = [bounds includingCoordinate:marker.position];
+    }
+    
+    [mapView_ animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:50.0f]];
+
+}
+
 #pragma mark - Map
 
 -(void)drawMap{
-
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                   zoom:6];
     
-   // mapView_ = [[GMSMapView alloc] initWithFrame:self.container.bounds];
+    camera = [GMSCameraPosition cameraWithLatitude:-33.86 longitude:151.20 zoom:6];
+    
     mapView_.settings.myLocationButton = YES;
-   // mapView_.camera = camera;
+    mapView_.camera = camera;
 
     clusterManager_ = [GClusterManager managerWithMapView:mapView_
                                                 algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                  renderer:[[GDefaultClusterRenderer alloc] initWithMapView:mapView_]];
-
     
     mapView_.delegate = clusterManager_;
 
     mapView_.myLocationEnabled = YES;
     //self.mapContainer = mapView_;
     [self.mapContainer addSubview:mapView_];
-
-    
-
 }
 
 -(void)drawMarkers{
     [clusterManager_ removeItems];
+    gsmMarkersList = [NSMutableArray new];
     for (NSMutableDictionary* place in lpuList){
-        //[@{@"name":@"Учереждение N1", @"address":@"Улица Такая то, дом 777", @"location":[[CLLocation alloc] initWithLatitude:55.826813 longitude:37.561770], @"category":@"Профилактика", @"descr":@"больница высшей категории"},
-
-      //  CLLocation *loc = place[@"location"];
         
         double lat = [place[@"lat"] doubleValue];
         double lon = [place[@"lng"] doubleValue];
@@ -251,6 +308,7 @@
         // marker.map = mapView_;
         Spot* spot = [self generateSpot:marker];
         [clusterManager_ addItem:spot];
+        [gsmMarkersList addObject:marker];
     }
     [clusterManager_ cluster];
     [clusterManager_ setDelegate:self];
@@ -264,6 +322,10 @@
     return spot;
 }
 
+- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    [[[UIAlertView alloc] initWithTitle:@"DidTapMarker" message:marker.title delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    return YES;
+}
 
 #pragma mark - Table view data source
 

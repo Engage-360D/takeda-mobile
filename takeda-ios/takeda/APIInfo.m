@@ -33,6 +33,6 @@
 #define client_secret @"6bhq30w1jrc4wwoc00ks400scgkwws8g8skwkc84g0kkwgkc0k"
 
 #warning SET OK keys !!!
-#define  Odnkl_appID @"181911552"
-#define  Odnkl_appSecret @"D8B73BB1C3297CC1C6358650"
-#define  Odnkl_appKey @"CBABMINLABABABABA"
+#define  Odnkl_appID @"1126090240"
+#define  Odnkl_appSecret @"48E60A55CB4CF49C3E5D3762"
+#define  Odnkl_appKey @"CBAHMPBEEBABABABA"

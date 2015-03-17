@@ -137,7 +137,6 @@
 		5BA18DE61A4DC8A50090DD46 /* RightPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BA18DE51A4DC8A50090DD46 /* RightPage.m */; };
 		5BDD008B1AB1E9ED002A2088 /* cardiomagnil.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 5BDD008A1AB1E9ED002A2088 /* cardiomagnil.sqlite */; };
 		5BDD00C21AB2D674002A2088 /* imedical.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 5BDD00C11AB2D674002A2088 /* imedical.sqlite */; };
-		5BDD00C31AB2D7A8002A2088 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B15F7DE1A64366600E5E838 /* libsqlite3.0.dylib */; };
 		5BDD00C61AB2D86F002A2088 /* sqlite3_unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD00C41AB2D86F002A2088 /* sqlite3_unicode.c */; };
 		5BDD00F21AB2EC9C002A2088 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD00E81AB2EC9C002A2088 /* FMDatabase.m */; };
 		5BDD00F31AB2EC9C002A2088 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD00EA1AB2EC9C002A2088 /* FMDatabaseAdditions.m */; };
@@ -155,6 +154,8 @@
 		5BDD011F1AB35B62002A2088 /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD011B1AB35B62002A2088 /* GQTPointQuadTree.m */; };
 		5BDD01201AB35B62002A2088 /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD011D1AB35B62002A2088 /* GQTPointQuadTreeChild.m */; };
 		5BDD01231AB35BAD002A2088 /* Spot.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD01221AB35BAD002A2088 /* Spot.m */; };
+		5BDD01241AB48423002A2088 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B15F7DE1A64366600E5E838 /* libsqlite3.0.dylib */; };
+		5BDD01261AB48CC6002A2088 /* filterIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDD01251AB48CC6002A2088 /* filterIcon@2x.png */; };
 		5BF133721AA07E4100E2CC47 /* libTestFairy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF1336F1AA07E4100E2CC47 /* libTestFairy.a */; };
 		5BF133731AA07E4100E2CC47 /* upload-dsym.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5BF133711AA07E4100E2CC47 /* upload-dsym.sh */; };
 		5BF133751AA080AB00E2CC47 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF133741AA080AB00E2CC47 /* CoreMedia.framework */; };
@@ -549,6 +550,7 @@
 		5BDD011E1AB35B62002A2088 /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
 		5BDD01211AB35BAD002A2088 /* Spot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spot.h; sourceTree = "<group>"; };
 		5BDD01221AB35BAD002A2088 /* Spot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spot.m; sourceTree = "<group>"; };
+		5BDD01251AB48CC6002A2088 /* filterIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filterIcon@2x.png"; sourceTree = "<group>"; };
 		5BF1336F1AA07E4100E2CC47 /* libTestFairy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFairy.a; sourceTree = "<group>"; };
 		5BF133701AA07E4100E2CC47 /* TestFairy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFairy.h; sourceTree = "<group>"; };
 		5BF133711AA07E4100E2CC47 /* upload-dsym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "upload-dsym.sh"; sourceTree = "<group>"; };
@@ -786,7 +788,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BDD00C31AB2D7A8002A2088 /* libsqlite3.0.dylib in Frameworks */,
+				5BDD01241AB48423002A2088 /* libsqlite3.0.dylib in Frameworks */,
 				5BF133771AA080B300E2CC47 /* CoreMotion.framework in Frameworks */,
 				5BF133751AA080AB00E2CC47 /* CoreMedia.framework in Frameworks */,
 				5B1DB12C1A6E9F3E0099E35C /* GoogleMaps.framework in Frameworks */,
@@ -1414,6 +1416,7 @@
 		B2B9C42D18EB5C460066F146 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5BDD01251AB48CC6002A2088 /* filterIcon@2x.png */,
 				5BDD00FA1AB321CF002A2088 /* search_icon@2x.png */,
 				5B5CC2471A9394B400BACFEF /* addWhiteInCircle@2x.png */,
 				5B5CC2371A92497100BACFEF /* grayArrowDown@2x.png */,
@@ -1946,6 +1949,7 @@
 				5B83173D1A7515C800A5EFDF /* ResultRiskAnal.xib in Resources */,
 				5B5CC2391A92497100BACFEF /* grayArrowDown@2x.png in Resources */,
 				B2B9C44818EB6DDC0066F146 /* AnalizDataUserPage.xib in Resources */,
+				5BDD01261AB48CC6002A2088 /* filterIcon@2x.png in Resources */,
 				B282C53018F1FBFB009450B7 /* result_line.png in Resources */,
 				5B8B472E1A9E143F00D8EE93 /* ok_logo_dark@2x.png in Resources */,
 				5B5CC2141A8CB3D000BACFEF /* addGray@2x.png in Resources */,

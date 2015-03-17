@@ -35,6 +35,8 @@ typedef NSUInteger MenuItem;
 @synthesize tasks;
 @synthesize days;
 @synthesize records;
+@synthesize calendarPage;
+@synthesize analisisResultPage;
 
 - (void)viewDidLoad
 {
@@ -402,7 +404,7 @@ typedef NSUInteger MenuItem;
             break;
         }
         case mySuccess:{
-            
+            [self openDaybook];
             break;
         }
         case commonReport:{
@@ -489,12 +491,21 @@ typedef NSUInteger MenuItem;
 }
 
 -(void)openResultsAnal{
-    if (!resultRiskAnal) {
-        resultRiskAnal = [ResultRiskAnal new];
+    if (!analisisResultPage) {
+        analisisResultPage = [AnalisisResultPage new];
     }
-    resultRiskAnal.needUpdate = YES;
-    [self.navigationController pushViewController:resultRiskAnal animated:YES];
+    analisisResultPage.isFromMenu = YES;
+    [self.navigationController pushViewController:analisisResultPage animated:YES];
 
+}
+
+-(void)openDaybook{
+    if (!calendarPage) {
+        calendarPage = [CalendarPage new];
+    }
+
+    [self.navigationController pushViewController:calendarPage animated:YES];
+    
 }
 
 -(void)openSiteReport{
