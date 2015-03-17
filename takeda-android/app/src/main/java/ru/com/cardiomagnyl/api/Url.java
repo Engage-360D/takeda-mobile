@@ -27,6 +27,7 @@ public final class Url {
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
     public static final String INSTITUTION_PARSED_TOWNS = API_ADDR + "institution-parsed-towns";
+    public static final String INSTITUTION_PARSED_TOWNS_TOWN = API_ADDR + "institution-parsed-towns/%s,%s";
     public static final String INSTITUTION_SPECIALIZATIONS = API_ADDR + "institution-specializations";
     public static final String INSTITUTIONS = API_ADDR + "institutions?parsedTown=%s&specialization=%s";
 

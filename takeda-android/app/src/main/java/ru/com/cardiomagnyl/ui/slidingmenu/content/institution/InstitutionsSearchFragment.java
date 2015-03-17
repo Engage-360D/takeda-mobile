@@ -439,7 +439,47 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         if (currentLocation != null) {
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), ONE_POINT_ZOOM);
             googleMap.animateCamera(cameraUpdate);
+            getCurrentTown(currentLocation);
         }
+    }
+
+    private void getCurrentTown(/*final View fragmentView,*/ Location location) {
+        TownDao.getByLocation(
+                location,
+                new CallbackOne<Town>() {
+                    @Override
+                    public void execute(Town town) {
+                        AutoCompleteTextView autoCompleteTextViewTown = (AutoCompleteTextView) mFragmentView.findViewById(R.id.autoCompleteTextViewTown);
+                        Spinner spinnerSpecialization = (Spinner) mFragmentView.findViewById(R.id.spinnerSpecialization);
+                        LinearLayout linearLayoutSearch = (LinearLayout) mFragmentView.findViewById(R.id.linearLayoutSearch);
+
+                        autoCompleteTextViewTown.setText(town.getName());
+                        autoCompleteTextViewTown.setTag(town.getName());
+                        spinnerSpecialization.setSelection(0);
+                        spinnerSpecialization.setTag(((CustomSpinnerAdapter)spinnerSpecialization.getAdapter()).getItem(0).getName());
+
+                        // comment if need
+                        if (linearLayoutSearch.getVisibility() != View.VISIBLE) {
+                            tryToGetInstitutions(mFragmentView);
+                        }
+
+                        // uncomment if need
+                        //    int plateMedium = (int) mFragmentView.getContext().getResources().getDimension(R.dimen.space_medium);
+                        //    if (linearLayoutSearch.getVisibility() != View.VISIBLE) {
+                        //        CustomExpandAnimation customExpandAnimation = new CustomExpandAnimation(linearLayoutSearch, 300, CustomExpandAnimation.EXPAND);
+                        //        customExpandAnimation.setHeight(plateMedium);
+                        //        linearLayoutSearch.startAnimation(customExpandAnimation);
+                        //    }
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        int t = 0;
+                        t++;
+                    }
+                }
+        );
     }
 
 }
