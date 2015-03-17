@@ -9,10 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 
-public class UsefulToKnowFragment extends BaseItemFragment implements View.OnClickListener {
-    private enum Socials {vk, fb, ok, gp}
+public class UsefulToKnowFragment extends BaseItemFragment {
+    private String[] usefulDescription = CardiomagnylApplication.getAppContext().getResources().getStringArray(R.array.useful_description);
+    private String[] usefulContent = CardiomagnylApplication.getAppContext().getResources().getStringArray(R.array.useful_content);
+    private TypedArray usefulIcons = CardiomagnylApplication.getAppContext().getResources().obtainTypedArray(R.array.useful_icons);
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_useful_to_know, null);
@@ -22,20 +25,59 @@ public class UsefulToKnowFragment extends BaseItemFragment implements View.OnCli
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        initTopBarBellAddPill(viewGroupTopBar, true, true);
+        initTopBarBellCabinet(viewGroupTopBar, true, true);
     }
 
-    @Override
-    public void onClick(View v) {
+    private View.OnClickListener onClickListenerVk = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int position = (Integer) view.getTag();
 
-    }
+            String description = usefulDescription[position];
+            String content = usefulContent[position];
+
+            // TODO: share by VK
+        }
+    };
+
+    private View.OnClickListener onClickListenerFb = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int position = (Integer) view.getTag();
+
+            String description = usefulDescription[position];
+            String content = usefulContent[position];
+
+            // TODO: share by FB
+        }
+    };
+
+    private View.OnClickListener onClickListenerOk = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int position = (Integer) view.getTag();
+
+            String description = usefulDescription[position];
+            String content = usefulContent[position];
+
+            // TODO: share by OK
+        }
+    };
+
+    private View.OnClickListener onClickListenerGp = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int position = (Integer) view.getTag();
+
+            String description = usefulDescription[position];
+            String content = usefulContent[position];
+
+            // TODO: share by GP
+        }
+    };
 
     private void initFragment(final View fragmentView) {
         LinearLayout linearLayoutContent = (LinearLayout) fragmentView.findViewById(R.id.linearLayoutContent);
-
-        String[] usefulDescription = getResources().getStringArray(R.array.useful_description);
-        String[] usefulContent = getResources().getStringArray(R.array.useful_content);
-        TypedArray usefulIcons = getResources().obtainTypedArray(R.array.useful_icons);
 
         for (int counter = 0; counter < usefulDescription.length; ++counter) {
             View item = View.inflate(getActivity(), R.layout.layout_useful_to_know_item, null);
@@ -54,17 +96,17 @@ public class UsefulToKnowFragment extends BaseItemFragment implements View.OnCli
 
             textViewContent.setText(usefulContent[counter]);
 
-            imageViewVk.setTag(Socials.vk);
-            imageViewVk.setOnClickListener(this);
+            imageViewVk.setTag(counter);
+            imageViewVk.setOnClickListener(onClickListenerVk);
 
-            imageViewFb.setTag(Socials.fb);
-            imageViewFb.setOnClickListener(this);
+            imageViewFb.setTag(counter);
+            imageViewFb.setOnClickListener(onClickListenerFb);
 
-            imageViewOk.setTag(Socials.ok);
-            imageViewOk.setOnClickListener(this);
+            imageViewOk.setTag(counter);
+            imageViewOk.setOnClickListener(onClickListenerOk);
 
-            imageViewGp.setTag(Socials.gp);
-            imageViewGp.setOnClickListener(this);
+            imageViewGp.setTag(counter);
+            imageViewGp.setOnClickListener(onClickListenerGp);
         }
     }
 
