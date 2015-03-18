@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+import ru.com.cardiomagnyl.api.Status;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppSharedPreferences;
 import ru.com.cardiomagnyl.application.AppState;
@@ -147,7 +148,11 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(token, user, null, null, null, responseError);
+                        if (responseError.getError().getCode() == Status.CONFLICT_ERROR) {
+                            getTestResult(token, user, new Incidents());
+                        } else {
+                            finishInitialization(token, user, null, null, null, responseError);
+                        }
                     }
                 }
         );

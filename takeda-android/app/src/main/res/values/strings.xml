@@ -59,7 +59,7 @@
     <string name="error_authorization">Произошла ошибка во время авторизации.</string>
     <string name="error_registration">Произошла ошибка во время регистрации.</string>
     <string name="error_get_test_results">Произошла ошибка во время получения результатов теста.</string>
-    <string name="authorization_error">Ошибка авторизации</string>
+    <string name="authorization_error">Ошибка авторизации.</string>
     <string name="error_tets_already_passed">Вы уже проходили тест.\nТест проходится раз в месяц.\nПопробуйте позже.</string>
     <string name="error_tets_username_not_unique">Вы уже регистрировались, пожалуйста вернитесь к входу.\nТам же вы можете восстановить пароль.</string>
     <string name="error_user_not_found">Такой пользователь не найден.\nУбедитесь, что вы правильно ввели электронный адрес.</string>

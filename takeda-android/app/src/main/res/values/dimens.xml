@@ -85,6 +85,7 @@
     <!-- ==== -->
     <!-- text -->
     <!-- ==== -->
+    <dimen name="text_size_xxxsmall">10sp</dimen>
     <dimen name="text_size_xxsmall">12sp</dimen>
     <dimen name="text_size_xsmall">13sp</dimen>
     <dimen name="text_size_small">15sp</dimen>

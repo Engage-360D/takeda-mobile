@@ -37,6 +37,7 @@ public class AppState {
     private Incidents mIncidents;
     private TestResult mTestResult;
     private TestDietResult mTestDietResult;
+    private int mTimelineEvents;
 
     public Token getToken() {
         return mToken;
@@ -76,6 +77,14 @@ public class AppState {
 
     public void setTestDietResult(TestDietResult testDietResult) {
         mTestDietResult = testDietResult;
+    }
+
+    public int getTimelineEvents() {
+        return mTimelineEvents;
+    }
+
+    public void setTimelineEvents(int timelineEvents) {
+        mTimelineEvents = timelineEvents;
     }
 
     public boolean isInitialized() {

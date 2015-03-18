@@ -11,6 +11,7 @@ public final class Url {
 
     public static final String USERS = API_ADDR + "users";
     public static final String ACCOUNT = API_ADDR + "account";
+    public static final String ACCOUNT_RESET = API_ADDR + "account/reset?token=%s";
     public static final String ACCOUNT_UPDATE = API_ADDR + "account?token=%s";
     public static final String ACCOUNT_RESET_PASSWORD = API_ADDR + "account/reset-password";
     public static final String ACCOUNT_TEST_RESULTS = API_ADDR + "account/test-results?token=%s";

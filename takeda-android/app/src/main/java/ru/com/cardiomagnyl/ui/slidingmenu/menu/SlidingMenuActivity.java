@@ -90,7 +90,9 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
                 mFragmentManager.beginTransaction().attach(fragment).commit();
             }
         }
-        initTopOnFragmentChanged(fragment, false);
+
+        // TODO: commented line because "initTopOnFragmentChanged" called twice
+        // initTopOnFragmentChanged(fragment, false);
 
         mSlidingMenuListFragment = (SlidingMenuListFragment) mFragmentManager.findFragmentByTag(SlidingMenuListFragment.class.getName());
         if (mSlidingMenuListFragment == null) {

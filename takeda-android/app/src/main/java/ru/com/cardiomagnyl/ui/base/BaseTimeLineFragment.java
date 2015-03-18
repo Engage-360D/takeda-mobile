@@ -102,6 +102,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                     @Override
                     public void execute(List<Timeline> timeline) {
                         Collections.sort(timeline, new TimelineComparator());
+                        AppState.getInsnatce().setTimelineEvents(Timeline.calculateMissedTasks(timeline));
                         getPillDatabase(fragmentView, timeline);
                     }
                 },
@@ -170,6 +171,8 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
         } else {
             onTimelineUpdated(fragmentView);
         }
+
+        updateMissedEvents();
     }
 
     private void initDialogBody(final RadioGroup RadioGroup, final Button buttonSave) {
@@ -246,6 +249,8 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                     @Override
                     public void execute(Task task) {
                         slidingMenuActivity.hideProgressDialog();
+                        AppState.getInsnatce().setTimelineEvents(AppState.getInsnatce().getTimelineEvents() - 1);
+                        updateMissedEvents();
                         onTaskUpdated(task);
                     }
                 },
