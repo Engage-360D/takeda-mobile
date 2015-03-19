@@ -156,7 +156,7 @@ public class Tools {
         return calendar;
     }
 
-    public static Calendar calendarFromLongDate(String longDate) {
+    public static Calendar calendarFromFullDate(String longDate) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
         Calendar calendar = Calendar.getInstance();

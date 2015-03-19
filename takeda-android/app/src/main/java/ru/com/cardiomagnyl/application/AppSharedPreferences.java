@@ -3,6 +3,11 @@ package ru.com.cardiomagnyl.application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 public class AppSharedPreferences {
 
     public static enum Class {
@@ -10,7 +15,8 @@ public class AppSharedPreferences {
         flt(Float.class),
         ntg(Integer.class),
         lng(Long.class),
-        str(String.class);
+        str(String.class),
+        str_set(Set.class);
 
         private final java.lang.Class mPrefClass;
 
@@ -24,7 +30,8 @@ public class AppSharedPreferences {
     }
 
     public static enum Preference {
-        tokenId("token", Class.str);
+        tokenId("token", Class.str),
+        alarmActions("alarm_actions", Class.str_set);
 
         private final String mPrefName;
         private final Class mClass;
@@ -57,6 +64,8 @@ public class AppSharedPreferences {
                 return preferences.getLong(preference.getPrefName(), 0);
             case str:
                 return preferences.getString(preference.getPrefName(), "");
+            case str_set:
+                return preferences.getStringSet(preference.getPrefName(), new HashSet<String>());
         }
         return null;
     }
@@ -79,6 +88,9 @@ public class AppSharedPreferences {
                 break;
             case str:
                 preferences.edit().putString(preference.getPrefName(), (String) value).commit();
+                break;
+            case str_set:
+                preferences.edit().putStringSet(preference.getPrefName(), (Set<String>) value).commit();
                 break;
         }
     }

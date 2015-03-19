@@ -306,7 +306,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
     }
 
     // FIXME: clean tables for current user only
-    public static void resetProfileDb() {
+    private static void resetProfileDb() {
         RuntimeExceptionDao helperFactoryUser = HelperFactory.getHelper().getRuntimeDataDao(User.class);
         ConnectionSource connectionSource = helperFactoryUser.getConnectionSource();
 

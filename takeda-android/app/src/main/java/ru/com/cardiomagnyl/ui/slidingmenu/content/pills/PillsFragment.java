@@ -20,6 +20,7 @@ import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
+import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
 
 public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayout.OnRefreshListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,6 +67,8 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
                 new CallbackOne<List<Pill>>() {
                     @Override
                     public void execute(List<Pill> pillsList) {
+                        PillsScheduler.setAll(pillsList);
+
                         initFragmentFinish(fragmentView, pillsList);
                     }
                 },
@@ -86,6 +89,8 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
                 new CallbackOne<List<Pill>>() {
                     @Override
                     public void execute(List<Pill> pillsList) {
+                        PillsScheduler.setAll(pillsList);
+
                         initFragmentFinish(fragmentView, pillsList);
                     }
                 },

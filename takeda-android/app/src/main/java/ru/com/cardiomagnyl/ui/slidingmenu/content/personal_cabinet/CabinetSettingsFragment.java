@@ -146,7 +146,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                     @Override
                     public void execute(Dummy dummy) {
                         slidingMenuActivity.hideProgressDialog();
-
+                        AppState.getInsnatce().setTimelineEvents(0);
                         Intent intent = new Intent(slidingMenuActivity, SplashActivity.class);
                         startActivity(intent);
                         slidingMenuActivity.finish();
@@ -156,17 +156,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                     @Override
                     public void execute(Response responseError) {
                         slidingMenuActivity.hideProgressDialog();
-
-                        // FIXME: change server response to proper format!
-                        if (responseError.getError().getCode() == 4) {
-                            UserDao.resetProfileDb();
-
-                            Intent intent = new Intent(slidingMenuActivity, SplashActivity.class);
-                            startActivity(intent);
-                            slidingMenuActivity.finish();
-                        } else {
-                            Tools.showToast(slidingMenuActivity, R.string.error_occurred, Toast.LENGTH_LONG);
-                        }
+                        Tools.showToast(slidingMenuActivity, R.string.error_occurred, Toast.LENGTH_LONG);
 
                     }
                 }

@@ -203,7 +203,7 @@ public class PillDao extends BaseDaoImpl<Pill, Integer> {
 
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
-                        .Builder(Request.Method.DELETE, String.format(Url.ACCOUNT_PILLS, pill.getId(), token.getTokenId()), typeReference)
+                        .Builder(Request.Method.DELETE, String.format(Url.ACCOUNT_PILLS_ID, pill.getId(), token.getTokenId()), typeReference)
                         .addHeaders(Url.DELETE_HEADERS)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();

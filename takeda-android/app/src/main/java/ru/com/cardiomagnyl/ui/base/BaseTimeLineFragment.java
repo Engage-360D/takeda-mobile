@@ -38,6 +38,7 @@ import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.TimelineComparator;
 import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.util.Utils;
+import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
@@ -122,6 +123,8 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 new CallbackOne<List<Pill>>() {
                     @Override
                     public void execute(List<Pill> pillsList) {
+                        PillsScheduler.setAll(pillsList);
+
                         Map<String, Pill> pillsMap = Pill.listToMap(pillsList);
                         initFragmentFinish(fragmentView, timeline, pillsMap);
                     }
