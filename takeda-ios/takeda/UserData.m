@@ -32,16 +32,50 @@ static UserData *objectInstance = nil;
     }
 }
 
--(void)setupUserDefaultsForUser:(NSString*)user_email{
++(void)resetData{
+    objectInstance = nil;
+}
+
++(void)saveBasicalUserInfo:(NSMutableDictionary*)userInfo{
+    NSArray *fields = [userInfo allKeys]; // @[@"email", @"access_token", @"id", @"roles", @"", @""];
+    NSMutableDictionary* dict = [NSMutableDictionary new];
+
+    for (NSString *field in fields){
+        if (userInfo[field]){
+            [dict setObject:userInfo[field] forKey:field];
+        }
+    }
     
+    if (dict){
+        [[NSUserDefaults standardUserDefaults] setValue:dict[@"email"] forKey:@"lastUser"];
+        [dict saveTofile:userSettingsFile];
+    }
 
     
 }
 
+-(void)setupUserDefaultsForUser:(NSString*)user_email{
+    [UserDefaults removeObjectForKey:@"incidents"];
+    [UserDefaults removeObjectForKey:@"access_token"];
+    [UserDefaults removeObjectForKey:@"lastUser"];
+    [UserDefaults removeObjectForKey:uKey(@"lastResultDataId")];
+
+}
+
 -(BOOL)userBlocked{
     if ([self checkForRole:tDoctor]) return NO;
-    if ([self incidents].count>0) return YES;
     
+//    for (NSString *key in [self incidents].allKeys){
+//        if ([[self incidents][key] boolValue]){
+//            return YES;
+//        }
+//    }
+
+    for (id incidentValue in [self incidents].allValues){
+        if ([incidentValue boolValue]){
+            return YES;
+        }
+    }
     NSMutableArray *allResults = [GlobalData resultAnalyses];
     if (allResults.count>0){
         NSMutableDictionary *results_data;
@@ -86,13 +120,13 @@ static UserData *objectInstance = nil;
     return NO;
 }
 
--(NSMutableArray*)incidents{
-    [[NSUserDefaults standardUserDefaults] setObject:[NSMutableArray new] forKey:@"incidents"];
+-(NSMutableDictionary*)incidents{
+  //  [[NSUserDefaults standardUserDefaults] setObject:[NSMutableArray new] forKey:@"incidents"];
     if (!_incidents) {
         _incidents = [UserDefaults valueForKey:@"incidents"];
     }
     if (!_incidents){
-        _incidents = [NSMutableArray new];
+        _incidents = [GlobalData incidentModel];
         [self saveIncidents];
     }
     return _incidents;
@@ -141,13 +175,6 @@ static UserData *objectInstance = nil;
 
 -(void)setUserData:(NSMutableDictionary*)user_data{
     userData_ = user_data;
-}
-
--(void)savePassword:(NSString*)pass{
-  //  [UserDefaults setObject:pass forKey:uKey(@"pass")];
-}
--(void)saveUserName:(NSString*)username{
-    [UserDefaults setObject:username forKey:uKey(@"username")];
 }
 
 -(void)updateUser:(NSString*)login userInfo:(NSMutableDictionary*)userInfo accessToken:(NSString*)accessToken{
@@ -200,10 +227,16 @@ static UserData *objectInstance = nil;
 }
 
 -(void)logoutUser{
-    [self setupUserDefaultsForUser:nil];
-    [GlobalData clearFiles];
+    [self resetUser];
     self.userData = nil;
   //  [NSUserDefaults resetStandardUserDefaults];
+}
+
+-(void)resetUser{
+    [self setupUserDefaultsForUser:nil];
+    [GlobalData clearFiles];
+
+    
 }
 
 -(NSString*)getLastUser{

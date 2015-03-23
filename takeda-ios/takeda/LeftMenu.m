@@ -96,6 +96,17 @@
     [self.tableView reloadData];
 }
 
+-(void)openMainPage{
+    [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_MainPage];
+
+    if (!mainPage_vc) {
+            mainPage_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getMainPage]];
+        }
+        
+        last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
+        [self.slideMenuController closeMenuBehindContentViewController:mainPage_vc animated:NO completion:nil];
+        
+}
 
 #pragma mark - Table view data source
 

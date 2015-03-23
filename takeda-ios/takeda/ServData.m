@@ -24,6 +24,11 @@ static ServData *objectInstance = nil;
     }
 }
 
++(void)resetData{
+    objectInstance = nil;
+}
+
+
 +(NSData*)preparedParams:(NSDictionary*)params{
     NSMutableDictionary *p = [NSMutableDictionary new];
     [p setObject:[self setupNulls:params] forKey:@"data"];
@@ -188,6 +193,32 @@ static ServData *objectInstance = nil;
     }];
 }
 
++(void)resetUserParamsPassword:(NSString*)password completion:(void (^)(BOOL result, NSError* error))completion
+{
+    if (appDelegate.hostConnection == NotReachable){
+        completion(NO,[NSError errorWithDomain:kErrDomain code:500 userInfo:nil]);
+        return;
+    }
+    
+    NSString *url = [NSString stringWithFormat:
+                     @"%@%@",kServerURL,kAccountReset];
+    
+    NSDictionary *params = @{@"plainPassword":password};
+    
+    [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result, NSError *error){
+        completion([error answerOk],nil);
+        
+        //        if (result[@"data"][@"id"]){
+        //            // success
+        //            completion(YES,nil);
+        //        } else {
+        //            completion(NO,nil);
+        //        }
+    }];
+}
+
+
+
 +(void)loadRegionsWithCompletion:(void (^)(BOOL result, NSError* error))completion
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kServerURL, kRegionsList];
@@ -212,6 +243,26 @@ static ServData *objectInstance = nil;
     
     [self sendCommonPOST:url body:[self preparedParams:params] success:^(id res, NSError *errorr){
         completion([errorr answerOk], errorr, res);
+    }];
+
+}
+
++(void)loadIncidentsCompletion:(void (^)(BOOL result, NSError* error))completion{
+    NSString *url = [NSString stringWithFormat:@"%@%@",kServerURL, kAccountIncidents];
+
+    [self sendCommon:url success:^(id result, NSError *error){
+        BOOL success = NO;
+        if (result[@"data"]) {
+            [GlobalData saveIncidents:result[@"data"]];
+            success = YES;
+        } else {
+            if (error.code==409){
+                [GlobalData saveIncidents:[GlobalData incidentModel]];
+                success = YES;
+            }
+        }
+        completion(success, error);
+        
     }];
 
 }
@@ -378,6 +429,19 @@ static ServData *objectInstance = nil;
         
     }];
 }
+
++(void)loadMyCityByLocation:(CLLocation*)location copml:(void (^)(BOOL success, id result))completion{
+        NSString *urlstr = [NSString stringWithFormat:@"%@%@/%f,%f",kServerURL,kInstitutionTowns,location.coordinate.latitude,location.coordinate.longitude];
+        [self sendCommon:urlstr success:^(id res, NSError *error){
+            if (res!=nil&&[error answerOk]){
+                completion(YES, res);
+            } else {
+                completion(NO, res);
+            }
+            
+        }];
+    }
+
 
 +(void)loadLPUsListForCity:(NSString*)city spec:(NSString*)spec copml:(void (^)(BOOL success, id result))completion{
     

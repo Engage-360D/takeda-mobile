@@ -19,6 +19,7 @@ typedef void(^MyGlobalBlock)(void);
 }
 
 +(AllSingle*) sharedInstance;
++(void)resetData;
 
 @property (nonatomic, assign) NSString *trax;
 @property (nonatomic, strong) NSDictionary *DataTree;

@@ -8,6 +8,7 @@
 
 #import "VControllerExt.h"
 #import "Personal.h"
+#import "CalendarPage.h"
 
 @interface VControllerExt ()
 
@@ -17,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.mainElement = self.view;
     self.navigationController.navigationBarHidden = NO;
     [self setNavigationPanel];
@@ -26,6 +28,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self subscribeNotif];
     if (!self.parentVC){
         NSArray *controllers = self.navigationController.viewControllers;
         if (controllers.count>1){
@@ -39,13 +42,25 @@
     
     [self setNavImage];
     [self autosetupTextFieldDelegates:self.view];
-    
+    [self updateCalendarBadge];
     self.navigationController.navigationBarHidden = NO;
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
+    [self unsubscribeNotif];
     self.isFromMenu = NO;
     self.isAppearFromBack = NO;
+}
+
+-(void)subscribeNotif{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateCalendarBadge)
+                                                 name:kCalendarTasksChanged
+                                               object:nil];
+}
+
+-(void)unsubscribeNotif{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -203,6 +218,8 @@
     [cButton setImage:alarmImage forState:UIControlStateNormal];
     cButton.frame = CGRectMake(0.0,0.0,alarmImage.size.width+10,alarmImage.size.height);
     cButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
+    [cButton addTarget:self action:@selector(showCalendar) forControlEvents:UIControlEventTouchUpInside];
+    [cButton addSubview:self.calendarMissedEventsLabel];
     return [[UIBarButtonItem alloc] initWithCustomView:cButton];
 }
 
@@ -235,6 +252,45 @@
     
 }
 
+-(UILabel*)calendarMissedEventsLabel{
+    if (!_calendarMissedEventsLabel){
+        _calendarMissedEventsLabel = [[UILabel alloc] init];
+    }
+    [self updateCalendarBadge];
+    return _calendarMissedEventsLabel;
+}
+
+-(void)updateCalendarBadge{
+    if (User.userData==nil||GData.missedEventsCount==nil) return;
+    NSString *calendarCount = [NSString stringWithFormat:@"%i", [GData.missedEventsCount intValue]];
+    CGRect badgeFrame = CGRectMake(23, -2, 0, 15);
+    _calendarMissedEventsLabel.text = calendarCount;
+    _calendarMissedEventsLabel.textAlignment = NSTextAlignmentCenter;
+    _calendarMissedEventsLabel.contentMode = UIViewContentModeCenter;
+    _calendarMissedEventsLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
+    _calendarMissedEventsLabel.textColor = [UIColor whiteColor];
+    _calendarMissedEventsLabel.backgroundColor = RGB(213, 30, 39);
+    _calendarMissedEventsLabel.layer.cornerRadius = badgeFrame.size.height/2;
+    _calendarMissedEventsLabel.clipsToBounds = YES;
+    CGSize textSize = [Global text:[_calendarMissedEventsLabel text] sizeWithFont:[_calendarMissedEventsLabel font] constrainedToSize:CGSizeMake(CGFLOAT_MAX, _calendarMissedEventsLabel.height)];
+    badgeFrame.size.width = MAX(calendarCount.length>1?textSize.width+6:textSize.width,badgeFrame.size.height);
+    _calendarMissedEventsLabel.hidden = (calendarCount.length == 0||[GData.missedEventsCount intValue] == 0);
+    _calendarMissedEventsLabel.frame = badgeFrame;
+}
+
+- (BOOL)isModal {
+    if([self presentingViewController])
+        return YES;
+    if([[self presentingViewController] presentedViewController] == self)
+        return YES;
+    if([[[self navigationController] presentingViewController] presentedViewController] == [self navigationController])
+        return YES;
+    if([[[self tabBarController] presentingViewController] isKindOfClass:[UITabBarController class]])
+        return YES;
+    
+    return NO;
+}
+
 -(BOOL)isRootVC{
     return  self == [self.navigationController.viewControllers objectAtIndex: 0];
 }
@@ -242,6 +298,11 @@
 -(void)showPersonal{
     Personal *personal = [Personal new];
     [self.navigationController pushViewController:personal animated:YES];
+}
+
+-(void)showCalendar{
+    CalendarPage *calendar = [CalendarPage new];
+    [self.navigationController pushViewController:calendar animated:YES];
 }
 
 #pragma mark keyb

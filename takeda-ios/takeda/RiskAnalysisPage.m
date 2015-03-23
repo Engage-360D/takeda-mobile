@@ -59,7 +59,7 @@ int selectedIndex = 0;
         for (UIBarButtonItem *b in self.navigationItem.rightBarButtonItems){
             b.enabled = NO;
         }
-        self.navigationItem.leftBarButtonItem.enabled = NO;
+     //   self.navigationItem.leftBarButtonItem.enabled = NO;
     }
 }
 

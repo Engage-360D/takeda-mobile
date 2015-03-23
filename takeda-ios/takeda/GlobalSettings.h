@@ -24,6 +24,8 @@ typedef NSUInteger StateMenu;
 @interface GlobalSettings : NSObject
 
 +(GlobalSettings*)sharedInstance;
++(void)resetData;
+
 @property StateMenu stateMenu;
 
 

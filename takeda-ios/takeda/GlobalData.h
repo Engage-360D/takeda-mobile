@@ -12,11 +12,15 @@
 @interface GlobalData : NSObject
 
 +(GlobalData*)sharedObject;
++(void)resetData;
+
 @property (nonatomic, strong) FMDatabase *database;
+@property (nonatomic, strong) NSNumber* missedEventsCount;
 
 +(NSMutableArray*)regionsList;
 +(void)loadRegionsList:(void (^)(BOOL success, id result))completion;
 +(void)saveRegions:(NSMutableArray*)regions;
++(void)saveIncidents:(NSMutableDictionary*)incidents;
 +(void)saveResultAnalyses:(NSMutableDictionary*)result;
 +(NSMutableArray*)resultAnalyses;
 +(int)lastResultDataId;
@@ -28,15 +32,18 @@
 +(NSMutableDictionary*)resultDietForTestId:(int)testId;
 -(void)loadCitiesList:(void (^)(BOOL success, id result))completion;
 -(void)loadSpecializationsList:(void (^)(BOOL success, id result))completion;
--(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
--(void)addIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
--(void)deleteIncident:(NSMutableArray*)inc incident:(IncidentType)incType;
--(void)deleteAllIncidents:(NSMutableArray*)inc;
+//-(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
+-(void)addIncidentTo:(NSMutableDictionary*)inc incident:(NSString*)incidentType comment:(NSString*)comment;
+-(void)deleteIncident:(NSMutableDictionary*)inc incident:(NSString*)incidentType;
+-(void)deleteAllIncidents:(NSMutableDictionary*)inc;
++(NSMutableDictionary*)incidentModel;
 -(void)loadLPUSListForCity:(NSString*)city spec:(NSString*)spec copml:(void (^)(BOOL success, id result))completion;
+-(void)loadLPUSListWithCasheForCity:(NSString*)city spec:(NSString*)spec firstCashe:(BOOL)firstCache copml:(void (^)(BOOL success, id result))completion;
 -(NSMutableArray*)citiesTerm:(NSString*)term;
 -(NSMutableArray*)specializationsTerm:(NSString*)term;
 +(NSDictionary*)incidents;
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion;
++(void)loadMyCityByLocation:(CLLocation*)location fromCashe:(BOOL)fromCashe copml:(void (^)(BOOL success, id result))completion;
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion;
 +(NSMutableArray*)pills;
 +(NSMutableDictionary*)pillById:(int)pillId;
@@ -50,6 +57,8 @@
 +(void)casheTimeline:(NSMutableArray*)tasks;
 +(NSMutableArray*)cashedTimeline;
 
-+(id)cashedRequest:(NSString*)url;
++(id)cashedRequest:(NSString*)url needInternet:(BOOL)needIternet;
 +(void)casheRequest:(id)res fromUrl:(NSString*)url;
+
+
 @end

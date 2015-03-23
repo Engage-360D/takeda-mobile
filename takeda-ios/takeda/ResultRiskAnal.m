@@ -74,7 +74,6 @@
 
 -(void)setupInterface{
     
-    
     self.medSearchBtnRed.layer.borderColor = RGB(53, 65, 71).CGColor;
     self.medSearchBtnRed.layer.borderWidth = 1.0f;
     self.medSearchBtnRed.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:14];
@@ -141,14 +140,15 @@
 }
 
 -(void)showData{
-    if (self.disableBack){
+    
+    if (self.disableBack||self.isRootVC){
         self.navigationItem.leftBarButtonItem = [self menuButton];
     } else {
         self.navigationItem.leftBarButtonItem = [self backBtn];
     }
     self.infoBtn.enabled = !User.userBlocked;
 
-    if (results_data[@"recommendations"][@"fullScreenAlert"]!=nil&&[results_data[@"recommendations"][@"fullScreenAlert"]isKindOfClass:[NSDictionary class]]){
+    if (User.userBlocked){
         [self showScoreLineRed];
         [self showMainInfoRed];
         self.tableView.hidden = YES;
@@ -170,8 +170,18 @@
 #pragma mark - normResults
 
 -(void)showMainInfo{
-    
-    self.stateImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"scoreNote"][@"state"]]];
+    if ([results_data[@"recommendations"][@"scoreNote"] isKindOfClass:[NSDictionary class]]){
+        self.stateImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"scoreNote"][@"state"]]];
+       
+        if ([results_data[@"recommendations"][@"scoreNote"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"scoreNote"][@"text"] length]>0){
+            self.scoreNoteText.text = results_data[@"recommendations"][@"scoreNote"][@"text"];
+        } else {
+            self.scoreNoteText.text = @"";
+        }
+
+    } else {
+        self.scoreNoteText.text = @"";
+    }
 
     if ([results_data[@"recommendations"][@"mainRecommendation"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"mainRecommendation"][@"text"] length]>0){
         self.mainRecomendation.text = results_data[@"recommendations"][@"mainRecommendation"][@"text"];
@@ -179,15 +189,11 @@
         self.mainRecomendation.text = @"";
     }
     
-    if ([results_data[@"recommendations"][@"scoreNote"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"scoreNote"][@"text"] length]>0){
-        self.scoreNoteText.text = results_data[@"recommendations"][@"scoreNote"][@"text"];
-    } else {
-        self.scoreNoteText.text = @"";
-    }
     
     self.mainRecomendation.height = [Global heightLabel:self.mainRecomendation];
     self.scoreNoteText.height = [Global heightLabel:self.scoreNoteText];
-    
+    self.medSearchBtnRed.hidden = ![results_data[@"recommendations"][@"placesLinkShouldBeVisible"] boolValue];
+
     self.scoreLineContainer.y = self.mainRecomendation.bottom;
     self.scoreNoteText.y = self.scoreLineContainer.bottom;
     self.medSearchBtn.y = self.scoreNoteText.bottom+20;
@@ -235,7 +241,21 @@
 
 -(void)showMainInfoRed{
     
-    self.stateImageRed.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"fullScreenAlert"][@"state"]]];
+    if ([results_data[@"recommendations"][@"fullScreenAlert"] isKindOfClass:[NSDictionary class]]){
+        self.stateImageRed.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"fullScreenAlert"][@"state"]]];
+        
+        if ([results_data[@"recommendations"][@"fullScreenAlert"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"fullScreenAlert"][@"text"] length]>0){
+            self.scoreNoteTextRed.text = results_data[@"recommendations"][@"fullScreenAlert"][@"text"];
+        } else {
+            self.scoreNoteTextRed.text = @"";
+        }
+        
+    } else {
+        self.scoreNoteTextRed.text = @"";
+    }
+
+    
+//    self.stateImageRed.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"fullScreenAlert"][@"state"]]];
     
     if ([results_data[@"recommendations"][@"mainRecommendation"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"mainRecommendation"][@"text"] length]>0){
         self.mainRecomendationRed.text = results_data[@"recommendations"][@"mainRecommendation"][@"text"];
@@ -245,11 +265,11 @@
 
 //    self.mainRecomendationRed.text = @"";
     
-    if ([results_data[@"recommendations"][@"fullScreenAlert"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"fullScreenAlert"][@"text"] length]>0){
-        self.scoreNoteTextRed.text = results_data[@"recommendations"][@"fullScreenAlert"][@"text"];
-    } else {
-        self.scoreNoteTextRed.text = @"";
-    }
+//    if ([results_data[@"recommendations"][@"fullScreenAlert"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"fullScreenAlert"][@"text"] length]>0){
+//        self.scoreNoteTextRed.text = results_data[@"recommendations"][@"fullScreenAlert"][@"text"];
+//    } else {
+//        self.scoreNoteTextRed.text = @"";
+//    }
     
     self.medSearchBtnRed.hidden = ![results_data[@"recommendations"][@"placesLinkShouldBeVisible"] boolValue];
     self.mainRecomendationRed.height = [Global heightLabel:self.mainRecomendationRed];
@@ -473,7 +493,7 @@
 #pragma mark - Actions
 
 -(IBAction)shareAction:(id)sender{
-    [self showMessageWithTextInput:@"E-mail" msg:@"Отправить результат тестирования по почте" title:@"Share" btns:@[@"Отмена",@"Отправить"] params:@{@"text":User.userData[@"email"]} result:^(int index, NSString *text){
+    [self showMessageWithTextInput:@"E-mail" msg:nil title:@"Отправить результат тестирования по почте" btns:@[@"Отмена",@"Отправить"] params:@{@"text":User.userData[@"email"]} result:^(int index, NSString *text){
         if (index == 1){
             if (text.length == 0) { text = User.userData[@"email"];}
             [ServData shareTest:[results_data[@"id"] intValue] viaEmail:text completition:^(BOOL success, id result){
@@ -495,8 +515,8 @@
 }
 
 -(IBAction)infoAction:(id)sender{
-    _usefulKnowPage = [UsefulKnowPage new];
-    [self.navigationController pushViewController:_usefulKnowPage animated:YES];
+    _infoPage = [InfoPage new];
+    [self.navigationController pushViewController:_infoPage animated:YES];
 }
 
 -(void)openAdditionalFoodTest{

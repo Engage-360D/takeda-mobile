@@ -14,7 +14,8 @@ typedef enum {
 typedef enum {
     sVK = 1,
     sFB = 2,
-    sOK = 3
+    sOK = 3,
+    sGp = 4
 } SocialServices;
 
 typedef enum {

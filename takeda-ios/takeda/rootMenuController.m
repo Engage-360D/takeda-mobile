@@ -22,25 +22,29 @@
 
 
 
+
 @implementation rootMenuController{
-    RiskAnalysisPage *riskAnalysisPage;
-    SearchInstitutionPage* searchInstitutionPage;
-    RecomendationPage *recomendationPage;
-    AnalisisResultPage *analisisResultPage;
-    CalendarPage *calendarPage;
-    UsefulKnowPage *usefulKnowPage;
-    PublicationPage *publicationPage;
-    ReportsPage *reportsPage;
-    LeftMenu *leftMenu;
-    MainPage *mainPage;
-    ResultRiskAnal *resultRiskAnal;
-    NVSlideMenuController *slideMenuVC;
-    
-    UIViewController *riskAnalysis_vc;
-    UIViewController *mainPage_vc;
+
 
 }
+@synthesize riskAnalysisPage;
+@synthesize searchInstitutionPage;
+@synthesize recomendationPage;
+@synthesize analisisResultPage;
+@synthesize calendarPage;
+@synthesize usefulKnowPage;
+@synthesize publicationPage;
+@synthesize reportsPage;
+@synthesize leftMenu;
+@synthesize mainPage;
+@synthesize resultRiskAnal;
+@synthesize slideMenuVC;
+@synthesize riskAnalysis_vc;
+@synthesize mainPage_vc;
+
 static rootMenuController *sharedInst = NULL;
+
+
 
 
 +(rootMenuController*)sharedInstance{
@@ -48,6 +52,10 @@ static rootMenuController *sharedInst = NULL;
         sharedInst = [rootMenuController new];
     }
     return sharedInst;
+}
+
++(void)resetData{
+    sharedInst = nil;
 }
 
 

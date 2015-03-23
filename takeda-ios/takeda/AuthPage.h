@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PLTextField.h"
 #import "Vkontakte.h"
+#import "OKRequest.h"
+#import "OKSession.h"
 #import "Odnoklassniki.h"
 
 
@@ -29,5 +31,6 @@
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollView;
 
 @property (nonatomic,retain) IBOutlet UINavigationBar *nav_bar;
+@property (nonatomic,retain) IBOutlet UIView *containerView;
 
 @end

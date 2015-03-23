@@ -10,6 +10,7 @@
 #define kTokens @"tokens"   // получить токен пользователя (исп. для авторизации)
 #define kFacebook @"facebook"
 #define kVK @"vk"
+#define kOK @"ok"
 
 #define kUsers @"users"
 #define kAccount @"account" // Пользователи. POST - создать пользователя, GET - получить пользователей, /id - информация о пользователе.
@@ -27,6 +28,7 @@
 #define kInstitutionTowns @"institution-parsed-towns" // Список городов для поиска. GET.
 #define kInstitutionSpecializations @"institution-specializations" // Список специальностей для поиска. GET.
 #define kInstitutionsList @"institutions" // Список ЛПУ с поиска. GET.
+#define kAccountReset @"account/reset" // Ресет пользователя. POST.
 
 
 #define client_id @"3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4"
@@ -36,3 +38,5 @@
 #define  Odnkl_appID @"1126090240"
 #define  Odnkl_appSecret @"48E60A55CB4CF49C3E5D3762"
 #define  Odnkl_appKey @"CBAHMPBEEBABABABA"
+
+#define kSpecAutoSearchLPU @"Кардиология" // Ресет пользователя. POST.

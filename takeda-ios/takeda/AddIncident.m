@@ -7,10 +7,11 @@
 //
 
 #import "AddIncident.h"
+#import "LeftMenu.h"
 
 @interface AddIncident (){
     NSDictionary *alerts;
-    NSMutableArray *localIncidents;
+    NSMutableDictionary *localIncidents;
 }
 
 @end
@@ -21,9 +22,9 @@ int incident;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    alerts = @{[NSNumber numberWithInt:inInsultInfarct]:@{@"text":@"Вы перенесли Инфракт/Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               [NSNumber numberWithInt:inCoronar]:@{@"text":@"Вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               [NSNumber numberWithInt:inDiabet]:@{@"text":@"Вы перенесли Диабет и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
+    alerts = @{@"hadHeartAttackOrStroke":   @{@"text":@"Вы перенесли Инфракт/Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               @"hadBypassSurgery":         @{@"text":@"Вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               @"hasDiabetes":              @{@"text":@"Вы перенесли Диабет и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
 
     [self setupInterface];
 }
@@ -52,21 +53,29 @@ int incident;
 
 
 -(IBAction)addIncidentAction:(UIButton*)sender{
-    localIncidents = [NSMutableArray new];
+    localIncidents = [NSMutableDictionary new];
     incident = sender.tag;
     for (UIButton *btn in self.incBtns){
         btn.selected = (btn == sender);
     }
-    [GData setIncidentTo:localIncidents incident:sender.tag comment:_addComment.text];
+    [GData deleteAllIncidents:localIncidents];
+    [GData addIncidentTo:localIncidents incident:[[GlobalData incidents] objectForKey:[NSNumber numberWithInt:sender.tag]] comment:_addComment.text];
+    //[GData setIncidentTo:localIncidents incident:sender.tag comment:_addComment.text];
     [self showInfo];
 }
 
 -(void)showInfo{
     [self.incidentsContainer removeSubviews];
-    for (NSMutableDictionary *dict in localIncidents){
+    for (NSString *key in localIncidents.allKeys){
+        if ([localIncidents[key] boolValue]){
+            
             RAlertView *rAV = [[RAlertView alloc] init];
             [self.incidentsContainer addSubview:rAV];
-            [rAV setupWithTitle:alerts[dict[@"type"]][@"title"] text:alerts[dict[@"type"]][@"text"] img:alerts[dict[@"type"]][@"image"]];
+            //  [rAV setupWithTitle:alerts[dict[@"type"]][@"title"] text:alerts[dict[@"type"]][@"text"] img:alerts[dict[@"type"]][@"image"]];
+            [rAV setupWithTitle:alerts[key][@"title"] text:alerts[key][@"text"] img:alerts[key][@"image"]];
+            
+        }
+        
     }
     
     [self.incidentsContainer setupAutosizeBySubviews];
@@ -74,13 +83,20 @@ int incident;
 }
 
 -(void)save{
+    [self showActivityIndicatorWithString:@""];
     [ServData sendIncident:[[GlobalData incidents] objectForKey:[NSNumber numberWithInt:incident]] comment:(_addComment.text) completion:^(BOOL success, NSError *error, id res){
+        [self removeActivityIdicator];
         if (success){
-            [GData setIncidentTo:localIncidents incident:incident comment:_addComment.text];
+            
+            [GData deleteAllIncidents:localIncidents];
+            [GData addIncidentTo:localIncidents incident:[[GlobalData incidents] objectForKey:[NSNumber numberWithInt:incident]] comment:_addComment.text];
+            
             User.incidents = [[Global recursiveMutable:localIncidents] mutableCopy];
             [User saveIncidents];
+            
             [self showMessage:@"Инцидент успешно добавлен" title:@"Успех" result:^{
-                [self backAction];
+                [[rootMenuController sharedInstance].leftMenu openMainPage];
+                //[self backAction];
             }];
         } else {
             [self showMessage:@"Не удалось добавить инцидент" title:@"Ошибка"];

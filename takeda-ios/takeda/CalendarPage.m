@@ -47,8 +47,11 @@
 }
 
 -(void)initData{
+    if (!pullTorefreshVisible){
+        [self showActivityIndicatorWithString:@""];
+    }
     [GlobalData loadTimelineCompletition:^(BOOL success, id result){
-
+        [self removeActivityIdicator];
         if (success){
             NSLog(@"Получили данные");
             tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
@@ -75,13 +78,11 @@
         [GlobalData loadPillsCompletition:^(BOOL completition, id result){
             if ([self makePillsSuccess]){
                 [self filtrRecords];
-//                [self doneLoadingTableViewData];
                 [self.tableView reloadData];
             }
         }];
     } else {
         [self filtrRecords];
-//        [self doneLoadingTableViewData];
         [self.tableView reloadData];
     }
     [self doneLoadingTableViewData];
@@ -194,10 +195,20 @@
     self.fillEmptySwitch.layer.cornerRadius = 4.0f;
     self.tableView.backgroundColor = RGB(243, 243, 243);
     self.navigationItem.rightBarButtonItems = nil;
-    self.navigationItem.rightBarButtonItems = @[[self menuBarBtnWithImageName:@"addWhiteInCircle" selector:@selector(addPillsAction) forTarget:self],[self alarmButton]];
+    
+    self.navigationItem.rightBarButtonItems = @[[self addPills],[self personalButton]];
 
 }
 
+-(UIBarButtonItem*)addPills{
+    UIImage *alarmImage = [UIImage imageNamed:@"addWhiteInCircle"];
+    UIButton *cButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cButton setImage:alarmImage forState:UIControlStateNormal];
+    cButton.frame = CGRectMake(0.0,0.0,alarmImage.size.width+10,alarmImage.size.height);
+    cButton.contentEdgeInsets = (UIEdgeInsets){.left=5};
+    [cButton addTarget:self action:@selector(addPillsAction) forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:cButton];
+}
 
 -(void)addPillsAction{
     _addPills = [AddPills new];
@@ -330,10 +341,10 @@
         CASE(@"pill"){
         
             NSMutableString *capt = [NSMutableString new];
-            [capt appendString:@"Принять таблетки"];
+            [capt appendString:@"Принять"];
             
             if (item[@"pillInfo"]){
-                [capt appendFormat:@": %@",item[@"pillInfo"][@"name"]];
+                [capt appendFormat:@" %@",item[@"pillInfo"][@"name"]];
             }
 
             cell.caption.text = capt;

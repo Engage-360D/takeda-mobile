@@ -23,6 +23,10 @@ NSMutableDictionary * dic_data;
     
 }
 
++(void)resetData{
+    sharedInstance = nil;
+}
+
 -(void)setDefault_data_user_analize{
     if (!dic_data) {
         dic_data = [[NSMutableDictionary alloc] init];

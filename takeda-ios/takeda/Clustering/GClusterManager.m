@@ -39,6 +39,7 @@
 
 #pragma mark mapview delegate
 
+
 -(void)mapView:(GMSMapView *)mapView willMove:(BOOL)gesture {
     if ([self delegate] != nil
         && [self.delegate respondsToSelector:@selector(mapView:willMove:)]) {
@@ -62,8 +63,10 @@
         return;
     }
     previousCameraPosition = [mapView camera];
-    
+
     [self cluster];
+    
+    
     
     if ([self delegate] != nil
         && [self.delegate respondsToSelector:@selector(mapView:idleAtCameraPosition:)]) {
@@ -116,6 +119,7 @@
     
     return nil;
 }
+
 
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoContents:(GMSMarker *)marker {
     if ([self delegate] != nil

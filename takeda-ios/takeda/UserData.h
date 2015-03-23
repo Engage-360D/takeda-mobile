@@ -22,6 +22,9 @@
     NSMutableDictionary *userData_;
 }
 +(UserData*)sharedObject;
++(void)resetData;
+
++(void)saveBasicalUserInfo:(NSMutableDictionary*)userInfo;
 
 @property (nonatomic) BOOL userBlocked;
 
@@ -31,7 +34,7 @@
 @property (nonatomic, strong) NSMutableDictionary *userData;
 @property (nonatomic, strong) NSArray *userRoles;
 
-@property (nonatomic, strong) NSMutableArray *incidents;
+@property (nonatomic, strong) NSMutableDictionary *incidents;
 
 
 
@@ -43,8 +46,6 @@
 //-(NSDictionary*)getUserData;
 //-(void)setUserData:(NSMutableDictionary*)userData;
 
--(void)savePassword:(NSString*)pass;
--(void)saveUserName:(NSString*)username;
 -(BOOL)checkForRole:(UserType)role;
 
 -(void)updateUser:(NSString*)login userInfo:(NSMutableDictionary*)userInfo accessToken:(NSString*)access_token;

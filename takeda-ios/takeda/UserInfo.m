@@ -314,6 +314,9 @@
             return @"Одноклассники";
             break;
         }
+        case sGp:{
+            return @"Google+";
+        }
     }
 
 }

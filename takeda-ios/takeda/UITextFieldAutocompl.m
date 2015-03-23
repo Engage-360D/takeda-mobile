@@ -133,7 +133,7 @@
     
 }
 
--(void)updateItemsTable:(NSMutableArray*)Items{
+-(void)updateItemsTable:(NSArray*)Items{
     self.descriptions = nil;
     self.items = Items;
     if ([self checkToSameText]){
@@ -142,7 +142,7 @@
     [self showItemsTable];
 }
 
--(void)updateItemsTable:(NSMutableArray*)Items descriptions:(NSMutableArray*)descriptions{
+-(void)updateItemsTable:(NSArray*)Items descriptions:(NSMutableArray*)descriptions{
     self.items = Items;
     self.descriptions = descriptions;
     if ([self checkToSameText]){

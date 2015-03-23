@@ -13,8 +13,10 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <CoreLocation/CoreLocation.h>
     #import "NSNull+Safed.h"
     #import "FMDB.h"
+    #import "NSArray+Filt.h"
     #import "UIImageView+ForScrollView.h"
     #import "UITextField+Auto.h"
     #import "CActionSheet.h"

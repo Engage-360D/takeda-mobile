@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-
-
-
 @interface LeftMenu : UIViewController
+
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
+
+-(void)openMainPage;
+
+
 @end

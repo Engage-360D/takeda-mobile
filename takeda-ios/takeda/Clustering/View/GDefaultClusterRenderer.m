@@ -12,6 +12,7 @@
 @implementation GDefaultClusterRenderer {
     GMSMapView *_map;
     NSMutableArray *_markerCache;
+    GMSMarker *oldSelectedMarker;
 }
 
 - (id)initWithMapView:(GMSMapView*)googleMap {
@@ -23,6 +24,9 @@
 }
 
 - (void)clustersChanged:(NSSet*)clusters {
+    oldSelectedMarker = _map.selectedMarker;
+    GMSMarker *freshSelectedMarker;
+    
     for (GMSMarker *marker in _markerCache) {
         marker.map = nil;
     }
@@ -30,6 +34,7 @@
     [_markerCache removeAllObjects];
     
     for (id <GCluster> cluster in clusters) {
+        
         GMSMarker *marker;
         marker = [[GMSMarker alloc] init];
         [_markerCache addObject:marker];
@@ -37,16 +42,80 @@
         NSUInteger count = cluster.items.count;
         if (count > 1) {
             marker.icon = [self generateClusterIconWithCount:count];
+            marker.userData = @{@"clusterItems":cluster.items.allObjects};
+            BOOL contains = NO;
+            if (oldSelectedMarker!=nil){
+                contains = [self clusterContainsMarker:cluster];
+            }
+            
+            if (contains){
+                freshSelectedMarker = marker;
+                freshSelectedMarker.userData = oldSelectedMarker.userData;
+            }
+            
+            NSLog(@"cluster contain = %i",contains);
+//            if (oldSelectedMarker!=nil){
+//                NSLog(@"items = %@",cluster.items.allObjects);
+//                for (int i = 0; i< cluster.items.allObjects.count; i++){
+//                    GQuadItem *iitem = cluster.items.allObjects[i];
+//                    if ([oldSelectedMarker.userData[@"id"] intValue] == [iitem.marker.userData[@"id"] intValue]){
+//                        freshSelectedMarker = marker;
+//                    }
+//                }
+//            }
+            
         }
         else {
             marker.icon = cluster.marker.icon;
+            marker.userData = cluster.marker.userData;
+            if ([oldSelectedMarker.userData[@"id"] intValue] ==[marker.userData[@"id"] intValue]){
+                
+                //            if (oldSelectedMarker.position.latitude == marker.position.latitude&&oldSelectedMarker.position.longitude == marker.position.longitude&&[oldSelectedMarker.userData[@"id"] intValue] ==[marker.userData[@"id"] intValue]){
+                freshSelectedMarker = marker;
+            }
+            
         }
-        
-        marker.userData = cluster.marker.userData;
         
         marker.position = cluster.marker.position;
         marker.map = _map;
+        
+        
     }
+    if (freshSelectedMarker){
+        [_map setSelectedMarker:freshSelectedMarker];
+    }
+    
+}
+
+-(BOOL)clusterContainsMarker:(id <GCluster>)cluster{
+    for (int i = 0; i< cluster.items.allObjects.count; i++){
+        GQuadItem *iitem = cluster.items.allObjects[i];
+        if ([self itemContainsMarker:iitem.items.allObjects]==YES){
+            return YES;
+        };
+    }
+    return NO;
+}
+
+-(BOOL)itemContainsMarker:(NSArray*)iitems{
+    NSUInteger count = iitems.count;
+    if (count > 1) {
+        for (int i = 0; i< iitems.count; i++){
+            if ([self itemContainsMarker:iitems]==YES){
+                return YES;
+            }
+        }
+        
+    } else {
+        GQuadItem *iitem = iitems[0];
+        if ([oldSelectedMarker.userData[@"id"] intValue] == [iitem.marker.userData[@"id"] intValue]){
+            return YES;
+        } else {
+            return NO;
+        }
+    }
+    
+    return NO;
 }
 
 - (UIImage*)generateClusterIconWithCount:(NSUInteger)count {
