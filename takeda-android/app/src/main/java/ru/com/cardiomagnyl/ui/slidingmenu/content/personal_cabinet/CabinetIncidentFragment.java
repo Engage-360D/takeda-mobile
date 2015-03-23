@@ -15,10 +15,11 @@ import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.common.Dummy;
 import ru.com.cardiomagnyl.model.common.Response;
-import ru.com.cardiomagnyl.model.incident.Incident;
-import ru.com.cardiomagnyl.model.incident.IncidentDao;
+import ru.com.cardiomagnyl.model.incidents.Incidents;
+import ru.com.cardiomagnyl.model.incidents.IncidentsDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.MainFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
@@ -127,19 +128,23 @@ public class CabinetIncidentFragment extends BaseItemFragment {
         final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.showProgressDialog();
 
-        Incident incident = pickAllFields();
+        final Incidents incidents = pickAllFields();
         Token token = AppState.getInsnatce().getToken();
-        IncidentDao.report(
-                incident,
+        IncidentsDao.report(
+                incidents,
                 token,
                 new CallbackOne<Dummy>() {
                     @Override
                     public void execute(Dummy dummy) {
-                        // FIXME: dummy
-                        Tools.showToast(getActivity(), R.string.resp_201_created, Toast.LENGTH_LONG);
-
                         slidingMenuActivity.hideProgressDialog();
                         slidingMenuActivity.makeContentStepBack(true);
+
+                        AppState.getInsnatce().setIncidents(incidents);
+                        slidingMenuActivity.refreshMenuItems();
+
+                        BaseItemFragment fragment = new MainFragment();
+                        slidingMenuActivity.replaceAllContent(fragment, true);
+                        slidingMenuActivity.selectCurrentItem(fragment);
                     }
                 },
                 new CallbackOne<Response>() {
@@ -154,26 +159,26 @@ public class CabinetIncidentFragment extends BaseItemFragment {
         );
     }
 
-    private Incident pickAllFields(/*final View view*/) {
-        Incident incident = new Incident();
+    private Incidents pickAllFields(/*final View view*/) {
+        Incidents incidents = new Incidents();
 
         EditText editTextComment = (EditText) getActivity().findViewById(R.id.editTextComment);
         RadioGroup radioGroupIncident = (RadioGroup) getActivity().findViewById(R.id.radioGroupIncident);
 
-        incident.setComment(editTextComment.getText().toString());
+        incidents.setComment(editTextComment.getText().toString());
         switch (radioGroupIncident.getCheckedRadioButtonId()) {
             case R.id.radioButtonInfarction:
-                incident.setName(Incident.Name.infarction.name());
+                incidents.setHadHeartAttackOrStroke(true);
                 break;
             case R.id.radioButtonApoplexy:
-                incident.setName(Incident.Name.apoplexy.name());
+                incidents.setHadHeartAttackOrStroke(true);
                 break;
             case R.id.radioButtonShunting:
-                incident.setName(Incident.Name.shunting.name());
+                incidents.setHadBypassSurgery(true);
                 break;
         }
 
-        return incident;
+        return incidents;
     }
 
 }

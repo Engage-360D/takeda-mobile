@@ -40,8 +40,8 @@ public class PageDao extends BaseDaoImpl<TestPage, Integer> {
             }
         };
 
-        RuntimeExceptionDao helperFactoryPage = HelperFactory.getHelper().getRuntimeDataDao(TestPage.class);
-        QueryBuilder queryBuilder = helperFactoryPage.queryBuilder();
+        RuntimeExceptionDao helperFactoryPageDao = HelperFactory.getHelper().getRuntimeDataDao(TestPage.class);
+        QueryBuilder queryBuilder = helperFactoryPageDao.queryBuilder();
         try {
             queryBuilder.where().idEq(TestPage.generatePageId(link));
         } catch (SQLException e) {
@@ -80,8 +80,8 @@ public class PageDao extends BaseDaoImpl<TestPage, Integer> {
     private static void storeIntoDatabase(final TestPage testPage, final String link) {
         try {
             testPage.setId(TestPage.generatePageId(link));
-            RuntimeExceptionDao helperFactoryPage = HelperFactory.getHelper().getRuntimeDataDao(TestPage.class);
-            helperFactoryPage.createOrUpdate(testPage);
+            RuntimeExceptionDao helperFactoryPageDao = HelperFactory.getHelper().getRuntimeDataDao(TestPage.class);
+            helperFactoryPageDao.createOrUpdate(testPage);
         } catch (Exception e) {
             e.printStackTrace();
         }

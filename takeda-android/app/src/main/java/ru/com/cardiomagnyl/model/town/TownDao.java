@@ -1,7 +1,10 @@
 package ru.com.cardiomagnyl.model.town;
 
+import android.location.Location;
+
 import com.android.volley.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.android.gms.maps.model.LatLng;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -64,6 +67,40 @@ public class TownDao extends BaseDaoImpl<Town, Integer> {
                         onSuccess,
                         onFailure
                 );
+    }
+
+    public static void getByLocation(final Location location,
+                                     final CallbackOne<Town> onSuccess,
+                                     final CallbackOne<Response> onFailure) {
+        TypeReference typeReference = new TypeReference<Town>() {
+        };
+
+        CallbackOne<Town> onStoreIntoDatabase = new CallbackOne<Town>() {
+            @Override
+            public void execute(Town town) {
+                storeIntoDatabase(town);
+            }
+        };
+
+        HttpRequestHolder httpRequestHolder =
+                new HttpRequestHolder
+                        .Builder(Request.Method.GET, String.format(Url.INSTITUTION_PARSED_TOWNS_TOWN, String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())), typeReference)
+                        .addHeaders(Url.GET_HEADERS)
+                        .setOnStoreIntoDatabase(onStoreIntoDatabase)
+                        .create();
+
+        DataLoadDispatcher
+                .getInstance()
+                .receive(
+                        httpRequestHolder,
+                        onSuccess,
+                        onFailure
+                );
+    }
+
+    public static void storeIntoDatabase(final Town town) {
+        RuntimeExceptionDao helperFactoryTown = HelperFactory.getHelper().getRuntimeDataDao(Town.class);
+        helperFactoryTown.createOrUpdate(town);
     }
 
     public static void storeIntoDatabase(final List<Town> townsList) {

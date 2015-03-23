@@ -146,7 +146,7 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
         if (testResult.getRecommendations().getPlacesLinkShouldBeVisible()) {
             bannerChooseMedicalInstitution.setState(STATES.undefined.name());
             bannerChooseMedicalInstitution.setTitle("");
-            bannerChooseMedicalInstitution.setSubtitle(getString(R.string.choose_medical_institution));
+            bannerChooseMedicalInstitution.setSubtitle(getString(R.string.choose_nearest_medical_institution));
             bannerChooseMedicalInstitution.setPageUrl(Url.BANNER_CHOOSE_MEDICAL_INSTITUTION);
         }
         return bannerChooseMedicalInstitution;
@@ -393,11 +393,11 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             ((ViewGroup) getView()).addView(layout_loading_map);
 
             BaseItemFragment searchInstitutionsFragment = new InstitutionsSearchFragment();
-            slidingMenuActivity.replaceAllContent(searchInstitutionsFragment, false);
+            slidingMenuActivity.replaceAllContent(searchInstitutionsFragment, true);
             slidingMenuActivity.selectCurrentItem(searchInstitutionsFragment);
         } else if (Url.BANNER_PASS_POLL.equals(bannerData.getPageUrl())) {
             BaseItemFragment fragment = new RecommendationsTestResultsFragment();
-            slidingMenuActivity.replaceAllContent(fragment, false);
+            slidingMenuActivity.replaceAllContent(fragment, true);
             slidingMenuActivity.selectCurrentItem(fragment);
         }
     }
@@ -485,4 +485,5 @@ public class RiskAnalysisResultsFragment extends BaseItemFragment {
             textView.setText(text);
         }
     }
+
 }

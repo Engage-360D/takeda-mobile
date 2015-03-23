@@ -2,6 +2,7 @@ package ru.com.cardiomagnyl.ui.slidingmenu.menu;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -12,10 +13,12 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
+import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.base.BaseSlidingFragmentActivity;
+import ru.com.cardiomagnyl.ui.start.SplashActivity;
 
 public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     private SlidingMenuListFragment mSlidingMenuListFragment;
@@ -37,6 +40,12 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!AppState.getInsnatce().isInitialized()) {
+            Intent intent = new Intent(this, SplashActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         // Both setBehindContentView must be called in onCreate in addition to setContentView.
         setContentView(R.layout.slidingmenu_content_container);
@@ -81,7 +90,9 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
                 mFragmentManager.beginTransaction().attach(fragment).commit();
             }
         }
-        initTopOnFragmentChanged(fragment, false);
+
+        // TODO: commented line because "initTopOnFragmentChanged" called twice
+        // initTopOnFragmentChanged(fragment, false);
 
         mSlidingMenuListFragment = (SlidingMenuListFragment) mFragmentManager.findFragmentByTag(SlidingMenuListFragment.class.getName());
         if (mSlidingMenuListFragment == null) {
@@ -107,6 +118,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
 
     public void refreshMenuItems() {
         User currentUser = AppState.getInsnatce().getUser();
+        Incidents incidents = AppState.getInsnatce().getIncidents();
 
         if (mustPassTest()) {
             lockMenu();
@@ -124,6 +136,38 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         } else {
             MenuItem.item_analysis_results.setItemIsVisible(true);
             MenuItem.item_analysis_results.setItemIsEnabled(false);
+        }
+
+        if (!incidents.isEmpty()) {
+            MenuItem.item_main.setItemIsVisible(true);
+            MenuItem.item_main.setItemIsEnabled(true);
+
+            MenuItem.item_risk_analysis.setItemIsVisible(true);
+            MenuItem.item_risk_analysis.setItemIsEnabled(false);
+
+            MenuItem.item_journal.setItemIsVisible(true);
+            MenuItem.item_journal.setItemIsEnabled(false);
+
+            MenuItem.item_search_institutions.setItemIsVisible(true);
+            MenuItem.item_search_institutions.setItemIsEnabled(true);
+
+            MenuItem.item_information.setItemIsVisible(true);
+            MenuItem.item_information.setItemIsEnabled(false);
+
+            MenuItem.item_settings.setItemIsVisible(true);
+            MenuItem.item_settings.setItemIsEnabled(false);
+
+            MenuItem.item_analysis_results.setItemIsVisible(true);
+            MenuItem.item_analysis_results.setItemIsEnabled(false);
+
+            MenuItem.item_useful_to_know.setItemIsVisible(true);
+            MenuItem.item_useful_to_know.setItemIsEnabled(false);
+
+            MenuItem.item_publications.setItemIsVisible(true);
+            MenuItem.item_publications.setItemIsEnabled(false);
+
+            MenuItem.item_reports.setItemIsVisible(true);
+            MenuItem.item_reports.setItemIsEnabled(false);
         }
 
         mSlidingMenuListFragment.refreshMenuItems();

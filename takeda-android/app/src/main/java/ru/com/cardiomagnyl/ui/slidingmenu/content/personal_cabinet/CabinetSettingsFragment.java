@@ -1,18 +1,30 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
+import ru.com.cardiomagnyl.model.common.Dummy;
+import ru.com.cardiomagnyl.model.common.LgnPwd;
+import ru.com.cardiomagnyl.model.common.Response;
+import ru.com.cardiomagnyl.model.incidents.Incidents;
+import ru.com.cardiomagnyl.model.token.Token;
+import ru.com.cardiomagnyl.model.user.UserDao;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.pills.PillsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
+import ru.com.cardiomagnyl.ui.start.SplashActivity;
+import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
@@ -35,6 +47,8 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         final View linearLayoutConsolidatedReport = view.findViewById(R.id.linearLayoutConsolidatedReport);
         final View textViewAddIncident = view.findViewById(R.id.textViewAddIncident);
         final View buttonExit = view.findViewById(R.id.buttonExit);
+        final View layoutIncidentDescription = view.findViewById(R.id.layoutIncidentDescription);
+        final TextView textViewIncidentDescription = (TextView) view.findViewById(R.id.textViewIncidentDescription);
 
         textViewPills.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +77,21 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                 tryToAddIncident();
             }
         });
+
+        Incidents incidents = AppState.getInsnatce().getIncidents();
+        if (!incidents.isEmpty()) {
+            String incident = "";
+            if (incidents.isHadBypassSurgery()) {
+                incident = getString(R.string.shunting);
+            } else if (incidents.isHadHeartAttackOrStroke()) {
+                incident = getString(R.string.infarction_or_apoplexy);
+            } else {
+                incident = getString(R.string.incident);
+            }
+
+            textViewIncidentDescription.setText(String.format(getString(R.string.incident_description), incident));
+            layoutIncidentDescription.setVisibility(View.VISIBLE);
+        }
     }
 
     private void tryToSetUpPills() {
@@ -87,9 +116,11 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                             public void onClick(View view) {
                                 View editTextPassword = Tools.findViewInParents(view, R.id.editTextPassword);
                                 if (editTextPassword != null) {
-                                    String str = ((EditText) editTextPassword).getText().toString();
-
-                                    // TODO: check password for delete reports
+                                    String email = AppState.getInsnatce().getUser().getEmail();
+                                    String password = ((EditText) editTextPassword).getText().toString();
+                                    LgnPwd lgnPwd = new LgnPwd(email, password);
+                                    Token token = AppState.getInsnatce().getToken();
+                                    deleteReports(lgnPwd, token);
                                 }
                             }
                         })
@@ -102,6 +133,44 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         customDialogLayout.setParentDialog(alertDialog);
 
         alertDialog.show();
+    }
+
+    private void deleteReports(LgnPwd lgnPwd, Token token) {
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+        slidingMenuActivity.showProgressDialog();
+
+        UserDao.resetProfile(
+                lgnPwd,
+                token,
+                new CallbackOne<Dummy>() {
+                    @Override
+                    public void execute(Dummy dummy) {
+                        slidingMenuActivity.hideProgressDialog();
+
+                        Intent intent = new Intent(slidingMenuActivity, SplashActivity.class);
+                        startActivity(intent);
+                        slidingMenuActivity.finish();
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        slidingMenuActivity.hideProgressDialog();
+
+                        // FIXME: change server response to proper format!
+                        if (responseError.getError().getCode() == 4) {
+                            UserDao.resetProfileDb();
+
+                            Intent intent = new Intent(slidingMenuActivity, SplashActivity.class);
+                            startActivity(intent);
+                            slidingMenuActivity.finish();
+                        } else {
+                            Tools.showToast(slidingMenuActivity, R.string.error_occurred, Toast.LENGTH_LONG);
+                        }
+
+                    }
+                }
+        );
     }
 
     private void tryToExit() {

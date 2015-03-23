@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/imageViewBell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selector_button_bell" />
+
+    <TextView
+        android:id="@+id/textViewBell"
+        android:layout_width="@dimen/space_medium"
+        android:layout_height="@dimen/space_medium"
+        android:layout_alignRight="@id/imageViewBell"
+        android:layout_alignTop="@id/imageViewBell"
+        android:background="@drawable/selector_missed_events"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_xxxsmall" />
+
+</RelativeLayout>

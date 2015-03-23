@@ -178,6 +178,14 @@
         <item name="android:background">@color/divider_8</item>
     </style>
 
+    <style name="divider_normal_1_white">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divider_1</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_marginTop">@dimen/space_medium</item>
+        <item name="android:layout_marginBottom">@dimen/space_medium</item>
+    </style>
+
     <!-- ==== -->
     <!-- gaps -->
     <!-- ==== -->

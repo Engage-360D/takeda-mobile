@@ -59,7 +59,7 @@
     <string name="error_authorization">Произошла ошибка во время авторизации.</string>
     <string name="error_registration">Произошла ошибка во время регистрации.</string>
     <string name="error_get_test_results">Произошла ошибка во время получения результатов теста.</string>
-    <string name="authorization_error">Ошибка авторизации</string>
+    <string name="authorization_error">Ошибка авторизации.</string>
     <string name="error_tets_already_passed">Вы уже проходили тест.\nТест проходится раз в месяц.\nПопробуйте позже.</string>
     <string name="error_tets_username_not_unique">Вы уже регистрировались, пожалуйста вернитесь к входу.\nТам же вы можете восстановить пароль.</string>
     <string name="error_user_not_found">Такой пользователь не найден.\nУбедитесь, что вы правильно ввели электронный адрес.</string>
@@ -169,6 +169,7 @@
     <string name="my_success">Мои успехи</string>
     <string name="consolidated_report">Сводный отчет</string>
     <string name="go_to_website">Переход на сайт</string>
+    <string name="choose_medical_institution">Подобрать мед. учереждение</string>
 
     <!-- ============= -->
     <!-- fragment_pill -->
@@ -271,6 +272,7 @@
     <string name="best_institution">Лучшее учреждение для лечения сердечно-сосудистых заболеваний</string>
     <string name="more_details">Подробнее</string>
     <string name="select_town">Город</string>
+    <string name="institution">Лечебно-профилактические учреждения</string>
     <string name="select_specialization">Специализация</string>
 
     <!-- ==================== -->
@@ -279,16 +281,20 @@
     <string name="first_aid">Первая помощь</string>
     <string name="recognize_infarction_apoplexy">Как распознать инфаркт-инсульт</string>
     <string name="lifestyle">Образ жизни</string>
+    <string name="infarction_apoplexy_recommendation">Инсульт.\nЕсли у вас возникли подозрения развития инсульта у человека, который рядом с вами, попросите его улыбнуться. Если у больного действительно инсульт, этого не удастся сделать обеими уголками губ, улыбка получится кривой. Попросите повторить какое-то простое предложение или выражение - при инсульте речь будет нарушена. Человек не сможет одновременно поднять вверх обе руки. Попросите показать язык, если он искривлен, это тоже тревожный признак инсульта. \n\nИнфаркт.\nПредвестником инфаркта может быть постоянное чувство жжения, которое длится на протяжении нескольких дней. Если же появился давящая боль в груди, которая распространяется на шею, левую руку, челюсть, участок между лопатками, больного тошнит, у него учащенное дыхание, повышенное потоотделение - не медлите, вызывайте «скорую».</string>
+    <string name="lifestyle_recommendation">Инфаркт миокарда и мозговой инсульт можно предотвратить и успешно лечить, и очень многое тут зависит от самого человека, очень велика роль его родных, семьи, близких. Очень много зависит от знаний, которые могут помочь в предупреждении и лечении любой болезни, в том числе инфаркта миокарда и мозгового инсульта.</string>
 
     <!-- ========= -->
     <!-- incidents -->
     <!-- ========= -->
     <string name="infarction">Инфаркт</string>
     <string name="apoplexy">Инсульт</string>
+    <string name="infarction_or_apoplexy">Инфаркт или Инсульт</string>
+    <string name="incident">Инцидент</string>
     <string name="shunting">Коронарное шунтирование</string>
     <string name="your_comment">Ваш комментарий</string>
     <string name="warning">Внимание!</string>
-    <string name="incident_description">вы перенесли %s и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
+    <string name="incident_description">Вы перенесли %s и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
 
     <!-- ============ -->
     <!-- patient_data -->
@@ -323,11 +329,16 @@
     <!-- ======= -->
     <!-- results -->
     <!-- ======= -->
-    <string name="choose_medical_institution">Подобрать мед. учереждение по близости</string>
+    <string name="choose_nearest_medical_institution">Подобрать мед. учереждение по близости</string>
     <string name="adjustment_of_diet">Дополнительная корректировка диеты</string>
     <string name="pass_poll">Пройти опрос</string>
     <string name="send_results">Отослать результаты на email?</string>
     <string name="results_sent_successfully">Результаты отосланы успешно.\nПроверьте почту.</string>
+
+    <!-- ======================= -->
+    <!-- fragment_useful_to_know -->
+    <!-- ======================= -->
+    <string name="share">Поделиться:</string>
 
     <!-- ====== -->
     <!-- common -->
@@ -349,15 +360,6 @@
     <string name="take_pills">Принять таблетки</string>
     <string name="data_not_found">Данные не найдены...</string>
     <string name="no_data">нет данных</string>
-
-    <!-- === -->
-    <!-- tmp -->
-    <!-- === -->
-    <string name="kruglenkaya_sinyaya">Кругленькая синяя</string>
-    <string name="kvadratnaya">Квадратная</string>
-    <string name="time_1">15:00 (2 штуки)</string>
-    <string name="time_2">16:00 (Раздробить 2 пачки)</string>
-    <string name="time_3">18:45 (2 штуки)</string>
 
     <!-- ============== -->
     <!-- response_codes -->

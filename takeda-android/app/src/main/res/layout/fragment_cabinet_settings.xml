@@ -101,6 +101,11 @@
 
             <View style="@style/divider_normal_1_5" />
 
+            <include
+                android:id="@+id/layoutIncidentDescription"
+                layout="@layout/layout_incident"
+                android:visibility="gone"/>
+
             <LinearLayout
                 android:id="@+id/linearLayoutIncidentHolder"
                 android:layout_width="match_parent"

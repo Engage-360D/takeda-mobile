@@ -13,6 +13,7 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import java.util.Map;
 import ru.com.cardiomagnyl.model.base.BaseModel;
 import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.task.Task;
+import ru.com.cardiomagnyl.util.Tools;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -41,7 +43,7 @@ public class Timeline extends BaseModel implements Parcelable {
     @JsonDeserialize(as = ArrayList.class)
     private Collection<Task> tasks = new ArrayList<>();
 
-    @DatabaseField(dataType = DataType.STRING, columnName = "user")
+    @DatabaseField(canBeNull = false, dataType = DataType.STRING, columnName = "user")
     private String userId;
 
     public Timeline() {
@@ -103,6 +105,17 @@ public class Timeline extends BaseModel implements Parcelable {
             }
         }
         return true;
+    }
+
+    public static int calculateMissedTasks(List<Timeline> timeline) {
+        int result = 0;
+
+        for (Timeline currentTimelineItem : timeline)
+            if (currentTimelineItem.getTasks() != null)
+                for (Task task : currentTimelineItem.getTasks())
+                    if (!task.getIsCompleted()) ++result;
+
+        return result;
     }
 
     ///////////////////////////////////////////////////////////////////////

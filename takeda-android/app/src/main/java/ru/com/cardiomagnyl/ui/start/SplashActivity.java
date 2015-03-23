@@ -11,10 +11,13 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+import ru.com.cardiomagnyl.api.Status;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppSharedPreferences;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.common.Response;
+import ru.com.cardiomagnyl.model.incidents.Incidents;
+import ru.com.cardiomagnyl.model.incidents.IncidentsDao;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
 import ru.com.cardiomagnyl.model.test_diet.TestDietResult;
@@ -74,7 +77,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
 
         if (TextUtils.isEmpty(tokenId)) {
             Response responseError = new Response.Builder(new ru.com.cardiomagnyl.model.common.Error()).create();
-            finishInitialization(null, null, null, null, responseError);
+            finishInitialization(null, null, null, null, null, responseError);
             return;
         }
 
@@ -83,88 +86,131 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                 new CallbackOne<Token>() {
                     @Override
                     public void execute(Token token) {
-                        getUser(token);
+                        getUserWeb(token);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(null, null, null, null, responseError);
+                        finishInitialization(null, null, null, null, null, responseError);
                     }
                 }
         );
     }
 
-    private void getUser(final Token token) {
+    private void getUserWeb(final Token token) {
         UserDao.getByToken(
                 token,
                 new CallbackOne<User>() {
                     @Override
                     public void execute(User user) {
-                        getTestResult(token, user);
+                        getIncidents(token, user);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(token, null, null, null, responseError);
+                        getUserDb(token);
                     }
                 },
-                false
+                UserDao.Source.web
         );
     }
 
-    public void getTestResult(final Token token, final User user) {
+    private void getUserDb(final Token token) {
+        UserDao.getByToken(
+                token,
+                new CallbackOne<User>() {
+                    @Override
+                    public void execute(User user) {
+                        getIncidents(token, user);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        finishInitialization(token, null, null, null, null, responseError);
+                    }
+                },
+                UserDao.Source.db
+        );
+    }
+
+    private void getIncidents(final Token token, final User user) {
+        IncidentsDao.getByToken(
+                token,
+                new CallbackOne<Incidents>() {
+                    @Override
+                    public void execute(Incidents incidents) {
+                        getTestResult(token, user, incidents);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        if (responseError.getError().getCode() == Status.CONFLICT_ERROR) {
+                            getTestResult(token, user, new Incidents());
+                        } else {
+                            finishInitialization(token, user, null, null, null, responseError);
+                        }
+                    }
+                }
+        );
+    }
+
+    public void getTestResult(final Token token, final User user, final Incidents incidents) {
         TestResultDao.getAll(
                 token,
                 new CallbackOne<List<TestResult>>() {
                     @Override
                     public void execute(List<TestResult> testResultsList) {
                         TestResult testResult = TestResultDao.getNewestResult(testResultsList);
-                        if (testResult == null) finishInitialization(token, user, null, null, null);
-                        else getDietTestResult(token, user, testResult);
+                        if (testResult == null)
+                            finishInitialization(token, user, incidents, null, null, null);
+                        else getDietTestResult(token, user, incidents, testResult);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(token, user, null, null, responseError);
+                        finishInitialization(token, user, incidents, null, null, responseError);
                     }
                 }
         );
     }
 
-    public void getDietTestResult(final Token token, final User user, final TestResult testResult) {
+    public void getDietTestResult(final Token token, final User user, final Incidents incidents, final TestResult testResult) {
         TestDietResultDao.getByTestId(
                 testResult.getId(),
                 new CallbackOne<TestDietResult>() {
                     @Override
                     public void execute(TestDietResult testDietResult) {
-                        finishInitialization(token, user, testResult, testDietResult, null);
+                        finishInitialization(token, user, incidents, testResult, testDietResult, null);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(token, user, testResult, null, responseError);
+                        finishInitialization(token, user, incidents, testResult, null, responseError);
                     }
                 }
         );
     }
 
-    private void finishInitialization(Token token, User user, TestResult testResult, final TestDietResult testDietResult, Response responseError) {
-        mIsLogined = (token != null && user != null);
+    private void finishInitialization(Token token, User user, final Incidents incidents, TestResult testResult, final TestDietResult testDietResult, Response responseError) {
+        mIsLogined = (token != null && user != null && incidents != null);
         if (!mIsLogined) {
-            initAppState(null, null, null, null);
+            initAppState(null, null, null, null, null);
         } else {
-            initAppState(token, user, testResult, testDietResult);
+            initAppState(token, user, incidents, testResult, testDietResult);
         }
         mInitializationFinished = true;
     }
 
-    private void initAppState(final Token token, final User user, final TestResult testResult, final TestDietResult testDietResult) {
+    private void initAppState(final Token token, final User user, final Incidents incidents, final TestResult testResult, final TestDietResult testDietResult) {
         AppState.getInsnatce().setToken(token);
         AppState.getInsnatce().setUser(user);
+        AppState.getInsnatce().setIncidents(incidents);
         AppState.getInsnatce().setTestResult(testResult);
         AppState.getInsnatce().setTestDietResult(testDietResult);
     }

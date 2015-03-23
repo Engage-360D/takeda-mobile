@@ -8,6 +8,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -15,12 +16,15 @@ import java.util.Date;
 import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
+import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.base.BaseTimeLineFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.institution.InstitutionsSearchFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.journal.JournalFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.journal.TimelineAdapter;
+import ru.com.cardiomagnyl.ui.slidingmenu.content.recommendations.RecommendationsTestResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis.RiskAnalysisResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Tools;
@@ -30,10 +34,50 @@ public class MainFragment extends BaseTimeLineFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (!AppState.getInsnatce().getIncidents().isEmpty()) {
+            View view = createViewIncidents(inflater);
+            return view;
+        }
+
         View view = inflater.inflate(R.layout.fragment_main, null);
         initIndex(view);
         initFragmentStart(view);
         return view;
+    }
+
+    private View createViewIncidents(LayoutInflater inflater) {
+        View view = inflater.inflate(R.layout.fragment_main_incident, null);
+
+        TextView textViewIncident = (TextView) view.findViewById(R.id.textViewIncident);
+        TextView textViewIncidentDescription = (TextView) view.findViewById(R.id.textViewIncidentDescription);
+        Button buttonChoose = (Button) view.findViewById(R.id.buttonChoose);
+
+        Incidents incidents = AppState.getInsnatce().getIncidents();
+        String incident = "";
+        if (incidents.isHadBypassSurgery()) {
+            incident = inflater.getContext().getString(R.string.shunting);
+        } else if (incidents.isHadHeartAttackOrStroke()) {
+            incident = inflater.getContext().getString(R.string.infarction_or_apoplexy);
+        } else {
+            incident = inflater.getContext().getString(R.string.incident);
+        }
+
+        textViewIncident.setText(incident);
+        textViewIncidentDescription.setText(String.format(inflater.getContext().getString(R.string.incident_description), incident));
+
+        buttonChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+                slidingMenuActivity.getSlidingMenu().toggle();
+                BaseItemFragment fragment = new InstitutionsSearchFragment();
+                slidingMenuActivity.replaceAllContent(fragment, true);
+                slidingMenuActivity.selectCurrentItem(fragment);
+            }
+        });
+
+        return view;
+
     }
 
     @Override

@@ -20,7 +20,7 @@ public enum MenuItem {
     item_information(InformationFragment.class, R.string.menu_item_information, true, true),
     item_settings(CabinetSettingsFragment.class, R.string.menu_item_settings, true, true),
     item_analysis_results(RiskAnalysisResultsFragment.class, R.string.menu_item_analysis_results, true, true),
-    item_useful_to_know(UsefulToKnowFragment.class, R.string.menu_item_useful_to_know, true, false),
+    item_useful_to_know(UsefulToKnowFragment.class, R.string.menu_item_useful_to_know, true, true),
     item_publications(PublicationsFragment.class, R.string.menu_item_publications, true, false),
     item_reports(ReportsFragment.class, R.string.menu_item_reports, true, true);
 

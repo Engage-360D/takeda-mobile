@@ -90,7 +90,8 @@ public class InstitutionDetailsFragment extends BaseItemFragment {
 
         textViewInstitutionName.setText(institution.getName());
         textViewInstitutionAddress.setText(institution.getAddress());
-        textViewBestInstitution.setVisibility(institution.getPriority() == 1 ? View.VISIBLE : View.GONE);
+        // TODO: add condition
+        textViewBestInstitution.setVisibility(false ? View.VISIBLE : View.GONE);
 
         Context context = fragmentView.getContext();
 

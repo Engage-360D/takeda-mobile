@@ -8,6 +8,7 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,20 +16,38 @@ import java.util.List;
 import ru.com.cardiomagnyl.api.DataLoadDispatcher;
 import ru.com.cardiomagnyl.api.DataLoadSequence;
 import ru.com.cardiomagnyl.api.Url;
+import ru.com.cardiomagnyl.api.base.BaseRequestHolder;
 import ru.com.cardiomagnyl.api.db.DbRequestHolder;
 import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Dummy;
 import ru.com.cardiomagnyl.model.common.Email;
+import ru.com.cardiomagnyl.model.common.LgnPwd;
 import ru.com.cardiomagnyl.model.common.Response;
+import ru.com.cardiomagnyl.model.incidents.Incidents;
+import ru.com.cardiomagnyl.model.institution.Institution;
+import ru.com.cardiomagnyl.model.pill.Pill;
+import ru.com.cardiomagnyl.model.region.Region;
+import ru.com.cardiomagnyl.model.role.Role;
 import ru.com.cardiomagnyl.model.role.UserRole;
 import ru.com.cardiomagnyl.model.role.UserRoleDao;
+import ru.com.cardiomagnyl.model.specialization.Specialization;
+import ru.com.cardiomagnyl.model.task.Task;
+import ru.com.cardiomagnyl.model.test.TestPage;
+import ru.com.cardiomagnyl.model.test.TestResultHolder;
+import ru.com.cardiomagnyl.model.test_diet.TestDiet;
+import ru.com.cardiomagnyl.model.test_diet.TestDietResultHolder;
+import ru.com.cardiomagnyl.model.test_diet_answer.TestDietAnswer;
+import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.token.Token;
+import ru.com.cardiomagnyl.model.town.Town;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.CallbackOneReturnable;
 
 public class UserDao extends BaseDaoImpl<User, Integer> {
+    public enum Source {db, web}
+
     public UserDao(ConnectionSource connectionSource, Class<User> dataClass) throws SQLException {
         super(connectionSource, dataClass);
     }
@@ -165,7 +184,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
     public static void getByToken(final Token token,
                                   final CallbackOne<User> onSuccess,
                                   final CallbackOne<Response> onFailure,
-                                  final boolean forceHttp) {
+                                  final Source source) {
         TypeReference typeReference = new TypeReference<User>() {
         };
 
@@ -232,19 +251,95 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
-        DataLoadSequence dataLoadSequence =
-                new DataLoadSequence
-                        .Builder(forceHttp ? httpRequestHolder : dbRequestHolder)
-                        .addRequestHolder(forceHttp ? dbRequestHolder : httpRequestHolder)
+        BaseRequestHolder requestHolder;
+        switch (source) {
+            case db:
+                requestHolder = dbRequestHolder;
+                break;
+            default:
+                requestHolder = httpRequestHolder;
+        }
+
+        DataLoadDispatcher
+                .getInstance()
+                .receive(
+                        requestHolder,
+                        onSuccess,
+                        onFailure
+                );
+    }
+
+    public static void resetProfile(final LgnPwd lgnPwd,
+                                    final Token token,
+                                    final CallbackOne<Dummy> onSuccess,
+                                    final CallbackOne<Response> onFailure) {
+        TypeReference typeReference = new TypeReference<Dummy>() {
+        };
+
+//        "Account has been reset."
+
+        CallbackOne<Dummy> onStoreIntoDatabase = new CallbackOne<Dummy>() {
+            @Override
+            public void execute(Dummy dummy) {
+                resetProfileDb();
+            }
+        };
+
+        ObjectNode objectNode = new ObjectMapper().valueToTree(lgnPwd);
+        String packedLgnPwd = DataWrapper.wrap(objectNode).toString();
+
+        HttpRequestHolder httpRequestHolder =
+                new HttpRequestHolder
+                        .Builder(Request.Method.POST, String.format(Url.ACCOUNT_RESET, token.getTokenId()), typeReference)
+                        .addHeaders(Url.POST_HEADERS)
+                        .setBody(packedLgnPwd)
+                        .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();
 
         DataLoadDispatcher
                 .getInstance()
                 .receive(
-                        dataLoadSequence,
+                        httpRequestHolder,
                         onSuccess,
                         onFailure
                 );
+    }
+
+    // FIXME: clean tables for current user only
+    public static void resetProfileDb() {
+        RuntimeExceptionDao helperFactoryUser = HelperFactory.getHelper().getRuntimeDataDao(User.class);
+        ConnectionSource connectionSource = helperFactoryUser.getConnectionSource();
+
+        try {
+            TableUtils.dropTable(connectionSource, TestResultHolder.class, true);
+            TableUtils.createTable(connectionSource, TestResultHolder.class);
+
+            TableUtils.dropTable(connectionSource, TestPage.class, true);
+            TableUtils.createTable(connectionSource, TestPage.class);
+
+            TableUtils.dropTable(connectionSource, Pill.class, true);
+            TableUtils.createTable(connectionSource, Pill.class);
+
+            TableUtils.dropTable(connectionSource, Timeline.class, true);
+            TableUtils.createTable(connectionSource, Timeline.class);
+
+            TableUtils.dropTable(connectionSource, Task.class, true);
+            TableUtils.createTable(connectionSource, Task.class);
+
+            TableUtils.dropTable(connectionSource, TestDiet.class, true);
+            TableUtils.createTable(connectionSource, TestDiet.class);
+
+            TableUtils.dropTable(connectionSource, TestDietAnswer.class, true);
+            TableUtils.createTable(connectionSource, TestDietAnswer.class);
+
+            TableUtils.dropTable(connectionSource, TestDietResultHolder.class, true);
+            TableUtils.createTable(connectionSource, TestDietResultHolder.class);
+
+            TableUtils.dropTable(connectionSource, Incidents.class, true);
+            TableUtils.createTable(connectionSource, Incidents.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void storeIntoDatabase(final User user) {

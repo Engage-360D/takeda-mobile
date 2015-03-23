@@ -88,13 +88,13 @@ public class TokenDao extends BaseDaoImpl<Token, Integer> {
         };
 
         ObjectNode objectNode = new ObjectMapper().valueToTree(lgnPwd);
-        String packedToken = DataWrapper.wrap(objectNode).toString();
+        String packedLgnPwd = DataWrapper.wrap(objectNode).toString();
 
         HttpRequestHolder httpRequestHolder =
                 new HttpRequestHolder
                         .Builder(Request.Method.POST, Url.TOKENS, typeReference)
                         .addHeaders(Url.POST_HEADERS)
-                        .setBody(packedToken)
+                        .setBody(packedLgnPwd)
                         .setBeforeExtracted(beforeExtracted)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();

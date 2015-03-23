@@ -11,6 +11,7 @@ public final class Url {
 
     public static final String USERS = API_ADDR + "users";
     public static final String ACCOUNT = API_ADDR + "account";
+    public static final String ACCOUNT_RESET = API_ADDR + "account/reset?token=%s";
     public static final String ACCOUNT_UPDATE = API_ADDR + "account?token=%s";
     public static final String ACCOUNT_RESET_PASSWORD = API_ADDR + "account/reset-password";
     public static final String ACCOUNT_TEST_RESULTS = API_ADDR + "account/test-results?token=%s";
@@ -23,9 +24,11 @@ public final class Url {
     public static final String ACCOUNT_TEST_RESULTS_DIET_QUESTIONS = API_ADDR + "account/test-results/%s/diet-questions?token=%s";
     public static final String ACCOUNT_TEST_RESULTS_DIET_RECOMMENDATIONS = API_ADDR + "account/test-results/%s/diet-recommendations?%s&token=%s";
     public static final String ACCOUNT_TEST_RESULTS_DIET_ANSWERS = "answers[%s]=%s&";
+    public static final String ACCOUNT_INCIDENTS = API_ADDR + "account/incidents?token=%s";
     public static final String TOKENS = API_ADDR + "tokens";
     public static final String REGIONS = API_ADDR + "regions";
     public static final String INSTITUTION_PARSED_TOWNS = API_ADDR + "institution-parsed-towns";
+    public static final String INSTITUTION_PARSED_TOWNS_TOWN = API_ADDR + "institution-parsed-towns/%s,%s";
     public static final String INSTITUTION_SPECIALIZATIONS = API_ADDR + "institution-specializations";
     public static final String INSTITUTIONS = API_ADDR + "institutions?parsedTown=%s&specialization=%s";
 

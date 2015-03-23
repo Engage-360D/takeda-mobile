@@ -13,6 +13,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import ru.com.cardiomagnyl.model.base.BaseModel;
+import ru.com.cardiomagnyl.model.base.BaseModelHelper;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -33,7 +34,7 @@ import ru.com.cardiomagnyl.model.base.BaseModel;
         "priority"
 })
 @DatabaseTable(tableName = "institution")
-public class Institution extends BaseModel implements Parcelable, ClusterItem {
+public class Institution extends BaseModel implements Parcelable, ClusterItem, BaseModelHelper<String> {
 
     @Override
     public LatLng getPosition() {
