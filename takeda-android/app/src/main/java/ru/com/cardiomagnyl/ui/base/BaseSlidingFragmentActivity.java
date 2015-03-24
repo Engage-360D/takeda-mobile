@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -13,6 +14,8 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnyl.app.R;
@@ -213,6 +216,8 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
                     fragmentTransaction.commit();
                 }
+                mFragmentManager.executePendingTransactions();
+
                 mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
 
@@ -236,17 +241,43 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
         try {
             Utils.hideKeyboard(getCurrentFocus());
 
-            Fragment currentFragment = getCurrentFragment();
-
+            // blocking of fragment creation on popBackStack
+            ArrayList<Pair<Fragment, String>> fragmentsTagsList = new ArrayList<>();
             if (!isBackStackEmpty()) {
-                mFragmentManager.popBackStack();
+                Fragment currentFragment = null;
+                String currentTag = null;
 
-                FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, currentFragment);
-                fragmentTransaction.commit();
+                for (int counter = 0; counter < mFragmentManager.getBackStackEntryCount(); ++counter) {
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
+                    Fragment fragment = mFragmentManager.findFragmentByTag(mFragmentManager.getBackStackEntryAt(counter).getName());
+                    fragmentTransaction.detach(fragment);
+
+                    if (counter == mFragmentManager.getBackStackEntryCount() - 2) {
+                        currentFragment = fragment;
+                        currentTag = fragment.getTag();
+                    } else {
+                        fragmentTransaction.detach(fragment);
+                    }
+
+                    fragmentTransaction.commit();
+                }
+                mFragmentManager.executePendingTransactions();
+                mFragmentManager.popBackStackImmediate();
+
+                if (currentFragment != null && currentTag != null) {
+                    mFragmentManager.popBackStackImmediate();
+
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content_frame, currentFragment, currentTag);
+                    fragmentTransaction.addToBackStack(currentTag);
+                    fragmentTransaction.commit();
+
+                    mFragmentManager.executePendingTransactions();
+                }
+
+                initTopOnFragmentChanged(currentFragment, !isBackStackEmpty());
             }
-
-            initTopOnFragmentChanged(currentFragment, !isBackStackEmpty());
             if (withSwitch) {
                 showContentDelayed();
             }
