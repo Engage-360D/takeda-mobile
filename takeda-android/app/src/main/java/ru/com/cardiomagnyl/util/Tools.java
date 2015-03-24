@@ -266,4 +266,11 @@ public class Tools {
             return null;
         }
     }
+
+    public static int generateMessageId() {
+        long maxIntToLong = (long) Integer.MAX_VALUE;
+        long currentTimeMs = System.currentTimeMillis();
+        currentTimeMs = currentTimeMs & maxIntToLong;
+        return (int) currentTimeMs;
+    }
 }

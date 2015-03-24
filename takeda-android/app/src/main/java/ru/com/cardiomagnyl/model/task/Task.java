@@ -21,12 +21,14 @@ import ru.com.cardiomagnyl.model.timeline.Timeline;
         "id",
         "type",
         "exerciseMins",
+        "weight",
+        "arterialPressure",
         "isCompleted"
 })
 @DatabaseTable(tableName = "task")
 public class Task extends BaseModel {
 
-    public enum Type {diet, exercise, pill, /*next fields are fake*/ smoking, weight, pressure, cholesterol, undefined}
+    public enum Type {diet, exercise, pill, weight, arterialPressure, /*next fields are fake*/ smoking, cholesterol, undefined}
 
     @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = "id")
     @JsonProperty("id")
@@ -39,6 +41,14 @@ public class Task extends BaseModel {
     @DatabaseField(dataType = DataType.INTEGER, columnName = "exercise_mins")
     @JsonProperty("exerciseMins")
     private int exerciseMins;
+
+    @DatabaseField(dataType = DataType.INTEGER, columnName = "weight")
+    @JsonProperty("weight")
+    private int weight;
+
+    @DatabaseField(dataType = DataType.INTEGER, columnName = "arterial_pressure")
+    @JsonProperty("arterialPressure")
+    private int arterialPressure;
 
     @DatabaseField(dataType = DataType.BOOLEAN, columnName = "is_completed")
     @JsonProperty("isCompleted")
@@ -106,6 +116,38 @@ public class Task extends BaseModel {
     }
 
     /**
+     * @return The weight
+     */
+    @JsonProperty("weight")
+    public int getWeight() {
+        return weight;
+    }
+
+    /**
+     * @param weight The weight
+     */
+    @JsonProperty("weight")
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    /**
+     * @return The arterialPressure
+     */
+    @JsonProperty("arterialPressure")
+    public int getArterialPressure() {
+        return arterialPressure;
+    }
+
+    /**
+     * @param arterialPressure The arterialPressure
+     */
+    @JsonProperty("arterialPressure")
+    public void setArterialPressure(int arterialPressure) {
+        this.arterialPressure = arterialPressure;
+    }
+
+    /**
      * @return The isCompleted
      */
     @JsonProperty("isCompleted")
@@ -170,7 +212,7 @@ public class Task extends BaseModel {
     public Type getEnumType() {
         Task.Type enumType = Task.Type.undefined;
         try {
-            enumType = Task.Type.valueOf(type.toLowerCase());
+            enumType = Task.Type.valueOf(type);
         } catch (Exception ex) { /*does nothing*/ }
         return enumType;
     }
@@ -202,8 +244,10 @@ public class Task extends BaseModel {
                 nodeResult.put("exerciseMins", Integer.valueOf(value));
                 break;
             case weight:
+                nodeResult.put("weight", Integer.valueOf(value));
                 break;
-            case pressure:
+            case arterialPressure:
+                nodeResult.put("arterialPressure", Integer.valueOf(value));
                 break;
             case cholesterol:
                 break;

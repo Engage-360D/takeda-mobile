@@ -3,6 +3,9 @@ package ru.com.cardiomagnyl.model.common;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.util.Arrays;
 
 import ru.com.cardiomagnyl.model.base.BaseModel;
 
@@ -56,6 +59,11 @@ public class LgnPwd extends BaseModel {
     @JsonProperty("plainPassword")
     public void setPlainPassword(String plainPassword) {
         this.plainPassword = plainPassword;
+    }
+
+    public static void cleanForReset(ObjectNode objectNodeUncleaned) {
+        objectNodeUncleaned.remove(Arrays
+                .asList("email"));
     }
 
 }

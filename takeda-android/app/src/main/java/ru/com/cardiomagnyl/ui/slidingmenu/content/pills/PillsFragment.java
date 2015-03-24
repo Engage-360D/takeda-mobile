@@ -9,8 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
+import java.util.Set;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.AppSharedPreferences;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.common.Response;
@@ -67,7 +69,8 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
                 new CallbackOne<List<Pill>>() {
                     @Override
                     public void execute(List<Pill> pillsList) {
-                        PillsScheduler.setAll(pillsList);
+                        Set<String> act = (Set<String>) AppSharedPreferences.get(AppSharedPreferences.Preference.alarmActions);
+                        if (act.isEmpty() && !pillsList.isEmpty()) PillsScheduler.setAll(pillsList);
 
                         initFragmentFinish(fragmentView, pillsList);
                     }

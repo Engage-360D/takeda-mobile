@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import ru.com.cardiomagnyl.api.DataLoadDispatcher;
-import ru.com.cardiomagnyl.api.DataLoadSequence;
 import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.api.base.BaseRequestHolder;
 import ru.com.cardiomagnyl.api.db.DbRequestHolder;
@@ -26,13 +25,9 @@ import ru.com.cardiomagnyl.model.common.Email;
 import ru.com.cardiomagnyl.model.common.LgnPwd;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.incidents.Incidents;
-import ru.com.cardiomagnyl.model.institution.Institution;
 import ru.com.cardiomagnyl.model.pill.Pill;
-import ru.com.cardiomagnyl.model.region.Region;
-import ru.com.cardiomagnyl.model.role.Role;
 import ru.com.cardiomagnyl.model.role.UserRole;
 import ru.com.cardiomagnyl.model.role.UserRoleDao;
-import ru.com.cardiomagnyl.model.specialization.Specialization;
 import ru.com.cardiomagnyl.model.task.Task;
 import ru.com.cardiomagnyl.model.test.TestPage;
 import ru.com.cardiomagnyl.model.test.TestResultHolder;
@@ -41,7 +36,6 @@ import ru.com.cardiomagnyl.model.test_diet.TestDietResultHolder;
 import ru.com.cardiomagnyl.model.test_diet_answer.TestDietAnswer;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.token.Token;
-import ru.com.cardiomagnyl.model.town.Town;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.CallbackOneReturnable;
 
@@ -276,8 +270,6 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
         TypeReference typeReference = new TypeReference<Dummy>() {
         };
 
-//        "Account has been reset."
-
         CallbackOne<Dummy> onStoreIntoDatabase = new CallbackOne<Dummy>() {
             @Override
             public void execute(Dummy dummy) {
@@ -286,6 +278,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
         };
 
         ObjectNode objectNode = new ObjectMapper().valueToTree(lgnPwd);
+        LgnPwd.cleanForReset(objectNode);
         String packedLgnPwd = DataWrapper.wrap(objectNode).toString();
 
         HttpRequestHolder httpRequestHolder =

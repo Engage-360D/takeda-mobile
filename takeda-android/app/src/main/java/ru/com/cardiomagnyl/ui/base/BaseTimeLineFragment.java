@@ -21,8 +21,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.AppSharedPreferences;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill.Pill;
@@ -212,9 +214,9 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 EditText editTextWeight = (EditText) dialogBodyView.findViewById(R.id.editTextWeight);
                 tryToSaveHelper(task, Task.createResult(Task.Type.weight, editTextWeight.getText().toString()), token);
                 break;
-            case pressure:
+            case arterialPressure:
                 EditText editTextPressure = (EditText) dialogBodyView.findViewById(R.id.editTextPressure);
-                tryToSaveHelper(task, Task.createResult(Task.Type.pressure, editTextPressure.getText().toString()), token);
+                tryToSaveHelper(task, Task.createResult(Task.Type.arterialPressure, editTextPressure.getText().toString()), token);
                 break;
             case cholesterol:
                 EditText editTextCholesterol = (EditText) dialogBodyView.findViewById(R.id.editTextCholesterol);
@@ -359,7 +361,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 EditText editTextWeight = (EditText) dialogBodyView.findViewById(R.id.editTextWeight);
                 initDialogBody(editTextWeight, buttonSave);
                 break;
-            case pressure:
+            case arterialPressure:
                 dialogBodyView = View.inflate(context, R.layout.layout_ask_pressure, null);
                 EditText editTextPressure = (EditText) dialogBodyView.findViewById(R.id.editTextPressure);
                 initDialogBody(editTextPressure, buttonSave);

@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name="ru.com.cardiomagnyl.application.CardiomagnylApplication"
@@ -53,6 +55,25 @@
             android:windowSoftInputMode="stateHidden" />
 
         <receiver android:name="ru.com.cardiomagnyl.util.schedule.AlarmManagerBroadcastReceiver" />
+
+        <receiver
+            android:name="ru.com.cardiomagnyl.util.schedule.BootBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="ru.com.cardiomagnyl.util.schedule.NotificationBroadcastReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="NotificationReceiverIntent" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="com.google.android.gms.version"

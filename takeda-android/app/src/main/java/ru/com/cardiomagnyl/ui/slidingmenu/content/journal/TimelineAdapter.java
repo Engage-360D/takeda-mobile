@@ -112,7 +112,7 @@ public class TimelineAdapter extends BaseAdapter {
             case weight:
                 taskNameText = R.string.enter_weight;
                 break;
-            case pressure:
+            case arterialPressure:
                 taskNameText = R.string.enter_pressure;
                 break;
             case cholesterol:
@@ -164,7 +164,7 @@ public class TimelineAdapter extends BaseAdapter {
                 taskNameText = R.string.enter_weight;
                 taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
                 break;
-            case pressure:
+            case arterialPressure:
                 taskNameText = R.string.enter_pressure;
                 taskStatusText = task.getIsCompletedFully() ? R.string.fulfilled : R.string.not_fulfilled;
                 break;

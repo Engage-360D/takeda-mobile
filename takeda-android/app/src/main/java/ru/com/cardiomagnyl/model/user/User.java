@@ -491,4 +491,5 @@ public class User extends BaseModel {
                         "vkontakteId",
                         "facebookId"));
     }
+
 }

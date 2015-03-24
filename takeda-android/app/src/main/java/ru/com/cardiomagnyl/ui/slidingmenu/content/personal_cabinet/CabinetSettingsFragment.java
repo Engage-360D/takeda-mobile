@@ -26,6 +26,7 @@ import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.ui.start.SplashActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
+import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
@@ -170,6 +171,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        PillsScheduler.cancelAll();
                         CardiomagnylApplication.getInstance().logout();
                     }
                 }

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -235,11 +236,17 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
         try {
             Utils.hideKeyboard(getCurrentFocus());
 
+            Fragment currentFragment = getCurrentFragment();
+
             if (!isBackStackEmpty()) {
-                mFragmentManager.popBackStackImmediate();
+                mFragmentManager.popBackStack();
+
+                FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, currentFragment);
+                fragmentTransaction.commit();
             }
 
-            initTopOnFragmentChanged(getCurrentFragment(), !isBackStackEmpty());
+            initTopOnFragmentChanged(currentFragment, !isBackStackEmpty());
             if (withSwitch) {
                 showContentDelayed();
             }
@@ -258,6 +265,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
         FragmentManager.BackStackEntry backEntry = mFragmentManager.getBackStackEntryAt(mFragmentManager.getBackStackEntryCount() - 1);
         String string = backEntry.getName();
         Fragment fragment = mFragmentManager.findFragmentByTag(string);
+        Log.d("Test", fragment.getClass().getName());
         return fragment;
     }
 
