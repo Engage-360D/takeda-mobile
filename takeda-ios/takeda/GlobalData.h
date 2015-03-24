@@ -22,6 +22,7 @@
 +(void)saveRegions:(NSMutableArray*)regions;
 +(void)saveIncidents:(NSMutableDictionary*)incidents;
 +(void)saveResultAnalyses:(NSMutableDictionary*)result;
++(void)cleanOldResults:(NSMutableArray*)results;
 +(NSMutableArray*)resultAnalyses;
 +(int)lastResultDataId;
 +(void)writeLastResultDataId:(int)lId;
@@ -33,6 +34,9 @@
 -(void)loadCitiesList:(void (^)(BOOL success, id result))completion;
 -(void)loadSpecializationsList:(void (^)(BOOL success, id result))completion;
 //-(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
++(void)loadAnalysisFromServerWithLastId:(int)lastId completion:(void (^)(BOOL success, NSError* error, id result))completion;
++(void)updateISP:(void (^)(BOOL success, id result))completion;
++(NSString*)ISP;
 -(void)addIncidentTo:(NSMutableDictionary*)inc incident:(NSString*)incidentType comment:(NSString*)comment;
 -(void)deleteIncident:(NSMutableDictionary*)inc incident:(NSString*)incidentType;
 -(void)deleteAllIncidents:(NSMutableDictionary*)inc;

@@ -39,6 +39,7 @@ static GlobalData *objectInstance = nil;
 }
 
 +(void)resetData{
+    [[NSNotificationCenter defaultCenter] removeObserver:objectInstance];
     objectInstance = nil;
 }
 
@@ -140,12 +141,36 @@ static GlobalData *objectInstance = nil;
 }
 
 
++(void)cleanOldResults:(NSMutableArray*)results{
+    NSDate *lastReset = [Global parseDateTime:User.userData[@"resetAt"]];
+    BOOL params = YES;
+    if (!results){
+        params = NO;
+        results = [self resultAnalyses];
+    }
+    
+    for (int i = 0; i<results.count; i++){
+        if ([[Global parseDateTime:results[i][@"createdAt"]]isLaterThanDate:lastReset]){
+            [results removeObjectAtIndex:i];
+            i--;
+        }
+    }
+
+    if (!params){
+        [results saveTofile:resultAnalysesFile];
+    }
+    
+}
 
 +(void)saveResultAnalyses:(id)result{
+    
     int lastId = 0;
     NSString *fileN = resultAnalysesFile;
     NSMutableArray *arr = [NSMutableArray new];
     NSMutableArray *tArr = [self resultAnalyses];
+    
+    [self cleanOldResults:tArr];
+    
     [arr addObjectsFromArray:tArr];
    
     if ([result isKindOfClass:[NSDictionary class]]){
@@ -277,6 +302,21 @@ static GlobalData *objectInstance = nil;
     
 }
 
++(void)loadAnalysisFromServerWithLastId:(int)lastId completion:(void (^)(BOOL success, NSError* error, id result))completion{
+    
+    [ServData loadAnalysisFromServerWithLastId:lastId completion:^(BOOL success, NSError *error, id result) {
+        {
+            if ([error answerOk]){
+                    [self saveResultAnalyses:result[@"data"]];
+                    completion(YES,error, result);
+            } else {
+                completion(NO,error, result);
+            }
+        }
+    }];
+}
+
+
 +(void)loadMyCityByLocation:(CLLocation*)location fromCashe:(BOOL)fromCashe copml:(void (^)(BOOL success, id result))completion{
         if ([UserDefaults valueForKey:@"lastCity"]&&fromCashe){
             completion(YES, [UserDefaults valueForKey:@"lastCity"]);
@@ -342,14 +382,37 @@ static GlobalData *objectInstance = nil;
 
 }
 
+
+
++(void)updateISP:(void (^)(BOOL success, id result))completion{
+    [ServData loadISPCompletition:^(BOOL success, id result){
+            if (success&&result[@"data"]&&[result[@"data"] isKindOfClass:[NSDictionary class]]&&[result[@"data"] hasKey:@"id"]){
+                NSString *isp = result[@"data"][@"id"];
+                [UserDefaults setObject:isp forKey:@"ISP"];
+                completion(success, result[@"data"][@"id"]);
+            } else {
+                completion(NO, nil);
+            }
+    }];
+
+}
+
++(NSString*)ISP{
+    return [UserDefaults valueForKey:@"ISP"];
+}
+
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion{
 
     [ServData loadTimelineCompletition:^(BOOL success, id result){
         
+        [GlobalData casheTimelineTasks:[Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]]];
+        [GlobalData casheTimeline:result[@"data"]];
+
         completion(success, result);
     }];
     
 }
+
 
 -(void)loadCitiesList:(void (^)(BOOL success, id result))completion{
     [ServData loadCitiesCompletition:^(BOOL success, id result){
@@ -441,8 +504,6 @@ static GlobalData *objectInstance = nil;
     }];
     
 }
-
-
 
 +(id)cashedRequest:(NSString*)url needInternet:(BOOL)needIternet{
     if (appDelegate.hostConnection != NotReachable&&needIternet) {

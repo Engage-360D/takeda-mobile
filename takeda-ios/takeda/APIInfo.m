@@ -29,12 +29,14 @@
 #define kInstitutionSpecializations @"institution-specializations" // Список специальностей для поиска. GET.
 #define kInstitutionsList @"institutions" // Список ЛПУ с поиска. GET.
 #define kAccountReset @"account/reset" // Ресет пользователя. POST.
+#define kAccountISR @"account/isr" // ИСП пользователя. GET.
+
 
 
 #define client_id @"3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4"
 #define client_secret @"6bhq30w1jrc4wwoc00ks400scgkwws8g8skwkc84g0kkwgkc0k"
 
-#warning SET OK keys !!!
+//#warning SET OK keys !!!
 #define  Odnkl_appID @"1126090240"
 #define  Odnkl_appSecret @"48E60A55CB4CF49C3E5D3762"
 #define  Odnkl_appKey @"CBAHMPBEEBABABABA"

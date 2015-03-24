@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EGORefreshTableHeaderView.h"
 
-@interface AnalisisResultPage : VControllerExt
+@interface AnalisisResultPage : VControllerExt<EGORefreshTableHeaderDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) EGORefreshTableHeaderView *refreshHeaderView;
+
 @end

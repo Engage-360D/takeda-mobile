@@ -216,6 +216,7 @@ static AllSingle *dot = nil;
 
 
 -(NSDate*) parseDateTime:(NSString *)dateString{
+    if (dateString == nil || dateString.length==0) return nil;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //    formatter.locale = [NSLocale currentLocale]; // Necessary?
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"];

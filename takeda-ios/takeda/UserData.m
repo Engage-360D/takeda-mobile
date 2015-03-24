@@ -175,6 +175,7 @@ static UserData *objectInstance = nil;
 
 -(void)setUserData:(NSMutableDictionary*)user_data{
     userData_ = user_data;
+    [GlobalData cleanOldResults:nil];
 }
 
 -(void)updateUser:(NSString*)login userInfo:(NSMutableDictionary*)userInfo accessToken:(NSString*)accessToken{

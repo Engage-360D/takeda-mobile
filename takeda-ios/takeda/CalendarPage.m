@@ -318,7 +318,7 @@
     NSMutableDictionary *item = self.records[indexPath.section][@"links"][@"tasks"][indexPath.row];
     
     if (item[@"isCompleted"]){
-        cell.cellType = [self cellTypeForTask:item[@"type"]];
+        cell.cellType = [CalendarPage cellTypeForTask:item[@"type"]];
     } else {
         cell.cellType = ctLeftCaptionRightArrow;
     }
@@ -355,6 +355,19 @@
 
             break;
         }
+        CASE(@"arterialPressure"){
+            cell.caption.text = @"Артериальное давление";
+            NSString *mms = item[@"isCompleted"]?item[@"arterialPressure"]:@"";
+            cell.rightCaption.text = [NSString stringWithFormat:@"%@ мм",mms];
+            break;
+        }
+        CASE(@"weight"){
+            cell.caption.text = @"Вес";
+            NSString *kg = item[@"isCompleted"]?item[@"weight"]:@"";
+            cell.rightCaption.text = [NSString stringWithFormat:@"%@ кг",kg];
+            break;
+        }
+
         DEFAULT{
             break;
         }
@@ -482,6 +495,15 @@
             [self setupPill:item];
             break;
         }
+        CASE(@"arterialPressure"){
+            [self setupArterial:item];
+            break;
+        }
+        CASE(@"weight"){
+            [self setupWeight:item];
+            break;
+        }
+
         DEFAULT{
             break;
         }
@@ -575,16 +597,72 @@
 }
 
 
+-(void)setupArterial:(NSMutableDictionary*)task{
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    NSMutableArray *expArray = [NSMutableArray new];
+    [expArray fillIntegerFrom:80 to:200 step:1];
+    DPicker *exPicker = [[DPicker alloc] initListWithArray:expArray inView:self.view completition:^(BOOL apply, int index){
+        if (apply){
+            [params setObject:[NSNumber numberWithInt:[expArray[index] intValue]] forKey:@"arterialPressure"];
+            [ServData updateTask:task[@"id"] params:params completion:^(BOOL success, NSError* error, id result){
+                if (success){
+                    BOOL isCompleted = [result[@"data"][@"isCompleted"] boolValue];
+                    int minutes = [result[@"data"][@"arterialPressure"] intValue];
+                    [tasks[task[@"id"]] setObject:[NSNumber numberWithBool:isCompleted] forKey:@"isCompleted"];
+                    [tasks[task[@"id"]] setObject:[NSNumber numberWithInt:minutes] forKey:@"arterialPressure"];
+                    
+                    [self updateTask:result[@"data"]];
+                    [self filtrRecords];
+                    [self.tableView reloadData];
+                }
+            }];
+        }
+    }];
+    exPicker.applyBtn.title = @"Отправить";
+    exPicker.closeBtn.title = @"Отменить";
+    
+    [exPicker show];
+}
+-(void)setupWeight:(NSMutableDictionary*)task{
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    NSMutableArray *expArray = [NSMutableArray new];
+    [expArray fillIntegerFrom:30 to:700 step:1];
+    DPicker *exPicker = [[DPicker alloc] initListWithArray:expArray inView:self.view completition:^(BOOL apply, int index){
+        if (apply){
+            [params setObject:[NSNumber numberWithInt:[expArray[index] intValue]] forKey:@"weight"];
+            [ServData updateTask:task[@"id"] params:params completion:^(BOOL success, NSError* error, id result){
+                if (success){
+                    BOOL isCompleted = [result[@"data"][@"isCompleted"] boolValue];
+                    int minutes = [result[@"data"][@"weight"] intValue];
+                    [tasks[task[@"id"]] setObject:[NSNumber numberWithBool:isCompleted] forKey:@"isCompleted"];
+                    [tasks[task[@"id"]] setObject:[NSNumber numberWithInt:minutes] forKey:@"weight"];
+                    
+                    [self updateTask:result[@"data"]];
+                    [self filtrRecords];
+                    [self.tableView reloadData];
+                }
+            }];
+        }
+    }];
+    exPicker.applyBtn.title = @"Отправить";
+    exPicker.closeBtn.title = @"Отменить";
+    
+    [exPicker show];
+}
 
 
 
 
 
 
--(CombyCellType)cellTypeForTask:(NSString*)taskType{
++(CombyCellType)cellTypeForTask:(NSString*)taskType{
     NSDictionary *r = @{@"exercise":[NSNumber numberWithInt:ctLeftCaptionRightCaption],
                         @"diet":[NSNumber numberWithInt:ctCaptionChecked],
-                        @"pill":[NSNumber numberWithInt:ctCaptionChecked]};
+                        @"pill":[NSNumber numberWithInt:ctCaptionChecked],
+                        @"arterialPressure":[NSNumber numberWithInt:ctLeftCaptionRightCaption],
+                        @"weight":[NSNumber numberWithInt:ctLeftCaptionRightCaption],
+                        
+                        };
     return [r[taskType] intValue];
 }
 

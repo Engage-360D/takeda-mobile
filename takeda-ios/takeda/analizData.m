@@ -134,7 +134,7 @@ NSMutableDictionary * dic_data;
 
 -(NSArray*)getListYears{
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 1; i < 100; i ++) {
+    for (int i = 1; i <= 100; i ++) {
         [array addObject:[NSString stringWithFormat:@"%i",i]];
     }
     return array;
@@ -143,7 +143,7 @@ NSMutableDictionary * dic_data;
 
 -(NSArray*)getListGrowth{
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 30; i < 300; i ++) {
+    for (int i = 30; i <= 300; i ++) {
         [array addObject:[NSString stringWithFormat:@"%i",i]];
     }
     return array;
@@ -152,7 +152,7 @@ NSMutableDictionary * dic_data;
 
 -(NSArray*)getListWeight{
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 30; i < 700; i ++) {
+    for (int i = 30; i <= 700; i ++) {
         [array addObject:[NSString stringWithFormat:@"%i",i]];
     }
     return array;
@@ -173,7 +173,7 @@ NSMutableDictionary * dic_data;
 
 -(NSArray*)getListArterial_pressure{
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 80; i < 200; i ++) {
+    for (int i = 80; i <= 200; i ++) {
         [array addObject:[NSString stringWithFormat:@"%i",i]];
     }
     return array;
@@ -189,7 +189,7 @@ NSMutableDictionary * dic_data;
 
 -(NSArray*)getListSport{
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (int i = 80; i < 200; i ++) {
+    for (int i = 80; i <= 200; i ++) {
         [array addObject:[NSString stringWithFormat:@"%i",i]];
     }
     return array;
