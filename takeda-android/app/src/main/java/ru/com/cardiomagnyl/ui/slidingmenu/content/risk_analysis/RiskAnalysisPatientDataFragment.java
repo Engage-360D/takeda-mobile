@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -51,6 +53,8 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
 
         RadioGroup radioGroupCholesterolDrugs = (RadioGroup) view.findViewById(R.id.radioGroupCholesterolDrugs);
         RadioGroup radioGroupSmoking = (RadioGroup) view.findViewById(R.id.radioGroupSmoke);
+        final EditText editTextCholesterol = (EditText) parentView.findViewById(R.id.editTextCholesterol);
+        CheckBox checkBoxCholesterolNotKnow = (CheckBox) parentView.findViewById(R.id.checkBoxCholesterolNotKnow);
 //        final RelativeLayout relativeLayoutCholesterolDrugs = (RelativeLayout) view.findViewById(R.id.relativeLayoutCholesterolDrugs);
 //        SeekBarWithValues seekBarWithValuesCholesterol = (SeekBarWithValues) view.findViewById(R.id.seekBarWithValuesCholesterol);
         ImageView imageViewBottomInsideLeft = (ImageView) view.findViewById(R.id.imageViewBottomInsideLeft);
@@ -60,6 +64,14 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
 
         radioGroupCholesterolDrugs.setOnCheckedChangeListener(Tools.ToggleListener);
         radioGroupSmoking.setOnCheckedChangeListener(Tools.ToggleListener);
+
+        checkBoxCholesterolNotKnow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) editTextCholesterol.setText("");
+                editTextCholesterol.setEnabled(!isChecked);
+            }
+        });
 
 //        seekBarWithValuesCholesterol.setOnProgressChangedListener(new OnProgressChangedListener() {
 //
@@ -116,6 +128,7 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
         EditText editTextHeight = (EditText) parentView.findViewById(R.id.editTextHeigh);
         EditText editTextWeight = (EditText) parentView.findViewById(R.id.editTextWeight);
         EditText editTextCholesterol = (EditText) parentView.findViewById(R.id.editTextCholesterol);
+        CheckBox checkBoxCholesterolNotKnow = (CheckBox) parentView.findViewById(R.id.checkBoxCholesterolNotKnow);
         ToggleButton toggleButtonCholesterolDrugs = (ToggleButton) parentView.findViewById(R.id.toggleButtonCholesterolDrugs);
         ToggleButton toggleButtonSmoking = (ToggleButton) parentView.findViewById(R.id.toggleButtonSmoke);
         ToggleButton toggleButtonNotSmoking = (ToggleButton) parentView.findViewById(R.id.toggleButtonNotSmoke);
@@ -127,7 +140,9 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
             Integer age = editTextAge.length() != 0 ? Integer.parseInt(String.valueOf(editTextAge.getText().toString())) : null;
             Integer growth = editTextHeight.length() != 0 ? Integer.parseInt(String.valueOf(editTextHeight.getText().toString())) : null;
             Integer weight = editTextWeight.length() != 0 ? Integer.parseInt(String.valueOf(editTextWeight.getText().toString())) : null;
-            Integer cholesterolLevel = editTextWeight.length() != 0 ? Integer.parseInt(String.valueOf(editTextCholesterol.getText().toString())) : null;
+            Boolean cholesterolNotKnow = checkBoxCholesterolNotKnow.isChecked();
+            Integer cholesterolLevel = editTextCholesterol.length() != 0 && !cholesterolNotKnow ? Integer.parseInt(String.valueOf(editTextCholesterol.getText().toString())) : null;
+
             Boolean cholesterolDrugs = toggleButtonCholesterolDrugs.isChecked();
             Boolean smoking = toggleButtonSmoking.isChecked() || toggleButtonNotSmoking.isChecked() ? toggleButtonSmoking.isChecked() : null;
 
@@ -145,7 +160,7 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
                 resultString += parentView.getContext().getString(R.string.error_test_weight);
             }
 
-            if (cholesterolLevel < 3 || cholesterolLevel > 9) {
+            if (!cholesterolNotKnow && (cholesterolLevel == null || (cholesterolLevel < 3 || cholesterolLevel > 9))) {
                 resultString += resultString.isEmpty() ? "" : "\n";
                 resultString += parentView.getContext().getString(R.string.error_test_cholesterol_level);
             }

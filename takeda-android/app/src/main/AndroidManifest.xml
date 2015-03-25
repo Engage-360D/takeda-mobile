@@ -9,8 +9,8 @@
     <supports-screens
         android:compatibleWidthLimitDp="600"
         android:largeScreens="true"
-        android:largestWidthLimitDp="720"
         android:normalScreens="true"
+        android:largestWidthLimitDp="720"
         android:requiresSmallestWidthDp="480"
         android:smallScreens="false" />
 
