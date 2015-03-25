@@ -18,13 +18,12 @@ import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.task.Task;
-import ru.com.cardiomagnyl.model.test.TestResult;
+import ru.com.cardiomagnyl.model.user.Isr;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.base.BaseTimeLineFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.institution.InstitutionsSearchFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.journal.JournalFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.journal.TimelineAdapter;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.recommendations.RecommendationsTestResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis.RiskAnalysisResultsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Tools;
@@ -95,6 +94,7 @@ public class MainFragment extends BaseTimeLineFragment {
         udateFullTimelineList(updatedTask);
         initToday(getView());
         initTimeLine(getView());
+        initIndex(getView());
     }
 
     @Override
@@ -109,9 +109,9 @@ public class MainFragment extends BaseTimeLineFragment {
     }
 
     private void initIndex(final View view) {
-        int index = 0;
-        TestResult testResult = AppState.getInsnatce().getTestResult();
-        if (testResult != null) index = testResult.getScorePercents();
+        String index = "0";
+        Isr isr = AppState.getInsnatce().getIsr();
+        if (isr != null) index = isr.getId();
 
         TextView textViewIndex = (TextView) view.findViewById(R.id.textViewIndex);
         textViewIndex.setText(String.valueOf(index) + "%");

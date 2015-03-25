@@ -30,7 +30,7 @@ public class AppSharedPreferences {
     public static enum Preference {
         tokenId("token", Class.str),
         alarmActions("alarm_actions", Class.sst),
-        isr("isr", Class.ntg);
+        isr("isr", Class.str);
 
         private final String mPrefName;
         private final Class mClass;

@@ -7,7 +7,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 
-public abstract class BaseTrackedFragmentActivity extends FragmentActivity {
+public abstract class BaseFragmentActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();

@@ -78,7 +78,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
 
         if (TextUtils.isEmpty(tokenId)) {
             Response responseError = new Response.Builder(new ru.com.cardiomagnyl.model.common.Error()).create();
-            finishInitialization(null, null, null, null, null, responseError);
+            finishInitialization(null, null, null, null, null, null, responseError);
             return;
         }
 
@@ -93,7 +93,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(null, null, null, null, null, responseError);
+                        finishInitialization(null, null, null, null, null, null, responseError);
                     }
                 }
         );
@@ -105,7 +105,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                 new CallbackOne<User>() {
                     @Override
                     public void execute(User user) {
-                        getIncidents(token, user);
+                        getIsr(token, user);
                     }
                 },
                 new CallbackOne<Response>() {
@@ -124,42 +124,63 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                 new CallbackOne<User>() {
                     @Override
                     public void execute(User user) {
-                        getIncidents(token, user);
+                        getIsr(token, user);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(token, null, null, null, null, responseError);
+                        finishInitialization(token, null, null, null, null, null, responseError);
                     }
                 },
                 UserDao.Source.db
         );
     }
 
-    private void getIncidents(final Token token, final User user) {
+    private void getIsr(final Token token, final User user) {
+        UserDao.getIsr(
+                token,
+                new CallbackOne<Isr>() {
+                    @Override
+                    public void execute(Isr isr) {
+                        getIncidents(token, user, isr);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        String isrId = (String) AppSharedPreferences.get(AppSharedPreferences.Preference.isr);
+                        Isr isr = new Isr();
+                        isr.setId(TextUtils.isEmpty(isrId) ? "0" : isrId);
+                        getIncidents(token, user, isr);
+                    }
+                }
+        );
+    }
+
+    private void getIncidents(final Token token, final User user, final Isr isr) {
         IncidentsDao.getByToken(
                 token,
                 new CallbackOne<Incidents>() {
                     @Override
                     public void execute(Incidents incidents) {
-                        getTestResult(token, user, incidents);
+                        getTestResult(token, user, isr, incidents);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
                         if (responseError.getError().getCode() == Status.CONFLICT_ERROR) {
-                            getTestResult(token, user, new Incidents());
+                            getTestResult(token, user, isr, new Incidents());
                         } else {
-                            finishInitialization(token, user, null, null, null, responseError);
+                            finishInitialization(token, user, isr, null, null, null, responseError);
                         }
                     }
                 }
         );
     }
 
-    public void getTestResult(final Token token, final User user, final Incidents incidents) {
+    public void getTestResult(final Token token, final User user, final Isr isr, final Incidents incidents) {
         TestResultDao.getAll(
                 token,
                 new CallbackOne<List<TestResult>>() {
@@ -167,50 +188,64 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
                     public void execute(List<TestResult> testResultsList) {
                         TestResult testResult = TestResultDao.getNewestResult(testResultsList);
                         if (testResult == null)
-                            finishInitialization(token, user, incidents, null, null, null);
-                        else getDietTestResult(token, user, incidents, testResult);
+                            finishInitialization(token, user, isr, incidents, null, null, null);
+                        else getDietTestResult(token, user, isr, incidents, testResult);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(token, user, incidents, null, null, responseError);
+                        finishInitialization(token, user, isr, incidents, null, null, responseError);
                     }
                 }
         );
     }
 
-    public void getDietTestResult(final Token token, final User user, final Incidents incidents, final TestResult testResult) {
+    public void getDietTestResult(final Token token, final User user, final Isr isr, final Incidents incidents, final TestResult testResult) {
         TestDietResultDao.getByTestId(
                 testResult.getId(),
                 new CallbackOne<TestDietResult>() {
                     @Override
                     public void execute(TestDietResult testDietResult) {
-                        finishInitialization(token, user, incidents, testResult, testDietResult, null);
+                        finishInitialization(token, user, isr, incidents, testResult, testDietResult, null);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        finishInitialization(token, user, incidents, testResult, null, responseError);
+                        finishInitialization(token, user, isr, incidents, testResult, null, responseError);
                     }
                 }
         );
     }
 
-    private void finishInitialization(Token token, User user, final Incidents incidents, TestResult testResult, final TestDietResult testDietResult, Response responseError) {
+    private void finishInitialization(final Token token,
+                                      final User user,
+                                      final Isr isr,
+                                      final Incidents incidents,
+                                      final TestResult testResult,
+                                      final TestDietResult testDietResult,
+                                      final Response responseError) {
         mIsLogined = (token != null && user != null && incidents != null);
         if (!mIsLogined) {
-            initAppState(null, null, null, null, null);
+            initAppState(null, null, null, null, null, null);
         } else {
-            initAppState(token, user, incidents, testResult, testDietResult);
+            initAppState(token, user, isr, incidents, testResult, testDietResult);
         }
         mInitializationFinished = true;
     }
 
-    private void initAppState(final Token token, final User user, final Incidents incidents, /*final Isr isr,*/ final TestResult testResult, final TestDietResult testDietResult) {
+    private void initAppState(final Token token,
+                              final User user,
+                              final Isr isr,
+                              final Incidents incidents,
+                              final TestResult testResult,
+                              final TestDietResult testDietResult) {
+        String isrId = (isr == null || TextUtils.isEmpty(isr.getId())) ? "0" : isr.getId();
+        AppSharedPreferences.put(AppSharedPreferences.Preference.isr, isrId);
         AppState.getInsnatce().setToken(token);
         AppState.getInsnatce().setUser(user);
+        AppState.getInsnatce().setIsr(isr);
         AppState.getInsnatce().setIncidents(incidents);
         AppState.getInsnatce().setTestResult(testResult);
         AppState.getInsnatce().setTestDietResult(testDietResult);

@@ -336,7 +336,7 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
     public static void getIsr(final Token token,
                               final CallbackOne<Isr> onSuccess,
                               final CallbackOne<Response> onFailure) {
-        TypeReference typeReference = new TypeReference<Dummy>() {
+        TypeReference typeReference = new TypeReference<Isr>() {
         };
 
         HttpRequestHolder httpRequestHolder =

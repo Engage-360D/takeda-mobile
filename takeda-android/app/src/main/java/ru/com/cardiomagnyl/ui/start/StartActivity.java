@@ -12,14 +12,14 @@ import android.view.animation.AnimationUtils;
 import ru.com.cardiomagnyl.app.BuildConfig;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
-import ru.com.cardiomagnyl.ui.base.BaseTrackedFragmentActivity;
+import ru.com.cardiomagnyl.ui.base.BaseFragmentActivity;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.TestMethods;
 import ru.com.cardiomagnyl.util.Utils;
 import ru.com.cardiomagnyl.widget.CustomAnimation;
 import ru.com.cardiomagnyl.widget.CustomAnimation.OnAnimationEndListener;
 
-public class StartActivity extends BaseTrackedFragmentActivity {
+public class StartActivity extends BaseFragmentActivity {
     private ProgressDialog mProgressDialog = null;
 
     @Override
