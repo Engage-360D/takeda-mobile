@@ -1,4 +1,4 @@
-package ru.com.cardiomagnyl.model.common;
+package ru.com.cardiomagnyl.model.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

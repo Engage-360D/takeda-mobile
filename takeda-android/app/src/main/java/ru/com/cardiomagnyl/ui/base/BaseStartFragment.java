@@ -11,7 +11,7 @@ import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppSharedPreferences;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.common.Error;
-import ru.com.cardiomagnyl.model.common.LgnPwd;
+import ru.com.cardiomagnyl.model.user.LgnPwd;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.incidents.IncidentsDao;

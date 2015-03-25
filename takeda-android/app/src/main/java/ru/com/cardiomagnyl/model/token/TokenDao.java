@@ -18,7 +18,7 @@ import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Response;
-import ru.com.cardiomagnyl.model.common.LgnPwd;
+import ru.com.cardiomagnyl.model.user.LgnPwd;
 import ru.com.cardiomagnyl.util.CallbackOne;
 
 public class TokenDao extends BaseDaoImpl<Token, Integer> {

@@ -50,6 +50,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
     protected final List<Timeline> mFilledTimelineList = new ArrayList<>();
     protected final List<Timeline> mCurrentTimelineList = new ArrayList<>();
     protected final Map<String, Pill> mPillsMap = new HashMap<>();
+    protected ViewGroup mViewGroupTopBar;
 
     protected abstract void initFragmentFinishHelper(final View fragmentView);
 
@@ -59,7 +60,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        initTopBarMenuBellCabinet(viewGroupTopBar, true, true, true);
+        mViewGroupTopBar = viewGroupTopBar;
     }
 
     @Override

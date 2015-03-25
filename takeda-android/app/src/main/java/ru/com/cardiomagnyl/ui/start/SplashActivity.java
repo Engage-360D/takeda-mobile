@@ -24,6 +24,7 @@ import ru.com.cardiomagnyl.model.test_diet.TestDietResult;
 import ru.com.cardiomagnyl.model.test_diet.TestDietResultDao;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.token.TokenDao;
+import ru.com.cardiomagnyl.model.user.Isr;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.model.user.UserDao;
 import ru.com.cardiomagnyl.ui.base.BaseActivity;
@@ -207,7 +208,7 @@ public class SplashActivity extends BaseActivity implements AnimationListener {
         mInitializationFinished = true;
     }
 
-    private void initAppState(final Token token, final User user, final Incidents incidents, final TestResult testResult, final TestDietResult testDietResult) {
+    private void initAppState(final Token token, final User user, final Incidents incidents, /*final Isr isr,*/ final TestResult testResult, final TestDietResult testDietResult) {
         AppState.getInsnatce().setToken(token);
         AppState.getInsnatce().setUser(user);
         AppState.getInsnatce().setIncidents(incidents);

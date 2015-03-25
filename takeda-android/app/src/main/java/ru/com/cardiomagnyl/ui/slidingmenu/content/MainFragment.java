@@ -34,6 +34,7 @@ public class MainFragment extends BaseTimeLineFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        initTopBarMenuBellCabinet(mViewGroupTopBar, true, true, true);
         if (!AppState.getInsnatce().getIncidents().isEmpty()) {
             View view = createViewIncidents(inflater);
             return view;

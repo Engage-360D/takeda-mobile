@@ -13,7 +13,7 @@ import java.util.List;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.common.Dummy;
-import ru.com.cardiomagnyl.model.common.Email;
+import ru.com.cardiomagnyl.model.user.Email;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.user.User;

@@ -21,8 +21,6 @@ import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Dummy;
-import ru.com.cardiomagnyl.model.common.Email;
-import ru.com.cardiomagnyl.model.common.LgnPwd;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.pill.Pill;
@@ -333,6 +331,27 @@ public class UserDao extends BaseDaoImpl<User, Integer> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void getIsr(final Token token,
+                              final CallbackOne<Isr> onSuccess,
+                              final CallbackOne<Response> onFailure) {
+        TypeReference typeReference = new TypeReference<Dummy>() {
+        };
+
+        HttpRequestHolder httpRequestHolder =
+                new HttpRequestHolder
+                        .Builder(Request.Method.GET, String.format(Url.ACCOUNT_ISR, token.getTokenId()), typeReference)
+                        .addHeaders(Url.GET_HEADERS)
+                        .create();
+
+        DataLoadDispatcher
+                .getInstance()
+                .receive(
+                        httpRequestHolder,
+                        onSuccess,
+                        onFailure
+                );
     }
 
     public static void storeIntoDatabase(final User user) {

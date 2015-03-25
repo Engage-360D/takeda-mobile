@@ -16,6 +16,7 @@ public final class Url {
     public static final String ACCOUNT_RESET_PASSWORD = API_ADDR + "account/reset-password";
     public static final String ACCOUNT_TEST_RESULTS = API_ADDR + "account/test-results?token=%s";
     public static final String ACCOUNT_TEST_SEND_EMAIL = API_ADDR + "account/test-results/%s/send-email?token=%s";
+    public static final String ACCOUNT_ISR = API_ADDR + "account/isr?token=%s";
     public static final String ACCOUNT_PILLS = API_ADDR + "account/pills?token=%s";
     public static final String ACCOUNT_PILLS_ID = API_ADDR + "account/pills/%s?token=%s";
     public static final String ACCOUNT_TIMELINE = API_ADDR + "account/timeline?token=%s";
