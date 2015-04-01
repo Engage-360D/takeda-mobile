@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
+
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -49,7 +50,6 @@ import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
-import ru.com.cardiomagnyl.util.Utils;
 import ru.com.cardiomagnyl.widget.CustomAutoCompleteTextView;
 import ru.com.cardiomagnyl.widget.CustomExpandAnimation;
 import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
@@ -261,7 +261,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Utils.hideKeyboard(autoCompleteTextView);
+                Tools.hideKeyboard(autoCompleteTextView);
                 autoCompleteTextView.setTag(customArrayAdapter.getItem(position).getName());
                 tryToGetInstitutions(fragmentView);
             }
@@ -292,7 +292,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Utils.hideKeyboard(autoCompleteTextView);
+                Tools.hideKeyboard(autoCompleteTextView);
                 Institution institution = (Institution) customArrayAdapter.getItem(position);
                 autoCompleteTextView.setTag(institution.getName());
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(institution.getLat(), institution.getLng()), ONE_POINT_ZOOM);
@@ -524,10 +524,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
                 },
                 new CallbackOne<Response>() {
                     @Override
-                    public void execute(Response responseError) {
-                        int t = 0;
-                        t++;
-                    }
+                    public void execute(Response responseError) { /* does nothing*/ }
                 }
         );
     }

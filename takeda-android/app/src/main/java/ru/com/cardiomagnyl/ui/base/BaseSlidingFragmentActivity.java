@@ -15,13 +15,12 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.util.Tools;
-import ru.com.cardiomagnyl.util.Utils;
+
 
 public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivity {
     protected FragmentManager mFragmentManager;
@@ -82,7 +81,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
         getSlidingMenu().setOnOpenedListener(new SlidingMenu.OnOpenedListener() {
             @Override
             public void onOpened() {
-                Utils.hideKeyboard(getCurrentFocus());
+                Tools.hideKeyboard(getCurrentFocus());
             }
         });
     }
@@ -171,7 +170,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                 showContentDelayed();
             }
 
-            Utils.hideKeyboard(getCurrentFocus());
+            Tools.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -194,7 +193,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                 showContentDelayed();
             }
 
-            Utils.hideKeyboard(getCurrentFocus());
+            Tools.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -231,7 +230,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                 showContentDelayed();
             }
 
-            Utils.hideKeyboard(getCurrentFocus());
+            Tools.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -239,7 +238,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
     public void makeContentStepBack(final boolean withSwitch) {
         try {
-            Utils.hideKeyboard(getCurrentFocus());
+            Tools.hideKeyboard(getCurrentFocus());
 
             // blocking of fragment creation on popBackStack
             ArrayList<Pair<Fragment, String>> fragmentsTagsList = new ArrayList<>();

@@ -38,15 +38,14 @@
             android:layout_gravity="center_horizontal"
             android:progress="@integer/scale_animation_time" />
 
-        <com.devspark.robototextview.widget.RobotoTextView
+        <TextView
             android:id="@+id/textViewBottomOutsideAction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_xsmall"
-            app:typeface="roboto_regular" />
+            android:textSize="@dimen/text_size_xsmall" />
     </LinearLayout>
 
 </LinearLayout>

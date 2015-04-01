@@ -3,7 +3,6 @@ package ru.com.cardiomagnyl.ui.slidingmenu.menu;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.InformationFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.MainFragment;
-import ru.com.cardiomagnyl.ui.slidingmenu.content.PublicationsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.ReportsFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.UsefulToKnowFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.institution.InstitutionsSearchFragment;
@@ -21,7 +20,6 @@ public enum MenuItem {
     item_settings(CabinetSettingsFragment.class, R.string.menu_item_settings, true, true),
     item_analysis_results(RiskAnalysisResultsFragment.class, R.string.menu_item_analysis_results, true, true),
     item_useful_to_know(UsefulToKnowFragment.class, R.string.menu_item_useful_to_know, true, true),
-    item_publications(PublicationsFragment.class, R.string.menu_item_publications, true, false),
     item_reports(ReportsFragment.class, R.string.menu_item_reports, true, true);
 
     private final Class itemClass;

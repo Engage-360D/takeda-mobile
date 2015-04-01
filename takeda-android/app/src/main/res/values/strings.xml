@@ -57,9 +57,9 @@
     <!-- ====== -->
     <string name="error_occurred">Произошла ошибка.</string>
     <string name="error_authorization">Произошла ошибка во время авторизации.</string>
+    <string name="error_getting_user_data">Произошла ошибка при получении данных пользователя.</string>
     <string name="error_registration">Произошла ошибка во время регистрации.</string>
     <string name="error_get_test_results">Произошла ошибка во время получения результатов теста.</string>
-    <string name="authorization_error">Ошибка авторизации.</string>
     <string name="error_tets_already_passed">Вы уже проходили тест.\nТест проходится раз в месяц.\nПопробуйте позже.</string>
     <string name="error_tets_username_not_unique">Вы уже регистрировались, пожалуйста вернитесь к входу.\nТам же вы можете восстановить пароль.</string>
     <string name="error_user_not_found">Такой пользователь не найден.\nУбедитесь, что вы правильно ввели электронный адрес.</string>
@@ -118,7 +118,6 @@
     <string name="menu_item_settings">Настройки</string>
     <string name="menu_item_analysis_results">Рекомендации</string>
     <string name="menu_item_useful_to_know">Полезно знать</string>
-    <string name="menu_item_publications">Публикации</string>
     <string name="menu_item_reports">Отчеты</string>
     <string name="menu_item_patient_data">Данные пациента</string>
     <string name="menu_item_patient_history">История пациента</string>
@@ -131,6 +130,7 @@
     <string name="header_registration">Регистрация</string>
     <string name="is_a_doctor">Вы являетесь врачом?</string>
     <string name="use_social">Использовать аккаунт социальных сетей:</string>
+    <string name="use_social_used">Уже привязанные социальные сети:</string>
     <string name="your_details">Ваши данные</string>
     <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>

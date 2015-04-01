@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
@@ -17,10 +18,11 @@ import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.base.BaseFragmentActivityWrapper;
 import ru.com.cardiomagnyl.ui.base.BaseSlidingFragmentActivity;
 import ru.com.cardiomagnyl.ui.start.SplashActivity;
 
-public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
+public class SlidingMenuActivity extends BaseSlidingFragmentActivity implements BaseFragmentActivityWrapper {
     private SlidingMenuListFragment mSlidingMenuListFragment;
     private ProgressDialog mProgressDialog = null;
 
@@ -33,7 +35,6 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
             MenuItem.item_analysis_results,
             MenuItem.item_journal,
             MenuItem.item_useful_to_know,
-            MenuItem.item_publications,
             MenuItem.item_reports
     };
 
@@ -163,9 +164,6 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
             MenuItem.item_useful_to_know.setItemIsVisible(true);
             MenuItem.item_useful_to_know.setItemIsEnabled(false);
 
-            MenuItem.item_publications.setItemIsVisible(true);
-            MenuItem.item_publications.setItemIsEnabled(false);
-
             MenuItem.item_reports.setItemIsVisible(true);
             MenuItem.item_reports.setItemIsEnabled(false);
         }
@@ -225,6 +223,7 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         }
     }
 
+    @Override
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
@@ -238,10 +237,16 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity {
         }
     }
 
+    @Override
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
+    }
+
+    @Override
+    public FragmentActivity getFragmentActivity() {
+        return this;
     }
 
     public void onToggle(View view) {

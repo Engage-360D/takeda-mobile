@@ -15,25 +15,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.gorbin.asne.core.AccessToken;
+import com.github.gorbin.asne.core.persons.SocialPerson;
+
 import java.util.List;
 
 import ru.com.cardiomagnyl.app.BuildConfig;
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.SocialManager;
 import ru.com.cardiomagnyl.model.common.Dummy;
+import ru.com.cardiomagnyl.model.common.Response;
+import ru.com.cardiomagnyl.model.social.Social;
 import ru.com.cardiomagnyl.model.user.Email;
 import ru.com.cardiomagnyl.model.user.LgnPwd;
-import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.user.UserDao;
-import ru.com.cardiomagnyl.social.FbApi;
-import ru.com.cardiomagnyl.social.FbUser;
-import ru.com.cardiomagnyl.social.OkApi;
-import ru.com.cardiomagnyl.social.OkUser;
-import ru.com.cardiomagnyl.social.VkApi;
-import ru.com.cardiomagnyl.social.VkUser;
 import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
-import ru.com.cardiomagnyl.util.Utils;
 
 public class LoginOrRestoreFragment extends BaseStartFragment {
     @Override
@@ -54,19 +52,28 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     @Override
-    public void initFieldsFromSocial(ru.com.cardiomagnyl.social.User user) {
-        final EditText editTextEmail = (EditText) getActivity().findViewById(R.id.editTextEmailLogin);
+    public void initSocials(StartActivity startActivity) {
+        SocialManager socialManager = new SocialManager(startActivity);
 
-        if (!user.getEmail().isEmpty()) {
-            editTextEmail.setText(user.getEmail());
-        }
+        socialManager.initSocials(this, getView(), new SocialManager.OnTokenReceived() {
+            @Override
+            public void execute(int networkId, SocialPerson socialPerson, AccessToken accessToken) {
+                Social social = new Social();
+                social.setUserId(socialPerson.id);
+                social.setAccessToken(accessToken.token);
+
+                startAuthorization(networkId, social);
+            }
+        }, null);
     }
+
+    @Override
+    public void initFieldsFromSocial(int networkId, SocialPerson socialPerson) { /*does nothing*/ }
 
     private void initFragment(final View view) {
         initLoginFields(view);
         initRestoreFields(view);
         initLoginRestoreSwitcher(view);
-        initSocials(view);
         // TODO: remove after tests
         customizeIfDebug(view);
     }
@@ -118,7 +125,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         buttonRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.hideKeyboard(getActivity());
+                Tools.hideKeyboard(getActivity());
                 StartActivity startActivity = (StartActivity) getActivity();
                 startActivity.slideViewPager(true);
             }
@@ -166,7 +173,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         textViewPerformLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.hideKeyboard(getActivity());
+                Tools.hideKeyboard(getActivity());
                 linearLayoutLogin.setVisibility(View.VISIBLE);
                 linearLayoutRestore.setVisibility(View.GONE);
             }
@@ -175,17 +182,11 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
         textViewPerformRestore.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.hideKeyboard(getActivity());
+                Tools.hideKeyboard(getActivity());
                 linearLayoutRestore.setVisibility(View.VISIBLE);
                 linearLayoutLogin.setVisibility(View.GONE);
             }
         });
-    }
-
-    private void initSocials(final View view) {
-        view.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(this, new FbApi(), new CustomAuthorizationListener(this, FbUser.class)));
-        view.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(this, new VkApi(), new CustomAuthorizationListener(this, VkUser.class)));
-        view.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(this, new OkApi(), new CustomAuthorizationListener(this, OkUser.class)));
     }
 
     // TODO: remove after tests
@@ -241,7 +242,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
     }
 
     private String pickRestoreFields(final View view) {
-        EditText editTextEmailRestore = (EditText) getActivity().findViewById(R.id.editTextEmailRestore);
+        EditText editTextEmailRestore = (EditText) view.findViewById(R.id.editTextEmailRestore);
         return editTextEmailRestore.getText().toString();
     }
 

@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.github.gorbin.asne.core.persons.SocialPerson;
+
 import java.util.List;
 
 import ru.com.cardiomagnyl.api.Status;
@@ -15,6 +17,7 @@ import ru.com.cardiomagnyl.model.common.Error;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.incidents.IncidentsDao;
+import ru.com.cardiomagnyl.model.social.Social;
 import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestResultDao;
 import ru.com.cardiomagnyl.model.test_diet.TestDietResult;
@@ -31,6 +34,10 @@ import ru.com.cardiomagnyl.util.Tools;
 
 public abstract class BaseStartFragment extends Fragment {
     public abstract void initParent(Activity activity);
+
+    public abstract void initSocials(StartActivity startActivity);
+
+    public abstract void initFieldsFromSocial(int networkId, SocialPerson socialPerson);
 
     protected void startRegistration(final User user) {
         StartActivity startActivity = (StartActivity) getActivity();
@@ -60,6 +67,28 @@ public abstract class BaseStartFragment extends Fragment {
 
         TokenDao.getByLgnPwd(
                 lgnPwd,
+                new CallbackOne<Token>() {
+                    @Override
+                    public void execute(Token token) {
+                        getUserWeb(token);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        handleRegAuth(null, null, null, null, null, null, responseError);
+                    }
+                }
+        );
+    }
+
+    protected void startAuthorization(final int networkId, final Social social) {
+        StartActivity startActivity = (StartActivity) getActivity();
+        startActivity.showProgressDialog();
+
+        TokenDao.getBySocial(
+                networkId,
+                social,
                 new CallbackOne<Token>() {
                     @Override
                     public void execute(Token token) {
@@ -230,5 +259,4 @@ public abstract class BaseStartFragment extends Fragment {
         AppState.getInsnatce().setTestDietResult(testDietResult);
     }
 
-    public abstract void initFieldsFromSocial(ru.com.cardiomagnyl.social.User socialUser);
 }

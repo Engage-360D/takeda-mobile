@@ -26,8 +26,14 @@ import ru.com.cardiomagnyl.model.role.Role;
         "firstname",
         "lastname",
         "birthday",
-        "vkontakteId",
+        "googleId",
+        "googleToken",
         "facebookId",
+        "facebookToken",
+        "vkontakteId",
+        "vkontakteToken",
+        "odnoklassnikiId",
+        "odnoklassnikiToken",
         "specializationExperienceYears",
         "specializationGraduationDate",
         "specializationInstitutionAddress",
@@ -68,13 +74,33 @@ public class User extends BaseModel {
     @JsonProperty("birthday")
     private String birthday = null;
 
-    @DatabaseField(dataType = DataType.INTEGER, columnName = "vkontakte_id")
-    @JsonProperty("vkontakteId")
-    private int vkontakteId;
+    @DatabaseField(dataType = DataType.STRING, columnName = "google_id")
+    @JsonProperty("googleId")
+    private String googleId;
 
-    @DatabaseField(dataType = DataType.INTEGER, columnName = "facebook_id")
+    @JsonProperty("googleToken")
+    private String googleToken;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "facebook_id")
     @JsonProperty("facebookId")
-    private int facebookId;
+    private String facebookId;
+
+    @JsonProperty("facebookToken")
+    private String facebookToken;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "vkontakte_id")
+    @JsonProperty("vkontakteId")
+    private String vkontakteId;
+
+    @JsonProperty("vkontakteToken")
+    private String vkontakteToken;
+
+    @DatabaseField(dataType = DataType.STRING, columnName = "odnoklassniki_id")
+    @JsonProperty("odnoklassnikiId")
+    private String odnoklassnikiId;
+
+    @JsonProperty("odnoklassnikiToken")
+    private String odnoklassnikiToken;
 
     @DatabaseField(dataType = DataType.INTEGER, columnName = "specialization_experience_years")
     @JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
@@ -212,26 +238,42 @@ public class User extends BaseModel {
     }
 
     /**
-     * @return The vkontakteId
+     * @return The googleId
      */
-    @JsonProperty("vkontakteId")
-    public int getVkontakteId() {
-        return vkontakteId;
+    @JsonProperty("googleId")
+    public String getGoogleId() {
+        return googleId;
     }
 
     /**
-     * @param vkontakteId The vkontakteId
+     * @param googleId The googleId
      */
-    @JsonProperty("vkontakteId")
-    public void setVkontakteId(int vkontakteId) {
-        this.vkontakteId = vkontakteId;
+    @JsonProperty("googleId")
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
+    }
+
+    /**
+     * @return The googleToken
+     */
+    @JsonProperty("googleToken")
+    public String getGoogleToken() {
+        return googleToken;
+    }
+
+    /**
+     * @param googleToken The googleToken
+     */
+    @JsonProperty("googleToken")
+    public void setGoogleToken(String googleToken) {
+        this.googleToken = googleToken;
     }
 
     /**
      * @return The facebookId
      */
     @JsonProperty("facebookId")
-    public int getFacebookId() {
+    public String getFacebookId() {
         return facebookId;
     }
 
@@ -239,8 +281,88 @@ public class User extends BaseModel {
      * @param facebookId The facebookId
      */
     @JsonProperty("facebookId")
-    public void setFacebookId(int facebookId) {
+    public void setFacebookId(String facebookId) {
         this.facebookId = facebookId;
+    }
+
+    /**
+     * @return The facebookToken
+     */
+    @JsonProperty("facebookToken")
+    public String getFacebookToken() {
+        return facebookToken;
+    }
+
+    /**
+     * @param facebookToken The facebookToken
+     */
+    @JsonProperty("facebookToken")
+    public void setFacebookToken(String facebookToken) {
+        this.facebookToken = facebookToken;
+    }
+
+    /**
+     * @return The vkontakteId
+     */
+    @JsonProperty("vkontakteId")
+    public String getVkontakteId() {
+        return vkontakteId;
+    }
+
+    /**
+     * @param vkontakteId The vkontakteId
+     */
+    @JsonProperty("vkontakteId")
+    public void setVkontakteId(String vkontakteId) {
+        this.vkontakteId = vkontakteId;
+    }
+
+    /**
+     * @return The vkontakteToken
+     */
+    @JsonProperty("vkontakteToken")
+    public String getVkontakteToken() {
+        return vkontakteToken;
+    }
+
+    /**
+     * @param vkontakteToken The vkontakteToken
+     */
+    @JsonProperty("vkontakteToken")
+    public void setVkontakteToken(String vkontakteToken) {
+        this.vkontakteToken = vkontakteToken;
+    }
+
+    /**
+     * @return The odnoklassnikiId
+     */
+    @JsonProperty("odnoklassnikiId")
+    public String getOdnoklassnikiId() {
+        return odnoklassnikiId;
+    }
+
+    /**
+     * @param odnoklassnikiId The odnoklassnikiId
+     */
+    @JsonProperty("odnoklassnikiId")
+    public void setOdnoklassnikiId(String odnoklassnikiId) {
+        this.odnoklassnikiId = odnoklassnikiId;
+    }
+
+    /**
+     * @return The odnoklassnikiToken
+     */
+    @JsonProperty("odnoklassnikiToken")
+    public String getOdnoklassnikiToken() {
+        return odnoklassnikiToken;
+    }
+
+    /**
+     * @param odnoklassnikiToken The odnoklassnikiToken
+     */
+    @JsonProperty("odnoklassnikiToken")
+    public void setOdnoklassnikiToken(String odnoklassnikiToken) {
+        this.odnoklassnikiToken = odnoklassnikiToken;
     }
 
     /**
@@ -469,17 +591,13 @@ public class User extends BaseModel {
     }
 
     public static void cleanForRegister(ObjectNode objectNodeUncleaned) {
-        // FIXME: "vkontakteId" and "facebookId" must used
         objectNodeUncleaned.remove(Arrays
                 .asList("id",
                         "isEnabled",
-                        "roles",
-                        "vkontakteId",
-                        "facebookId"));
+                        "roles"));
     }
 
     public static void cleanForUpdate(ObjectNode objectNodeUncleaned) {
-        // FIXME: "vkontakteId" and "facebookId" must used
         objectNodeUncleaned.remove(Arrays
                 .asList("id",
                         "isEnabled",
@@ -487,9 +605,7 @@ public class User extends BaseModel {
                         "plainPassword",
                         "isDoctor",
                         "isSubscribed",
-                        "region",
-                        "vkontakteId",
-                        "facebookId"));
+                        "region"));
     }
 
 }

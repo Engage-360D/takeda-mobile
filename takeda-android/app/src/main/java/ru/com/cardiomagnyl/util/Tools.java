@@ -1,5 +1,6 @@
 package ru.com.cardiomagnyl.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,14 +11,15 @@ import android.util.Base64;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,21 +34,6 @@ import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.application.ExceptionsHandler;
 
 public class Tools {
-    public static JsonElement jsonElementByMemberName(JsonObject jsonObject, String memberName) {
-        if (jsonObject == null || !jsonObject.isJsonObject() || memberName == null || memberName.isEmpty()) {
-            return null;
-        }
-
-        JsonElement jsonElement = null;
-
-        if (jsonObject.has(memberName)) {
-            jsonElement = jsonObject.get(memberName);
-            jsonElement = jsonElement.isJsonNull() ? null : jsonElement;
-        }
-
-        return jsonElement;
-    }
-
     public static String formatShortTime(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String formattedDate = dateFormat.format(date);
@@ -173,6 +160,32 @@ public class Tools {
         return calendar;
     }
 
+    public static String fbDateToShortDate(String dateString) {
+        DateFormat fbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            return shortDateFormat.format(fbDateFormat.parse(dateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
+
+    public static String vkDateToShortDate(String dateString) {
+        DateFormat vkDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        DateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            return shortDateFormat.format(vkDateFormat.parse(dateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
+
     public static int getDifferenceInYears(String dateString) {
         if (TextUtils.isEmpty(dateString)) return 0;
 
@@ -273,4 +286,59 @@ public class Tools {
         currentTimeMs = currentTimeMs & maxIntToLong;
         return (int) currentTimeMs;
     }
+
+    public static void hideKeyboard(Activity currentActivity) {
+        try {
+            InputMethodManager inputManager = (InputMethodManager) currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(currentActivity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void hideKeyboard(View currentFocusView) {
+        if (currentFocusView != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) CardiomagnylApplication.getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(currentFocusView.getWindowToken(), 0);
+        }
+    }
+
+    public static String loadFileFromAssets(String absoluteFileName) {
+        String str_data = "";
+        byte[] buffer;
+        InputStream is;
+        try {
+            is = CardiomagnylApplication.getAppContext().getAssets().open(absoluteFileName);
+            int size = is.available();
+            buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            str_data = new String(buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str_data;
+    }
+
+    public static String md5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (int i = 0; i < messageDigest.length; i++) {
+                String st = Integer.toHexString(0xFF & messageDigest[i]);
+                hexString.append(st.length() < 2 ? "0" + st : st);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 }

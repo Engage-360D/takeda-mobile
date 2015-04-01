@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +42,6 @@ import ru.com.cardiomagnyl.util.Callback;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.TimelineComparator;
 import ru.com.cardiomagnyl.util.Tools;
-import ru.com.cardiomagnyl.util.Utils;
 import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
@@ -358,7 +356,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
         Callback onDismissListener = new Callback() {
             @Override
             public void execute() {
-                Utils.hideKeyboard(dialogBodyViewHelper);
+                Tools.hideKeyboard(dialogBodyViewHelper);
             }
         };
 

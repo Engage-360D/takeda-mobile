@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.gorbin.asne.core.persons.SocialPerson;
+
 import ru.com.cardiomagnyl.app.R;
-import ru.com.cardiomagnyl.social.User;
 import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
 
 public class WelcomeFragment extends BaseStartFragment {
@@ -34,5 +35,9 @@ public class WelcomeFragment extends BaseStartFragment {
     }
 
     @Override
-    public void initFieldsFromSocial(User socialUser) { /*does nothing*/ }
+    public void initSocials(StartActivity startActivity) { /*does nothing*/ }
+
+    @Override
+    public void initFieldsFromSocial(int networkId, SocialPerson socialPerson) { /*does nothing*/ }
+
 }

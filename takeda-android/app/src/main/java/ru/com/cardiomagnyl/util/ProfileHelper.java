@@ -25,21 +25,14 @@ import ru.com.cardiomagnyl.model.base.BaseModelHelper;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.region.Region;
 import ru.com.cardiomagnyl.model.region.RegionDao;
+import ru.com.cardiomagnyl.model.social.Social;
+import ru.com.cardiomagnyl.model.social.SocialNetworks;
 import ru.com.cardiomagnyl.model.user.User;
-import ru.com.cardiomagnyl.social.FbApi;
-import ru.com.cardiomagnyl.social.FbUser;
-import ru.com.cardiomagnyl.social.OkApi;
-import ru.com.cardiomagnyl.social.OkUser;
-import ru.com.cardiomagnyl.social.VkApi;
-import ru.com.cardiomagnyl.social.VkUser;
-import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
-import ru.com.cardiomagnyl.ui.start.CustomAuthorizationListener;
-import ru.com.cardiomagnyl.widget.CustomOnDateSetListener;
 import ru.com.cardiomagnyl.ui.start.RegistrationFragment;
-import ru.com.cardiomagnyl.ui.start.SignInWithSocialNetwork;
-import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
+import ru.com.cardiomagnyl.widget.CustomOnDateSetListener;
 import ru.com.cardiomagnyl.widget.CustomRangeSpinnerAdapter;
+import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 
 public final class ProfileHelper {
     private static final int[] mRequiredEditTextCommon = new int[]{
@@ -68,14 +61,12 @@ public final class ProfileHelper {
         initSpinnerRegion(fragmentView);
         initSpinnerExperienceYears(fragmentView);
         initSpinnerGraduationDate(fragmentView);
-        initSocials(fragmentView, registrationFragment);
     }
 
-    public static void initCabinetDataFargment(final View fragmentView, CabinetDataFragment cabinetDataFragment) {
+    public static void initCabinetDataFargment(final View fragmentView, final CabinetDataFragment cabinetDataFragment) {
+        initIsDoctor(fragmentView);
         initSpinnerExperienceYears(fragmentView);
         initSpinnerGraduationDate(fragmentView);
-        // TODO: initSocials
-        // initSocials(fragmentView, registrationFragment);
         fillFields(fragmentView);
     }
 
@@ -194,40 +185,43 @@ public final class ProfileHelper {
         customSpinnerAdapter.notifyDataSetChanged();
     }
 
-    private static void initSpinnerExperienceYears(final View spinner) {
+    private static void initIsDoctor(final View fragmentView) {
+        RadioButton radioButtonDoctor = (RadioButton) fragmentView.findViewById(R.id.radioButtonDoctor);
+        RadioButton radioButtonNotDoctor = (RadioButton) fragmentView.findViewById(R.id.radioButtonNotDoctor);
+
+        User currentUser = AppState.getInsnatce().getUser();
+        if (currentUser.isDoctor()) radioButtonDoctor.setChecked(true);
+        else radioButtonNotDoctor.setChecked(true);
+    }
+
+    private static void initSpinnerExperienceYears(final View fragmentView) {
         List<Integer> range = Tools.getRange(Constants.YEARS_RANGE);
         range.add(0, null);
 
         CustomRangeSpinnerAdapter customRangeSpinnerAdapter = new CustomRangeSpinnerAdapter(
-                spinner.getContext(),
+                fragmentView.getContext(),
                 R.layout.custom_spinner_item,
                 R.layout.spinner_item_dropdown,
                 range);
         customRangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner spinnerExperienceYears = (Spinner) spinner.findViewById(R.id.spinnerExperienceYears);
+        Spinner spinnerExperienceYears = (Spinner) fragmentView.findViewById(R.id.spinnerExperienceYears);
         spinnerExperienceYears.setAdapter(customRangeSpinnerAdapter);
     }
 
-    private static void initSpinnerGraduationDate(final View spinner) {
+    private static void initSpinnerGraduationDate(final View fragmentView) {
         List<Integer> yearsRange = Tools.getYearsRange(Constants.YEARS_RANGE);
         yearsRange.add(0, null);
 
         CustomRangeSpinnerAdapter customRangeSpinnerAdapter = new CustomRangeSpinnerAdapter(
-                spinner.getContext(),
+                fragmentView.getContext(),
                 R.layout.custom_spinner_item,
                 R.layout.spinner_item_dropdown,
                 yearsRange);
         customRangeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner spinnerGraduationDate = (Spinner) spinner.findViewById(R.id.spinnerGraduationDate);
+        Spinner spinnerGraduationDate = (Spinner) fragmentView.findViewById(R.id.spinnerGraduationDate);
         spinnerGraduationDate.setAdapter(customRangeSpinnerAdapter);
-    }
-
-    private static void initSocials(final View parentView, BaseStartFragment parentFragment) {
-        parentView.findViewById(R.id.imageViewFB).setOnClickListener(new SignInWithSocialNetwork(parentFragment, new FbApi(), new CustomAuthorizationListener(parentFragment, FbUser.class)));
-        parentView.findViewById(R.id.imageViewVK).setOnClickListener(new SignInWithSocialNetwork(parentFragment, new VkApi(), new CustomAuthorizationListener(parentFragment, VkUser.class)));
-        parentView.findViewById(R.id.imageViewOK).setOnClickListener(new SignInWithSocialNetwork(parentFragment, new OkApi(), new CustomAuthorizationListener(parentFragment, OkUser.class)));
     }
 
     public static boolean validateRegistrationFields(final View parentView) {
@@ -396,7 +390,7 @@ public final class ProfileHelper {
         return errorView;
     }
 
-    public static User pickRegistrationFields(final View parentView) {
+    public static User pickRegistrationFields(final View parentView, int networkId, Social social) {
         User newUser = new User();
 
         try {
@@ -435,6 +429,28 @@ public final class ProfileHelper {
             }
 
             newUser.setIsSubscribed(checkBoxAgreeToReceive.isChecked());
+
+            if (networkId > 0 && social != null) {
+                switch (networkId) {
+                    case SocialNetworks.GooglePlus:
+                        newUser.setGoogleId(social.getUserId());
+                        newUser.setGoogleToken(social.getAccessToken());
+                        break;
+                    case SocialNetworks.Facebook:
+                        newUser.setFacebookId(social.getUserId());
+                        newUser.setFacebookToken(social.getAccessToken());
+                        break;
+                    case SocialNetworks.Vkontakte:
+                        newUser.setVkontakteId(social.getUserId());
+                        newUser.setVkontakteToken(social.getAccessToken());
+                        break;
+                    case SocialNetworks.Odnoklassniki:
+                        newUser.setOdnoklassnikiId(social.getUserId());
+                        newUser.setOdnoklassnikiToken(social.getAccessToken());
+                        break;
+                }
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

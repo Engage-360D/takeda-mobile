@@ -1,3 +1,7 @@
 include ':app'
 include ':libraries:slidingmenu'
-
+include ':libraries:ASNECore'
+include ':libraries:facebook'
+include ':libraries:googleplus'
+include ':libraries:odnoklassniki'
+include ':libraries:vk'

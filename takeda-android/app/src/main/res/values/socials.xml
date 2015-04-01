@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- GooglePlus -->
+
+    <!-- Facebook -->
+    <string name="facebook_app_id">247535765433542</string>
+
+    <!-- Vkontakte -->
+    <string name="vk_app_id">4854539</string>
+    <!-- y2ZRcYtR8H9iixkXse4O -->
+
+    <!-- Odnoklassniki -->
+    <string name="ok_app_id">1126090240</string>
+    <string name="ok_public_key">CBAHMPBEEBABABABA</string>
+    <string name="ok_secret_key">48E60A55CB4CF49C3E5D3762</string>
+</resources>

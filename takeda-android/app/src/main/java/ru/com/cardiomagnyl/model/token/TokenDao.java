@@ -11,13 +11,15 @@ import com.j256.ormlite.support.ConnectionSource;
 
 import java.sql.SQLException;
 
-import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.api.DataLoadDispatcher;
+import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.api.db.DbRequestHolder;
 import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Response;
+import ru.com.cardiomagnyl.model.social.Social;
+import ru.com.cardiomagnyl.model.social.SocialNetworks;
 import ru.com.cardiomagnyl.model.user.LgnPwd;
 import ru.com.cardiomagnyl.util.CallbackOne;
 
@@ -95,6 +97,56 @@ public class TokenDao extends BaseDaoImpl<Token, Integer> {
                         .Builder(Request.Method.POST, Url.TOKENS, typeReference)
                         .addHeaders(Url.POST_HEADERS)
                         .setBody(packedLgnPwd)
+                        .setBeforeExtracted(beforeExtracted)
+                        .setOnStoreIntoDatabase(onStoreIntoDatabase)
+                        .create();
+
+        DataLoadDispatcher
+                .getInstance()
+                .receive(
+                        httpRequestHolder,
+                        onSuccess,
+                        onFailure
+                );
+    }
+
+    public static void getBySocial(final int socialId,
+                                   final Social social,
+                                   final CallbackOne<Token> onSuccess,
+                                   final CallbackOne<Response> onFailure) {
+        TypeReference typeReference = new TypeReference<Token>() {
+        };
+
+        CallbackOne<Response> beforeExtracted = new CallbackOne<Response>() {
+            @Override
+            public void execute(Response response) {
+                Token.unPackLinks((ObjectNode) response.getData());
+            }
+        };
+
+        CallbackOne<Token> onStoreIntoDatabase = new CallbackOne<Token>() {
+            @Override
+            public void execute(Token token) {
+                RuntimeExceptionDao helperFactoryToken = HelperFactory.getHelper().getRuntimeDataDao(Token.class);
+                helperFactoryToken.createOrUpdate(token);
+            }
+        };
+
+        ObjectNode objectNode = new ObjectMapper().valueToTree(social);
+        if (socialId == SocialNetworks.Facebook) Social.cleanUserId(objectNode);
+        String packedSocial = DataWrapper.wrap(objectNode).toString();
+
+        String url = "";
+        if (socialId == SocialNetworks.GooglePlus) url = Url.TOKENS_GP;
+        else if (socialId == SocialNetworks.Facebook) url = Url.TOKENS_FB;
+        else if (socialId == SocialNetworks.Vkontakte) url = Url.TOKENS_VK;
+        else if (socialId == SocialNetworks.Odnoklassniki) url = Url.TOKENS_OK;
+
+        HttpRequestHolder httpRequestHolder =
+                new HttpRequestHolder
+                        .Builder(Request.Method.POST, url, typeReference)
+                        .addHeaders(Url.POST_HEADERS)
+                        .setBody(packedSocial)
                         .setBeforeExtracted(beforeExtracted)
                         .setOnStoreIntoDatabase(onStoreIntoDatabase)
                         .create();

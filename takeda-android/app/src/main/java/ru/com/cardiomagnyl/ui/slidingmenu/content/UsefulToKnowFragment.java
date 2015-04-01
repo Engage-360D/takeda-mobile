@@ -2,15 +2,22 @@ package ru.com.cardiomagnyl.ui.slidingmenu.content;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.gorbin.asne.core.AccessToken;
+import com.github.gorbin.asne.core.persons.SocialPerson;
+
+import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
+import ru.com.cardiomagnyl.application.SocialManager;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
+import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 
 public class UsefulToKnowFragment extends BaseItemFragment {
     private String[] usefulDescription = CardiomagnylApplication.getAppContext().getResources().getStringArray(R.array.useful_description);
@@ -28,85 +35,70 @@ public class UsefulToKnowFragment extends BaseItemFragment {
         initTopBarBellCabinet(viewGroupTopBar, true, true);
     }
 
-    private View.OnClickListener onClickListenerVk = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int position = (Integer) view.getTag();
-
-            String description = usefulDescription[position];
-            String content = usefulContent[position];
-
-            // TODO: share by VK
-        }
-    };
-
-    private View.OnClickListener onClickListenerFb = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int position = (Integer) view.getTag();
-
-            String description = usefulDescription[position];
-            String content = usefulContent[position];
-
-            // TODO: share by FB
-        }
-    };
-
-    private View.OnClickListener onClickListenerOk = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int position = (Integer) view.getTag();
-
-            String description = usefulDescription[position];
-            String content = usefulContent[position];
-
-            // TODO: share by OK
-        }
-    };
-
-    private View.OnClickListener onClickListenerGp = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int position = (Integer) view.getTag();
-
-            String description = usefulDescription[position];
-            String content = usefulContent[position];
-
-            // TODO: share by GP
-        }
-    };
-
     private void initFragment(final View fragmentView) {
         LinearLayout linearLayoutContent = (LinearLayout) fragmentView.findViewById(R.id.linearLayoutContent);
 
-        for (int counter = 0; counter < usefulDescription.length; ++counter) {
+        SocialManager socialManager = new SocialManager((SlidingMenuActivity) getActivity());
+
+//        for (int counter = 0; counter < usefulDescription.length; ++counter) {
+        for (int counter = 0; counter < 1; ++counter) {
             View item = View.inflate(getActivity(), R.layout.layout_useful_to_know_item, null);
             linearLayoutContent.addView(item);
 
             TextView textViewDescription = (TextView) item.findViewById(R.id.textViewDescription);
             TextView textViewContent = (TextView) item.findViewById(R.id.textViewContent);
 
-            View imageViewVk = item.findViewById(R.id.imageViewVk);
-            View imageViewFb = item.findViewById(R.id.imageViewFb);
-            View imageViewOk = item.findViewById(R.id.imageViewOk);
-            View imageViewGp = item.findViewById(R.id.imageViewGp);
+            View imageViewVk = item.findViewById(R.id.imageViewVK);
+            View imageViewFb = item.findViewById(R.id.imageViewFB);
+            View imageViewOk = item.findViewById(R.id.imageViewOK);
+            View imageViewGp = item.findViewById(R.id.imageViewGP);
+
+            Pair<String, String> link = new Pair<>(usefulDescription[counter], String.format(Url.SHARE_LINK, counter + 1, counter + 1));
+            Pair<String, String> link_gp = new Pair<>(usefulDescription[counter], String.format(Url.SHARE_LINK_GP, counter + 1, counter + 1));
+            imageViewVk.setTag(link);
+            imageViewFb.setTag(link);
+            imageViewOk.setTag(link);
+            imageViewGp.setTag(link_gp);
 
             textViewDescription.setText(usefulDescription[counter]);
             textViewDescription.setCompoundDrawablesWithIntrinsicBounds(usefulIcons.getDrawable(counter), null, null, null);
 
             textViewContent.setText(usefulContent[counter]);
 
-            imageViewVk.setTag(counter);
-            imageViewVk.setOnClickListener(onClickListenerVk);
+            socialManager.initSocials(this, item, new SocialManager.OnTokenReceived() {
+                @Override
+                public void execute(int networkId, SocialPerson socialPerson, AccessToken accessToken) {
+                    int t = 0;
+                    t++;
 
-            imageViewFb.setTag(counter);
-            imageViewFb.setOnClickListener(onClickListenerFb);
-
-            imageViewOk.setTag(counter);
-            imageViewOk.setOnClickListener(onClickListenerOk);
-
-            imageViewGp.setTag(counter);
-            imageViewGp.setOnClickListener(onClickListenerGp);
+//                    mNetworkId = networkId;
+//                    mSocial = new Social();
+//                    mSocial.setUserId(socialPerson.id);
+//                    mSocial.setAccessToken(accessToken.token);
+//
+//                    imageViewGP.setSelected(false);
+//                    imageViewFB.setSelected(false);
+//                    imageViewVK.setSelected(false);
+//                    imageViewOK.setSelected(false);
+//
+//                    switch (networkId) {
+//                        case SocialNetworks.GooglePlus:
+//                            imageViewGP.setSelected(true);
+//                            break;
+//                        case SocialNetworks.Facebook:
+//                            imageViewFB.setSelected(true);
+//                            break;
+//                        case SocialNetworks.Vkontakte:
+//                            imageViewVK.setSelected(true);
+//                            break;
+//                        case SocialNetworks.Odnoklassniki:
+//                            imageViewOK.setSelected(true);
+//                            break;
+//                    }
+//
+//                    initFieldsFromSocial(networkId, socialPerson);
+                }
+            }, "123 123 123 123 123 123 123");
         }
     }
 

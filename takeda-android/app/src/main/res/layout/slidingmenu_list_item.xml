@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.devspark.robototextview.widget.RobotoTextView
+    <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/plate_medium"
@@ -13,8 +13,7 @@
         android:paddingLeft="@dimen/space_large"
         android:paddingRight="@dimen/space_large"
         android:textColor="@color/selector_menu_item_text"
-        android:textSize="@dimen/text_size_xlarge"
-        app:typeface="roboto_regular" />
+        android:textSize="@dimen/text_size_xlarge" />
 
 </LinearLayout>
 
