@@ -87,7 +87,7 @@ public class RegistrationFragment extends BaseStartFragment {
 
                 initFieldsFromSocial(networkId, socialPerson);
             }
-        }, null);
+        });
     }
 
     @Override

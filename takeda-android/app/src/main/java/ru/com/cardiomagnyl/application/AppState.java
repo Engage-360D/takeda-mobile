@@ -98,7 +98,7 @@ public class AppState {
     }
 
     public boolean isInitialized() {
-        return mToken != null && mUser != null && mIncidents != null;
+        return mToken != null && mUser != null && mTestResult != null && mIncidents != null;
     }
 
 }

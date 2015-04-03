@@ -1,6 +1,6 @@
 package ru.com.cardiomagnyl.application;
 
-import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -28,7 +28,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.model.social.SocialNetworks;
 import ru.com.cardiomagnyl.ui.base.BaseFragmentActivityWrapper;
+import ru.com.cardiomagnyl.widget.CustomDialogs;
 
 public class SocialManager implements
         SocialNetworkManager.OnInitializationCompleteListener,
@@ -40,13 +42,14 @@ public class SocialManager implements
 
     private Object mSocialSynchroObject = new Object();
     private OnTokenReceived mOnTokenReceived;
-    private String mMessage;
     private SocialNetworkManager mSocialNetworkManager;
 
     private int mSelectedSocialNetwork;
     private SocialPerson mSocialPerson;
     private AccessToken mAccessToken;
     private Pair<String, String> mHeadAndLink = null;
+
+    private List<View> mSocialsHolders;
 
     public static final String SOCIAL_NETWORK_TAG = "SocialIntegrationMain.SOCIAL_NETWORK_TAG";
 
@@ -58,28 +61,33 @@ public class SocialManager implements
         public void execute(int networkId, SocialPerson socialPerson, AccessToken accessToken);
     }
 
-    public interface OnMessagePosted {
-        public void execute(int networkId, SocialPerson socialPerson, AccessToken accessToken);
+    public void initSocials(final Fragment fragment,
+                            final View socialsHolder,
+                            final OnTokenReceived onTokenReceived) {
+        initSocials(fragment, Arrays.asList(socialsHolder), onTokenReceived);
     }
 
-    public synchronized void initSocials(final Fragment fragment,
-                                         final View socialsHolderView,
-                                         final OnTokenReceived onTokenReceived,
-                                         final String message) {
+    public void initSocials(final Fragment fragment,
+                            final List<View> socialsHolders,
+                            final OnTokenReceived onTokenReceived) {
         synchronized (mSocialSynchroObject) {
+            if (socialsHolders == null || socialsHolders.isEmpty()) return;
+
+            mSocialsHolders = socialsHolders;
             mOnTokenReceived = onTokenReceived;
-            mMessage = message;
             mSocialPerson = null;
 
-            View imageViewGP = socialsHolderView.findViewById(R.id.imageViewGP);
-            View imageViewVK = socialsHolderView.findViewById(R.id.imageViewVK);
-            View imageViewFB = socialsHolderView.findViewById(R.id.imageViewFB);
-            View imageViewOK = socialsHolderView.findViewById(R.id.imageViewOK);
+            for (View socialsHolder : socialsHolders) {
+                View imageViewGP = socialsHolder.findViewById(R.id.imageViewGP);
+                View imageViewVK = socialsHolder.findViewById(R.id.imageViewVK);
+                View imageViewFB = socialsHolder.findViewById(R.id.imageViewFB);
+                View imageViewOK = socialsHolder.findViewById(R.id.imageViewOK);
 
-            imageViewGP.setOnClickListener(socialClick);
-            imageViewVK.setOnClickListener(socialClick);
-            imageViewFB.setOnClickListener(socialClick);
-            imageViewOK.setOnClickListener(socialClick);
+                imageViewGP.setOnClickListener(socialClick);
+                imageViewVK.setOnClickListener(socialClick);
+                imageViewFB.setOnClickListener(socialClick);
+                imageViewOK.setOnClickListener(socialClick);
+            }
 
             //Get Keys for initiate SocialNetworks
             String OK_APP_ID = mFragmentActivityWrapper.getFragmentActivity().getString(R.string.ok_app_id);
@@ -116,19 +124,52 @@ public class SocialManager implements
                 mSocialNetworkManager.addSocialNetwork(okNetwork);
 
                 //Initiate every network from mSocialNetworkManager
-                mFragmentActivityWrapper.getFragmentActivity().getSupportFragmentManager().beginTransaction().add(mSocialNetworkManager, SOCIAL_NETWORK_TAG).commit();
                 mSocialNetworkManager.setOnInitializationCompleteListener(this);
+                mFragmentActivityWrapper.getFragmentActivity().getSupportFragmentManager().beginTransaction().add(mSocialNetworkManager, SOCIAL_NETWORK_TAG).commit();
+
+                mFragmentActivityWrapper.showProgressDialog();
             } else {
                 //if manager exist - get and setup login only for initialized SocialNetworks
                 if (!mSocialNetworkManager.getInitializedSocialNetworks().isEmpty()) {
-                    List<SocialNetwork> socialNetworks = mSocialNetworkManager.getInitializedSocialNetworks();
-                    for (SocialNetwork socialNetwork : socialNetworks) {
-                        socialNetwork.setOnLoginCompleteListener(this);
-                        initSocialNetwork(socialNetwork);
-                    }
+                    initSocialButtons(socialsHolders, mSocialNetworkManager.getInitializedSocialNetworks());
                 }
             }
+        }
+    }
 
+    private void initSocialButtons(final List<View> socialsHolders, final List<SocialNetwork> socialNetworks) {
+        if (socialsHolders == null || socialsHolders.isEmpty()) return;
+
+        for (View socialsHolder : socialsHolders) {
+            View imageViewGP = socialsHolder.findViewById(R.id.imageViewGP);
+            View imageViewVK = socialsHolder.findViewById(R.id.imageViewVK);
+            View imageViewFB = socialsHolder.findViewById(R.id.imageViewFB);
+            View imageViewOK = socialsHolder.findViewById(R.id.imageViewOK);
+
+            imageViewGP.setEnabled(false);
+            imageViewVK.setEnabled(false);
+            imageViewFB.setEnabled(false);
+            imageViewOK.setEnabled(false);
+
+            if (socialNetworks != null && !socialNetworks.isEmpty())
+                for (SocialNetwork socialNetwork : socialNetworks) {
+                    socialNetwork.setOnLoginCompleteListener(this);
+                    switch (socialNetwork.getID()) {
+                        case SocialNetworks.Facebook:
+                            imageViewFB.setEnabled(true);
+                            break;
+                        case SocialNetworks.GooglePlus:
+                            imageViewGP.setEnabled(true);
+                            break;
+                        case SocialNetworks.Vkontakte:
+                            imageViewVK.setEnabled(true);
+                            break;
+                        case SocialNetworks.Odnoklassniki:
+                            imageViewOK.setEnabled(true);
+                            break;
+                    }
+
+                }
         }
     }
 
@@ -139,6 +180,8 @@ public class SocialManager implements
                 mHeadAndLink = (Pair<String, String>) view.getTag();
             } else {
                 mHeadAndLink = null;
+//                // FIXME: remove after sests
+//                mHeadAndLink = new Pair<>("Движение – это жизнь!", String.format(Url.SHARE_LINK, 1, 1));
             }
 
             switch (view.getId()) {
@@ -159,53 +202,56 @@ public class SocialManager implements
             SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(mSelectedSocialNetwork);
             if (!socialNetwork.isConnected()) {
                 if (mSelectedSocialNetwork != 0) {
-                    socialNetwork.requestLogin(SocialManager.this);
                     mFragmentActivityWrapper.showProgressDialog();
+                    socialNetwork.requestLogin(SocialManager.this);
                 } else {
                     Toast.makeText(mFragmentActivityWrapper.getFragmentActivity(), "Wrong networkId", Toast.LENGTH_LONG).show();
                 }
             } else {
-                getProfileAndTryToLogin(socialNetwork.getID());
+                mFragmentActivityWrapper.showProgressDialog();
+                socialNetwork.requestDetailedCurrentPerson(SocialManager.this);
             }
-
-//            socialNetwork.requestPostMessage();
         }
     };
 
-    private void initSocialNetwork(SocialNetwork socialNetwork) {
-        if (socialNetwork.isConnected()) {
-            switch (socialNetwork.getID()) {
-                case GooglePlusSocialNetwork.ID: /* does nothing */
-                    break;
-                case FacebookSocialNetwork.ID: /* does nothing */
-                    break;
-                case VkSocialNetwork.ID: /* does nothing */
-                    break;
-                case OkSocialNetwork.ID: /* does nothing */
-                    break;
-            }
-        }
+    private void tryToShareLink(final int networkId) {
+        Context context = mFragmentActivityWrapper.getFragmentActivity();
+        String question = String.format(context.getString(R.string.share_link), SocialNetworks.getnameById(networkId));
+        CustomDialogs.showConfirmationDialog(
+                context,
+                question,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareMessage(networkId);
+                    }
+                }
+        );
     }
 
-    private void getProfileAndTryToLogin(int networkId) {
-        SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
-        socialNetwork.requestDetailedCurrentPerson(this);
+    private void shareMessage(final int networkId) {
+        mFragmentActivityWrapper.showProgressDialog();
+
+        Bundle postParams = new Bundle();
+        postParams.putString(SocialNetwork.BUNDLE_NAME, mHeadAndLink.first);
+        postParams.putString(SocialNetwork.BUNDLE_LINK, mHeadAndLink.second);
+        if (networkId == GooglePlusSocialNetwork.ID) {
+            mSocialNetworkManager.getSocialNetwork(networkId).requestPostDialog(postParams, SocialManager.this);
+        } else {
+            mSocialNetworkManager.getSocialNetwork(networkId).requestPostLink(postParams, "", SocialManager.this);
+        }
     }
 
     @Override
     public void onSocialNetworkManagerInitialized() {
+        initSocialButtons(mSocialsHolders, mSocialNetworkManager.getInitializedSocialNetworks());
         mFragmentActivityWrapper.hideProgressDialog();
-
-        //when init SocialNetworks - get and setup login only for initialized SocialNetworks
-        for (SocialNetwork socialNetwork : mSocialNetworkManager.getInitializedSocialNetworks()) {
-            socialNetwork.setOnLoginCompleteListener(this);
-            initSocialNetwork(socialNetwork);
-        }
     }
 
     @Override
     public void onLoginSuccess(int networkId) {
-        getProfileAndTryToLogin(networkId);
+        SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
+        socialNetwork.requestDetailedCurrentPerson(SocialManager.this);
     }
 
     @Override
@@ -224,13 +270,13 @@ public class SocialManager implements
 
         if (/**/      requestID.equals(SocialNetwork.REQUEST_LOGIN)
             /*GP*/ || errorMessage.equals("error: 4")) {
-            Toast.makeText(mFragmentActivityWrapper.getFragmentActivity(), mFragmentActivityWrapper.getFragmentActivity().getString(R.string.error_authorization), Toast.LENGTH_LONG).show();
+            CustomDialogs.showAlertDialog(mFragmentActivityWrapper.getFragmentActivity(), R.string.error_authorization);
         } else if (requestID.equals(SocialNetwork.REQUEST_GET_PERSON)
                 || requestID.equals(SocialNetwork.REQUEST_GET_CURRENT_PERSON)
                 || requestID.equals(SocialNetwork.REQUEST_GET_DETAIL_PERSON)) {
-            Toast.makeText(mFragmentActivityWrapper.getFragmentActivity(), mFragmentActivityWrapper.getFragmentActivity().getString(R.string.error_getting_user_data), Toast.LENGTH_LONG).show();
+            CustomDialogs.showAlertDialog(mFragmentActivityWrapper.getFragmentActivity(), R.string.error_getting_user_data);
         } else {
-            Toast.makeText(mFragmentActivityWrapper.getFragmentActivity(), mFragmentActivityWrapper.getFragmentActivity().getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+            CustomDialogs.showAlertDialog(mFragmentActivityWrapper.getFragmentActivity(), R.string.error_occurred);
             if (!TextUtils.isEmpty(errorMessage)) {
                 Log.d(CardiomagnylApplication.getInstance().getTag(), errorMessage);
             }
@@ -239,7 +285,10 @@ public class SocialManager implements
 
     @Override
     public void onRequestDetailedSocialPersonSuccess(int networkId, SocialPerson socialPerson) {
-        if (networkId != mSelectedSocialNetwork) return;
+        if (networkId != mSelectedSocialNetwork) {
+            mFragmentActivityWrapper.hideProgressDialog();
+            return;
+        }
 
         mSocialPerson = socialPerson;
         SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
@@ -248,44 +297,26 @@ public class SocialManager implements
 
     @Override
     public void onRequestAccessTokenComplete(int networkId, AccessToken accessToken) {
+        mFragmentActivityWrapper.hideProgressDialog();
         synchronized (mSocialSynchroObject) {
-            if (networkId == mSelectedSocialNetwork && mOnTokenReceived != null && mSocialPerson != null) {
+            if (networkId == mSelectedSocialNetwork && mSocialPerson != null) {
                 mAccessToken = accessToken;
-                if (!TextUtils.isEmpty(mMessage)) {
-                    postMessage(networkId);
+                if (mHeadAndLink != null) {
+                    tryToShareLink(networkId);
                 } else {
-                    mOnTokenReceived.execute(networkId, mSocialPerson, mAccessToken);
+                    if (mOnTokenReceived != null) {
+                        mOnTokenReceived.execute(networkId, mSocialPerson, mAccessToken);
+                    }
                 }
             }
         }
     }
 
     @Override
-    public void onPostSuccessfully(int socialNetworkID) {
+    public void onPostSuccessfully(int networkId) {
+        String message = String.format(mFragmentActivityWrapper.getFragmentActivity().getString(R.string.shared_successfully), SocialNetworks.getnameById(networkId));
         mFragmentActivityWrapper.hideProgressDialog();
-
-        mOnTokenReceived.execute(socialNetworkID, mSocialPerson, mAccessToken);
-    }
-
-    private void postMessage(final int networkId) {
-        if (mHeadAndLink == null) return;
-
-        Bundle postParams = new Bundle();
-        postParams.putString(SocialNetwork.BUNDLE_NAME, mHeadAndLink.first);
-        postParams.putString(SocialNetwork.BUNDLE_LINK, mHeadAndLink.second);
-        if (networkId == GooglePlusSocialNetwork.ID) {
-            mSocialNetworkManager.getSocialNetwork(networkId).requestPostDialog(postParams, SocialManager.this);
-        } else {
-            mSocialNetworkManager.getSocialNetwork(networkId).requestPostLink(postParams, "", SocialManager.this);
-        }
-    }
-
-    private AlertDialog.Builder alertDialogInit(String title, String message) {
-        AlertDialog.Builder ad = new AlertDialog.Builder(mFragmentActivityWrapper.getFragmentActivity());
-        ad.setTitle(title);
-        ad.setMessage(message);
-        ad.setCancelable(true);
-        return ad;
+        CustomDialogs.showAlertDialog(mFragmentActivityWrapper.getFragmentActivity(), message);
     }
 
 }

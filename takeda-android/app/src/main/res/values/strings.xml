@@ -83,7 +83,7 @@
     <!-- ================ -->
     <string name="welcome_1">Добро пожаловать в приложение\nпрепарата Кардиомагнил.</string>
     <string name="welcome_2">Вы сможете следить за своим здоровьем и\nпользоваться советами после регистрации и\nпрохождения теста.</string>
-    <string name="swipe">Смахните</string>
+    <string name="swipe">Войдите</string>
     <string name="three_minutes">3 минуты до начала работы приложения</string>
 
     <!-- ============== -->
@@ -340,6 +340,8 @@
     <!-- fragment_useful_to_know -->
     <!-- ======================= -->
     <string name="share">Поделиться:</string>
+    <string name="share_link">Поделиться ссылкой в %s?</string>
+    <string name="shared_successfully">Вы удачно поделились ссылкой в %s</string>
 
     <!-- ====== -->
     <!-- common -->

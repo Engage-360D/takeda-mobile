@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.github.gorbin.asne.core.AccessToken;
 import com.github.gorbin.asne.core.persons.SocialPerson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.com.cardiomagnyl.api.Url;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
@@ -40,8 +43,9 @@ public class UsefulToKnowFragment extends BaseItemFragment {
 
         SocialManager socialManager = new SocialManager((SlidingMenuActivity) getActivity());
 
-//        for (int counter = 0; counter < usefulDescription.length; ++counter) {
-        for (int counter = 0; counter < 1; ++counter) {
+        List<View> socialsHolders = new ArrayList<>();
+
+        for (int counter = 0; counter < usefulDescription.length; ++counter) {
             View item = View.inflate(getActivity(), R.layout.layout_useful_to_know_item, null);
             linearLayoutContent.addView(item);
 
@@ -65,41 +69,10 @@ public class UsefulToKnowFragment extends BaseItemFragment {
 
             textViewContent.setText(usefulContent[counter]);
 
-            socialManager.initSocials(this, item, new SocialManager.OnTokenReceived() {
-                @Override
-                public void execute(int networkId, SocialPerson socialPerson, AccessToken accessToken) {
-                    int t = 0;
-                    t++;
-
-//                    mNetworkId = networkId;
-//                    mSocial = new Social();
-//                    mSocial.setUserId(socialPerson.id);
-//                    mSocial.setAccessToken(accessToken.token);
-//
-//                    imageViewGP.setSelected(false);
-//                    imageViewFB.setSelected(false);
-//                    imageViewVK.setSelected(false);
-//                    imageViewOK.setSelected(false);
-//
-//                    switch (networkId) {
-//                        case SocialNetworks.GooglePlus:
-//                            imageViewGP.setSelected(true);
-//                            break;
-//                        case SocialNetworks.Facebook:
-//                            imageViewFB.setSelected(true);
-//                            break;
-//                        case SocialNetworks.Vkontakte:
-//                            imageViewVK.setSelected(true);
-//                            break;
-//                        case SocialNetworks.Odnoklassniki:
-//                            imageViewOK.setSelected(true);
-//                            break;
-//                    }
-//
-//                    initFieldsFromSocial(networkId, socialPerson);
-                }
-            }, "123 123 123 123 123 123 123");
+            socialsHolders.add(item);
         }
+
+        socialManager.initSocials(this, socialsHolders, null);
     }
 
 }

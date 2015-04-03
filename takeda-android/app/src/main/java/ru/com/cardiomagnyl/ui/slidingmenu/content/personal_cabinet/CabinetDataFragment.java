@@ -92,7 +92,7 @@ public class CabinetDataFragment extends BaseItemFragment {
                         break;
                 }
             }
-        }, null);
+        });
     }
 
     private void initSocialsHelper(final View fragmentView) {

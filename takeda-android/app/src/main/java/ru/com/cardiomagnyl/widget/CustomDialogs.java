@@ -29,14 +29,14 @@ public class CustomDialogs {
     }
 
     // FIXME: use instead toasts
-    public static void showAlertDialog(Context context, int errorStringId) {
-        showAlertDialog(context, context.getString(errorStringId));
+    public static void showAlertDialog(Context context, int alertStringId) {
+        showAlertDialog(context, context.getString(alertStringId));
     }
 
-    public static void showAlertDialog(Context context, String error) {
+    public static void showAlertDialog(Context context, String alert) {
         CustomDialogLayout customDialogLayout = new CustomDialogLayout
                 .Builder(context)
-                .setBody(error)
+                .setBody(alert)
                 .addButton(R.string.close, CustomDialogLayout.DialogStandardAction.dismiss)
                 .create();
 

@@ -14,8 +14,10 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
+import ru.com.cardiomagnyl.application.SocialManager;
 import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.test.TestResult;
+import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.base.BaseFragmentActivityWrapper;
@@ -63,6 +65,16 @@ public class SlidingMenuActivity extends BaseSlidingFragmentActivity implements 
         if (fragment instanceof BaseItemFragment) {
             ViewGroup layoutHeader = (ViewGroup) findViewById(R.id.layoutHeader);
             ((BaseItemFragment) fragment).initTopBar(layoutHeader);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(SocialManager.SOCIAL_NETWORK_TAG);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 

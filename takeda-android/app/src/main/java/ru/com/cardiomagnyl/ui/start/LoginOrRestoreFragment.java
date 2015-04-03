@@ -64,7 +64,7 @@ public class LoginOrRestoreFragment extends BaseStartFragment {
 
                 startAuthorization(networkId, social);
             }
-        }, null);
+        });
     }
 
     @Override
