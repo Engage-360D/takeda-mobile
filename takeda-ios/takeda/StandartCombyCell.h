@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "buttonWithID.h"
+#import "ExProButton.h"
 
 typedef enum {
     ctSimpleLeftCaption = 1,
@@ -25,7 +26,7 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UILabel *caption;
 @property (nonatomic, strong) IBOutlet UILabel *subTitle;
 @property (nonatomic, strong) IBOutlet UILabel *rightCaption;
-@property (nonatomic, strong) IBOutlet UIImageView *rightArrow;
+@property (nonatomic, strong) IBOutlet ExProButton *rightArrow;
 @property (nonatomic, strong) IBOutlet buttonWithID *checkBtn;
 
 @property (nonatomic) BOOL checked;

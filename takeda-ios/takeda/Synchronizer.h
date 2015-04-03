@@ -11,6 +11,7 @@
 @interface Synchronizer : NSObject
 
 +(Synchronizer*)sharedInstance;
++(void)resetData;
 
 @property (nonatomic, strong) NSMutableArray *tasks;
 @property (nonatomic) int completedJobsCount;

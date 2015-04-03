@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6750" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6735"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InfoPage">
+            <connections>
+                <outlet property="LifeStyle" destination="xlA-7n-DPy" id="m67-mV-aLU"/>
+                <outlet property="btnsContainer" destination="IN2-Bz-zmf" id="wt0-Gf-hUL"/>
+                <outlet property="infInsInfo" destination="HfH-LN-sP9" id="oH3-AV-iRR"/>
+                <outlet property="insultInfoTxtView" destination="YD1-bc-SGu" id="lOm-ul-87K"/>
+                <outlet property="lifeInfoTxtView" destination="amF-RP-TLq" id="2Tc-7N-7t8"/>
+                <outlet property="scrollView" destination="7pY-aR-9g5" id="0KA-D3-gGr"/>
+                <outlet property="vcTitle" destination="xkA-sW-qCs" id="WSc-CJ-JeM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="blockLabels" destination="u73-Je-Bfp" id="eJ3-i4-KjS"/>
+                <outletCollection property="bg_block" destination="0pW-Bt-FQs" id="5iV-aD-ygo"/>
+                <outletCollection property="btnsCollection" destination="Yl4-G6-Sak" collectionClass="NSMutableArray" id="Bnu-De-nfW"/>
+                <outletCollection property="bg_block" destination="HfH-LN-sP9" id="qhh-JL-FZj"/>
+                <outletCollection property="btnsCollection" destination="HfH-LN-sP9" collectionClass="NSMutableArray" id="CWb-Hd-pt4"/>
+                <outletCollection property="bg_block" destination="xlA-7n-DPy" id="HrF-xb-luR"/>
+                <outletCollection property="btnsCollection" destination="xlA-7n-DPy" collectionClass="NSMutableArray" id="6Cf-hL-mgW"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="xBQ-Tq-v8p">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Информация" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xkA-sW-qCs">
+                            <rect key="frame" x="20" y="2" width="280" height="36"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.83529411760000005" green="0.1176470588" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="7pY-aR-9g5">
+                    <rect key="frame" x="0.0" y="45" width="320" height="435"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Первая помощь" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u73-Je-Bfp">
+                            <rect key="frame" x="8" y="8" width="304" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" id="IN2-Bz-zmf">
+                            <rect key="frame" x="0.0" y="49" width="320" height="248"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HfH-LN-sP9">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <inset key="titleEdgeInsets" minX="0.0" minY="-14" maxX="0.0" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="290" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Как распознать инфаркт-инсульт" image="grayArrowDown.png">
+                                        <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" image="grayArrowUp.png"/>
+                                    <connections>
+                                        <action selector="showHideInsultInfo:" destination="-1" eventType="touchUpInside" id="oI3-OF-1vf"/>
+                                    </connections>
+                                </button>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="YD1-bc-SGu">
+                                    <rect key="frame" x="8" y="38" width="304" height="76"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <mutableString key="text">Инсульт.
+Если у вас возникли подозрения развития инсульта у человека, который рядом с вами, попросите его улыбнуться. Если у больного действительно инсульт, этого не удастся сделать обеими уголками губ, улыбка получится кривой. Попросите повторить какое-то простое предложение или выражение - при инсульте речь будет нарушена. Человек не сможет одновременно поднять вверх обе руки. Попросите показать язык, если он искривлен, это тоже тревожный признак инсульта. 
+
+Инфаркт.
+Предвестником инфаркта может быть постоянное чувство жжения, которое длится на протяжении нескольких дней. Если же появился давящая боль в груди, которая распространяется на шею, левую руку, челюсть, участок между лопатками, больного тошнит, у него учащенное дыхание, повышенное потоотделение - не медлите, вызывайте «скорую».</mutableString>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xlA-7n-DPy">
+                                    <rect key="frame" x="0.0" y="122" width="320" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <inset key="imageEdgeInsets" minX="290" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Образ жизни" image="grayArrowDown.png">
+                                        <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" image="grayArrowUp.png"/>
+                                    <connections>
+                                        <action selector="showHideCommonInfo:" destination="-1" eventType="touchUpInside" id="rVM-vC-7ss"/>
+                                    </connections>
+                                </button>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="amF-RP-TLq">
+                                    <rect key="frame" x="8" y="164" width="304" height="76"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <string key="text">Инфаркт миокарда и мозговой инсульт можно предотвратить и успешно лечить, и очень многое тут зависит от самого человека, очень велика роль его родных, семьи, близких. Очень много зависит от знаний, которые могут помочь в предупреждении и лечении любой болезни, в том числе инфаркта миокарда и мозгового инсульта.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <view contentMode="scaleToFill" id="0pW-Bt-FQs">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Yl4-G6-Sak">
+                    <rect key="frame" x="0.0" y="4" width="320" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="50" maxY="0.0"/>
+                    <state key="normal" title="Образ жизни">
+                        <color key="titleColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" id="fix-FE-wep">
+                    <rect key="frame" x="295" y="11" width="8" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="1344" y="471"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow.png" width="8" height="15"/>
+        <image name="grayArrowDown.png" width="15" height="15"/>
+        <image name="grayArrowUp.png" width="15" height="15"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

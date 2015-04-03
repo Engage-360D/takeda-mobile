@@ -91,34 +91,44 @@ typedef NSUInteger MenuItem;
     NSMutableArray *allResults = [GlobalData resultAnalyses];
     if (allResults.count>0){
         results_data = [[GlobalData resultAnalyses] lastObject];
+        [self showData];
     }
     
-    [_indLoading startAnimating];
-    [GlobalData loadTimelineCompletition:^(BOOL success, id result){
-        if (success){
-            NSLog(@"Получили данные");
-            tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
-            days = result[@"data"];
-            
-            [GlobalData casheTimelineTasks:tasks];
-            [GlobalData casheTimeline:days];
-            
-            [self startData];
-        } else {
-            NSLog(@"Ошибка получения данных");
-            tasks = [GlobalData cashedTimelineTasks];
-            days = [GlobalData cashedTimeline];
-            
-            [self startData];
-        }
-        [_indLoading stopAnimating];
-    }];
+    if (User.userBlocked){
+        
+    } else {
+        [_indLoading startAnimating];
+        [GlobalData loadTimelineCompletition:^(BOOL success, id result){
+            if (success){
+                NSLog(@"Получили данные");
+                tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
+                days = result[@"data"];
+                
+                [GlobalData casheTimelineTasks:tasks];
+                [GlobalData casheTimeline:days];
+                
+                [self startData];
+            } else {
+                NSLog(@"Ошибка получения данных");
+                tasks = [GlobalData cashedTimelineTasks];
+                days = [GlobalData cashedTimeline];
+                
+                [self startData];
+            }
+            [_indLoading stopAnimating];
+        }];
+    }
+    
 
 }
 
 -(void)showNormInfo{
     
     self.percentLabel.text = [NSString stringWithFormat:@"%.f%@",[results_data[@"score"] floatValue],@"%"];
+   // self.percentLabel.text = [NSString stringWithFormat:@"%i%@",GlobalData.missedEventsCount ,@"%"];
+
+    
+    
     NSDate *fromDate = [Global parseDateTime:results_data[@"createdAt"]];
     if (!fromDate) fromDate = [[NSDate date] dateBySubtractingMonths:1];
     NSDate *nowDate = [NSDate date];
@@ -129,7 +139,7 @@ typedef NSUInteger MenuItem;
 
 -(void)showData{
 
-    if (results_data[@"recommendations"][@"fullScreenAlert"]!=nil&&[results_data[@"recommendations"][@"fullScreenAlert"]isKindOfClass:[NSDictionary class]]&&![User checkForRole:tDoctor]){
+    if (User.userBlocked){
         [self showMainInfoRed];
         self.tableView.hidden = YES;
         self.normHeader.hidden = YES;
@@ -137,7 +147,6 @@ typedef NSUInteger MenuItem;
     } else {
         [self showNormInfo];
         [self.tableView reloadData];
-        self.tableView.hidden = NO;
         self.tableView.hidden = NO;
         self.scrollViewRed.hidden = YES;
     }
@@ -351,10 +360,10 @@ typedef NSUInteger MenuItem;
         CASE(@"pill"){
             
             NSMutableString *capt = [NSMutableString new];
-            [capt appendString:@"Принять таблетки"];
+            [capt appendString:@"Принять"];
             
             if (item[@"pillInfo"]){
-                [capt appendFormat:@": %@",item[@"pillInfo"][@"name"]];
+                [capt appendFormat:@" %@",item[@"pillInfo"][@"name"]];
             }
             
             cell.caption.text = capt;
@@ -449,7 +458,18 @@ typedef NSUInteger MenuItem;
 #pragma mark RED -
 -(void)showMainInfoRed{
     
-    self.stateImageRed.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"fullScreenAlert"][@"state"]]];
+    if ([results_data[@"recommendations"][@"fullScreenAlert"] isKindOfClass:[NSDictionary class]]){
+        self.stateImageRed.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_small",results_data[@"recommendations"][@"fullScreenAlert"][@"state"]]];
+    
+        if ([results_data[@"recommendations"][@"fullScreenAlert"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"fullScreenAlert"][@"text"] length]>0){
+            self.scoreNoteTextRed.text = results_data[@"recommendations"][@"fullScreenAlert"][@"text"];
+        } else {
+            self.scoreNoteTextRed.text = @"";
+        }
+    
+    } else {
+        self.scoreNoteTextRed.text = @"";
+    }
     
     if ([results_data[@"recommendations"][@"mainRecommendation"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"mainRecommendation"][@"text"] length]>0){
         self.mainRecomendationRed.text = results_data[@"recommendations"][@"mainRecommendation"][@"text"];
@@ -459,11 +479,6 @@ typedef NSUInteger MenuItem;
     
     //    self.mainRecomendationRed.text = @"";
     
-    if ([results_data[@"recommendations"][@"fullScreenAlert"][@"text"] isKindOfClass:[NSString class]]&&[results_data[@"recommendations"][@"fullScreenAlert"][@"text"] length]>0){
-        self.scoreNoteTextRed.text = results_data[@"recommendations"][@"fullScreenAlert"][@"text"];
-    } else {
-        self.scoreNoteTextRed.text = @"";
-    }
     
     self.medSearchBtnRed.hidden = ![results_data[@"recommendations"][@"placesLinkShouldBeVisible"] boolValue];
     
@@ -491,12 +506,18 @@ typedef NSUInteger MenuItem;
 }
 
 -(void)openResultsAnal{
-    if (!analisisResultPage) {
-        analisisResultPage = [AnalisisResultPage new];
-    }
-    analisisResultPage.isFromMenu = YES;
-    [self.navigationController pushViewController:analisisResultPage animated:YES];
 
+    if (![User checkForRole:tDoctor]){
+            if (!resultRiskAnal) {
+                resultRiskAnal = [ResultRiskAnal new];
+            }
+            [self.navigationController pushViewController:resultRiskAnal animated:YES];
+        } else {
+            if (!analisisResultPage) {
+                analisisResultPage = [AnalisisResultPage new];
+            }
+            [self.navigationController pushViewController:analisisResultPage animated:YES];
+        }
 }
 
 -(void)openDaybook{

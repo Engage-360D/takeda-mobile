@@ -11,6 +11,8 @@
 @interface analizData : NSObject
 
 +(analizData*)sharedObject;
++(void)resetData;
+
 -(NSArray*)getQuestionsDataUser;
 -(NSArray*)getQuestionsHistoryUser;
 -(NSArray*)getQuestionsDailyRation;

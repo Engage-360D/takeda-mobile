@@ -28,10 +28,20 @@ static GlobalData *objectInstance = nil;
         if (!objectInstance) {
             objectInstance = [GlobalData new];
             [objectInstance openDB];
+            [[NSNotificationCenter defaultCenter] addObserver:objectInstance
+                                                     selector:@selector(updateCalendarBadge)
+                                                         name:kCalendarTasksChanged
+                                                       object:nil];
+
         }
         return objectInstance;
     }
 }
+
++(void)resetData{
+    objectInstance = nil;
+}
+
 
 -(void)openDB{
     database = [FMDatabase databaseWithPath:[Global pathToDB]];
@@ -84,6 +94,24 @@ static GlobalData *objectInstance = nil;
 +(void)saveRegions:(NSMutableArray*)regions{
     [regions writeToFile:filePath(regionsListFile) atomically:YES];
 }
+
++(void)saveIncidents:(NSMutableDictionary*)incidents{
+    [UserDefaults setValue:incidents forKey:@"incidents"];
+    User.incidents = incidents;
+    // [regions writeToFile:filePath(regionsListFile) atomically:YES];
+    
+    /*
+     
+     "data": {
+     "hadBypassSurgery": true,
+     "hadHeartAttackOrStroke": false,
+     "hasDiabetes": false
+     }
+
+     */
+    
+}
+
 
 +(void)clearFiles{
 
@@ -210,21 +238,26 @@ static GlobalData *objectInstance = nil;
 }
 
 
--(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment{
-    [self deleteAllIncidents:inc];
-    [self addIncidentTo:inc incident:incType comment:comment];
+//-(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment{
+//    [self deleteAllIncidents:inc];
+//    [self addIncidentTo:inc incident:incType comment:comment];
+//}
+
+-(void)addIncidentTo:(NSMutableDictionary*)inc incident:(NSString*)incidentType comment:(NSString*)comment{
+    [inc setObject:@YES forKey:incidentType];
 }
 
--(void)addIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment{
-    [inc addObject:[Global recursiveMutable:@{@"type":[NSNumber numberWithInt:incType],@"comment":comment}]];
+-(void)deleteIncident:(NSMutableDictionary*)inc incident:(NSString*)incidentType{
+    [inc setObject:@NO forKey:incidentType];
 }
 
--(void)deleteIncident:(NSMutableArray*)inc incident:(IncidentType)incType{
-    
-}
-
--(void)deleteAllIncidents:(NSMutableArray*)inc{
+-(void)deleteAllIncidents:(NSMutableDictionary*)inc{
     [inc removeAllObjects];
+    [inc addEntriesFromDictionary:[GlobalData incidentModel]];
+}
+
++(NSMutableDictionary*)incidentModel{
+    return [[NSMutableDictionary alloc] initWithDictionary:@{@"hadBypassSurgery":[NSNumber numberWithBool:NO],@"hadHeartAttackOrStroke":[NSNumber numberWithBool:NO],@"hasDiabetes":[NSNumber numberWithBool:NO]}];
 }
 
 +(NSDictionary*)incidents{
@@ -232,7 +265,7 @@ static GlobalData *objectInstance = nil;
 }
 
 +(void)resultAnalBlock:(NSString*)url completition:(void (^)(BOOL success, id result))completion{
-    id res = [self cashedRequest:url];
+    id res = [self cashedRequest:url needInternet:YES];
     if (res){
         completion(YES, res);
         return;
@@ -242,6 +275,71 @@ static GlobalData *objectInstance = nil;
         completion(success, result);
     }];
     
+}
+
++(void)loadMyCityByLocation:(CLLocation*)location fromCashe:(BOOL)fromCashe copml:(void (^)(BOOL success, id result))completion{
+        if ([UserDefaults valueForKey:@"lastCity"]&&fromCashe){
+            completion(YES, [UserDefaults valueForKey:@"lastCity"]);
+        } else {
+            [ServData loadMyCityByLocation:location copml:^(BOOL success, id result) {
+                if (success){
+                    if (result[@"data"]&&[result[@"data"] isKindOfClass:[NSDictionary class]]){
+                        if (result[@"data"][@"id"]){
+                            NSString *city = result[@"data"][@"id"];
+                            [UserDefaults setObject:city forKey:@"lastCity"];
+                            completion(success, result[@"data"][@"id"]);
+                        } else {
+                            completion(NO, result);
+                        }
+                    }
+                } else {
+                    completion(NO, result);
+                }
+            }];
+        }
+}
+
+-(void)loadLPUSListForCity:(NSString*)city spec:(NSString*)spec copml:(void (^)(BOOL success, id result))completion{
+    [ServData loadLPUsListForCity:city spec:spec copml:^(BOOL success, id result){
+        completion(success, result);
+    }];
+    
+}
+
+-(void)loadLPUSListWithCasheForCity:(NSString*)city spec:(NSString*)spec firstCashe:(BOOL)firstCache copml:(void (^)(BOOL success, id result))completion{
+    NSString *url = [NSString stringWithFormat:@"%@%@?parsedTown=%@&specialization=%@",kServerURL,kInstitutionsList,city, spec];
+
+    if (firstCache){
+        id res = [GlobalData cashedRequest:url needInternet:NO];
+        if (res){
+            completion(YES, res);
+            return;
+        } else {
+            [self loadLPUSListForCity:city spec:spec copml:^(BOOL success, id result){
+                if (success){
+                    [GlobalData casheRequest:result fromUrl:url];
+                }
+                completion(success, result);
+            }];
+        };
+
+    } else {
+        [self loadLPUSListForCity:city spec:spec copml:^(BOOL success, id result){
+            if (success){
+                [GlobalData casheRequest:result fromUrl:url];
+            } else {
+                id res = [GlobalData cashedRequest:url needInternet:NO];
+                if (res){
+                    completion(YES, res);
+                    return;
+                };
+            }
+            completion(success, result);
+        }];
+    }
+
+    
+
 }
 
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion{
@@ -289,12 +387,6 @@ static GlobalData *objectInstance = nil;
     
 }
 
--(void)loadLPUSListForCity:(NSString*)city spec:(NSString*)spec copml:(void (^)(BOOL success, id result))completion{
-    [ServData loadLPUsListForCity:city spec:spec copml:^(BOOL success, id result){
-        completion(success, result);
-    }];
-    
-}
 
 -(NSMutableArray*)citiesTerm:(NSString*)term{
     int limit = 100;
@@ -352,8 +444,8 @@ static GlobalData *objectInstance = nil;
 
 
 
-+(id)cashedRequest:(NSString*)url{
-    if (appDelegate.hostConnection != NotReachable) {
++(id)cashedRequest:(NSString*)url needInternet:(BOOL)needIternet{
+    if (appDelegate.hostConnection != NotReachable&&needIternet) {
         return nil;
     }
     NSString *fileName = cashFile([Global PathFromUrl:url]);
@@ -370,6 +462,7 @@ static GlobalData *objectInstance = nil;
 
 +(void)casheTimelineTasks:(NSMutableDictionary*)tasks{
     [tasks saveTofile:userTimelineTasksFile];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCalendarTasksChanged object:nil];
 }
 
 +(NSMutableDictionary*)cashedTimelineTasks{
@@ -383,5 +476,26 @@ static GlobalData *objectInstance = nil;
 +(NSMutableArray*)cashedTimeline{
     return [NSMutableArray readFromFile:userTimelineFile];
 }
+
+//-(NSNumber*)missedEventsCount{
+//    
+//}
+
+-(NSNumber*)missedEventsCount{
+    if (_missedEventsCount==nil){
+        [self updateCalendarBadge];
+    }
+    return _missedEventsCount;
+}
+
+-(void)updateCalendarBadge{
+    if (!User.userData) return;
+    NSMutableDictionary *tasks;
+    tasks = [GlobalData cashedTimelineTasks];
+    NSArray *tasksArray = tasks.allValues;
+    NSArray *missedTasksArray = [tasksArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.isCompleted !=null"]];
+    _missedEventsCount = [NSNumber numberWithInt:tasksArray.count - missedTasksArray.count];
+}
+
 
 @end

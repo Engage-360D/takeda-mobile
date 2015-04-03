@@ -24,11 +24,15 @@ static Synchronizer *sharedInst = NULL;
     return sharedInst;
 }
 
++(void)resetData{
+    sharedInst = nil;
+}
+
 -(void)startSynchronizeCompletition:(void (^)(BOOL success, id result))completion{
     self.resultBlock = completion;
 //    [self loadRiskAnalResults];
 //    [self loadPills];
-    tasks = [NSMutableArray arrayWithObjects:[NSValue valueWithPointer:@selector(loadRiskAnalResults)],[NSValue valueWithPointer:@selector(loadPills)], [NSValue valueWithPointer:@selector(loadCities)], [NSValue valueWithPointer:@selector(loadSpecializations)], nil];
+    tasks = [NSMutableArray arrayWithObjects:[NSValue valueWithPointer:@selector(loadRiskAnalResults)],[NSValue valueWithPointer:@selector(loadPills)], [NSValue valueWithPointer:@selector(loadCities)], [NSValue valueWithPointer:@selector(loadSpecializations)], [NSValue valueWithPointer:@selector(loadIncidents)], nil];
     [self startTasksMachine];
 }
 
@@ -77,6 +81,13 @@ static Synchronizer *sharedInst = NULL;
 -(void)loadSpecializations{
     [GData loadSpecializationsList:^(BOOL success, id result){
         NSLog(@"finish specializations");
+        [self finishJob];
+    }];
+}
+
+-(void)loadIncidents{
+    [ServData loadIncidentsCompletion:^(BOOL result, NSError *error) {
+        NSLog(@"finish incidents");
         [self finishJob];
     }];
 }

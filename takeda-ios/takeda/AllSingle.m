@@ -29,6 +29,11 @@ static AllSingle *dot = nil;
     }
 }
 
++(void)resetData{
+    dot = nil;
+}
+
+
 -(void)openAll{
 //    database = [FMDatabase databaseWithPath:[self pathToDB]];
 //    [database open];
@@ -337,6 +342,12 @@ static AllSingle *dot = nil;
 }
 
 -(CGFloat)heightLabel:(UILabel*)label{
+    
+    CGSize maxSize = CGSizeMake(label.frame.size.width, MAXFLOAT);
+    CGRect labelRect = [label.text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:label.font} context:nil];
+    return labelRect.size.height;
+    
+    
     UIFont *font = label.font;
     CGSize size = CGSizeMake(label.bounds.size.width, CGFLOAT_MAX);
     float h = [self text:label.text sizeWithFont:font constrainedToSize:size].height;
@@ -345,6 +356,7 @@ static AllSingle *dot = nil;
 
 - (CGSize)text:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size
 {
+    if (text == nil) return CGSizeZero;
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 7)
     {
         CGRect frame = [text boundingRectWithSize:size

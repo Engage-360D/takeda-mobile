@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self setupInterface];
     [self init_controllers];
     [self changeTabToIndex:0];
@@ -45,7 +45,7 @@
     
     
     controllers = [Global recursiveMutable:@[
-                                             @{@"image":@"",@"selected_image":@"", @"title":@"Личный кабинет",@"badge":@"",@"vc":resultRiskAnal},
+                                        //   @{@"image":@"",@"selected_image":@"", @"title":@"Личный кабинет",@"badge":@"",@"vc":resultRiskAnal},
                                              @{@"image":@"",@"selected_image":@"", @"title":@"Личный кабинет",@"badge":@"",@"vc":userInfo},
                                              @{@"image":@"",@"selected_image":@"",@"title":@"Личный кабинет",@"badge":@"",@"vc":settingsVC},
                                              ]];
@@ -79,7 +79,5 @@
 
     // [currentVC viewWillAppear:NO];  /// нужно принудительно вызывать (((
 }
-
-
 
 @end

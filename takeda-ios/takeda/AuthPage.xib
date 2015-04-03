@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthPage">
             <connections>
+                <outlet property="containerView" destination="kVZ-9H-Vrc" id="faj-65-CxU"/>
                 <outlet property="danger_text" destination="jv9-Az-T5G" id="Juf-IA-9Hc"/>
                 <outlet property="description_text" destination="gfm-PK-RqF" id="YJI-8G-8ti"/>
                 <outlet property="email_field" destination="YpP-8B-bZO" id="J24-cu-4Ti"/>
@@ -36,7 +37,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="0mR-h1-Sd4">
-                                    <rect key="frame" x="0.0" y="7" width="320" height="38"/>
+                                    <rect key="frame" x="0.0" y="15" width="320" height="38"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail" minimumFontSize="17" id="YpP-8B-bZO" customClass="PLTextField">
@@ -53,7 +54,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" id="W1j-La-VYj">
-                                    <rect key="frame" x="0.0" y="64" width="320" height="38"/>
+                                    <rect key="frame" x="0.0" y="52" width="320" height="38"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" id="WuX-QR-cK3" customClass="PLTextField">
@@ -70,7 +71,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" id="gvn-Ea-XsY">
-                                    <rect key="frame" x="0.0" y="121" width="320" height="38"/>
+                                    <rect key="frame" x="0.0" y="116" width="320" height="38"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" id="3Z0-4P-FiY">
@@ -153,15 +154,15 @@
                                     <rect key="frame" x="0.0" y="177" width="320" height="54"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Войти через аккаунт социальной сети" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G0y-uK-mH2">
-                                            <rect key="frame" x="19" y="3" width="177" height="47"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Использовать аккаунт соцсетей:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G0y-uK-mH2">
+                                            <rect key="frame" x="19" y="3" width="145" height="47"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="14D-Rz-2dh">
-                                            <rect key="frame" x="188" y="10" width="33" height="33"/>
+                                            <rect key="frame" x="206" y="10" width="33" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="vk_logo.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -171,7 +172,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fNB-JE-v9b">
-                                            <rect key="frame" x="229" y="10" width="33" height="33"/>
+                                            <rect key="frame" x="243" y="10" width="33" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="fb_logo.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -181,13 +182,23 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AE3-rC-LP5">
-                                            <rect key="frame" x="270" y="10" width="33" height="33"/>
+                                            <rect key="frame" x="280" y="10" width="33" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="ok_logo.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
                                                 <action selector="loginWithOK:" destination="-1" eventType="touchUpInside" id="r9U-Pn-qxS"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="P9h-Bh-gDQ">
+                                            <rect key="frame" x="169" y="10" width="33" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="g_icon.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="loginWithGPlus:" destination="-1" eventType="touchUpInside" id="rwz-Gb-iUQ"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -223,6 +234,7 @@
     <resources>
         <image name="arrow.png" width="8" height="15"/>
         <image name="fb_logo.png" width="33" height="33"/>
+        <image name="g_icon.png" width="33" height="33"/>
         <image name="ok_logo.png" width="33" height="33"/>
         <image name="vk_logo.png" width="33" height="33"/>
     </resources>

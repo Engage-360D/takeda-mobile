@@ -27,6 +27,6 @@
 
 -(void)openWelcomePage;
 -(void)openAuthPage;
-
+-(void)resetUser:(NSMutableDictionary*)user;
 
 @end

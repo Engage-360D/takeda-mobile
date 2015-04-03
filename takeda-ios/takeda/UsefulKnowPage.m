@@ -2,8 +2,8 @@
 //  UsefulKnowPage.m
 //  takeda
 //
-//  Created by Serg on 3/27/14.
-//  Copyright (c) 2014 organization. All rights reserved.
+//  Created by Alexander Rudenko on 19.03.15.
+//  Copyright (c) 2015 organization. All rights reserved.
 //
 
 #import "UsefulKnowPage.h"
@@ -13,48 +13,88 @@
 @end
 
 @implementation UsefulKnowPage
+@synthesize infoData;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    self.mainElement = self.scrollView;
-    [self setupInterface];
+    self.view.backgroundColor = RGB(236, 236, 236);
+    self.tableView.tableHeaderView = self.tableView.topSepar;
+    UIImageView *s = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 0.5)];
+    s.backgroundColor = self.tableView.separatorColor;
+
+    [self.danger_text addSubview:s];
+    self.tableView.tableFooterView = self.danger_text;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self initData];
+    
 }
 
--(void)setupInterface{
-    UILabel *tL = [[UILabel alloc] initWithFrame:CGRectMake(_infInsInfo.titleLabel.x, 15, 200, 15)];
-    tL.font = [UIFont fontWithName:@"SegoeWP-Light" size:10];
-    tL.textColor = RGB(95, 95, 95);
-    tL.backgroundColor = [UIColor clearColor];
-    tL.text = @"Пошаговая инструкция";
+-(void)initData{
+
+    NSString *path = [[NSBundle mainBundle] pathForResource:
+                      @"UsefulKnowContent" ofType:@"plist"];
     
-    [_infInsInfo addSubview:tL];
-    
-    for (UIButton *btn in _btnsCollection){
-        btn.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
-        [btn setTitleColor:RGB(54, 65, 71) forState:UIControlStateNormal];
-    }
-    
-    for (UILabel *lb in self.blockLabels){
-        lb.font = [UIFont fontWithName:@"SegoeWP" size:14];
-    }
-    
-    [self drawBorders:self.bg_block];
-    [self.scrollView setup_autosize];
+    infoData = [Global recursiveMutable:[[NSMutableArray alloc] initWithContentsOfFile:path]];
+    [self.tableView reloadData];
 }
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return infoData.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UsefulKnowCell *cell = (UsefulKnowCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return [cell heightCell:infoData[indexPath.row]];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"UsefulKnowCell";
+    
+    UsefulKnowCell *cell = (UsefulKnowCell *)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if(!cell)
+    {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"UsefulKnowCell" owner:nil options:nil];
+        for(id currentObject in topLevelObjects)
+        {
+            if([currentObject isKindOfClass:[UsefulKnowCell class]])
+            {
+                cell = (UsefulKnowCell *)currentObject;
+                for (UIButton *btn in cell.shareBtns){
+                    [btn addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
+                }
+                
+                break;
+            }
+        }
+    }
+    
+    NSMutableDictionary *menu = infoData[indexPath.row];
+    [cell setupCell:menu];
+    cell.sharePanel.tag = indexPath.row;
+    cell.backgroundColor = RGB(236, 236, 236);
+    cell.contentView.backgroundColor = RGB(236, 236, 236);
+
+    return cell;
+}
+
+#pragma mark - Table view delegate
+
+-(void)shareAction:(UIButton*)sender{
+    int index = sender.superview.tag;
+    int social = sender.tag;
+    
+}
+
 
 
 @end

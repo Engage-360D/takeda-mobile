@@ -36,13 +36,14 @@
     [super viewWillAppear:animated];
     if ([User checkForRole:tDoctor]){
         [self initData];
-    } else {
-        if (self.isFromMenu){
-            [self goToRes:nil];
-        } else {
-            [self openLeftMenu];
-        }
     }
+        //    } else {
+//        if (self.isFromMenu){
+//            [self goToRes:nil];
+//        } else {
+//            [self openLeftMenu];
+//        }
+//    }
 }
 
 -(void)setupInterface{

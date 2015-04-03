@@ -16,11 +16,10 @@
 @synthesize welcome_text_1;
 @synthesize welcome_text_2;
 @synthesize welcome_text_3;
+@synthesize is_authorized;
+@synthesize taked;
+@synthesize is_loading;
 
-
-bool is_loading;
-bool is_authorized;
-BOOL taked;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,7 +35,12 @@ BOOL taked;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   // NSLog(@"before auth %i",(int)[UserDefaults integerForKey:@"lastResultDataId"]);
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -56,6 +60,10 @@ BOOL taked;
 {
     if (taked) return;
     taked = YES;
+    [self start];
+}
+
+-(void)start{
     NetworkStatus remoteHostStatus = [appDelegate.hostReachability currentReachabilityStatus];
     if (remoteHostStatus == NotReachable) {
         NSLog(@"not reachable");
@@ -75,8 +83,8 @@ BOOL taked;
     
     NSString *lastUser = [User getLastUser];
 
-    if (lastUser){
-        NSMutableDictionary *usData = [User getUserInfo:lastUser];
+    if (lastUser||self.theUser){
+        NSMutableDictionary *usData = self.theUser?self.theUser:[User getUserInfo:lastUser];
         if (!usData){
             is_loading = NO;
             is_authorized = NO;

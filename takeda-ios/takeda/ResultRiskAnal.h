@@ -10,7 +10,7 @@
 #import "SearchInstitutionPage.h"
 #import "DietTest.h"
 #import "ResultRiskAnalDetail.h"
-#import "UsefulKnowPage.h"
+#import "InfoPage.h"
 #import "DietTestResults.h"
 
 
@@ -38,7 +38,7 @@ typedef enum {
 @property (nonatomic,retain) IBOutlet UIButton *infoBtn;
 @property (nonatomic, strong) SearchInstitutionPage *searchInstitutionPage;
 @property (nonatomic, strong) ResultRiskAnalDetail *resultRiskAnalDetail;
-@property (nonatomic, strong) UsefulKnowPage *usefulKnowPage;
+@property (nonatomic, strong) InfoPage *infoPage;
 @property (nonatomic, strong) DietTest *dietTest;
 @property (nonatomic, strong) DietTestResults *dietTestResults;
 @property (nonatomic, strong) NSMutableDictionary *results_data;

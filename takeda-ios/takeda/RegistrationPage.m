@@ -353,6 +353,7 @@ NSString *okToken;
 #pragma mark - UIPickerView
 
 -(IBAction)showPickerRegion:(id)sender{
+    [self hideKeyb];
     picker_cover = nil;
 
     picker_cover = [[CActionSheet alloc] initInView:self.view];
@@ -448,6 +449,7 @@ numberOfRowsInComponent:(NSInteger)component
 #pragma mark - UIDatePicker
 
 -(IBAction)showTimePicker:(id)sender{
+    [self hideKeyb];
     picker_cover = nil;
     picker_cover = [[CActionSheet alloc] initInView:self.view];
     UIToolbar *toolbar = [[UIToolbar alloc] init];
@@ -476,7 +478,7 @@ numberOfRowsInComponent:(NSInteger)component
     [picker_cover addSubview:toolbar];
     [picker_cover addSubview:date_picker];
     picker_cover.backgroundColor = [UIColor whiteColor];
-    [picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
+    //[picker_cover setBounds:CGRectMake(0,0,ScreenWidth,390)];
     picker_cover.tag = 2;
     [picker_cover show];
 }
@@ -730,113 +732,22 @@ numberOfRowsInComponent:(NSInteger)component
 
 #pragma mark - OdnokloasnikiMethods
 -(IBAction)loginWithOK:(id)sender{
-    [self showMessage:@"Регистрация через Однокласники временно отключена" title:@"Уведомление"];
-    return;
-
-    ShowNetworkActivityIndicator();
-    if (!self.odnoklasniki_api) {
-        self.odnoklasniki_api = [[Odnoklassniki alloc] initWithAppId:Odnkl_appID andAppSecret:Odnkl_appSecret andAppKey:Odnkl_appKey andDelegate:self];
-    }
-    
-    self.odnoklasniki_api.delegate = self;
-	if(self.odnoklasniki_api.isSessionValid){
-		[self okDidLogin];
-    }else{
-        [self.odnoklasniki_api authorize:[NSArray arrayWithObjects:@"VALUABLE ACCESS", @"SET STATUS", nil]];
-    }
-    
-	
     
 }
 
 /*** Odnoklassniki Delegate methods ***/
--(void)okDidLogin {
-	OKRequest *userInfoRequest = [Odnoklassniki requestWithMethodName:@"users.getCurrentUser"
-                                                        andParams:nil
-                                                    andHttpMethod:@"GET"
-                                                      andDelegate:self];
-	[userInfoRequest load];
+
+
+
+
+
+
+
+#pragma mark - Google+ auth
+
+-(IBAction)loginWithGPlus:(id)sender{
+    [self showMessage:@"Авторизация через Google+ временно отключена" title:@"Уведомление"];
 }
-
--(void)okDidNotLogin:(BOOL)canceled {
-    HideNetworkActivityIndicator();
-	//NSLog(@"%@",[NSString stringWithFormat:@"Did not login! Odnoklasniki  Canceled = %@", canceled ? @"YES" : @"NO"]);
-}
-
--(void)okDidNotLoginWithError:(NSError *)error {
-    HideNetworkActivityIndicator();
-	//NSLog(@"Odnoklasniki login error = %@", error.userInfo);
-}
-
--(void)okDidExtendToken:(NSString *)accessToken {
-	[self okDidLogin];
-}
-
--(void)okDidNotExtendToken:(NSError *)error {
-    HideNetworkActivityIndicator();
-	//NSLog(@"Error: Odnoklasniki did not extend token!!");
-}
-
--(void)okDidLogout {
-}
-
-/*** Request delegate ***/
--(void)request:(OKRequest *)request didLoad:(id)result {
-    HideNetworkActivityIndicator();
-	
-    
-    
-
-    if ([result hasKey:@"name"] ) {
-        if ([[result objectForKey:@"name"] length]>0) {
-            self.name_field.text = [result objectForKey:@"name"];
-        }
-    }
-
-    
-    
-    
-    if ([result hasKey:@"birthday"] ) {
-        if ([[result objectForKey:@"birthday"] length]>0) {
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"yyyy-MM-ddTHH:mm:ssZ"];
-            NSDate *dateFromString = [[NSDate alloc] init];
-            dateFromString = [dateFormatter dateFromString:[result objectForKey:@"birthday"]];
-            if (dateFromString) {
-                [self setDateBirthDay:dateFromString];
-            }else{
-                [self setUserDateBirthDay:[result objectForKey:@"birthday"]];
-            }
-            
-        }
-    }
-    
-
-    /*dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-     NSURL *url = [NSURL URLWithString:[result valueForKey:@"pic_1"]];
-     NSData *data = [NSData dataWithContentsOfURL:url];
-     UIImage *img = [[UIImage alloc] initWithData:data];
-     dispatch_sync(dispatch_get_main_queue(), ^{
-     self.avatar.image = img;
-     });//end block
-     });*/
-    
-}
-
--(void)request:(OKRequest *)request didFailWithError:(NSError *)error {
-    HideNetworkActivityIndicator();
-    //	NSLog(@"Request failed with error = %@", error);
-}
-
-#pragma mark -
-
-
-
-
-
-
-
-
 
 
 
@@ -846,7 +757,7 @@ numberOfRowsInComponent:(NSInteger)component
 
 -(void)setUserDateBirthDay:(NSString*)dateString{
     __block NSDate *detectedDate;
-    //Detect.
+//Detect.
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingAllTypes error:nil];
     [detector enumerateMatchesInString:dateString
                                options:kNilOptions

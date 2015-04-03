@@ -17,11 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    alerts = @{[NSNumber numberWithInt:inInsultInfarct]:@{@"text":@"Вы перенесли Инфракт/Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               [NSNumber numberWithInt:inCoronar]:@{@"text":@"Вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               [NSNumber numberWithInt:inDiabet]:@{@"text":@"Вы перенесли Диабет и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
+    alerts = @{@"hadHeartAttackOrStroke":   @{@"text":@"Вы перенесли Инфракт/Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               @"hadBypassSurgery":         @{@"text":@"Вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               @"hasDiabetes":              @{@"text":@"Вы перенесли Диабет и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
     
-    
+
     [self setupInterface];
     self.mainElement = self.scrollView;
 }
@@ -65,10 +65,16 @@
 
 -(void)showInfo{
     [self.incidentsContainer removeSubviews];
-    for (NSMutableDictionary *dict in User.incidents){
+    for (NSString *key in User.incidents.allKeys){
+        if ([User.incidents[key] boolValue]){
+        
         RAlertView *rAV = [[RAlertView alloc] init];
         [self.incidentsContainer addSubview:rAV];
-        [rAV setupWithTitle:alerts[dict[@"type"]][@"title"] text:alerts[dict[@"type"]][@"text"] img:alerts[dict[@"type"]][@"image"]];
+      //  [rAV setupWithTitle:alerts[dict[@"type"]][@"title"] text:alerts[dict[@"type"]][@"text"] img:alerts[dict[@"type"]][@"image"]];
+        [rAV setupWithTitle:alerts[key][@"title"] text:alerts[key][@"text"] img:alerts[key][@"image"]];
+ 
+        }
+
     }
     
     [self.incidentsContainer setupAutosizeBySubviews];
@@ -93,20 +99,27 @@
 
 
 -(IBAction)delAllResutsAction:(id)sender{
-    [self showMessageWithTextInput:@"" msg:@"Введите пароль" title:@"Удаление всех отчетов" btns:@[@"Отменить",@"Удалить"] params:@{@"secured":@YES} result:^(int index, NSString *text){
+    [self showMessageWithTextInput:@"" msg:@"Введите пароль" title:@"Удаление всех отчетов" btns:@[@"Отменить",@"Подтвердить"] params:@{@"secured":@YES} result:^(int index, NSString *text){
         if (index == 1){
-            [self clearResults];
+            [self clearAccount:text];
         }
     }];
 }
 
--(void)clearResults{
-    
+-(void)clearAccount:(NSString*)pass{
+
+    [ServData resetUserParamsPassword:pass completion:^(BOOL result, NSError *error) {
+        if (result){
+            [appDelegate resetUser:[Global recursiveMutable:User.userData]];
+        } else {
+            [self showMessage:@"Не удалось сделать сброс аккаунта." title:@"Ошибка"];
+        }
+    }];
 }
 
 -(IBAction)addIncidentAction:(id)sender{
 
-    if (User.incidents.count>0){
+    if (User.userBlocked){
         [self showMessage:@"Вы можете добавить только один инцидент" title:@"Ошибка"];
         return;
     }

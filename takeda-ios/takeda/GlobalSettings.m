@@ -15,4 +15,9 @@ static GlobalSettings *sharedInst = NULL;
     return sharedInst;
 }
 
++(void)resetData{
+    sharedInst = nil;
+}
+
+
 @end

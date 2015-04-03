@@ -14,8 +14,8 @@
 
 @property (nonatomic, strong) NIDropDown *itemsSelector;
 @property (nonatomic, retain) UIViewController *delegateClass;
-@property (nonatomic, strong) NSMutableArray *items;
-@property (nonatomic, strong) NSMutableArray *descriptions;
+@property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) NSArray *descriptions;
 
 @property (nonatomic, strong) NSString *selectedId;
 @property (nonatomic, strong) NSString *selectedValue;
@@ -39,8 +39,8 @@
 
 
 -(void)showItemsTable;
--(void)updateItemsTable:(NSMutableArray*)Items;
--(void)updateItemsTable:(NSMutableArray*)Items descriptions:(NSMutableArray*)descriptions;
+-(void)updateItemsTable:(NSArray*)Items;
+-(void)updateItemsTable:(NSArray*)Items descriptions:(NSMutableArray*)descriptions;
 -(void)selectedItemFromList:(int)index;
 -(void)hideItemsTable;
 -(BOOL)selectedIsChanged;

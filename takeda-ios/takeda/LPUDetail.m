@@ -49,7 +49,7 @@
 -(void)showInfo{
     self.lpuName.text = lpu[@"name"];
     self.lpuAddress.text = lpu[@"address"];
-    [self drawBlocks];
+ //   [self drawBlocks];
 }
 
 -(void)setupFields{

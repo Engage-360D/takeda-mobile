@@ -7,6 +7,9 @@
 //
 
 #import "DPicker.h"
+#import "UIView+ViewsParentUIViewController.h"
+
+
 #define hhh 250
 
 @implementation DPicker{
@@ -104,6 +107,12 @@
 }
 
 -(void)show{
+    if (self.parent_view){
+        UIViewController * parentController = [self.parent_view firstAvailableUIViewController];
+        if ([parentController respondsToSelector:@selector(hideKeyb)]){
+            [parentController performSelector:@selector(hideKeyb)];
+        }
+    }
     [self.parent_view addSubview:self.backView];
     self.y = self.parent_view.height;
     

@@ -12,6 +12,7 @@
 @property (nonatomic,retain) IBOutletCollection(UILabel) NSArray *blockLabels;
 @property (nonatomic,retain) IBOutletCollection(UIView) NSArray *bg_block;
 @property (nonatomic, strong) IBOutletCollection(UIImageView) NSArray *separators_collection;
+@property (nonatomic,retain) IBOutlet UILabel *calendarMissedEventsLabel;
 @property(nonatomic, strong) IBOutlet UILabel *vcTitle;
 @property(nonatomic, strong) IBOutlet UILabel *vcSubTitle;
 @property (nonatomic,retain) IBOutlet UILabel *danger_text;
@@ -21,6 +22,7 @@
 @property(nonatomic) BOOL isAppearFromBack;
 @property (nonatomic,assign) VControllerExt *parentVC;
 - (BOOL)isRootVC;
+- (BOOL)isModal;
 
 -(void)drawBorders:(NSArray*)array;
 -(void)drawBordersInView:(UIView*)view;

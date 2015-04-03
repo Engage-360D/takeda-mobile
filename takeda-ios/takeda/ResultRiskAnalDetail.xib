@@ -18,12 +18,12 @@
                 <outlet property="vcTitle" destination="P5B-Dr-9rv" id="d0q-Wr-pas"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="btnsCollection" destination="I9m-3I-ZXc" collectionClass="NSMutableArray" id="gRU-r7-EJI"/>
-                <outletCollection property="btnsCollection" destination="e44-xu-l9e" collectionClass="NSMutableArray" id="BPO-7A-NKx"/>
-                <outletCollection property="btnsCollection" destination="v4C-Pj-oqs" collectionClass="NSMutableArray" id="NSA-l0-IEl"/>
-                <outletCollection property="btnsCollection" destination="qan-YX-LdQ" collectionClass="NSMutableArray" id="Bxn-wa-V8K"/>
                 <outletCollection property="bg_block" destination="I9m-3I-ZXc" id="ywZ-DH-894"/>
                 <outletCollection property="bg_block" destination="e44-xu-l9e" id="nbf-f2-AM9"/>
+                <outletCollection property="btnsCollection" destination="e44-xu-l9e" collectionClass="NSMutableArray" id="BPO-7A-NKx"/>
+                <outletCollection property="btnsCollection" destination="v4C-Pj-oqs" collectionClass="NSMutableArray" id="NSA-l0-IEl"/>
                 <outletCollection property="bg_block" destination="v4C-Pj-oqs" id="znU-t0-hXj"/>
+                <outletCollection property="btnsCollection" destination="qan-YX-LdQ" collectionClass="NSMutableArray" id="Bxn-wa-V8K"/>
                 <outletCollection property="bg_block" destination="qan-YX-LdQ" id="6E7-eI-rf5"/>
             </connections>
         </placeholder>
@@ -90,7 +90,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <inset key="imageEdgeInsets" minX="290" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Общее" image="grayArrowDown.png">
+                                    <state key="normal" title="Подробная информация" image="grayArrowDown.png">
                                         <color key="titleColor" red="0.20784313725490194" green="0.25490196078431371" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -106,39 +106,6 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e44-xu-l9e">
-                                    <rect key="frame" x="0.0" y="129" width="320" height="38"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <inset key="imageEdgeInsets" minX="290" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Влияние на повседневную жизнь" image="grayArrowDown.png">
-                                        <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" image="grayArrowUp.png"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v4C-Pj-oqs">
-                                    <rect key="frame" x="0.0" y="169" width="320" height="38"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <inset key="imageEdgeInsets" minX="290" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Симптомы" image="grayArrowDown.png">
-                                        <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" image="grayArrowUp.png"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qan-YX-LdQ">
-                                    <rect key="frame" x="0.0" y="209" width="320" height="38"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <inset key="imageEdgeInsets" minX="290" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Лечение и профилактика" image="grayArrowDown.png">
-                                        <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" image="grayArrowUp.png"/>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
@@ -151,6 +118,42 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="818" y="289"/>
         </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e44-xu-l9e">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <inset key="imageEdgeInsets" minX="290" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <state key="normal" title="Влияние на повседневную жизнь" image="grayArrowDown.png">
+                <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <state key="selected" image="grayArrowUp.png"/>
+            <point key="canvasLocation" x="1314" y="331"/>
+        </button>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v4C-Pj-oqs">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <inset key="imageEdgeInsets" minX="290" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <state key="normal" title="Симптомы" image="grayArrowDown.png">
+                <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <state key="selected" image="grayArrowUp.png"/>
+            <point key="canvasLocation" x="1314" y="371"/>
+        </button>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qan-YX-LdQ">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <inset key="imageEdgeInsets" minX="290" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <state key="normal" title="Лечение и профилактика" image="grayArrowDown.png">
+                <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+            <state key="selected" image="grayArrowUp.png"/>
+            <point key="canvasLocation" x="1314" y="411"/>
+        </button>
     </objects>
     <resources>
         <image name="grayArrowDown.png" width="15" height="15"/>

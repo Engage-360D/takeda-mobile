@@ -8,18 +8,23 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchInstitutionPage">
             <connections>
                 <outlet property="container" destination="uAC-4t-s1C" id="k7R-j4-jwU"/>
+                <outlet property="filtrFieldsContainer" destination="e0V-Zp-Fbe" id="YJ5-V1-zWu"/>
+                <outlet property="filtrSpec" destination="tR7-Q3-f2K" id="p7f-Bk-etS"/>
                 <outlet property="listMapSwitch" destination="avx-Kw-4TW" id="GOI-Ty-mUg"/>
                 <outlet property="mapContainer" destination="mRj-qC-toc" id="d7S-lI-M5g"/>
                 <outlet property="mapView_" destination="5vI-ze-hlr" id="EeM-Hi-8x4"/>
+                <outlet property="normZoomBtn" destination="1LJ-WQ-6ey" id="PNk-Wu-xm1"/>
                 <outlet property="searchBtn" destination="0Jx-Sw-6y7" id="Jm3-fi-qqp"/>
                 <outlet property="searchCity" destination="16U-wx-cE0" id="WSb-3J-A6B"/>
                 <outlet property="searchContainer" destination="PtZ-5c-bw2" id="YKc-6l-J7b"/>
+                <outlet property="searchFiedsContainer" destination="Aob-n0-kVD" id="oCG-Bi-M9c"/>
                 <outlet property="searchSpec" destination="qFY-Vh-YW9" id="5kV-sM-h3g"/>
                 <outlet property="showHideSearchBtn" destination="QYW-FX-s2i" id="Kvw-Gt-7Re"/>
                 <outlet property="tableContainer" destination="iQ8-Wa-ycz" id="GLE-My-NVP"/>
                 <outlet property="tableView" destination="6JU-Cf-fpc" id="wB1-uC-sZT"/>
                 <outlet property="vcTitle" destination="Eui-eh-uUL" id="MMs-bI-aER"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="zoomSlider" destination="8yU-1o-gR8" id="uoh-i4-SyU"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -50,13 +55,39 @@
                             <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <view contentMode="scaleToFill" id="mRj-qC-toc">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
+                            <rect key="frame" x="0.0" y="39" width="320" height="397"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="5vI-ze-hlr" customClass="GMSMapView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
+                                    <rect key="frame" x="0.0" y="-39" width="320" height="436"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                                <view contentMode="scaleToFill" id="yaQ-8U-BE9">
+                                    <rect key="frame" x="0.0" y="330" width="246" height="58"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1LJ-WQ-6ey">
+                                            <rect key="frame" x="187" y="0.0" width="59" height="58"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                            <state key="normal" image="fa.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="scrollCameraToSearchArea:" destination="-1" eventType="touchUpInside" id="LP8-Gl-Qx4"/>
+                                            </connections>
+                                        </button>
+                                        <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="8yU-1o-gR8">
+                                            <rect key="frame" x="18" y="14" width="164" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="zoomSliderChanged:" destination="-1" eventType="valueChanged" id="9VR-fo-PkZ"/>
+                                            </connections>
+                                        </slider>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -81,40 +112,65 @@
                                 <action selector="selectViewType:" destination="-1" eventType="valueChanged" id="eXi-PY-FgS"/>
                             </connections>
                         </segmentedControl>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Выберите город" minimumFontSize="17" id="16U-wx-cE0" customClass="UITextFieldAutocompl">
-                            <rect key="frame" x="12" y="8" width="296" height="33"/>
+                        <view contentMode="scaleToFill" id="Aob-n0-kVD">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="138"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="textColor" red="0.11411904563916479" green="0.1385300765790636" blue="0.15094259510869568" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                        </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Выберите специализацию" minimumFontSize="17" id="qFY-Vh-YW9" customClass="UITextFieldAutocompl">
-                            <rect key="frame" x="12" y="45" width="296" height="33"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Выберите город" minimumFontSize="17" id="16U-wx-cE0" customClass="UITextFieldAutocompl">
+                                    <rect key="frame" x="12" y="8" width="296" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="textColor" red="0.11411904563916479" green="0.1385300765790636" blue="0.15094259510869568" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                </textField>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Выберите специализацию" minimumFontSize="17" id="qFY-Vh-YW9" customClass="UITextFieldAutocompl">
+                                    <rect key="frame" x="12" y="45" width="296" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="textColor" red="0.11411904563916479" green="0.1385300765790636" blue="0.15094259510869568" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="Ybf-05-oet"/>
+                                    </connections>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0Jx-Sw-6y7">
+                                    <rect key="frame" x="50" y="92" width="217" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <state key="normal" title="Поиск">
+                                        <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="searchData:" destination="-1" eventType="touchUpInside" id="3AO-Xe-pLa"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="e0V-Zp-Fbe">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="138"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="textColor" red="0.11411904563916479" green="0.1385300765790636" blue="0.15094259510869568" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="Ybf-05-oet"/>
-                            </connections>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0Jx-Sw-6y7">
-                            <rect key="frame" x="50" y="92" width="217" height="38"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <state key="normal" title="Поиск">
-                                <color key="titleColor" red="0.20784313730000001" green="0.25490196079999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted">
-                                <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="searchData:" destination="-1" eventType="touchUpInside" id="3AO-Xe-pLa"/>
-                            </connections>
-                        </button>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите текст для поиска" minimumFontSize="17" id="tR7-Q3-f2K" customClass="UITextFieldAutocompl">
+                                    <rect key="frame" x="12" y="105" width="296" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="textColor" red="0.1141190456" green="0.1385300766" blue="0.15094259509999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="iAc-3D-3ya"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.66731319450000004" green="0.87334408969999999" blue="0.79113812770000003" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
@@ -143,9 +199,6 @@
             <state key="normal" image="search_icon.png">
                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
             </state>
-            <connections>
-                <action selector="showHideSearch:" destination="-1" eventType="touchUpInside" id="oRf-sL-UeC"/>
-            </connections>
             <point key="canvasLocation" x="1204" y="278.5"/>
         </button>
         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yoc-mR-2Gi">
@@ -154,13 +207,11 @@
             <state key="normal" image="filterIcon.png">
                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
             </state>
-            <connections>
-                <action selector="showHideSearch:" destination="-1" eventType="touchUpInside" id="miN-28-Q0E"/>
-            </connections>
-            <point key="canvasLocation" x="1249" y="279"/>
+            <point key="canvasLocation" x="1204" y="357"/>
         </button>
     </objects>
     <resources>
+        <image name="fa.png" width="50" height="50"/>
         <image name="filterIcon.png" width="24" height="24"/>
         <image name="search_icon.png" width="25" height="24"/>
     </resources>

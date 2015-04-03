@@ -24,12 +24,19 @@
     
     NSString *okId;
     NSString *okToken;
+    
 }
 
 @property (strong, nonatomic) FBRequestConnection *requestConnection;
-@property(nonatomic, retain) Odnoklassniki *odnoklasniki_api;
+@property (nonatomic, strong) Odnoklassniki *ok_api;
 
 @end
+
+
+NSString * const appId = @"1126090240";
+NSString * const appKey = @"CBAHMPBEEBABABABA";
+NSString * const appSecret = @"48E60A55CB4CF49C3E5D3762";
+
 
 @implementation AuthPage
 @synthesize bg_block;
@@ -64,6 +71,7 @@ ForgetPage *forgetPage;
     [self setNavigationPanel];
 
     [self setupInterface];
+
 }
 
 
@@ -93,10 +101,9 @@ ForgetPage *forgetPage;
     [super viewWillAppear:animated];
     //[self.navigationItem setHidesBackButton:YES];
     User.userData = [NSMutableDictionary new];
+    [self.containerView setupAutosizeBySubviews];
     [self.scrollView setup_autosize];
     self.navigationController.navigationBarHidden = NO;
-//        self.email_field.text = @"alexiosdeveloper@gmail.com";
-//        self.pass_field.text = @"S3OioVLLgcQW-";
 
     self.email_field.text = @"alexruden+3@rambler.ru";
     self.pass_field.text = @"q";
@@ -281,75 +288,6 @@ ForgetPage *forgetPage;
     [self authUserBySocial:kFacebook user:nil token:fbToken];
 }
 
-//- (void)sendRequests {
-//    NSArray *fbids = @[@"me"];
-//    FBRequestConnection *newConnection = [[FBRequestConnection alloc] init];
-//    for (NSString *fbid in fbids) {
-//        FBRequestHandler handler =
-//        ^(FBRequestConnection *connection, id result, NSError *error) {
-//            // output the results of the request
-//            [self requestCompleted:connection forFbID:fbid result:result error:error];
-//        };
-//        FBRequest *request = [[FBRequest alloc] initWithSession:FBSession.activeSession
-//                                                      graphPath:fbid];
-//        [newConnection addRequest:request completionHandler:handler];
-//    }
-//    [self.requestConnection cancel];
-//    
-//    self.requestConnection = newConnection;
-//    [newConnection start];
-//}
-//
-//// Report any results.  Invoked once for each request we make.
-//- (void)requestCompleted:(FBRequestConnection *)connection
-//                 forFbID:fbID
-//                  result:(id)result
-//                   error:(NSError *)error {
-//    HideNetworkActivityIndicator();
-//    // not the completion we were looking for...
-//    if (self.requestConnection &&
-//        connection != self.requestConnection) {
-//        return;
-//    }
-//    
-//    // clean this up, for posterity
-//    self.requestConnection = nil;
-//    
-//    NSString *text;
-//    if (error) {
-//        text = error.localizedDescription;
-//    } else {
-//        NSDictionary *dictionary = (NSDictionary *)result;
-//        [self setUserDataFromFB:dictionary];
-//        text = (NSString *)[dictionary objectForKey:@"name"];
-//    }
-//    /*
-//     NSLog(@"%@",[NSString stringWithFormat:@"%@: %@\r\n",[fbID stringByTrimmingCharactersInSet:
-//     [NSCharacterSet whitespaceAndNewlineCharacterSet]],
-//     text]);*/
-//}
-//
-//- (void)viewDidUnload {
-//    [self.requestConnection cancel];
-//    self.requestConnection = nil;
-//}
-//
-//-(void)setUserDataFromFB:(NSDictionary*)userData{
-//    
-//    
-//    fbId = [userData objectForKey:@"id"];
-//    fbToken = FBSession.activeSession.accessTokenData.accessToken;
-//    
-//    
-//}
-//
-
-
-
-
-
-
-
 #pragma mark -
 #pragma mark - VK
 
@@ -370,7 +308,7 @@ ForgetPage *forgetPage;
 }
 
 -(void)authorizeByVK{
-    vkId = [UserDefaults objectForKey:@"VKUserID"];
+    vkId = [UserDefaults objectForKey: @"VKUserID"];
     vkToken = [UserDefaults objectForKey:@"VKAccessTokenKey"];
     [self authUserBySocial:kVK user:vkId token:vkToken];
 }
@@ -414,63 +352,128 @@ ForgetPage *forgetPage;
 #pragma mark - OdnokloasnikiMethods
 -(IBAction)loginWithOK:(id)sender{
     
-    ShowNetworkActivityIndicator();
-    if (!self.odnoklasniki_api) {
-        self.odnoklasniki_api = [[Odnoklassniki alloc] initWithAppId:Odnkl_appID andAppSecret:Odnkl_appSecret andAppKey:Odnkl_appKey andDelegate:self];
+    if (!self.ok_api){
+        self.ok_api = [[Odnoklassniki alloc] initWithAppId:appId appSecret:appSecret appKey:appKey delegate:self];
     }
+    // if access_token is valid
+    // если access_token действителен
     
-    self.odnoklasniki_api.delegate = self;
-    if(self.odnoklasniki_api.isSessionValid){
-        [self okDidLogin];
-    }else{
-        [self.odnoklasniki_api authorize:[NSArray arrayWithObjects:@"VALUABLE ACCESS", @"SET STATUS", nil]];
+    if (!self.ok_api.isSessionValid) {
+        [self.ok_api authorizeWithPermissions:@[@"VALUABLE ACCESS"]];
+    } else {
+        [self.ok_api refreshToken];
     }
+}
+
+#pragma mark - API requests
+
+/*
+ * API request without params.
+ * Запрос к API без параметров.
+ */
+
+/*
+ * API request with params.
+ * Запрос к API с параметрами.
+ */
+- (void)getUserInfo{
+    OKRequest *newRequest = [Odnoklassniki requestWithMethodName:@"users.getCurrentUser" params:@{@"fields": @"first_name,last_name,location,pic50x50"}];
+    [newRequest executeWithCompletionBlock:^(NSDictionary *data) {
+        if (![data isKindOfClass:[NSDictionary class]]) {
+            return;
+        }
+        NSLog(@"USERDATA = %@",data);
+        
+        okToken = self.ok_api.session.accessToken;
+        okId = data[@"uid"];
+
+        [self authUserBySocial:kOK user:okId token:okToken];
+
+        
+        
+    } errorBlock:^(NSError *error) {
+        NSLog(@"[%@ %@] %@", NSStringFromClass(self.class), NSStringFromSelector(_cmd), error);
+    }];
+}
+
+#pragma mark - Odnoklassniki Delegate methods
+
+- (void)okShouldPresentAuthorizeController:(UIViewController *)viewController {
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void)okWillDismissAuthorizeControllerByCancel:(BOOL)canceled {
+    NSLog(@"autorization canceled by user");
+}
+
+
+/*
+ * Method will be called after success login ([_api authorize:])
+ * Метод будет вызван после успешной авторизации ([_api authorize:])
+ */
+- (void)okDidLogin {
     
+    [self getUserInfo];
+}
+
+/*
+ * Method will be called if login faild (cancelled == YES if user cancelled login, NO otherwise)
+ * Метод будет вызван, если при авторизации произошла ошибка (cancelled == YES если пользователь прервал авторизацию, NO во всех остальных случаях)
+ */
+- (void)okDidNotLogin:(BOOL)canceled {
     
+}
+
+/*
+ * Method will be called if login faild and server returned an error
+ * Метод будет вызван, если сервер вернул ошибку авторизации
+ */
+- (void)okDidNotLoginWithError:(NSError *)error {
     
 }
 
-
-/*** Odnoklassniki Delegate methods ***/
--(void)okDidLogin {
-    OKRequest *userInfoRequest = [Odnoklassniki requestWithMethodName:@"users.getCurrentUser"
-                                                            andParams:nil
-                                                        andHttpMethod:@"GET"
-                                                          andDelegate:self];
-    [userInfoRequest load];
-}
-
--(void)okDidNotLogin:(BOOL)canceled {
-    HideNetworkActivityIndicator();
-    //NSLog(@"%@",[NSString stringWithFormat:@"Did not login! Odnoklasniki  Canceled = %@", canceled ? @"YES" : @"NO"]);
-}
-
--(void)okDidNotLoginWithError:(NSError *)error {
-    HideNetworkActivityIndicator();
-    //NSLog(@"Odnoklasniki login error = %@", error.userInfo);
-}
-
--(void)okDidExtendToken:(NSString *)accessToken {
+/*
+ * Method will be called if [_api refreshToken] called and new access_token was got
+ * Метод будет вызван в случае, если вызван [_api refreshToken] и получен новый access_token
+ */
+- (void)okDidExtendToken:(NSString *)accessToken {
     [self okDidLogin];
 }
 
--(void)okDidNotExtendToken:(NSError *)error {
-    HideNetworkActivityIndicator();
-    //NSLog(@"Error: Odnoklasniki did not extend token!!");
+/*
+ * Method will be called if [_api refreshToken] called and new access_token wasn't got
+ * Метод будет вызван в случае, если вызван [_api refreshToken] и новый access_token не получен
+ */
+- (void)okDidNotExtendToken:(NSError *)error {
+    
 }
 
--(void)okDidLogout {
+/*
+ * Method will be called after logout ([_api logout])
+ * Метод будет вызван после выхода пользователя ([_api logout])
+ */
+- (void)okDidLogout {
+//    self.sessionStatusLabel.text = @"Not logged in";
+//    [self.authButton setTitle:@"Login" forState:UIControlStateNormal];
+    [self clearUserInfo];
 }
 
-/*** Request delegate ***/
--(void)request:(OKRequest *)request didLoad:(id)result {
-    HideNetworkActivityIndicator();
+#pragma mark - Google+ auth
+
+-(IBAction)loginWithGPlus:(id)sender{
+    [self showMessage:@"Авторизация через Google+ временно отключена" title:@"Уведомление"];
 }
 
--(void)request:(OKRequest *)request didFailWithError:(NSError *)error {
-    HideNetworkActivityIndicator();
-    //	NSLog(@"Request failed with error = %@", error);
+
+
+
+
+#pragma mark - interface
+
+- (void)clearUserInfo {
+
 }
+
 
 #pragma mark -
 
