@@ -38,12 +38,15 @@
     <View style="@style/gap_vertical_plate_small" />
 
     <TextView
+        android:id="@+id/textViewSwipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_small_light_left"
+        android:clickable="true"
+        android:drawableLeft="@drawable/selector_button_back"
         android:gravity="center_vertical"
+        android:padding="@dimen/space_medium"
         android:text="@string/swipe"
-        android:textColor="@color/white"
+        android:textColor="@color/selector_menu_item_text"
         android:textSize="@dimen/text_size_medium" />
 
 </LinearLayout>

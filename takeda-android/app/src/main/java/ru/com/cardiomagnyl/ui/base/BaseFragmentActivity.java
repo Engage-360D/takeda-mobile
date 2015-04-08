@@ -30,6 +30,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements B
     protected void onPause() {
         CardiomagnylApplication.getInstance().clearActivityIfCurrent(this);
         super.onPause();
+        hideProgressDialog();
     }
 
     @Override

@@ -170,7 +170,6 @@ public class Tools {
             e.printStackTrace();
             return "";
         }
-
     }
 
     public static String vkDateToShortDate(String dateString) {
@@ -183,7 +182,18 @@ public class Tools {
             e.printStackTrace();
             return "";
         }
+    }
 
+    public static String fullDateToShortDate(String dateString) {
+        DateFormat fullDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        DateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            return shortDateFormat.format(fullDate.parse(dateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public static int getDifferenceInYears(String dateString) {

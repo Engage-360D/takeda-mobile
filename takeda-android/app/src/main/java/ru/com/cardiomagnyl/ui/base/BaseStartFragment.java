@@ -41,6 +41,7 @@ public abstract class BaseStartFragment extends Fragment {
 
     protected void startRegistration(final User user) {
         StartActivity startActivity = (StartActivity) getActivity();
+        if (startActivity == null) return;
         startActivity.showProgressDialog();
 
         UserDao.register(
@@ -63,6 +64,7 @@ public abstract class BaseStartFragment extends Fragment {
 
     protected void startAuthorization(final LgnPwd lgnPwd) {
         StartActivity startActivity = (StartActivity) getActivity();
+        if (startActivity == null) return;
         startActivity.showProgressDialog();
 
         TokenDao.getByLgnPwd(
@@ -84,6 +86,7 @@ public abstract class BaseStartFragment extends Fragment {
 
     protected void startAuthorization(final int networkId, final Social social) {
         StartActivity startActivity = (StartActivity) getActivity();
+        if (startActivity == null) return;
         startActivity.showProgressDialog();
 
         TokenDao.getBySocial(
@@ -106,6 +109,7 @@ public abstract class BaseStartFragment extends Fragment {
 
     protected void getUserWeb(final Token token) {
         StartActivity startActivity = (StartActivity) getActivity();
+        if (startActivity == null) return;
         startActivity.showProgressDialog();
 
         UserDao.getByToken(
@@ -216,7 +220,8 @@ public abstract class BaseStartFragment extends Fragment {
                                final TestDietResult testDietResult,
                                Response responseError) {
         StartActivity startActivity = (StartActivity) getActivity();
-        startActivity.hideProgressDialog();
+        if (startActivity == null) return;
+        startActivity.showProgressDialog();
 
         if (token == null || user == null || incidents == null) {
             responseError = (responseError == null || responseError.getError() == null) ?

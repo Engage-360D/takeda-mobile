@@ -57,7 +57,7 @@ public final class ProfileHelper {
 
     public static void initRegistrationFragment(final View fragmentView, RegistrationFragment registrationFragment) {
         intiRadioGroupDoctor(fragmentView);
-        initTextViewBirthDate(fragmentView);
+        initTextViewBirthDate((TextView) fragmentView.findViewById(R.id.textViewBirthDateValue));
         initSpinnerRegion(fragmentView);
         initSpinnerExperienceYears(fragmentView);
         initSpinnerGraduationDate(fragmentView);
@@ -93,14 +93,12 @@ public final class ProfileHelper {
         });
     }
 
-    private static void initTextViewBirthDate(final View parentView) {
-        final TextView textViewBirthDateValue = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
-
+    public static void initTextViewBirthDate(final TextView textViewBirthDateValue) {
         final Calendar calendar = Tools.resetCalendar(Calendar.getInstance());
         final CustomOnDateSetListener customOnDateSetListener = new CustomOnDateSetListener(calendar);
 
         final DatePickerDialog dateDialog = new DatePickerDialog(
-                parentView.getContext(),
+                textViewBirthDateValue.getContext(),
                 customOnDateSetListener,
                 calendar.get(Calendar.YEAR) - Constants.AGE_LIMIT - 1,
                 calendar.get(Calendar.MONTH),
@@ -133,7 +131,7 @@ public final class ProfileHelper {
                             } else {
                                 textViewBirthDateValue.setTag(null);
                                 textViewBirthDateValue.setText(textViewBirthDateValue.getContext().getString(R.string.birth_date));
-                                Tools.showToast(parentView.getContext(), R.string.error_birth_date, Toast.LENGTH_LONG);
+                                Tools.showToast(textViewBirthDateValue.getContext(), R.string.error_birth_date, Toast.LENGTH_LONG);
                             }
 
                             datePickerDialogIsStarted = false;
@@ -390,26 +388,26 @@ public final class ProfileHelper {
         return errorView;
     }
 
-    public static User pickRegistrationFields(final View parentView, int networkId, Social social) {
+    public static User pickRegistrationFields(final View frafmentView, int networkId, Social social) {
         User newUser = new User();
 
         try {
-            RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
-            EditText editTextFirstName = (EditText) parentView.findViewById(R.id.editTextFirstName);
-            EditText editTextLastName = (EditText) parentView.findViewById(R.id.editTextLastName);
-            EditText editTextRegEmail = (EditText) parentView.findViewById(R.id.editTextRegEmail);
-            Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
-            TextView textViewBirthDateValue = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
-            EditText editTextPasswordFirst = (EditText) parentView.findViewById(R.id.editTextPasswordFirst);
+            RadioButton radioButtonDoctor = (RadioButton) frafmentView.findViewById(R.id.radioButtonDoctor);
+            EditText editTextFirstName = (EditText) frafmentView.findViewById(R.id.editTextFirstName);
+            EditText editTextLastName = (EditText) frafmentView.findViewById(R.id.editTextLastName);
+            EditText editTextRegEmail = (EditText) frafmentView.findViewById(R.id.editTextRegEmail);
+            Spinner spinnerRegion = (Spinner) frafmentView.findViewById(R.id.spinnerRegion);
+            TextView textViewBirthDateValue = (TextView) frafmentView.findViewById(R.id.textViewBirthDateValue);
+            EditText editTextPasswordFirst = (EditText) frafmentView.findViewById(R.id.editTextPasswordFirst);
 
-            EditText editTextSpecializationName = (EditText) parentView.findViewById(R.id.editTextSpecializationName);
-            EditText editTextSpecializationInstitutionName = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionName);
-            EditText editTextSpecializationInstitutionAddress = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
-            EditText editTextSpecializationInstitutionPhone = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
-            Spinner spinnerExperienceYears = (Spinner) parentView.findViewById(R.id.spinnerExperienceYears);
-            Spinner spinnerGraduationDate = (Spinner) parentView.findViewById(R.id.spinnerGraduationDate);
+            EditText editTextSpecializationName = (EditText) frafmentView.findViewById(R.id.editTextSpecializationName);
+            EditText editTextSpecializationInstitutionName = (EditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionName);
+            EditText editTextSpecializationInstitutionAddress = (EditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
+            EditText editTextSpecializationInstitutionPhone = (EditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
+            Spinner spinnerExperienceYears = (Spinner) frafmentView.findViewById(R.id.spinnerExperienceYears);
+            Spinner spinnerGraduationDate = (Spinner) frafmentView.findViewById(R.id.spinnerGraduationDate);
 
-            CheckBox checkBoxAgreeToReceive = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeToReceive);
+            CheckBox checkBoxAgreeToReceive = (CheckBox) frafmentView.findViewById(R.id.checkBoxAgreeToReceive);
 
             newUser.setIsDoctor(radioButtonDoctor.isChecked());
             newUser.setFirstname(editTextFirstName.getText().toString());
@@ -458,28 +456,28 @@ public final class ProfileHelper {
         return newUser;
     }
 
-    private static void fillFields(final View parentView) {
-        EditText editTextFirstName = (EditText) parentView.findViewById(R.id.editTextFirstName);
-        EditText editTextLastName = (EditText) parentView.findViewById(R.id.editTextLastName);
-        EditText editTextRegEmail = (EditText) parentView.findViewById(R.id.editTextRegEmail);
+    private static void fillFields(final View fragmentView) {
+        EditText editTextFirstName = (EditText) fragmentView.findViewById(R.id.editTextFirstName);
+        EditText editTextLastName = (EditText) fragmentView.findViewById(R.id.editTextLastName);
+        EditText editTextRegEmail = (EditText) fragmentView.findViewById(R.id.editTextRegEmail);
 
-        CheckBox checkBoxAgreeToReceive = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeToReceive);
-        CheckBox checkBoxAgreeToProcessing = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeToProcessing);
-        CheckBox checkBoxAgreeThatAdvises = (CheckBox) parentView.findViewById(R.id.checkBoxAgreeThatAdvises);
+        CheckBox checkBoxAgreeToReceive = (CheckBox) fragmentView.findViewById(R.id.checkBoxAgreeToReceive);
+        CheckBox checkBoxAgreeToProcessing = (CheckBox) fragmentView.findViewById(R.id.checkBoxAgreeToProcessing);
+        CheckBox checkBoxAgreeThatAdvises = (CheckBox) fragmentView.findViewById(R.id.checkBoxAgreeThatAdvises);
 
-        TextView textViewBirthDateValue = (TextView) parentView.findViewById(R.id.textViewBirthDateValue);
-        TextView editTextPasswordFirst = (TextView) parentView.findViewById(R.id.editTextPasswordFirst);
-        TextView editTextPasswordSecond = (TextView) parentView.findViewById(R.id.editTextPasswordSecond);
-        Spinner spinnerRegion = (Spinner) parentView.findViewById(R.id.spinnerRegion);
+        TextView textViewBirthDateValue = (TextView) fragmentView.findViewById(R.id.textViewBirthDateValue);
+        TextView editTextPasswordFirst = (TextView) fragmentView.findViewById(R.id.editTextPasswordFirst);
+        TextView editTextPasswordSecond = (TextView) fragmentView.findViewById(R.id.editTextPasswordSecond);
+        Spinner spinnerRegion = (Spinner) fragmentView.findViewById(R.id.spinnerRegion);
 
-        RadioButton radioButtonDoctor = (RadioButton) parentView.findViewById(R.id.radioButtonDoctor);
-        View layoutSpecializationDetails = parentView.findViewById(R.id.layoutSpecializationDetailsl);
-        EditText editTextSpecializationName = (EditText) parentView.findViewById(R.id.editTextSpecializationName);
-        EditText editTextSpecializationInstitutionName = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionName);
-        EditText editTextSpecializationInstitutionAddress = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
-        EditText editTextSpecializationInstitutionPhone = (EditText) parentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
-        Spinner spinnerExperienceYears = (Spinner) parentView.findViewById(R.id.spinnerExperienceYears);
-        Spinner spinnerGraduationDate = (Spinner) parentView.findViewById(R.id.spinnerGraduationDate);
+        RadioButton radioButtonDoctor = (RadioButton) fragmentView.findViewById(R.id.radioButtonDoctor);
+        View layoutSpecializationDetails = fragmentView.findViewById(R.id.layoutSpecializationDetailsl);
+        EditText editTextSpecializationName = (EditText) fragmentView.findViewById(R.id.editTextSpecializationName);
+        EditText editTextSpecializationInstitutionName = (EditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionName);
+        EditText editTextSpecializationInstitutionAddress = (EditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
+        EditText editTextSpecializationInstitutionPhone = (EditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
+        Spinner spinnerExperienceYears = (Spinner) fragmentView.findViewById(R.id.spinnerExperienceYears);
+        Spinner spinnerGraduationDate = (Spinner) fragmentView.findViewById(R.id.spinnerGraduationDate);
 
         User currentUser = AppState.getInsnatce().getUser();
 

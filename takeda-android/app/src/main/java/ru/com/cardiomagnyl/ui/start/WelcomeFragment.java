@@ -2,6 +2,7 @@ package ru.com.cardiomagnyl.ui.start;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class WelcomeFragment extends BaseStartFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_start_welcome, container, false);
+        initFragment(view);
         return view;
     }
 
@@ -39,5 +41,16 @@ public class WelcomeFragment extends BaseStartFragment {
 
     @Override
     public void initFieldsFromSocial(int networkId, SocialPerson socialPerson) { /*does nothing*/ }
+
+    private void initFragment(View fragmntView) {
+        final ViewPager pager = (ViewPager) getActivity().findViewById(R.id.viewPagerContent);
+
+        fragmntView.findViewById(R.id.textViewSwipe).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pager.setCurrentItem(1);
+            }
+        });
+    }
 
 }
