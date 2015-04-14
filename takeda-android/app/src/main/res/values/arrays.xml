@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="useful_icons">
-        <item>@drawable/ic_age</item>
-        <item>@drawable/ic_breathlessness</item>
         <item>@drawable/ic_running</item>
+        <item>@drawable/ic_breathlessness</item>
         <item>@drawable/ic_heart</item>
         <item>@drawable/ic_thrombosis</item>
         <item>@drawable/ic_edemas</item>
@@ -19,12 +18,12 @@
         <item>@drawable/ic_sex</item>
         <item>@drawable/ic_sleep</item>
         <item>@drawable/ic_double</item>
+        <item>@drawable/ic_age</item>
     </array>
 
     <string-array name="useful_description">
-        <item>Единственным фактором риска инфаркта и инсульта, который нельзя устранить, является возраст.</item>
-        <item>Одышка – грозный признак заболеваний сердца или легких</item>
         <item>Движение – это жизнь!</item>
+        <item>Одышка – грозный признак заболеваний сердца или легких</item>
         <item>Инфаркт не всегда сопровождается болью.</item>
         <item>Тромбоз и тромбоэмболия опасные, и, порой, фатальные осложнения заболеваний сердца и сосудов.</item>
         <item>Отеки – это не только некрасиво, но и очень вредно.</item>
@@ -40,6 +39,7 @@
         <item>Активная половая жизнь снижает риск возникновения сердечно-сосудистых заболеваний.</item>
         <item>Недосыпание ведет к перенапряжению нервной системы и увеличивает нагрузку на сердце?</item>
         <item>Избавление всего лишь от 10%% лишнего веса снижает риск развития сердечно-сосудистых заболеваний на 20%%.</item>
+        <item>Единственным фактором риска инфаркта и инсульта, который нельзя устранить, является возраст.</item>
     </string-array>
 
     <string-array name="useful_content">

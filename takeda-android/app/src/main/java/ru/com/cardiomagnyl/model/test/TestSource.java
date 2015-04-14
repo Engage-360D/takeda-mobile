@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import ru.com.cardiomagnyl.model.base.BaseModel;
 
@@ -44,6 +45,7 @@ public class TestSource extends BaseModel implements Parcelable {
     private Integer weight;
     @JsonProperty("isSmoker")
     private Boolean isSmoker;
+    @JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
     @JsonProperty("cholesterolLevel")
     private Integer cholesterolLevel;
     @JsonProperty("isCholesterolDrugsConsumer")
@@ -334,8 +336,7 @@ public class TestSource extends BaseModel implements Parcelable {
             /*     */(birthday != null) &&
             /*     */(growth != null) &&
             /*     */(weight != null) &&
-            /*     */(isSmoker() != null) &&
-            /*     */(cholesterolLevel != null);
+            /*     */(isSmoker() != null);
         }
 
         if (group == RESULT_GROUPS.second || group == RESULT_GROUPS.all) {

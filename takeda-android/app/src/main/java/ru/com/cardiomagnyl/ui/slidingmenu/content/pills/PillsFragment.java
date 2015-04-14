@@ -9,8 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
+import java.util.Set;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.AppSharedPreferences;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.Constants;
 import ru.com.cardiomagnyl.model.common.Response;
@@ -20,6 +22,7 @@ import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
+import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
 
 public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayout.OnRefreshListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,6 +69,9 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
                 new CallbackOne<List<Pill>>() {
                     @Override
                     public void execute(List<Pill> pillsList) {
+                        Set<String> act = (Set<String>) AppSharedPreferences.get(AppSharedPreferences.Preference.alarmActions);
+                        if (act.isEmpty() && !pillsList.isEmpty()) PillsScheduler.setAll(pillsList);
+
                         initFragmentFinish(fragmentView, pillsList);
                     }
                 },
@@ -86,6 +92,8 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
                 new CallbackOne<List<Pill>>() {
                     @Override
                     public void execute(List<Pill> pillsList) {
+                        PillsScheduler.setAll(pillsList);
+
                         initFragmentFinish(fragmentView, pillsList);
                     }
                 },

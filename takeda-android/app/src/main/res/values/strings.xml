@@ -33,10 +33,10 @@
     <string name="results_error">Не удалось получить результат.\nПожалуйста, попробуйте пройти тест позже.</string>
     <string name="error_test_pressure">Давление может иметь значение от 80 до 200.</string>
     <string name="error_test_activity">Физическая активность может иметь значение от 80 до 200.</string>
-    <string name="error_test_age">Возраст может иметь значение от 22.</string>
+    <string name="error_test_age">Исправьте значение возраста.</string>
     <string name="error_test_growth">Рост может иметь значение от 30 до 300.</string>
     <string name="error_test_weight">Вес может иметь значение от 30 до 700.</string>
-    <string name="error_test_cholesterol_level">Уровень общего холестерина может иметь значение от 3 до 9.</string>
+    <string name="error_test_cholesterol_level">Уровень общего холестерина может иметь значение от 3 до 9.\nОтметьте \"Не знаю\", если уровень не известен.</string>
 
     <!-- ====== -->
     <!-- common -->
@@ -57,9 +57,9 @@
     <!-- ====== -->
     <string name="error_occurred">Произошла ошибка.</string>
     <string name="error_authorization">Произошла ошибка во время авторизации.</string>
+    <string name="error_getting_user_data">Произошла ошибка при получении данных пользователя.</string>
     <string name="error_registration">Произошла ошибка во время регистрации.</string>
     <string name="error_get_test_results">Произошла ошибка во время получения результатов теста.</string>
-    <string name="authorization_error">Ошибка авторизации.</string>
     <string name="error_tets_already_passed">Вы уже проходили тест.\nТест проходится раз в месяц.\nПопробуйте позже.</string>
     <string name="error_tets_username_not_unique">Вы уже регистрировались, пожалуйста вернитесь к входу.\nТам же вы можете восстановить пароль.</string>
     <string name="error_user_not_found">Такой пользователь не найден.\nУбедитесь, что вы правильно ввели электронный адрес.</string>
@@ -83,7 +83,7 @@
     <!-- ================ -->
     <string name="welcome_1">Добро пожаловать в приложение\nпрепарата Кардиомагнил.</string>
     <string name="welcome_2">Вы сможете следить за своим здоровьем и\nпользоваться советами после регистрации и\nпрохождения теста.</string>
-    <string name="swipe">Смахните</string>
+    <string name="swipe">Войдите</string>
     <string name="three_minutes">3 минуты до начала работы приложения</string>
 
     <!-- ============== -->
@@ -118,7 +118,6 @@
     <string name="menu_item_settings">Настройки</string>
     <string name="menu_item_analysis_results">Рекомендации</string>
     <string name="menu_item_useful_to_know">Полезно знать</string>
-    <string name="menu_item_publications">Публикации</string>
     <string name="menu_item_reports">Отчеты</string>
     <string name="menu_item_patient_data">Данные пациента</string>
     <string name="menu_item_patient_history">История пациента</string>
@@ -131,6 +130,7 @@
     <string name="header_registration">Регистрация</string>
     <string name="is_a_doctor">Вы являетесь врачом?</string>
     <string name="use_social">Использовать аккаунт социальных сетей:</string>
+    <string name="use_social_used">Уже привязанные социальные сети:</string>
     <string name="your_details">Ваши данные</string>
     <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>
@@ -215,6 +215,7 @@
     <!-- ask -->
     <!-- === -->
     <string name="data_cholesterol">Уровень общего холестерина</string>
+    <string name="not_know">Не знаю</string>
     <string name="follow_diet">Вы соблюдаете диету?</string>
     <string name="physical_activity">Физическая нагрузка</string>
     <string name="physical_activities">Физические нагрузки</string>
@@ -339,6 +340,8 @@
     <!-- fragment_useful_to_know -->
     <!-- ======================= -->
     <string name="share">Поделиться:</string>
+    <string name="share_link">Поделиться ссылкой в %s?</string>
+    <string name="shared_successfully">Вы удачно поделились ссылкой в %s</string>
 
     <!-- ====== -->
     <!-- common -->
@@ -360,6 +363,7 @@
     <string name="take_pills">Принять таблетки</string>
     <string name="data_not_found">Данные не найдены...</string>
     <string name="no_data">нет данных</string>
+    <string name="time_to_take_pills">Время принять лекарства!</string>
 
     <!-- ============== -->
     <!-- response_codes -->

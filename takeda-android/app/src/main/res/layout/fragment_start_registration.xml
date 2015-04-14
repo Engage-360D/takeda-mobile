@@ -25,7 +25,7 @@
 
             <View style="@style/divider_normal_1_3" />
 
-            <include layout="@layout/layout_use_social" />
+            <include layout="@layout/layout_use_socials" />
 
             <View style="@style/divider_normal_1_3" />
 

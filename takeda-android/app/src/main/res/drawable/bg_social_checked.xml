@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" />
+
+    <stroke
+        android:width="@dimen/divider_2"
+        android:color="@color/bg_main_38" />
+
+    <padding
+        android:left="@dimen/divider_2"
+        android:top="@dimen/divider_2"
+        android:right="@dimen/divider_2"
+        android:bottom="@dimen/divider_2" />
+</shape>

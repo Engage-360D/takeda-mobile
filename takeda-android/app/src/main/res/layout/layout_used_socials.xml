@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/plate_medium"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/space_medium"
+    android:paddingRight="@dimen/space_medium">
+
+    <View style="@style/divider_normal_1_3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:text="@string/use_social_used"
+            android:textColor="@color/text_main_41"
+            android:textSize="@dimen/text_size_medium" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageViewUsedGP"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_xxsmall"
+                android:layout_weight="1"
+                android:background="@drawable/selector_social_bg"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_gp_pressed" />
+
+            <ImageView
+                android:id="@+id/imageViewUsedVK"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_xxsmall"
+                android:layout_weight="1"
+                android:background="@drawable/selector_social_bg"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_vk_pressed" />
+
+            <ImageView
+                android:id="@+id/imageViewUsedFB"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_xxsmall"
+                android:layout_weight="1"
+                android:background="@drawable/selector_social_bg"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_fb_pressed" />
+
+            <ImageView
+                android:id="@+id/imageViewUsedOK"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_social_bg"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_ok_pressed" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

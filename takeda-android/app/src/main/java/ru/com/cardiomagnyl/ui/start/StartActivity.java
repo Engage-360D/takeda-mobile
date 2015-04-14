@@ -1,8 +1,8 @@
 package ru.com.cardiomagnyl.ui.start;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
@@ -11,23 +11,31 @@ import android.view.animation.AnimationUtils;
 
 import ru.com.cardiomagnyl.app.BuildConfig;
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.SocialManager;
+import ru.com.cardiomagnyl.ui.base.BaseFragmentActivity;
 import ru.com.cardiomagnyl.ui.base.BaseStartFragment;
-import ru.com.cardiomagnyl.ui.base.BaseTrackedFragmentActivity;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.TestMethods;
-import ru.com.cardiomagnyl.util.Utils;
 import ru.com.cardiomagnyl.widget.CustomAnimation;
 import ru.com.cardiomagnyl.widget.CustomAnimation.OnAnimationEndListener;
 
-public class StartActivity extends BaseTrackedFragmentActivity {
-    private ProgressDialog mProgressDialog = null;
-
+public class StartActivity extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         initStartActivity();
         customizeIfDebug();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(SocialManager.SOCIAL_NETWORK_TAG);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     /**
@@ -46,26 +54,6 @@ public class StartActivity extends BaseTrackedFragmentActivity {
         finish();
     }
 
-    public void showProgressDialog() {
-        Utils.hideKeyboard(this);
-
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-        }
-
-        if (!mProgressDialog.isShowing()) {
-            mProgressDialog.setMessage(this.getString(R.string.progress_dialog_text));
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-        }
-    }
-
-    public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
 
     private void customizeIfDebug() {
         if (BuildConfig.DEBUG) {
@@ -110,6 +98,8 @@ public class StartActivity extends BaseTrackedFragmentActivity {
         View linearLayoutProgress = findViewById(R.id.linearLayoutProgress);
 
         final BaseStartFragment currentFragment = (BaseStartFragment) customFragmentPagerAdapter.getItem(position);
+        // FIXME: rid of repeated initialization
+        currentFragment.initSocials(this);
 
         animateTopAndBottom(linearLayoutHeader, position != 0);
         animateTopAndBottom(textViewFooter, position != 0);
@@ -158,4 +148,5 @@ public class StartActivity extends BaseTrackedFragmentActivity {
         /**/.build()
         /**/.startAnimation();
     }
+
 }

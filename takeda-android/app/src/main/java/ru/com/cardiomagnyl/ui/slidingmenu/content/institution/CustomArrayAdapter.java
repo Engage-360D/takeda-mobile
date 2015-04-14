@@ -54,7 +54,7 @@ public class CustomArrayAdapter extends ArrayAdapter<BaseModelHelper> implements
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 List<BaseModelHelper> filtered = new ArrayList<>();
-                if (charSequence != null) {
+                if (charSequence != null && charSequence.length() != 0) {
                     String filterText = ((String) charSequence).toUpperCase().trim();
                     if (filterText.length() != 0) {
                         for (BaseModelHelper baseModelHelper : mItemsAll) {
@@ -63,6 +63,8 @@ public class CustomArrayAdapter extends ArrayAdapter<BaseModelHelper> implements
                             }
                         }
                     }
+                } else {
+                    filtered.addAll(mItemsAll);
                 }
 
                 FilterResults result = new FilterResults();

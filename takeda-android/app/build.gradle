@@ -158,18 +158,18 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/libGoogleAnalyticsServices.jar')
     compile project(':libraries:slidingmenu')
-    compile 'com.google.android.gms:play-services-maps:6.+'
-    compile 'com.android.support:support-v4:21.0.+'
-    compile 'com.github.johnkil.android-robototextview:robototextview:2.2.0'
-    compile 'com.google.code.gson:gson:2.3.1'
-    compile 'commons-codec:commons-codec:1.7'
-    compile 'commons-collections:commons-collections:3.2.1'
-    compile 'org.apache.commons:commons-lang3:3.1'
+    compile project(':libraries:ASNECore')
+    compile project(':libraries:facebook')
+    compile project(':libraries:googleplus')
+    compile project(':libraries:odnoklassniki')
+    compile project(':libraries:vk')
+    compile 'com.google.android.gms:play-services-maps:7.0.0'
+    compile 'com.google.maps.android:android-maps-utils:0.3.2'
+    compile 'com.android.support:support-v4:21.0.2'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.3.3'
     compile 'com.fasterxml.jackson.core:jackson-core:2.3.3'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
     compile 'com.mcxiaoke.volley:library:1.0.7'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
-    compile 'com.google.maps.android:android-maps-utils:0.3+'
 }

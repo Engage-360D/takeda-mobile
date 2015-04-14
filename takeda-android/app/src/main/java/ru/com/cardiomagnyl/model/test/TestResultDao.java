@@ -22,7 +22,7 @@ import ru.com.cardiomagnyl.api.db.HelperFactory;
 import ru.com.cardiomagnyl.api.http.HttpRequestHolder;
 import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Dummy;
-import ru.com.cardiomagnyl.model.common.Email;
+import ru.com.cardiomagnyl.model.user.Email;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.token.Token;
 import ru.com.cardiomagnyl.util.CallbackOne;

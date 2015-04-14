@@ -43,7 +43,7 @@
                 android:textSize="@dimen/text_size_small" />
 
             <ImageView
-                android:id="@+id/imageViewVk"
+                android:id="@+id/imageViewVK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_button_social"
@@ -52,7 +52,7 @@
                 android:src="@drawable/button_vk_unpressed" />
 
             <ImageView
-                android:id="@+id/imageViewFb"
+                android:id="@+id/imageViewFB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_button_social"
@@ -61,7 +61,7 @@
                 android:src="@drawable/button_fb_unpressed" />
 
             <ImageView
-                android:id="@+id/imageViewOk"
+                android:id="@+id/imageViewOK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_button_social"
@@ -70,7 +70,7 @@
                 android:src="@drawable/button_ok_unpressed" />
 
             <ImageView
-                android:id="@+id/imageViewGp"
+                android:id="@+id/imageViewGP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_button_social"

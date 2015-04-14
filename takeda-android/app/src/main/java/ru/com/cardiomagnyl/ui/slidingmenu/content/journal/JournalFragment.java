@@ -15,6 +15,8 @@ import ru.com.cardiomagnyl.ui.base.BaseTimeLineFragment;
 
 public class JournalFragment extends BaseTimeLineFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        initTopBarBellAddPill(mViewGroupTopBar, true, true);
+
         View view = inflater.inflate(R.layout.fragment_journal, null);
         initFragmentStart(view);
         return view;

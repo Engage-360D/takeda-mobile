@@ -15,7 +15,7 @@ import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.model.common.Dummy;
-import ru.com.cardiomagnyl.model.common.LgnPwd;
+import ru.com.cardiomagnyl.model.user.LgnPwd;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.incidents.Incidents;
 import ru.com.cardiomagnyl.model.token.Token;
@@ -26,6 +26,7 @@ import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.ui.start.SplashActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
+import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
@@ -42,13 +43,13 @@ public class CabinetSettingsFragment extends BaseItemFragment {
         initTopBarBellCabinet(viewGroupTopBar, true, true);
     }
 
-    private void initFragment(View view) {
-        final View textViewPills = view.findViewById(R.id.textViewPills);
-        final View linearLayoutConsolidatedReport = view.findViewById(R.id.linearLayoutConsolidatedReport);
-        final View textViewAddIncident = view.findViewById(R.id.textViewAddIncident);
-        final View buttonExit = view.findViewById(R.id.buttonExit);
-        final View layoutIncidentDescription = view.findViewById(R.id.layoutIncidentDescription);
-        final TextView textViewIncidentDescription = (TextView) view.findViewById(R.id.textViewIncidentDescription);
+    private void initFragment(View fragmentView) {
+        final View textViewPills = fragmentView.findViewById(R.id.textViewPills);
+        final View linearLayoutConsolidatedReport = fragmentView.findViewById(R.id.linearLayoutConsolidatedReport);
+        final View textViewAddIncident = fragmentView.findViewById(R.id.textViewAddIncident);
+        final View buttonExit = fragmentView.findViewById(R.id.buttonExit);
+        final View layoutIncidentDescription = fragmentView.findViewById(R.id.layoutIncidentDescription);
+        final TextView textViewIncidentDescription = (TextView) fragmentView.findViewById(R.id.textViewIncidentDescription);
 
         textViewPills.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +147,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                     @Override
                     public void execute(Dummy dummy) {
                         slidingMenuActivity.hideProgressDialog();
-
+                        AppState.getInsnatce().setTimelineEvents(0);
                         Intent intent = new Intent(slidingMenuActivity, SplashActivity.class);
                         startActivity(intent);
                         slidingMenuActivity.finish();
@@ -156,17 +157,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                     @Override
                     public void execute(Response responseError) {
                         slidingMenuActivity.hideProgressDialog();
-
-                        // FIXME: change server response to proper format!
-                        if (responseError.getError().getCode() == 4) {
-                            UserDao.resetProfileDb();
-
-                            Intent intent = new Intent(slidingMenuActivity, SplashActivity.class);
-                            startActivity(intent);
-                            slidingMenuActivity.finish();
-                        } else {
-                            Tools.showToast(slidingMenuActivity, R.string.error_occurred, Toast.LENGTH_LONG);
-                        }
+                        Tools.showToast(slidingMenuActivity, R.string.error_occurred, Toast.LENGTH_LONG);
 
                     }
                 }
@@ -180,6 +171,7 @@ public class CabinetSettingsFragment extends BaseItemFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        PillsScheduler.cancelAll();
                         CardiomagnylApplication.getInstance().logout();
                     }
                 }

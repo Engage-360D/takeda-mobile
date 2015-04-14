@@ -3,7 +3,7 @@
 .DS_Store
 build
 local.properties
-libraries
+libraries/slidingmenu
 build_info*.txt
 */.directory
 *.iml

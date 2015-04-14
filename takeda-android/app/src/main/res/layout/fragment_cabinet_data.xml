@@ -86,7 +86,11 @@
 
             <View style="@style/divider_normal_1_3" />
 
-            <include layout="@layout/layout_use_social" />
+            <include layout="@layout/layout_use_socials" />
+
+            <include
+                android:id="@+id/layoutUsedSocial"
+                layout="@layout/layout_used_socials" />
 
             <View style="@style/divider_normal_1_3" />
 

@@ -34,6 +34,7 @@ import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
+import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 import ru.com.cardiomagnyl.widget.CustomOnDateSetListener;
 import ru.com.cardiomagnyl.widget.CustomOnTimeSetListener;
@@ -205,8 +206,8 @@ public class PillDetailsFragment extends BaseItemFragment {
         initEditText(fragmentView, editTextPillNumber, pill == null ? null : String.valueOf(pill.getQuantity()));
         initSpinnerFrequency(fragmentView, spinnerFrequency, pill == null ? null : pill.getEnumFrequency());
         initTimePicker(fragmentView, textViewPillsHoursValue, pill == null ? null : Tools.calendarFromMediumTime(pill.getTime()));
-        initDatePicker(fragmentView, textViewStartDateValue, pill == null ? null : Tools.calendarFromLongDate(pill.getSinceDate()));
-        initDatePicker(fragmentView, textViewEndDateValue, pill == null ? null : Tools.calendarFromLongDate(pill.getTillDate()));
+        initDatePicker(fragmentView, textViewStartDateValue, pill == null ? null : Tools.calendarFromFullDate(pill.getSinceDate()));
+        initDatePicker(fragmentView, textViewEndDateValue, pill == null ? null : Tools.calendarFromFullDate(pill.getTillDate()));
     }
 
     private void setFieldsEnabled(final View fragmentView, boolean enabled) {
@@ -266,7 +267,7 @@ public class PillDetailsFragment extends BaseItemFragment {
         } else {
             int counter;
             for (counter = 0; counter < frequenciesList.size() - 1; ++counter) {
-                PillFrequency currentPillFrequency = PillFrequency.getById((Integer)frequenciesList.get(counter).getId());
+                PillFrequency currentPillFrequency = PillFrequency.getById((Integer) frequenciesList.get(counter).getId());
                 if (currentPillFrequency.equals(pillFrequency))
                     break;
             }
@@ -461,8 +462,7 @@ public class PillDetailsFragment extends BaseItemFragment {
                 new CallbackOne<Pill>() {
                     @Override
                     public void execute(Pill pill) {
-                        slidingMenuActivity.hideProgressDialog();
-                        Tools.showToast(getActivity(), R.string.pill_created, Toast.LENGTH_LONG);
+                        getPillDatabase(R.string.pill_created);
                         setDetailsMode(fragmentView, pill);
                     }
                 },
@@ -470,7 +470,7 @@ public class PillDetailsFragment extends BaseItemFragment {
                     @Override
                     public void execute(Response responseError) {
                         slidingMenuActivity.hideProgressDialog();
-                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                        Tools.showToast(slidingMenuActivity, R.string.error_occurred, Toast.LENGTH_LONG);
                     }
                 }
         );
@@ -487,8 +487,7 @@ public class PillDetailsFragment extends BaseItemFragment {
                 new CallbackOne<Pill>() {
                     @Override
                     public void execute(Pill newPill) {
-                        slidingMenuActivity.hideProgressDialog();
-                        Tools.showToast(getActivity(), R.string.pill_updated, Toast.LENGTH_LONG);
+                        getPillDatabase(R.string.pill_updated);
                         setDetailsMode(fragmentView, pill);
                     }
                 },
@@ -496,7 +495,7 @@ public class PillDetailsFragment extends BaseItemFragment {
                     @Override
                     public void execute(Response responseError) {
                         slidingMenuActivity.hideProgressDialog();
-                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                        Tools.showToast(slidingMenuActivity, R.string.error_occurred, Toast.LENGTH_LONG);
                     }
                 }
         );
@@ -513,8 +512,7 @@ public class PillDetailsFragment extends BaseItemFragment {
                 new CallbackOne<Dummy>() {
                     @Override
                     public void execute(Dummy dummy) {
-                        slidingMenuActivity.hideProgressDialog();
-                        Tools.showToast(getActivity(), R.string.pill_deleted, Toast.LENGTH_LONG);
+                        getPillDatabase(R.string.pill_deleted);
                         slidingMenuActivity.makeContentStepBack(true);
                     }
                 },
@@ -522,9 +520,33 @@ public class PillDetailsFragment extends BaseItemFragment {
                     @Override
                     public void execute(Response responseError) {
                         slidingMenuActivity.hideProgressDialog();
-                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                        Tools.showToast(slidingMenuActivity, R.string.error_occurred, Toast.LENGTH_LONG);
                     }
                 }
+        );
+    }
+
+    private void getPillDatabase(final int message) {
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+
+        Token token = AppState.getInsnatce().getToken();
+        PillDao.getAll(
+                token,
+                new CallbackOne<List<Pill>>() {
+                    @Override
+                    public void execute(List<Pill> pillsList) {
+                        PillsScheduler.setAll(pillsList);
+
+                        slidingMenuActivity.hideProgressDialog();
+                        Tools.showToast(slidingMenuActivity, message, Toast.LENGTH_LONG);
+                        slidingMenuActivity.makeContentStepBack(true);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) { /* nothing to do*/ }
+                },
+                PillDao.Source.database
         );
     }
 

@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import ru.com.cardiomagnyl.app.R;
+import ru.com.cardiomagnyl.application.AppSharedPreferences;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill.Pill;
@@ -32,12 +35,14 @@ import ru.com.cardiomagnyl.model.task.TaskDao;
 import ru.com.cardiomagnyl.model.timeline.Timeline;
 import ru.com.cardiomagnyl.model.timeline.TimelineDao;
 import ru.com.cardiomagnyl.model.token.Token;
+import ru.com.cardiomagnyl.model.user.Isr;
+import ru.com.cardiomagnyl.model.user.UserDao;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Callback;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.TimelineComparator;
 import ru.com.cardiomagnyl.util.Tools;
-import ru.com.cardiomagnyl.util.Utils;
+import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
 import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 import ru.com.cardiomagnyl.widget.CustomDialogs;
 
@@ -47,6 +52,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
     protected final List<Timeline> mFilledTimelineList = new ArrayList<>();
     protected final List<Timeline> mCurrentTimelineList = new ArrayList<>();
     protected final Map<String, Pill> mPillsMap = new HashMap<>();
+    protected ViewGroup mViewGroupTopBar;
 
     protected abstract void initFragmentFinishHelper(final View fragmentView);
 
@@ -56,7 +62,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
 
     @Override
     public void initTopBar(ViewGroup viewGroupTopBar) {
-        initTopBarMenuBellCabinet(viewGroupTopBar, true, true, true);
+        mViewGroupTopBar = viewGroupTopBar;
     }
 
     @Override
@@ -109,7 +115,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        initFragmentFinish(fragmentView, null, null);
+                        initFragmentFinish(fragmentView, null, null, null);
                     }
                 }
         );
@@ -122,21 +128,45 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 new CallbackOne<List<Pill>>() {
                     @Override
                     public void execute(List<Pill> pillsList) {
+                        PillsScheduler.setAll(pillsList);
+
                         Map<String, Pill> pillsMap = Pill.listToMap(pillsList);
-                        initFragmentFinish(fragmentView, timeline, pillsMap);
+                        getIsr(fragmentView, timeline, pillsMap);
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
                     public void execute(Response responseError) {
-                        initFragmentFinish(fragmentView, timeline, null);
+                        getIsr(fragmentView, timeline, null);
                     }
                 },
                 PillDao.Source.database
         );
     }
 
-    private void initFragmentFinish(final View fragmentView, final List<Timeline> timeline, final Map<String, Pill> pillsMap) {
+    private void getIsr(final View fragmentView, final List<Timeline> timeline, final Map<String, Pill> pillsMap) {
+        Token token = AppState.getInsnatce().getToken();
+        UserDao.getIsr(
+                token,
+                new CallbackOne<Isr>() {
+                    @Override
+                    public void execute(Isr isr) {
+                        initFragmentFinish(fragmentView, timeline, pillsMap, isr);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
+                        String isrId = (String) AppSharedPreferences.get(AppSharedPreferences.Preference.isr);
+                        Isr isr = new Isr();
+                        isr.setId(TextUtils.isEmpty(isrId) ? "0" : isrId);
+                        initFragmentFinish(fragmentView, timeline, pillsMap, isr);
+                    }
+                }
+        );
+    }
+
+    private void initFragmentFinish(final View fragmentView, final List<Timeline> timeline, final Map<String, Pill> pillsMap, final Isr isr) {
         final View fragmentContent = fragmentView.findViewById(R.id.fragmentContent);
         final View textViewMessage = fragmentView.findViewById(R.id.textViewMessage);
 
@@ -149,11 +179,15 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
         } else {
             textViewMessage.setVisibility(View.GONE);
             fragmentContent.setVisibility(View.VISIBLE);
-            initFragmentFinishSubHelper(fragmentView, timeline, pillsMap);
+            initFragmentFinishSubHelper(fragmentView, timeline, pillsMap, isr);
         }
     }
 
-    private void initFragmentFinishSubHelper(final View fragmentView, final List<Timeline> timeline, final Map<String, Pill> pillsMap) {
+    private void initFragmentFinishSubHelper(final View fragmentView, final List<Timeline> timeline, final Map<String, Pill> pillsMap, final Isr isr) {
+        String isrId = (isr == null || TextUtils.isEmpty(isr.getId())) ? "0" : isr.getId();
+        AppSharedPreferences.put(AppSharedPreferences.Preference.isr, isrId);
+        AppState.getInsnatce().setIsr(isr);
+
         if (pillsMap != null && !pillsMap.isEmpty()) {
             mPillsMap.clear();
             mPillsMap.putAll(pillsMap);
@@ -209,9 +243,9 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 EditText editTextWeight = (EditText) dialogBodyView.findViewById(R.id.editTextWeight);
                 tryToSaveHelper(task, Task.createResult(Task.Type.weight, editTextWeight.getText().toString()), token);
                 break;
-            case pressure:
+            case arterialPressure:
                 EditText editTextPressure = (EditText) dialogBodyView.findViewById(R.id.editTextPressure);
-                tryToSaveHelper(task, Task.createResult(Task.Type.pressure, editTextPressure.getText().toString()), token);
+                tryToSaveHelper(task, Task.createResult(Task.Type.arterialPressure, editTextPressure.getText().toString()), token);
                 break;
             case cholesterol:
                 EditText editTextCholesterol = (EditText) dialogBodyView.findViewById(R.id.editTextCholesterol);
@@ -248,7 +282,34 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 new CallbackOne<Task>() {
                     @Override
                     public void execute(Task task) {
+                        tryToGetIsr(task);
+                    }
+                },
+                new CallbackOne<Response>() {
+                    @Override
+                    public void execute(Response responseError) {
                         slidingMenuActivity.hideProgressDialog();
+                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+                    }
+                }
+        );
+    }
+
+    private void tryToGetIsr(final Task task) {
+        final SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
+
+        Token token = AppState.getInsnatce().getToken();
+        UserDao.getIsr(
+                token,
+                new CallbackOne<Isr>() {
+                    @Override
+                    public void execute(Isr isr) {
+                        slidingMenuActivity.hideProgressDialog();
+
+                        String isrId = (isr == null || TextUtils.isEmpty(isr.getId())) ? "0" : isr.getId();
+                        AppSharedPreferences.put(AppSharedPreferences.Preference.isr, isrId);
+                        AppState.getInsnatce().setIsr(isr);
+
                         AppState.getInsnatce().setTimelineEvents(AppState.getInsnatce().getTimelineEvents() - 1);
                         updateMissedEvents();
                         onTaskUpdated(task);
@@ -258,7 +319,10 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                     @Override
                     public void execute(Response responseError) {
                         slidingMenuActivity.hideProgressDialog();
-                        Tools.showToast(getActivity(), R.string.error_occurred, Toast.LENGTH_LONG);
+
+                        AppState.getInsnatce().setTimelineEvents(AppState.getInsnatce().getTimelineEvents() - 1);
+                        updateMissedEvents();
+                        onTaskUpdated(task);
                     }
                 }
         );
@@ -292,7 +356,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
         Callback onDismissListener = new Callback() {
             @Override
             public void execute() {
-                Utils.hideKeyboard(dialogBodyViewHelper);
+                Tools.hideKeyboard(dialogBodyViewHelper);
             }
         };
 
@@ -356,7 +420,7 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 EditText editTextWeight = (EditText) dialogBodyView.findViewById(R.id.editTextWeight);
                 initDialogBody(editTextWeight, buttonSave);
                 break;
-            case pressure:
+            case arterialPressure:
                 dialogBodyView = View.inflate(context, R.layout.layout_ask_pressure, null);
                 EditText editTextPressure = (EditText) dialogBodyView.findViewById(R.id.editTextPressure);
                 initDialogBody(editTextPressure, buttonSave);
@@ -389,6 +453,15 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
             @Override
             public void afterTextChanged(Editable s) {
                 buttonSave.setEnabled(s.length() > 0);
+            }
+        });
+
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                editText.setOnFocusChangeListener(null);
+                InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             }
         });
     }

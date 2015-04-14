@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -12,12 +14,13 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
 import ru.com.cardiomagnyl.util.Tools;
-import ru.com.cardiomagnyl.util.Utils;
+
 
 public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivity {
     protected FragmentManager mFragmentManager;
@@ -78,7 +81,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
         getSlidingMenu().setOnOpenedListener(new SlidingMenu.OnOpenedListener() {
             @Override
             public void onOpened() {
-                Utils.hideKeyboard(getCurrentFocus());
+                Tools.hideKeyboard(getCurrentFocus());
             }
         });
     }
@@ -167,7 +170,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                 showContentDelayed();
             }
 
-            Utils.hideKeyboard(getCurrentFocus());
+            Tools.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -190,7 +193,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                 showContentDelayed();
             }
 
-            Utils.hideKeyboard(getCurrentFocus());
+            Tools.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -212,6 +215,8 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
                     fragmentTransaction.commit();
                 }
+                mFragmentManager.executePendingTransactions();
+
                 mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
 
@@ -225,7 +230,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
                 showContentDelayed();
             }
 
-            Utils.hideKeyboard(getCurrentFocus());
+            Tools.hideKeyboard(getCurrentFocus());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -233,13 +238,45 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
 
     public void makeContentStepBack(final boolean withSwitch) {
         try {
-            Utils.hideKeyboard(getCurrentFocus());
+            Tools.hideKeyboard(getCurrentFocus());
 
+            // blocking of fragment creation on popBackStack
+            ArrayList<Pair<Fragment, String>> fragmentsTagsList = new ArrayList<>();
             if (!isBackStackEmpty()) {
-                mFragmentManager.popBackStackImmediate();
-            }
+                Fragment currentFragment = null;
+                String currentTag = null;
 
-            initTopOnFragmentChanged(getCurrentFragment(), !isBackStackEmpty());
+                for (int counter = 0; counter < mFragmentManager.getBackStackEntryCount(); ++counter) {
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
+                    Fragment fragment = mFragmentManager.findFragmentByTag(mFragmentManager.getBackStackEntryAt(counter).getName());
+                    fragmentTransaction.detach(fragment);
+
+                    if (counter == mFragmentManager.getBackStackEntryCount() - 2) {
+                        currentFragment = fragment;
+                        currentTag = fragment.getTag();
+                    } else {
+                        fragmentTransaction.detach(fragment);
+                    }
+
+                    fragmentTransaction.commit();
+                }
+                mFragmentManager.executePendingTransactions();
+                mFragmentManager.popBackStackImmediate();
+
+                if (currentFragment != null && currentTag != null) {
+                    mFragmentManager.popBackStackImmediate();
+
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.content_frame, currentFragment, currentTag);
+                    fragmentTransaction.addToBackStack(currentTag);
+                    fragmentTransaction.commit();
+
+                    mFragmentManager.executePendingTransactions();
+                }
+
+                initTopOnFragmentChanged(currentFragment, !isBackStackEmpty());
+            }
             if (withSwitch) {
                 showContentDelayed();
             }
@@ -258,6 +295,7 @@ public abstract class BaseSlidingFragmentActivity extends SlidingFragmentActivit
         FragmentManager.BackStackEntry backEntry = mFragmentManager.getBackStackEntryAt(mFragmentManager.getBackStackEntryCount() - 1);
         String string = backEntry.getName();
         Fragment fragment = mFragmentManager.findFragmentByTag(string);
+        Log.d("Test", fragment.getClass().getName());
         return fragment;
     }
 

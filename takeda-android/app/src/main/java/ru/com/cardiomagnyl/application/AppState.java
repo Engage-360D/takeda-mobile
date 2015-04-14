@@ -8,6 +8,7 @@ import ru.com.cardiomagnyl.model.test.TestResult;
 import ru.com.cardiomagnyl.model.test.TestSource;
 import ru.com.cardiomagnyl.model.test_diet.TestDietResult;
 import ru.com.cardiomagnyl.model.token.Token;
+import ru.com.cardiomagnyl.model.user.Isr;
 import ru.com.cardiomagnyl.model.user.User;
 
 public class AppState {
@@ -34,6 +35,7 @@ public class AppState {
 
     private Token mToken;
     private User mUser;
+    private Isr mIsr;
     private Incidents mIncidents;
     private TestResult mTestResult;
     private TestDietResult mTestDietResult;
@@ -53,6 +55,14 @@ public class AppState {
 
     public void setUser(User user) {
         mUser = user;
+    }
+
+    public Isr getIsr() {
+        return mIsr;
+    }
+
+    public void setIsr(Isr isr) {
+        mIsr = isr;
     }
 
     public void setIncidents(Incidents incidents) {
@@ -88,7 +98,7 @@ public class AppState {
     }
 
     public boolean isInitialized() {
-        return mToken != null && mUser != null && mIncidents != null;
+        return mToken != null && mUser != null && /*mTestResult != null && */mIncidents != null;
     }
 
 }

@@ -6,7 +6,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
+
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -47,7 +50,7 @@ import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.Tools;
-import ru.com.cardiomagnyl.util.Utils;
+import ru.com.cardiomagnyl.widget.CustomAutoCompleteTextView;
 import ru.com.cardiomagnyl.widget.CustomExpandAnimation;
 import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
 
@@ -183,8 +186,8 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
     }
 
     private void initFragmentFinishHelper(final View fragmentView, final List<Town> townsList, final List<Specialization> specializationsList) {
-        AutoCompleteTextView autoCompleteTextViewTown = (AutoCompleteTextView) fragmentView.findViewById(R.id.autoCompleteTextViewTown);
-        AutoCompleteTextView autoCompleteTextViewInstitution = (AutoCompleteTextView) fragmentView.findViewById(R.id.autoCompleteTextViewInstitution);
+        CustomAutoCompleteTextView autoCompleteTextViewTown = (CustomAutoCompleteTextView) fragmentView.findViewById(R.id.autoCompleteTextViewTown);
+        CustomAutoCompleteTextView autoCompleteTextViewInstitution = (CustomAutoCompleteTextView) fragmentView.findViewById(R.id.autoCompleteTextViewInstitution);
         Spinner spinnerSpecialization = (Spinner) fragmentView.findViewById(R.id.spinnerSpecialization);
         RadioGroup radioGroupCondition = (RadioGroup) fragmentView.findViewById(R.id.radioGroupCondition);
         View imageViewSearch = fragmentView.findViewById(R.id.imageViewSearch);
@@ -196,6 +199,13 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         initAutoCompleteTextViewTown(fragmentView, autoCompleteTextViewTown, new ArrayList<BaseModelHelper>(townsList));
         initAutoCompleteTextViewInstitution(fragmentView, autoCompleteTextViewInstitution, new ArrayList<BaseModelHelper>());
         initSpinner(fragmentView, spinnerSpecialization, new ArrayList<BaseModelHelper>(specializationsList), specializationsList.size() - 1);
+
+        CustomSpinnerAdapter customSpinnerAdapter = (CustomSpinnerAdapter) spinnerSpecialization.getAdapter();
+        if (customSpinnerAdapter != null && spinnerSpecialization.getTag() == null) {
+            spinnerSpecialization.setSelection(0);
+            spinnerSpecialization.setTag(customSpinnerAdapter.getItem(0).getName());
+            tryToGetInstitutions(mFragmentView);
+        }
 
         radioGroupCondition.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -245,30 +255,66 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
         });
     }
 
-    private void initAutoCompleteTextViewTown(final View fragmentView, final AutoCompleteTextView autoCompleteTextView, final List<BaseModelHelper> itemsList) {
+    private void initAutoCompleteTextViewTown(final View fragmentView, final CustomAutoCompleteTextView autoCompleteTextView, final List<BaseModelHelper> itemsList) {
         final CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(fragmentView.getContext(), R.layout.spinner_item_dropdown, itemsList);
         autoCompleteTextView.setAdapter(customArrayAdapter);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Utils.hideKeyboard(autoCompleteTextView);
+                Tools.hideKeyboard(autoCompleteTextView);
                 autoCompleteTextView.setTag(customArrayAdapter.getItem(position).getName());
                 tryToGetInstitutions(fragmentView);
             }
         });
+
+        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    autoCompleteTextView.publicPerformFiltering("", 0);
+                    autoCompleteTextView.showDropDown();
+                }
+            }
+        });
     }
 
-    private void initAutoCompleteTextViewInstitution(final View fragmentView, final AutoCompleteTextView autoCompleteTextView, final List<BaseModelHelper> itemsList) {
+    private void initAutoCompleteTextViewInstitution(final View fragmentView, final CustomAutoCompleteTextView autoCompleteTextView, final List<BaseModelHelper> itemsList) {
         final CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(fragmentView.getContext(), R.layout.spinner_item_dropdown, itemsList);
         autoCompleteTextView.setAdapter(customArrayAdapter);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Utils.hideKeyboard(autoCompleteTextView);
+                Tools.hideKeyboard(autoCompleteTextView);
                 Institution institution = (Institution) customArrayAdapter.getItem(position);
                 autoCompleteTextView.setTag(institution.getName());
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(institution.getLat(), institution.getLng()), ONE_POINT_ZOOM);
                 mGoogleMap.animateCamera(cameraUpdate);
+            }
+        });
+
+        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    autoCompleteTextView.publicPerformFiltering("", 0);
+                    autoCompleteTextView.showDropDown();
+                }
             }
         });
     }
@@ -455,29 +501,30 @@ public class InstitutionsSearchFragment extends BaseItemFragment implements OnMa
 
                         autoCompleteTextViewTown.setText(town.getName());
                         autoCompleteTextViewTown.setTag(town.getName());
-                        spinnerSpecialization.setSelection(0);
-                        spinnerSpecialization.setTag(((CustomSpinnerAdapter)spinnerSpecialization.getAdapter()).getItem(0).getName());
 
-                        // comment if need
-                        if (linearLayoutSearch.getVisibility() != View.VISIBLE) {
-                            tryToGetInstitutions(mFragmentView);
+                        CustomSpinnerAdapter customSpinnerAdapter = (CustomSpinnerAdapter) spinnerSpecialization.getAdapter();
+                        if (customSpinnerAdapter != null) {
+                            spinnerSpecialization.setSelection(0);
+                            spinnerSpecialization.setTag(customSpinnerAdapter.getItem(0).getName());
+
+                            // comment if need
+                            if (linearLayoutSearch.getVisibility() != View.VISIBLE) {
+                                tryToGetInstitutions(mFragmentView);
+                            }
+
+                            // uncomment if need
+                            //    int plateMedium = (int) mFragmentView.getContext().getResources().getDimension(R.dimen.space_medium);
+                            //    if (linearLayoutSearch.getVisibility() != View.VISIBLE) {
+                            //        CustomExpandAnimation customExpandAnimation = new CustomExpandAnimation(linearLayoutSearch, 300, CustomExpandAnimation.EXPAND);
+                            //        customExpandAnimation.setHeight(plateMedium);
+                            //        linearLayoutSearch.startAnimation(customExpandAnimation);
+                            //    }
                         }
-
-                        // uncomment if need
-                        //    int plateMedium = (int) mFragmentView.getContext().getResources().getDimension(R.dimen.space_medium);
-                        //    if (linearLayoutSearch.getVisibility() != View.VISIBLE) {
-                        //        CustomExpandAnimation customExpandAnimation = new CustomExpandAnimation(linearLayoutSearch, 300, CustomExpandAnimation.EXPAND);
-                        //        customExpandAnimation.setHeight(plateMedium);
-                        //        linearLayoutSearch.startAnimation(customExpandAnimation);
-                        //    }
                     }
                 },
                 new CallbackOne<Response>() {
                     @Override
-                    public void execute(Response responseError) {
-                        int t = 0;
-                        t++;
-                    }
+                    public void execute(Response responseError) { /* does nothing*/ }
                 }
         );
     }
