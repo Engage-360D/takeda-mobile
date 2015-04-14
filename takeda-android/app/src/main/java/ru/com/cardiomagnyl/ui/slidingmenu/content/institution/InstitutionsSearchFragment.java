@@ -61,15 +61,18 @@ public class InstitutionsSearchFragment extends BaseItemFragment
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnInfoWindowClickListener,
         SwipeRefreshLayout.OnRefreshListener,
-        GoogleMap.OnCameraChangeListener {
+        GoogleMap.OnCameraChangeListener{
     private GoogleMap mGoogleMap;
     private final List<Institution> mInstitutionsList = new ArrayList<>();
     private final List<Town> mTownsList = new ArrayList<>();
     private final List<Specialization> mSpecializationsList = new ArrayList<>();
     private boolean mMapMode = true;
     private ClusterManager<Institution> mClusterManager;
-    private CameraPosition mCameraPosition;
     private View mFragmentView;
+
+    private String mTown = null;
+    private int mSpecialization = 0;
+    private CameraPosition mCameraPosition;
 
     private static int ONE_POINT_ZOOM = 14;
 
@@ -90,6 +93,23 @@ public class InstitutionsSearchFragment extends BaseItemFragment
         mFragmentView = inflater.inflate(R.layout.fragment_institutions_search, null);
         preInitFragment(mFragmentView);
         return mFragmentView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        CustomAutoCompleteTextView autoCompleteTextViewTown = (CustomAutoCompleteTextView) mFragmentView.findViewById(R.id.autoCompleteTextViewTown);
+        Spinner spinnerSpecialization = (Spinner) mFragmentView.findViewById(R.id.spinnerSpecialization);
+
+        mSpecialization = spinnerSpecialization.getSelectedItemPosition();
+        mTown = autoCompleteTextViewTown.getTag() == null ? null : (String) autoCompleteTextViewTown.getTag();
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+        mCameraPosition = cameraPosition;
+        mClusterManager.onCameraChange(cameraPosition);
     }
 
     @Override
@@ -114,12 +134,6 @@ public class InstitutionsSearchFragment extends BaseItemFragment
 //
         SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.customSwipeRefreshLayout);
         swipeLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void onCameraChange(CameraPosition cameraPosition) {
-        mClusterManager.onCameraChange(cameraPosition);
-        mCameraPosition = cameraPosition;
     }
 
     private void preInitFragment(final View fragmentView) {
@@ -157,6 +171,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment
                 new CallbackOne<List<Town>>() {
                     @Override
                     public void execute(List<Town> townsList) {
+                        townsList.add(Town.createNoTown(fragmentView.getContext()));
                         updateTownsList(townsList);
                         getSpecializations(fragmentView, townsList);
                     }
@@ -175,9 +190,10 @@ public class InstitutionsSearchFragment extends BaseItemFragment
         SpecializationDao.getAll(
                 new CallbackOne<List<Specialization>>() {
                     @Override
-                    public void execute(List<Specialization> townspecializationsList) {
-                        updateSpecializationsList(townspecializationsList);
-                        initFragmentFinish(fragmentView, townsList, townspecializationsList);
+                    public void execute(List<Specialization> specializationsList) {
+                        specializationsList.add(Specialization.createNoSpecialization(fragmentView.getContext()));
+                        updateSpecializationsList(specializationsList);
+                        initFragmentFinish(fragmentView, townsList, specializationsList);
                     }
                 },
                 new CallbackOne<Response>() {
@@ -212,14 +228,10 @@ public class InstitutionsSearchFragment extends BaseItemFragment
         CustomAutoCompleteTextView autoCompleteTextViewTown = (CustomAutoCompleteTextView) fragmentView.findViewById(R.id.autoCompleteTextViewTown);
         CustomAutoCompleteTextView autoCompleteTextViewInstitution = (CustomAutoCompleteTextView) fragmentView.findViewById(R.id.autoCompleteTextViewInstitution);
         RadioGroup radioGroupCondition = (RadioGroup) fragmentView.findViewById(R.id.radioGroupCondition);
-
-
         View imageViewSearch = fragmentView.findViewById(R.id.imageViewSearch);
         final LinearLayout linearLayoutSearch = (LinearLayout) fragmentView.findViewById(R.id.linearLayoutSearch);
 
         initInstitutionsList(fragmentView);
-        townsList.add(Town.createNoTown(fragmentView.getContext()));
-        specializationsList.add(Specialization.createNoSpecialization(fragmentView.getContext()));
 
         initSpinner(fragmentView, spinnerSpecialization, new ArrayList<BaseModelHelper>(specializationsList), specializationsList.size() - 1);
         initAutoCompleteTextViewTown(fragmentView, autoCompleteTextViewTown, new ArrayList<BaseModelHelper>(townsList));
@@ -232,9 +244,12 @@ public class InstitutionsSearchFragment extends BaseItemFragment
 
         CustomSpinnerAdapter customSpinnerAdapter = (CustomSpinnerAdapter) spinnerSpecialization.getAdapter();
         if (customSpinnerAdapter != null && spinnerSpecialization.getTag() == null) {
-            spinnerSpecialization.setSelection(0);
-            spinnerSpecialization.setTag(customSpinnerAdapter.getItem(0).getName());
-            tryToGetInstitutions(mFragmentView);
+            spinnerSpecialization.setSelection(mSpecialization);
+            spinnerSpecialization.setTag(customSpinnerAdapter.getItem(mSpecialization).getName());
+            autoCompleteTextViewTown.setText(mTown);
+            autoCompleteTextViewTown.setTag(mTown);
+
+            if (mInstitutionsList.isEmpty()) tryToGetInstitutions(mFragmentView);
         }
 
         radioGroupCondition.setOnCheckedChangeListener(null);
@@ -248,7 +263,8 @@ public class InstitutionsSearchFragment extends BaseItemFragment
                     case R.id.radioButtonMap:
                         mMapMode = true;
                         setContentVisibility(fragmentView, true, false);
-                        if (mMapMode) updateInstitutionsOnMap(fragmentView, mInstitutionsList);
+                        if (mMapMode)
+                            updateInstitutionsOnMap(fragmentView, mInstitutionsList, mCameraPosition);
                         break;
                     case R.id.radioButtonList:
                         mMapMode = false;
@@ -358,7 +374,8 @@ public class InstitutionsSearchFragment extends BaseItemFragment
 
     private void showInstitutionOnMapAndList(final View fragmentView, final Institution institution) {
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(institution.getLat(), institution.getLng()), ONE_POINT_ZOOM);
-        mGoogleMap.animateCamera(cameraUpdate);
+//        mGoogleMap.animateCamera(cameraUpdate);
+        mGoogleMap.moveCamera(cameraUpdate);
         showInfoWindow(institution);
         scrollToListItem(fragmentView, institution);
     }
@@ -371,9 +388,12 @@ public class InstitutionsSearchFragment extends BaseItemFragment
         spinner.setSelection(selection, true);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            private boolean firstTime = true;
+
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                tryToGetInstitutions(fragmentView);
+                if (!firstTime) tryToGetInstitutions(fragmentView);
+                else firstTime = false;
             }
 
             @Override
@@ -387,6 +407,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment
 
         if (autoCompleteTextViewTown.getTag() != null && spinnerSpecialization.getTag() != null) {
             mCameraPosition = null;
+
             String town = (String) autoCompleteTextViewTown.getTag();
             String specialization = (String) spinnerSpecialization.getTag();
             getInstitutions(fragmentView, town, specialization);
@@ -445,7 +466,7 @@ public class InstitutionsSearchFragment extends BaseItemFragment
         }
 
         updateInstitutionsInList(fragmentView, institutionsList);
-        if (mMapMode) updateInstitutionsOnMap(fragmentView, institutionsList);
+        if (mMapMode) updateInstitutionsOnMap(fragmentView, institutionsList, mCameraPosition);
     }
 
     private void updateInstitutionsInList(final View fragmentView, final List<Institution> institutionsList) {
@@ -461,13 +482,13 @@ public class InstitutionsSearchFragment extends BaseItemFragment
         institutionsAdapter.notifyDataSetChanged();
     }
 
-    private void updateInstitutionsOnMap(final View fragmentView, final List<Institution> institutionsList) {
+    private void updateInstitutionsOnMap(final View fragmentView, final List<Institution> institutionsList, CameraPosition cameraPosition) {
         mClusterManager.clearItems();
         mClusterManager.addItems(mInstitutionsList);
         mClusterManager.cluster();
 
-        if (mCameraPosition != null) {
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(mCameraPosition.target, mCameraPosition.zoom);
+        if (cameraPosition != null) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(cameraPosition.target, cameraPosition.zoom);
             mGoogleMap.moveCamera(cameraUpdate);
         } else if (institutionsList.size() == 1) {
             LatLng latLng = new LatLng(institutionsList.get(0).getLat(), institutionsList.get(0).getLng());
@@ -583,7 +604,8 @@ public class InstitutionsSearchFragment extends BaseItemFragment
         Location currentLocation = locationManager.getLastKnownLocation(provider);
 
         if (!mInstitutionsList.isEmpty() || mCameraPosition != null) {
-            if (mMapMode) updateInstitutionsOnMap(mFragmentView, mInstitutionsList);
+            if (mMapMode)
+                updateInstitutionsOnMap(mFragmentView, mInstitutionsList, mCameraPosition);
         } else if (currentLocation != null) {
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), ONE_POINT_ZOOM);
             googleMap.animateCamera(cameraUpdate);
