@@ -19,10 +19,20 @@
     NSDate *birthdayDate;
     NSMutableDictionary *selectedRegion;
     
+    NSString *vkId;
+    NSString *vkToken;
     
+    NSString *fbId;
+    NSString *fbToken;
+    
+    NSString *okId;
+    NSString *okToken;
+    
+    NSString *gpId;
+    NSString *gpToken;
+
 }
-@property (strong, nonatomic) FBRequestConnection *requestConnection;
-@property(nonatomic, retain) Odnoklassniki *odnoklasniki_api;
+
 @end
 
 @implementation RegistrationPage{
@@ -67,14 +77,6 @@ NSString *graduation = @"";
 NSString *sentPassword;
 NSString *sentEmail;
 
-NSString *vkId;
-NSString *vkToken;
-
-NSString *fbId;
-NSString *fbToken;
-
-NSString *okId;
-NSString *okToken;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -96,10 +98,10 @@ NSString *okToken;
 }
 
 -(void)initData{
-    regions_data = [GlobalData regionsList];
+    regions_data = [GData regionsList];
     [ServData loadRegionsWithCompletion:^(BOOL success, id result){
         if (success){
-            regions_data = [GlobalData regionsList];
+            regions_data = [GData regionsList];
         }
     }];
 }
@@ -211,10 +213,14 @@ NSString *okToken;
                                            @"links": @{@"region":region
                                         }}];
     
-    if (vkId) [params setObject:vkId forKey:@"vkontakteId"];
-    if (vkToken) [params setObject:vkToken forKey:@"vkontakteToken"];
-    if (fbId) [params setObject:fbId forKey:@"facebookId"];
-    if (fbToken) [params setObject:fbToken forKey:@"facebookToken"];
+    if (vkId) [params setObject:[NSString stringWithFormat:@"%@",vkId] forKey:@"vkontakteId"];
+    if (vkToken) [params setObject:[NSString stringWithFormat:@"%@",vkToken] forKey:@"vkontakteToken"];
+    if (fbId) [params setObject:[NSString stringWithFormat:@"%@",fbId] forKey:@"facebookId"];
+    if (fbToken) [params setObject:[NSString stringWithFormat:@"%@",fbToken] forKey:@"facebookToken"];
+    if (okId) [params setObject:[NSString stringWithFormat:@"%@",okId] forKey:@"odnoklassnikiId"];
+    if (okToken) [params setObject:[NSString stringWithFormat:@"%@",okToken] forKey:@"odnoklassnikiToken"];
+    if (gpId) [params setObject:[NSString stringWithFormat:@"%@",gpId] forKey:@"googleId"];
+    if (gpToken) [params setObject:[NSString stringWithFormat:@"%@",gpToken] forKey:@"googleToken"];
 
     
 //        {
@@ -537,9 +543,9 @@ numberOfRowsInComponent:(NSInteger)component
                                                       graphPath:fbid];
         [newConnection addRequest:request completionHandler:handler];
     }
-    [self.requestConnection cancel];
+    [User.requestConnection cancel];
     
-    self.requestConnection = newConnection;
+    User.requestConnection = newConnection;
     [newConnection start];
 }
 
@@ -550,13 +556,13 @@ numberOfRowsInComponent:(NSInteger)component
                    error:(NSError *)error {
     HideNetworkActivityIndicator();
     // not the completion we were looking for...
-    if (self.requestConnection &&
-        connection != self.requestConnection) {
+    if (User.requestConnection &&
+        connection != User.requestConnection) {
         return;
     }
     
     // clean this up, for posterity
-    self.requestConnection = nil;
+    User.requestConnection = nil;
     
     NSString *text;
     if (error) {
@@ -573,8 +579,8 @@ numberOfRowsInComponent:(NSInteger)component
 }
 
 - (void)viewDidUnload {
-    [self.requestConnection cancel];
-    self.requestConnection = nil;
+    [User.requestConnection cancel];
+    User.requestConnection = nil;
 }
 
 -(void)setUserDataFromFB:(NSDictionary*)userData{
@@ -630,51 +636,68 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (IBAction)loginWithVK:(id)sender
 {
-    ShowNetworkActivityIndicator();
-    _vkontakte = [Vkontakte sharedInstance];
-    _vkontakte.delegate = self;
-    if (![_vkontakte isAuthorized])
-    {
-        [_vkontakte authenticate];
-    }
-    else
-    {
-        [_vkontakte getUserInfo];
-    }
+    
+    [VKSdk initializeWithDelegate:self andAppId:vkAppId];
+    [VKSdk authorize:VK_SCOPE revokeAccess:YES];
+//
+//    if ([VKSdk wakeUpSession])
+//    {
+//        [self getVKUserInfo];
+//    } else {
+//        [VKSdk authorize:VK_SCOPE revokeAccess:YES];
+//    }
+    
 }
 
-#pragma mark - VkontakteDelegate
 
-- (void)vkontakteDidFailedWithError:(NSError *)error{
-    HideNetworkActivityIndicator();
-    [self dismissViewControllerAnimated:YES completion:nil];
+-(void)getVKUserInfo{
+    VKRequest *request = [[VKApi users] get:@{@"fields":@"bdate, sex"}];
+    [request executeWithResultBlock: ^(VKResponse *response) {
+        NSDictionary *dict;
+
+        if ([response.json isKindOfClass:[NSArray class]]&&[response.json count]>0){
+            dict = response.json[0];
+        } else if ([response.json isKindOfClass:[NSDictionary class]]){
+            dict = response.json;
+        }
+        
+        NSLog(@"Result: %@", response);
+        [self vkontakteDidFinishGettinUserInfo:dict];
+    } errorBlock: ^(NSError *error) {
+
+    }];
+
 }
 
-- (void)showVkontakteAuthController:(UIViewController *)controller{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        controller.modalPresentationStyle = UIModalPresentationFormSheet;
-    }
-    controller.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:controller animated:YES completion:nil];
+- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
+    VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
+    [vc presentIn:self.navigationController.topViewController];
 }
 
-- (void)vkontakteAuthControllerDidCancelled{
-    HideNetworkActivityIndicator();
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken {
+    [VKSdk authorize:VK_SCOPE revokeAccess:YES];
 }
 
-- (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [_vkontakte getUserInfo];
+- (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken {
+    [self getVKUserInfo];
 }
 
-- (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte{
-    HideNetworkActivityIndicator();
+- (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
+    [self.navigationController.topViewController presentViewController:controller animated:YES completion:nil];
 }
+
+- (void)vkSdkAcceptedUserToken:(VKAccessToken *)token {
+    [self getVKUserInfo];
+}
+- (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
+    [[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+}
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info{
-    HideNetworkActivityIndicator();
     
     if ([info hasKey:@"first_name"] ) {
         if ([[info objectForKey:@"first_name"] length]>0) {
@@ -706,13 +729,8 @@ numberOfRowsInComponent:(NSInteger)component
         }
     }
     
-    if ([info hasKey:@"country"] ) {
-      //  [_vkontakte getCountryByID:[info objectForKey:@"country"]];
-        
-    }
-    
-    vkId = [UserDefaults objectForKey:@"VKUserID"];
-    vkToken = [UserDefaults objectForKey:@"VKAccessTokenKey"];
+    vkId = [[VKSdk getAccessToken] userId];
+    vkToken = [[VKSdk getAccessToken] accessToken];
 
     NSLog(@"%@", info);
 }
@@ -731,11 +749,157 @@ numberOfRowsInComponent:(NSInteger)component
 
 
 #pragma mark - OdnokloasnikiMethods
+
+/*** Odnoklassniki Delegate methods ***/
+#pragma mark - OdnokloasnikiMethods
 -(IBAction)loginWithOK:(id)sender{
+    
+    if (!User.ok_api){
+        User.ok_api = [[Odnoklassniki alloc] initWithAppId:ok_appId appSecret:ok_appSecret appKey:ok_appKey delegate:self];
+    }
+    // if access_token is valid
+    // если access_token действителен
+    
+    if (!User.ok_api.isSessionValid) {
+        [User.ok_api authorizeWithPermissions:@[@"VALUABLE ACCESS"]];
+    } else {
+        [User.ok_api refreshToken];
+    }
+}
+
+#pragma mark - API requests
+
+
+
+/*
+ * API request without params.
+ * Запрос к API без параметров.
+ */
+
+/*
+ * API request with params.
+ * Запрос к API с параметрами.
+ */
+- (void)getOKUserInfo{
+    OKRequest *newRequest = [Odnoklassniki requestWithMethodName:@"users.getCurrentUser" params:@{@"fields": @"first_name,last_name,birthday"}];
+    [newRequest executeWithCompletionBlock:^(NSDictionary *data) {
+        if (![data isKindOfClass:[NSDictionary class]]) {
+            return;
+        }
+        NSLog(@"USERDATA = %@",data);
+        
+        
+        
+        [self odnoklassnikiDidFinishGettinUserInfo:data];
+//        [self authUserBySocial:kOK user:okId token:okToken];
+        
+        
+        
+    } errorBlock:^(NSError *error) {
+        NSLog(@"[%@ %@] %@", NSStringFromClass(self.class), NSStringFromSelector(_cmd), error);
+    }];
+}
+
+- (void)odnoklassnikiDidFinishGettinUserInfo:(NSDictionary *)info{
+    
+    if ([info hasKey:@"first_name"] ) {
+        if ([[info objectForKey:@"first_name"] length]>0) {
+            if (self.name_field.text.length==0){
+                self.name_field.text = [NSString stringWithFormat:@"%@",[info objectForKey:@"first_name"]];
+            }
+        }
+    }
+    
+    if ([info hasKey:@"last_name"] ) {
+        if ([[info objectForKey:@"last_name"] length]>0) {
+            if (self.lastname_field.text.length==0){
+                self.lastname_field.text = [NSString stringWithFormat:@"%@",[info objectForKey:@"last_name"]];
+            }
+        }
+    }
+    
+    if ([info hasKey:@"birthday"] ) {
+        if ([[info objectForKey:@"birthday"] length]>0) {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            NSDate *dateFromString = [[NSDate alloc] init];
+            dateFromString = [dateFormatter dateFromString:[info objectForKey:@"birthday"]];
+            if (dateFromString) {
+                if (!birthdayDate){
+                    [self setDateBirthDay:dateFromString];
+                }
+            }
+        }
+    }
+    
+    okToken = User.ok_api.session.accessToken;
+    okId = info[@"uid"];
+    
+    NSLog(@"%@", info);
+}
+
+
+#pragma mark - Odnoklassniki Delegate methods
+
+- (void)okShouldPresentAuthorizeController:(UIViewController *)viewController {
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void)okWillDismissAuthorizeControllerByCancel:(BOOL)canceled {
+    NSLog(@"autorization canceled by user");
+}
+
+
+/*
+ * Method will be called after success login ([_api authorize:])
+ * Метод будет вызван после успешной авторизации ([_api authorize:])
+ */
+- (void)okDidLogin {
+    
+    [self getOKUserInfo];
+}
+
+/*
+ * Method will be called if login faild (cancelled == YES if user cancelled login, NO otherwise)
+ * Метод будет вызван, если при авторизации произошла ошибка (cancelled == YES если пользователь прервал авторизацию, NO во всех остальных случаях)
+ */
+- (void)okDidNotLogin:(BOOL)canceled {
     
 }
 
-/*** Odnoklassniki Delegate methods ***/
+/*
+ * Method will be called if login faild and server returned an error
+ * Метод будет вызван, если сервер вернул ошибку авторизации
+ */
+- (void)okDidNotLoginWithError:(NSError *)error {
+    
+}
+
+/*
+ * Method will be called if [_api refreshToken] called and new access_token was got
+ * Метод будет вызван в случае, если вызван [_api refreshToken] и получен новый access_token
+ */
+- (void)okDidExtendToken:(NSString *)accessToken {
+    [self okDidLogin];
+}
+
+/*
+ * Method will be called if [_api refreshToken] called and new access_token wasn't got
+ * Метод будет вызван в случае, если вызван [_api refreshToken] и новый access_token не получен
+ */
+- (void)okDidNotExtendToken:(NSError *)error {
+    
+}
+
+/*
+ * Method will be called after logout ([_api logout])
+ * Метод будет вызван после выхода пользователя ([_api logout])
+ */
+- (void)okDidLogout {
+    //    self.sessionStatusLabel.text = @"Not logged in";
+    //    [self.authButton setTitle:@"Login" forState:UIControlStateNormal];
+
+}
 
 
 
@@ -746,7 +910,87 @@ numberOfRowsInComponent:(NSInteger)component
 #pragma mark - Google+ auth
 
 -(IBAction)loginWithGPlus:(id)sender{
-    [self showMessage:@"Авторизация через Google+ временно отключена" title:@"Уведомление"];
+    [self signInToGoogle];
+}
+
+- (void)signInToGoogle {
+    [[GPPSignIn sharedInstance] signOut];
+    
+    [GPPSignIn sharedInstance].clientID = kGoogleClientIDKey;
+    [GPPSignIn sharedInstance].delegate = self;
+    [GPPSignIn sharedInstance].shouldFetchGoogleUserEmail = YES;
+    [GPPSignIn sharedInstance].shouldFetchGoogleUserID = YES;
+    [GPPSignIn sharedInstance].scopes = [NSArray arrayWithObjects:
+                                         @"https://www.googleapis.com/auth/plus.login",
+                                         @"https://www.googleapis.com/auth/plus.me",
+                                         @"https://www.googleapis.com/auth/userinfo.profile",
+                                         @"https://www.googleapis.com/auth/userinfo.email", nil];
+    
+    [[GPPSignIn sharedInstance] authenticate];
+    
+}
+
+-(void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error{
+    [self getGpUserInfo];
+}
+
+-(void)getGpUserInfo{
+    
+    GTLQueryPlus *query = [GTLQueryPlus queryForPeopleGetWithUserId:@"me"];
+    
+    GTLServicePlus* plusService = [[GTLServicePlus alloc] init] ;
+    plusService.retryEnabled = YES;
+    
+    [plusService setAuthorizer:[GPPSignIn sharedInstance].authentication];
+    
+    plusService.apiVersion = @"v1";
+    [plusService executeQuery:query
+            completionHandler:^(GTLServiceTicket *ticket,
+                                GTLPlusPerson *person,
+                                NSError *error) {
+                if (error) {
+                    //Handle Error
+                } else {
+                    
+                    if ([GPPSignIn sharedInstance].authentication.userEmail&&[GPPSignIn sharedInstance].authentication.userEmail.length>0){
+                        if (self.email_field.text.length==0){
+                            self.email_field.text = [NSString stringWithFormat:@"%@",[GPPSignIn sharedInstance].authentication.userEmail];
+                        }
+                    }
+                    
+                    if (person.name.givenName&&person.name.givenName.length>0){
+                        if (self.name_field.text.length==0){
+                            self.name_field.text = [NSString stringWithFormat:@"%@",person.name.givenName];
+                        }
+                    }
+                    
+                    if (person.name.familyName&&person.name.familyName.length>0){
+                        if (self.lastname_field.text.length==0){
+                            self.lastname_field.text = [NSString stringWithFormat:@"%@",person.name.familyName];
+                        }
+                    }
+                    
+                    if (person.birthday&&person.birthday.length>0){
+                        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                        NSDate *dateFromString = [[NSDate alloc] init];
+                        dateFromString = [dateFormatter dateFromString:person.birthday];
+                        if (dateFromString) {
+                            if (!birthdayDate){
+                                [self setDateBirthDay:dateFromString];
+                            }
+                        }
+                    }
+                    
+                    
+                    
+                    
+                }
+            }];
+    
+    gpId = [GPPSignIn sharedInstance].userID;
+    gpToken = [GPPSignIn sharedInstance].authentication.accessToken;
+    
 }
 
 

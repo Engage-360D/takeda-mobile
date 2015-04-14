@@ -1,4 +1,8 @@
 
+#define uKey(key)                           [NSString stringWithFormat:@"%@",key]//[NSString stringWithFormat:@"%@_%@",key,User.user_login]
+#define aKey(key)                           [NSString stringWithFormat:@"%@_analiz",key]
+
+
 
 typedef enum {
     tUser = 1,
@@ -28,3 +32,5 @@ typedef enum {
     dNew = 1,
     dFilled = 2
 } DIndex;
+
+

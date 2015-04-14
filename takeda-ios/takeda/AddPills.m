@@ -110,7 +110,7 @@
     
     [ServData addDrug:drug completion:^(BOOL success, NSError *error, id result){
         if (success){
-            [self showMessage:@"Лекарство успешно добавлено" title:@"Успех"];
+            [self showMessage:@"" title:@"Лекарство успешно добавлено"];
             self.readOnly = YES;
             self.preview = YES;
             [self updateInterface];
@@ -130,7 +130,7 @@
     }
     [ServData updateDrug:drug completion:^(BOOL success, NSError *error, id result){
         if (success){
-            [self showMessage:@"Лекарство успешно изменено" title:@"Успех"];
+            [self showMessage:@"" title:@"Лекарство успешно изменено"];
             self.readOnly = YES;
             self.preview = YES;
             [self updateInterface];
@@ -147,7 +147,7 @@
     [ServData deleteDrug:drug completion:^(BOOL success, NSError *error, id result){
         [self removeActivityIdicator];
         if (success){
-            [self showMessage:@"Лекарство успешно удалено" title:@"Успех" result:^{
+            [self showMessage:@"" title:@"Лекарство успешно удалено" result:^{
                 [self backAction];
             }];
 

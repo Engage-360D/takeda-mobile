@@ -180,6 +180,15 @@ static AllSingle *dot = nil;
     return str;
 }
 
+-(NSMutableArray*)dictToArray:(NSMutableDictionary*)dict{
+    NSMutableArray *dictArr = [NSMutableArray new];
+    for (id key in dict.allKeys){
+        [dictArr addObject:[Global recursiveMutable:@{key:dict[key]}]];
+    }
+    return dictArr;
+}
+
+
 -(int)servToTimest:(NSString*)strData{
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     [dateFormatter setDateFormat:@"dd.MM.yyyy HH:mm"];
@@ -234,6 +243,15 @@ static AllSingle *dot = nil;
     return [date stringWithFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"];
 }
 
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
 
 
 -(void)removeSubviewsFrom:(UIView*)view{
@@ -525,8 +543,58 @@ static AllSingle *dot = nil;
     return [url MD5String];
 }
 
+- (void)addCookies:(NSArray *)cookies forRequest:(NSMutableURLRequest *)request
+{
+    if ([cookies count] > 0)
+    {
+        NSHTTPCookie *cookie;
+        NSString *cookieHeader = nil;
+        for (cookie in cookies)
+        {
+            if (!cookieHeader)
+            {
+                cookieHeader = [NSString stringWithFormat: @"%@=%@",[cookie name],[cookie value]];
+            }
+            else
+            {
+                cookieHeader = [NSString stringWithFormat: @"%@; %@=%@",cookieHeader,[cookie name],[cookie value]];
+            }
+        }
+        if (cookieHeader)
+        {
+            [request setValue:cookieHeader forHTTPHeaderField:@"Cookie"];
+        }
+    }
+}
 
 
+-(void)saveCookies{
+    NSMutableArray *theCookies = [NSMutableArray new];
+    for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
+        [theCookies addObject:cookie];
+    }
+
+    [UserDefaults setObject:theCookies forKey:@"cookies"];
+}
+
+
+#pragma mark - ActivityIndicator
+
+
+-(void)showActivityIndicatorWithString:(NSString*)string inContainer:(UIView*)container{
+    if ([DejalActivityView isActive]) {
+        return;
+    }
+    [DejalBezelActivityView activityViewForView:container];
+    [DejalActivityView currentActivityView].showNetworkActivityIndicator = YES;
+    [DejalActivityView currentActivityView].activityLabel.text = string;
+    
+}
+
+
+-(void)removeActivityIdicator{
+    [DejalBezelActivityView removeViewAnimated:YES];
+}
 
 
 

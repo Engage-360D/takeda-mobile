@@ -19,7 +19,6 @@
 
 #define ApplicationDelegate                 ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define UserDefaults                        [NSUserDefaults standardUserDefaults]
-#define uKey(key)                           [NSString stringWithFormat:@"%@",key]//[NSString stringWithFormat:@"%@_%@",key,User.user_login]
 
 #define SharedApplication                   [UIApplication sharedApplication]
 #define Bundle                              [NSBundle mainBundle]

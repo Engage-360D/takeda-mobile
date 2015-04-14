@@ -7,7 +7,7 @@
 //
 
 #import "Synchronizer.h"
-
+#import "NotifPlanner.h"
 
 
 
@@ -88,6 +88,7 @@ static Synchronizer *sharedInst = NULL;
 -(void)loadPills{
     NSLog(@"start pills");
     [GlobalData loadPillsCompletition:^(BOOL completition, id result){
+        [[NotifPlanner sharedInstance] updateNotifications];
         NSLog(@"finish pills");
         [self finishJob];
     }];

@@ -9,6 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "Synchronizer.h"
 
+
+#define filePath(fileName) [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],fileName]
+#define regionsListFile  @"regionsListFile"
+#define resultAnalysesFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"analize_results"]
+#define resultDietFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"diet_results"]
+#define userSettingsFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"user"]
+#define cashFile(url) [NSString stringWithFormat:@"%@/%@", [Path CasheFolder],url]
+#define userPills [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"pills"]
+#define userTimelineTasksFile [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"timelineTasks"]
+#define userTimelineFile [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"timeline"]
+
 @interface GlobalData : NSObject
 
 +(GlobalData*)sharedObject;
@@ -17,9 +28,9 @@
 @property (nonatomic, strong) FMDatabase *database;
 @property (nonatomic, strong) NSNumber* missedEventsCount;
 
-+(NSMutableArray*)regionsList;
+-(NSMutableArray*)regionsList;
 +(void)loadRegionsList:(void (^)(BOOL success, id result))completion;
-+(void)saveRegions:(NSMutableArray*)regions;
+-(void)saveRegions:(NSMutableArray*)regions;
 +(void)saveIncidents:(NSMutableDictionary*)incidents;
 +(void)saveResultAnalyses:(NSMutableDictionary*)result;
 +(void)cleanOldResults:(NSMutableArray*)results;

@@ -27,6 +27,7 @@
         is_authorized = NO;
         taked = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
+        [self performSelector:@selector(networkChanged:) withObject:nil afterDelay:4.0f];
     }
     return self;
 }
@@ -35,8 +36,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
 }
+
+
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -51,7 +53,13 @@
     self.navigationController.navigationBarHidden = YES;
     self.welcome_text_1.font = [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
     self.welcome_text_2.font = [UIFont fontWithName:@"SegoeUI-Light" size:12.0];
-    self.welcome_text_3.font = [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
+//    self.welcome_text_3.font = [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
+    
+    self.enterBtn.titleLabel.font = [UIFont fontWithName:@"SegoeUI-Light" size:17.0];
+    self.enterBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.enterBtn.layer.borderWidth = 1.0f;
+    self.enterBtn.layer.cornerRadius = 5.0f;
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -59,8 +67,12 @@
 - (void)networkChanged:(NSNotification *)notification
 {
     if (taked) return;
+    if (notification == nil){
+        NSLog(@"exception start");
+    }
     taked = YES;
     [self start];
+    
 }
 
 -(void)start{
@@ -130,8 +142,6 @@
     } else {
         is_loading = NO;
     }
-    
-    
 
 }
 

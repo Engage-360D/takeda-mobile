@@ -36,6 +36,8 @@
     UIViewController *mainPage_vc;
     BOOL needTest;
     BOOL userIsBlocked;
+    BOOL NetworkLoss;
+
     /*
      RiskAnalysisPage *riskAnalysis_vc;
      SearchInstitutionPage *searchInstitution_vc;
@@ -428,7 +430,7 @@
 }
 
 -(void)openSiteReport{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kReportURL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?token=%@",kReportURL,User.access_token]]];
 }
 
 

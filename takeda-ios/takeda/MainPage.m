@@ -92,9 +92,13 @@ typedef NSUInteger MenuItem;
     NSMutableArray *allResults = [GlobalData resultAnalyses];
     if (allResults.count>0){
         results_data = [[GlobalData resultAnalyses] lastObject];
-        [self showData];
+      [self showData];
+    } else {
+        [self showNormInfo];
     }
-    
+
+    [self showData];
+
     if (User.userBlocked){
         
     } else {
@@ -116,7 +120,7 @@ typedef NSUInteger MenuItem;
     if (isp!=nil&&isp.length>0){
         self.percentLabel.text = [NSString stringWithFormat:@"%.f%@",[isp floatValue],@"%"];
     } else {
-        self.percentLabel.text = @"";
+        self.percentLabel.text = @"0%";
     }
    // self.percentLabel.text = [NSString stringWithFormat:@"%i%@",GlobalData.missedEventsCount ,@"%"];
 
@@ -170,7 +174,7 @@ typedef NSUInteger MenuItem;
 }
 
 -(void)filtrRecords{
-    
+    BOOL needFullReload = NO;
     NSMutableDictionary *daysDict = [Global recursiveMutable:[days groupByKey:@"date"]];
     if ([daysDict objectForKey:[[NSDate date] stringWithFormat:@"yyyy-MM-dd"]]!=nil){
         daybook_menu_data = [daysDict objectForKey:[[NSDate date] stringWithFormat:@"yyyy-MM-dd"]];
@@ -179,8 +183,17 @@ typedef NSUInteger MenuItem;
     
     NSMutableArray *tasksNewArray = [NSMutableArray new];
     for (NSString* taskId in daybook_menu_data[@"links"][@"tasks"]){
-        [tasksNewArray addObject:tasks[taskId]];
+        if (tasks[taskId]){
+            [tasksNewArray addObject:tasks[taskId]];
+        } else {
+            needFullReload = YES;
+        }
     }
+    
+    if (needFullReload){
+        [self refreshData];
+    }
+    
     [daybook_menu_data[@"links"] setObject:tasksNewArray forKey:@"tasks"];
 
     
@@ -230,7 +243,7 @@ typedef NSUInteger MenuItem;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0){
-        return 50;
+            return 50;
     } else {
         return 75.f;
     }
@@ -244,11 +257,26 @@ typedef NSUInteger MenuItem;
         _indLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _indLoading.center = rM.middleCenter;
         _indLoading.hidesWhenStopped = YES;
+        
+        if ([daybook_menu_data[@"links"][@"tasks"] count]==0){
+//            UILabel *noRecords = [[UILabel alloc] initWithFrame:CGRectMake(0, sectionTitle.bottom, sectionTitle.width, 50)];
+            UILabel *noRecords = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, rM.width, 14)];
+
+            noRecords.textAlignment = NSTextAlignmentCenter;
+            noRecords.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
+            noRecords.textColor = RGB(54, 65, 71);
+            
+            noRecords.text = @"У Вас нет задач на сегодня";
+            [rM addSubview:noRecords];
+            
+        }
+
         return rM;
     }
     
     
     UIView *rV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 46)];
+    rV.clipsToBounds = NO;
     NSDate *ddt;
     if (daybook_menu_data){
         ddt = [Global parseDate:daybook_menu_data[@"date"]];
@@ -264,6 +292,8 @@ typedef NSUInteger MenuItem;
     sectionTitle.text = [NSString stringWithFormat:@"%@ (%@)",[ddt isToday]?@"Сегодня":[ddt stringWithFormat:@"dd.MM.yyyy"],[ddt stringWithFormat:@"EEEE"]];
     // [self drawBordersInView:sectionTitle];
     [rV addSubview:sectionTitle];
+    
+    
     return rV;
     
 }
@@ -544,7 +574,7 @@ typedef NSUInteger MenuItem;
 }
 
 -(void)openSiteReport{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kReportURL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?token=%@",kReportURL,User.access_token]]];
 }
 
 //////////////

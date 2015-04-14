@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "AddPills.h"
 
-@interface DrugsList : VControllerExt
+@interface DrugsList : VControllerExt<EGORefreshTableHeaderDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *drugs;
 @property (nonatomic, strong) AddPills *addPills;
+
+@property (nonatomic, strong) EGORefreshTableHeaderView *refreshHeaderView;
+
 @end

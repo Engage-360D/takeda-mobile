@@ -183,13 +183,6 @@ static ServData *objectInstance = nil;
     
     [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result, NSError *error){
         completion(YES,nil);
-
-//        if (result[@"data"][@"id"]){
-//            // success
-//            completion(YES,nil);
-//        } else {
-//            completion(NO,nil);
-//        }
     }];
 }
 
@@ -207,13 +200,6 @@ static ServData *objectInstance = nil;
     
     [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result, NSError *error){
         completion([error answerOk],nil);
-        
-        //        if (result[@"data"][@"id"]){
-        //            // success
-        //            completion(YES,nil);
-        //        } else {
-        //            completion(NO,nil);
-        //        }
     }];
 }
 
@@ -226,7 +212,7 @@ static ServData *objectInstance = nil;
     [self sendCommon:url success:^(id result, NSError *error){
         BOOL success = NO;
         if (result[@"data"]) {
-            [GlobalData saveRegions:result[@"data"]];
+            [GData saveRegions:result[@"data"]];
             success = YES;
         } else {
             

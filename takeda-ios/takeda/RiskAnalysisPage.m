@@ -45,8 +45,6 @@ int selectedIndex = 0;
 {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = NO;
-    [self setDefaultDateBirthday];
-    [self setFirstPageAnalize];
     
     
     
@@ -55,6 +53,9 @@ int selectedIndex = 0;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [analizData resetData];
+    [self setFirstPageAnalize];
+
     if (![User checkForRole:tDoctor]){
         for (UIBarButtonItem *b in self.navigationItem.rightBarButtonItems){
             b.enabled = NO;
@@ -64,28 +65,6 @@ int selectedIndex = 0;
 }
 
 
--(void)setDefaultDateBirthday{
-    if (User.userData[@"birthday"]) {
-        
-        NSDate *curDate = [Global parseDateTime: User.userData[@"birthday"]];
-        if (curDate) {
-
-            [[[analizData sharedObject] dicRiskData] setObject:User.userData[@"birthday"] forKey:@"birthday"];
-            
-            NSDateComponents* agecalcul = [[NSCalendar currentCalendar]
-                                           components:NSYearCalendarUnit
-                                           fromDate:curDate
-                                           toDate:[NSDate date]
-                                           options:0];
-            //show the age as integer
-            NSInteger age = [agecalcul year];
-            [[[analizData sharedObject] dicRiskData] setObject:[NSString stringWithFormat:@"%i",(int)age] forKey:@"old"];
-
-        }
-        
-    }
-
-}
 
 
 -(void)backAction{
@@ -266,9 +245,11 @@ int selectedIndex = 0;
     
     */
     
-    NSString *sex = @"male";
-    if ([[[[UserData sharedObject] userData] objectForKey:@"sex"] boolValue]) {
+    NSString *sex;
+    if ([[[[analizData sharedObject] dicRiskData] objectForKey:@"sex"] boolValue]) {
         sex = @"female";
+    } else {
+        sex = @"male";
     }
     
     
@@ -291,6 +272,9 @@ int selectedIndex = 0;
                              @"isAcetylsalicylicDrugsConsumer": [NSNumber numberWithBool:[[[[analizData sharedObject] dicRiskData] objectForKey:@"accept_drags_risk_trombus"]boolValue]]
                              };
     
+    for (NSString *key in [[analizData sharedObject] dicRiskData].allKeys){
+        [[analizData sharedObject] saveValue:[[[analizData sharedObject] dicRiskData] objectForKey:key] forAnalizKey:key];
+    }
     
     
     [self showActivityIndicatorWithString:@""];
@@ -516,6 +500,7 @@ int selectedIndex = 0;
     [picker_cover dissmiss];
     if ((int)[picker_cover tag]==1) {
         [[[analizData sharedObject] dicRiskData] setObject:[pickerDataSource objectAtIndex:selectedIndex] forKey:currentKey];
+        
     }else{
         
         if ((int)[picker_cover tag]==2) {

@@ -8,7 +8,8 @@
 
 #import "AppDelegate.h"
 #import "TestFairy.h"
-#import "Odnoklassniki.h"
+#import "AllSocials.h"
+#import "NotifPlanner.h"
 #import "Path.h"
 
 @implementation AppDelegate
@@ -19,25 +20,28 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-   [[UIApplication sharedApplication] cancelAllLocalNotifications]; //удаляем все!
-
-    if ([[[UIApplication sharedApplication] scheduledLocalNotifications] count]==0){
-//        [self addNextNotification];
-    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
+   
     NSString *remoteHostName = @"www.apple.com";
     [TestFairy begin:@"0a5b866d28f84bb9bbea5a2948683e8e0be28546"];
     self.hostReachability = [Reachability reachabilityWithHostName:remoteHostName];
     [self.hostReachability startNotifier];
 
     [Path checkDirectories];
+    
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound
+                                                                                                              categories:nil]];
+    }
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [GMSServices provideAPIKey:@"AIzaSyCJbaqLyduDBLnzodgcq5WdD7ebS2tU2DM"];
 
     [self openWelcomePage];
     
-    
+    application.applicationIconBadgeNumber = 0;
+
     self.window.backgroundColor = [UIColor whiteColor];
   //  [self showAllFonts];
   // [self showFonts];
@@ -45,32 +49,6 @@
     return YES;
 }
 
-- (void) addNextNotification
-{
-    FastAlert(@"", @"Добавили еше одно");
-    
-    UILocalNotification *notif = [[UILocalNotification alloc] init];
-    
-    notif.timeZone = [NSTimeZone defaultTimeZone]; //часовой пояс, я обычно пользуюсь в программах дефолтным по Гринвичу, но можно использовать systemTimeZone, это будет время в устройстве.
-    
-    notif.fireDate = [[NSDate date] dateByAddingTimeInterval:30.0f]; //время, когда наступит время нотификатора, у нас это текущая дата + 20 секунд. Можно прибегнуть к помощи NSDateComponents для установок своей даты.
-    
-    // notif.alertAction = @"Тыдыщ!"; //Текст кнопочки, вызывающей вашу программу из фонового режима
-    notif.alertAction = nil;
-    notif.hasAction = NO;
-    
-    notif.alertBody = @"Вот такой вот нотификатор!"; //Тело сообщения над кнопочкой
-    
-    notif.soundName = UILocalNotificationDefaultSoundName; //дефолтный звук сообщения. Можно задать свой в папке проекта.
-    
-    notif.applicationIconBadgeNumber = 10; //число "бейджа" на иконке приложения при наступлении уведомления
-    
-    // notif.repeatInterval = NSWeekCalendarUnit; //если необходимо, используем повтор (не пытайтесь установить свое время повтора, это невозможно. Используйте только NSCalendarCalendarUnit.
-    notif.repeatInterval = NSSecondCalendarUnit; //если необходимо, используем повтор (не пытайтесь установить свое время повтора, это невозможно. Используйте только NSCalendarCalendarUnit.
-
-    [[UIApplication sharedApplication] scheduleLocalNotification:notif]; //Размещаем наше локальное уведомление!
-    
-}
 
 -(void)openWelcomePage{
     [self initSingletons];
@@ -178,22 +156,55 @@
 }
 
 
-
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification{
+    // if (![notification.fireDate isInPast]){
+        NSString *messageText = notification.alertBody;
+        FastAlert(@"Напоминание", messageText);
+  //  }
+   // [[NotifPlanner sharedInstance] removeNotification:notification];
+    
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    [UserDefaults setObject:[NSDate date] forKey:@"closedDate"];
+//    [UserDefaults setObject:[[NSDate date] dateBySubtractingHours:1] forKey:@"closedDate"];
+
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    NSDate *closeDate = [UserDefaults objectForKey:@"closedDate"];
+    if (closeDate!=nil&&[[closeDate dateByAddingHours:1] isInPast]&&[User is_authorized]){
+    // need update after one hour
+        [Global showActivityIndicatorWithString:@"Синхонизация" inContainer:self.window];
+        [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
+            if (result){
+                [User synchronizeUser:User.user_login completition:^(BOOL synchrSuccess, id synchrResult){
+                    [Global removeActivityIdicator];
+
+                    if (result){
+
+                    } else {
+                        [Helper fastAlert:@"Ошибка загрузки данных пользователя"];
+                    }
+                }];
+                
+            } else {
+                [Global removeActivityIdicator];
+            }
+            
+        }];
+        
+    }
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
@@ -227,9 +238,15 @@
     [FBAppCall handleOpenURL:url
                   sourceApplication:sourceApplication];
     
-    return [OKSession.activeSession handleOpenURL:url];
+    [OKSession.activeSession handleOpenURL:url];
 
-//    [OKSession.activeSession handleOpenURL:url];
+    [VKSdk processOpenURL:url fromApplication:sourceApplication];
+
+    [GPPURLHandler handleURL:url
+           sourceApplication:sourceApplication
+                  annotation:annotation];
+   // return [OKSession.activeSession handleOpenURL:url];
+
     
     return YES;
 }

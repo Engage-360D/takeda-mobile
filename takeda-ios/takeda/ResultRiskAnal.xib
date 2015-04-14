@@ -131,7 +131,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="300" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Подобрать мед. учреждение по близости" image="whiteArrowRight.png">
+                                        <state key="normal" title="Подобрать мед. учреждение поблизости" image="whiteArrowRight.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">

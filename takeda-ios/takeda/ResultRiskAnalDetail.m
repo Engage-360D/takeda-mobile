@@ -41,7 +41,7 @@
     subtitle.textColor = RGB(53, 65, 71);
     note.textColor = RGB(53, 65, 71);
     bannerInfo.textColor = RGB(53, 65, 71);
-
+    
     for (UIButton * btn in self.btnsCollection){
         btn.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
         [btn setTitleColor:RGB(53, 65, 71) forState:UIControlStateNormal];
@@ -115,10 +115,19 @@
 }
 
 -(IBAction)showHideCommonInfo:(UIButton*)sender{
-    sender.selected = !sender.selected;
     float h;
-    float time = sender!=nil?0.3:0;
-    if (sender.selected){
+    float time;
+    BOOL show;
+    if (sender!=nil){
+        _commInfoBtn.selected = !_commInfoBtn.selected;
+        show = sender.selected;
+        time = 0.3;
+    } else {
+        time = 0;
+        _commInfoBtn.selected = YES;
+    }
+    
+    if (_commInfoBtn.selected){
         h = [Global measureHeightOfUITextView:bannerInfo];
     } else {
         h = 0;

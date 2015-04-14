@@ -25,17 +25,20 @@
     NSString *okId;
     NSString *okToken;
     
+    NSString *gpId;
+    NSString *gpToken;
 }
 
-@property (strong, nonatomic) FBRequestConnection *requestConnection;
-@property (nonatomic, strong) Odnoklassniki *ok_api;
+
 
 @end
 
+static NSString *const kKeychainItemName = @"OAuth Sample: Google Contacts";
+static NSString *const kShouldSaveInKeychainKey = @"shouldSaveInKeychain";
 
-NSString * const appId = @"1126090240";
-NSString * const appKey = @"CBAHMPBEEBABABABA";
-NSString * const appSecret = @"48E60A55CB4CF49C3E5D3762";
+static NSString *const kDailyMotionAppServiceName = @"OAuth Sample: DailyMotion";
+static NSString *const kDailyMotionServiceName = @"DailyMotion";
+
 
 
 @implementation AuthPage
@@ -51,6 +54,10 @@ NSString * const appSecret = @"48E60A55CB4CF49C3E5D3762";
 
 RegistrationPage *registrationPage;
 ForgetPage *forgetPage;
+
+
+//static NSString *const VK_TOKEN_KEY = @"my_application_access_token";
+//static NSArray  * VK_SCOPE = nil;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -69,7 +76,6 @@ ForgetPage *forgetPage;
     
     [self setNavImage];
     [self setNavigationPanel];
-
     [self setupInterface];
 
 }
@@ -135,11 +141,10 @@ ForgetPage *forgetPage;
 
 -(IBAction)openRegistrationPage:(id)sender{
 
-    if (!registrationPage) {
+//    if (!registrationPage) {
         registrationPage = [[RegistrationPage alloc] initWithNibName:@"RegistrationPage" bundle:nil];
         registrationPage.navigationItem.leftBarButtonItem = nil;
-
-    }
+//  }
     [self.navigationController pushViewController:registrationPage animated:YES];
 }
 
@@ -154,7 +159,7 @@ ForgetPage *forgetPage;
     [self showMessageWithTextInput:@"E-mail" msg:@"Введите свой e-mail. На него придет новый пароль" title:@"Восстановление пароля" btns:@[@"Отмена",@"Отправить"] params:nil result:^(int index, NSString *text){
         if (index == 1){
 
-            if (text.length > 0){
+            if (text.length > 0&&[Global NSStringIsValidEmail:text]){
             NSString *email = text;
             
             [self showActivityIndicatorWithString:@"" inContainer:appDelegate.window];
@@ -162,7 +167,11 @@ ForgetPage *forgetPage;
                 [self removeActivityIdicator];
                 [self showMessage:@"На вашу почту было отправлено письмо с новым паролем" title:@"Сброс пароля"];
             }];
+            } else {
+                [self showMessage:@"Неверно введенный E-mail" title:@"Ошибка"];
+                
             }
+
         }
 
     }];
@@ -219,10 +228,10 @@ ForgetPage *forgetPage;
 }
 
 -(void)setupUser{
+    [self showActivityIndicatorWithString:@"Синхронизация"];
     [User setCurrentUser:User.user_login];
     [ServData getUserIdData:User.user_id withCompletion:^(BOOL result, NSError* error){
         [User setCurrentUser:User.user_login];
-        [self showActivityIndicatorWithString:@"Синхронизация"];
         [User synchronizeUser:User.user_login completition:^(BOOL synchrSuccess, id synchrResult){
             [self removeActivityIdicator];
             if (result){
@@ -255,13 +264,12 @@ ForgetPage *forgetPage;
 
 -(IBAction)loginWithFb:(id)sender{
     ShowNetworkActivityIndicator();
-    if (FBSession.activeSession.isOpen) {
+    if (FBSession.activeSession.isOpen&&false) {
+        
         // login is integrated with the send button -- so if open, we send
         [self authorizeByFB];
     } else {
-        NSArray *permissions = [[NSArray alloc] initWithObjects:
-                                @"email", @"read_stream", @"user_about_me", @"user_birthday",
-                                nil];
+        NSArray *permissions = FB_SCOPE;
         [FBSession openActiveSessionWithReadPermissions:permissions
                                            allowLoginUI:YES
                                       completionHandler:^(FBSession *session,
@@ -293,75 +301,66 @@ ForgetPage *forgetPage;
 
 - (IBAction)loginWithVK:(id)sender
 {
-    ShowNetworkActivityIndicator();
-    _vkontakte = [Vkontakte sharedInstance];
-    _vkontakte.delegate = self;
-    if (![_vkontakte isAuthorized])
+    [VKSdk initializeWithDelegate:self andAppId:vkAppId];
+    if ([VKSdk wakeUpSession])
     {
-        [_vkontakte authenticate];
-    }
-    else
-    {
-        // получаем токен и авторизируемся через него
         [self authorizeByVK];
+    } else {
+        [VKSdk authorize:VK_SCOPE revokeAccess:YES];
     }
 }
 
+
 -(void)authorizeByVK{
-    vkId = [UserDefaults objectForKey: @"VKUserID"];
-    vkToken = [UserDefaults objectForKey:@"VKAccessTokenKey"];
+    vkId = [[VKSdk getAccessToken] userId];
+    vkToken = [[VKSdk getAccessToken] accessToken];
     [self authUserBySocial:kVK user:vkId token:vkToken];
 }
 
-#pragma mark - VkontakteDelegate
-
-- (void)vkontakteDidFailedWithError:(NSError *)error{
-    HideNetworkActivityIndicator();
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError {
+    VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
+    [vc presentIn:self.navigationController.topViewController];
 }
 
-- (void)showVkontakteAuthController:(UIViewController *)controller{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        controller.modalPresentationStyle = UIModalPresentationFormSheet;
-    }
-    controller.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:controller animated:YES completion:nil];
+- (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken {
+    [VKSdk authorize:VK_SCOPE revokeAccess:YES];
 }
 
-- (void)vkontakteAuthControllerDidCancelled{
-    HideNetworkActivityIndicator();
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte{
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken {
     [self authorizeByVK];
 }
 
-- (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte{
-    HideNetworkActivityIndicator();
-    [UserDefaults removeObjectForKey:@"VKUserID"];
-    [UserDefaults removeObjectForKey:@"VKAccessTokenKey"];
+- (void)vkSdkShouldPresentViewController:(UIViewController *)controller {
+    [self.navigationController.topViewController presentViewController:controller animated:YES completion:nil];
 }
 
-#pragma mark -
+- (void)vkSdkAcceptedUserToken:(VKAccessToken *)token {
+    [self authorizeByVK];
+}
+- (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
+    [[[UIAlertView alloc] initWithTitle:nil message:@"Access denied" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+}
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 
 
+
+#pragma mark - Google+ auth
 #pragma mark - OdnokloasnikiMethods
 -(IBAction)loginWithOK:(id)sender{
     
-    if (!self.ok_api){
-        self.ok_api = [[Odnoklassniki alloc] initWithAppId:appId appSecret:appSecret appKey:appKey delegate:self];
+    if (!User.ok_api){
+        User.ok_api = [[Odnoklassniki alloc] initWithAppId:ok_appId appSecret:ok_appSecret appKey:ok_appKey delegate:self];
     }
     // if access_token is valid
     // если access_token действителен
     
-    if (!self.ok_api.isSessionValid) {
-        [self.ok_api authorizeWithPermissions:@[@"VALUABLE ACCESS"]];
+    if (!User.ok_api.isSessionValid) {
+        [User.ok_api authorizeWithPermissions:@[@"VALUABLE ACCESS"]];
     } else {
-        [self.ok_api refreshToken];
+        [User.ok_api refreshToken];
     }
 }
 
@@ -376,7 +375,7 @@ ForgetPage *forgetPage;
  * API request with params.
  * Запрос к API с параметрами.
  */
-- (void)getUserInfo{
+- (void)getOKUserInfo{
     OKRequest *newRequest = [Odnoklassniki requestWithMethodName:@"users.getCurrentUser" params:@{@"fields": @"first_name,last_name,location,pic50x50"}];
     [newRequest executeWithCompletionBlock:^(NSDictionary *data) {
         if (![data isKindOfClass:[NSDictionary class]]) {
@@ -384,7 +383,7 @@ ForgetPage *forgetPage;
         }
         NSLog(@"USERDATA = %@",data);
         
-        okToken = self.ok_api.session.accessToken;
+        okToken = User.ok_api.session.accessToken;
         okId = data[@"uid"];
 
         [self authUserBySocial:kOK user:okId token:okToken];
@@ -413,7 +412,7 @@ ForgetPage *forgetPage;
  */
 - (void)okDidLogin {
     
-    [self getUserInfo];
+    [self getOKUserInfo];
 }
 
 /*
@@ -455,24 +454,55 @@ ForgetPage *forgetPage;
 - (void)okDidLogout {
 //    self.sessionStatusLabel.text = @"Not logged in";
 //    [self.authButton setTitle:@"Login" forState:UIControlStateNormal];
-    [self clearUserInfo];
 }
 
 #pragma mark - Google+ auth
 
 -(IBAction)loginWithGPlus:(id)sender{
-    [self showMessage:@"Авторизация через Google+ временно отключена" title:@"Уведомление"];
+    [self signInToGoogle];
+    // [self showMessage:@"Авторизация через Google+ временно отключена" title:@"Уведомление"];
 }
 
 
+- (void)signInToGoogle {
 
+    [GPPSignIn sharedInstance].clientID = kGoogleClientIDKey;
+    [GPPSignIn sharedInstance].delegate = self;
+    [GPPSignIn sharedInstance].shouldFetchGoogleUserEmail = YES;
+    [GPPSignIn sharedInstance].shouldFetchGoogleUserID = YES;
+//    [GPPSignIn sharedInstance].scopes = [NSArray arrayWithObjects:
+//                                         @"https://www.googleapis.com/auth/plus.login",
+//                                         @"https://www.googleapis.com/auth/plus.me",
+//                                         @"https://www.googleapis.com/auth/userinfo.profile",
+//                                         @"https://www.googleapis.com/auth/userinfo.email", nil];
+    //   [GPPSignIn sharedInstance].scopes = @[ @"profile" ];
+  //  [GPPSignIn sharedInstance].scopes= [NSArray arrayWithObjects:kGTLAuthScopePlusLogin, kGTLAuthScopePlusMe, nil];
 
+    BOOL authenticated = ([GPPSignIn sharedInstance].authentication != nil);
+    if (authenticated) {
+        [self gpAuthFinish];
+    } else {
+        [[GPPSignIn sharedInstance] signOut];
+        [[GPPSignIn sharedInstance] authenticate];
+    }
+
+    
+}
+
+-(void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error{
+    gpId = [GPPSignIn sharedInstance].userID;
+    gpToken = auth.accessToken;
+   [self gpAuthFinish];
+}
+
+-(void)gpAuthFinish{
+    [self authUserBySocial:kGp user:gpId token:gpToken];
+    gpId = [GPPSignIn sharedInstance].userID;
+    gpToken = [GPPSignIn sharedInstance].authentication.accessToken;
+
+}
 
 #pragma mark - interface
-
-- (void)clearUserInfo {
-
-}
 
 
 #pragma mark -

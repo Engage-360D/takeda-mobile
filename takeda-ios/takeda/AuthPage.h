@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PLTextField.h"
-#import "Vkontakte.h"
-#import "OKRequest.h"
-#import "OKSession.h"
-#import "Odnoklassniki.h"
+#import "AllSocials.h"
 
 
-@interface AuthPage : VControllerExt <VkontakteDelegate,OKSessionDelegate, OKRequestDelegate>{
-    Vkontakte *_vkontakte;
+@interface AuthPage : VControllerExt <OKSessionDelegate, OKRequestDelegate, VKSdkDelegate, GPPSignInDelegate>{
+
 }
 
 @property (nonatomic,retain) IBOutletCollection(UIView) NSArray *bg_block;

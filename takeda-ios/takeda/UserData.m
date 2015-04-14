@@ -8,7 +8,7 @@
 
 #import "UserData.h"
 #import "jsonInFile.h"
-
+#import "NotifPlanner.h"
 
 @implementation UserData
 static UserData *objectInstance = nil;
@@ -59,7 +59,22 @@ static UserData *objectInstance = nil;
     [UserDefaults removeObjectForKey:@"access_token"];
     [UserDefaults removeObjectForKey:@"lastUser"];
     [UserDefaults removeObjectForKey:uKey(@"lastResultDataId")];
+    [UserDefaults removeObjectForKey:@"ISP"];
+    [self resetDefaultsForKeySuffix:aKey(@"")];
+    
+}
 
+-(void)resetDefaultsForKeySuffix:(NSString*)suffix{
+    NSArray *allKeys = [UserDefaults dictionaryRepresentation].allKeys;
+
+    for (id key in allKeys){
+        if ([key isKindOfClass:[NSString class]]){
+            if ([key hasSuffix:suffix]){
+                [UserDefaults removeObjectForKey:key];
+            }
+        }
+    }
+    
 }
 
 -(BOOL)userBlocked{
@@ -236,8 +251,7 @@ static UserData *objectInstance = nil;
 -(void)resetUser{
     [self setupUserDefaultsForUser:nil];
     [GlobalData clearFiles];
-
-    
+    [[NotifPlanner sharedInstance] deleteAllNotifications];
 }
 
 -(NSString*)getLastUser{

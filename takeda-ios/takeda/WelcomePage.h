@@ -12,6 +12,7 @@
 @property (nonatomic,retain) IBOutlet UILabel *welcome_text_1;
 @property (nonatomic,retain) IBOutlet UILabel *welcome_text_2;
 @property (nonatomic,retain) IBOutlet UILabel *welcome_text_3;
+@property (nonatomic,retain) IBOutlet UIButton *enterBtn;
 @property (nonatomic,strong) NSMutableDictionary *theUser;
 
 @property (nonatomic) BOOL is_loading;

@@ -31,12 +31,14 @@ NSMutableDictionary * dic_data;
     if (!dic_data) {
         dic_data = [[NSMutableDictionary alloc] init];
     }
-    [dic_data setObject:@"0" forKey:@"sex"]; // 0 - male, 1 - female
+//    [dic_data setObject:[[[UserData sharedObject] userData] objectForKey:@"sex"] forKey:@"sex"]; // 0 - male, 1 - female
+    [dic_data setObject:[self defValueFor:@"sex" standart:@"0"] forKey:@"sex"]; // 0 - male, 1 - female
+
     [dic_data setObject:@"-" forKey:@"old"];
     [dic_data setObject:@"" forKey:@"birthday"];
-    [dic_data setObject:@"-" forKey:@"growth"];
-    [dic_data setObject:@"-" forKey:@"weight"];
-    [dic_data setObject:@"0" forKey:@"smoke"];
+    [dic_data setObject:[self defValueFor:@"growth" standart:@"170"] forKey:@"growth"];
+    [dic_data setObject:[self defValueFor:@"weight" standart:@"70"] forKey:@"weight"];
+    [dic_data setObject:[self defValueFor:@"smoke" standart:@"0"] forKey:@"smoke"];
     [dic_data setObject:@"-" forKey:@"cholesterol"];
     [dic_data setObject:@"0" forKey:@"drags_cholesterol"];
     
@@ -55,9 +57,47 @@ NSMutableDictionary * dic_data;
     [dic_data setObject:@"-" forKey:@"salt"];
     [dic_data setObject:@"0" forKey:@"accept_drags_risk_trombus"];
     
+    [self setDefaultDateBirthday];
+}
+
+-(void)setDefaultDateBirthday{
+    if (User.userData[@"birthday"]) {
+        
+        NSDate *curDate = [Global parseDateTime: User.userData[@"birthday"]];
+        if (curDate) {
+            
+            [dic_data setObject:User.userData[@"birthday"] forKey:@"birthday"];
+            
+            NSDateComponents* agecalcul = [[NSCalendar currentCalendar]
+                                           components:NSYearCalendarUnit
+                                           fromDate:curDate
+                                           toDate:[NSDate date]
+                                           options:0];
+            //show the age as integer
+            NSInteger age = [agecalcul year];
+            [dic_data setObject:[NSString stringWithFormat:@"%i",(int)age] forKey:@"old"];
+            
+        }
+        
+    }
     
 }
 
+
+-(id)defValueFor:(NSString*)key standart:(NSString*)standartValue{
+    
+    if ([UserDefaults objectForKey:aKey(key)]){
+        return [UserDefaults objectForKey:aKey(key)];
+    }
+
+    return standartValue;
+}
+
+-(void)saveValue:(id)value forAnalizKey:(NSString*)key{
+    if (value!=nil&&![User checkForRole:tDoctor]){
+        [UserDefaults setObject:value forKey:aKey(key)];
+    }
+}
 
 -(NSMutableDictionary*)dicRiskData{
     return dic_data;
@@ -87,8 +127,6 @@ NSMutableDictionary * dic_data;
         return [NSMutableString stringWithString:object];
     return object;
 }
-
-
 
 
 -(NSArray*)getQuestionsDataUser{

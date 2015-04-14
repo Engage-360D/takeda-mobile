@@ -10,6 +10,11 @@
 
 @implementation NSString (MD5)
 
+- (NSString *)MD5{
+    return [self MD5String];
+}
+
+
 - (NSString *)MD5String {
     const char *cstr = [self UTF8String];
     unsigned char result[16];

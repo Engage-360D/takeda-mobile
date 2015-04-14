@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="bannerInfo" destination="zA0-rh-n80" id="7kA-v3-chc"/>
                 <outlet property="bannerInfoContainer" destination="Zih-WS-FrU" id="SJH-Sj-Uim"/>
+                <outlet property="commInfoBtn" destination="I9m-3I-ZXc" id="Ffz-o8-4vq"/>
                 <outlet property="indicator" destination="FXL-DY-qbS" id="IlS-PI-GVM"/>
                 <outlet property="note" destination="USv-OI-M7f" id="5v7-hx-kqz"/>
                 <outlet property="scrollView" destination="lSv-5I-2ep" id="Lgi-My-CGm"/>

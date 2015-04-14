@@ -17,16 +17,17 @@
 #import "GDefaultClusterRenderer.h"
 #import "ExProButton.h"
 
+#define kMaximumMyLocationSearchTime 8.0f
 
 @interface SearchInstitutionPage (){
 //    GMSMapView *mapView_;
     GMSCameraPosition *camera;
     GClusterManager *clusterManager_;
+    GMSPolyline *polyline;
     NSMutableArray *gsmMarkersList;
 
     NSMutableDictionary *selectedCity;
     NSMutableDictionary *selectedSpec;
-    NSMutableDictionary *selectedLPU;
 
     BOOL searchShowed;
     BOOL filterShowed;
@@ -34,8 +35,11 @@
     BOOL reloading;
     BOOL pullTorefreshVisible;
     BOOL firstLocationUpdate;
-    UIView *markerView;
+    BOOL myLocationUpdating;
+    BOOL routeIsShowing;
     
+    UIView *markerView;
+    CLLocation *myCurrentLocation;
     UIBarButtonItem *searchBtnItem;
     UIBarButtonItem *filterBtnItem;
 }
@@ -49,6 +53,8 @@
 @synthesize searchSpec;
 @synthesize filtrSpec;
 @synthesize searchContainer;
+@synthesize locMan;
+
 //@synthesize lpuList;
 @synthesize LPUArray;
 
@@ -68,19 +74,33 @@
 //    if ([UserDefaults valueForKey:@"lastCity"]){
 //        [self preloadCity:[UserDefaults valueForKey:@"lastCity"]];
 //    } else {
-        [mapView_ addObserver:self
-                   forKeyPath:@"myLocation"
-                      options:NSKeyValueObservingOptionNew
-                       context:NULL];
+    
+//        [mapView_ addObserver:self
+//                   forKeyPath:@"myLocation"
+//                      options:NSKeyValueObservingOptionNew
+//                       context:NULL];
+    
 //    }
-    [self showActivityIndicatorWithString:@"Определение местоположения"];
+    
 
     [self drawMap];
     [self initData];
 //    [self performSelector:@selector(scrollToMyLocation) withObject:nil afterDelay:1.0f];
-
-
+    
+    locMan = [CLLocationManager new];
+    locMan.delegate = self;
+    locMan.distanceFilter = kCLDistanceFilterNone;
+    locMan.desiredAccuracy = kCLLocationAccuracyBest;
+    if ([locMan respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locMan requestWhenInUseAuthorization];
+    } else {
+    if ([CLLocationManager authorizationStatus]!=kCLAuthorizationStatusNotDetermined){
+        [self prepareLocationManager];
+    }
+    }
+    
 }
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -126,6 +146,11 @@
     [self.tableView addSubview:_refreshHeaderView];
     [_refreshHeaderView refreshLastUpdatedDate];
     
+    _drawRouteBtn.layer.cornerRadius = _drawRouteBtn.height/2;
+    _drawRouteBtn.layer.borderColor = RGB(200, 200, 200).CGColor;
+    _drawRouteBtn.layer.borderWidth = 1.0f;
+    _drawRouteBtn.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.75f];
+
     _normZoomBtn.layer.cornerRadius = _normZoomBtn.height/2;
     _normZoomBtn.layer.borderColor = RGB(200, 200, 200).CGColor;
     _normZoomBtn.layer.borderWidth = 1.0f;
@@ -209,23 +234,194 @@
     
 }
 
+-(void)checkForLocationSearch{
+    if (myLocationUpdating){
+    [self removeActivityIdicator];
+    myLocationUpdating = NO;
+    [locMan stopUpdatingLocation];
+    CLLocation *currentLocation;
+        if (locMan.location){
+            currentLocation = locMan.location;
+        } else if (mapView_.myLocation){
+            currentLocation = mapView_.myLocation;
+        } else {
+            currentLocation = [self defaultLocation];
+        }
+        [self preloadCityForLocation:currentLocation];
+    }
+}
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if (!firstLocationUpdate) {
-        // If the first location update has not yet been recieved, then jump to that
-        // location.
-        firstLocationUpdate = YES;
-        CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
-        NSLog(@"My location is %@",location);
-        [self preloadCityForLocation:location];
+#pragma mark - Loction Manager delegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"loc man delegate success");
+    [self removeActivityIdicator];
+    myLocationUpdating = NO;
+    [locMan stopUpdatingLocation];
+    CLLocation *currentLocation;
+    if (locations.count>0){
+        currentLocation = [locations objectAtIndex:0];
+    } else {
+        NSLog(@"loc man delegate set default location");
+        currentLocation = [self defaultLocation];
+    }
+    NSLog(@"call preload location from loc Man delegete");
+
+    [self preloadCityForLocation:currentLocation];
+
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    myLocationUpdating = NO;
+    [locMan stopUpdatingLocation];
+    NSLog(@"call preload location from loc Man delegeteFailError");
+    [self preloadCityForLocation:[self defaultLocation]];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
+    if ([CLLocationManager authorizationStatus]==kCLAuthorizationStatusAuthorized||[CLLocationManager authorizationStatus]==kCLAuthorizationStatusAuthorizedWhenInUse){
+        [self prepareLocationManager];
+    }
+}
+
+#pragma mark - make routes
+
+
+-(void)setSelectedLPU:(NSMutableDictionary *)selectedLPU{
+    _selectedLPU = selectedLPU;
+    [self checkToMakeRoute];
+}
+
+-(IBAction)switchMakeRoute:(UIButton*)sender{
+    if (myCurrentLocation==nil){
+        sender.selected = NO;
+        [self removeRoute];
+        return;
+    }
+    sender.selected = !sender.selected;
+    [self checkToMakeRoute];
+
+}
+
+-(void)checkToMakeRoute{
+    if (_drawRouteBtn.selected){ // если отображение маршрута включено
+        if (_selectedLPU){
+            [self makeRoute];
+        } else {
+            [self removeRoute];
+        }
+    } else {                    // отображение маршрута выключено
+        [self removeRoute];
+    }
+}
+
+-(void)makeRoute{
+    NSMutableArray *waypoints = [NSMutableArray new];
+    NSMutableArray *waypointStrings = [NSMutableArray new];
+
+    if (_selectedLPU==nil){
+        [self removeRoute];
+        return;
+    }
+    
+    double lat = [_selectedLPU[@"lat"] doubleValue];
+    double lon = [_selectedLPU[@"lng"] doubleValue];
+    CLLocationCoordinate2D startPoint = mapView_.myLocation?mapView_.myLocation.coordinate:myCurrentLocation.coordinate;
+
+    CLLocation *lpUloc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+    
+    GMSMarker *startMarker = [GMSMarker markerWithPosition:myCurrentLocation.coordinate];
+    [waypoints addObject:startMarker];
+    GMSMarker *lpuMarker = [GMSMarker markerWithPosition:lpUloc.coordinate];
+    [waypoints addObject:lpuMarker];
+    
+    
+    NSString *startPositionString = [NSString stringWithFormat:@"%f,%f",startPoint.latitude,startPoint.longitude];
+    NSString *finishPositionString = [NSString stringWithFormat:@"%f,%f",lpuMarker.position.latitude,lpuMarker.position.longitude];
+
+    [waypointStrings addObject:startPositionString];
+    [waypointStrings addObject:finishPositionString];
+
+    if (waypoints.count > 1) {
+        NSDictionary *query = @{ @"sensor" : @"false",
+                                 @"waypoints" : waypointStrings };
+        MDDirectionService *mds = [[MDDirectionService alloc] init];
+        SEL selector = @selector(addDirections:);
+        [mds setDirectionsQuery:query
+                   withSelector:selector
+                   withDelegate:self];
+    }else{
+        NSLog(@"No route created");
+    }
+   // [self addMapAnnotation];
+}
+
+-(void)removeRoute{
+    polyline.map = nil;
+    polyline = nil;
+}
+
+-(void)addDirections:(NSDictionary *)json{
+    if ([json[@"status"] isEqualToString:@"ZERO_RESULTS"]||![json[@"routes"] isKindOfClass:[NSArray class]]||[json[@"routes"] count]==0){
+        return;
+    }
+    NSDictionary *routes = json[@"routes"][0];
+    NSDictionary *route = routes[@"overview_polyline"];
+    NSString *overview_route = route[@"points"];
+    GMSPath *path = [GMSPath pathFromEncodedPath:overview_route];
+    polyline.map = nil;
+    polyline = [GMSPolyline polylineWithPath:path];
+    polyline.strokeColor = RGB(154, 30, 241);
+    polyline.strokeWidth = 3.0f;
+    polyline.map = mapView_;
+    [self scrollToRouteSize];
+}
+
+-(void)scrollToRouteSize{
+    if (_selectedLPU==nil){
+        return;
+    }
+
+    double lat = [_selectedLPU[@"lat"] doubleValue];
+    double lon = [_selectedLPU[@"lng"] doubleValue];
+
+    CLLocation *lpUloc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+    GMSMarker *startMarker = [GMSMarker markerWithPosition: mapView_.myLocation?mapView_.myLocation.coordinate:myCurrentLocation.coordinate];
+    GMSMarker *lpuMarker = [GMSMarker markerWithPosition:lpUloc.coordinate];
+
+    CLLocationCoordinate2D firstLocation = startMarker.position;
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:firstLocation coordinate:firstLocation];
+    bounds = [bounds includingCoordinate:lpuMarker.position];
+    [mapView_ animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:50.0f]];
+
+    [self updateZoomSlider];
+
+}
+
+#pragma mark -
+
+-(void)prepareLocationManager{
+  //  if (myLocationUpdating) return;
+    NSLog(@"PrepareLocMan");
+    if (([CLLocationManager authorizationStatus]==kCLAuthorizationStatusAuthorized||[CLLocationManager authorizationStatus]==kCLAuthorizationStatusAuthorizedWhenInUse)&&[CLLocationManager locationServicesEnabled]){
+        [locMan startUpdatingLocation];
+        [self showActivityIndicatorWithString:@"Определение местоположения"];
+        myLocationUpdating = YES;
+        [self performSelector:@selector(checkForLocationSearch) withObject:nil afterDelay:kMaximumMyLocationSearchTime];
+        NSLog(@"init and start locMan");
+
+    } else {
+        NSLog(@"preloadDefault Location from prepare with loc error");
+
+        [self preloadCityForLocation:[self defaultLocation]];
     }
 }
 
 -(void)preloadCityForLocation:(CLLocation*) location{
+    myCurrentLocation = location;
     [GlobalData loadMyCityByLocation:location fromCashe:NO copml:^(BOOL success, id resultCity) {
+        [self removeActivityIdicator];
         if (success){
 //            [self showMessage:[NSString stringWithFormat:@"Ваш, или ближайший к Вам город - %@",resultCity] title:@"Вопрос" btns:@[@"Нет", @"Да"] result:^(int index) {
 //                [self removeActivityIdicator];
@@ -238,7 +434,6 @@
 //                    [self searchData:searchBtnItem];
 //                }
 //            }];
-                [self removeActivityIdicator];
             [self preloadCity:resultCity];
         }
     }];
@@ -247,9 +442,22 @@
     
 }
 
+-(CLLocation*)defaultLocation{
+    // return Moscow location
+    return [[CLLocation alloc] initWithLatitude:55.754816 longitude:37.629748];
+}
+
 -(void)preloadCity:(NSString*)cityName{
-    searchSpec.text = kSpecAutoSearchLPU;
-    selectedSpec = [NSMutableDictionary dictionaryWithObject:kSpecAutoSearchLPU forKey:@"name"];
+    NSString *sSpec;
+    NSArray *specArr = [GData specializationsTerm:@""];
+    if (specArr.count>0){
+        sSpec = specArr[0][@"name"];
+    } else {
+        sSpec = kSpecAutoSearchLPU;
+    }
+    
+    searchSpec.text = sSpec;
+    selectedSpec = [NSMutableDictionary dictionaryWithObject:sSpec forKey:@"name"];
     selectedCity = [NSMutableDictionary dictionaryWithObject:cityName forKey:@"name"];
     searchCity.text = cityName;
     searchShowed = NO;
@@ -327,7 +535,7 @@
 }
 
 -(void)filtrSpecChangeBlock:(NSString*)text forSender:(UITextFieldAutocompl*)txtField{
-    selectedLPU = nil;
+    self.selectedLPU = nil;
     
     LPUArray.filtK = @"name";
     LPUArray.filter = filtrSpec.text;
@@ -342,8 +550,8 @@
         }
         case 1:{
             [self.tableView reloadData];
-            if (selectedLPU){
-                int index = [selectedLPU[@"indexPath"] intValue];
+            if (_selectedLPU){
+                int index = [_selectedLPU[@"indexPath"] intValue];
                 [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
             }
             break;
@@ -377,9 +585,11 @@
             self.mapContainer.hidden = YES;
             self.tableContainer.hidden = NO;
             [self.tableView reloadData];
-            if (selectedLPU){
-                int index = [selectedLPU[@"indexPath"] intValue];
-                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+            if (_selectedLPU){
+                int index = [_selectedLPU[@"indexPath"] intValue];
+                if (!outOfBounds(index, self.lpuList)){
+                    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+                }
             }
 
             break;
@@ -478,6 +688,8 @@
     mapView_.delegate = clusterManager_;
 
     mapView_.myLocationEnabled = YES;
+    
+    
     //self.mapContainer = mapView_;
   //  [self.mapContainer addSubview:mapView_];
 }
@@ -522,7 +734,7 @@
         marker.snippet = place[@"address"];
         marker.icon = [UIImage imageNamed:@"gMarker"];
         marker.userData = place;
-        if (place == selectedLPU){
+        if (place == _selectedLPU){
             selMarker = marker;
         }
         // marker.map = mapView_;
@@ -619,10 +831,11 @@
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
 //    self.calloutView.hidden = YES;
-    selectedLPU = nil;
+    self.selectedLPU = nil;
 }
 
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+
     [mapView animateToLocation:marker.position];
     if ([marker.userData hasKey:@"clusterItems"]){
         
@@ -636,7 +849,7 @@
 
 -(void)changeSelected:(NSMutableDictionary*)userInfo{
     int index = [userInfo[@"indexPath"] intValue];
-    selectedLPU = userInfo;
+    self.self.selectedLPU = userInfo;
     
     switch (self.listMapSwitch.selectedSegmentIndex) {
         case 0:{
@@ -716,9 +929,9 @@
     
     cell.rightArrow.info = menu;
     [cell.rightArrow addTarget:self action:@selector(openLpuFromTable:) forControlEvents:UIControlEventTouchUpInside];
+    cell.rightArrow.userInteractionEnabled = YES;
     
-    
-//    if (selectedLPU == menu){
+//    if (self.selectedLPU == menu){
 //        [cell setSelected:YES animated:NO];
 //       // cell.backgroundColor = RGB(200, 200, 200);
 //    } else {
@@ -736,8 +949,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    // [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (selectedLPU == self.lpuList[indexPath.row]){
-        selectedLPU = nil;
+    if (self.selectedLPU == self.lpuList[indexPath.row]){
+        self.selectedLPU = nil;
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         mapView_.selectedMarker = nil;
     } else {
