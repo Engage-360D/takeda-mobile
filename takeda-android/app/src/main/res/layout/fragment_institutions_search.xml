@@ -83,13 +83,12 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center">
 
             <FrameLayout
                 android:id="@+id/frameLayoutMapHolder"
@@ -101,7 +100,7 @@
                 android:id="@+id/customSwipeRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
+                android:visibility="invisible">
 
                 <ListView
                     android:id="@+id/listViewInstitutions"
@@ -112,7 +111,7 @@
 
             </ru.com.cardiomagnyl.widget.CustomSwipeRefreshLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <include

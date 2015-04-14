@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.AutoCompleteTextView;
+import android.widget.ListAdapter;
+
+import ru.com.cardiomagnyl.ui.slidingmenu.content.institution.CustomArrayAdapter;
 
 public class CustomAutoCompleteTextView extends AutoCompleteTextView {
 
@@ -37,6 +40,13 @@ public class CustomAutoCompleteTextView extends AutoCompleteTextView {
 
     public void publicPerformFiltering(CharSequence text, int keyCode) {
         performFiltering(text, keyCode);
+    }
+
+    public void clear() {
+        CustomArrayAdapter adapter = (CustomArrayAdapter) getAdapter();
+        setAdapter(null);
+        setText("");
+        setAdapter(adapter);
     }
 
 }

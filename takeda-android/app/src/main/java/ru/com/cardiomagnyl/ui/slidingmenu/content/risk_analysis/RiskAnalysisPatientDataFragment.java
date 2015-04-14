@@ -190,12 +190,12 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
                 resultString += parentView.getContext().getString(R.string.error_test_age);
             }
 
-            if (growth < 30 || growth > 300) {
+            if (growth < 150 || growth > 300) {
                 resultString += resultString.isEmpty() ? "" : "\n";
                 resultString += parentView.getContext().getString(R.string.error_test_growth);
             }
 
-            if (weight < 30 || weight > 700) {
+            if (weight < 45 || weight > 700) {
                 resultString += resultString.isEmpty() ? "" : "\n";
                 resultString += parentView.getContext().getString(R.string.error_test_weight);
             }
