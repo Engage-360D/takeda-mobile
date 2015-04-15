@@ -1,13 +1,17 @@
 package ru.com.cardiomagnyl.util;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
-import android.view.MotionEvent;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,6 +34,7 @@ import ru.com.cardiomagnyl.model.social.SocialNetworks;
 import ru.com.cardiomagnyl.model.user.User;
 import ru.com.cardiomagnyl.ui.slidingmenu.content.personal_cabinet.CabinetDataFragment;
 import ru.com.cardiomagnyl.ui.start.RegistrationFragment;
+import ru.com.cardiomagnyl.widget.CustomDialogLayout;
 import ru.com.cardiomagnyl.widget.CustomOnDateSetListener;
 import ru.com.cardiomagnyl.widget.CustomRangeSpinnerAdapter;
 import ru.com.cardiomagnyl.widget.CustomSpinnerAdapter;
@@ -104,11 +109,11 @@ public final class ProfileHelper {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
 
-        textViewBirthDateValue.setOnTouchListener(new View.OnTouchListener() {
+        textViewBirthDateValue.setOnClickListener(new View.OnClickListener() {
             private boolean datePickerDialogIsStarted = false;
 
             @Override
-            public boolean onTouch(View paramView, MotionEvent paramMotionEvent) {
+            public void onClick(View v) {
                 if (!datePickerDialogIsStarted) {
                     datePickerDialogIsStarted = true;
 
@@ -138,8 +143,64 @@ public final class ProfileHelper {
                         }
                     });
                 }
+            }
+        });
+    }
 
-                return false;
+    public static void initTextViewWithNumberPicker(final TextView textViewBirthDateValue,
+                                                    final int minValue,
+                                                    final int maxValue,
+                                                    final int startValue,
+                                                    final String description) {
+        int size = maxValue - minValue + 1;
+        String values[] = new String[size];
+        for (int i = 0; i < size; ++i) values[i] = String.valueOf(i + minValue) + " " + description;
+
+        final Context context = textViewBirthDateValue.getContext();
+        final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.CENTER;
+        final NumberPicker numberPicker = new NumberPicker(context);
+        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        numberPicker.setLayoutParams(layoutParams);
+        numberPicker.setDisplayedValues(values);
+        numberPicker.setMinValue(minValue);
+        numberPicker.setMaxValue(maxValue);
+        numberPicker.setValue(startValue);
+
+        CustomDialogLayout customDialogLayout = new CustomDialogLayout
+                .Builder(context)
+                .setBody(numberPicker)
+                .addButton(R.string.close, CustomDialogLayout.DialogStandardAction.dismiss)
+                .addButton(R.string.save, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        textViewBirthDateValue.setText(String.valueOf(numberPicker.getValue()) + " " + description);
+                        textViewBirthDateValue.setTag(numberPicker.getValue());
+                    }
+                })
+                .create();
+
+        final AlertDialog numberPickerDialog = new AlertDialog
+                .Builder(context)
+                .setView(customDialogLayout)
+                .create();
+        customDialogLayout.setParentDialog(numberPickerDialog);
+
+        textViewBirthDateValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus && !numberPickerDialog.isShowing()) {
+                    numberPickerDialog.show();
+                }
+            }
+        });
+
+        textViewBirthDateValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!numberPickerDialog.isShowing()) {
+                    numberPickerDialog.show();
+                }
             }
         });
     }

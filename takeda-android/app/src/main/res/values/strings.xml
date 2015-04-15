@@ -31,12 +31,12 @@
     <string name="results_main_risks">Основные риски</string>
     <string name="results_diet">Диета</string>
     <string name="results_error">Не удалось получить результат.\nПожалуйста, попробуйте пройти тест позже.</string>
-    <string name="error_test_pressure">Давление может иметь значение от 80 до 200.</string>
-    <string name="error_test_activity">Физическая активность может иметь значение от 80 до 200.</string>
+    <string name="error_test_pressure">Давление может иметь значение от %1$d до %2$d.</string>
+    <string name="error_test_activity">Физическая активность может иметь значение от %1$d до %2$d.</string>
     <string name="error_test_age">Исправьте значение возраста.</string>
-    <string name="error_test_growth">Рост может иметь значение от 150 до 300.</string>
-    <string name="error_test_weight">Вес может иметь значение от 45 до 700.</string>
-    <string name="error_test_cholesterol_level">Уровень общего холестерина может иметь значение от 3 до 9.\nОтметьте \"Не знаю\", если уровень не известен.</string>
+    <string name="error_test_growth">Рост может иметь значение от %1$d до %2$d.</string>
+    <string name="error_test_weight">Вес может иметь значение от %1$d до %2$d.</string>
+    <string name="error_test_cholesterol_level">Уровень общего холестерина может иметь значение от %1$d до %2$d.\nОтметьте \"Не знаю\", если уровень не известен.</string>
 
     <!-- ====== -->
     <!-- common -->

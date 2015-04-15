@@ -237,17 +237,17 @@ public class Task extends BaseModel {
         return nodeResult;
     }
 
-    public static ObjectNode createResult(Type type, String value) {
+    public static ObjectNode createResult(Type type, Integer value) {
         ObjectNode nodeResult = JsonNodeFactory.instance.objectNode();
         switch (type) {
             case exercise:
-                nodeResult.put("exerciseMins", Integer.valueOf(value));
+                nodeResult.put("exerciseMins", value);
                 break;
             case weight:
-                nodeResult.put("weight", Integer.valueOf(value));
+                nodeResult.put("weight", value);
                 break;
             case arterialPressure:
-                nodeResult.put("arterialPressure", Integer.valueOf(value));
+                nodeResult.put("arterialPressure", value);
                 break;
             case cholesterol:
                 break;

@@ -95,8 +95,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:clickable="true"
                     android:gravity="center_vertical|right"
-                    android:inputType="date"
+                    android:hint="@string/birth_date"
                     android:minWidth="@dimen/control_medium"
                     android:textColor="@color/text_main_38" />
 
@@ -115,23 +116,24 @@
 
             <RelativeLayout style="@style/LinearLayoutItemLarge">
 
-                <EditText
-                    android:id="@+id/editTextHeigh"
+                <TextView
+                    android:id="@+id/textViewHeigh"
+                    style="@android:style/Widget.EditText"
                     android:layout_width="@dimen/control_medium"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:clickable="true"
                     android:ems="10"
                     android:gravity="center_vertical|right"
-                    android:hint="@string/data_height_hint"
-                    android:inputType="number" />
+                    android:hint="@string/data_height_hint" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/editTextHeigh"
+                    android:layout_toLeftOf="@id/textViewHeigh"
                     android:text="@string/data_height"
                     android:textColor="@color/text_main_38"
                     android:textSize="@dimen/text_size_small" />

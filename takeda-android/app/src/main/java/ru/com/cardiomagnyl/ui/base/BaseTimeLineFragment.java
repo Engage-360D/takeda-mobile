@@ -27,6 +27,10 @@ import java.util.Map;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppSharedPreferences;
 import ru.com.cardiomagnyl.application.AppState;
+import ru.com.cardiomagnyl.application.Constants.ArterialPressure;
+import ru.com.cardiomagnyl.application.Constants.CholesterolLevel;
+import ru.com.cardiomagnyl.application.Constants.PhysicalActivity;
+import ru.com.cardiomagnyl.application.Constants.Weight;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.model.pill.Pill;
 import ru.com.cardiomagnyl.model.pill.PillDao;
@@ -40,6 +44,7 @@ import ru.com.cardiomagnyl.model.user.UserDao;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.Callback;
 import ru.com.cardiomagnyl.util.CallbackOne;
+import ru.com.cardiomagnyl.util.ProfileHelper;
 import ru.com.cardiomagnyl.util.TimelineComparator;
 import ru.com.cardiomagnyl.util.Tools;
 import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
@@ -228,8 +233,8 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 tryToSaveHelper(task, Task.createResult(Task.Type.diet, radioButtonFollowDiet.isChecked()), token);
                 break;
             case exercise:
-                EditText editTextPhysicalActivity = (EditText) dialogBodyView.findViewById(R.id.editTextPhysicalActivity);
-                tryToSaveHelper(task, Task.createResult(Task.Type.exercise, editTextPhysicalActivity.getText().toString()), token);
+                TextView textViewPhysicalActivity = (TextView) dialogBodyView.findViewById(R.id.textViewPhysicalActivity);
+                tryToSaveHelper(task, Task.createResult(Task.Type.exercise, (Integer) textViewPhysicalActivity.getTag()), token);
                 break;
             case pill:
                 RadioButton radioButtonPillsTaken = (RadioButton) dialogBodyView.findViewById(R.id.radioButtonPillsTaken);
@@ -240,16 +245,16 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 tryToSaveHelper(task, Task.createResult(Task.Type.smoking, radioButtonSmoke.isChecked()), token);
                 break;
             case weight:
-                EditText editTextWeight = (EditText) dialogBodyView.findViewById(R.id.editTextWeight);
-                tryToSaveHelper(task, Task.createResult(Task.Type.weight, editTextWeight.getText().toString()), token);
+                TextView textViewWeight = (TextView) dialogBodyView.findViewById(R.id.textViewWeight);
+                tryToSaveHelper(task, Task.createResult(Task.Type.weight, (Integer) textViewWeight.getTag()), token);
                 break;
             case arterialPressure:
-                EditText editTextPressure = (EditText) dialogBodyView.findViewById(R.id.editTextPressure);
-                tryToSaveHelper(task, Task.createResult(Task.Type.arterialPressure, editTextPressure.getText().toString()), token);
+                TextView textViewPressure = (TextView) dialogBodyView.findViewById(R.id.textViewPressure);
+                tryToSaveHelper(task, Task.createResult(Task.Type.arterialPressure, (Integer) textViewPressure.getTag()), token);
                 break;
             case cholesterol:
-                EditText editTextCholesterol = (EditText) dialogBodyView.findViewById(R.id.editTextCholesterol);
-                tryToSaveHelper(task, Task.createResult(Task.Type.cholesterol, editTextCholesterol.getText().toString()), token);
+                TextView textViewCholesterol = (TextView) dialogBodyView.findViewById(R.id.textViewCholesterol);
+                tryToSaveHelper(task, Task.createResult(Task.Type.cholesterol, (Integer) textViewCholesterol.getTag()), token);
                 break;
         }
     }
@@ -402,8 +407,8 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 break;
             case exercise:
                 dialogBodyView = View.inflate(context, R.layout.layout_ask_physical_activity, null);
-                EditText editTextPhysicalActivity = (EditText) dialogBodyView.findViewById(R.id.editTextPhysicalActivity);
-                initDialogBody(editTextPhysicalActivity, buttonSave);
+                TextView textViewPhysicalActivity = (TextView) dialogBodyView.findViewById(R.id.textViewPhysicalActivity);
+                initDialogBody(textViewPhysicalActivity, buttonSave, PhysicalActivity.MIN, PhysicalActivity.MAX, PhysicalActivity.INIT, context.getString(R.string.physical_activities_hint));
                 break;
             case pill:
                 dialogBodyView = View.inflate(context, R.layout.layout_ask_pills_named, null);
@@ -417,18 +422,18 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
                 break;
             case weight:
                 dialogBodyView = View.inflate(context, R.layout.layout_ask_weight, null);
-                EditText editTextWeight = (EditText) dialogBodyView.findViewById(R.id.editTextWeight);
-                initDialogBody(editTextWeight, buttonSave);
+                TextView textViewWeight = (TextView) dialogBodyView.findViewById(R.id.textViewWeight);
+                initDialogBody(textViewWeight, buttonSave, Weight.MIN, Weight.MAX, Weight.INIT, context.getString(R.string.data_weight_hint));
                 break;
             case arterialPressure:
                 dialogBodyView = View.inflate(context, R.layout.layout_ask_pressure, null);
-                EditText editTextPressure = (EditText) dialogBodyView.findViewById(R.id.editTextPressure);
-                initDialogBody(editTextPressure, buttonSave);
+                TextView textViewPressure = (TextView) dialogBodyView.findViewById(R.id.textViewPressure);
+                initDialogBody(textViewPressure, buttonSave, ArterialPressure.MIN, ArterialPressure.MAX, ArterialPressure.INIT, context.getString(R.string.arterial_pressure_hint));
                 break;
             case cholesterol:
                 dialogBodyView = View.inflate(context, R.layout.layout_ask_cholesterol, null);
-                EditText editTextCholesterol = (EditText) dialogBodyView.findViewById(R.id.editTextCholesterol);
-                initDialogBody(editTextCholesterol, buttonSave);
+                TextView textViewCholesterol = (TextView) dialogBodyView.findViewById(R.id.textViewCholesterol);
+                initDialogBody(textViewCholesterol, buttonSave, CholesterolLevel.MIN, CholesterolLevel.MAX, CholesterolLevel.INIT, context.getString(R.string.data_cholesterol_hint));
                 break;
         }
 
@@ -438,6 +443,30 @@ public abstract class BaseTimeLineFragment extends BaseItemFragment implements S
         }
 
         return dialogBodyView;
+    }
+
+    private void initDialogBody(final TextView textView,
+                                final Button buttonSave,
+                                final int minValue,
+                                final int maxValue,
+                                final int startValue,
+                                final String description) {
+        ProfileHelper.initTextViewWithNumberPicker(textView, minValue, maxValue, startValue, description);
+
+        textView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                buttonSave.setEnabled(s.length() > 0);
+            }
+        });
     }
 
     private void initDialogBody(final EditText editText, final Button buttonSave) {

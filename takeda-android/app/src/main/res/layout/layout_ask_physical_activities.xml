@@ -1,23 +1,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/LinearLayoutItemLarge">
 
-    <EditText
-        android:id="@+id/editTextPhysicalActivity"
-        android:layout_width="@dimen/control_medium"
+    <TextView
+        android:id="@+id/textViewPhysicalActivity"
+        style="@android:style/Widget.EditText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:ems="10"
+        android:clickable="true"
         android:gravity="center_vertical|right"
         android:hint="@string/physical_activities_hint"
-        android:inputType="number" />
+        android:minWidth="@dimen/control_medium" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/editTextPhysicalActivity"
+        android:layout_toLeftOf="@id/textViewPhysicalActivity"
         android:text="@string/physical_activities"
         android:textColor="@color/text_main_38"
         android:textSize="@dimen/text_size_small" />

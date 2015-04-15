@@ -1,12 +1,12 @@
 package ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -17,9 +17,12 @@ import android.widget.ToggleButton;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.Constants;
+import ru.com.cardiomagnyl.application.Constants.ArterialPressure;
+import ru.com.cardiomagnyl.application.Constants.PhysicalActivity;
 import ru.com.cardiomagnyl.model.test.TestSource;
 import ru.com.cardiomagnyl.ui.base.BaseRiskAnalysis;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
+import ru.com.cardiomagnyl.util.ProfileHelper;
 import ru.com.cardiomagnyl.util.Tools;
 
 public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
@@ -38,23 +41,27 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
         initTopBarMenuBellCabinet(viewGroupTopBar, userIsDoctor, userIsDoctor, userIsDoctor);
     }
 
-    private void initFragment(View view) {
-        initTabs(view, 1);
+    private void initFragment(View fragmentView) {
+        initTabs(fragmentView, 1);
 
-        RadioGroup radioGroupDiabetes = (RadioGroup) view.findViewById(R.id.radioGroupDiabetes);
+        TextView textViewPressure = (TextView) parentView.findViewById(R.id.textViewPressure);
+        TextView textViewPhysicalActivity = (TextView) parentView.findViewById(R.id.textViewPhysicalActivity);
+        RadioGroup radioGroupDiabetes = (RadioGroup) fragmentView.findViewById(R.id.radioGroupDiabetes);
         final int toggleButtonNotDiabetes = parentView.findViewById(R.id.toggleButtonNotDiabetes).getId();
-        final View layoutSugarProblems = view.findViewById(R.id.layoutSugarProblems);
-        RadioGroup radioGroupSugarProblems = (RadioGroup) view.findViewById(R.id.radioGroupSugarProblems);
-        final View layoutDiabeticMedicines = view.findViewById(R.id.layoutDiabeticMedicines);
-        RadioGroup radioGroupDiabeticMedicines = (RadioGroup) view.findViewById(R.id.radioGroupDiabeticMedicines);
-//        final RelativeLayout relativeLayoutHypertonicMedicines = (RelativeLayout) view.findViewById(R.id.relativeLayoutHypertonicMedicines);
-//        SeekBarWithValues seekBarWithValuesPressure = (SeekBarWithValues) parentView.findViewById(R.id.seekBarWithValuesPressure);
-        RadioGroup radioGroupHypertonicMedicines = (RadioGroup) view.findViewById(R.id.radioGroupHypertonicMedicines);
-        RadioGroup radioGroupInfarctionStroke = (RadioGroup) view.findViewById(R.id.radioGroupInfarctionStroke);
-        ImageView imageViewBottomInsideLeft = (ImageView) view.findViewById(R.id.imageViewBottomInsideLeft);
-        TextView textViewBottomInsideAction = (TextView) view.findViewById(R.id.textViewBottomInsideAction);
-        ImageView imageViewBottomInsideRight = (ImageView) view.findViewById(R.id.imageViewBottomInsideRight);
-        View layoutBottomInside = view.findViewById(R.id.layoutBottomInside);
+        final View layoutSugarProblems = fragmentView.findViewById(R.id.layoutSugarProblems);
+        RadioGroup radioGroupSugarProblems = (RadioGroup) fragmentView.findViewById(R.id.radioGroupSugarProblems);
+        final View layoutDiabeticMedicines = fragmentView.findViewById(R.id.layoutDiabeticMedicines);
+        RadioGroup radioGroupDiabeticMedicines = (RadioGroup) fragmentView.findViewById(R.id.radioGroupDiabeticMedicines);
+        RadioGroup radioGroupHypertonicMedicines = (RadioGroup) fragmentView.findViewById(R.id.radioGroupHypertonicMedicines);
+        RadioGroup radioGroupInfarctionStroke = (RadioGroup) fragmentView.findViewById(R.id.radioGroupInfarctionStroke);
+        ImageView imageViewBottomInsideLeft = (ImageView) fragmentView.findViewById(R.id.imageViewBottomInsideLeft);
+        TextView textViewBottomInsideAction = (TextView) fragmentView.findViewById(R.id.textViewBottomInsideAction);
+        ImageView imageViewBottomInsideRight = (ImageView) fragmentView.findViewById(R.id.imageViewBottomInsideRight);
+        View layoutBottomInside = fragmentView.findViewById(R.id.layoutBottomInside);
+
+        Context context = fragmentView.getContext();
+        ProfileHelper.initTextViewWithNumberPicker(textViewPressure, ArterialPressure.MIN, ArterialPressure.MAX, ArterialPressure.INIT, context.getString(R.string.arterial_pressure_hint));
+        ProfileHelper.initTextViewWithNumberPicker(textViewPhysicalActivity, PhysicalActivity.MIN, PhysicalActivity.MAX, PhysicalActivity.INIT, context.getString(R.string.physical_activities_hint));
 
         radioGroupDiabetes.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
@@ -73,19 +80,6 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
 
         radioGroupSugarProblems.setOnCheckedChangeListener(Tools.ToggleListener);
         radioGroupDiabeticMedicines.setOnCheckedChangeListener(Tools.ToggleListener);
-
-//        seekBarWithValuesPressure.setOnProgressChangedListener(new OnProgressChangedListener() {
-//
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int actualProgress, boolean fromUser) {
-//                if (actualProgress >= 140) {
-//                    relativeLayoutHypertonicMedicines.setVisibility(View.VISIBLE);
-//                } else {
-//                    relativeLayoutHypertonicMedicines.setVisibility(View.GONE);
-//                }
-//            }
-//
-//        });
 
         radioGroupHypertonicMedicines.setOnCheckedChangeListener(Tools.ToggleListener);
         radioGroupInfarctionStroke.setOnCheckedChangeListener(Tools.ToggleListener);
@@ -125,34 +119,34 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
     }
 
     private String pickTestIncomingFields(TestSource testSource) {
+        TextView textViewPressure = (TextView) parentView.findViewById(R.id.textViewPressure);
+        TextView textViewPhysicalActivity = (TextView) parentView.findViewById(R.id.textViewPhysicalActivity);
         ToggleButton toggleButtonDiabetes = (ToggleButton) parentView.findViewById(R.id.toggleButtonDiabetes);
         ToggleButton toggleButtonNotDiabetes = (ToggleButton) parentView.findViewById(R.id.toggleButtonNotDiabetes);
         ToggleButton toggleButtonSugarProblems = (ToggleButton) parentView.findViewById(R.id.toggleButtonSugarProblems);
         ToggleButton toggleButtonDiabeticMedicines = (ToggleButton) parentView.findViewById(R.id.toggleButtonDiabeticMedicines);
-        EditText editTextPressure = (EditText) parentView.findViewById(R.id.editTextPressure);
         ToggleButton toggleButtonHypertonicMedicines = (ToggleButton) parentView.findViewById(R.id.toggleButtonHypertonicMedicines);
-        EditText editTextPhysicalActivity = (EditText) parentView.findViewById(R.id.editTextPhysicalActivity);
         ToggleButton toggleButtonInfarctionStroke = (ToggleButton) parentView.findViewById(R.id.toggleButtonInfarctionStroke);
         ToggleButton toggleButtonNoInfarctionStroke = (ToggleButton) parentView.findViewById(R.id.toggleButtonNoInfarctionStroke);
 
         String resultString = "";
 
         try {
+            Integer arterialPressure = (Integer) textViewPressure.getTag();
+            Integer physicalActivity = (Integer) textViewPhysicalActivity.getTag();
             Boolean diabetes = toggleButtonDiabetes.isChecked() || toggleButtonNotDiabetes.isChecked() ? toggleButtonDiabetes.isChecked() : null;
             Boolean sugarProblems = toggleButtonSugarProblems.isChecked();
             Boolean sugarDrugs = toggleButtonDiabeticMedicines.isChecked();
-            Integer arterialPressure = editTextPressure.length() != 0 ? Integer.parseInt(String.valueOf(editTextPressure.getText().toString())) : null;
             Boolean arterialPressureDrugs = toggleButtonHypertonicMedicines.isChecked();
-            Integer physicalActivity = editTextPhysicalActivity.length() != 0 ? Integer.parseInt(String.valueOf(editTextPhysicalActivity.getText().toString())) : null;
             Boolean HeartAttackOrStroke = toggleButtonInfarctionStroke.isChecked() || toggleButtonNoInfarctionStroke.isChecked() ? toggleButtonInfarctionStroke.isChecked() : null;
 
-            if (arterialPressure < 80 || arterialPressure > 200) {
-                resultString += parentView.getContext().getString(R.string.error_test_pressure);
+            if (arterialPressure == null || (arterialPressure < ArterialPressure.MIN || arterialPressure > ArterialPressure.MAX)) {
+                resultString += String.format(parentView.getContext().getString(R.string.error_test_pressure), ArterialPressure.MIN, ArterialPressure.MAX);
             }
 
-            if (physicalActivity < 80 || physicalActivity > 200) {
+            if (physicalActivity == null || (physicalActivity < PhysicalActivity.MIN || physicalActivity > PhysicalActivity.MAX)) {
                 resultString += resultString.isEmpty() ? "" : "\n";
-                resultString += parentView.getContext().getString(R.string.error_test_activity);
+                resultString += String.format(parentView.getContext().getString(R.string.error_test_activity), PhysicalActivity.MIN, PhysicalActivity.MAX);
             }
 
             if (resultString.isEmpty()) {
@@ -179,4 +173,5 @@ public class RiskAnalysisPatientHistoryFragment extends BaseRiskAnalysis {
             slidingMenuActivity.replaceContentOnTop(fragment, false);
         }
     }
+
 }

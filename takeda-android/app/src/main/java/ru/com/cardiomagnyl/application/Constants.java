@@ -41,4 +41,36 @@ public class Constants {
     //
     //
     // -------------------------------------
+
+    public final static class Growth {
+        public final static int MIN = 30;
+        public final static int MAX = 300;
+        public final static int INIT = 170;
+    }
+
+
+    public final static class Weight {
+        public final static int MIN = 30;
+        public final static int MAX = 700;
+        public final static int INIT = 70;
+    }
+
+    public final static class CholesterolLevel {
+        public final static int MIN = 3;
+        public final static int MAX = 9;
+        public final static int INIT = 3;
+    }
+
+    public final static class ArterialPressure {
+        public final static int MIN = 80;
+        public final static int MAX = 200;
+        public final static int INIT = 120;
+    }
+
+    public final static class PhysicalActivity {
+        public final static int MIN = 80;
+        public final static int MAX = 200;
+        public final static int INIT = 120;
+    }
+
 }
