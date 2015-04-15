@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
@@ -8,18 +9,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/plate_medium"
-        android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/space_medium"
         android:layout_marginRight="@dimen/space_medium"
+        android:gravity="center_vertical"
         android:text="@string/additional_information"
         android:textColor="@color/text_main_41"
         android:textSize="@dimen/text_size_medium" />
 
     <LinearLayout
-        android:layout_height="@dimen/plate_large"
         android:layout_width="match_parent"
-        android:layout_marginRight="@dimen/space_medium"
-        android:layout_marginLeft="@dimen/space_medium">
+        android:layout_height="@dimen/plate_large"
+        android:layout_marginLeft="@dimen/space_medium"
+        android:layout_marginRight="@dimen/space_medium">
 
         <EditText
             android:id="@+id/editTextSpecializationName"
@@ -35,10 +36,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/plate_medium"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/space_small"
         android:layout_marginLeft="@dimen/space_medium"
         android:layout_marginRight="@dimen/space_medium"
-        android:layout_marginBottom="@dimen/space_small"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -63,26 +64,27 @@
     <View style="@style/divider_normal_1_3" />
 
     <LinearLayout
-        android:layout_height="@dimen/plate_large"
         android:layout_width="match_parent"
-        android:layout_marginRight="@dimen/space_medium"
-        android:layout_marginLeft="@dimen/space_medium">
+        android:layout_height="@dimen/plate_large"
+        android:layout_marginLeft="@dimen/space_medium"
+        android:layout_marginRight="@dimen/space_medium">
 
-        <EditText
+        <br.com.sapereaude.maskedEditText.MaskedEditText
             android:id="@+id/editTextSpecializationInstitutionPhone"
             style="@style/EditText"
-            android:hint="@string/specialization_institution_phone"
-            android:inputType="phone" />
+            android:inputType="phone"
+            mask:mask="(###) ###-##-##"
+            mask:mask_fill="_" />
 
     </LinearLayout>
 
     <View style="@style/divider_normal_1_3" />
 
     <LinearLayout
-        android:layout_height="@dimen/plate_large"
         android:layout_width="match_parent"
-        android:layout_marginRight="@dimen/space_medium"
-        android:layout_marginLeft="@dimen/space_medium">
+        android:layout_height="@dimen/plate_large"
+        android:layout_marginLeft="@dimen/space_medium"
+        android:layout_marginRight="@dimen/space_medium">
 
         <EditText
             android:id="@+id/editTextSpecializationInstitutionName"
@@ -95,15 +97,43 @@
     <View style="@style/divider_normal_1_3" />
 
     <LinearLayout
-        android:layout_height="@dimen/plate_large"
         android:layout_width="match_parent"
-        android:layout_marginRight="@dimen/space_medium"
-        android:layout_marginLeft="@dimen/space_medium">
+        android:layout_height="@dimen/plate_large"
+        android:layout_marginLeft="@dimen/space_medium"
+        android:layout_marginRight="@dimen/space_medium">
 
         <EditText
-            android:id="@+id/editTextSpecializationInstitutionAddress"
+            android:id="@+id/editTextSpecializationInstitutionTown"
             style="@style/EditText"
-            android:hint="@string/specialization_institution_address"
+            android:hint="@string/specialization_institution_town"
+            android:inputType="textPostalAddress" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/plate_large"
+        android:layout_marginLeft="@dimen/space_medium"
+        android:layout_marginRight="@dimen/space_medium">
+
+        <EditText
+            android:id="@+id/editTextSpecializationInstitutionStreet"
+            style="@style/EditText"
+            android:hint="@string/specialization_institution_street"
+            android:inputType="textPostalAddress" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/plate_large"
+        android:layout_marginLeft="@dimen/space_medium"
+        android:layout_marginRight="@dimen/space_medium">
+
+        <EditText
+            android:id="@+id/editTextSpecializationInstitutionHouse"
+            style="@style/EditText"
+            android:hint="@string/specialization_institution_house"
             android:inputType="textPostalAddress" />
 
     </LinearLayout>
@@ -114,9 +144,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/plate_medium"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/space_medium"
         android:layout_marginRight="@dimen/space_medium"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView

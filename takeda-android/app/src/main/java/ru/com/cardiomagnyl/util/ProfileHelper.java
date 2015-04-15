@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.sapereaude.maskedEditText.MaskedEditText;
 import ru.com.cardiomagnyl.app.R;
 import ru.com.cardiomagnyl.application.AppState;
 import ru.com.cardiomagnyl.application.CardiomagnylApplication;
@@ -56,7 +57,9 @@ public final class ProfileHelper {
     private static final int[] mRequiredEditTextCommonDoctor = new int[]{
             R.id.editTextSpecializationName,
             R.id.editTextSpecializationInstitutionName,
-            R.id.editTextSpecializationInstitutionAddress,
+            R.id.editTextSpecializationInstitutionTown,
+            R.id.editTextSpecializationInstitutionStreet,
+            R.id.editTextSpecializationInstitutionHouse,
             R.id.editTextSpecializationInstitutionPhone
     };
 
@@ -463,8 +466,10 @@ public final class ProfileHelper {
 
             EditText editTextSpecializationName = (EditText) frafmentView.findViewById(R.id.editTextSpecializationName);
             EditText editTextSpecializationInstitutionName = (EditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionName);
-            EditText editTextSpecializationInstitutionAddress = (EditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
-            EditText editTextSpecializationInstitutionPhone = (EditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
+            EditText editTextSpecializationInstitutionTown = (EditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionTown);
+            EditText editTextSpecializationInstitutionStreet = (EditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionStreet);
+            EditText editTextSpecializationInstitutionHouse = (EditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionHouse);
+            MaskedEditText editTextSpecializationInstitutionPhone = (MaskedEditText) frafmentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
             Spinner spinnerExperienceYears = (Spinner) frafmentView.findViewById(R.id.spinnerExperienceYears);
             Spinner spinnerGraduationDate = (Spinner) frafmentView.findViewById(R.id.spinnerGraduationDate);
 
@@ -481,7 +486,9 @@ public final class ProfileHelper {
             if (radioButtonDoctor.isChecked()) {
                 newUser.setSpecializationName(editTextSpecializationName.getText().toString());
                 newUser.setSpecializationInstitutionName(editTextSpecializationInstitutionName.getText().toString());
-                newUser.setSpecializationInstitutionAddress(editTextSpecializationInstitutionAddress.getText().toString());
+                newUser.setSpecializationInstitutionAddress(editTextSpecializationInstitutionTown.getText().toString()
+                        + ", " + editTextSpecializationInstitutionStreet.getText().toString()
+                        + ", " + editTextSpecializationInstitutionHouse.getText().toString());
                 newUser.setSpecializationInstitutionPhone(editTextSpecializationInstitutionPhone.getText().toString());
                 newUser.setSpecializationExperienceYears((Integer) spinnerExperienceYears.getTag());
                 newUser.setSpecializationGraduationDate(Tools.yearToDate((Integer) spinnerGraduationDate.getTag()));
@@ -535,8 +542,10 @@ public final class ProfileHelper {
         View layoutSpecializationDetails = fragmentView.findViewById(R.id.layoutSpecializationDetailsl);
         EditText editTextSpecializationName = (EditText) fragmentView.findViewById(R.id.editTextSpecializationName);
         EditText editTextSpecializationInstitutionName = (EditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionName);
-        EditText editTextSpecializationInstitutionAddress = (EditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionAddress);
-        EditText editTextSpecializationInstitutionPhone = (EditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
+        EditText editTextSpecializationInstitutionTown = (EditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionTown);
+        EditText editTextSpecializationInstitutionStreet = (EditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionStreet);
+        EditText editTextSpecializationInstitutionHouse = (EditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionHouse);
+        MaskedEditText editTextSpecializationInstitutionPhone = (MaskedEditText) fragmentView.findViewById(R.id.editTextSpecializationInstitutionPhone);
         Spinner spinnerExperienceYears = (Spinner) fragmentView.findViewById(R.id.spinnerExperienceYears);
         Spinner spinnerGraduationDate = (Spinner) fragmentView.findViewById(R.id.spinnerGraduationDate);
 
@@ -563,7 +572,10 @@ public final class ProfileHelper {
 
             editTextSpecializationName.setText(currentUser.getSpecializationName());
             editTextSpecializationInstitutionName.setText(currentUser.getSpecializationInstitutionName());
-            editTextSpecializationInstitutionAddress.setText(currentUser.getSpecializationInstitutionAddress());
+            String address[] = currentUser.getSpecializationInstitutionName().split(", ");
+            editTextSpecializationInstitutionTown.setText(address.length > 0 ? address[0] : "");
+            editTextSpecializationInstitutionStreet.setText(address.length > 1 ? address[1] : "");
+            editTextSpecializationInstitutionHouse.setText(address.length > 2 ? address[2] : "");
             editTextSpecializationInstitutionPhone.setText(currentUser.getSpecializationInstitutionPhone());
             spinnerExperienceYears.setSelection(currentUser.getSpecializationExperienceYears() + 1, true);
             spinnerExperienceYears.setTag(currentUser.getSpecializationExperienceYears());

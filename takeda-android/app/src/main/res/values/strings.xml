@@ -151,6 +151,9 @@
     <string name="specialization_name">Специализация</string>
     <string name="specialization_institution_name">Учебное заведение</string>
     <string name="specialization_institution_address">Адрес</string>
+    <string name="specialization_institution_town">Город</string>
+    <string name="specialization_institution_street">Улица</string>
+    <string name="specialization_institution_house">Дом</string>
     <string name="specialization_institution_phone">Телефон</string>
     <string name="specialization_graduation_date">Год окончания</string>
     <string name="specialization_experience_years">Стаж</string>
