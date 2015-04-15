@@ -8,7 +8,10 @@
 
 #import "DrugsList.h"
 
-@interface DrugsList ()
+@interface DrugsList (){
+    BOOL reloading;
+    BOOL pullTorefreshVisible;
+}
 
 @end
 
@@ -21,6 +24,16 @@
 }
 
 -(void)setupInterface{
+    if (_refreshHeaderView == nil) {
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.height, self.tableView.width, self.tableView.height)];
+        view.delegate = self;
+        _refreshHeaderView = view;
+    }
+    
+    //  update the last update date
+    [self.tableView addSubview:_refreshHeaderView];
+    [_refreshHeaderView refreshLastUpdatedDate];
+
     self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.rightBarButtonItems = @[[self menuBarBtnWithImageName:@"addWhiteInCircle" selector:@selector(addPillsAction) forTarget:self],[self alarmButton]];
     self.tableView.tableFooterView = self.tableView.separ;
@@ -35,6 +48,8 @@
 -(void)initData{
     [GlobalData loadPillsCompletition:^(BOOL success, id result){
         drugs = [GlobalData pills];
+        [self doneLoadingTableViewData];
+
         [self.tableView reloadData];
     }];
 }
@@ -90,6 +105,61 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self goToDrug:drugs[indexPath.row]];
 }
+
+#pragma mark -
+
+- (void)reloadTableViewDataSource{
+    //  should be calling your tableviews data source model to reload
+    //  put here just for demo
+    reloading = YES;
+    [self initData];
+}
+
+- (void)doneLoadingTableViewData{
+    //  model should call this when its done loading
+    reloading = NO;
+    [_refreshHeaderView performSelector:@selector(egoRefreshScrollViewDataSourceDidFinishedLoading:) withObject:self.tableView afterDelay:0.3f];
+    
+    //    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    
+}
+
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    [self reloadTableViewDataSource];
+    //   [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
+    
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+    pullTorefreshVisible = YES;
+    return reloading; // should return if data source model is reloading
+    
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    pullTorefreshVisible = NO;
+    
+    return [NSDate date]; // should return date data source was last changed
+    
+}
+
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+#pragma mark -
+
 
 -(void)goToDrug:(NSMutableDictionary*)drug{
     _addPills = [AddPills new];

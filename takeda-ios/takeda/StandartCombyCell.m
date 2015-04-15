@@ -20,11 +20,14 @@
     caption.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
     subTitle.font = [UIFont fontWithName:@"SegoeWP-Light" size:10];
     rightCaption.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
-    
+    rightArrow.userInteractionEnabled = NO;
     caption.clipsToBounds = YES;
     subTitle.clipsToBounds = YES;
     rightCaption.clipsToBounds = YES;
 
+//    rightArrow.imageView.backgroundColor = [UIColor greenColor];
+//    rightArrow.imageEdgeInsets = UIEdgeInsetsZero;
+//    rightArrow.backgroundColor = [UIColor orangeColor];
     [checkBtn addTarget:self action:@selector(btnChecked:) forControlEvents:UIControlEventTouchDown];
 
 //    UIView *selectedView = [UIView new];
@@ -59,7 +62,8 @@
     rightCaption.hidden = YES;
     rightArrow.hidden = YES;
     checkBtn.hidden = YES;
-    
+    rightArrow.userInteractionEnabled = NO;
+
     switch (cellType) {
         case ctSimpleLeftCaption:{
             

@@ -57,6 +57,7 @@ typedef void(^MyGlobalBlock)(void);
 - (NSString*)fixUrl:(NSString*)url;
 - (BOOL)isNotNull:(id)value;
 - (NSString*)dictToStr:(NSDictionary*)dict;
+- (NSMutableArray*)dictToArray:(NSMutableDictionary*)dict;
 - (int)servToTimest:(NSString*)strData;
 - (NSDate*)servToDate:(NSString*)strData;
 - (NSDate*)servToDateTimeSec:(NSString*)strData;
@@ -69,8 +70,13 @@ typedef void(^MyGlobalBlock)(void);
 - (NSString*) strDate:(NSDate *)date;
 - (NSString*) strDateTime:(NSDate *)date;
 - (void)callPhone:(NSString*)number;
+- (BOOL) NSStringIsValidEmail:(NSString *)checkString;
 - (UIColor*) randomColor;
 - (void)removeSubviewsFrom:(UIView*)view;
 - (NSString*)PathFromUrl:(NSString*)url;
+- (void)showActivityIndicatorWithString:(NSString*)string inContainer:(UIView*)container;
+- (void)removeActivityIdicator;
+- (void)addCookies:(NSArray *)cookies forRequest:(NSMutableURLRequest *)request;
+- (void)saveCookies;
 
 @end

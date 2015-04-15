@@ -183,13 +183,6 @@ static ServData *objectInstance = nil;
     
     [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result, NSError *error){
         completion(YES,nil);
-
-//        if (result[@"data"][@"id"]){
-//            // success
-//            completion(YES,nil);
-//        } else {
-//            completion(NO,nil);
-//        }
     }];
 }
 
@@ -207,13 +200,6 @@ static ServData *objectInstance = nil;
     
     [self sendCommonPOST:url body:[self preparedParams: params] success:^(id result, NSError *error){
         completion([error answerOk],nil);
-        
-        //        if (result[@"data"][@"id"]){
-        //            // success
-        //            completion(YES,nil);
-        //        } else {
-        //            completion(NO,nil);
-        //        }
     }];
 }
 
@@ -226,7 +212,7 @@ static ServData *objectInstance = nil;
     [self sendCommon:url success:^(id result, NSError *error){
         BOOL success = NO;
         if (result[@"data"]) {
-            [GlobalData saveRegions:result[@"data"]];
+            [GData saveRegions:result[@"data"]];
             success = YES;
         } else {
             
@@ -370,10 +356,14 @@ static ServData *objectInstance = nil;
 +(void)loadAnalysisFromServerWithLastId:(int)lastId completion:(void (^)(BOOL success, NSError* error, id result))completion{
     NSString *url = [NSString stringWithFormat:@"%@%@?sinceId=%i",kServerURL,kTestResults,lastId];
     [self sendCommon:url success:^(id result, NSError *error){
-        if ([result[@"data"] isKindOfClass:[NSArray class]]&&[result[@"data"] count]>0){
-            completion(YES,nil, result);
+        
+        if ([error answerOk]){
+            if ([result[@"data"] isKindOfClass:[NSArray class]]&&[result[@"data"] count]>0){
+                completion (YES, error, result);
+            };
+            completion(NO,error, result);
         } else {
-            completion(NO,nil, result);
+            completion(NO,error, result);
         }
     }];
 }
@@ -403,6 +393,21 @@ static ServData *objectInstance = nil;
     }];
     
 }
+
++(void)loadISPCompletition:(void (^)(BOOL success, id result))completion{
+    
+    NSString *urlstr = [NSString stringWithFormat:@"%@%@",kServerURL,kAccountISR];
+    [self sendCommon:urlstr success:^(id res, NSError *error){
+        if (res!=nil&&[error answerOk]){
+            completion(YES, res);
+        } else {
+            completion(NO, res);
+        }
+        
+    }];
+    
+}
+
 
 +(void)loadCitiesCompletition:(void (^)(BOOL success, id result))completion{
     
@@ -488,9 +493,9 @@ static ServData *objectInstance = nil;
     
     [self sendCommonPOST:url body:[self preparedParams: drugData] success:^(id result, NSError *error){
         if (result[@"data"][@"id"]){
-            completion(YES,nil, result);
+            completion(YES,error, result);
         } else {
-            completion(NO,nil, result);
+            completion(NO,error, result);
         }
     }];
 }
@@ -507,9 +512,9 @@ static ServData *objectInstance = nil;
     [self sendCommonPUT:url body:[self preparedParams: dict] success:^(id result, NSError *error){
         if (result[@"data"][@"id"]){
             [GlobalData updatePill:result[@"data"]];
-            completion(YES,nil, result);
+            completion(YES,error, result);
         } else {
-            completion(NO,nil, result);
+            completion(NO,error, result);
         }
     }];
 }

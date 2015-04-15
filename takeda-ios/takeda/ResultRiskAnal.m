@@ -496,6 +496,7 @@
     [self showMessageWithTextInput:@"E-mail" msg:nil title:@"Отправить результат тестирования по почте" btns:@[@"Отмена",@"Отправить"] params:@{@"text":User.userData[@"email"]} result:^(int index, NSString *text){
         if (index == 1){
             if (text.length == 0) { text = User.userData[@"email"];}
+            if (text.length>0&&[Global NSStringIsValidEmail:text]){
             [ServData shareTest:[results_data[@"id"] intValue] viaEmail:text completition:^(BOOL success, id result){
                 NSLog(@"%@",result);
                 if (success){
@@ -504,6 +505,9 @@
                     [self showMessage:@"Ошибка отправки" title:@"Ошибка"];
                 }
             }];
+            } else {
+                [self showMessage:@"Неверно введенный E-mail" title:@"Ошибка"];
+            }
         }
     }];
 }

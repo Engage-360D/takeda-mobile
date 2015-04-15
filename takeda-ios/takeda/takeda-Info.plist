@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Cardiomagnyl</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Cardiomagnyl</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -24,12 +24,22 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>vk4289667</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>vk4289667</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
 			<string>okurl</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ok1127991040</string>
+				<string>ok1131750144</string>
 			</array>
 		</dict>
 		<dict>
@@ -37,18 +47,32 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb247535765433542</string>
+				<string>fb842362822502496</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>ws.cpcs.ios.takeda</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ws.cpcs.ios.takeda</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.4</string>
 	<key>FacebookAppID</key>
-	<string>247535765433542</string>
+	<string>842362822502496</string>
 	<key>FacebookDisplayName</key>
-	<string>takeda facebook</string>
+	<string>Cardiomagnyl</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>I need Location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>I need Location</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SegoeWP-Semilight.ttf</string>

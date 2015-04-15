@@ -7,15 +7,9 @@
 //
 
 #import "GlobalData.h"
-#define filePath(fileName) [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],fileName]
-#define regionsListFile  @"regionsListFile"
-#define resultAnalysesFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"analize_results"]
-#define resultDietFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"diet_results"]
-#define userSettingsFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"user"]
-#define cashFile(url) [NSString stringWithFormat:@"%@/%@", [Path CasheFolder],url]
-#define userPills [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"pills"]
-#define userTimelineTasksFile [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"timelineTasks"]
-#define userTimelineFile [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"timeline"]
+#import "NotifPlanner.h"
+
+
 
 
 @implementation GlobalData
@@ -39,6 +33,7 @@ static GlobalData *objectInstance = nil;
 }
 
 +(void)resetData{
+    [[NSNotificationCenter defaultCenter] removeObserver:objectInstance];
     objectInstance = nil;
 }
 
@@ -84,15 +79,28 @@ static GlobalData *objectInstance = nil;
 }
 
 
-+(NSMutableArray*)regionsList{
-    return [Global recursiveMutable: [[NSMutableArray alloc] initWithContentsOfFile:filePath(regionsListFile)]];
+-(NSMutableArray*)regionsList{
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM regions"];
+    FMResultSet *rs = [database executeQuery:query];
+    return [self arrayFromFMRS:rs];
 }
 
 +(void)loadRegionsList:(void (^)(BOOL success, id result))completion{
 }
 
-+(void)saveRegions:(NSMutableArray*)regions{
-    [regions writeToFile:filePath(regionsListFile) atomically:YES];
+-(void)saveRegions:(NSMutableArray*)regions{
+        [database executeUpdate:@"DELETE FROM regions"];
+        [database beginTransaction];
+        for (int i = 0; i<regions.count; i++){
+            [database executeUpdate:@"INSERT INTO regions VALUES (?,?)",[NSString stringWithFormat:@"%@",regions[i][@"id"]], [NSString stringWithFormat:@"%@",regions[i][@"name"]]];
+            if (i%100==0){
+                [database commit];
+                [database beginTransaction];
+            }
+        }
+        [database commit];
+
+ //   [regions writeToFile:filePath(regionsListFile) atomically:YES];
 }
 
 +(void)saveIncidents:(NSMutableDictionary*)incidents{
@@ -140,12 +148,36 @@ static GlobalData *objectInstance = nil;
 }
 
 
++(void)cleanOldResults:(NSMutableArray*)results{
+    NSDate *lastReset = [Global parseDateTime:User.userData[@"resetAt"]];
+    BOOL params = YES;
+    if (!results){
+        params = NO;
+        results = [self resultAnalyses];
+    }
+    
+    for (int i = 0; i<results.count; i++){
+        if ([[Global parseDateTime:results[i][@"createdAt"]]isLaterThanDate:lastReset]){
+            [results removeObjectAtIndex:i];
+            i--;
+        }
+    }
+
+    if (!params){
+        [results saveTofile:resultAnalysesFile];
+    }
+    
+}
 
 +(void)saveResultAnalyses:(id)result{
+    
     int lastId = 0;
     NSString *fileN = resultAnalysesFile;
     NSMutableArray *arr = [NSMutableArray new];
     NSMutableArray *tArr = [self resultAnalyses];
+    
+    [self cleanOldResults:tArr];
+    
     [arr addObjectsFromArray:tArr];
    
     if ([result isKindOfClass:[NSDictionary class]]){
@@ -277,6 +309,21 @@ static GlobalData *objectInstance = nil;
     
 }
 
++(void)loadAnalysisFromServerWithLastId:(int)lastId completion:(void (^)(BOOL success, NSError* error, id result))completion{
+    
+    [ServData loadAnalysisFromServerWithLastId:lastId completion:^(BOOL success, NSError *error, id result) {
+        {
+            if ([error answerOk]){
+                    [self saveResultAnalyses:result[@"data"]];
+                    completion(YES,error, result);
+            } else {
+                completion(NO,error, result);
+            }
+        }
+    }];
+}
+
+
 +(void)loadMyCityByLocation:(CLLocation*)location fromCashe:(BOOL)fromCashe copml:(void (^)(BOOL success, id result))completion{
         if ([UserDefaults valueForKey:@"lastCity"]&&fromCashe){
             completion(YES, [UserDefaults valueForKey:@"lastCity"]);
@@ -342,14 +389,37 @@ static GlobalData *objectInstance = nil;
 
 }
 
+
+
++(void)updateISP:(void (^)(BOOL success, id result))completion{
+    [ServData loadISPCompletition:^(BOOL success, id result){
+            if (success&&result[@"data"]&&[result[@"data"] isKindOfClass:[NSDictionary class]]&&[result[@"data"] hasKey:@"id"]){
+                NSString *isp = result[@"data"][@"id"];
+                [UserDefaults setObject:isp forKey:@"ISP"];
+                completion(success, result[@"data"][@"id"]);
+            } else {
+                completion(NO, nil);
+            }
+    }];
+
+}
+
++(NSString*)ISP{
+    return [UserDefaults valueForKey:@"ISP"];
+}
+
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion{
 
     [ServData loadTimelineCompletition:^(BOOL success, id result){
         
+        [GlobalData casheTimelineTasks:[Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]]];
+        [GlobalData casheTimeline:result[@"data"]];
+
         completion(success, result);
     }];
     
 }
+
 
 -(void)loadCitiesList:(void (^)(BOOL success, id result))completion{
     [ServData loadCitiesCompletition:^(BOOL success, id result){
@@ -415,19 +485,27 @@ static GlobalData *objectInstance = nil;
 
 +(NSMutableDictionary*)pillsDict{
     NSMutableArray *arr = [self pills];
+    NSLog(@"pills read: %@",arr);
     return [Global recursiveMutable: [arr groupByKey:@"id"]];
 }
 
 +(void)updatePill:(NSMutableDictionary*)pill{
     NSMutableDictionary *pills = [self pillsDict];
     [pills setObject:pill forKey:pill[@"id"]];
-    [pills.allKeys saveTofile:userPills];
+
+    NSLog(@"pills to save: %@",pills.allKeys);
+    [[Global dictToArray:pill] saveTofile:userPills];
+    //[pills.allKeys saveTofile:userPills];
 }
+
 
 +(void)deletePill:(NSMutableDictionary*)pill{
     NSMutableDictionary *pills = [self pillsDict];
     [pills removeObjectForKey:pill[@"id"]];
-    [pills.allKeys saveTofile:userPills];
+    NSLog(@"pills to save: %@",pills.allKeys);
+    [[Global dictToArray:pill] saveTofile:userPills];
+
+   // [pills.allKeys saveTofile:userPills];
 }
 
 
@@ -435,14 +513,20 @@ static GlobalData *objectInstance = nil;
     [ServData loadPillsCompletition:^(BOOL success, id result){
         if (success){
             NSMutableArray *pills = result[@"data"];
-            [pills saveTofile:userPills];
+            
+            if (![[self pills] isEqualToArray:pills]){
+                NSLog(@"Пилюльки другие - надо бы обновицца!");
+                [pills saveTofile:userPills];
+                [[NotifPlanner sharedInstance] updateNotifications];
+            } else {
+                NSLog(@"Пилюльки такие самые, обновление не требуется");
+            }
+            
         }
         completion(success, result);
     }];
     
 }
-
-
 
 +(id)cashedRequest:(NSString*)url needInternet:(BOOL)needIternet{
     if (appDelegate.hostConnection != NotReachable&&needIternet) {

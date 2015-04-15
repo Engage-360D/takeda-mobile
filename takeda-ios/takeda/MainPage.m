@@ -46,6 +46,7 @@ typedef NSUInteger MenuItem;
                                                              @{@"title":@"Сводный отчет", @"subtitle":@"Переход на сайт" ,@"type":[NSNumber numberWithInt:ctCaptionSubtitleRightArrow],@"action":[NSNumber numberWithInt:commonReport]}]];
     
     [self setupInterface];
+    [self refreshData];
 
 }
 
@@ -53,7 +54,7 @@ typedef NSUInteger MenuItem;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
-    [self initData];
+    [self initLocalData];
 }
 
 -(void)setupInterface{
@@ -86,48 +87,43 @@ typedef NSUInteger MenuItem;
 
 }
 
--(void)initData{
+-(void)initLocalData{
     
     NSMutableArray *allResults = [GlobalData resultAnalyses];
     if (allResults.count>0){
         results_data = [[GlobalData resultAnalyses] lastObject];
-        [self showData];
+      [self showData];
+    } else {
+        [self showNormInfo];
     }
-    
+
+    [self showData];
+
     if (User.userBlocked){
         
     } else {
-        [_indLoading startAnimating];
-        [GlobalData loadTimelineCompletition:^(BOOL success, id result){
-            if (success){
-                NSLog(@"Получили данные");
-                tasks = [Global recursiveMutable:[result[@"linked"][@"tasks"] groupByKey:@"id"]];
-                days = result[@"data"];
-                
-                [GlobalData casheTimelineTasks:tasks];
-                [GlobalData casheTimeline:days];
-                
-                [self startData];
-            } else {
-                NSLog(@"Ошибка получения данных");
-                tasks = [GlobalData cashedTimelineTasks];
-                days = [GlobalData cashedTimeline];
-                
-                [self startData];
-            }
-            [_indLoading stopAnimating];
-        }];
+        tasks = [GlobalData cashedTimelineTasks];
+        days = [GlobalData cashedTimeline];
+        [self startData];
     }
-    
+}
 
+-(void)refreshData{
+        [_indLoading startAnimating];
+        [[Synchronizer sharedInstance] startSynchronizeTasks:@[jLoadRiskAnalResults,jLoadISP,jLoadIncidents, jLoadTimeLine] completition:^(BOOL success, id result) {
+            [self initLocalData];
+        }];
 }
 
 -(void)showNormInfo{
-    
-    self.percentLabel.text = [NSString stringWithFormat:@"%.f%@",[results_data[@"score"] floatValue],@"%"];
+    NSString *isp = [GlobalData ISP];
+    if (isp!=nil&&isp.length>0){
+        self.percentLabel.text = [NSString stringWithFormat:@"%.f%@",[isp floatValue],@"%"];
+    } else {
+        self.percentLabel.text = @"0%";
+    }
    // self.percentLabel.text = [NSString stringWithFormat:@"%i%@",GlobalData.missedEventsCount ,@"%"];
 
-    
     
     NSDate *fromDate = [Global parseDateTime:results_data[@"createdAt"]];
     if (!fromDate) fromDate = [[NSDate date] dateBySubtractingMonths:1];
@@ -178,7 +174,7 @@ typedef NSUInteger MenuItem;
 }
 
 -(void)filtrRecords{
-    
+    BOOL needFullReload = NO;
     NSMutableDictionary *daysDict = [Global recursiveMutable:[days groupByKey:@"date"]];
     if ([daysDict objectForKey:[[NSDate date] stringWithFormat:@"yyyy-MM-dd"]]!=nil){
         daybook_menu_data = [daysDict objectForKey:[[NSDate date] stringWithFormat:@"yyyy-MM-dd"]];
@@ -187,8 +183,17 @@ typedef NSUInteger MenuItem;
     
     NSMutableArray *tasksNewArray = [NSMutableArray new];
     for (NSString* taskId in daybook_menu_data[@"links"][@"tasks"]){
-        [tasksNewArray addObject:tasks[taskId]];
+        if (tasks[taskId]){
+            [tasksNewArray addObject:tasks[taskId]];
+        } else {
+            needFullReload = YES;
+        }
     }
+    
+    if (needFullReload){
+        [self refreshData];
+    }
+    
     [daybook_menu_data[@"links"] setObject:tasksNewArray forKey:@"tasks"];
 
     
@@ -238,7 +243,7 @@ typedef NSUInteger MenuItem;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0){
-        return 50;
+            return 50;
     } else {
         return 75.f;
     }
@@ -252,11 +257,26 @@ typedef NSUInteger MenuItem;
         _indLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _indLoading.center = rM.middleCenter;
         _indLoading.hidesWhenStopped = YES;
+        
+        if ([daybook_menu_data[@"links"][@"tasks"] count]==0){
+//            UILabel *noRecords = [[UILabel alloc] initWithFrame:CGRectMake(0, sectionTitle.bottom, sectionTitle.width, 50)];
+            UILabel *noRecords = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, rM.width, 14)];
+
+            noRecords.textAlignment = NSTextAlignmentCenter;
+            noRecords.font = [UIFont fontWithName:@"SegoeWP-Light" size:14];
+            noRecords.textColor = RGB(54, 65, 71);
+            
+            noRecords.text = @"У Вас нет задач на сегодня";
+            [rM addSubview:noRecords];
+            
+        }
+
         return rM;
     }
     
     
     UIView *rV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 46)];
+    rV.clipsToBounds = NO;
     NSDate *ddt;
     if (daybook_menu_data){
         ddt = [Global parseDate:daybook_menu_data[@"date"]];
@@ -272,6 +292,8 @@ typedef NSUInteger MenuItem;
     sectionTitle.text = [NSString stringWithFormat:@"%@ (%@)",[ddt isToday]?@"Сегодня":[ddt stringWithFormat:@"dd.MM.yyyy"],[ddt stringWithFormat:@"EEEE"]];
     // [self drawBordersInView:sectionTitle];
     [rV addSubview:sectionTitle];
+    
+    
     return rV;
     
 }
@@ -337,7 +359,7 @@ typedef NSUInteger MenuItem;
     NSMutableDictionary *item = daybook_menu_data[@"links"][@"tasks"][indexPath.row];
     
     if (item[@"isCompleted"]){
-        cell.cellType = [self cellTypeForTask:item[@"type"]];
+        cell.cellType = [CalendarPage cellTypeForTask:item[@"type"]];
     } else {
         cell.cellType = ctLeftCaptionRightArrow;
     }
@@ -374,6 +396,19 @@ typedef NSUInteger MenuItem;
             
             break;
         }
+        CASE(@"arterialPressure"){
+            cell.caption.text = @"Артериальное давление";
+            NSString *mms = item[@"isCompleted"]?item[@"arterialPressure"]:@"";
+            cell.rightCaption.text = [NSString stringWithFormat:@"%@ мм",mms];
+            break;
+        }
+        CASE(@"weight"){
+            cell.caption.text = @"Вес";
+            NSString *kg = item[@"isCompleted"]?item[@"weight"]:@"";
+            cell.rightCaption.text = [NSString stringWithFormat:@"%@ кг",kg];
+            break;
+        }
+
         DEFAULT{
             break;
         }
@@ -447,6 +482,15 @@ typedef NSUInteger MenuItem;
             [self setupPill:item];
             break;
         }
+        CASE(@"arterialPressure"){
+            [self setupArterial:item];
+            break;
+        }
+        CASE(@"weight"){
+            [self setupWeight:item];
+            break;
+        }
+
         DEFAULT{
             break;
         }
@@ -530,7 +574,7 @@ typedef NSUInteger MenuItem;
 }
 
 -(void)openSiteReport{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kReportURL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?token=%@",kReportURL,User.access_token]]];
 }
 
 //////////////
@@ -541,7 +585,7 @@ typedef NSUInteger MenuItem;
     //  should be calling your tableviews data source model to reload
     //  put here just for demo
     reloading = YES;
-    [self initData];
+    [self refreshData];
 }
 
 - (void)doneLoadingTableViewData{
@@ -663,11 +707,57 @@ typedef NSUInteger MenuItem;
     [exPicker show];
 }
 
--(CombyCellType)cellTypeForTask:(NSString*)taskType{
-    NSDictionary *r = @{@"exercise":[NSNumber numberWithInt:ctLeftCaptionRightCaption],
-                        @"diet":[NSNumber numberWithInt:ctCaptionChecked],
-                        @"pill":[NSNumber numberWithInt:ctCaptionChecked]};
-    return [r[taskType] intValue];
+-(void)setupArterial:(NSMutableDictionary*)task{
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    NSMutableArray *expArray = [NSMutableArray new];
+    [expArray fillIntegerFrom:80 to:200 step:1];
+    DPicker *exPicker = [[DPicker alloc] initListWithArray:expArray inView:self.view completition:^(BOOL apply, int index){
+        if (apply){
+            [params setObject:[NSNumber numberWithInt:[expArray[index] intValue]] forKey:@"arterialPressure"];
+            [ServData updateTask:task[@"id"] params:params completion:^(BOOL success, NSError* error, id result){
+                if (success){
+                    BOOL isCompleted = [result[@"data"][@"isCompleted"] boolValue];
+                    int minutes = [result[@"data"][@"arterialPressure"] intValue];
+                    [tasks[task[@"id"]] setObject:[NSNumber numberWithBool:isCompleted] forKey:@"isCompleted"];
+                    [tasks[task[@"id"]] setObject:[NSNumber numberWithInt:minutes] forKey:@"arterialPressure"];
+                    
+                    [self updateTask:result[@"data"]];
+                    [self filtrRecords];
+                    [self.tableView reloadData];
+                }
+            }];
+        }
+    }];
+    exPicker.applyBtn.title = @"Отправить";
+    exPicker.closeBtn.title = @"Отменить";
+    
+    [exPicker show];
+}
+-(void)setupWeight:(NSMutableDictionary*)task{
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    NSMutableArray *expArray = [NSMutableArray new];
+    [expArray fillIntegerFrom:30 to:700 step:1];
+    DPicker *exPicker = [[DPicker alloc] initListWithArray:expArray inView:self.view completition:^(BOOL apply, int index){
+        if (apply){
+            [params setObject:[NSNumber numberWithInt:[expArray[index] intValue]] forKey:@"weight"];
+            [ServData updateTask:task[@"id"] params:params completion:^(BOOL success, NSError* error, id result){
+                if (success){
+                    BOOL isCompleted = [result[@"data"][@"isCompleted"] boolValue];
+                    int minutes = [result[@"data"][@"weight"] intValue];
+                    [tasks[task[@"id"]] setObject:[NSNumber numberWithBool:isCompleted] forKey:@"isCompleted"];
+                    [tasks[task[@"id"]] setObject:[NSNumber numberWithInt:minutes] forKey:@"weight"];
+                    
+                    [self updateTask:result[@"data"]];
+                    [self filtrRecords];
+                    [self.tableView reloadData];
+                }
+            }];
+        }
+    }];
+    exPicker.applyBtn.title = @"Отправить";
+    exPicker.closeBtn.title = @"Отменить";
+    
+    [exPicker show];
 }
 
 

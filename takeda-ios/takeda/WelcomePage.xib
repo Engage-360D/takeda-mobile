@@ -7,10 +7,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomePage">
             <connections>
+                <outlet property="enterBtn" destination="2ib-Fr-eLk" id="g66-Nb-aE6"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="welcome_text_1" destination="i68-X1-gMh" id="Kzh-B7-LR9"/>
                 <outlet property="welcome_text_2" destination="uCi-UG-vTM" id="wgh-gO-NGS"/>
-                <outlet property="welcome_text_3" destination="LHu-gN-B47" id="O2k-g8-cHf"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -34,30 +34,32 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="left_white_arrow.png" id="Lqn-Pr-gni">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="left_white_arrow.png" id="Lqn-Pr-gni">
                     <rect key="frame" x="117" y="452" width="8" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Войдите" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LHu-gN-B47">
-                    <rect key="frame" x="53" y="436" width="247" height="63"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <gestureRecognizers/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="rHO-Eq-HIY" appends="YES" id="dKe-y7-UPs"/>
-                    </connections>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome_logo.png" id="aev-p3-CAG">
                     <rect key="frame" x="53" y="157" width="215" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2ib-Fr-eLk">
+                    <rect key="frame" x="77" y="446" width="167" height="47"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="3"/>
+                    <state key="normal" title="Вход">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" red="0.79209296424829756" green="0.81165081521739135" blue="0.81165081521739135" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="goAuthPage:" destination="-1" eventType="touchUpInside" id="7Ls-S2-r4m"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.20784313725490194" green="0.25490196078431371" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
         </view>
-        <swipeGestureRecognizer delaysTouchesEnded="NO" direction="left" id="rHO-Eq-HIY">
+        <swipeGestureRecognizer enabled="NO" delaysTouchesEnded="NO" direction="left" id="rHO-Eq-HIY">
             <connections>
                 <action selector="goAuthPage:" destination="-1" id="IHH-SR-GvY"/>
                 <outlet property="delegate" destination="-1" id="gyP-dx-y0Y"/>

@@ -14,8 +14,10 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreLocation/CoreLocation.h>
+    #import "UITableView+Separ8fix.h"
     #import "NSNull+Safed.h"
     #import "FMDB.h"
+    #import "EGORefreshTableHeaderView.h"
     #import "NSArray+Filt.h"
     #import "UIImageView+ForScrollView.h"
     #import "UITextField+Auto.h"
@@ -53,5 +55,4 @@
     #import "inetRequests.h"
     #import "AppDelegate.h"
     #import "NSTypeExtended.h"
-    #import <FacebookSDK/FacebookSDK.h>
 #endif

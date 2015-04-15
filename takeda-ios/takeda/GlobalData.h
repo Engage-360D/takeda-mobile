@@ -9,6 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "Synchronizer.h"
 
+
+#define filePath(fileName) [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],fileName]
+#define regionsListFile  @"regionsListFile"
+#define resultAnalysesFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"analize_results"]
+#define resultDietFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"diet_results"]
+#define userSettingsFile [NSString stringWithFormat:@"%@/%@", [Path JResultsFolder],@"user"]
+#define cashFile(url) [NSString stringWithFormat:@"%@/%@", [Path CasheFolder],url]
+#define userPills [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"pills"]
+#define userTimelineTasksFile [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"timelineTasks"]
+#define userTimelineFile [NSString stringWithFormat:@"%@/%@", [Path JSONFolder],@"timeline"]
+
 @interface GlobalData : NSObject
 
 +(GlobalData*)sharedObject;
@@ -17,11 +28,12 @@
 @property (nonatomic, strong) FMDatabase *database;
 @property (nonatomic, strong) NSNumber* missedEventsCount;
 
-+(NSMutableArray*)regionsList;
+-(NSMutableArray*)regionsList;
 +(void)loadRegionsList:(void (^)(BOOL success, id result))completion;
-+(void)saveRegions:(NSMutableArray*)regions;
+-(void)saveRegions:(NSMutableArray*)regions;
 +(void)saveIncidents:(NSMutableDictionary*)incidents;
 +(void)saveResultAnalyses:(NSMutableDictionary*)result;
++(void)cleanOldResults:(NSMutableArray*)results;
 +(NSMutableArray*)resultAnalyses;
 +(int)lastResultDataId;
 +(void)writeLastResultDataId:(int)lId;
@@ -33,6 +45,9 @@
 -(void)loadCitiesList:(void (^)(BOOL success, id result))completion;
 -(void)loadSpecializationsList:(void (^)(BOOL success, id result))completion;
 //-(void)setIncidentTo:(NSMutableArray*)inc incident:(IncidentType)incType comment:(NSString*)comment;
++(void)loadAnalysisFromServerWithLastId:(int)lastId completion:(void (^)(BOOL success, NSError* error, id result))completion;
++(void)updateISP:(void (^)(BOOL success, id result))completion;
++(NSString*)ISP;
 -(void)addIncidentTo:(NSMutableDictionary*)inc incident:(NSString*)incidentType comment:(NSString*)comment;
 -(void)deleteIncident:(NSMutableDictionary*)inc incident:(NSString*)incidentType;
 -(void)deleteAllIncidents:(NSMutableDictionary*)inc;

@@ -36,6 +36,8 @@
     UIViewController *mainPage_vc;
     BOOL needTest;
     BOOL userIsBlocked;
+    BOOL NetworkLoss;
+
     /*
      RiskAnalysisPage *riskAnalysis_vc;
      SearchInstitutionPage *searchInstitution_vc;
@@ -288,6 +290,12 @@
             }else{
                 last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
                 
+                if ([[((UINavigationController*)[[rootMenuController sharedInstance] riskAnalysis_vc]).viewControllers lastObject] isKindOfClass:[ResultRiskAnal class]]){
+                    [rootMenuController sharedInstance].riskAnalysis_vc = nil;
+                    [rootMenuController sharedInstance].riskAnalysisPage = nil;
+                    [analizData resetData];
+                }
+                
                 [self.slideMenuController closeMenuBehindContentViewController:[[rootMenuController sharedInstance] riskAnalysis_vc] animated:YES completion:nil];
             }
             break;}
@@ -295,7 +303,7 @@
             [GlobalSettings sharedInstance].stateMenu = [self indexOfItem:State_Search_Institution];
             if ([self checkLastController]) {
                 [self.slideMenuController closeMenuAnimated:YES completion:nil];
-            }else{
+            } else{
                 
                 if (!searchInstitution_vc) {
                     searchInstitution_vc = [[UINavigationController alloc] initWithRootViewController:[[rootMenuController sharedInstance] getSearchInstitutionPage]];
@@ -422,7 +430,7 @@
 }
 
 -(void)openSiteReport{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kReportURL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?token=%@",kReportURL,User.access_token]]];
 }
 
 

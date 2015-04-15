@@ -7,6 +7,9 @@
 //
 
 #import "Synchronizer.h"
+#import "NotifPlanner.h"
+
+
 
 @implementation Synchronizer{
 
@@ -28,18 +31,43 @@ static Synchronizer *sharedInst = NULL;
     sharedInst = nil;
 }
 
--(void)startSynchronizeCompletition:(void (^)(BOOL success, id result))completion{
++(NSArray*)fullTasksList{
+    return [NSArray arrayWithObjects:jLoadRiskAnalResults,jLoadPills, jLoadCities, jLoadSpecializations, jLoadIncidents, jLoadISP, jLoadTimeLine, nil];
+}
+
++(NSDictionary*)jobSelectors{
+    return @{jLoadRiskAnalResults:[NSValue valueWithPointer:@selector(loadRiskAnalResults)],
+             jLoadPills:[NSValue valueWithPointer:@selector(loadPills)],
+             jLoadCities:[NSValue valueWithPointer:@selector(loadCities)],
+             jLoadSpecializations:[NSValue valueWithPointer:@selector(loadSpecializations)],
+             jLoadIncidents:[NSValue valueWithPointer:@selector(loadIncidents)],
+             jLoadISP:[NSValue valueWithPointer:@selector(loadISP)],
+             jLoadTimeLine:[NSValue valueWithPointer:@selector(loadTimeLine)]
+             };
+}
+
+-(void)startSynchronizeTasks:(NSArray*)tasksArray completition:(void (^)(BOOL success, id result))completion{
     self.resultBlock = completion;
-//    [self loadRiskAnalResults];
-//    [self loadPills];
-    tasks = [NSMutableArray arrayWithObjects:[NSValue valueWithPointer:@selector(loadRiskAnalResults)],[NSValue valueWithPointer:@selector(loadPills)], [NSValue valueWithPointer:@selector(loadCities)], [NSValue valueWithPointer:@selector(loadSpecializations)], [NSValue valueWithPointer:@selector(loadIncidents)], nil];
+    if (!tasksArray||tasksArray.count == 0){
+        tasks = [Synchronizer fullTasksList];
+    } else {
+        tasks = tasksArray;
+    }
     [self startTasksMachine];
 }
+
+-(void)startSynchronizeCompletition:(void (^)(BOOL success, id result))completion{
+    self.resultBlock = completion;
+    tasks = [Synchronizer fullTasksList];
+    [self startTasksMachine];
+}
+
 
 -(void)startTasksMachine{
     completedJobsCount = 0;
     for (int i = 0; i<tasks.count; i++){
-        SEL selector = [tasks[i] pointerValue];
+        id ppp = [Synchronizer jobSelectors][tasks[i]];
+        SEL selector = [ppp pointerValue];
         IMP imp = [self methodForSelector:selector];
         void (*func)(id, SEL) = (void *)imp;
         func(self, selector);
@@ -50,12 +78,8 @@ static Synchronizer *sharedInst = NULL;
 -(void)loadRiskAnalResults{
     NSLog(@"start loadRisk anal");
     int lastId = [GlobalData lastResultDataId];
-    [ServData loadAnalysisFromServerWithLastId:lastId completion:^(BOOL success, NSError *error, id result) {
+    [GlobalData loadAnalysisFromServerWithLastId:lastId completion:^(BOOL success, NSError *error, id result) {
         NSLog(@"finish loadRisk anal");
-        if (success) {
-            [GlobalData saveResultAnalyses:result[@"data"]];
-        } else {
-        }
         [self finishJob];
     }];
 
@@ -64,11 +88,18 @@ static Synchronizer *sharedInst = NULL;
 -(void)loadPills{
     NSLog(@"start pills");
     [GlobalData loadPillsCompletition:^(BOOL completition, id result){
+        [[NotifPlanner sharedInstance] updateNotifications];
         NSLog(@"finish pills");
         [self finishJob];
     }];
 }
 
+-(void)loadTimeLine{
+    [GlobalData loadTimelineCompletition:^(BOOL success, id result){
+        NSLog(@"finish cities");
+        [self finishJob];
+    }];
+}
 
 -(void)loadCities{
     //NSDate *lastCitiesUpdateDate = [GlobalData lastloadCitiesDate];
@@ -92,12 +123,22 @@ static Synchronizer *sharedInst = NULL;
     }];
 }
 
+-(void)loadISP{
+    [GlobalData updateISP:^(BOOL success, id result) {
+        NSLog(@"finish ISP");
+        [self finishJob];
+    }];
+}
+
+
 -(void)finishJob{
-    completedJobsCount++;
-    NSLog(@"compl jobs count = %i",completedJobsCount);
-    if (completedJobsCount == tasks.count){
-        completedJobsCount = 0;
-        [self finishSynchronize];
+    if (self.resultBlock){
+        completedJobsCount++;
+        NSLog(@"compl jobs count = %i",completedJobsCount);
+        if (completedJobsCount == tasks.count){
+            completedJobsCount = 0;
+            [self finishSynchronize];
+        }
     }
 }
 

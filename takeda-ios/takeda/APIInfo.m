@@ -10,7 +10,8 @@
 #define kTokens @"tokens"   // получить токен пользователя (исп. для авторизации)
 #define kFacebook @"facebook"
 #define kVK @"vk"
-#define kOK @"ok"
+#define kOK @"odnoklassniki"
+#define kGp @"google"
 
 #define kUsers @"users"
 #define kAccount @"account" // Пользователи. POST - создать пользователя, GET - получить пользователей, /id - информация о пользователе.
@@ -29,14 +30,40 @@
 #define kInstitutionSpecializations @"institution-specializations" // Список специальностей для поиска. GET.
 #define kInstitutionsList @"institutions" // Список ЛПУ с поиска. GET.
 #define kAccountReset @"account/reset" // Ресет пользователя. POST.
+#define kAccountISR @"account/isr" // ИСП пользователя. GET.
+
 
 
 #define client_id @"3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4"
 #define client_secret @"6bhq30w1jrc4wwoc00ks400scgkwws8g8skwkc84g0kkwgkc0k"
 
-#warning SET OK keys !!!
-#define  Odnkl_appID @"1126090240"
-#define  Odnkl_appSecret @"48E60A55CB4CF49C3E5D3762"
-#define  Odnkl_appKey @"CBAHMPBEEBABABABA"
+//#warning SET OK keys !!!
+#pragma mark - OK
+
+#define  ok_appId @"1126090240"
+#define  ok_appKey @"CBAHMPBEEBABABABA"
+#define  ok_appSecret @"48E60A55CB4CF49C3E5D3762"
+
+
+#pragma mark - VK
+
+#define vkAppId @"4289667"
+#define VK_SCOPE @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_EMAIL, VK_PER_PHOTOS]
+
+
+#pragma mark - Google+
+
+#define kGoogleClientIDKey @"83199848119-m2fg4n63sp12m5ipqcv2712ok8erk264.apps.googleusercontent.com"
+#define kGoogleClientSecretKey @"y07UIpqqTOPKeho_hJlT2IGP"
+
+
+#pragma mark - Facebook
+
+#define FB_SCOPE @[@"email", @"read_stream", @"user_about_me", @"user_birthday"]
+
+
+
+
+
 
 #define kSpecAutoSearchLPU @"Кардиология" // Ресет пользователя. POST.

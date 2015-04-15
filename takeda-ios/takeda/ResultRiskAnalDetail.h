@@ -18,6 +18,7 @@
 @property (nonatomic, strong) IBOutlet UITextView *note;
 @property (nonatomic, strong) IBOutlet UITextView *bannerInfo;
 @property (nonatomic, strong) IBOutlet UIView *bannerInfoContainer;
+@property (nonatomic, strong) IBOutlet UIButton *commInfoBtn;
 
 @property (nonatomic, strong) NSMutableDictionary *blockInfo;
 

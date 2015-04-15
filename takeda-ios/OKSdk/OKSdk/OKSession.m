@@ -160,7 +160,6 @@ static OKSession *_activeSession = nil;
 }
 
 - (NSString *)appBaseUrl {
-   // return @"http://cardiomagnyl.ru";
 	return [NSString stringWithFormat:@"ok%@://authorize", self.appId];
 }
 

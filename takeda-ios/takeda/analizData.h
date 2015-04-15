@@ -28,5 +28,6 @@
 -(NSArray*)getListSalt;
 
 -(id) recursiveMutable:(id)object;
+-(void)saveValue:(id)value forAnalizKey:(NSString*)key;
 
 @end

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "DPicker.h"
+#import "AllSocials.h"
 
-@interface UserInfo : VControllerExt
+@interface UserInfo : VControllerExt<OKSessionDelegate, OKRequestDelegate, VKSdkDelegate, GPPSignInDelegate>
 
 
 @property (nonatomic, strong) NSDate *birthdayDate;

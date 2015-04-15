@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "PLTextField.h"
-#import "Vkontakte.h"
-#import "Odnoklassniki.h"
+#import "AllSocials.h"
 
-@interface RegistrationPage : VControllerExt<UIPickerViewDelegate, UIPickerViewDataSource,VkontakteDelegate,OKSessionDelegate, OKRequestDelegate>{
-    Vkontakte *_vkontakte;
+@interface RegistrationPage : VControllerExt<UIPickerViewDelegate, UIPickerViewDataSource,OKSessionDelegate, OKRequestDelegate, VKSdkDelegate, GPPSignInDelegate>{
+    
 }
 
 @property (nonatomic,retain) IBOutlet UIScrollView *scrollView;

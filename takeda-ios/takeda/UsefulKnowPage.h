@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "UsefulKnowCell.h"
+#import "AllSocials.h"
 
-@interface UsefulKnowPage : VControllerExt
+@interface UsefulKnowPage : VControllerExt<VKSdkDelegate, GPPSignInDelegate, UIWebViewDelegate, OKRequestDelegate, OKSessionDelegate>
 @property (nonatomic, assign) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *infoData;
 @end

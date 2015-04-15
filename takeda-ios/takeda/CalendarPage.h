@@ -30,5 +30,6 @@
 @property (nonatomic, strong) NSMutableDictionary *tasks;
 @property (nonatomic, strong) EGORefreshTableHeaderView *refreshHeaderView;
 
++(CombyCellType)cellTypeForTask:(NSString*)taskType;
 
 @end

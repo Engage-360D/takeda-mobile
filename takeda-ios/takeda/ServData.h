@@ -34,6 +34,7 @@
 +(void)deleteDrug:(NSMutableDictionary*)drugData completion:(void (^)(BOOL success, NSError* error, id result))completion;
 +(void)loadTimelineCompletition:(void (^)(BOOL success, id result))completion;
 +(void)updateTask:(NSString*)taskId params:(NSDictionary*)taskParams completion:(void (^)(BOOL success, NSError* error, id result))completion;
++(void)loadISPCompletition:(void (^)(BOOL success, id result))completion;
 +(void)loadPillsCompletition:(void (^)(BOOL success, id result))completion;
 +(void)loadCitiesCompletition:(void (^)(BOOL success, id result))completion;
 +(void)loadSpecializationsCompletition:(void (^)(BOOL success, id result))completion;

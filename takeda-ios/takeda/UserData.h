@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "jsonInFile.h"
 #import "Synchronizer.h"
+#import "AllSocials.h"
+
 
 //typedef enum {
 //    tUser = 1,
@@ -36,7 +38,12 @@
 
 @property (nonatomic, strong) NSMutableDictionary *incidents;
 
+#pragma mark - Network
+@property (strong, nonatomic) FBRequestConnection *requestConnection;
+@property (nonatomic, strong) Odnoklassniki *ok_api;
 
+
+#pragma mark -
 
 -(void)setupUserDefaultsForUser:(NSString*)user_email;
 
