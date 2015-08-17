@@ -25,6 +25,7 @@ typedef enum {
 @property (nonatomic, strong) UIPickerView *list_picker;
 @property (nonatomic, strong) UIDatePicker *date_picker;
 @property (nonatomic, strong) UIToolbar *toolbar;
+@property (nonatomic, strong) NSString *unitCaption;
 
 @property (nonatomic, strong) NSArray *listArray;
 @property (nonatomic) int selectedIndex;

@@ -7,6 +7,7 @@
 //
 
 #import "DrugsList.h"
+#import "RNBlurModalView.h"
 
 @interface DrugsList (){
     BOOL reloading;
@@ -20,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.vcTitle.text = @"Мои напоминания\n о лекарствах";
     [self setupInterface];
 }
 
@@ -42,6 +44,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.vcTitle.font = [UIFont fontWithName:@"SegoeWP-Light" size:15];
+
     [self initData];
 }
 
@@ -160,6 +164,11 @@
 
 #pragma mark -
 
+-(IBAction)showPageInfo:(id)sender{
+    [self showMessage:@"Здесь Вы можете добавить лекарства, рекомендованные врачом" title:@""];
+//    RNBlurModalView *mv = [[RNBlurModalView alloc] initWithTitle:nil message:@"Cюда вы можете включить то, что рекомендовано врачом"];
+//    [mv show];
+}
 
 -(void)goToDrug:(NSMutableDictionary*)drug{
     _addPills = [AddPills new];

@@ -103,27 +103,19 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if ([resultArray[section][@"items"] count]==0) return nil;
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width,  54)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.tableView.frame.size.width-15, 54)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width,  74)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(11, 0, self.tableView.frame.size.width-17, 74)];
     label.textColor = [UIColor whiteColor];
-    [label setFont:[UIFont fontWithName:@"SegoeWP-Light" size:17.0]];
+    label.numberOfLines = 0;
+    [label setFont:[UIFont fontWithName:@"SegoeWP-Light" size:16.5]];
     label.text = [self settingsForType:resultArray[section]][@"title"];
     [view addSubview:label];
     view.backgroundColor = [self settingsForType:resultArray[section]][@"background"];
-//    UIImageView *topSepar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, view.width, 0.5)];
-//    topSepar.backgroundColor = RGB(152, 198, 245);
-//    
-//    UIImageView *bottomSepar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 54-0.5f, view.width, 0.5)];
-//    bottomSepar.backgroundColor = RGB(152, 198, 245);
-//    
-//    [view addSubview:topSepar];
-//    [view addSubview:bottomSepar];
-
     return view;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return [resultArray[section][@"items"] count]>0?54:0;
+    return [resultArray[section][@"items"] count]>0?74:0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -225,11 +217,7 @@
     cell.text_data.y = cell.text_name.bottom +4;
     
     cell.backgroundColor = [self settingsForType:resultArray[indexPath.section]][@"background"];
-    
-//    UIView *sel_view = [[UIView alloc] init];
-//    sel_view.backgroundColor = [UIColor clearColor];
-//    cell.selectedBackgroundView = sel_view;
-    
+        
     return cell;
 }
 
@@ -274,17 +262,11 @@
 
 -(void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
-
-//    NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray: self.navigationController.viewControllers];
-//    [allViewControllers removeObjectIdenticalTo: self.parentVC];
-//    self.navigationController.viewControllers = allViewControllers;
-//    [self.navigationController popViewControllerAnimated:YES];
-
 }
 
 
 -(NSDictionary*)settingsForType:(NSMutableDictionary*)typeItem{
-    NSDictionary *m = @{@"red":@{@"title":@"Следует предпочесть",@"background": [self RedColor]},@"blue":@{@"title":@"Следует употреблять умеренно",@"background":[self BlueColor]}};
+    NSDictionary *m = @{@"red":@{@"title":@"Возможности мофикации диеты",@"background": [self RedColor]},@"blue":@{@"title":@"Ограничение в употреблении следующих продуктов положительно влияет на сердечно-сосудистое здоровье",@"background":[self BlueColor]}};
     return m[typeItem[@"type"]];
 }
 

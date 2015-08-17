@@ -572,6 +572,8 @@
 }
 
 -(void)selectView:(int)index{
+    [self.listMapSwitch setSelectedSegmentIndex:index];
+
     switch (index) {
         case 0:{
             filtrSpec.itemsSelector.hidden = NO;
@@ -929,7 +931,8 @@
     
     cell.rightArrow.info = menu;
     [cell.rightArrow addTarget:self action:@selector(openLpuFromTable:) forControlEvents:UIControlEventTouchUpInside];
-    cell.rightArrow.userInteractionEnabled = YES;
+    cell.rightArrow.userInteractionEnabled = NO; // for norm method will be YES;
+    
     
 //    if (self.selectedLPU == menu){
 //        [cell setSelected:YES animated:NO];
@@ -949,6 +952,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    // [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self tableSelectCRDMDL:indexPath];
+//    [self tableSelectNorm:indexPath]; // my method
+}
+
+-(void)tableSelectCRDMDL:(NSIndexPath *)indexPath{
+    // CRDMDL method
+        self.selectedLPU = nil;
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+        mapView_.selectedMarker = nil;
+        [self changeSelected:self.lpuList[indexPath.row]];
+        [self selectView:0];
+        [self performSelector:@selector(openLpu:) withObject:self.lpuList[indexPath.row] afterDelay:0.5f];
+      //  [self openLpu:self.lpuList[indexPath.row]];
+
+
+}
+
+-(void)tableSelectNorm:(NSIndexPath *)indexPath{
+    // my method
     if (self.selectedLPU == self.lpuList[indexPath.row]){
         self.selectedLPU = nil;
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

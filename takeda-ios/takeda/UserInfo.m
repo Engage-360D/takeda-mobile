@@ -241,6 +241,7 @@
         }
     }];
     [exPicker preselectValue:[NSNumber numberWithFloat:self.experience]];
+    exPicker.unitCaption = @"лет";
     [exPicker show];
 }
 

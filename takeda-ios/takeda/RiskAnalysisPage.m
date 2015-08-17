@@ -19,6 +19,7 @@
     AnalizDataUserPage *historyPacientPage;
     AnalizDataUserPage *firstPage;
     AnalizDataUserPage *dailyRationPage;
+    NSMutableDictionary *currentDataSourceDict;
 }
 
 @end
@@ -30,6 +31,7 @@
 @synthesize resultRiskAnalysis;
 AnalizDataUserPage *selectedPage;
 NSString *currentKey;
+
 int selectedIndex = 0;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -105,7 +107,7 @@ int selectedIndex = 0;
         [firstPage willMoveToParentViewController:self];
         [firstPage.nextStepBtn addTarget:self action:@selector(goHistoryPacient:) forControlEvents:UIControlEventTouchDown];
         [firstPage.nextStepBtn setTitle:@"История пациента" forState:UIControlStateNormal];
-        firstPage.vcSubTitle.text = @"Данные пациента";
+//        firstPage.vcSubTitle.text = @"Данные пациента";
         [self.scroll setContentSize:CGSizeMake(320 * 1, 20)];
     }
     firstPage.page = 1;
@@ -126,7 +128,7 @@ int selectedIndex = 0;
         [historyPacientPage willMoveToParentViewController:self];
         [historyPacientPage.nextStepBtn addTarget:self action:@selector(goDailyRation:) forControlEvents:UIControlEventTouchDown];
         [historyPacientPage.nextStepBtn setTitle:@"Дневной рацион" forState:UIControlStateNormal];
-        historyPacientPage.vcSubTitle.text = @"История пациента";
+//        historyPacientPage.vcSubTitle.text = @"История пациента";
         [self.scroll setContentSize:CGSizeMake(320 * 2, 20)];
     }
     historyPacientPage.page = 2;
@@ -147,7 +149,7 @@ int selectedIndex = 0;
         [dailyRationPage willMoveToParentViewController:self];
         [dailyRationPage.nextStepBtn addTarget:self action:@selector(goResultPage:) forControlEvents:UIControlEventTouchDown];
         [dailyRationPage.nextStepBtn setTitle:@"Результаты" forState:UIControlStateNormal];
-        dailyRationPage.vcSubTitle.text = @"Дневной рацион";
+//        dailyRationPage.vcSubTitle.text = @"Дневной рацион";
     }
     [self.scroll setContentSize:CGSizeMake(320 * 3, 20)];
     dailyRationPage.page = 3;
@@ -333,9 +335,10 @@ int selectedIndex = 0;
 
 #pragma mark - AnalizDataUserPageDelegate
 
--(void)analizDataUserPage:(AnalizDataUserPage*)analizPage openList:(NSString*)type{
+-(void)analizDataUserPage:(AnalizDataUserPage*)analizPage openList:(NSString*)type sourceData:(NSMutableDictionary*)sd{
     currentKey = type;
     selectedPage = analizPage;
+    currentDataSourceDict = sd;
     
     SWITCH(type){
         CASE(@"old"){
@@ -476,6 +479,14 @@ int selectedIndex = 0;
     selectedIndex = 0;
     
     float value = [[[[analizData sharedObject] dicRiskData] valueForKey:currentKey] floatValue];
+
+
+    if ([[analizData sharedObject].dicRiskData[currentKey] isKindOfClass:[NSString class]]&&[[analizData sharedObject].dicRiskData[currentKey] isEqualToString:@"-"]&&currentDataSourceDict[@"default"]!=nil){
+        value = [currentDataSourceDict[@"default"] floatValue];
+    } else {
+        value = [[[[analizData sharedObject] dicRiskData] valueForKey:currentKey] floatValue];
+    }
+    
     for (int i = 0; i<pickerDataSource.count; i++){
         if (value == [pickerDataSource[i] floatValue]){
             selectedIndex = i;
@@ -483,7 +494,11 @@ int selectedIndex = 0;
         }
     }
 
-    [picker_view selectRow:selectedIndex inComponent:0 animated:NO];
+    
+
+    if (selectedIndex!=NSNotFound&&!outOfBounds(selectedIndex, pickerDataSource)){
+        [picker_view selectRow:selectedIndex inComponent:0 animated:NO];
+    }
     
     [picker_cover show];
     
@@ -549,9 +564,15 @@ numberOfRowsInComponent:(NSInteger)component
              titleForRow:(NSInteger)row
             forComponent:(NSInteger)component
 {
-    NSString *title = [pickerDataSource objectAtIndex:row];
+    
+    NSMutableString *title = [NSMutableString new];
+    [title appendFormat:@"%@",[pickerDataSource objectAtIndex:row]];
     if ([title isEqualToString:@"-"]){
         return @"Не установлено";
+    } else {
+        if ([currentDataSourceDict[@"description"] isKindOfClass:[NSString class]]&&[currentDataSourceDict[@"description"] length]>0){
+            [title appendFormat:@" %@",currentDataSourceDict[@"description"]];
+        }
     }
     return title;
 }

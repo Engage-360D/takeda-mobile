@@ -199,15 +199,21 @@ numberOfRowsInComponent:(NSInteger)component
              titleForRow:(NSInteger)row
             forComponent:(NSInteger)component
 {
-    return [NSString stringWithFormat:@"%@",listArray[row]];
+    NSMutableString *titleText = [NSMutableString new];
+    [titleText appendFormat:@"%@",listArray[row]];
+    
+    
+    if (self.unitCaption.length>0){
+        [titleText appendFormat:@" %@",self.unitCaption];
+    }
+    
+    return titleText;
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
       inComponent:(NSInteger)component{
     selectedIndex = (int)row;
 }
-
-
 
 #pragma mark -
 

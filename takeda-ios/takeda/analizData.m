@@ -36,8 +36,8 @@ NSMutableDictionary * dic_data;
 
     [dic_data setObject:@"-" forKey:@"old"];
     [dic_data setObject:@"" forKey:@"birthday"];
-    [dic_data setObject:[self defValueFor:@"growth" standart:@"170"] forKey:@"growth"];
-    [dic_data setObject:[self defValueFor:@"weight" standart:@"70"] forKey:@"weight"];
+    [dic_data setObject:[self defValueFor:@"growth" standart:@"-"] forKey:@"growth"];
+    [dic_data setObject:[self defValueFor:@"weight" standart:@"-"] forKey:@"weight"];
     [dic_data setObject:[self defValueFor:@"smoke" standart:@"0"] forKey:@"smoke"];
     [dic_data setObject:@"-" forKey:@"cholesterol"];
     [dic_data setObject:@"0" forKey:@"drags_cholesterol"];
@@ -133,8 +133,8 @@ NSMutableDictionary * dic_data;
     return @[
              @{@"object":@"sex", @"id":@"1",@"type": @"1",@"name":@"Пол",@"f_param":@"Мужчина",@"s_param":@"Женщина",@"value":[dic_data objectForKey:@"sex"]},
              @{@"object":@"old", @"id":@"2",@"type": @"2",@"name":@"Возраст",@"description":@"лет",@"value":[dic_data objectForKey:@"old"]},
-             @{@"object":@"growth", @"id":@"3",@"type": @"2",@"name":@"Рост",@"description":@"см",@"value":[dic_data objectForKey:@"growth"]},
-             @{@"object":@"weight", @"id":@"4",@"type": @"2",@"name":@"Вес",@"description":@"кг",@"value":[dic_data objectForKey:@"weight"]},
+             @{@"object":@"growth", @"id":@"3",@"type": @"2",@"name":@"Рост",@"description":@"см",@"value":[dic_data objectForKey:@"growth"],@"default":@"165"},
+             @{@"object":@"weight", @"id":@"4",@"type": @"2",@"name":@"Вес",@"description":@"кг",@"value":[dic_data objectForKey:@"weight"],@"default":@"65"},
              @{@"object":@"smoke", @"id":@"5",@"type": @"3",@"name":@"Курение",@"value":[dic_data objectForKey:@"smoke"]},
              @{@"object":@"cholesterol", @"id":@"6",@"type": @"2",@"fractions":@"1",@"name":@"Уровень общего холестерина",@"description":@"ммоль/литр",@"value":[dic_data objectForKey:@"cholesterol"]},
              @{@"object":@"drags_cholesterol", @"id":@"7",@"type": @"3",@"name":@"Лекарства для снижения уровня холестерина",@"value":[dic_data objectForKey:@"drags_cholesterol"]}
@@ -163,7 +163,7 @@ NSMutableDictionary * dic_data;
             // @{@"object":@"salt", @"id":@"15",@"type": @"2",@"fractions":@"1",@"name":@"Соль",@"description":@"грамм/день",@"value":[dic_data objectForKey:@"salt"]},
              @{@"object":@"salt", @"id":@"15",@"type": @"3",@"name":@"Досаливаете ли вы пищу?",@"value":[dic_data objectForKey:@"salt"]},
              
-             @{@"object":@"accept_drags_risk_trombus", @"id":@"16",@"type": @"3",@"name":@"Принимает ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?",@"value":[dic_data objectForKey:@"accept_drags_risk_trombus"]},
+//             @{@"object":@"accept_drags_risk_trombus", @"id":@"16",@"type": @"3",@"name":@"Принимает ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?",@"value":[dic_data objectForKey:@"accept_drags_risk_trombus"]},
              ];
 }
 

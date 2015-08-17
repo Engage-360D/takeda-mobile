@@ -16,7 +16,7 @@
 
 -(void)showMessageWithTextInput:(NSString*)placeholder msg:(NSString*)msg title:(NSString*)title btns:(NSArray*)btns params:(NSDictionary*)params result:(void (^)(int index, NSString*text))ResultBlock{
     
-    alertViewTextInputWithButtons = [[UIAlertView alloc] init];
+    alertViewTextInputWithButtons = [[TKAlertView alloc] init];
     
     alertViewTextInputWithButtons.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField * alertTextField = [alertViewTextInputWithButtons textFieldAtIndex:0];
@@ -48,10 +48,45 @@
     [alertViewTextInputWithButtons show];
 }
 
+-(void)showMessage:(NSString*)msg title:(NSString*)title btns:(NSArray*)btns params:(NSDictionary*)params result:(void (^)(int))ResultBlock{
+
+      alertViewWithButtons = [[TKAlertView alloc] init];
+      self.resultBlock = ResultBlock;
+      
+      [alertViewWithButtons setTitle:title];
+      [alertViewWithButtons setMessage:msg];
+      alertViewWithButtons.delegate = self;
+ 
+      for (int i = 0; i<btns.count; i++) {
+          [alertViewWithButtons addButtonWithTitle:btns[i]];
+      }
+    
+
+//    for (NSString *key in params.allKeys){
+//        
+//        if ([key isEqualToString:@"title_label_font"]){
+//            UILabel *title = [alertViewWithButtons valueForKey:@"_titleLabel"];
+//            title.font = params[key];
+//            title.textColor = [UIColor redColor];
+//        }
+//        
+//        if ([key isEqualToString:@"text_label_font"]){
+//            UILabel *title = [alertViewWithButtons valueForKey:@"_bodyTextLabel"];
+//            title.font = params[key];
+//        }
+//    }
+    
+    
+      //   [alertViewWithButtons setCancelButtonIndex:10];
+      [alertViewWithButtons show];
+
+}
+
 
 -(void)showMessage:(NSString*)msg title:(NSString*)title btns:(NSArray*)btns result:(void (^)(int))ResultBlock{
-    alertViewWithButtons = [[UIAlertView alloc] init];
+    alertViewWithButtons = [[TKAlertView alloc] init];
     self.resultBlock = ResultBlock;
+    
     [alertViewWithButtons setTitle:title];
     [alertViewWithButtons setMessage:msg];
     alertViewWithButtons.delegate = self;
@@ -64,7 +99,7 @@
 }
 
 -(void)showMessage:(NSString*)msg title:(NSString*)title result:(void (^)(void))ResultBlock{
-    alertViewWithOkBtnBlock = [[UIAlertView alloc] init];
+    alertViewWithOkBtnBlock = [[TKAlertView alloc] init];
     self.simpleResBlock = ResultBlock;
     [alertViewWithOkBtnBlock setTitle:title];
     [alertViewWithOkBtnBlock setMessage:msg];
@@ -76,7 +111,7 @@
 }
 
 -(void)showMessage:(NSString*)msg title:(NSString*)title{
-    alertViewSimple = [[UIAlertView alloc] init];
+    alertViewSimple = [[TKAlertView alloc] init];
     [alertViewSimple setTitle:title];
     [alertViewSimple setMessage:msg];
     alertViewSimple.delegate = self;
