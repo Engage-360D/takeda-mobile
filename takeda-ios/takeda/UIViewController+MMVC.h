@@ -11,6 +11,7 @@
 @interface UIViewController (MMVC)
 
 -(void)showMessageWithTextInput:(NSString*)placeholder msg:(NSString*)msg title:(NSString*)title btns:(NSArray*)btns params:(NSDictionary*)params result:(void (^)(int index, NSString *text))ResultBlock;
+-(void)showMessage:(NSString*)msg title:(NSString*)title btns:(NSArray*)btns params:(NSDictionary*)params result:(void (^)(int))ResultBlock;
 -(void)showMessage:(NSString*)msg title:(NSString*)title btns:(NSArray*)btns result:(void (^)(int))ResultBlock;
 -(void)showMessage:(NSString*)msg title:(NSString*)title result:(void (^)(void))ResultBlock;
 -(void)showMessage:(NSString*)msg title:(NSString*)title;

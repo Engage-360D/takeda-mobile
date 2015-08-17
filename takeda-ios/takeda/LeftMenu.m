@@ -75,7 +75,7 @@
                   @{@"name" :@"Анализ риска", @"item":[NSNumber numberWithInt:State_Risk_Analysis], @"enabled":(!userIsBlocked&&needTest)||[User checkForRole:tDoctor]?@"YES":@"NO"},
                   @{@"name" :@"Поиск учреждений", @"item":[NSNumber numberWithInt:State_Search_Institution], @"enabled":@"YES"},
                 //  @{@"name" :@"Рекомендации", @"item":[NSNumber numberWithInt:State_Recomendation], @"enabled":userIsBlocked?@"NO":@"NO"},
-                  @{@"name" :@"Рекомендации", @"item":[NSNumber numberWithInt:State_Analysis_Result], @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
+                  @{@"name" :@"Как модифицировать риск?", @"item":[NSNumber numberWithInt:State_Analysis_Result], @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
                   @{@"name" :@"Дневник", @"item":[NSNumber numberWithInt:State_Calendar], @"enabled":userIsBlocked?@"NO":@"YES"},
                   @{@"name" :@"Полезно знать", @"item":[NSNumber numberWithInt:State_Useful_Know], @"enabled":userIsBlocked?@"NO":@"YES"},
                  // @{@"name" :@"Публикации", @"item":[NSNumber numberWithInt:State_Publication], @"enabled":userIsBlocked?@"NO":@"YES"},

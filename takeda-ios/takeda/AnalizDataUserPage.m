@@ -5,6 +5,7 @@
 //  Created by Serg on 4/2/14.
 //  Copyright (c) 2014 organization. All rights reserved.
 //
+#import "RNBlurModalView.h"
 
 #import "AnalizDataUserPage.h"
 #import "analizRadioCell.h"
@@ -42,10 +43,20 @@
     self.tableView.tableFooterView = self.tableView.separ;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+}
+
 -(void)reloadData{
     [self reloadDataSource];
     [self.tableView reloadData];
 }
+
+-(IBAction)showPageInfo:(id)sender{
+   // [self showMessage:@"" title:@""];
+}
+
 
 #pragma mark - Table view data source
 
@@ -220,8 +231,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     int type = [[[sourceData objectAtIndex:indexPath.row] objectForKey:@"type"] intValue];
     if (type==2) {
-        if ([self.delegate respondsToSelector:@selector(analizDataUserPage:openList:)]) {
-            [self.delegate analizDataUserPage:self openList:[[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"]];
+        if ([self.delegate respondsToSelector:@selector(analizDataUserPage:openList:sourceData:)]) {
+            [self.delegate analizDataUserPage:self openList:[[sourceData objectAtIndex:indexPath.row] objectForKey:@"object"] sourceData:[sourceData objectAtIndex:indexPath.row]];
         }
     }else{
         if (type==3) {

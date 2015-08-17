@@ -22,5 +22,5 @@
 @end
 
 @protocol AnalizDataUserPageDelegate <NSObject>
--(void)analizDataUserPage:(AnalizDataUserPage*)analizPage openList:(NSString*)type;
+-(void)analizDataUserPage:(AnalizDataUserPage*)analizPage openList:(NSString*)type sourceData:(NSMutableDictionary*)sd;
 @end

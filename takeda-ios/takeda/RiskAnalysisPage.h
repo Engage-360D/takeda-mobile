@@ -15,4 +15,7 @@
 @property (nonatomic,retain) IBOutlet UIScrollView *scroll;
 @property (nonatomic,retain) IBOutletCollection(UIImageView) NSArray *page_indicator;
 @property (nonatomic,retain) ResultRiskAnal *resultRiskAnalysis;
+
+-(void)analizDataUserPage:(AnalizDataUserPage*)analizPage openList:(NSString*)type sourceData:(NSMutableDictionary*)sd;
+
 @end

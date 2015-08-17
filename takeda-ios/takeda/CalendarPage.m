@@ -537,6 +537,8 @@
                 }];
             }
         }];
+    
+        exPicker.unitCaption = @"мин. в день";
         exPicker.applyBtn.title = @"Отправить";
         exPicker.closeBtn.title = @"Отменить";
     
@@ -566,6 +568,7 @@
     }];
     exPicker.applyBtn.title = @"Отправить";
     exPicker.closeBtn.title = @"Отменить";
+    
     
     [exPicker show];
 }
@@ -620,6 +623,8 @@
     }];
     exPicker.applyBtn.title = @"Отправить";
     exPicker.closeBtn.title = @"Отменить";
+    exPicker.unitCaption = @"мм рт. ст.";
+
     
     [exPicker show];
 }
@@ -646,7 +651,8 @@
     }];
     exPicker.applyBtn.title = @"Отправить";
     exPicker.closeBtn.title = @"Отменить";
-    
+    exPicker.unitCaption = @"кг";
+
     [exPicker show];
 }
 

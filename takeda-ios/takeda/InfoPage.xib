@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6750" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6735"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InfoPage">
@@ -77,11 +77,11 @@
                                     <rect key="frame" x="8" y="38" width="304" height="76"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <mutableString key="text">Инсульт.
+                                    <string key="text">Инсульт.
 Если у вас возникли подозрения развития инсульта у человека, который рядом с вами, попросите его улыбнуться. Если у больного действительно инсульт, этого не удастся сделать обеими уголками губ, улыбка получится кривой. Попросите повторить какое-то простое предложение или выражение - при инсульте речь будет нарушена. Человек не сможет одновременно поднять вверх обе руки. Попросите показать язык, если он искривлен, это тоже тревожный признак инсульта. 
 
 Инфаркт.
-Предвестником инфаркта может быть постоянное чувство жжения, которое длится на протяжении нескольких дней. Если же появился давящая боль в груди, которая распространяется на шею, левую руку, челюсть, участок между лопатками, больного тошнит, у него учащенное дыхание, повышенное потоотделение - не медлите, вызывайте «скорую».</mutableString>
+Предвестником инфаркта может быть постоянное чувство жжения, которое длится на протяжении нескольких дней. Если же появился давящая боль в груди, которая распространяется на шею, левую руку, челюсть, участок между лопатками, больного тошнит, у него учащенное дыхание, повышенное потоотделение - не медлите, вызывайте «скорую».</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>

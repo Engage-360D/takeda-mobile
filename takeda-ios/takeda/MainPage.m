@@ -41,7 +41,7 @@ typedef NSUInteger MenuItem;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    bottom_menu_data = [NSMutableArray arrayWithArray:     @[@{@"title":@"Мои рекомендации",@"type":[NSNumber numberWithInt:ctLeftCaptionRightArrow],@"action":[NSNumber numberWithInt:myRecommendations]},
+    bottom_menu_data = [NSMutableArray arrayWithArray:     @[@{@"title":@"Мои модификаторы риска",@"type":[NSNumber numberWithInt:ctLeftCaptionRightArrow],@"action":[NSNumber numberWithInt:myRecommendations]},
                                                              @{@"title":@"Мои успехи",@"type":[NSNumber numberWithInt:ctLeftCaptionRightArrow],@"action":[NSNumber numberWithInt:mySuccess]},
                                                              @{@"title":@"Сводный отчет", @"subtitle":@"Переход на сайт" ,@"type":[NSNumber numberWithInt:ctCaptionSubtitleRightArrow],@"action":[NSNumber numberWithInt:commonReport]}]];
     
@@ -650,6 +650,8 @@ typedef NSUInteger MenuItem;
     }];
     exPicker.applyBtn.title = @"Отправить";
     exPicker.closeBtn.title = @"Отменить";
+    exPicker.unitCaption = @"мин. в день";
+
     
     [exPicker show];
 }
@@ -730,7 +732,8 @@ typedef NSUInteger MenuItem;
     }];
     exPicker.applyBtn.title = @"Отправить";
     exPicker.closeBtn.title = @"Отменить";
-    
+    exPicker.unitCaption = @"мм рт. ст.";
+
     [exPicker show];
 }
 -(void)setupWeight:(NSMutableDictionary*)task{
@@ -756,6 +759,8 @@ typedef NSUInteger MenuItem;
     }];
     exPicker.applyBtn.title = @"Отправить";
     exPicker.closeBtn.title = @"Отменить";
+    exPicker.unitCaption = @"кг";
+
     
     [exPicker show];
 }

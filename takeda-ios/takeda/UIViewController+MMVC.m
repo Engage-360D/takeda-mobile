@@ -18,6 +18,15 @@
     }];
 }
 
+-(void)showMessage:(NSString*)msg title:(NSString*)title btns:(NSArray*)btns params:(NSDictionary*)params result:(void (^)(int))ResultBlock{
+    __block AlertSimple *als = [AlertSimple new];
+    [als showMessage:msg title:title btns:btns params:params result:^(int index) {
+        als = nil;
+        ResultBlock(index);
+    }];
+}
+
+
 -(void)showMessage:(NSString*)msg title:(NSString*)title btns:(NSArray*)btns result:(void (^)(int))ResultBlock{
     __block AlertSimple *als = [AlertSimple new];
     [als showMessage:msg title:title btns:btns result:^(int index){
@@ -25,6 +34,7 @@
         ResultBlock(index);
     }];
 }
+
 
 -(void)showMessage:(NSString*)msg title:(NSString*)title result:(void (^)(void))ResultBlock{
     __block AlertSimple *als = [AlertSimple new];
