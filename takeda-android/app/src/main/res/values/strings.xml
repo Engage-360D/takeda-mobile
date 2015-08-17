@@ -14,7 +14,7 @@
     <!-- test -->
     <!-- ==== -->
     <string name="risk_analysis">Анализ риска</string>
-    <string name="patient_data">Данные пациента</string>
+    <string name="score_procam">на основании шкал &lt;a href="http://cvdrisk.nhlbi.nih.gov/">SCORE &lt;/a>и &lt;a href="http://www.chd-taskforce.com/procam_interactive.html">PROCAM&lt;/a></string>
     <string name="patient_history">История пациента</string>
     <string name="daily_ration">Дневной рацион</string>
     <string name="tab_step_one">Шаг 1\nДанные пациента</string>
@@ -81,8 +81,8 @@
     <!-- ================ -->
     <!-- fragment_welcome -->
     <!-- ================ -->
-    <string name="welcome_1">Добро пожаловать в приложение\nпрепарата Кардиомагнил.</string>
-    <string name="welcome_2">Вы сможете следить за своим здоровьем и\nпользоваться советами после регистрации и\nпрохождения теста.</string>
+    <string name="welcome_1">Добро пожаловать в приложение\n"Здоровое сердце",\nсозданное компанией ТАКЕДА</string>
+    <string name="welcome_2">Вы сможете оценить сердечно-сосудистый риск\nпосле регистрации и прохождения теста</string>
     <string name="swipe">Войдите</string>
     <string name="three_minutes">3 минуты до начала работы приложения</string>
 
@@ -116,7 +116,7 @@
     <string name="menu_item_search_institutions">Поиск учреждений</string>
     <string name="menu_item_information">Информация</string>
     <string name="menu_item_settings">Настройки</string>
-    <string name="menu_item_analysis_results">Рекомендации</string>
+    <string name="menu_item_analysis_results">Как модифицировать риск?</string>
     <string name="menu_item_useful_to_know">Полезно знать</string>
     <string name="menu_item_reports">Отчеты</string>
     <string name="menu_item_patient_data">Данные пациента</string>
@@ -144,7 +144,7 @@
     <string name="confirmation">Подтверждение</string>
     <string name="agree_to_processing">Согласен на обработку персональных данных</string>
     <string name="agree_to_receive">Согласен получать информацию по email</string>
-    <string name="agree_that_advises">Согласен с тем, что вся информация носит рекомендательный характер</string>
+    <string name="agree_that_advises">Согласен с тем, что вся информация носит ознакомительный характер</string>
     <string name="registration">Регистрация</string>
     <string name="sign_up">Зарегистрироваться</string>
     <string name="additional_information">Дополнительная информация</string>
@@ -165,10 +165,10 @@
     <!-- fragment_main -->
     <!-- ========================= -->
     <string name="zero_percent">0%</string>
-    <string name="index_recommendations">Ваш индекс рекомендаций на этой неделе</string>
+    <string name="index_recommendations">Ваш индекс модификации риска на этой неделе</string>
     <string name="physical_load">Физическая нагрузка</string>
     <string name="eaten_today">Вы соблюдаете диету?</string>
-    <string name="my_recommendations">Мои рекомендации</string>
+    <string name="my_recommendations">Мои модификаторы риска</string>
     <string name="my_success">Мои успехи</string>
     <string name="consolidated_report">Сводный отчет</string>
     <string name="go_to_website">Переход на сайт</string>
@@ -178,6 +178,8 @@
     <!-- fragment_pill -->
     <!-- ============= -->
     <string name="pills">Таблетки</string>
+    <string name="medication_reminders">Мои напоминания о лекарствах</string>
+    <string name="pills_info">Сюда вы можете включить то, что рекомендовано врачом.</string>
     <string name="visit_doctor">Сходить к врачу</string>
     <string name="consult_a_doctor">Вам следует обратиться в лечебно-профилактические учреждения для назначения правильного для вас лечения</string>
     <string name="add">Добавить</string>
@@ -244,11 +246,11 @@
     <!-- cabinet_test -->
     <!-- ============ -->
     <string name="recommendations">Рекомендации</string>
-    <string name="additional_test">Дополнительный опрос\nпо корректировке диеты</string>
+    <string name="additional_test">Возможности модификации диеты</string>
     <string name="get_recommendations">Получить рекомендации по диете</string>
     <string name="pass_test_again">Пройти тест еще раз</string>
-    <string name="should_prefer">Следует предпочесть</string>
-    <string name="eat_sparingly">Следует употреблять умеренно</string>
+    <string name="should_prefer">Возможности мофикации диеты</string>
+    <string name="eat_sparingly">Ограничение в употреблении следующих продуктов\nположительно влияет на сердечно-сосудистое здоровье</string>
 
     <!-- ================ -->
     <!-- cabinet_settings -->
@@ -333,7 +335,7 @@
     <!-- ======= -->
     <!-- results -->
     <!-- ======= -->
-    <string name="choose_nearest_medical_institution">Подобрать мед. учереждение поблизости</string>
+    <string name="choose_nearest_medical_institution">Посмотреть мед. учереждение поблизости</string>
     <string name="adjustment_of_diet">Дополнительная корректировка диеты</string>
     <string name="pass_poll">Пройти опрос</string>
     <string name="send_results">Отослать результаты на email?</string>

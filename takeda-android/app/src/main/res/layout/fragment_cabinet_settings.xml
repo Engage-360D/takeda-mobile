@@ -43,7 +43,7 @@
             <TextView
                 android:id="@+id/textViewPills"
                 style="@style/TextViewItemDrawableRR"
-                android:text="@string/pills" />
+                android:text="@string/medication_reminders" />
 
             <View style="@style/divider_normal_1_5" />
 
@@ -104,7 +104,7 @@
             <include
                 android:id="@+id/layoutIncidentDescription"
                 layout="@layout/layout_incident"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutIncidentHolder"

@@ -84,6 +84,7 @@
             <View style="@style/divider_normal_1_3" />
 
             <RelativeLayout
+                android:id="@+id/relativeLayoutAspirin"
                 style="@style/LinearLayoutItemLarge"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_xsmall"
