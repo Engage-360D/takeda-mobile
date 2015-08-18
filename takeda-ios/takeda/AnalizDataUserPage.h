@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TTTAttributedLabel.h"
 
 @protocol AnalizDataUserPageDelegate;
 
-@interface AnalizDataUserPage : VControllerExt
+@interface AnalizDataUserPage : VControllerExt <TTTAttributedLabelDelegate>
 
 @property int page;
 @property (nonatomic,retain) IBOutlet UIButton *nextStepBtn;

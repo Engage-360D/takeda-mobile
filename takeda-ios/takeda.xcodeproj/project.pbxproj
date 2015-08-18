@@ -21,6 +21,7 @@
 		5B19A1751B7CD95D009083D5 /* welcome_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B19A1731B7CD95D009083D5 /* welcome_logo@2x.png */; };
 		5B19A1791B7DC6C7009083D5 /* RNBlurModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B19A1781B7DC6C7009083D5 /* RNBlurModalView.m */; };
 		5B19A17D1B7DF7A2009083D5 /* TKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B19A17C1B7DF7A1009083D5 /* TKAlertView.m */; };
+		5B19A1861B83419D009083D5 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B19A1851B83419D009083D5 /* TTTAttributedLabel.m */; };
 		5B1DB10B1A6E5F1A0099E35C /* rightDarkArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1DB10A1A6E5F1A0099E35C /* rightDarkArrow@2x.png */; };
 		5B1DB10F1A6E61190099E35C /* StandartCombyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1DB10D1A6E61190099E35C /* StandartCombyCell.m */; };
 		5B1DB1101A6E61190099E35C /* StandartCombyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1DB10E1A6E61190099E35C /* StandartCombyCell.xib */; };
@@ -451,6 +452,8 @@
 		5B19A1781B7DC6C7009083D5 /* RNBlurModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBlurModalView.m; sourceTree = "<group>"; };
 		5B19A17B1B7DF7A1009083D5 /* TKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKAlertView.h; sourceTree = "<group>"; };
 		5B19A17C1B7DF7A1009083D5 /* TKAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKAlertView.m; sourceTree = "<group>"; };
+		5B19A1841B83419D009083D5 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		5B19A1851B83419D009083D5 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		5B1DB10A1A6E5F1A0099E35C /* rightDarkArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightDarkArrow@2x.png"; sourceTree = "<group>"; };
 		5B1DB10C1A6E61190099E35C /* StandartCombyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandartCombyCell.h; sourceTree = "<group>"; };
 		5B1DB10D1A6E61190099E35C /* StandartCombyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandartCombyCell.m; sourceTree = "<group>"; };
@@ -1147,6 +1150,15 @@
 				5B19A1781B7DC6C7009083D5 /* RNBlurModalView.m */,
 			);
 			name = RNBlurModalView;
+			sourceTree = "<group>";
+		};
+		5B19A1871B8341A7009083D5 /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				5B19A1841B83419D009083D5 /* TTTAttributedLabel.h */,
+				5B19A1851B83419D009083D5 /* TTTAttributedLabel.m */,
+			);
+			name = TTTAttributedLabel;
 			sourceTree = "<group>";
 		};
 		5B1DB0FE1A6E5CD30099E35C /* StandartElements */ = {
@@ -2207,6 +2219,7 @@
 		B2D74CC518E4C6EB00B31E16 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				5B19A1871B8341A7009083D5 /* TTTAttributedLabel */,
 				5B19A17A1B7DC6CA009083D5 /* RNBlurModalView */,
 				5B784B3E1ACBF3A600FB0894 /* GoogleMapsRoute */,
 				5BDD00FC1AB35AFF002A2088 /* GoogleMapsCluster */,
@@ -2822,6 +2835,7 @@
 				5B19A1791B7DC6C7009083D5 /* RNBlurModalView.m in Sources */,
 				5BDD01651AB71900002A2088 /* OKMediaTopicPostViewController.m in Sources */,
 				5B8C1C031A7F66880024463C /* CActionSheet.m in Sources */,
+				5B19A1861B83419D009083D5 /* TTTAttributedLabel.m in Sources */,
 				5B8317631A765D8400A5EFDF /* AlertSimple.m in Sources */,
 				B2D74D0318E4D68200B31E16 /* AnalisisResultPage.m in Sources */,
 				5B69F3291A7009BA00643978 /* BtnCheckBox.m in Sources */,

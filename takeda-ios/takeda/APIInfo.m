@@ -61,9 +61,11 @@
 
 #define FB_SCOPE @[@"email", @"read_stream", @"user_about_me", @"user_birthday"]
 
-
-
-
-
+#pragma mark -
 
 #define kSpecAutoSearchLPU @"Кардиология" // Ресет пользователя. POST.
+
+#define kScoreLink @"http://cvdrisk.nhlbi.nih.gov"
+#define kProcamLink @"http://www.chd-taskforce.com/procam_interactive.html"
+
+
