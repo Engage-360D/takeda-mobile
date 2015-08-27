@@ -160,6 +160,8 @@
     <string name="must_be_selected">Необходимо выбрать</string>
     <string name="can_not_be_empty">Не может быть пустым</string>
     <string name="must_match">Должны совпадать</string>
+    <string name="user_not_found">Пользователь не найден.</string>
+
 
     <!-- ========================= -->
     <!-- fragment_main -->
@@ -379,6 +381,7 @@
     <string name="resp_003_db_error">Ошибка базы данных</string>
     <string name="resp_004_input_data_error">Ошибка входных данных</string>
     <string name="resp_005_no_data_error">Ошибка: данные не обнаружены</string>
+    <string name="resp_400_not_found_error">Ошибка: данные не найдены</string>
     <string name="resp_409_conflict_error">Ошибка: возник конфликт</string>
     <string name="resp_200_ok">OK</string>
     <string name="resp_201_created">Создано успешно</string>

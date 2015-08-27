@@ -13,6 +13,7 @@ public class Status {
     public final static int INPUT_DATA_ERROR = 4;
     public final static int NO_DATA_ERROR = 5;
 
+    public final static int NOT_FOUND_ERROR = 400;
     public final static int CONFLICT_ERROR = 409;
 
     public static String getDescription(int errorCode) {
