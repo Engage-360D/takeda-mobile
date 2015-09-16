@@ -13,7 +13,7 @@
     <!-- ==== -->
     <!-- test -->
     <!-- ==== -->
-    <string name="risk_analysis">Анализ риска</string>
+    <string name="risk_analysis">Анализ усугубляющих факторов</string>
     <string name="score_procam">на основании шкал &lt;a href="http://cvdrisk.nhlbi.nih.gov/">SCORE &lt;/a>и &lt;a href="http://www.chd-taskforce.com/procam_interactive.html">PROCAM&lt;/a></string>
     <string name="patient_history">История пациента</string>
     <string name="daily_ration">Дневной рацион</string>
@@ -82,7 +82,7 @@
     <!-- fragment_welcome -->
     <!-- ================ -->
     <string name="welcome_1">Добро пожаловать в приложение\n"Здоровое сердце",\nсозданное компанией ТАКЕДА</string>
-    <string name="welcome_2">Вы сможете оценить сердечно-сосудистый риск\nпосле регистрации и прохождения теста</string>
+    <string name="welcome_2">Вы сможете оценить состояние сердечно-сосудистой системы\nи факторы, влияющие на ее работу,\nпосле регистрации и прохождения теста.</string>
     <string name="swipe">Войдите</string>
     <string name="three_minutes">3 минуты до начала работы приложения</string>
 
@@ -97,7 +97,7 @@
     <string name="enter">Войти</string>
     <string name="restore">Восстановить</string>
     <string name="restored_successfully">Новый пароль выслан.\nПроверьте почту.</string>
-    <string name="if_no_account">Если у вас до сих пор нет логина,\nсоветуем вам зарегистироваться:</string>
+    <string name="if_no_account">Если у вас до сих пор нет логина,\nпожалуйста, зарегистрируйтесь:</string>
     <string name="register">Регистрация</string>
     <string name="restoring_info">Информация для восстановления пароля будет выслана на указанный email.</string>
     <string name="restoring_info_sent">Информация для восстановления пароля была выслана на указанный email.</string>
@@ -110,13 +110,13 @@
     <string name="menu_back">Назад</string>
     <string name="menu_done">Готово</string>
     <string name="menu_item_main">Главная</string>
-    <string name="menu_item_risk_analysis">Анализ риска</string>
+    <string name="menu_item_risk_analysis">Анализ усугубляющих факторов</string>
     <string name="menu_item_add_pills">Добавить</string>
     <string name="menu_item_journal">Дневник</string>
     <string name="menu_item_search_institutions">Поиск учреждений</string>
     <string name="menu_item_information">Информация</string>
     <string name="menu_item_settings">Настройки</string>
-    <string name="menu_item_analysis_results">Как модифицировать риск?</string>
+    <string name="menu_item_analysis_results">Как модифицировать усугубляющие факторы?</string>
     <string name="menu_item_useful_to_know">Полезно знать</string>
     <string name="menu_item_reports">Отчеты</string>
     <string name="menu_item_patient_data">Данные пациента</string>
@@ -167,10 +167,10 @@
     <!-- fragment_main -->
     <!-- ========================= -->
     <string name="zero_percent">0%</string>
-    <string name="index_recommendations">Ваш индекс модификации риска на этой неделе</string>
+    <string name="index_recommendations">Ваш индекс модификации усугублящих факторов на этой неделе</string>
     <string name="physical_load">Физическая нагрузка</string>
     <string name="eaten_today">Вы соблюдаете диету?</string>
-    <string name="my_recommendations">Мои модификаторы риска</string>
+    <string name="my_recommendations">Мои модификаторы усугубляющих факторов</string>
     <string name="my_success">Мои успехи</string>
     <string name="consolidated_report">Сводный отчет</string>
     <string name="go_to_website">Переход на сайт</string>
@@ -252,7 +252,7 @@
     <string name="get_recommendations">Получить рекомендации по диете</string>
     <string name="pass_test_again">Пройти тест еще раз</string>
     <string name="should_prefer">Возможности мофикации диеты</string>
-    <string name="eat_sparingly">Ограничение в употреблении следующих продуктов\nположительно влияет на сердечно-сосудистое здоровье</string>
+    <string name="eat_sparingly">Положительно на здоровье сердечно-сосудистой системы влияет ограничение употребления следующих продуктов</string>
 
     <!-- ================ -->
     <!-- cabinet_settings -->
@@ -289,8 +289,8 @@
     <string name="first_aid">Первая помощь</string>
     <string name="recognize_infarction_apoplexy">Как распознать инфаркт-инсульт</string>
     <string name="lifestyle">Образ жизни</string>
-    <string name="infarction_apoplexy_recommendation">Инсульт.\nЕсли у вас возникли подозрения развития инсульта у человека, который рядом с вами, попросите его улыбнуться. Если у больного действительно инсульт, этого не удастся сделать обеими уголками губ, улыбка получится кривой. Попросите повторить какое-то простое предложение или выражение - при инсульте речь будет нарушена. Человек не сможет одновременно поднять вверх обе руки. Попросите показать язык, если он искривлен, это тоже тревожный признак инсульта. \n\nИнфаркт.\nПредвестником инфаркта может быть постоянное чувство жжения, которое длится на протяжении нескольких дней. Если же появился давящая боль в груди, которая распространяется на шею, левую руку, челюсть, участок между лопатками, больного тошнит, у него учащенное дыхание, повышенное потоотделение - не медлите, вызывайте «скорую».</string>
-    <string name="lifestyle_recommendation">Инфаркт миокарда и мозговой инсульт можно предотвратить и успешно лечить, и очень многое тут зависит от самого человека, очень велика роль его родных, семьи, близких. Очень много зависит от знаний, которые могут помочь в предупреждении и лечении любой болезни, в том числе инфаркта миокарда и мозгового инсульта.</string>
+    <string name="infarction_apoplexy_recommendation">Инсульт.\nЕсли вы подозреваете, что у человека, который находится рядом, инсульт, попросите его улыбнуться. Если ему не удается улыбнуться обоими уголками губ, у него действительно инсульт. Попросите его повторить какое-то простое предложение – при инсульте речь будет нарушена. Попросите его одновременно поднять руки вверх – при инсульте он не сможет этого сделать. Попросите показать язык, и, если он искривлен, это тоже тревожный признак.\n\nИнфаркт.\nПредвестником инфаркта может быть постоянное чувство жжения, которое продолжается нескольких дней. Если же появился давящая боль в груди, которая распространяется на шею, левую руку, челюсть, участок между лопатками, больного тошнит, у него учащенное дыхание, повышенное потоотделение - не медлите, вызывайте «скорую».</string>
+    <string name="lifestyle_recommendation">Инфаркт миокарда и мозговой инсульт можно предотвратить и успешно лечить, и многое в этом вопросе зависит как от самого человека, так и от его родных, семьи и близких. Огромную роль играют и знания, которые могут помочь в предупреждении и лечении болезни.</string>
 
     <!-- ========= -->
     <!-- incidents -->
@@ -302,7 +302,7 @@
     <string name="shunting">Коронарное шунтирование</string>
     <string name="your_comment">Ваш комментарий</string>
     <string name="warning">Внимание!</string>
-    <string name="incident_description">Вы перенесли %s и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача</string>
+    <string name="incident_description">Если вы перенесли %s, вам НЕОБХОДИМО соблюдать рекомендации вашего лечащего врача</string>
 
     <!-- ============ -->
     <!-- patient_data -->
