@@ -343,9 +343,12 @@ static AllSingle *dot = nil;
 
 -(CGFloat)getHeight:(NSString*)text font:(UIFont*)font width:(float)width{
     CGSize maximumSizeLabel = CGSizeMake(width, 9999);
-    CGSize labelSize = [text sizeWithFont:font
-                        constrainedToSize:maximumSizeLabel
-                            lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize labelSize = [text boundingRectWithSize:maximumSizeLabel
+                                                options:NSStringDrawingUsesLineFragmentOrigin
+                                             attributes:@{NSFontAttributeName:font}
+                                                context:nil].size;
+    
+    
     CGFloat labelHeight = labelSize.height+1;
     return labelHeight;
 }
@@ -362,13 +365,13 @@ static AllSingle *dot = nil;
 
 -(CGFloat)heightLabel:(UILabel*)label{
     
-    CGSize maxSize = CGSizeMake(label.frame.size.width, MAXFLOAT);
+    CGSize maxSize = CGSizeMake(label.frame.size.width, 9999);
     CGRect labelRect = [label.text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:label.font} context:nil];
     return labelRect.size.height;
     
     
     UIFont *font = label.font;
-    CGSize size = CGSizeMake(label.bounds.size.width, CGFLOAT_MAX);
+    CGSize size = CGSizeMake(label.bounds.size.width, 9999);
     float h = [self text:label.text sizeWithFont:font constrainedToSize:size].height;
     return h;
 }

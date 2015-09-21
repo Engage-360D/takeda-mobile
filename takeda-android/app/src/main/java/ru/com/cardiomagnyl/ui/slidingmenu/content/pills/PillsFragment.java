@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import ru.com.cardiomagnyl.ui.base.BaseItemFragment;
 import ru.com.cardiomagnyl.ui.slidingmenu.menu.SlidingMenuActivity;
 import ru.com.cardiomagnyl.util.CallbackOne;
 import ru.com.cardiomagnyl.util.schedule.PillsScheduler;
+import ru.com.cardiomagnyl.widget.CustomDialogs;
 
 public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayout.OnRefreshListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +55,14 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
     }
 
     private void initFragmentStart(final View fragmentView) {
+        ImageView imageViewPillsInfo = (ImageView) fragmentView.findViewById(R.id.imageViewPillsInfo);
+        imageViewPillsInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomDialogs.showAlertDialog(fragmentView.getContext(), R.string.pills_info);
+            }
+        });
+
         fragmentView.findViewById(R.id.fragmentContent).setVisibility(View.INVISIBLE);
         fragmentView.findViewById(R.id.textViewMessage).setVisibility(View.INVISIBLE);
 
@@ -151,5 +161,4 @@ public class PillsFragment extends BaseItemFragment implements SwipeRefreshLayou
         SlidingMenuActivity slidingMenuActivity = (SlidingMenuActivity) getActivity();
         slidingMenuActivity.putContentOnTop(pillDetailsFragment, true);
     }
-
 }

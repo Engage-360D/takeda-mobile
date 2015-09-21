@@ -17,9 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    alerts = @{@"hadHeartAttackOrStroke":   @{@"text":@"Вы перенесли Инфракт/Инсульт и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               @"hadBypassSurgery":         @{@"text":@"Вы перенесли Коронарное шунтирование и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
-               @"hasDiabetes":              @{@"text":@"Вы перенесли Диабет и вам следует соблюдать ТОЛЬКО рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
+    alerts = @{@"hadHeartAttackOrStroke":   @{@"text":@"Если вы перенесли инфаркт, вам НЕОБХОДИМО соблюдать рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               @"hadBypassSurgery":         @{@"text":@"Если вы перенесли коронарное шунтирование, вам НЕОБХОДИМО соблюдать рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"},
+               @"hasDiabetes":              @{@"text":@"Если вы перенесли диабет, вам НЕОБХОДИМО соблюдать рекомендации вашего лечащего врача",@"image":@"dangerRedIcon",@"title":@"Внимание!"} };
     
 
     [self setupInterface];
@@ -72,7 +72,7 @@
         [self.incidentsContainer addSubview:rAV];
       //  [rAV setupWithTitle:alerts[dict[@"type"]][@"title"] text:alerts[dict[@"type"]][@"text"] img:alerts[dict[@"type"]][@"image"]];
         [rAV setupWithTitle:alerts[key][@"title"] text:alerts[key][@"text"] img:alerts[key][@"image"]];
- 
+            break;
         }
 
     }

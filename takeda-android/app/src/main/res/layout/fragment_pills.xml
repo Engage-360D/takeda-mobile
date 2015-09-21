@@ -3,10 +3,26 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/textViewHeader"
-        style="@style/TextViewTop"
-        android:text="@string/pills" />
+    <RelativeLayout
+        android:id="@+id/relativeLayoutViewHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewHeader"
+            style="@style/TextViewTop"
+            android:text="@string/medication_reminders" />
+
+        <ImageView
+            android:id="@+id/imageViewPillsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/space_small"
+            android:padding="@dimen/space_small"
+            android:src="@drawable/selector_button_info" />
+
+    </RelativeLayout>
 
     <include
         android:id="@+id/textViewFooter"
@@ -20,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/textViewFooter"
-        android:layout_below="@id/textViewHeader">
+        android:layout_below="@id/relativeLayoutViewHeader">
 
         <ListView
             android:id="@+id/listViewPills"

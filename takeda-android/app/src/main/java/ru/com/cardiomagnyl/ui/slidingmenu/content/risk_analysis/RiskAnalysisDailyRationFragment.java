@@ -64,6 +64,16 @@ public class RiskAnalysisDailyRationFragment extends BaseRiskAnalysis {
                 tryGetResults(testSource);
             }
         });
+
+        hideAspirin(view);
+    }
+
+    private void hideAspirin(View view) {
+        View relativeLayoutAspirin = view.findViewById(R.id.relativeLayoutAspirin);
+        ToggleButton toggleButtonNoAspirin = (ToggleButton) view.findViewById(R.id.toggleButtonNoAspirin);
+
+        relativeLayoutAspirin.setVisibility(View.GONE);
+        toggleButtonNoAspirin.setChecked(true);
     }
 
     private void tryGetResults(TestSource testSource) {

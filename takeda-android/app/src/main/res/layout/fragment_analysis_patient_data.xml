@@ -13,8 +13,9 @@
             android:text="@string/risk_analysis" />
 
         <TextView
+            android:id="@+id/textViewScoreProcam"
             style="@style/TextViewTestLarge"
-            android:text="@string/patient_data" />
+            android:textColorLink="@android:color/white" />
     </LinearLayout>
 
     <LinearLayout

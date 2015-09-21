@@ -83,7 +83,7 @@
         case dList:{
 
             int index = [Global index:preValue inArray:self.listArray];
-            if (index!=NSNotFound){
+            if (!outOfBounds(index, self.listArray)){
                 selectedIndex = index;
             }
             [list_picker selectRow:selectedIndex inComponent:0 animated:NO];

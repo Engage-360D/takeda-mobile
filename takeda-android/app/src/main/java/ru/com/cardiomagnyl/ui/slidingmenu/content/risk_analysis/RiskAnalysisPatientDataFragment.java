@@ -3,6 +3,8 @@ package ru.com.cardiomagnyl.ui.slidingmenu.content.risk_analysis;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,6 +52,7 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
     private void initPatientDataFragment(View fragmentView) {
         initTabs(fragmentView, 0);
 
+        TextView textViewScoreProcam = (TextView) fragmentView.findViewById(R.id.textViewScoreProcam);
         RadioGroup radioGroupCholesterolDrugs = (RadioGroup) fragmentView.findViewById(R.id.radioGroupCholesterolDrugs);
         RadioGroup radioGroupSmoking = (RadioGroup) fragmentView.findViewById(R.id.radioGroupSmoke);
         ImageView imageViewBottomInsideLeft = (ImageView) fragmentView.findViewById(R.id.imageViewBottomInsideLeft);
@@ -61,6 +64,9 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
         final TextView textViewCholesterol = (TextView) parentView.findViewById(R.id.textViewCholesterol);
         CheckBox checkBoxCholesterolNotKnow = (CheckBox) parentView.findViewById(R.id.checkBoxCholesterolNotKnow);
         View layoutBottomInside = fragmentView.findViewById(R.id.layoutBottomInside);
+
+        textViewScoreProcam.setText(Html.fromHtml(fragmentView.getContext().getString(R.string.score_procam)));
+        textViewScoreProcam.setMovementMethod(LinkMovementMethod.getInstance());
 
         radioGroupCholesterolDrugs.setOnCheckedChangeListener(Tools.ToggleListener);
         radioGroupSmoking.setOnCheckedChangeListener(Tools.ToggleListener);

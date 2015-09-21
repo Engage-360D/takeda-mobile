@@ -54,7 +54,7 @@
                                     <action selector="getRecommendationAction:" destination="-1" eventType="touchUpInside" id="Oe6-we-7tg"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имеются противопоказания  необходимо ознакомиться с инструкцией по применению" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L6X-KJ-Jsl">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имеются противопоказания.  Необходимо ознакомиться с инструкцией по применению." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L6X-KJ-Jsl">
                                 <rect key="frame" x="16" y="109" width="304" height="42"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>

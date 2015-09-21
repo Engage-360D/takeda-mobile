@@ -41,7 +41,7 @@ typedef NSUInteger MenuItem;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    bottom_menu_data = [NSMutableArray arrayWithArray:     @[@{@"title":@"Мои модификаторы риска",@"type":[NSNumber numberWithInt:ctLeftCaptionRightArrow],@"action":[NSNumber numberWithInt:myRecommendations]},
+    bottom_menu_data = [NSMutableArray arrayWithArray:     @[@{@"title":@"Мои модификаторы усугубляющих факторов",@"type":[NSNumber numberWithInt:ctLeftCaptionRightArrow],@"action":[NSNumber numberWithInt:myRecommendations]},
                                                              @{@"title":@"Мои успехи",@"type":[NSNumber numberWithInt:ctLeftCaptionRightArrow],@"action":[NSNumber numberWithInt:mySuccess]},
                                                              @{@"title":@"Сводный отчет", @"subtitle":@"Переход на сайт" ,@"type":[NSNumber numberWithInt:ctCaptionSubtitleRightArrow],@"action":[NSNumber numberWithInt:commonReport]}]];
     

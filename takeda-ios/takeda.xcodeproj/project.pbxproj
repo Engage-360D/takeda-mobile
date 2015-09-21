@@ -2980,8 +2980,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Ruden (BVQ5CTN3F8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Ruden (BVQ5CTN3F8)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: CPCS Development s.r.o. (PHSJ624XF2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CPCS Development s.r.o. (PHSJ624XF2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
@@ -3006,7 +3006,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51a3808e-c03a-4e58-a5d4-baecac4c4be3";
+				PROVISIONING_PROFILE = "ad9f4547-a4d3-4dd2-9a44-fba2a7880508";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3017,8 +3017,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Ruden (BVQ5CTN3F8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Ruden (BVQ5CTN3F8)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: CPCS Development s.r.o. (PHSJ624XF2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CPCS Development s.r.o. (PHSJ624XF2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
@@ -3041,7 +3041,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "51a3808e-c03a-4e58-a5d4-baecac4c4be3";
+				PROVISIONING_PROFILE = "ad9f4547-a4d3-4dd2-9a44-fba2a7880508";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
