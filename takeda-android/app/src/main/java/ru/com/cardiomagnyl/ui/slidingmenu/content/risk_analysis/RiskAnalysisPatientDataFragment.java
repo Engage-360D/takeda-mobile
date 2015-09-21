@@ -126,10 +126,10 @@ public class RiskAnalysisPatientDataFragment extends BaseRiskAnalysis {
             textViewBirthDate.setTag(Tools.calendarFromShortDate(birthDate));
         } else {
             textViewHeigh.setText(String.valueOf(testResult.getGrowth()));
-            textViewHeigh.setTag(String.valueOf(testResult.getGrowth()));
+            textViewHeigh.setTag(testResult.getGrowth());
 
             textViewWeight.setText(String.valueOf(testResult.getWeight()));
-            textViewWeight.setTag(String.valueOf(testResult.getWeight()));
+            textViewWeight.setTag(testResult.getWeight());
 
             String birthDate = Tools.fullDateToShortDate(user.getBirthday());
             textViewBirthDate.setText(birthDate);

@@ -221,7 +221,7 @@ public abstract class BaseStartFragment extends Fragment {
                                Response responseError) {
         StartActivity startActivity = (StartActivity) getActivity();
         if (startActivity == null) return;
-        startActivity.showProgressDialog();
+        startActivity.hideProgressDialog();
 
         if (token == null || user == null || incidents == null) {
             responseError = (responseError == null || responseError.getError() == null) ?
@@ -229,6 +229,9 @@ public abstract class BaseStartFragment extends Fragment {
                     responseError;
 
             switch (responseError.getError().getCode()) {
+                case Status.NOT_FOUND_ERROR:
+                    Tools.showToast(getActivity(), R.string.error_user_not_found, Toast.LENGTH_LONG);
+                    break;
                 case Status.NO_DATA_ERROR:
                     Tools.showToast(getActivity(), R.string.error_user_not_found, Toast.LENGTH_LONG);
                     break;
