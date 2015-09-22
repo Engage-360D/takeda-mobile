@@ -6,10 +6,11 @@
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/plate_medium"
+        android:layout_height="wrap_content"
         android:background="@drawable/selector_menu_item_bg"
         android:gravity="center_vertical"
-        android:lineSpacingMultiplier="0.7"
+        android:lineSpacingMultiplier="0.8"
+        android:minHeight="@dimen/plate_medium"
         android:paddingLeft="@dimen/space_large"
         android:paddingRight="@dimen/space_large"
         android:textColor="@color/selector_menu_item_text"
