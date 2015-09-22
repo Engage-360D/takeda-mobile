@@ -139,7 +139,7 @@ NSString *sentEmail;
     self.lastname_field.font = [UIFont fontWithName:@"SegoeWP" size:14.0];
 
     
-    self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
+    self.danger_text.text = @"Имеются противопоказания. \n Необходимо ознакомиться с инструкцией по применению.";
     
     self.btn_register.titleLabel.font = [UIFont fontWithName:@"SegoeWP-Light" size:17.0];
 

@@ -111,9 +111,9 @@ ForgetPage *forgetPage;
     [self.scrollView setup_autosize];
     self.navigationController.navigationBarHidden = NO;
 
-    self.email_field.text = @"alexruden+3@rambler.ru";
-    self.pass_field.text = @"q";
-    self.danger_text.text = @"Имеются противопоказания \n необходимо ознакомиться с инструкцией по применению";
+//    self.email_field.text = @"alexruden+3@rambler.ru";
+//    self.pass_field.text = @"q";
+    self.danger_text.text = @"Имеются противопоказания. \n Необходимо ознакомиться с инструкцией по применению.";
     
 }
 

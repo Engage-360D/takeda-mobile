@@ -72,10 +72,10 @@
     userIsBlocked = User.userBlocked;
     menuData = [Global recursiveMutable:
                 @[@{@"name" :@"Главная", @"item":[NSNumber numberWithInt:State_MainPage], @"enabled":@"YES"},
-                  @{@"name" :@"Анализ риска", @"item":[NSNumber numberWithInt:State_Risk_Analysis], @"enabled":(!userIsBlocked&&needTest)||[User checkForRole:tDoctor]?@"YES":@"NO"},
+                  @{@"name" :@"Анализ усугубляющих факторов", @"item":[NSNumber numberWithInt:State_Risk_Analysis], @"enabled":(!userIsBlocked&&needTest)||[User checkForRole:tDoctor]?@"YES":@"NO"},
                   @{@"name" :@"Поиск учреждений", @"item":[NSNumber numberWithInt:State_Search_Institution], @"enabled":@"YES"},
                 //  @{@"name" :@"Рекомендации", @"item":[NSNumber numberWithInt:State_Recomendation], @"enabled":userIsBlocked?@"NO":@"NO"},
-                  @{@"name" :@"Как модифицировать риск?", @"item":[NSNumber numberWithInt:State_Analysis_Result], @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
+                  @{@"name" :@"Как модифицировать усугубляющие факторы?", @"item":[NSNumber numberWithInt:State_Analysis_Result], @"enabled":[[GlobalData resultAnalyses] count]?@"YES":@"NO"},
                   @{@"name" :@"Дневник", @"item":[NSNumber numberWithInt:State_Calendar], @"enabled":userIsBlocked?@"NO":@"YES"},
                   @{@"name" :@"Полезно знать", @"item":[NSNumber numberWithInt:State_Useful_Know], @"enabled":userIsBlocked?@"NO":@"YES"},
                  // @{@"name" :@"Публикации", @"item":[NSNumber numberWithInt:State_Publication], @"enabled":userIsBlocked?@"NO":@"YES"},
@@ -143,8 +143,7 @@
    
     cell.name_group.text = [[menuData objectAtIndex:indexPath.row] objectForKey:@"name"];
     [cell.name_group setFont:[UIFont fontWithName:@"Helvetica-Light" size:18]];
-    
-    
+
     if (indexPath.row == 0) {
         cell.top_separator.hidden = NO;
     }else{
@@ -178,11 +177,20 @@
         cell.name_group.textColor = RGB(150, 190, 190);
     }
     cell.disabled = !enabled;
+    
+    float h = [Global getHeight:cell.name_group.text font:cell.name_group.font width:self.tableView.width-44];
+    cell.name_group.frame = CGRectMake(22, 11, self.tableView.width-44, h);
+    cell.height = h+22;
+
     return cell;
 }
 
-
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    menu_cell *cell = (menu_cell*)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    float h = [Global getHeight:cell.name_group.text font:cell.name_group.font width:self.tableView.width-44];
+    cell.name_group.frame = CGRectMake(22, 11, self.tableView.width-44, h);
+    return h+22;
+}
 
 #pragma mark - Table view delegate
 

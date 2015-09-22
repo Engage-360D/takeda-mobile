@@ -161,7 +161,7 @@ NSMutableDictionary * dic_data;
 -(NSArray*)getQuestionsDailyRation{
     return @[
             // @{@"object":@"salt", @"id":@"15",@"type": @"2",@"fractions":@"1",@"name":@"Соль",@"description":@"грамм/день",@"value":[dic_data objectForKey:@"salt"]},
-             @{@"object":@"salt", @"id":@"15",@"type": @"3",@"name":@"Досаливаете ли вы пищу?",@"value":[dic_data objectForKey:@"salt"]},
+             @{@"object":@"salt", @"id":@"15",@"type": @"3",@"name":@"Досаливаете ли Вы пищу?",@"value":[dic_data objectForKey:@"salt"]},
              
 //             @{@"object":@"accept_drags_risk_trombus", @"id":@"16",@"type": @"3",@"name":@"Принимает ли препараты на основе ацетилсалициловой кислоты для профилактики риска тромбозов?",@"value":[dic_data objectForKey:@"accept_drags_risk_trombus"]},
              ];

@@ -15,7 +15,9 @@
 #import "analizData.h"
 
 
-@interface AnalizDataUserPage ()
+@interface AnalizDataUserPage (){
+    TTTAttributedLabel *tlsubtitle;
+}
 
 @end
 
@@ -41,6 +43,15 @@
     [self.nextStepBtn setBackgroundImage:[[UIImage imageNamed:@"button_arrow_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 30)] forState:UIControlStateNormal];
     self.nextStepBtn.titleLabel.font = [UIFont fontWithName:@"SegoeWP Light" size:17.0];
     self.tableView.tableFooterView = self.tableView.separ;
+    NSString *subText = @"на основании шкал SCORE и PROCAM";
+    self.vcSubTitle.text = subText;
+    NSRange scoreRange = [subText rangeOfString:@"SCORE"];
+    NSRange procamRange = [subText rangeOfString:@"PROCAM"];
+    tlsubtitle = (TTTAttributedLabel*)self.vcSubTitle;
+    tlsubtitle.delegate = self;
+    tlsubtitle.linkAttributes = @{ (id)kCTForegroundColorAttributeName: [UIColor whiteColor], NSUnderlineStyleAttributeName: [NSNumber numberWithInt:NSUnderlineStyleSingle] };
+    [tlsubtitle addLinkToURL:[NSURL URLWithString:kScoreLink] withRange:scoreRange];
+    [tlsubtitle addLinkToURL:[NSURL URLWithString:kProcamLink] withRange:procamRange];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -57,6 +68,16 @@
    // [self showMessage:@"" title:@""];
 }
 
+#pragma mark - TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url {
+    [[UIApplication sharedApplication] openURL:url];
+}
+
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label didLongPressLinkWithURL:(__unused NSURL *)url atPoint:(__unused CGPoint)point {
+    
+}
 
 #pragma mark - Table view data source
 
