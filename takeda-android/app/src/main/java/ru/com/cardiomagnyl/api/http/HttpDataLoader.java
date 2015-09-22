@@ -1,17 +1,11 @@
 package ru.com.cardiomagnyl.api.http;
 
 import com.android.volley.VolleyError;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import java.io.IOException;
 
 import ru.com.cardiomagnyl.api.CachedStringRequest;
 import ru.com.cardiomagnyl.api.DataLoadSequence;
 import ru.com.cardiomagnyl.api.Status;
 import ru.com.cardiomagnyl.api.base.BaseVolleyDataLoader;
-import ru.com.cardiomagnyl.model.common.DataWrapper;
 import ru.com.cardiomagnyl.model.common.Error;
 import ru.com.cardiomagnyl.model.common.Response;
 import ru.com.cardiomagnyl.util.Callback;
@@ -31,21 +25,6 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
                     @Override
                     public void execute() {
                         Response response = stringToResponse(responseString);
-
-                        ///////////////////////////////////////////////////////////
-                        // FIXME: remove after tests
-                        ///////////////////////////////////////////////////////////
-                        if (!response.isSuccessful()) {
-                            try {
-                                ObjectMapper mapper = new ObjectMapper();
-                                JsonNode jsonNode = mapper.readTree(responseString);
-                                ObjectNode objectNode = DataWrapper.wrap(jsonNode);
-                                response = stringToResponse(objectNode.toString());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        ///////////////////////////////////////////////////////////
 
                         if (response.isSuccessful()) {
                             ThreadHelper.logThread("HttpDataLoader->onResponse->success");
@@ -82,39 +61,12 @@ public class HttpDataLoader extends BaseVolleyDataLoader {
             }
         };
 
-//        final String fakeResponse = "{\"links\":{\"users.region\":{\"href\":\"/api/v1/regions/{users.region}\",\"type\":\"regions\"}},\"data\":{\"id\":\"8\",\"email\":\"y.andreyko3@gmail.com\",\"firstname\":\"XXXX\",\"lastname\":\"XXXX\",\"birthday\":\"1990-10-10T00:00:00+00:00\",\"vkontakteId\":null,\"facebookId\":null,\"specializationExperienceYears\":null,\"specializationGraduationDate\":null,\"specializationInstitutionAddress\":null,\"specializationInstitutionName\":null,\"specializationInstitutionPhone\":null,\"specializationName\":null,\"roles\":[\"ROLE_USER\", \"ROLE_Test1\", \"ROLE_Test2\"],\"isEnabled\":false,\"links\":{\"region\":\"1\"}}}";
-        final String fakeResponse = "{\"data\":{\"state\":\"attention\",\"title\":\"У вас недостаточно физической активности 80 минут в неделю\",\"subtitle\":\"Нормой является значение от 150 минут в неделю\",\"text\":\"Физическая активность является средством сохранения здоровья сердца и сосудов.\\n\\nЖелательно предпочесть аэробную динамическую нагрузку 5 раз в неделю от 30 мин. до 2 ч. в день.\\nНагрузка  рекомендуется такая, чтобы частота пульса достигла 65-70% от максимальной частоты пульса для данного возраста.\\n\\nМаксимальная частота пульса рассчитывается по формуле: 220 минус возраст в годах.\\n\\nБольным с заболеваниями сердца и сосудов режим нагрузок подбирается врачом индивидуально в соответствии с результатами электрокардиографического теста с физической нагрузкой.\\n\"}}";
-        final com.android.volley.Response.Listener<String> fakeSuccessListener = new com.android.volley.Response.Listener<String>() {
-            @Override
-            public void onResponse(final String responseString) {
-                Response response = stringToResponse(fakeResponse);
-                if (response.isSuccessful()) {
-                    handleSuccessResponse(response, httpRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
-                } else {
-                    handleErrorResponse(response, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
-                }
-            }
-        };
-        final com.android.volley.Response.ErrorListener fakeErrorListener = new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(final VolleyError volleyError) {
-                Response response = stringToResponse(fakeResponse);
-                if (response.isSuccessful()) {
-                    handleSuccessResponse(response, httpRequestHolder, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
-                } else {
-                    handleErrorResponse(response, dataLoadSequence, callbackOneOnSuccess, callbackOneOnError);
-                }
-            }
-        };
-
         CachedStringRequest cachedStringRequest = new CachedStringRequest(
                 httpRequestHolder.getMethod(),
                 httpRequestHolder.getUrl(),
                 httpRequestHolder.getHeaders(),
                 httpRequestHolder.getParams(),
                 httpRequestHolder.getBody(),
-//                fakeSuccessListener,
-//                fakeErrorListener
                 successListener,
                 errorListener
         );
