@@ -148,7 +148,7 @@
     }
     self.infoBtn.enabled = !User.userBlocked;
 
-    if (User.userBlocked){
+    if (User.userBlocked||[self resultHasIncident]){
         [self showScoreLineRed];
         [self showMainInfoRed];
         self.tableView.hidden = YES;
@@ -165,6 +165,14 @@
 
     }
     
+}
+
+-(BOOL)resultHasIncident{
+    if (results_data[@"recommendations"][@"fullScreenAlert"]!=nil&&[results_data[@"recommendations"][@"fullScreenAlert"]isKindOfClass:[NSDictionary class]]){
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 #pragma mark - normResults

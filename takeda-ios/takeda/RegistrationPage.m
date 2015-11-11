@@ -250,8 +250,7 @@ NSString *sentEmail;
         [ServData registrationUserWithData:params completion:^(BOOL result, NSError *error, NSString* textError){
             [self removeActivityIdicator];
             if (result){
-                User.userData = nil;
-                [User logoutUser];
+                [appDelegate logoutUser];
                 [self showActivityIndicatorWithString:@""];
                 [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
                     [self removeActivityIdicator];

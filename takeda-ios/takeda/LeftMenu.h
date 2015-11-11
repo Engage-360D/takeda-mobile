@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LeftMenu : UIViewController
+@interface LeftMenu : GAITrackedViewController
 
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 
+
 -(void)openMainPage;
 
+-(void)openScreenOnIncidentFrom:(id)from;
+
++(NSArray*)menu_data;
+
++(int)indexOfItem:(int)itemName inMenu:(NSArray*)menuArray;
 
 @end

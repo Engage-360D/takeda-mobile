@@ -83,11 +83,11 @@
     _deleteAllResults.enabled = !User.userBlocked;
     _addIncident.enabled = !User.userBlocked;
     _addIncident.hidden = [User checkForRole:tDoctor];
-    
+    _incidentsContainer.hidden = [User checkForRole:tDoctor];
 }
 
 -(IBAction)logout:(id)sender{
-    [User logoutUser];
+    [appDelegate logoutUser];
     [appDelegate openAuthPage];
 
 }

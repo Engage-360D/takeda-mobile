@@ -62,13 +62,18 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.4</string>
+	<string>1.0.6</string>
 	<key>FacebookAppID</key>
 	<string>842362822502496</string>
 	<key>FacebookDisplayName</key>
 	<string>Cardiomagnyl</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>I need Location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

@@ -33,11 +33,22 @@
 #define kAccountISR @"account/isr" // ИСП пользователя. GET.
 
 
+#define kSpecAutoSearchLPU @"Кардиология"
+#define kScoreLink @"http://cvdrisk.nhlbi.nih.gov"
+#define kProcamLink @"http://www.chd-taskforce.com/procam_interactive.html"
+
+
+#pragma mark - App keys 
 
 #define client_id @"3_4d30arhx9jmssw4owoc8oksw48os0cccssoogs84kc008ogco4"
 #define client_secret @"6bhq30w1jrc4wwoc00ks400scgkwws8g8skwkc84g0kkwgkc0k"
 
-//#warning SET OK keys !!!
+#pragma mark -
+
+
+// External defines
+// Don't forget make changes in takeda-Info.plist
+
 #pragma mark - OK
 
 #define  ok_appId @"1126090240"
@@ -60,12 +71,30 @@
 #pragma mark - Facebook
 
 #define FB_SCOPE @[@"email", @"read_stream", @"user_about_me", @"user_birthday"]
+#define kFacebookApId @"842362822502496"
+#pragma mark -
+
+
+#pragma mark - TestFairy
+
+#define kTestFairyId @"0a5b866d28f84bb9bbea5a2948683e8e0be28546"
 
 #pragma mark -
 
-#define kSpecAutoSearchLPU @"Кардиология" // Ресет пользователя. POST.
 
-#define kScoreLink @"http://cvdrisk.nhlbi.nih.gov"
-#define kProcamLink @"http://www.chd-taskforce.com/procam_interactive.html"
+#pragma mark - GoogleMaps
 
+#define kGoogleMapsId @"AIzaSyCJbaqLyduDBLnzodgcq5WdD7ebS2tU2DM"
+
+#pragma mark -
+
+
+#pragma mark - GoogleAnalytics
+
+#define kGATrackingId @"UA-67616061-2" // For test - @"UA-43892815-3"
+
+#pragma mark -
+
+
+#define kReachabilityHost @"www.apple.com"
 

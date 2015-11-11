@@ -30,6 +30,10 @@
 
 @property (nonatomic) BOOL userBlocked;
 
+@property (nonatomic) BOOL cashed_userBlocked;
+@property (nonatomic) BOOL cashed_checkToNeedTest;
+
+
 @property (nonatomic, strong) NSString *user_id;
 @property (nonatomic, strong) NSString *user_login;
 @property (nonatomic, strong) NSString *access_token;
@@ -62,6 +66,7 @@
 -(NSString*)getLastUser;
 -(void)logoutUser;
 -(void)saveIncidents;
+-(void)updateCashed;
 
 
 

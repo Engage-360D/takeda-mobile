@@ -107,14 +107,19 @@
 }
 
 -(void)addDrug{
-    
+    [self showActivityIndicatorWithString:@""];
     [ServData addDrug:drug completion:^(BOOL success, NSError *error, id result){
         if (success){
-            [self showMessage:@"" title:@"Лекарство успешно добавлено"];
-            self.readOnly = YES;
-            self.preview = YES;
-            [self updateInterface];
+            [self updateLocalPillsCompl:^{
+                [self removeActivityIdicator];
+                [self showMessage:@"" title:@"Лекарство успешно добавлено"];
+                self.readOnly = YES;
+                self.preview = YES;
+                [self updateInterface];
+            }];
+
         } else {
+            [self removeActivityIdicator];
             [self showMessage:@"Не получилось добавить лекарство" title:@"Ошибка"];
         }
     }];
@@ -128,14 +133,19 @@
         [self updateInterface];
         return;
     }
+    [self showActivityIndicatorWithString:@""];
     [ServData updateDrug:drug completion:^(BOOL success, NSError *error, id result){
         if (success){
-            [self showMessage:@"" title:@"Лекарство успешно изменено"];
-            self.readOnly = YES;
-            self.preview = YES;
-            [self updateInterface];
+            [self updateLocalPillsCompl:^{
+                [self removeActivityIdicator];
+                [self showMessage:@"" title:@"Лекарство успешно изменено"];
+                self.readOnly = YES;
+                self.preview = YES;
+                [self updateInterface];
+            }];
 
         } else {
+            [self removeActivityIdicator];
             [self showMessage:@"Не получилось изменить лекарство" title:@"Ошибка"];
         }
     }];
@@ -158,6 +168,11 @@
 
 }
 
+-(void)updateLocalPillsCompl:(void (^)())completition{
+    [GlobalData loadPillsCompletition:^(BOOL success, id result){
+        completition();
+    }];
+}
 
 -(void)showInfo{
     

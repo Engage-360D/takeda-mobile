@@ -26,6 +26,7 @@
     if (self) {
         is_authorized = NO;
         taked = NO;
+        self.screenName = @"Welcome page";
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChanged:) name:kReachabilityChangedNotification object:nil];
         [self performSelector:@selector(networkChanged:) withObject:nil afterDelay:4.0f];
     }

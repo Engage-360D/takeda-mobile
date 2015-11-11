@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResultRiskAnal">
@@ -31,6 +31,7 @@
                 <outlet property="stateImageRed" destination="zCk-ss-CFb" id="mDS-Nz-lGp"/>
                 <outlet property="tableView" destination="7gL-VT-uPN" id="Ktw-6A-RkU"/>
                 <outlet property="titleContainer" destination="NUZ-cG-LdR" id="SJH-Qy-MPq"/>
+                <outlet property="vcTitle" destination="i9a-Xa-HHz" id="yZX-dB-FqA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -149,7 +150,7 @@
                                 <color key="backgroundColor" red="0.42352941179999998" green="0.68235294120000001" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view key="tableFooterView" contentMode="scaleToFill" id="T1e-qX-aiD">
-                                <rect key="frame" x="0.0" y="400" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="350" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dBQ-3U-8DV">
@@ -293,9 +294,4 @@
         <image name="shareBtnIcon.png" width="28" height="28"/>
         <image name="whiteArrowRight.png" width="8" height="15"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

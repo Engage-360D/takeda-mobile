@@ -18,6 +18,17 @@
 @implementation UsefulKnowPage
 @synthesize infoData;
 
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = RGB(236, 236, 236);
@@ -240,12 +251,13 @@
                                                           NSError *error) {
                                           // if login fails for any reason, we alert
                                           if (error) {
-                                              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                                              message:error.localizedDescription
-                                                                                             delegate:nil
-                                                                                    cancelButtonTitle:@"OK"
-                                                                                    otherButtonTitles:nil];
-                                              [alert show];
+//                                              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+//                                                                                              message:error.localizedDescription
+//                                                                                             delegate:nil
+//                                                                                    cancelButtonTitle:@"OK"
+//                                                                                    otherButtonTitles:nil];
+//                                              [alert show];
+                                              [self failMessage];
                                           } else if (FB_ISSESSIONOPENWITHSTATE(status)) {
                                               [self requestFbPublishPermissionsAndPublish];
                                           }
@@ -418,20 +430,47 @@
 #pragma mark - FB 
 
 -(void)requestFbPublishPermissionsAndPublish{
-    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
-        [[FBSession activeSession] requestNewPublishPermissions:@[@"publish_actions"]
-                                                defaultAudience:FBSessionDefaultAudienceFriends
-                                              completionHandler:^(FBSession *session, NSError *error) {
-                                                  if (error){
-                                                      [self failMessage];
-                                                  } else {
-                                                      [self sharePostByFb];
-                                                  }
-                                              }];
-    } else {
-        [self sharePostByFb];
+    ShowNetworkActivityIndicator();
+    [FBRequestConnection startWithGraphPath:@"/me/permissions" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        HideNetworkActivityIndicator();
+        BOOL hasPerms = NO;
+
+        if (error){
+                                /// facebook Has Publish Permission = NO;
+            hasPerms = NO;
+            
+        } else {
+            
+            NSArray *perms = result[@"data"];
+
+            for (NSDictionary* permissions in perms){
+                if ([permissions[@"permission"] isEqualToString:@"publish_actions"]&&[permissions[@"status"] isEqualToString:@"granted"]){
+                    hasPerms = YES;
+                    break;
+                }
+            }
+        }
+        
+     if (hasPerms){
+         [self sharePostByFb];
+     } else {
+        /// facebook Has Publish Permission = NO;
+         [[FBSession activeSession] requestNewPublishPermissions:@[@"publish_actions"]
+                                                 defaultAudience:FBSessionDefaultAudienceFriends
+                                               completionHandler:^(FBSession *session, NSError *error) {
+                                                   if (error){
+                                                       [self failMessage];
+                                                   } else {
+                                                       [self sharePostByFb];
+                                                   }
+                                               }];
+
     }
+
+     
+    }];
 }
+
     
 -(void)sharePostByFb{
     
@@ -497,6 +536,27 @@
 //             [self successMessage];
 //         }
 //     }];
+}
+
+- (void)requestCompleted:(FBRequestConnection *)connection
+                 forFbID:fbID
+                  result:(id)result
+                   error:(NSError *)error {
+    HideNetworkActivityIndicator();
+    // not the completion we were looking for...
+    if (error) {
+        [self failMessage];
+    } else {
+
+    }
+    /*
+     NSLog(@"%@",[NSString stringWithFormat:@"%@: %@\r\n",[fbID stringByTrimmingCharactersInSet:
+     [NSCharacterSet whitespaceAndNewlineCharacterSet]],
+     text]);*/
+}
+
+- (void)cancelRequest {
+    [self failMessage];
 }
 
 

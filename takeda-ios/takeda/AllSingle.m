@@ -311,6 +311,19 @@ static AllSingle *dot = nil;
     return nil;
 }
 
+-(NSInteger)indexOfDictionaryWithValue:(id)value ForKey:(NSString*)key InArray:(NSArray*)array{
+
+    for (int i = 0; i<array.count; i++){
+        NSDictionary* arr_dict = array[i];
+        
+        NSString *str1 = [NSString stringWithFormat:@"%@",arr_dict[key]];
+        NSString *str2 = [NSString stringWithFormat:@"%@",value];
+        BOOL eq = [str1 isEqualToString:str2];
+        if (eq) return i;
+
+    }
+    return NSNotFound;
+}
 
 #pragma mark -
 

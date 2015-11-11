@@ -228,7 +228,12 @@ static ServData *objectInstance = nil;
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{incident:[NSNumber numberWithBool:YES]}];
     
     [self sendCommonPOST:url body:[self preparedParams:params] success:^(id res, NSError *errorr){
-        completion([errorr answerOk], errorr, res);
+        
+        [[Synchronizer sharedInstance] startSynchronizeTasks:[NSArray arrayWithObjects:jLoadRiskAnalResults, nil] completition:^(BOOL success, id result) {
+            completion([errorr answerOk], errorr, res);
+        }];
+//        completion([errorr answerOk], errorr, res);
+
     }];
 
 }
@@ -360,8 +365,9 @@ static ServData *objectInstance = nil;
         if ([error answerOk]){
             if ([result[@"data"] isKindOfClass:[NSArray class]]&&[result[@"data"] count]>0){
                 completion (YES, error, result);
-            };
-            completion(NO,error, result);
+            } else {
+                completion(NO,error, result);
+            }
         } else {
             completion(NO,error, result);
         }
@@ -493,6 +499,7 @@ static ServData *objectInstance = nil;
     
     [self sendCommonPOST:url body:[self preparedParams: drugData] success:^(id result, NSError *error){
         if (result[@"data"][@"id"]){
+            [GlobalData updatePill:result[@"data"]];
             completion(YES,error, result);
         } else {
             completion(NO,error, result);

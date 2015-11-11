@@ -95,7 +95,8 @@ int incident;
             [User saveIncidents];
             
             [self showMessage:@"Инцидент успешно добавлен" title:@"Успех" result:^{
-                [[rootMenuController sharedInstance].leftMenu openMainPage];
+//                [self.navigationController popToRootViewControllerAnimated:NO];
+                [[rootMenuController sharedInstance].leftMenu openScreenOnIncidentFrom:self.slideMenuController];
                 //[self backAction];
             }];
         } else {

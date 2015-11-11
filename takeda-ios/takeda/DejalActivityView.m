@@ -37,7 +37,6 @@
 
 @interface DejalActivityView ()
 
-@property (nonatomic, strong) UIView *originalView;
 @property (nonatomic, strong) UIView *borderView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) UILabel *activityLabel;

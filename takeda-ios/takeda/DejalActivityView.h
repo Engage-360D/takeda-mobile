@@ -35,6 +35,8 @@
 // The view to contain the activity indicator and label.  The bezel style has a semi-transparent rounded rectangle, others are fully transparent:
 @property (nonatomic, strong, readonly) UIView *borderView;
 
+@property (nonatomic, strong) UIView *originalView;
+
 // The activity indicator view:
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *activityIndicator;
 

@@ -27,6 +27,7 @@ typedef NSUInteger StateMenu;
 +(void)resetData;
 
 @property StateMenu stateMenu;
+@property StateMenu last_stateMenu;
 
 
 

@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "WelcomePage.h"
 #import "AuthPage.h"
+#import "GAI.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -24,9 +25,12 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapToHide;
 @property (nonatomic, strong) WelcomePage *welcomePage;
 @property (nonatomic, strong) AuthPage *authPage;
+@property(nonatomic, strong) id<GAITracker> tracker;
 
 -(void)openWelcomePage;
 -(void)openAuthPage;
 -(void)resetUser:(NSMutableDictionary*)user;
+-(void)logoutUser;
+
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "MainPage.h"
+#import "LeftMenu.h"
 
 
 enum {
@@ -524,12 +525,21 @@ typedef NSUInteger MenuItem;
     //    self.mainRecomendationRed.text = @"";
     
     
+    
+#warning temp hidding main recomendation text 132
+    self.mainRecomendationRed.text = @""; // temporary
+    self.separ1.hidden = YES;
+    self.mainRecomendationRed.y = 0;
+    self.mainRecomendationRed.height = 0;
+
+#pragma mark -
+    
     self.medSearchBtnRed.hidden = ![results_data[@"recommendations"][@"placesLinkShouldBeVisible"] boolValue];
     
-    self.mainRecomendationRed.height = [Global heightLabel:self.mainRecomendationRed];
+//    self.mainRecomendationRed.height = [Global heightLabel:self.mainRecomendationRed]; // temporary 132
     self.scoreNoteTextRed.height = [Global heightLabel:self.scoreNoteTextRed];
     
-    self.separ1.y = self.mainRecomendationRed.bottom+15;
+    self.separ1.y = self.mainRecomendationRed.bottom + 15;
     self.scoreNoteTextRed.y = self.mainRecomendationRed.bottom+30;
     self.medSearchBtnRed.y = self.scoreNoteTextRed.bottom+50;
     self.stateImageRed.y = self.scoreNoteTextRed.y;

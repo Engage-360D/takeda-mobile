@@ -61,10 +61,12 @@ static rootMenuController *sharedInst = NULL;
 
 -(id)currentMenuController{
     if ([User checkToNeedTest]&&![User userBlocked]){
-       // [GlobalSettings sharedInstance].stateMenu = State_Risk_Analysis;
+        [GlobalSettings sharedInstance].stateMenu = [LeftMenu indexOfItem:State_Risk_Analysis inMenu:[LeftMenu menu_data]]; // State_Risk_Analysis;
+        [GlobalSettings sharedInstance].last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
         return [self riskAnalysis_vc];
     } else {
-       // [GlobalSettings sharedInstance].stateMenu = State_MainPage;
+        [GlobalSettings sharedInstance].stateMenu = [LeftMenu indexOfItem:State_MainPage inMenu:[LeftMenu menu_data]];      // State_MainPage
+        [GlobalSettings sharedInstance].last_stateMenu = [GlobalSettings sharedInstance].stateMenu;
         return [self mainPage_vc];
     }
 }

@@ -64,6 +64,7 @@ typedef void(^MyGlobalBlock)(void);
 - (int)index:(id)tValue inArray:(NSArray*)array;
 - (NSMutableDictionary*)values:(NSString*)values ForKeys:(NSString*)keys InArray:(NSArray*)array;
 - (NSMutableDictionary*)dictionaryWithValue:(id)value ForKey:(NSString*)key InArray:(NSArray*)array;
+- (NSInteger)indexOfDictionaryWithValue:(id)value ForKey:(NSString*)key InArray:(NSArray*)array;
 - (NSDate*) parseDate:(NSString *)dateString;
 - (NSDate*) parseTime:(NSString *)timeString;
 - (NSDate*) parseDateTime:(NSString *)dateString;

@@ -56,9 +56,6 @@ RegistrationPage *registrationPage;
 ForgetPage *forgetPage;
 
 
-//static NSString *const VK_TOKEN_KEY = @"my_application_access_token";
-//static NSArray  * VK_SCOPE = nil;
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -216,7 +213,7 @@ ForgetPage *forgetPage;
     [self showActivityIndicatorWithString:@"Авторизация"];
     [self autoFill];
     User.userData = nil;
-    [User logoutUser];
+    [appDelegate logoutUser];
     [ServData authUserWithLogin:self.email_field.text password:self.pass_field.text completion:^(BOOL result, NSError *error) {
         [self removeActivityIdicator];
         if (result) {
@@ -245,8 +242,7 @@ ForgetPage *forgetPage;
 
 -(void)authUserBySocial:(NSString*)social user:(NSString*)userId token:(NSString*)token{
     [self showActivityIndicatorWithString:@"Авторизация"];
-    User.userData = nil;
-    [User logoutUser];
+    [appDelegate logoutUser];
     [ServData authUserWithSocial:social user:userId token:token completion:^(BOOL result, NSError *error) {
         [self removeActivityIdicator];
         if (result) {

@@ -4,6 +4,7 @@
 
 @implementation GlobalSettings
 @synthesize stateMenu;
+@synthesize last_stateMenu;
 
 static GlobalSettings *sharedInst = NULL;
 

@@ -54,6 +54,11 @@ static UserData *objectInstance = nil;
     
 }
 
+-(void)updateCashed{
+    self.cashed_userBlocked = [self userBlocked];
+    self.cashed_checkToNeedTest = [self checkToNeedTest];
+}
+
 -(void)setupUserDefaultsForUser:(NSString*)user_email{
     [UserDefaults removeObjectForKey:@"incidents"];
     [UserDefaults removeObjectForKey:@"access_token"];

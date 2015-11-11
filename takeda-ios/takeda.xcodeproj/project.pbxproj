@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5B00F5D71AA8AFEE005BAD74 /* DietTestResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B00F5D51AA8AFEE005BAD74 /* DietTestResults.m */; };
 		5B00F5D81AA8AFEE005BAD74 /* DietTestResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B00F5D61AA8AFEE005BAD74 /* DietTestResults.xib */; };
+		5B0A76641BD79C8600FB2AA0 /* libTestFairy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0A76611BD79C8600FB2AA0 /* libTestFairy.a */; settings = {ASSET_TAGS = (); }; };
+		5B0A76651BD79C8600FB2AA0 /* upload-dsym.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A76631BD79C8600FB2AA0 /* upload-dsym.sh */; settings = {ASSET_TAGS = (); }; };
+		5B0A76811BD7C9EF00FB2AA0 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0A76801BD7C9EF00FB2AA0 /* libGoogleAnalyticsServices.a */; settings = {ASSET_TAGS = (); }; };
 		5B15F7B91A6412C400E5E838 /* UIScrollView+Auto.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B15F7B81A6412C400E5E838 /* UIScrollView+Auto.m */; };
 		5B15F7BD1A6417AF00E5E838 /* VControllerExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B15F7BC1A6417AF00E5E838 /* VControllerExt.m */; };
 		5B15F7C01A64203600E5E838 /* UIView+framed.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B15F7BF1A64203600E5E838 /* UIView+framed.m */; };
@@ -267,8 +270,6 @@
 		5BDD01641AB71900002A2088 /* OKAuthorizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD01561AB718FF002A2088 /* OKAuthorizeController.m */; };
 		5BDD01651AB71900002A2088 /* OKMediaTopicPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD01581AB718FF002A2088 /* OKMediaTopicPostViewController.m */; };
 		5BDD01661AB71900002A2088 /* NSString+OKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD015B1AB718FF002A2088 /* NSString+OKUtils.m */; };
-		5BF133721AA07E4100E2CC47 /* libTestFairy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF1336F1AA07E4100E2CC47 /* libTestFairy.a */; };
-		5BF133731AA07E4100E2CC47 /* upload-dsym.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5BF133711AA07E4100E2CC47 /* upload-dsym.sh */; };
 		5BF133751AA080AB00E2CC47 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF133741AA080AB00E2CC47 /* CoreMedia.framework */; };
 		5BF133771AA080B300E2CC47 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF133761AA080B300E2CC47 /* CoreMotion.framework */; };
 		8DA6521218EE9B0C002A04D1 /* vk_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DA6520C18EE9B0C002A04D1 /* vk_logo@2x.png */; };
@@ -431,6 +432,20 @@
 		5B00F5D41AA8AFEE005BAD74 /* DietTestResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DietTestResults.h; sourceTree = "<group>"; };
 		5B00F5D51AA8AFEE005BAD74 /* DietTestResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DietTestResults.m; sourceTree = "<group>"; };
 		5B00F5D61AA8AFEE005BAD74 /* DietTestResults.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DietTestResults.xib; sourceTree = "<group>"; };
+		5B0A76611BD79C8600FB2AA0 /* libTestFairy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFairy.a; sourceTree = "<group>"; };
+		5B0A76621BD79C8600FB2AA0 /* TestFairy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFairy.h; sourceTree = "<group>"; };
+		5B0A76631BD79C8600FB2AA0 /* upload-dsym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "upload-dsym.sh"; sourceTree = "<group>"; };
+		5B0A76761BD7C9A200FB2AA0 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		5B0A76771BD7C9A200FB2AA0 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		5B0A76781BD7C9A200FB2AA0 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
+		5B0A76791BD7C9A200FB2AA0 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		5B0A767A1BD7C9A200FB2AA0 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		5B0A767B1BD7C9A200FB2AA0 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		5B0A767C1BD7C9A200FB2AA0 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		5B0A767D1BD7C9A200FB2AA0 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		5B0A767E1BD7C9A200FB2AA0 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		5B0A767F1BD7C9A200FB2AA0 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		5B0A76801BD7C9EF00FB2AA0 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		5B15F7B71A6412C400E5E838 /* UIScrollView+Auto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Auto.h"; sourceTree = "<group>"; };
 		5B15F7B81A6412C400E5E838 /* UIScrollView+Auto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Auto.m"; sourceTree = "<group>"; };
 		5B15F7BB1A6417AF00E5E838 /* VControllerExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VControllerExt.h; sourceTree = "<group>"; };
@@ -837,9 +852,6 @@
 		5BDD01581AB718FF002A2088 /* OKMediaTopicPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKMediaTopicPostViewController.m; sourceTree = "<group>"; };
 		5BDD015A1AB718FF002A2088 /* NSString+OKUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OKUtils.h"; sourceTree = "<group>"; };
 		5BDD015B1AB718FF002A2088 /* NSString+OKUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OKUtils.m"; sourceTree = "<group>"; };
-		5BF1336F1AA07E4100E2CC47 /* libTestFairy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFairy.a; sourceTree = "<group>"; };
-		5BF133701AA07E4100E2CC47 /* TestFairy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFairy.h; sourceTree = "<group>"; };
-		5BF133711AA07E4100E2CC47 /* upload-dsym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "upload-dsym.sh"; sourceTree = "<group>"; };
 		5BF133741AA080AB00E2CC47 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		5BF133761AA080B300E2CC47 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8DA6520C18EE9B0C002A04D1 /* vk_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_logo@2x.png"; sourceTree = "<group>"; };
@@ -1057,6 +1069,7 @@
 				5B4738461AC448CA007FA8B3 /* MediaPlayer.framework in Frameworks */,
 				5B1DB11C1A6E9BAE0099E35C /* CoreText.framework in Frameworks */,
 				5B4738CF1AC44A3E007FA8B3 /* GoogleOpenSource.framework in Frameworks */,
+				5B0A76811BD7C9EF00FB2AA0 /* libGoogleAnalyticsServices.a in Frameworks */,
 				B2B8BDF818E20CA400F52B52 /* CoreGraphics.framework in Frameworks */,
 				5BF133771AA080B300E2CC47 /* CoreMotion.framework in Frameworks */,
 				5B4738441AC448AB007FA8B3 /* AssetsLibrary.framework in Frameworks */,
@@ -1066,7 +1079,6 @@
 				5B1DB12C1A6E9F3E0099E35C /* GoogleMaps.framework in Frameworks */,
 				5B1DB12A1A6E9C0B0099E35C /* SystemConfiguration.framework in Frameworks */,
 				B2B5A83F18EE0A9800299CAF /* QuartzCore.framework in Frameworks */,
-				5BF133721AA07E4100E2CC47 /* libTestFairy.a in Frameworks */,
 				5B1DB1281A6E9BF40099E35C /* OpenGLES.framework in Frameworks */,
 				5B1DB1261A6E9BEB0099E35C /* libz.1.2.5.dylib in Frameworks */,
 				5B1DB1241A6E9BD80099E35C /* libicucore.dylib in Frameworks */,
@@ -1074,6 +1086,7 @@
 				5B1DB1221A6E9BCC0099E35C /* libc++.dylib in Frameworks */,
 				5B1DB1201A6E9BBE0099E35C /* ImageIO.framework in Frameworks */,
 				5B1DB11E1A6E9BB70099E35C /* GLKit.framework in Frameworks */,
+				5B0A76641BD79C8600FB2AA0 /* libTestFairy.a in Frameworks */,
 				5B1DB11A1A6E9BA60099E35C /* CoreLocation.framework in Frameworks */,
 				5B1DB1181A6E9B9C0099E35C /* CoreData.framework in Frameworks */,
 				5B1DB1161A6E9A640099E35C /* AVFoundation.framework in Frameworks */,
@@ -1095,6 +1108,35 @@
 				5B00F5D61AA8AFEE005BAD74 /* DietTestResults.xib */,
 			);
 			name = DietTestResults;
+			sourceTree = "<group>";
+		};
+		5B0A76601BD79C8600FB2AA0 /* TestFairySDK-1.5.1 */ = {
+			isa = PBXGroup;
+			children = (
+				5B0A76611BD79C8600FB2AA0 /* libTestFairy.a */,
+				5B0A76621BD79C8600FB2AA0 /* TestFairy.h */,
+				5B0A76631BD79C8600FB2AA0 /* upload-dsym.sh */,
+			);
+			path = "TestFairySDK-1.5.1";
+			sourceTree = "<group>";
+		};
+		5B0A76751BD7C94C00FB2AA0 /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				5B0A76801BD7C9EF00FB2AA0 /* libGoogleAnalyticsServices.a */,
+				5B0A76761BD7C9A200FB2AA0 /* GAI.h */,
+				5B0A76771BD7C9A200FB2AA0 /* GAIDictionaryBuilder.h */,
+				5B0A76781BD7C9A200FB2AA0 /* GAIEcommerceFields.h */,
+				5B0A76791BD7C9A200FB2AA0 /* GAIEcommerceProduct.h */,
+				5B0A767A1BD7C9A200FB2AA0 /* GAIEcommerceProductAction.h */,
+				5B0A767B1BD7C9A200FB2AA0 /* GAIEcommercePromotion.h */,
+				5B0A767C1BD7C9A200FB2AA0 /* GAIFields.h */,
+				5B0A767D1BD7C9A200FB2AA0 /* GAILogger.h */,
+				5B0A767E1BD7C9A200FB2AA0 /* GAITrackedViewController.h */,
+				5B0A767F1BD7C9A200FB2AA0 /* GAITracker.h */,
+			);
+			name = GoogleAnalytics;
+			path = takeda;
 			sourceTree = "<group>";
 		};
 		5B15F7BA1A64173400E5E838 /* AllGUI */ = {
@@ -1772,16 +1814,6 @@
 			name = FB;
 			sourceTree = "<group>";
 		};
-		5BF1336E1AA07E4100E2CC47 /* TestFairySDK-1.3.4 */ = {
-			isa = PBXGroup;
-			children = (
-				5BF1336F1AA07E4100E2CC47 /* libTestFairy.a */,
-				5BF133701AA07E4100E2CC47 /* TestFairy.h */,
-				5BF133711AA07E4100E2CC47 /* upload-dsym.sh */,
-			);
-			path = "TestFairySDK-1.3.4";
-			sourceTree = "<group>";
-		};
 		B2AD4F3018F607D9006B56F5 /* icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1925,13 +1957,14 @@
 		B2B8BDF418E20CA400F52B52 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B0A76751BD7C94C00FB2AA0 /* GoogleAnalytics */,
+				5B0A76601BD79C8600FB2AA0 /* TestFairySDK-1.5.1 */,
 				5B4738451AC448CA007FA8B3 /* MediaPlayer.framework */,
 				5B4738431AC448AB007FA8B3 /* AssetsLibrary.framework */,
 				5B4738411AC448A1007FA8B3 /* AddressBook.framework */,
 				5BDD012A1AB70541002A2088 /* Social */,
 				5BF133761AA080B300E2CC47 /* CoreMotion.framework */,
 				5BF133741AA080AB00E2CC47 /* CoreMedia.framework */,
-				5BF1336E1AA07E4100E2CC47 /* TestFairySDK-1.3.4 */,
 				5B1DB12D1A6E9F750099E35C /* GoogleMaps.bundle */,
 				5B1DB12B1A6E9F3E0099E35C /* GoogleMaps.framework */,
 				5B1DB1291A6E9C0B0099E35C /* SystemConfiguration.framework */,
@@ -2147,10 +2180,10 @@
 				5B5CC22C1A8E270B00BACFEF /* UITextView+Placeholder.m */,
 				5B8B47181A9B318500D8EE93 /* NSError+NSError.h */,
 				5B8B47191A9B318500D8EE93 /* NSError+NSError.m */,
-				5B8317331A75060800A5EFDF /* NSArray+Filed.h */,
-				5B8317341A75060800A5EFDF /* NSArray+Filed.m */,
 				5B5CC22E1A8E54C000BACFEF /* NSMutableArray+DataFill.h */,
 				5B5CC22F1A8E54C000BACFEF /* NSMutableArray+DataFill.m */,
+				5B8317331A75060800A5EFDF /* NSArray+Filed.h */,
+				5B8317341A75060800A5EFDF /* NSArray+Filed.m */,
 				5B8317361A7507CB00A5EFDF /* NSDictionary+Filed.h */,
 				5B8317371A7507CB00A5EFDF /* NSDictionary+Filed.m */,
 				5B69F32B1A7013F600643978 /* UIButton+Ext.h */,
@@ -2521,7 +2554,6 @@
 				B2AD4F1B18F5CEFF006B56F5 /* drob@2x.png in Resources */,
 				B282C55118F203F3009450B7 /* result_separator_color@2x.png in Resources */,
 				5B5CC2231A8D01E500BACFEF /* SegoeWP-Semibold.ttf in Resources */,
-				5BF133731AA07E4100E2CC47 /* upload-dsym.sh in Resources */,
 				B282C54D18F1FC2A009450B7 /* undefined_result_icon@2x.png in Resources */,
 				5B238FD61ABAEF96005C259A /* vkShareIcon@2x.png in Resources */,
 				5B238FCD1ABAE1F8005C259A /* ic_wc.png in Resources */,
@@ -2582,6 +2614,7 @@
 				5B8B47401A9E3C9200D8EE93 /* grayArrow@2x.png in Resources */,
 				5BDD00FB1AB321CF002A2088 /* search_icon@2x.png in Resources */,
 				B2AD4F2E18F5FF8F006B56F5 /* danger_icon_red@2x.png in Resources */,
+				5B0A76651BD79C8600FB2AA0 /* upload-dsym.sh in Resources */,
 				5B69F30D1A6ECF2800643978 /* LPUDetail.xib in Resources */,
 				B282C54C18F1FC2A009450B7 /* undefined_result_icon.png in Resources */,
 				5B5CC21A1A8CF12000BACFEF /* RAlertView.xib in Resources */,
@@ -2982,6 +3015,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: CPCS Development s.r.o. (PHSJ624XF2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CPCS Development s.r.o. (PHSJ624XF2)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
@@ -3001,12 +3035,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/TestFairySDK-1.3.4",
 					"$(PROJECT_DIR)/takeda",
+					"$(PROJECT_DIR)/TestFairySDK-1.5.1",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ad9f4547-a4d3-4dd2-9a44-fba2a7880508";
+				PROVISIONING_PROFILE = "68b6c48a-c2ba-40bc-8d1b-5be1947d4906";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3019,6 +3054,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: CPCS Development s.r.o. (PHSJ624XF2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CPCS Development s.r.o. (PHSJ624XF2)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
@@ -3036,12 +3072,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/TestFairySDK-1.3.4",
 					"$(PROJECT_DIR)/takeda",
+					"$(PROJECT_DIR)/TestFairySDK-1.5.1",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ad9f4547-a4d3-4dd2-9a44-fba2a7880508";
+				PROVISIONING_PROFILE = "68b6c48a-c2ba-40bc-8d1b-5be1947d4906";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

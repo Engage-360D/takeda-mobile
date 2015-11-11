@@ -181,17 +181,36 @@ static GlobalData *objectInstance = nil;
     [arr addObjectsFromArray:tArr];
    
     if ([result isKindOfClass:[NSDictionary class]]){
-        if (![Global dictionaryWithValue:result[@"id"] ForKey:@"id" InArray:tArr]){
+        
+        NSInteger indexResult = [Global indexOfDictionaryWithValue:result[@"id"] ForKey:@"id" InArray:arr];
+        if (indexResult==NSNotFound){
             [arr addObject:result];
             lastId = [result[@"id"] intValue];
-
+        } else {
+            [arr replaceObjectAtIndex:indexResult withObject:result];
         }
+
+// ------
+//        if (![Global dictionaryWithValue:result[@"id"] ForKey:@"id" InArray:tArr]){
+//            [arr addObject:result];
+//            lastId = [result[@"id"] intValue];
+//        }
+
     } else if ([result isKindOfClass:[NSArray class]]){
         for (NSMutableDictionary* res in result){
-            if (![Global dictionaryWithValue:res[@"id"] ForKey:@"id" InArray:tArr]){
+            NSInteger indexResult = [Global indexOfDictionaryWithValue:res[@"id"] ForKey:@"id" InArray:arr];
+            if (indexResult==NSNotFound){
                 [arr addObject:res];
                 lastId = [res[@"id"] intValue];
+            } else {
+                [arr replaceObjectAtIndex:indexResult withObject:res];
             }
+/// ------
+//            if (![Global dictionaryWithValue:res[@"id"] ForKey:@"id" InArray:tArr]){
+//                [arr addObject:res];
+//                lastId = [res[@"id"] intValue];
+//            }
+
         }
     }
     
@@ -495,6 +514,7 @@ static GlobalData *objectInstance = nil;
 
     NSLog(@"pills to save: %@",pills.allKeys);
     [[Global dictToArray:pill] saveTofile:userPills];
+    
     //[pills.allKeys saveTofile:userPills];
 }
 
